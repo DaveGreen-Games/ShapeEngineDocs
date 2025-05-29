@@ -51,7 +51,7 @@ dotnet add package DaveGreen.ShapeEngine
 ## Minimal Project Setup
 
 ```c#
-// Programe.cs
+// Program.cs
 using System.Drawing;
 using ShapeEngine.Color;
 using ShapeEngine.Core;
