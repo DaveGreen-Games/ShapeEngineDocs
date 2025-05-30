@@ -1,6 +1,7 @@
 name: .NET Publish Workflow
+
 permissions:
-  contents: read
+  contents: write
   actions: read
   pages: write
   id-token: write
@@ -10,25 +11,63 @@ on:
     branches: ["main"]
   pull_request:
     branches: ["main"]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *" # Runs daily at midnight UTC
+  repository_dispatch:
+    types: [trigger-docs-update]
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
-  publish-docs:
+  build-and-update-docs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+
+    runs-on: ubuntu-latest·
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Clone ShapeEngine repository
+        run: |
+          git clone https://github.com/DaveGreen-Games/ShapeEngine.git ../ShapeEngine
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.x" # Use the version matching your DocFX
+
+      - name: Install DocFX
+        run: |
+          dotnet tool update -g docfx
+
+      - name: Generate Documentation
+        run: |
+          docfx docfx.json
+
+      - name: Commit & Push Changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          git diff --cached --quiet || git commit -m "Automated update of ShapeEngine docs"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: "./_site"
           name: my-docfx-pages
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
