@@ -122,15 +122,6 @@ The Main Branch contains the current development stage. You can follow the devel
 - [Striped Drawing](https://youtu.be/lYkotZkr1fQ)
 - [Shape Collision System 2.0](https://youtu.be/Ag8rDXmvHwk) with Segment, Line, Ray, Circle, Triangle, Quad, Rect, Polygon, Polyline
 
-## Documentation & Getting Started
-
-Right now there is not much information about how to use Shape Engine. The repository contains an Examples Project. It shows you a lot of what is possible and how it is done and should help you until there is some proper documentation.
-
-Currently I don't have the time or the resources to create proper documentation for Shape Engine. If enough people are interested in it this might change. Any help in this direction would be greatly appreciated!
-
-## Roadmap
-
-You can find the roadmap and current milestone of ShapeEngine [here](https://github.com/DaveGreen-Games/ShapeEngine/discussions/categories/roadmap).
 
 ## Dependencies
 
