@@ -23,10 +23,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Repeater
     path: ../ShapeEngine/ShapeEngine/Timing/Repeater.cs
-    startLine: 4
+    startLine: 8
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: >-
+    Represents a sequenceable timer that repeats an action for a specified number of times,
+
+    with a customizable duration for each repeat cycle.
+  example: []
   syntax:
     content: 'public class Repeater : ISequenceable'
     content.vb: Public Class Repeater Implements ISequenceable
@@ -60,19 +65,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Timing/Repeater.cs
-    startLine: 18
+    startLine: 44
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Timing.Repeater" data-throw-if-not-resolved="false"></xref> class.
+  example: []
   syntax:
     content: public Repeater(Repeater.RepeaterFunc repeaterFunc, float duration, int repeats = 0)
     parameters:
     - id: repeaterFunc
       type: ShapeEngine.Timing.Repeater.RepeaterFunc
+      description: The function to determine the next duration after each repeat.
     - id: duration
       type: System.Single
+      description: The initial duration for the repeat cycle.
     - id: repeats
       type: System.Int32
+      description: The number of times to repeat the cycle. Default is 0.
     content.vb: Public Sub New(repeaterFunc As Repeater.RepeaterFunc, duration As Single, repeats As Integer = 0)
   overload: ShapeEngine.Timing.Repeater.#ctor*
   nameWithType.vb: Repeater.New(Repeater.RepeaterFunc, Single, Integer)
@@ -96,15 +106,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Timing/Repeater.cs
-    startLine: 25
+    startLine: 56
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Timing.Repeater" data-throw-if-not-resolved="false"></xref> class by copying another instance.
+  example: []
   syntax:
     content: public Repeater(Repeater repeater)
     parameters:
     - id: repeater
       type: ShapeEngine.Timing.Repeater
+      description: The <xref href="ShapeEngine.Timing.Repeater" data-throw-if-not-resolved="false"></xref> instance to copy.
     content.vb: Public Sub New(repeater As Repeater)
   overload: ShapeEngine.Timing.Repeater.#ctor*
   nameWithType.vb: Repeater.New(Repeater)
@@ -128,15 +141,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Copy
     path: ../ShapeEngine/ShapeEngine/Timing/Repeater.cs
-    startLine: 33
+    startLine: 68
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Creates a copy of the current <xref href="ShapeEngine.Timing.Repeater" data-throw-if-not-resolved="false"></xref> instance.
   example: []
   syntax:
     content: public ISequenceable Copy()
     return:
       type: ShapeEngine.Timing.ISequenceable
+      description: A new <xref href="ShapeEngine.Timing.Repeater" data-throw-if-not-resolved="false"></xref> instance with the same configuration.
     content.vb: Public Function Copy() As ISequenceable
   overload: ShapeEngine.Timing.Repeater.Copy*
   implements:
@@ -159,21 +174,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/Timing/Repeater.cs
-    startLine: 34
+    startLine: 78
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
-  summary: ''
+  summary: >-
+    Updates the repeater's timer by the specified delta time.
+
+    If the timer exceeds the duration, the repeat function is called and the cycle is reset.
   example: []
   syntax:
     content: public bool Update(float dt)
     parameters:
     - id: dt
       type: System.Single
-      description: ''
+      description: The time elapsed since the last update, in seconds.
     return:
       type: System.Boolean
-      description: Returns if finished.
+      description: True if the sequence has completed (no remaining repeats and timer exceeds duration); otherwise, false.
     content.vb: Public Function Update(dt As Single) As Boolean
   overload: ShapeEngine.Timing.Repeater.Update*
   implements:
@@ -448,6 +466,13 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: ShapeEngine.Timing.Repeater
+  commentId: T:ShapeEngine.Timing.Repeater
+  parent: ShapeEngine.Timing
+  href: ShapeEngine.Timing.Repeater.html
+  name: Repeater
+  nameWithType: Repeater
+  fullName: ShapeEngine.Timing.Repeater
 - uid: ShapeEngine.Timing.Repeater.#ctor*
   commentId: Overload:ShapeEngine.Timing.Repeater.#ctor
   href: ShapeEngine.Timing.Repeater.html#ShapeEngine_Timing_Repeater__ctor_ShapeEngine_Timing_Repeater_RepeaterFunc_System_Single_System_Int32_
@@ -502,13 +527,6 @@ references:
   nameWithType.vb: Integer
   fullName.vb: Integer
   name.vb: Integer
-- uid: ShapeEngine.Timing.Repeater
-  commentId: T:ShapeEngine.Timing.Repeater
-  parent: ShapeEngine.Timing
-  href: ShapeEngine.Timing.Repeater.html
-  name: Repeater
-  nameWithType: Repeater
-  fullName: ShapeEngine.Timing.Repeater
 - uid: ShapeEngine.Timing.Repeater.Copy*
   commentId: Overload:ShapeEngine.Timing.Repeater.Copy
   href: ShapeEngine.Timing.Repeater.html#ShapeEngine_Timing_Repeater_Copy

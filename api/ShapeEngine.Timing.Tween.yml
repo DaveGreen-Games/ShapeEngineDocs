@@ -6,8 +6,12 @@ items:
   parent: ShapeEngine.Timing
   children:
   - ShapeEngine.Timing.Tween.#ctor(ShapeEngine.Timing.Tween)
-  - ShapeEngine.Timing.Tween.#ctor(ShapeEngine.Timing.Tween.TweenFunc,System.Single,ShapeEngine.StaticLib.TweenType)
+  - ShapeEngine.Timing.Tween.#ctor(ShapeEngine.Timing.Tween.TweenFunc,System.Single,ShapeEngine.Core.TweenType)
   - ShapeEngine.Timing.Tween.Copy
+  - ShapeEngine.Timing.Tween.Duration
+  - ShapeEngine.Timing.Tween.Func
+  - ShapeEngine.Timing.Tween.Timer
+  - ShapeEngine.Timing.Tween.TweenType
   - ShapeEngine.Timing.Tween.Update(System.Single)
   langs:
   - csharp
@@ -23,10 +27,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Tween
     path: ../ShapeEngine/ShapeEngine/Timing/Tween.cs
-    startLine: 6
+    startLine: 8
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Represents a generic tween operation that interpolates a value over time.
+  example: []
   syntax:
     content: 'public class Tween : ISequenceable'
     content.vb: Public Class Tween Implements ISequenceable
@@ -42,16 +48,16 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
-- uid: ShapeEngine.Timing.Tween.#ctor(ShapeEngine.Timing.Tween.TweenFunc,System.Single,ShapeEngine.StaticLib.TweenType)
-  commentId: M:ShapeEngine.Timing.Tween.#ctor(ShapeEngine.Timing.Tween.TweenFunc,System.Single,ShapeEngine.StaticLib.TweenType)
-  id: '#ctor(ShapeEngine.Timing.Tween.TweenFunc,System.Single,ShapeEngine.StaticLib.TweenType)'
+- uid: ShapeEngine.Timing.Tween.#ctor(ShapeEngine.Timing.Tween.TweenFunc,System.Single,ShapeEngine.Core.TweenType)
+  commentId: M:ShapeEngine.Timing.Tween.#ctor(ShapeEngine.Timing.Tween.TweenFunc,System.Single,ShapeEngine.Core.TweenType)
+  id: '#ctor(ShapeEngine.Timing.Tween.TweenFunc,System.Single,ShapeEngine.Core.TweenType)'
   parent: ShapeEngine.Timing.Tween
   langs:
   - csharp
   - vb
   name: Tween(TweenFunc, float, TweenType)
   nameWithType: Tween.Tween(Tween.TweenFunc, float, TweenType)
-  fullName: ShapeEngine.Timing.Tween.Tween(ShapeEngine.Timing.Tween.TweenFunc, float, ShapeEngine.StaticLib.TweenType)
+  fullName: ShapeEngine.Timing.Tween.Tween(ShapeEngine.Timing.Tween.TweenFunc, float, ShapeEngine.Core.TweenType)
   type: Constructor
   source:
     remote:
@@ -60,23 +66,28 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Timing/Tween.cs
-    startLine: 15
+    startLine: 28
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Timing.Tween" data-throw-if-not-resolved="false"></xref> class.
+  example: []
   syntax:
     content: public Tween(Tween.TweenFunc tweenFunc, float duration, TweenType tweenType)
     parameters:
     - id: tweenFunc
       type: ShapeEngine.Timing.Tween.TweenFunc
+      description: The function to call with the tweened value.
     - id: duration
       type: System.Single
+      description: The duration of the tween in seconds.
     - id: tweenType
-      type: ShapeEngine.StaticLib.TweenType
+      type: ShapeEngine.Core.TweenType
+      description: The type of tweening to use.
     content.vb: Public Sub New(tweenFunc As Tween.TweenFunc, duration As Single, tweenType As TweenType)
   overload: ShapeEngine.Timing.Tween.#ctor*
   nameWithType.vb: Tween.New(Tween.TweenFunc, Single, TweenType)
-  fullName.vb: ShapeEngine.Timing.Tween.New(ShapeEngine.Timing.Tween.TweenFunc, Single, ShapeEngine.StaticLib.TweenType)
+  fullName.vb: ShapeEngine.Timing.Tween.New(ShapeEngine.Timing.Tween.TweenFunc, Single, ShapeEngine.Core.TweenType)
   name.vb: New(TweenFunc, Single, TweenType)
 - uid: ShapeEngine.Timing.Tween.#ctor(ShapeEngine.Timing.Tween)
   commentId: M:ShapeEngine.Timing.Tween.#ctor(ShapeEngine.Timing.Tween)
@@ -96,15 +107,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Timing/Tween.cs
-    startLine: 22
+    startLine: 40
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Timing.Tween" data-throw-if-not-resolved="false"></xref> class by copying another instance.
+  example: []
   syntax:
     content: public Tween(Tween tween)
     parameters:
     - id: tween
       type: ShapeEngine.Timing.Tween
+      description: The tween to copy.
     content.vb: Public Sub New(tween As Tween)
   overload: ShapeEngine.Timing.Tween.#ctor*
   nameWithType.vb: Tween.New(Tween)
@@ -128,15 +142,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Copy
     path: ../ShapeEngine/ShapeEngine/Timing/Tween.cs
-    startLine: 30
+    startLine: 52
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Creates a copy of this tween.
   example: []
   syntax:
     content: public ISequenceable Copy()
     return:
       type: ShapeEngine.Timing.ISequenceable
+      description: A new <xref href="ShapeEngine.Timing.Tween" data-throw-if-not-resolved="false"></xref> instance with the same parameters.
     content.vb: Public Function Copy() As ISequenceable
   overload: ShapeEngine.Timing.Tween.Copy*
   implements:
@@ -159,21 +175,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/Timing/Tween.cs
-    startLine: 31
+    startLine: 59
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
-  summary: ''
+  summary: Updates the tween by the given delta time.
   example: []
   syntax:
     content: public bool Update(float dt)
     parameters:
     - id: dt
       type: System.Single
-      description: ''
+      description: The time in seconds since the last update.
     return:
       type: System.Boolean
-      description: Returns if finished.
+      description: True if the tween is finished or if the timer exceeds the duration, otherwise false.
     content.vb: Public Function Update(dt As Single) As Boolean
   overload: ShapeEngine.Timing.Tween.Update*
   implements:
@@ -181,6 +197,130 @@ items:
   nameWithType.vb: Tween.Update(Single)
   fullName.vb: ShapeEngine.Timing.Tween.Update(Single)
   name.vb: Update(Single)
+- uid: ShapeEngine.Timing.Tween.Func
+  commentId: P:ShapeEngine.Timing.Tween.Func
+  id: Func
+  parent: ShapeEngine.Timing.Tween
+  langs:
+  - csharp
+  - vb
+  name: Func
+  nameWithType: Tween.Func
+  fullName: ShapeEngine.Timing.Tween.Func
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Timing/Tween.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Func
+    path: ../ShapeEngine/ShapeEngine/Timing/Tween.cs
+    startLine: 72
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Timing
+  summary: Gets the tween function delegate.
+  example: []
+  syntax:
+    content: public Tween.TweenFunc Func { get; }
+    parameters: []
+    return:
+      type: ShapeEngine.Timing.Tween.TweenFunc
+    content.vb: Public ReadOnly Property Func As Tween.TweenFunc
+  overload: ShapeEngine.Timing.Tween.Func*
+- uid: ShapeEngine.Timing.Tween.Duration
+  commentId: P:ShapeEngine.Timing.Tween.Duration
+  id: Duration
+  parent: ShapeEngine.Timing.Tween
+  langs:
+  - csharp
+  - vb
+  name: Duration
+  nameWithType: Tween.Duration
+  fullName: ShapeEngine.Timing.Tween.Duration
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Timing/Tween.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Duration
+    path: ../ShapeEngine/ShapeEngine/Timing/Tween.cs
+    startLine: 77
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Timing
+  summary: Gets the duration of the tween in seconds.
+  example: []
+  syntax:
+    content: public float Duration { get; }
+    parameters: []
+    return:
+      type: System.Single
+    content.vb: Public ReadOnly Property Duration As Single
+  overload: ShapeEngine.Timing.Tween.Duration*
+- uid: ShapeEngine.Timing.Tween.TweenType
+  commentId: P:ShapeEngine.Timing.Tween.TweenType
+  id: TweenType
+  parent: ShapeEngine.Timing.Tween
+  langs:
+  - csharp
+  - vb
+  name: TweenType
+  nameWithType: Tween.TweenType
+  fullName: ShapeEngine.Timing.Tween.TweenType
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Timing/Tween.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: TweenType
+    path: ../ShapeEngine/ShapeEngine/Timing/Tween.cs
+    startLine: 82
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Timing
+  summary: Gets the tween type.
+  example: []
+  syntax:
+    content: public TweenType TweenType { get; }
+    parameters: []
+    return:
+      type: ShapeEngine.Core.TweenType
+    content.vb: Public ReadOnly Property TweenType As TweenType
+  overload: ShapeEngine.Timing.Tween.TweenType*
+- uid: ShapeEngine.Timing.Tween.Timer
+  commentId: P:ShapeEngine.Timing.Tween.Timer
+  id: Timer
+  parent: ShapeEngine.Timing.Tween
+  langs:
+  - csharp
+  - vb
+  name: Timer
+  nameWithType: Tween.Timer
+  fullName: ShapeEngine.Timing.Tween.Timer
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Timing/Tween.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Timer
+    path: ../ShapeEngine/ShapeEngine/Timing/Tween.cs
+    startLine: 87
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Timing
+  summary: Gets the current timer value.
+  example: []
+  syntax:
+    content: public float Timer { get; }
+    parameters: []
+    return:
+      type: System.Single
+    content.vb: Public ReadOnly Property Timer As Single
+  overload: ShapeEngine.Timing.Tween.Timer*
 references:
 - uid: ShapeEngine.Timing
   commentId: N:ShapeEngine.Timing
@@ -448,9 +588,16 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: ShapeEngine.Timing.Tween
+  commentId: T:ShapeEngine.Timing.Tween
+  parent: ShapeEngine.Timing
+  href: ShapeEngine.Timing.Tween.html
+  name: Tween
+  nameWithType: Tween
+  fullName: ShapeEngine.Timing.Tween
 - uid: ShapeEngine.Timing.Tween.#ctor*
   commentId: Overload:ShapeEngine.Timing.Tween.#ctor
-  href: ShapeEngine.Timing.Tween.html#ShapeEngine_Timing_Tween__ctor_ShapeEngine_Timing_Tween_TweenFunc_System_Single_ShapeEngine_StaticLib_TweenType_
+  href: ShapeEngine.Timing.Tween.html#ShapeEngine_Timing_Tween__ctor_ShapeEngine_Timing_Tween_TweenFunc_System_Single_ShapeEngine_Core_TweenType_
   name: Tween
   nameWithType: Tween.Tween
   fullName: ShapeEngine.Timing.Tween.Tween
@@ -491,42 +638,35 @@ references:
   nameWithType.vb: Single
   fullName.vb: Single
   name.vb: Single
-- uid: ShapeEngine.StaticLib.TweenType
-  commentId: T:ShapeEngine.StaticLib.TweenType
-  parent: ShapeEngine.StaticLib
-  href: ShapeEngine.StaticLib.TweenType.html
+- uid: ShapeEngine.Core.TweenType
+  commentId: T:ShapeEngine.Core.TweenType
+  parent: ShapeEngine.Core
+  href: ShapeEngine.Core.TweenType.html
   name: TweenType
   nameWithType: TweenType
-  fullName: ShapeEngine.StaticLib.TweenType
-- uid: ShapeEngine.StaticLib
-  commentId: N:ShapeEngine.StaticLib
+  fullName: ShapeEngine.Core.TweenType
+- uid: ShapeEngine.Core
+  commentId: N:ShapeEngine.Core
   href: ShapeEngine.html
-  name: ShapeEngine.StaticLib
-  nameWithType: ShapeEngine.StaticLib
-  fullName: ShapeEngine.StaticLib
+  name: ShapeEngine.Core
+  nameWithType: ShapeEngine.Core
+  fullName: ShapeEngine.Core
   spec.csharp:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.StaticLib
-    name: StaticLib
-    href: ShapeEngine.StaticLib.html
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
   spec.vb:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.StaticLib
-    name: StaticLib
-    href: ShapeEngine.StaticLib.html
-- uid: ShapeEngine.Timing.Tween
-  commentId: T:ShapeEngine.Timing.Tween
-  parent: ShapeEngine.Timing
-  href: ShapeEngine.Timing.Tween.html
-  name: Tween
-  nameWithType: Tween
-  fullName: ShapeEngine.Timing.Tween
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
 - uid: ShapeEngine.Timing.Tween.Copy*
   commentId: Overload:ShapeEngine.Timing.Tween.Copy
   href: ShapeEngine.Timing.Tween.html#ShapeEngine_Timing_Tween_Copy
@@ -600,3 +740,27 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
+- uid: ShapeEngine.Timing.Tween.Func*
+  commentId: Overload:ShapeEngine.Timing.Tween.Func
+  href: ShapeEngine.Timing.Tween.html#ShapeEngine_Timing_Tween_Func
+  name: Func
+  nameWithType: Tween.Func
+  fullName: ShapeEngine.Timing.Tween.Func
+- uid: ShapeEngine.Timing.Tween.Duration*
+  commentId: Overload:ShapeEngine.Timing.Tween.Duration
+  href: ShapeEngine.Timing.Tween.html#ShapeEngine_Timing_Tween_Duration
+  name: Duration
+  nameWithType: Tween.Duration
+  fullName: ShapeEngine.Timing.Tween.Duration
+- uid: ShapeEngine.Timing.Tween.TweenType*
+  commentId: Overload:ShapeEngine.Timing.Tween.TweenType
+  href: ShapeEngine.Timing.Tween.html#ShapeEngine_Timing_Tween_TweenType
+  name: TweenType
+  nameWithType: Tween.TweenType
+  fullName: ShapeEngine.Timing.Tween.TweenType
+- uid: ShapeEngine.Timing.Tween.Timer*
+  commentId: Overload:ShapeEngine.Timing.Tween.Timer
+  href: ShapeEngine.Timing.Tween.html#ShapeEngine_Timing_Tween_Timer
+  name: Timer
+  nameWithType: Tween.Timer
+  fullName: ShapeEngine.Timing.Tween.Timer

@@ -43,10 +43,16 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GameObject
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 7
+    startLine: 14
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: >-
+    Represents a base class for all game objects in the engine.
+
+    Provides lifecycle management, update/draw hooks, and layer/bounds logic.
+  remarks: GameObject is intended to be subclassed for specific game logic. It supports kill/revive semantics, event hooks, and parallax/bounds management.
+  example: []
   syntax:
     content: 'public abstract class GameObject : IUpdateable, IDrawable'
     content.vb: Public MustInherit Class GameObject Implements IUpdateable, IDrawable
@@ -84,10 +90,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnKilled
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 9
+    startLine: 24
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: >-
+    Occurs when this object is killed.
+
+    <ul><li>GameObject: The object being killed.</li><li>string?: Optional kill message.</li><li>GameObject?: The killer object, if any.</li></ul>
+  example: []
   syntax:
     content: public event Action<GameObject, string?, GameObject?>? OnKilled
     return:
@@ -111,10 +122,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnRevived
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 10
+    startLine: 33
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: >-
+    Occurs when this object is revived.
+
+    <ul><li>GameObject: The object being revived.</li><li>string?: Optional revive message.</li><li>GameObject?: The reviver object, if any.</li></ul>
+  example: []
   syntax:
     content: public event Action<GameObject, string?, GameObject?>? OnRevived
     return:
@@ -138,10 +154,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Transform
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 15
+    startLine: 38
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Gets or sets the transform (position, rotation, scale) of this object.
+  example: []
   syntax:
     content: public Transform2D Transform { get; set; }
     parameters: []
@@ -167,10 +185,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsDead
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 16
+    startLine: 42
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Gets whether this object is dead (killed).
+  example: []
   syntax:
     content: public bool IsDead { get; }
     parameters: []
@@ -196,14 +216,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetBoundingBox
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 19
+    startLine: 48
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Gets the bounding box of this object in world space.
+  example: []
   syntax:
     content: public abstract Rect GetBoundingBox()
     return:
       type: ShapeEngine.Core.Shapes.Rect
+      description: The bounding rectangle.
     content.vb: Public MustOverride Function GetBoundingBox() As Rect
   overload: ShapeEngine.Core.GameObject.GetBoundingBox*
 - uid: ShapeEngine.Core.GameObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
@@ -224,27 +247,27 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 21
+    startLine: 57
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Called every frame. Called before FixedUpdate if fixed framerate is enabled.
+  summary: Updates this object. Called every frame.
   example: []
   syntax:
     content: public abstract void Update(GameTime time, ScreenInfo game, ScreenInfo gameUi, ScreenInfo ui)
     parameters:
     - id: time
       type: ShapeEngine.Core.Structs.GameTime
-      description: ''
+      description: The current game time.
     - id: game
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: Game screen info.
     - id: gameUi
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: Game UI screen info.
     - id: ui
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: UI screen info.
     content.vb: Public MustOverride Sub Update(time As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo)
   overload: ShapeEngine.Core.GameObject.Update*
   implements:
@@ -267,27 +290,27 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FixedUpdate
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 23
+    startLine: 65
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Only called when fixed framerate is enabled. Called in fixed interval.
+  summary: Updates this object at a fixed timestep. Override for physics or logic that needs fixed updates.
   example: []
   syntax:
     content: public virtual void FixedUpdate(GameTime fixedTime, ScreenInfo game, ScreenInfo gameUi, ScreenInfo ui)
     parameters:
     - id: fixedTime
       type: ShapeEngine.Core.Structs.GameTime
-      description: ''
+      description: The fixed game time.
     - id: game
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: Game screen info.
     - id: gameUi
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: Game UI screen info.
     - id: ui
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: UI screen info.
     content.vb: Public Overridable Sub FixedUpdate(fixedTime As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo)
   overload: ShapeEngine.Core.GameObject.FixedUpdate*
   implements:
@@ -310,30 +333,30 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InterpolateFixedUpdate
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 24
+    startLine: 74
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Only called when fixed framerate is enabled. Called every frame after fixed update calls.
+  summary: Interpolates this object between fixed updates for smooth rendering.
   example: []
   syntax:
     content: public virtual void InterpolateFixedUpdate(GameTime time, ScreenInfo game, ScreenInfo gameUi, ScreenInfo ui, float f)
     parameters:
     - id: time
       type: ShapeEngine.Core.Structs.GameTime
-      description: ''
+      description: The current game time.
     - id: game
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: Game screen info.
     - id: gameUi
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: Game UI screen info.
     - id: ui
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: UI screen info.
     - id: f
       type: System.Single
-      description: ''
+      description: Interpolation factor (0-1).
     content.vb: Public Overridable Sub InterpolateFixedUpdate(time As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo, f As Single)
   overload: ShapeEngine.Core.GameObject.InterpolateFixedUpdate*
   implements:
@@ -359,18 +382,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawGame
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 26
+    startLine: 80
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Draw the game here. Is affected by screen shaders and the camera.
+  summary: Draws this object to the game world.
   example: []
   syntax:
     content: public abstract void DrawGame(ScreenInfo game)
     parameters:
     - id: game
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: Game screen info.
     content.vb: Public MustOverride Sub DrawGame(game As ScreenInfo)
   overload: ShapeEngine.Core.GameObject.DrawGame*
   implements:
@@ -393,18 +416,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawGameUI
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 28
+    startLine: 86
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Draw to the game ui here. Is affected by screen shaders but NOT by the camera.
+  summary: Draws this object to the game UI.
   example: []
   syntax:
     content: public abstract void DrawGameUI(ScreenInfo gameUi)
     parameters:
     - id: gameUi
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: Game UI screen info.
     content.vb: Public MustOverride Sub DrawGameUI(gameUi As ScreenInfo)
   overload: ShapeEngine.Core.GameObject.DrawGameUI*
   implements:
@@ -427,17 +450,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsDrawingToGame
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 30
+    startLine: 93
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Determines if this object should be drawn to the game world. (default = true)
+  example: []
   syntax:
     content: public virtual bool IsDrawingToGame(Rect gameArea)
     parameters:
     - id: gameArea
       type: ShapeEngine.Core.Shapes.Rect
+      description: The area of the game world.
     return:
       type: System.Boolean
+      description: True if drawing to game, otherwise false.
     content.vb: Public Overridable Function IsDrawingToGame(gameArea As Rect) As Boolean
   overload: ShapeEngine.Core.GameObject.IsDrawingToGame*
 - uid: ShapeEngine.Core.GameObject.IsDrawingToGameUI(ShapeEngine.Core.Shapes.Rect)
@@ -458,17 +485,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsDrawingToGameUI
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 31
+    startLine: 99
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Determines if this object should be drawn to the game UI. (default = false)
+  example: []
   syntax:
     content: public virtual bool IsDrawingToGameUI(Rect gameUiArea)
     parameters:
     - id: gameUiArea
       type: ShapeEngine.Core.Shapes.Rect
+      description: The area of the game UI.
     return:
       type: System.Boolean
+      description: True if drawing to game UI, otherwise false.
     content.vb: Public Overridable Function IsDrawingToGameUI(gameUiArea As Rect) As Boolean
   overload: ShapeEngine.Core.GameObject.IsDrawingToGameUI*
 - uid: ShapeEngine.Core.GameObject.Layer
@@ -489,11 +520,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Layer
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 36
+    startLine: 104
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: The area layer the object is stored in. Higher layers are draw on top of lower layers.
+  summary: Gets or sets the area layer this object is stored in. Higher layers are drawn on top of lower layers.
   example: []
   syntax:
     content: public uint Layer { get; set; }
@@ -520,11 +551,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: UpdateParallaxe
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 41
+    startLine: 109
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Is called by the area. Can be used to update the objects position based on the new parallax position.
+  summary: Called by the area to update the object's position based on the new parallax position.
   example: []
   syntax:
     content: public virtual void UpdateParallaxe(Vector2 newParallaxPosition)
@@ -552,21 +583,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsInLayer
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 48
+    startLine: 116
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Check if the object is in a layer.
+  summary: Checks if the object is in a specific layer.
   example: []
   syntax:
     content: public bool IsInLayer(uint layer)
     parameters:
     - id: layer
       type: System.UInt32
-      description: ''
+      description: The layer to check.
     return:
       type: System.Boolean
-      description: ''
+      description: True if in the specified layer.
     content.vb: Public Function IsInLayer(layer As UInteger) As Boolean
   overload: ShapeEngine.Core.GameObject.IsInLayer*
   nameWithType.vb: GameObject.IsInLayer(UInteger)
@@ -590,17 +621,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnSpawned
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 53
+    startLine: 122
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Is called when gameobject is added to an area.
+  summary: Called when the game object is added to an area.
   example: []
   syntax:
     content: public virtual void OnSpawned(SpawnArea spawnArea)
     parameters:
     - id: spawnArea
       type: ShapeEngine.Core.SpawnArea
+      description: The spawn area this object is added to.
     content.vb: Public Overridable Sub OnSpawned(spawnArea As SpawnArea)
   overload: ShapeEngine.Core.GameObject.OnSpawned*
 - uid: ShapeEngine.Core.GameObject.OnDespawned(ShapeEngine.Core.SpawnArea)
@@ -621,17 +653,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnDespawned
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 57
+    startLine: 127
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Is called by the area once a game object is dead.
+  summary: Called by the area once a game object is removed or dead.
   example: []
   syntax:
     content: public virtual void OnDespawned(SpawnArea spawnArea)
     parameters:
     - id: spawnArea
       type: ShapeEngine.Core.SpawnArea
+      description: The spawn area this object is removed from.
     content.vb: Public Overridable Sub OnDespawned(spawnArea As SpawnArea)
   overload: ShapeEngine.Core.GameObject.OnDespawned*
 - uid: ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Core.Shapes.Rect)
@@ -652,11 +685,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HasLeftBounds
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 76
+    startLine: 134
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Get the bounds of the spawn area this object is in and return if this object should be removed from the spawn area.
+  summary: Checks if this object should be removed from the spawn area based on bounds.
   example: []
   syntax:
     content: public virtual bool HasLeftBounds(Rect bounds)
@@ -666,7 +699,7 @@ items:
       description: The rect bounds of the spawn area.
     return:
       type: System.Boolean
-      description: If true is return object is removed from the spawn area
+      description: True if the object should be removed from the spawn area.
     content.vb: Public Overridable Function HasLeftBounds(bounds As Rect) As Boolean
   overload: ShapeEngine.Core.GameObject.HasLeftBounds*
 - uid: ShapeEngine.Core.GameObject.Kill(System.String,ShapeEngine.Core.GameObject)
@@ -687,7 +720,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Kill
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 82
+    startLine: 142
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -698,11 +731,13 @@ items:
     parameters:
     - id: killMessage
       type: System.String
+      description: Optional message for the kill event.
     - id: killer
       type: ShapeEngine.Core.GameObject
+      description: Optional killer object.
     return:
       type: System.Boolean
-      description: Returns if kill was successful.
+      description: True if kill was successful.
     content.vb: Public Function Kill(killMessage As String = Nothing, killer As GameObject = Nothing) As Boolean
   overload: ShapeEngine.Core.GameObject.Kill*
   nameWithType.vb: GameObject.Kill(String, GameObject)
@@ -726,17 +761,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: WasKilled
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 96
+    startLine: 161
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Called after the object is killed. Override for custom logic.
+  example: []
   syntax:
     content: protected virtual void WasKilled(string? killMessage = null, GameObject? killer = null)
     parameters:
     - id: killMessage
       type: System.String
+      description: Optional message for the kill event.
     - id: killer
       type: ShapeEngine.Core.GameObject
+      description: Optional killer object.
     content.vb: Protected Overridable Sub WasKilled(killMessage As String = Nothing, killer As GameObject = Nothing)
   overload: ShapeEngine.Core.GameObject.WasKilled*
   nameWithType.vb: GameObject.WasKilled(String, GameObject)
@@ -760,19 +799,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TryKill
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 97
+    startLine: 168
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Called before the object is killed. Override to prevent kill by returning false.
+  example: []
   syntax:
     content: protected virtual bool TryKill(string? killMessage = null, GameObject? killer = null)
     parameters:
     - id: killMessage
       type: System.String
+      description: Optional message for the kill event.
     - id: killer
       type: ShapeEngine.Core.GameObject
+      description: Optional killer object.
     return:
       type: System.Boolean
+      description: True to allow kill, false to prevent.
     content.vb: Protected Overridable Function TryKill(killMessage As String = Nothing, killer As GameObject = Nothing) As Boolean
   overload: ShapeEngine.Core.GameObject.TryKill*
   nameWithType.vb: GameObject.TryKill(String, GameObject)
@@ -796,19 +840,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Revive
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 99
+    startLine: 176
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Tries to revive this game object.
+  example: []
   syntax:
     content: public bool Revive(string? reviveMessage = null, GameObject? reviver = null)
     parameters:
     - id: reviveMessage
       type: System.String
+      description: Optional message for the revive event.
     - id: reviver
       type: ShapeEngine.Core.GameObject
+      description: Optional reviver object.
     return:
       type: System.Boolean
+      description: True if revive was successful.
     content.vb: Public Function Revive(reviveMessage As String = Nothing, reviver As GameObject = Nothing) As Boolean
   overload: ShapeEngine.Core.GameObject.Revive*
   nameWithType.vb: GameObject.Revive(String, GameObject)
@@ -832,17 +881,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: WasRevived
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 113
+    startLine: 195
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Called after the object is revived. Override for custom logic.
+  example: []
   syntax:
     content: protected virtual void WasRevived(string? reviveMessage = null, GameObject? reviver = null)
     parameters:
     - id: reviveMessage
       type: System.String
+      description: Optional message for the revive event.
     - id: reviver
       type: ShapeEngine.Core.GameObject
+      description: Optional reviver object.
     content.vb: Protected Overridable Sub WasRevived(reviveMessage As String = Nothing, reviver As GameObject = Nothing)
   overload: ShapeEngine.Core.GameObject.WasRevived*
   nameWithType.vb: GameObject.WasRevived(String, GameObject)
@@ -866,19 +919,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TryRevive
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 114
+    startLine: 202
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Called before the object is revived. Override to prevent revive by returning false.
+  example: []
   syntax:
     content: protected virtual bool TryRevive(string? reviveMessage = null, GameObject? reviver = null)
     parameters:
     - id: reviveMessage
       type: System.String
+      description: Optional message for the revive event.
     - id: reviver
       type: ShapeEngine.Core.GameObject
+      description: Optional reviver object.
     return:
       type: System.Boolean
+      description: True to allow revive, false to prevent.
     content.vb: Protected Overridable Function TryRevive(reviveMessage As String = Nothing, reviver As GameObject = Nothing) As Boolean
   overload: ShapeEngine.Core.GameObject.TryRevive*
   nameWithType.vb: GameObject.TryRevive(String, GameObject)

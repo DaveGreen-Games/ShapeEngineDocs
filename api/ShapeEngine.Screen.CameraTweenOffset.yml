@@ -5,7 +5,7 @@ items:
   id: CameraTweenOffset
   parent: ShapeEngine.Screen
   children:
-  - ShapeEngine.Screen.CameraTweenOffset.#ctor(System.Numerics.Vector2,System.Numerics.Vector2,System.Single,ShapeEngine.StaticLib.TweenType)
+  - ShapeEngine.Screen.CameraTweenOffset.#ctor(System.Numerics.Vector2,System.Numerics.Vector2,System.Single,ShapeEngine.Core.TweenType)
   - ShapeEngine.Screen.CameraTweenOffset.Copy
   - ShapeEngine.Screen.CameraTweenOffset.GetOffset
   - ShapeEngine.Screen.CameraTweenOffset.Update(System.Single)
@@ -23,10 +23,13 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CameraTweenOffset
     path: ../ShapeEngine/ShapeEngine/Screen/CameraTweenOffset.cs
-    startLine: 6
+    startLine: 13
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Provides a tween operation for smoothly interpolating the camera's offset over time.
+  remarks: This class implements <xref href="ShapeEngine.Screen.ICameraTween" data-throw-if-not-resolved="false"></xref> to animate the camera's position offset using a specified tween type and duration.
+  example: []
   syntax:
     content: 'public class CameraTweenOffset : ICameraTween, ISequenceable'
     content.vb: Public Class CameraTweenOffset Implements ICameraTween, ISequenceable
@@ -43,16 +46,16 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
-- uid: ShapeEngine.Screen.CameraTweenOffset.#ctor(System.Numerics.Vector2,System.Numerics.Vector2,System.Single,ShapeEngine.StaticLib.TweenType)
-  commentId: M:ShapeEngine.Screen.CameraTweenOffset.#ctor(System.Numerics.Vector2,System.Numerics.Vector2,System.Single,ShapeEngine.StaticLib.TweenType)
-  id: '#ctor(System.Numerics.Vector2,System.Numerics.Vector2,System.Single,ShapeEngine.StaticLib.TweenType)'
+- uid: ShapeEngine.Screen.CameraTweenOffset.#ctor(System.Numerics.Vector2,System.Numerics.Vector2,System.Single,ShapeEngine.Core.TweenType)
+  commentId: M:ShapeEngine.Screen.CameraTweenOffset.#ctor(System.Numerics.Vector2,System.Numerics.Vector2,System.Single,ShapeEngine.Core.TweenType)
+  id: '#ctor(System.Numerics.Vector2,System.Numerics.Vector2,System.Single,ShapeEngine.Core.TweenType)'
   parent: ShapeEngine.Screen.CameraTweenOffset
   langs:
   - csharp
   - vb
   name: CameraTweenOffset(Vector2, Vector2, float, TweenType)
   nameWithType: CameraTweenOffset.CameraTweenOffset(Vector2, Vector2, float, TweenType)
-  fullName: ShapeEngine.Screen.CameraTweenOffset.CameraTweenOffset(System.Numerics.Vector2, System.Numerics.Vector2, float, ShapeEngine.StaticLib.TweenType)
+  fullName: ShapeEngine.Screen.CameraTweenOffset.CameraTweenOffset(System.Numerics.Vector2, System.Numerics.Vector2, float, ShapeEngine.Core.TweenType)
   type: Constructor
   source:
     remote:
@@ -61,25 +64,31 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Screen/CameraTweenOffset.cs
-    startLine: 14
+    startLine: 29
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Screen.CameraTweenOffset" data-throw-if-not-resolved="false"></xref> class.
+  example: []
   syntax:
     content: public CameraTweenOffset(Vector2 from, Vector2 to, float duration, TweenType tweenType)
     parameters:
     - id: from
       type: System.Numerics.Vector2
+      description: The starting offset value.
     - id: to
       type: System.Numerics.Vector2
+      description: The ending offset value.
     - id: duration
       type: System.Single
+      description: The duration of the tween in seconds.
     - id: tweenType
-      type: ShapeEngine.StaticLib.TweenType
+      type: ShapeEngine.Core.TweenType
+      description: The type of tweening to use.
     content.vb: Public Sub New(from As Vector2, [to] As Vector2, duration As Single, tweenType As TweenType)
   overload: ShapeEngine.Screen.CameraTweenOffset.#ctor*
   nameWithType.vb: CameraTweenOffset.New(Vector2, Vector2, Single, TweenType)
-  fullName.vb: ShapeEngine.Screen.CameraTweenOffset.New(System.Numerics.Vector2, System.Numerics.Vector2, Single, ShapeEngine.StaticLib.TweenType)
+  fullName.vb: ShapeEngine.Screen.CameraTweenOffset.New(System.Numerics.Vector2, System.Numerics.Vector2, Single, ShapeEngine.Core.TweenType)
   name.vb: New(Vector2, Vector2, Single, TweenType)
 - uid: ShapeEngine.Screen.CameraTweenOffset.Copy
   commentId: M:ShapeEngine.Screen.CameraTweenOffset.Copy
@@ -99,15 +108,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Copy
     path: ../ShapeEngine/ShapeEngine/Screen/CameraTweenOffset.cs
-    startLine: 33
+    startLine: 57
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Creates a copy of this tween instance.
   example: []
   syntax:
     content: public ISequenceable Copy()
     return:
       type: ShapeEngine.Timing.ISequenceable
+      description: A new <xref href="ShapeEngine.Timing.ISequenceable" data-throw-if-not-resolved="false"></xref> copy of this tween.
     content.vb: Public Function Copy() As ISequenceable
   overload: ShapeEngine.Screen.CameraTweenOffset.Copy*
   implements:
@@ -130,21 +141,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/Screen/CameraTweenOffset.cs
-    startLine: 34
+    startLine: 64
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
-  summary: ''
+  summary: Updates the tween's progress.
   example: []
   syntax:
     content: public bool Update(float dt)
     parameters:
     - id: dt
       type: System.Single
-      description: ''
+      description: The time elapsed since the last update, in seconds.
     return:
       type: System.Boolean
-      description: Returns if finished.
+      description: True if the tween has finished; otherwise, false.
     content.vb: Public Function Update(dt As Single) As Boolean
   overload: ShapeEngine.Screen.CameraTweenOffset.Update*
   implements:
@@ -170,20 +181,29 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetOffset
     path: ../ShapeEngine/ShapeEngine/Screen/CameraTweenOffset.cs
-    startLine: 44
+    startLine: 77
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Gets the current offset value for the camera.
   example: []
   syntax:
     content: public Vector2 GetOffset()
     return:
       type: System.Numerics.Vector2
+      description: The current interpolated offset as a <xref href="System.Numerics.Vector2" data-throw-if-not-resolved="false"></xref>.
     content.vb: Public Function GetOffset() As Vector2
   overload: ShapeEngine.Screen.CameraTweenOffset.GetOffset*
   implements:
   - ShapeEngine.Screen.ICameraTween.GetOffset
 references:
+- uid: ShapeEngine.Screen.ICameraTween
+  commentId: T:ShapeEngine.Screen.ICameraTween
+  parent: ShapeEngine.Screen
+  href: ShapeEngine.Screen.ICameraTween.html
+  name: ICameraTween
+  nameWithType: ICameraTween
+  fullName: ShapeEngine.Screen.ICameraTween
 - uid: ShapeEngine.Screen
   commentId: N:ShapeEngine.Screen
   href: ShapeEngine.html
@@ -217,13 +237,6 @@ references:
   nameWithType.vb: Object
   fullName.vb: Object
   name.vb: Object
-- uid: ShapeEngine.Screen.ICameraTween
-  commentId: T:ShapeEngine.Screen.ICameraTween
-  parent: ShapeEngine.Screen
-  href: ShapeEngine.Screen.ICameraTween.html
-  name: ICameraTween
-  nameWithType: ICameraTween
-  fullName: ShapeEngine.Screen.ICameraTween
 - uid: ShapeEngine.Timing.ISequenceable
   commentId: T:ShapeEngine.Timing.ISequenceable
   parent: ShapeEngine.Timing
@@ -479,9 +492,15 @@ references:
   - uid: ShapeEngine.Timing
     name: Timing
     href: ShapeEngine.Timing.html
+- uid: ShapeEngine.Screen.CameraTweenOffset
+  commentId: T:ShapeEngine.Screen.CameraTweenOffset
+  href: ShapeEngine.Screen.CameraTweenOffset.html
+  name: CameraTweenOffset
+  nameWithType: CameraTweenOffset
+  fullName: ShapeEngine.Screen.CameraTweenOffset
 - uid: ShapeEngine.Screen.CameraTweenOffset.#ctor*
   commentId: Overload:ShapeEngine.Screen.CameraTweenOffset.#ctor
-  href: ShapeEngine.Screen.CameraTweenOffset.html#ShapeEngine_Screen_CameraTweenOffset__ctor_System_Numerics_Vector2_System_Numerics_Vector2_System_Single_ShapeEngine_StaticLib_TweenType_
+  href: ShapeEngine.Screen.CameraTweenOffset.html#ShapeEngine_Screen_CameraTweenOffset__ctor_System_Numerics_Vector2_System_Numerics_Vector2_System_Single_ShapeEngine_Core_TweenType_
   name: CameraTweenOffset
   nameWithType: CameraTweenOffset.CameraTweenOffset
   fullName: ShapeEngine.Screen.CameraTweenOffset.CameraTweenOffset
@@ -507,13 +526,13 @@ references:
   nameWithType.vb: Single
   fullName.vb: Single
   name.vb: Single
-- uid: ShapeEngine.StaticLib.TweenType
-  commentId: T:ShapeEngine.StaticLib.TweenType
-  parent: ShapeEngine.StaticLib
-  href: ShapeEngine.StaticLib.TweenType.html
+- uid: ShapeEngine.Core.TweenType
+  commentId: T:ShapeEngine.Core.TweenType
+  parent: ShapeEngine.Core
+  href: ShapeEngine.Core.TweenType.html
   name: TweenType
   nameWithType: TweenType
-  fullName: ShapeEngine.StaticLib.TweenType
+  fullName: ShapeEngine.Core.TweenType
 - uid: System.Numerics
   commentId: N:System.Numerics
   isExternal: true
@@ -541,28 +560,28 @@ references:
     name: Numerics
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.numerics
-- uid: ShapeEngine.StaticLib
-  commentId: N:ShapeEngine.StaticLib
+- uid: ShapeEngine.Core
+  commentId: N:ShapeEngine.Core
   href: ShapeEngine.html
-  name: ShapeEngine.StaticLib
-  nameWithType: ShapeEngine.StaticLib
-  fullName: ShapeEngine.StaticLib
+  name: ShapeEngine.Core
+  nameWithType: ShapeEngine.Core
+  fullName: ShapeEngine.Core
   spec.csharp:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.StaticLib
-    name: StaticLib
-    href: ShapeEngine.StaticLib.html
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
   spec.vb:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.StaticLib
-    name: StaticLib
-    href: ShapeEngine.StaticLib.html
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
 - uid: ShapeEngine.Screen.CameraTweenOffset.Copy*
   commentId: Overload:ShapeEngine.Screen.CameraTweenOffset.Copy
   href: ShapeEngine.Screen.CameraTweenOffset.html#ShapeEngine_Screen_CameraTweenOffset_Copy

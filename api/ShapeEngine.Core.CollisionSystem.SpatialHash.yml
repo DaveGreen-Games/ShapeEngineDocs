@@ -53,10 +53,16 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SpatialHash
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 11
+    startLine: 16
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Implements a spatial hash grid for efficient broad-phase collision detection and spatial queries.
+  remarks: >-
+    The spatial hash divides a 2D space into a grid of buckets, each containing colliders that overlap its region.
+
+    Provides fast lookup for collision candidates and supports dynamic resizing and grid changes.
+  example: []
   syntax:
     content: 'public class SpatialHash : IBounds'
     content.vb: Public Class SpatialHash Implements IBounds
@@ -90,10 +96,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Bounds
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 34
+    startLine: 54
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the bounds of the spatial hash grid.
   example: []
   syntax:
     content: public Rect Bounds { get; }
@@ -122,10 +129,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SpacingX
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 35
+    startLine: 58
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the width of each grid cell.
+  example: []
   syntax:
     content: public float SpacingX { get; }
     parameters: []
@@ -151,10 +160,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SpacingY
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 36
+    startLine: 62
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the height of each grid cell.
+  example: []
   syntax:
     content: public float SpacingY { get; }
     parameters: []
@@ -180,10 +191,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BucketCount
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 37
+    startLine: 66
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the total number of buckets in the grid.
+  example: []
   syntax:
     content: public int BucketCount { get; }
     parameters: []
@@ -209,10 +222,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Rows
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 38
+    startLine: 70
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the number of rows in the grid.
+  example: []
   syntax:
     content: public int Rows { get; }
     parameters: []
@@ -238,10 +253,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Cols
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 39
+    startLine: 74
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the number of columns in the grid.
+  example: []
   syntax:
     content: public int Cols { get; }
     parameters: []
@@ -267,25 +284,33 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 51
+    startLine: 95
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.CollisionSystem.SpatialHash" data-throw-if-not-resolved="false"></xref> class with explicit bounds and grid size.
+  example: []
   syntax:
     content: public SpatialHash(float x, float y, float w, float h, int rows, int cols)
     parameters:
     - id: x
       type: System.Single
+      description: The X coordinate of the grid's top-left corner.
     - id: y
       type: System.Single
+      description: The Y coordinate of the grid's top-left corner.
     - id: w
       type: System.Single
+      description: The width of the grid.
     - id: h
       type: System.Single
+      description: The height of the grid.
     - id: rows
       type: System.Int32
+      description: The number of rows in the grid.
     - id: cols
       type: System.Int32
+      description: The number of columns in the grid.
     content.vb: Public Sub New(x As Single, y As Single, w As Single, h As Single, rows As Integer, cols As Integer)
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.#ctor*
   nameWithType.vb: SpatialHash.New(Single, Single, Single, Single, Integer, Integer)
@@ -309,19 +334,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 64
+    startLine: 114
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.CollisionSystem.SpatialHash" data-throw-if-not-resolved="false"></xref> class with a bounding rectangle and grid size.
+  example: []
   syntax:
     content: public SpatialHash(Rect bounds, int rows, int cols)
     parameters:
     - id: bounds
       type: ShapeEngine.Core.Shapes.Rect
+      description: The bounding rectangle for the grid.
     - id: rows
       type: System.Int32
+      description: The number of rows in the grid.
     - id: cols
       type: System.Int32
+      description: The number of columns in the grid.
     content.vb: Public Sub New(bounds As Rect, rows As Integer, cols As Integer)
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.#ctor*
   nameWithType.vb: SpatialHash.New(Rect, Integer, Integer)
@@ -345,15 +375,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Fill
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 80
+    startLine: 134
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Fills the spatial hash with all colliders from the provided collision objects.
+  example: []
   syntax:
     content: public void Fill(IEnumerable<CollisionObject> collisionBodies)
     parameters:
     - id: collisionBodies
       type: System.Collections.Generic.IEnumerable{ShapeEngine.Core.CollisionSystem.CollisionObject}
+      description: The collection of collision objects to add.
     content.vb: Public Sub Fill(collisionBodies As IEnumerable(Of CollisionObject))
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.Fill*
   nameWithType.vb: SpatialHash.Fill(IEnumerable(Of CollisionObject))
@@ -377,10 +410,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Close
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 99
+    startLine: 156
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Clears all buckets and internal registers, releasing resources.
+  example: []
   syntax:
     content: public void Close()
     content.vb: Public Sub Close()
@@ -403,16 +438,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ResizeBounds
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 105
+    startLine: 166
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Queues a resize of the spatial hash bounds to the specified rectangle. The resize is applied on the next clear.
   example: []
   syntax:
     content: public void ResizeBounds(Rect targetBounds)
     parameters:
     - id: targetBounds
       type: ShapeEngine.Core.Shapes.Rect
+      description: The new bounds for the grid.
     content.vb: Public Sub ResizeBounds(targetBounds As Rect)
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.ResizeBounds*
   implements:
@@ -435,21 +472,22 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ChangeGrid
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 116
+    startLine: 180
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Change the cols and rows of the grid. Clears the spatial hash!
+  summary: Changes the number of rows and columns in the grid. This operation clears all buckets.
+  remarks: Recalculates spacing, clears and removes all old buckets, and then creates new buckets according to <code>rows*cols</code>.
   example: []
   syntax:
     content: public void ChangeGrid(int rows, int cols)
     parameters:
     - id: rows
       type: System.Int32
-      description: ''
+      description: The new number of rows.
     - id: cols
       type: System.Int32
-      description: ''
+      description: The new number of columns.
     content.vb: Public Sub ChangeGrid(rows As Integer, cols As Integer)
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.ChangeGrid*
   nameWithType.vb: SpatialHash.ChangeGrid(Integer, Integer)
@@ -473,17 +511,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetRegisteredCollisionCandidateBuckets
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 129
+    startLine: 197
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the buckets containing the specified collider, if registered.
+  example: []
   syntax:
     content: public void GetRegisteredCollisionCandidateBuckets(Collider collider, ref List<SpatialHash.Bucket> candidateBuckets)
     parameters:
     - id: collider
       type: ShapeEngine.Core.CollisionSystem.Collider
+      description: The collider to look up.
     - id: candidateBuckets
       type: System.Collections.Generic.List{ShapeEngine.Core.CollisionSystem.SpatialHash.Bucket}
+      description: A list to populate with candidate buckets.
     content.vb: Public Sub GetRegisteredCollisionCandidateBuckets(collider As Collider, candidateBuckets As List(Of SpatialHash.Bucket))
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.GetRegisteredCollisionCandidateBuckets*
   nameWithType.vb: SpatialHash.GetRegisteredCollisionCandidateBuckets(Collider, List(Of SpatialHash.Bucket))
@@ -507,17 +549,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetCandidateBuckets
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 140
+    startLine: 212
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets all buckets that may contain colliders overlapping the given collision object.
+  example: []
   syntax:
     content: public void GetCandidateBuckets(CollisionObject collidable, ref List<SpatialHash.Bucket> candidateBuckets)
     parameters:
     - id: collidable
       type: ShapeEngine.Core.CollisionSystem.CollisionObject
+      description: The collision object to query.
     - id: candidateBuckets
       type: System.Collections.Generic.List{ShapeEngine.Core.CollisionSystem.SpatialHash.Bucket}
+      description: A list to populate with candidate buckets.
     content.vb: Public Sub GetCandidateBuckets(collidable As CollisionObject, candidateBuckets As List(Of SpatialHash.Bucket))
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.GetCandidateBuckets*
   nameWithType.vb: SpatialHash.GetCandidateBuckets(CollisionObject, List(Of SpatialHash.Bucket))
@@ -541,17 +587,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetCandidateBuckets
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 147
+    startLine: 224
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets all buckets that may contain colliders overlapping the given collider.
+  example: []
   syntax:
     content: public void GetCandidateBuckets(Collider collider, ref List<SpatialHash.Bucket> candidateBuckets)
     parameters:
     - id: collider
       type: ShapeEngine.Core.CollisionSystem.Collider
+      description: The collider to query.
     - id: candidateBuckets
       type: System.Collections.Generic.List{ShapeEngine.Core.CollisionSystem.SpatialHash.Bucket}
+      description: A list to populate with candidate buckets.
     content.vb: Public Sub GetCandidateBuckets(collider As Collider, candidateBuckets As List(Of SpatialHash.Bucket))
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.GetCandidateBuckets*
   nameWithType.vb: SpatialHash.GetCandidateBuckets(Collider, List(Of SpatialHash.Bucket))
@@ -575,17 +625,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetCandidateBuckets
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 165
+    startLine: 248
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets all buckets that may contain colliders overlapping the given segment.
+  example: []
   syntax:
     content: public void GetCandidateBuckets(Segment segment, ref List<SpatialHash.Bucket> candidateBuckets)
     parameters:
     - id: segment
       type: ShapeEngine.Core.Shapes.Segment
+      description: The segment to query.
     - id: candidateBuckets
       type: System.Collections.Generic.List{ShapeEngine.Core.CollisionSystem.SpatialHash.Bucket}
+      description: A list to populate with candidate buckets.
     content.vb: Public Sub GetCandidateBuckets(segment As Segment, candidateBuckets As List(Of SpatialHash.Bucket))
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.GetCandidateBuckets*
   nameWithType.vb: SpatialHash.GetCandidateBuckets(Segment, List(Of SpatialHash.Bucket))
@@ -609,17 +663,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetCandidateBuckets
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 172
+    startLine: 260
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets all buckets that may contain colliders overlapping the given line.
+  example: []
   syntax:
     content: public void GetCandidateBuckets(Line line, ref List<SpatialHash.Bucket> candidateBuckets)
     parameters:
     - id: line
       type: ShapeEngine.Core.Shapes.Line
+      description: The line to query.
     - id: candidateBuckets
       type: System.Collections.Generic.List{ShapeEngine.Core.CollisionSystem.SpatialHash.Bucket}
+      description: A list to populate with candidate buckets.
     content.vb: Public Sub GetCandidateBuckets(line As Line, candidateBuckets As List(Of SpatialHash.Bucket))
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.GetCandidateBuckets*
   nameWithType.vb: SpatialHash.GetCandidateBuckets(Line, List(Of SpatialHash.Bucket))
@@ -643,17 +701,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetCandidateBuckets
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 179
+    startLine: 272
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets all buckets that may contain colliders overlapping the given ray.
+  example: []
   syntax:
     content: public void GetCandidateBuckets(Ray ray, ref List<SpatialHash.Bucket> candidateBuckets)
     parameters:
     - id: ray
       type: ShapeEngine.Core.Shapes.Ray
+      description: The ray to query.
     - id: candidateBuckets
       type: System.Collections.Generic.List{ShapeEngine.Core.CollisionSystem.SpatialHash.Bucket}
+      description: A list to populate with candidate buckets.
     content.vb: Public Sub GetCandidateBuckets(ray As Ray, candidateBuckets As List(Of SpatialHash.Bucket))
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.GetCandidateBuckets*
   nameWithType.vb: SpatialHash.GetCandidateBuckets(Ray, List(Of SpatialHash.Bucket))
@@ -677,17 +739,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetCandidateBuckets
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 186
+    startLine: 284
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets all buckets that may contain colliders overlapping the given circle.
+  example: []
   syntax:
     content: public void GetCandidateBuckets(Circle circle, ref List<SpatialHash.Bucket> candidateBuckets)
     parameters:
     - id: circle
       type: ShapeEngine.Core.Shapes.Circle
+      description: The circle to query.
     - id: candidateBuckets
       type: System.Collections.Generic.List{ShapeEngine.Core.CollisionSystem.SpatialHash.Bucket}
+      description: A list to populate with candidate buckets.
     content.vb: Public Sub GetCandidateBuckets(circle As Circle, candidateBuckets As List(Of SpatialHash.Bucket))
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.GetCandidateBuckets*
   nameWithType.vb: SpatialHash.GetCandidateBuckets(Circle, List(Of SpatialHash.Bucket))
@@ -711,17 +777,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetCandidateBuckets
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 193
+    startLine: 296
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets all buckets that may contain colliders overlapping the given triangle.
+  example: []
   syntax:
     content: public void GetCandidateBuckets(Triangle triangle, ref List<SpatialHash.Bucket> candidateBuckets)
     parameters:
     - id: triangle
       type: ShapeEngine.Core.Shapes.Triangle
+      description: The triangle to query.
     - id: candidateBuckets
       type: System.Collections.Generic.List{ShapeEngine.Core.CollisionSystem.SpatialHash.Bucket}
+      description: A list to populate with candidate buckets.
     content.vb: Public Sub GetCandidateBuckets(triangle As Triangle, candidateBuckets As List(Of SpatialHash.Bucket))
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.GetCandidateBuckets*
   nameWithType.vb: SpatialHash.GetCandidateBuckets(Triangle, List(Of SpatialHash.Bucket))
@@ -745,17 +815,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetCandidateBuckets
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 200
+    startLine: 308
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets all buckets that may contain colliders overlapping the given rectangle.
+  example: []
   syntax:
     content: public void GetCandidateBuckets(Rect rect, ref List<SpatialHash.Bucket> candidateBuckets)
     parameters:
     - id: rect
       type: ShapeEngine.Core.Shapes.Rect
+      description: The rectangle to query.
     - id: candidateBuckets
       type: System.Collections.Generic.List{ShapeEngine.Core.CollisionSystem.SpatialHash.Bucket}
+      description: A list to populate with candidate buckets.
     content.vb: Public Sub GetCandidateBuckets(rect As Rect, candidateBuckets As List(Of SpatialHash.Bucket))
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.GetCandidateBuckets*
   nameWithType.vb: SpatialHash.GetCandidateBuckets(Rect, List(Of SpatialHash.Bucket))
@@ -779,17 +853,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetCandidateBuckets
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 207
+    startLine: 320
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets all buckets that may contain colliders overlapping the given quad.
+  example: []
   syntax:
     content: public void GetCandidateBuckets(Quad quad, ref List<SpatialHash.Bucket> candidateBuckets)
     parameters:
     - id: quad
       type: ShapeEngine.Core.Shapes.Quad
+      description: The quad to query.
     - id: candidateBuckets
       type: System.Collections.Generic.List{ShapeEngine.Core.CollisionSystem.SpatialHash.Bucket}
+      description: A list to populate with candidate buckets.
     content.vb: Public Sub GetCandidateBuckets(quad As Quad, candidateBuckets As List(Of SpatialHash.Bucket))
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.GetCandidateBuckets*
   nameWithType.vb: SpatialHash.GetCandidateBuckets(Quad, List(Of SpatialHash.Bucket))
@@ -813,17 +891,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetCandidateBuckets
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 214
+    startLine: 332
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets all buckets that may contain colliders overlapping the given polygon.
+  example: []
   syntax:
     content: public void GetCandidateBuckets(Polygon poly, ref List<SpatialHash.Bucket> candidateBuckets)
     parameters:
     - id: poly
       type: ShapeEngine.Core.Shapes.Polygon
+      description: The polygon to query.
     - id: candidateBuckets
       type: System.Collections.Generic.List{ShapeEngine.Core.CollisionSystem.SpatialHash.Bucket}
+      description: A list to populate with candidate buckets.
     content.vb: Public Sub GetCandidateBuckets(poly As Polygon, candidateBuckets As List(Of SpatialHash.Bucket))
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.GetCandidateBuckets*
   nameWithType.vb: SpatialHash.GetCandidateBuckets(Polygon, List(Of SpatialHash.Bucket))
@@ -847,17 +929,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetCandidateBuckets
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 221
+    startLine: 344
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets all buckets that may contain colliders overlapping the given polyline.
+  example: []
   syntax:
     content: public void GetCandidateBuckets(Polyline polyLine, ref List<SpatialHash.Bucket> candidateBuckets)
     parameters:
     - id: polyLine
       type: ShapeEngine.Core.Shapes.Polyline
+      description: The polyline to query.
     - id: candidateBuckets
       type: System.Collections.Generic.List{ShapeEngine.Core.CollisionSystem.SpatialHash.Bucket}
+      description: A list to populate with candidate buckets.
     content.vb: Public Sub GetCandidateBuckets(polyLine As Polyline, candidateBuckets As List(Of SpatialHash.Bucket))
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.GetCandidateBuckets*
   nameWithType.vb: SpatialHash.GetCandidateBuckets(Polyline, List(Of SpatialHash.Bucket))
@@ -881,17 +967,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetUniqueCandidates
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 238
+    startLine: 356
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets all unique colliders that may overlap the given collision object.
+  example: []
   syntax:
     content: public void GetUniqueCandidates(CollisionObject collisionBody, ref HashSet<Collider> candidates)
     parameters:
     - id: collisionBody
       type: ShapeEngine.Core.CollisionSystem.CollisionObject
+      description: The collision object to query.
     - id: candidates
       type: System.Collections.Generic.HashSet{ShapeEngine.Core.CollisionSystem.Collider}
+      description: A set to populate with unique colliders.
     content.vb: Public Sub GetUniqueCandidates(collisionBody As CollisionObject, candidates As HashSet(Of Collider))
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.GetUniqueCandidates*
   nameWithType.vb: SpatialHash.GetUniqueCandidates(CollisionObject, HashSet(Of Collider))
@@ -915,17 +1005,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetUniqueCandidates
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 246
+    startLine: 369
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets all unique colliders that may overlap the given collider.
+  example: []
   syntax:
     content: public void GetUniqueCandidates(Collider collider, ref HashSet<Collider> candidates)
     parameters:
     - id: collider
       type: ShapeEngine.Core.CollisionSystem.Collider
+      description: The collider to query.
     - id: candidates
       type: System.Collections.Generic.HashSet{ShapeEngine.Core.CollisionSystem.Collider}
+      description: A set to populate with unique colliders.
     content.vb: Public Sub GetUniqueCandidates(collider As Collider, candidates As HashSet(Of Collider))
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.GetUniqueCandidates*
   nameWithType.vb: SpatialHash.GetUniqueCandidates(Collider, HashSet(Of Collider))
@@ -949,17 +1043,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetUniqueCandidates
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 264
+    startLine: 392
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets all unique colliders that may overlap the given segment.
+  example: []
   syntax:
     content: public void GetUniqueCandidates(Segment segment, ref HashSet<Collider> candidates)
     parameters:
     - id: segment
       type: ShapeEngine.Core.Shapes.Segment
+      description: The segment to query.
     - id: candidates
       type: System.Collections.Generic.HashSet{ShapeEngine.Core.CollisionSystem.Collider}
+      description: A set to populate with unique colliders.
     content.vb: Public Sub GetUniqueCandidates(segment As Segment, candidates As HashSet(Of Collider))
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.GetUniqueCandidates*
   nameWithType.vb: SpatialHash.GetUniqueCandidates(Segment, HashSet(Of Collider))
@@ -983,17 +1081,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetUniqueCandidates
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 271
+    startLine: 404
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets all unique colliders that may overlap the given circle.
+  example: []
   syntax:
     content: public void GetUniqueCandidates(Circle circle, ref HashSet<Collider> candidates)
     parameters:
     - id: circle
       type: ShapeEngine.Core.Shapes.Circle
+      description: The circle to query.
     - id: candidates
       type: System.Collections.Generic.HashSet{ShapeEngine.Core.CollisionSystem.Collider}
+      description: A set to populate with unique colliders.
     content.vb: Public Sub GetUniqueCandidates(circle As Circle, candidates As HashSet(Of Collider))
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.GetUniqueCandidates*
   nameWithType.vb: SpatialHash.GetUniqueCandidates(Circle, HashSet(Of Collider))
@@ -1017,17 +1119,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetUniqueCandidates
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 278
+    startLine: 416
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets all unique colliders that may overlap the given triangle.
+  example: []
   syntax:
     content: public void GetUniqueCandidates(Triangle triangle, ref HashSet<Collider> candidates)
     parameters:
     - id: triangle
       type: ShapeEngine.Core.Shapes.Triangle
+      description: The triangle to query.
     - id: candidates
       type: System.Collections.Generic.HashSet{ShapeEngine.Core.CollisionSystem.Collider}
+      description: A set to populate with unique colliders.
     content.vb: Public Sub GetUniqueCandidates(triangle As Triangle, candidates As HashSet(Of Collider))
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.GetUniqueCandidates*
   nameWithType.vb: SpatialHash.GetUniqueCandidates(Triangle, HashSet(Of Collider))
@@ -1051,17 +1157,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetUniqueCandidates
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 285
+    startLine: 428
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets all unique colliders that may overlap the given rectangle.
+  example: []
   syntax:
     content: public void GetUniqueCandidates(Rect rect, ref HashSet<Collider> candidates)
     parameters:
     - id: rect
       type: ShapeEngine.Core.Shapes.Rect
+      description: The rectangle to query.
     - id: candidates
       type: System.Collections.Generic.HashSet{ShapeEngine.Core.CollisionSystem.Collider}
+      description: A set to populate with unique colliders.
     content.vb: Public Sub GetUniqueCandidates(rect As Rect, candidates As HashSet(Of Collider))
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.GetUniqueCandidates*
   nameWithType.vb: SpatialHash.GetUniqueCandidates(Rect, HashSet(Of Collider))
@@ -1085,17 +1195,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetUniqueCandidates
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 292
+    startLine: 440
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets all unique colliders that may overlap the given quad.
+  example: []
   syntax:
     content: public void GetUniqueCandidates(Quad quad, ref HashSet<Collider> candidates)
     parameters:
     - id: quad
       type: ShapeEngine.Core.Shapes.Quad
+      description: The quad to query.
     - id: candidates
       type: System.Collections.Generic.HashSet{ShapeEngine.Core.CollisionSystem.Collider}
+      description: A set to populate with unique colliders.
     content.vb: Public Sub GetUniqueCandidates(quad As Quad, candidates As HashSet(Of Collider))
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.GetUniqueCandidates*
   nameWithType.vb: SpatialHash.GetUniqueCandidates(Quad, HashSet(Of Collider))
@@ -1119,17 +1233,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetUniqueCandidates
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 300
+    startLine: 452
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets all unique colliders that may overlap the given polygon.
+  example: []
   syntax:
     content: public void GetUniqueCandidates(Polygon poly, ref HashSet<Collider> candidates)
     parameters:
     - id: poly
       type: ShapeEngine.Core.Shapes.Polygon
+      description: The polygon to query.
     - id: candidates
       type: System.Collections.Generic.HashSet{ShapeEngine.Core.CollisionSystem.Collider}
+      description: A set to populate with unique colliders.
     content.vb: Public Sub GetUniqueCandidates(poly As Polygon, candidates As HashSet(Of Collider))
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.GetUniqueCandidates*
   nameWithType.vb: SpatialHash.GetUniqueCandidates(Polygon, HashSet(Of Collider))
@@ -1153,17 +1271,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetUniqueCandidates
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 307
+    startLine: 464
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets all unique colliders that may overlap the given polyline.
+  example: []
   syntax:
     content: public void GetUniqueCandidates(Polyline polyLine, ref HashSet<Collider> candidates)
     parameters:
     - id: polyLine
       type: ShapeEngine.Core.Shapes.Polyline
+      description: The polyline to query.
     - id: candidates
       type: System.Collections.Generic.HashSet{ShapeEngine.Core.CollisionSystem.Collider}
+      description: A set to populate with unique colliders.
     content.vb: Public Sub GetUniqueCandidates(polyLine As Polyline, candidates As HashSet(Of Collider))
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.GetUniqueCandidates*
   nameWithType.vb: SpatialHash.GetUniqueCandidates(Polyline, HashSet(Of Collider))
@@ -1187,17 +1309,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DebugDraw
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SpatialHash.cs
-    startLine: 325
+    startLine: 476
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Draws the spatial hash grid and filled cells for debugging purposes.
+  example: []
   syntax:
     content: public void DebugDraw(ColorRgba border, ColorRgba fill)
     parameters:
     - id: border
       type: ShapeEngine.Color.ColorRgba
+      description: The color for the grid lines.
     - id: fill
       type: ShapeEngine.Color.ColorRgba
+      description: The color to fill non-empty cells.
     content.vb: Public Sub DebugDraw(border As ColorRgba, fill As ColorRgba)
   overload: ShapeEngine.Core.CollisionSystem.SpatialHash.DebugDraw*
 references:
@@ -1607,6 +1733,12 @@ references:
   name: Cols
   nameWithType: SpatialHash.Cols
   fullName: ShapeEngine.Core.CollisionSystem.SpatialHash.Cols
+- uid: ShapeEngine.Core.CollisionSystem.SpatialHash
+  commentId: T:ShapeEngine.Core.CollisionSystem.SpatialHash
+  href: ShapeEngine.Core.CollisionSystem.SpatialHash.html
+  name: SpatialHash
+  nameWithType: SpatialHash
+  fullName: ShapeEngine.Core.CollisionSystem.SpatialHash
 - uid: ShapeEngine.Core.CollisionSystem.SpatialHash.#ctor*
   commentId: Overload:ShapeEngine.Core.CollisionSystem.SpatialHash.#ctor
   href: ShapeEngine.Core.CollisionSystem.SpatialHash.html#ShapeEngine_Core_CollisionSystem_SpatialHash__ctor_System_Single_System_Single_System_Single_System_Single_System_Int32_System_Int32_

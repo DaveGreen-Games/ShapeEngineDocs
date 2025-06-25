@@ -28,10 +28,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Pool
     path: ../ShapeEngine/ShapeEngine/Pool/Pool.cs
-    startLine: 26
+    startLine: 7
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Pool
+  summary: Represents a generic object pool for managing reusable instances of <xref href="ShapeEngine.Pool.IPoolable" data-throw-if-not-resolved="false"></xref> objects.
+  example: []
   syntax:
     content: 'public class Pool : IPool'
     content.vb: Public Class Pool Implements IPool
@@ -65,19 +67,29 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Pool/Pool.cs
-    startLine: 38
+    startLine: 27
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Pool
+  summary: >-
+    Initializes a new instance of the <xref href="ShapeEngine.Pool.Pool" data-throw-if-not-resolved="false"></xref> class with the specified start size,
+
+    instance creation function, and optional maximum size.
+  example: []
   syntax:
     content: public Pool(int startSize, Func<IPoolable> createInstance, int maxSize = -1)
     parameters:
     - id: startSize
       type: System.Int32
+      description: The initial number of instances to create in the pool.
     - id: createInstance
       type: System.Func{ShapeEngine.Pool.IPoolable}
+      description: A function that creates a new <xref href="ShapeEngine.Pool.IPoolable" data-throw-if-not-resolved="false"></xref> instance.
     - id: maxSize
       type: System.Int32
+      description: >-
+        The maximum number of instances allowed in the pool.
+            If negative, the pool size is unlimited.
     content.vb: Public Sub New(startSize As Integer, createInstance As Func(Of IPoolable), maxSize As Integer = -1)
   overload: ShapeEngine.Pool.Pool.#ctor*
   nameWithType.vb: Pool.New(Integer, Func(Of IPoolable), Integer)
@@ -101,15 +113,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetId
     path: ../ShapeEngine/ShapeEngine/Pool/Pool.cs
-    startLine: 54
+    startLine: 45
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Pool
+  summary: Gets the unique identifier for this pool.
   example: []
   syntax:
     content: public uint GetId()
     return:
       type: System.UInt32
+      description: The unique pool ID.
     content.vb: Public Function GetId() As UInteger
   overload: ShapeEngine.Pool.Pool.GetId*
   implements:
@@ -132,10 +146,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Clear
     path: ../ShapeEngine/ShapeEngine/Pool/Pool.cs
-    startLine: 56
+    startLine: 49
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Pool
+  summary: Clears all instances from the pool, resetting its state.
   example: []
   syntax:
     content: public void Clear()
@@ -161,15 +176,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HasUsableInstances
     path: ../ShapeEngine/ShapeEngine/Pool/Pool.cs
-    startLine: 72
+    startLine: 67
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Pool
+  summary: Determines whether the pool has any usable (available) instances.
   example: []
   syntax:
     content: public bool HasUsableInstances()
     return:
       type: System.Boolean
+      description: True if there are usable instances; otherwise, false.
     content.vb: Public Function HasUsableInstances() As Boolean
   overload: ShapeEngine.Pool.Pool.HasUsableInstances*
   implements:
@@ -192,15 +209,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HasInstances
     path: ../ShapeEngine/ShapeEngine/Pool/Pool.cs
-    startLine: 73
+    startLine: 70
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Pool
+  summary: Determines whether the pool contains any instances (usable or in use).
   example: []
   syntax:
     content: public bool HasInstances()
     return:
       type: System.Boolean
+      description: True if the pool contains any instances; otherwise, false.
     content.vb: Public Function HasInstances() As Boolean
   overload: ShapeEngine.Pool.Pool.HasInstances*
   implements:
@@ -223,15 +242,20 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetInstance
     path: ../ShapeEngine/ShapeEngine/Pool/Pool.cs
-    startLine: 74
+    startLine: 76
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Pool
+  summary: >-
+    Retrieves an available instance from the pool.
+
+    If none are available, creates a new one or reuses the oldest in-use instance if the pool is at maximum size.
   example: []
   syntax:
     content: public IPoolable GetInstance()
     return:
       type: ShapeEngine.Pool.IPoolable
+      description: An <xref href="ShapeEngine.Pool.IPoolable" data-throw-if-not-resolved="false"></xref> instance.
     content.vb: Public Function GetInstance() As IPoolable
   overload: ShapeEngine.Pool.Pool.GetInstance*
   implements:
@@ -254,17 +278,20 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetInstance
     path: ../ShapeEngine/ShapeEngine/Pool/Pool.cs
-    startLine: 96
+    startLine: 100
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Pool
+  summary: Retrieves an available instance of type <code class="typeparamref">T</code> from the pool.
   example: []
   syntax:
     content: public T GetInstance<T>()
     typeParameters:
     - id: T
+      description: The type of instance to retrieve.
     return:
       type: '{T}'
+      description: An instance of type <code class="typeparamref">T</code> if available; otherwise, null.
     content.vb: Public Function GetInstance(Of T)() As T
   overload: ShapeEngine.Pool.Pool.GetInstance*
   implements:
@@ -290,16 +317,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ReturnInstance
     path: ../ShapeEngine/ShapeEngine/Pool/Pool.cs
-    startLine: 100
+    startLine: 106
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Pool
+  summary: Returns an instance to the pool, making it available for reuse.
   example: []
   syntax:
     content: public void ReturnInstance(IPoolable instance)
     parameters:
     - id: instance
       type: ShapeEngine.Pool.IPoolable
+      description: The instance to return.
     content.vb: Public Sub ReturnInstance(instance As IPoolable)
   overload: ShapeEngine.Pool.Pool.ReturnInstance*
   implements:
@@ -322,21 +351,30 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnInstanceFinished
     path: ../ShapeEngine/ShapeEngine/Pool/Pool.cs
-    startLine: 108
+    startLine: 116
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Pool
+  summary: Handles the event when an instance has finished its work and should be returned to the pool.
   example: []
   syntax:
     content: public void OnInstanceFinished(IPoolable instance)
     parameters:
     - id: instance
       type: ShapeEngine.Pool.IPoolable
+      description: The finished instance.
     content.vb: Public Sub OnInstanceFinished(instance As IPoolable)
   overload: ShapeEngine.Pool.Pool.OnInstanceFinished*
   implements:
   - ShapeEngine.Pool.IPool.OnInstanceFinished(ShapeEngine.Pool.IPoolable)
 references:
+- uid: ShapeEngine.Pool.IPoolable
+  commentId: T:ShapeEngine.Pool.IPoolable
+  parent: ShapeEngine.Pool
+  href: ShapeEngine.Pool.IPoolable.html
+  name: IPoolable
+  nameWithType: IPoolable
+  fullName: ShapeEngine.Pool.IPoolable
 - uid: ShapeEngine.Pool
   commentId: N:ShapeEngine.Pool
   href: ShapeEngine.html
@@ -603,6 +641,12 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: ShapeEngine.Pool.Pool
+  commentId: T:ShapeEngine.Pool.Pool
+  href: ShapeEngine.Pool.Pool.html
+  name: Pool
+  nameWithType: Pool
+  fullName: ShapeEngine.Pool.Pool
 - uid: ShapeEngine.Pool.Pool.#ctor*
   commentId: Overload:ShapeEngine.Pool.Pool.#ctor
   href: ShapeEngine.Pool.Pool.html#ShapeEngine_Pool_Pool__ctor_System_Int32_System_Func_ShapeEngine_Pool_IPoolable__System_Int32_
@@ -831,13 +875,6 @@ references:
     href: ShapeEngine.Pool.IPool.html#ShapeEngine_Pool_IPool_GetInstance
   - name: (
   - name: )
-- uid: ShapeEngine.Pool.IPoolable
-  commentId: T:ShapeEngine.Pool.IPoolable
-  parent: ShapeEngine.Pool
-  href: ShapeEngine.Pool.IPoolable.html
-  name: IPoolable
-  nameWithType: IPoolable
-  fullName: ShapeEngine.Pool.IPoolable
 - uid: ShapeEngine.Pool.IPool.GetInstance``1
   commentId: M:ShapeEngine.Pool.IPool.GetInstance``1
   parent: ShapeEngine.Pool.IPool

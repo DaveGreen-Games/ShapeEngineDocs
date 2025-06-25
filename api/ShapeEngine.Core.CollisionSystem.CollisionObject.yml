@@ -64,10 +64,25 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CollisionObject
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 9
+    startLine: 18
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: >-
+    Represents an object that participates in the collision system and can contain multiple colliders.
+
+    Handles collision detection, intersection, and overlap logic,
+
+    and provides events and hooks for collision notifications.
+  remarks: >-
+    This is an abstract base class for objects that require collision handling.
+
+    It manages a set of colliders and provides
+
+    advanced notification options for collision events.
+
+    Inherits from <xref href="ShapeEngine.Core.PhysicsObject" data-throw-if-not-resolved="false"></xref>.
+  example: []
   syntax:
     content: 'public abstract class CollisionObject : PhysicsObject, IUpdateable, IDrawable'
     content.vb: Public MustInherit Class CollisionObject Inherits PhysicsObject Implements IUpdateable, IDrawable
@@ -155,10 +170,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnCollision
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 11
+    startLine: 26
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: >-
+    Occurs when this object is involved in a collision (intersection or overlap).
+
+    <ul><li>Action parameter: <xref href="ShapeEngine.Core.CollisionSystem.CollisionInformation" data-throw-if-not-resolved="false"></xref> containing details about the collision.</li></ul>
+  example: []
   syntax:
     content: public event Action<CollisionInformation>? OnCollision
     return:
@@ -182,10 +202,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnContactEnded
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 12
+    startLine: 34
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: >-
+    Occurs when all colliders between this object and another object have ended their contact.
+
+    <ul><li>First parameter: This <xref href="ShapeEngine.Core.CollisionSystem.CollisionObject" data-throw-if-not-resolved="false"></xref>.</li><li>Second parameter: The other <xref href="ShapeEngine.Core.CollisionSystem.CollisionObject" data-throw-if-not-resolved="false"></xref> the contact ended with.</li></ul>
+  example: []
   syntax:
     content: public event Action<CollisionObject, CollisionObject>? OnContactEnded
     return:
@@ -209,10 +234,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnColliderIntersected
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 14
+    startLine: 42
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: >-
+    Occurs when a collider of this object intersects with another collider.
+
+    <ul><li>Action parameter: <xref href="ShapeEngine.Core.CollisionSystem.CollisionObject.Collision(ShapeEngine.Core.CollisionSystem.CollisionInformation)" data-throw-if-not-resolved="false"></xref> information about the intersection.</li></ul>
+  example: []
   syntax:
     content: public event Action<Collision>? OnColliderIntersected
     return:
@@ -236,10 +266,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnColliderOverlapped
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 15
+    startLine: 49
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: >-
+    Occurs when a collider of this object overlaps with another collider.
+
+    <ul><li>Action parameter: <xref href="ShapeEngine.Core.CollisionSystem.Overlap" data-throw-if-not-resolved="false"></xref> information about the overlap.</li></ul>
+  example: []
   syntax:
     content: public event Action<Overlap>? OnColliderOverlapped
     return:
@@ -263,10 +298,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnColliderContactEnded
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 16
+    startLine: 57
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: >-
+    Occurs when contact between two colliders ends.
+
+    <ul><li>First parameter: The collider of this object.</li><li>Second parameter: The collider of the other object.</li></ul>
+  example: []
   syntax:
     content: public event Action<Collider, Collider>? OnColliderContactEnded
     return:
@@ -290,10 +330,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 19
+    startLine: 62
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.CollisionSystem.CollisionObject" data-throw-if-not-resolved="false"></xref> class with a default transform.
+  example: []
   syntax:
     content: public CollisionObject()
     content.vb: Public Sub New()
@@ -319,15 +361,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 23
+    startLine: 70
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.CollisionSystem.CollisionObject" data-throw-if-not-resolved="false"></xref> class at the specified position.
+  example: []
   syntax:
     content: public CollisionObject(Vector2 position)
     parameters:
     - id: position
       type: System.Numerics.Vector2
+      description: The initial position of the object.
     content.vb: Public Sub New(position As Vector2)
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.#ctor*
   nameWithType.vb: CollisionObject.New(Vector2)
@@ -351,15 +396,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 27
+    startLine: 78
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.CollisionSystem.CollisionObject" data-throw-if-not-resolved="false"></xref> class with the specified transform.
+  example: []
   syntax:
     content: public CollisionObject(Transform2D transform)
     parameters:
     - id: transform
       type: ShapeEngine.Core.Structs.Transform2D
+      description: The initial transform of the object.
     content.vb: Public Sub New(transform As Transform2D)
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.#ctor*
   nameWithType.vb: CollisionObject.New(Transform2D)
@@ -383,20 +431,22 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Passive
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 41
+    startLine: 93
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
   summary: >-
-    If a Passive CollisionObject checks for collisions/intersections against Non-Passive CollisionObjects,
+    Gets or sets whether this object is passive in collision calculations.
 
-    the CollisionInformation will be generated as if the Non-Passive CollisionObject checked for the collision.
+    <p>
 
-    This mostly affects CollisionPoint normal generation. Normally the normals are pointing towards the CollisionObject that is checking for the collision.
+    If <code>true</code>, when a passive object checks for collisions against non-passive objects,
 
-    If this is not wanted and the normals should point away from the CollisionObject that is checking for the collision, the Passive flag should be set to true.
+    the collision information is generated as if the non-passive object checked for the collision.
 
-    This only comes into effect for colliders that compute intersections!
+    This affects collision normal direction. Only relevant for colliders that compute intersections.
+
+    </p>
   example: []
   syntax:
     content: public bool Passive
@@ -421,10 +471,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Enabled
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 42
+    startLine: 98
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets or sets whether this object is enabled for collision detection.
+  example: []
   syntax:
     content: public bool Enabled { get; set; }
     parameters: []
@@ -450,10 +502,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ProjectShape
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 48
+    startLine: 110
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: >-
+    Gets or sets whether to project the shape for collision calculations.
+
+    Uses the current velocity of the frame to project the shape.
+
+    Useful for fast and/or small objects.
+
+    Projecting shapes can be expensive!
+  example: []
   syntax:
     content: public bool ProjectShape
     return:
@@ -477,16 +538,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FilterCollisionPoints
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 55
+    startLine: 118
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
   summary: >-
-    Determines if all generated collision points are filtered based on the CollisionPointsFilterType.
+    Gets or sets whether all generated collision points are filtered based on <xref href="ShapeEngine.Core.CollisionSystem.CollisionObject.CollisionPointsFilterType" data-throw-if-not-resolved="false"></xref>.
 
-    ComputeIntersections has to be enabled on colliders for this to work. Only colliders that have ComputeIntersections enabled will generate CollisionPoints that
+    <p>
 
-    are then filtered into a single CollisionPoint for each CollisionInformation.
+    Only colliders with <code>ComputeIntersections</code> enabled will generate collision points to be filtered.
+
+    </p>
   example: []
   syntax:
     content: public bool FilterCollisionPoints
@@ -511,10 +574,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CollisionPointsFilterType
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 56
+    startLine: 123
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets or sets the filter type used when <xref href="ShapeEngine.Core.CollisionSystem.CollisionObject.FilterCollisionPoints" data-throw-if-not-resolved="false"></xref> is enabled.
+  example: []
   syntax:
     content: public CollisionPointsFilterType CollisionPointsFilterType
     return:
@@ -538,15 +603,48 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AvancedCollisionNotification
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 66
+    startLine: 158
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
   summary: >-
-    If set to true:
-        - ColliderIntersected(), ColliderOverlapped(), and ColliderOverlapEnded() functions will be called on this CollisionObject
-        - OnColliderIntersected, OnColliderOverlapped, and OnColliderOverlapEnded events will be invoked
-        - Collision(), Overlap(), OverlapEnded() functions will be called on the colliders involved
+    Gets or sets whether advanced collision notification is enabled.
+
+    <p>
+
+    If set to <code>true</code>:
+
+    <ul><li>
+
+    <xref href="ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderIntersected(ShapeEngine.Core.CollisionSystem.Collision)" data-throw-if-not-resolved="false"></xref>,
+
+    <xref href="ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderOverlapped(ShapeEngine.Core.CollisionSystem.Overlap)" data-throw-if-not-resolved="false"></xref>,
+
+    and <xref href="ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderContactEnded(ShapeEngine.Core.CollisionSystem.Collider%2cShapeEngine.Core.CollisionSystem.Collider)" data-throw-if-not-resolved="false"></xref> virtual functions will be called.
+
+    Override them for custom logic.
+
+    </li><li>
+
+    <xref href="ShapeEngine.Core.CollisionSystem.CollisionObject.OnColliderIntersected" data-throw-if-not-resolved="false"></xref>,
+
+    <xref href="ShapeEngine.Core.CollisionSystem.CollisionObject.OnColliderOverlapped" data-throw-if-not-resolved="false"></xref>,
+
+    and <xref href="ShapeEngine.Core.CollisionSystem.CollisionObject.OnColliderContactEnded" data-throw-if-not-resolved="false"></xref> events will be invoked.
+
+    </li><li>
+
+    <xref href="ShapeEngine.Core.CollisionSystem.Collider" data-throw-if-not-resolved="false"></xref>-level
+
+    <xref href="ShapeEngine.Core.CollisionSystem.Collider.Intersected(ShapeEngine.Core.CollisionSystem.Collision)" data-throw-if-not-resolved="false"></xref>,
+
+    <xref href="ShapeEngine.Core.CollisionSystem.Collider.Overlapped(ShapeEngine.Core.CollisionSystem.Overlap)" data-throw-if-not-resolved="false"></xref>,
+
+    and <xref href="ShapeEngine.Core.CollisionSystem.Collider.ContactEnded(ShapeEngine.Core.CollisionSystem.Collider)" data-throw-if-not-resolved="false"></xref> virtual functions will be called.
+
+    </li></ul>
+
+    </p>
   example: []
   syntax:
     content: public bool AvancedCollisionNotification
@@ -571,18 +669,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Collision
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 111
+    startLine: 206
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Called when 1 or more collider of this CollisionObject is involved in a collision (intersection or overlap)
+  summary: Called when this object is involved in a collision (intersection or overlap).
+  remarks: Override for custom logic.
   example: []
   syntax:
     content: protected virtual void Collision(CollisionInformation info)
     parameters:
     - id: info
       type: ShapeEngine.Core.CollisionSystem.CollisionInformation
-      description: ''
+      description: The collision information.
     content.vb: Protected Overridable Sub Collision(info As CollisionInformation)
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.Collision*
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.ContactEnded(ShapeEngine.Core.CollisionSystem.CollisionObject)
@@ -603,11 +702,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ContactEnded
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 117
+    startLine: 215
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Called when all colliders between this CollisionObject and other have ended their contact.
+  summary: Called when all colliders between this object and another have ended their contact.
+  remarks: Override for custom logic.
   example: []
   syntax:
     content: protected virtual void ContactEnded(CollisionObject other)
@@ -635,18 +735,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ColliderIntersected
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 124
+    startLine: 224
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Only callded when AdvancedCollisionNotification is set to true and the intersection is valid.
+  summary: Called when advanced collision notification is enabled and a collider of this object intersects another collider.
+  remarks: Override for custom logic.
   example: []
   syntax:
     content: protected virtual void ColliderIntersected(Collision collision)
     parameters:
     - id: collision
       type: ShapeEngine.Core.CollisionSystem.Collision
-      description: The information about the collision
+      description: The collision information.
     content.vb: Protected Overridable Sub ColliderIntersected(collision As Collision)
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderIntersected*
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderOverlapped(ShapeEngine.Core.CollisionSystem.Overlap)
@@ -667,18 +768,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ColliderOverlapped
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 129
+    startLine: 232
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Only callded when AdvancedCollisionNotification is set to true and the intersection is not valid.
+  summary: Called when advanced collision notification is enabled and a collider of this object overlaps another collider.
+  remarks: Override for custom logic.
   example: []
   syntax:
     content: protected virtual void ColliderOverlapped(Overlap overlap)
     parameters:
     - id: overlap
       type: ShapeEngine.Core.CollisionSystem.Overlap
-      description: The information about the overlap
+      description: The overlap information.
     content.vb: Protected Overridable Sub ColliderOverlapped(overlap As Overlap)
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderOverlapped*
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderContactEnded(ShapeEngine.Core.CollisionSystem.Collider,ShapeEngine.Core.CollisionSystem.Collider)
@@ -699,21 +801,22 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ColliderContactEnded
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 135
+    startLine: 241
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Only called when AdvancedCollisionNotification is set to true. Called when a collider of this CollisionObject and a collider of another CollisionObject have ended their contact.
+  summary: Called when advanced collision notification is enabled and contact between two colliders ends.
+  remarks: Override for custom logic.
   example: []
   syntax:
     content: protected virtual void ColliderContactEnded(Collider self, Collider other)
     parameters:
     - id: self
       type: ShapeEngine.Core.CollisionSystem.Collider
-      description: The collider of this CollisionObject.
+      description: The collider of this object.
     - id: other
       type: ShapeEngine.Core.CollisionSystem.Collider
-      description: The collider of the other CollisionObject.
+      description: The collider of the other object.
     content.vb: Protected Overridable Sub ColliderContactEnded(self As Collider, other As Collider)
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderContactEnded*
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.AddCollider(ShapeEngine.Core.CollisionSystem.Collider)
@@ -734,17 +837,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddCollider
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 142
+    startLine: 248
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Adds a collider to this object.
+  example: []
   syntax:
     content: public bool AddCollider(Collider col)
     parameters:
     - id: col
       type: ShapeEngine.Core.CollisionSystem.Collider
+      description: The collider to add.
     return:
       type: System.Boolean
+      description: <code>true</code> if the collider was added; otherwise, <code>false</code>.
     content.vb: Public Function AddCollider(col As Collider) As Boolean
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.AddCollider*
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.RemoveCollider(ShapeEngine.Core.CollisionSystem.Collider)
@@ -765,17 +872,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveCollider
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 159
+    startLine: 270
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Removes a collider from this object.
+  example: []
   syntax:
     content: public bool RemoveCollider(Collider col)
     parameters:
     - id: col
       type: ShapeEngine.Core.CollisionSystem.Collider
+      description: The collider to remove.
     return:
       type: System.Boolean
+      description: <code>true</code> if the collider was removed; otherwise, <code>false</code>.
     content.vb: Public Function RemoveCollider(col As Collider) As Boolean
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.RemoveCollider*
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.OnCollisionSystemEntered(ShapeEngine.Core.CollisionSystem.CollisionHandler)
@@ -796,17 +907,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnCollisionSystemEntered
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 176
+    startLine: 288
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Is called when collision object is added to a collision handler.
+  summary: Called when this object is added to a <xref href="ShapeEngine.Core.CollisionSystem.CollisionHandler" data-throw-if-not-resolved="false"></xref>.
   example: []
   syntax:
     content: public virtual void OnCollisionSystemEntered(CollisionHandler handler)
     parameters:
     - id: handler
       type: ShapeEngine.Core.CollisionSystem.CollisionHandler
+      description: The collision handler.
     content.vb: Public Overridable Sub OnCollisionSystemEntered(handler As CollisionHandler)
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.OnCollisionSystemEntered*
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.OnCollisionSystemLeft(ShapeEngine.Core.CollisionSystem.CollisionHandler)
@@ -827,17 +939,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnCollisionSystemLeft
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 180
+    startLine: 293
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Is called when the collision object is removed from a collision handler.
+  summary: Called when this object is removed from a <xref href="ShapeEngine.Core.CollisionSystem.CollisionHandler" data-throw-if-not-resolved="false"></xref>.
   example: []
   syntax:
     content: public virtual void OnCollisionSystemLeft(CollisionHandler handler)
     parameters:
     - id: handler
       type: ShapeEngine.Core.CollisionSystem.CollisionHandler
+      description: The collision handler.
     content.vb: Public Overridable Sub OnCollisionSystemLeft(handler As CollisionHandler)
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.OnCollisionSystemLeft*
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.Colliders
@@ -858,10 +971,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Colliders
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 182
+    startLine: 298
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the set of colliders attached to this object.
+  example: []
   syntax:
     content: public HashSet<Collider> Colliders { get; }
     parameters: []
@@ -887,10 +1002,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HasColliders
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 183
+    startLine: 303
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets a value indicating whether this object has any colliders.
+  example: []
   syntax:
     content: public bool HasColliders { get; }
     parameters: []
@@ -916,27 +1033,28 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 185
+    startLine: 315
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Called every frame. Called before FixedUpdate if fixed framerate is enabled.
+  summary: Updates the object and all attached colliders.
+  remarks: Calls <xref href="ShapeEngine.Core.CollisionSystem.CollisionObject.OnColliderUpdateFinished" data-throw-if-not-resolved="false"></xref> at the end.
   example: []
   syntax:
     content: public override void Update(GameTime time, ScreenInfo game, ScreenInfo gameUi, ScreenInfo ui)
     parameters:
     - id: time
       type: ShapeEngine.Core.Structs.GameTime
-      description: ''
+      description: The current game time.
     - id: game
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: The main game screen info.
     - id: gameUi
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: The game UI screen info.
     - id: ui
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: The UI screen info.
     content.vb: Public Overrides Sub Update(time As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo)
   overridden: ShapeEngine.Core.PhysicsObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.Update*
@@ -958,15 +1076,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnColliderUpdated
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 201
+    startLine: 338
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Called after a collider has been updated.
+  remarks: Override for custom logic.
+  example: []
   syntax:
     content: protected virtual void OnColliderUpdated(Collider collider)
     parameters:
     - id: collider
       type: ShapeEngine.Core.CollisionSystem.Collider
+      description: The collider that was updated.
     content.vb: Protected Overridable Sub OnColliderUpdated(collider As Collider)
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.OnColliderUpdated*
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.OnColliderUpdateFinished
@@ -987,10 +1109,13 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnColliderUpdateFinished
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 202
+    startLine: 345
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Called after all colliders have been updated.
+  remarks: Override for custom logic.
+  example: []
   syntax:
     content: protected virtual void OnColliderUpdateFinished()
     content.vb: Protected Overridable Sub OnColliderUpdateFinished()
@@ -1013,15 +1138,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetBoundingBox
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 204
+    startLine: 351
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the axis-aligned bounding box that contains all enabled colliders of this object.
   example: []
   syntax:
     content: public override Rect GetBoundingBox()
     return:
       type: ShapeEngine.Core.Shapes.Rect
+      description: The bounding <xref href="ShapeEngine.Core.Shapes.Rect" data-throw-if-not-resolved="false"></xref>.
     content.vb: Public Overrides Function GetBoundingBox() As Rect
   overridden: ShapeEngine.Core.GameObject.GetBoundingBox
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.GetBoundingBox*
@@ -1043,17 +1170,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Overlap
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 221
+    startLine: 372
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Checks if this object overlaps with another <xref href="ShapeEngine.Core.CollisionSystem.CollisionObject" data-throw-if-not-resolved="false"></xref>.
+  example: []
   syntax:
     content: public bool Overlap(CollisionObject other)
     parameters:
     - id: other
       type: ShapeEngine.Core.CollisionSystem.CollisionObject
+      description: The other collision object.
     return:
       type: System.Boolean
+      description: <code>true</code> if there is an overlap; otherwise, <code>false</code>.
     content.vb: Public Function Overlap(other As CollisionObject) As Boolean
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.Overlap*
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.Overlap(ShapeEngine.Core.CollisionSystem.Collider)
@@ -1074,17 +1205,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Overlap
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 234
+    startLine: 390
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Checks if this object overlaps with a specific collider.
+  example: []
   syntax:
     content: public bool Overlap(Collider other)
     parameters:
     - id: other
       type: ShapeEngine.Core.CollisionSystem.Collider
+      description: The other collider.
     return:
       type: System.Boolean
+      description: <code>true</code> if there is an overlap; otherwise, <code>false</code>.
     content.vb: Public Function Overlap(other As Collider) As Boolean
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.Overlap*
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.Overlap(ShapeEngine.Core.Shapes.Segment)
@@ -1105,17 +1240,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Overlap
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 244
+    startLine: 405
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Checks if this object overlaps with a segment shape.
+  example: []
   syntax:
     content: public bool Overlap(Segment shape)
     parameters:
     - id: shape
       type: ShapeEngine.Core.Shapes.Segment
+      description: The segment shape.
     return:
       type: System.Boolean
+      description: <code>true</code> if there is an overlap; otherwise, <code>false</code>.
     content.vb: Public Function Overlap(shape As Segment) As Boolean
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.Overlap*
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.Overlap(ShapeEngine.Core.Shapes.Circle)
@@ -1136,17 +1275,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Overlap
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 254
+    startLine: 420
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Checks if this object overlaps with a circle shape.
+  example: []
   syntax:
     content: public bool Overlap(Circle shape)
     parameters:
     - id: shape
       type: ShapeEngine.Core.Shapes.Circle
+      description: The circle shape.
     return:
       type: System.Boolean
+      description: <code>true</code> if there is an overlap; otherwise, <code>false</code>.
     content.vb: Public Function Overlap(shape As Circle) As Boolean
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.Overlap*
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.Overlap(ShapeEngine.Core.Shapes.Triangle)
@@ -1167,17 +1310,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Overlap
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 264
+    startLine: 435
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Checks if this object overlaps with a triangle shape.
+  example: []
   syntax:
     content: public bool Overlap(Triangle shape)
     parameters:
     - id: shape
       type: ShapeEngine.Core.Shapes.Triangle
+      description: The triangle shape.
     return:
       type: System.Boolean
+      description: <code>true</code> if there is an overlap; otherwise, <code>false</code>.
     content.vb: Public Function Overlap(shape As Triangle) As Boolean
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.Overlap*
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.Overlap(ShapeEngine.Core.Shapes.Rect)
@@ -1198,17 +1345,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Overlap
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 274
+    startLine: 450
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Checks if this object overlaps with a rectangle shape.
+  example: []
   syntax:
     content: public bool Overlap(Rect shape)
     parameters:
     - id: shape
       type: ShapeEngine.Core.Shapes.Rect
+      description: The rectangle shape.
     return:
       type: System.Boolean
+      description: <code>true</code> if there is an overlap; otherwise, <code>false</code>.
     content.vb: Public Function Overlap(shape As Rect) As Boolean
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.Overlap*
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.Overlap(ShapeEngine.Core.Shapes.Polygon)
@@ -1229,17 +1380,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Overlap
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 284
+    startLine: 465
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Checks if this object overlaps with a polygon shape.
+  example: []
   syntax:
     content: public bool Overlap(Polygon shape)
     parameters:
     - id: shape
       type: ShapeEngine.Core.Shapes.Polygon
+      description: The polygon shape.
     return:
       type: System.Boolean
+      description: <code>true</code> if there is an overlap; otherwise, <code>false</code>.
     content.vb: Public Function Overlap(shape As Polygon) As Boolean
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.Overlap*
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.Overlap(ShapeEngine.Core.Shapes.Polyline)
@@ -1260,17 +1415,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Overlap
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 294
+    startLine: 480
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Checks if this object overlaps with a polyline shape.
+  example: []
   syntax:
     content: public bool Overlap(Polyline shape)
     parameters:
     - id: shape
       type: ShapeEngine.Core.Shapes.Polyline
+      description: The polyline shape.
     return:
       type: System.Boolean
+      description: <code>true</code> if there is an overlap; otherwise, <code>false</code>.
     content.vb: Public Function Overlap(shape As Polyline) As Boolean
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.Overlap*
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.Intersect(ShapeEngine.Core.CollisionSystem.CollisionObject)
@@ -1291,17 +1450,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Intersect
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 307
+    startLine: 498
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Returns the intersection points between this object and another <xref href="ShapeEngine.Core.CollisionSystem.CollisionObject" data-throw-if-not-resolved="false"></xref>.
+  example: []
   syntax:
     content: public CollisionPoints? Intersect(CollisionObject other)
     parameters:
     - id: other
       type: ShapeEngine.Core.CollisionSystem.CollisionObject
+      description: The other collision object.
     return:
       type: ShapeEngine.Core.CollisionSystem.CollisionPoints
+      description: A <xref href="ShapeEngine.Core.CollisionSystem.CollisionPoints" data-throw-if-not-resolved="false"></xref> collection, or null if no intersection.
     content.vb: Public Function Intersect(other As CollisionObject) As CollisionPoints
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.Intersect*
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.Intersect(ShapeEngine.Core.CollisionSystem.Collider)
@@ -1322,17 +1485,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Intersect
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 325
+    startLine: 521
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Returns the intersection points between this object and a specific collider.
+  example: []
   syntax:
     content: public CollisionPoints? Intersect(Collider other)
     parameters:
     - id: other
       type: ShapeEngine.Core.CollisionSystem.Collider
+      description: The other collider.
     return:
       type: ShapeEngine.Core.CollisionSystem.CollisionPoints
+      description: A <xref href="ShapeEngine.Core.CollisionSystem.CollisionPoints" data-throw-if-not-resolved="false"></xref> collection, or null if no intersection.
     content.vb: Public Function Intersect(other As Collider) As CollisionPoints
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.Intersect*
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.Intersect(ShapeEngine.Core.Shapes.Segment)
@@ -1353,17 +1520,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Intersect
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 339
+    startLine: 540
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Returns the intersection points between this object and a segment shape.
+  example: []
   syntax:
     content: public CollisionPoints? Intersect(Segment shape)
     parameters:
     - id: shape
       type: ShapeEngine.Core.Shapes.Segment
+      description: The segment shape.
     return:
       type: ShapeEngine.Core.CollisionSystem.CollisionPoints
+      description: A <xref href="ShapeEngine.Core.CollisionSystem.CollisionPoints" data-throw-if-not-resolved="false"></xref> collection, or null if no intersection.
     content.vb: Public Function Intersect(shape As Segment) As CollisionPoints
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.Intersect*
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.Intersect(ShapeEngine.Core.Shapes.Circle)
@@ -1384,17 +1555,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Intersect
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 353
+    startLine: 559
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Returns the intersection points between this object and a circle shape.
+  example: []
   syntax:
     content: public CollisionPoints? Intersect(Circle shape)
     parameters:
     - id: shape
       type: ShapeEngine.Core.Shapes.Circle
+      description: The circle shape.
     return:
       type: ShapeEngine.Core.CollisionSystem.CollisionPoints
+      description: A <xref href="ShapeEngine.Core.CollisionSystem.CollisionPoints" data-throw-if-not-resolved="false"></xref> collection, or null if no intersection.
     content.vb: Public Function Intersect(shape As Circle) As CollisionPoints
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.Intersect*
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.Intersect(ShapeEngine.Core.Shapes.Triangle)
@@ -1415,17 +1590,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Intersect
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 367
+    startLine: 578
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Returns the intersection points between this object and a triangle shape.
+  example: []
   syntax:
     content: public CollisionPoints? Intersect(Triangle shape)
     parameters:
     - id: shape
       type: ShapeEngine.Core.Shapes.Triangle
+      description: The triangle shape.
     return:
       type: ShapeEngine.Core.CollisionSystem.CollisionPoints
+      description: A <xref href="ShapeEngine.Core.CollisionSystem.CollisionPoints" data-throw-if-not-resolved="false"></xref> collection, or null if no intersection.
     content.vb: Public Function Intersect(shape As Triangle) As CollisionPoints
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.Intersect*
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.Intersect(ShapeEngine.Core.Shapes.Rect)
@@ -1446,17 +1625,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Intersect
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 381
+    startLine: 597
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Returns the intersection points between this object and a rectangle shape.
+  example: []
   syntax:
     content: public CollisionPoints? Intersect(Rect shape)
     parameters:
     - id: shape
       type: ShapeEngine.Core.Shapes.Rect
+      description: The rectangle shape.
     return:
       type: ShapeEngine.Core.CollisionSystem.CollisionPoints
+      description: A <xref href="ShapeEngine.Core.CollisionSystem.CollisionPoints" data-throw-if-not-resolved="false"></xref> collection, or null if no intersection.
     content.vb: Public Function Intersect(shape As Rect) As CollisionPoints
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.Intersect*
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.Intersect(ShapeEngine.Core.Shapes.Polygon)
@@ -1477,17 +1660,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Intersect
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 395
+    startLine: 616
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Returns the intersection points between this object and a polygon shape.
+  example: []
   syntax:
     content: public CollisionPoints? Intersect(Polygon shape)
     parameters:
     - id: shape
       type: ShapeEngine.Core.Shapes.Polygon
+      description: The polygon shape.
     return:
       type: ShapeEngine.Core.CollisionSystem.CollisionPoints
+      description: A <xref href="ShapeEngine.Core.CollisionSystem.CollisionPoints" data-throw-if-not-resolved="false"></xref> collection, or null if no intersection.
     content.vb: Public Function Intersect(shape As Polygon) As CollisionPoints
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.Intersect*
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.Intersect(ShapeEngine.Core.Shapes.Polyline)
@@ -1508,20 +1695,31 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Intersect
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CollisionObject.cs
-    startLine: 409
+    startLine: 635
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Returns the intersection points between this object and a polyline shape.
+  example: []
   syntax:
     content: public CollisionPoints? Intersect(Polyline shape)
     parameters:
     - id: shape
       type: ShapeEngine.Core.Shapes.Polyline
+      description: The polyline shape.
     return:
       type: ShapeEngine.Core.CollisionSystem.CollisionPoints
+      description: A <xref href="ShapeEngine.Core.CollisionSystem.CollisionPoints" data-throw-if-not-resolved="false"></xref> collection, or null if no intersection.
     content.vb: Public Function Intersect(shape As Polyline) As CollisionPoints
   overload: ShapeEngine.Core.CollisionSystem.CollisionObject.Intersect*
 references:
+- uid: ShapeEngine.Core.PhysicsObject
+  commentId: T:ShapeEngine.Core.PhysicsObject
+  parent: ShapeEngine.Core
+  href: ShapeEngine.Core.PhysicsObject.html
+  name: PhysicsObject
+  nameWithType: PhysicsObject
+  fullName: ShapeEngine.Core.PhysicsObject
 - uid: ShapeEngine.Core.CollisionSystem
   commentId: N:ShapeEngine.Core.CollisionSystem
   href: ShapeEngine.html
@@ -1570,13 +1768,6 @@ references:
   name: GameObject
   nameWithType: GameObject
   fullName: ShapeEngine.Core.GameObject
-- uid: ShapeEngine.Core.PhysicsObject
-  commentId: T:ShapeEngine.Core.PhysicsObject
-  parent: ShapeEngine.Core
-  href: ShapeEngine.Core.PhysicsObject.html
-  name: PhysicsObject
-  nameWithType: PhysicsObject
-  fullName: ShapeEngine.Core.PhysicsObject
 - uid: ShapeEngine.Core.Interfaces.IUpdateable
   commentId: T:ShapeEngine.Core.Interfaces.IUpdateable
   parent: ShapeEngine.Core.Interfaces
@@ -3267,13 +3458,6 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.single
   - name: )
-- uid: System
-  commentId: N:System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system
-  name: System
-  nameWithType: System
-  fullName: System
 - uid: ShapeEngine.Core
   commentId: N:ShapeEngine.Core
   href: ShapeEngine.html
@@ -3296,6 +3480,13 @@ references:
   - uid: ShapeEngine.Core
     name: Core
     href: ShapeEngine.Core.html
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
 - uid: ShapeEngine.Core.Interfaces
   commentId: N:ShapeEngine.Core.Interfaces
   href: ShapeEngine.html
@@ -3923,6 +4114,13 @@ references:
   - uid: ShapeEngine.StaticLib
     name: StaticLib
     href: ShapeEngine.StaticLib.html
+- uid: ShapeEngine.Core.CollisionSystem.CollisionInformation
+  commentId: T:ShapeEngine.Core.CollisionSystem.CollisionInformation
+  parent: ShapeEngine.Core.CollisionSystem
+  href: ShapeEngine.Core.CollisionSystem.CollisionInformation.html
+  name: CollisionInformation
+  nameWithType: CollisionInformation
+  fullName: ShapeEngine.Core.CollisionSystem.CollisionInformation
 - uid: System.Action{ShapeEngine.Core.CollisionSystem.CollisionInformation}
   commentId: T:System.Action{ShapeEngine.Core.CollisionSystem.CollisionInformation}
   parent: System
@@ -3984,6 +4182,13 @@ references:
   - name: " "
   - name: T
   - name: )
+- uid: ShapeEngine.Core.CollisionSystem.CollisionObject
+  commentId: T:ShapeEngine.Core.CollisionSystem.CollisionObject
+  parent: ShapeEngine.Core.CollisionSystem
+  href: ShapeEngine.Core.CollisionSystem.CollisionObject.html
+  name: CollisionObject
+  nameWithType: CollisionObject
+  fullName: ShapeEngine.Core.CollisionSystem.CollisionObject
 - uid: System.Action{ShapeEngine.Core.CollisionSystem.CollisionObject,ShapeEngine.Core.CollisionSystem.CollisionObject}
   commentId: T:System.Action{ShapeEngine.Core.CollisionSystem.CollisionObject,ShapeEngine.Core.CollisionSystem.CollisionObject}
   parent: System
@@ -4061,6 +4266,30 @@ references:
   - name: " "
   - name: T2
   - name: )
+- uid: ShapeEngine.Core.CollisionSystem.CollisionObject.Collision(ShapeEngine.Core.CollisionSystem.CollisionInformation)
+  commentId: M:ShapeEngine.Core.CollisionSystem.CollisionObject.Collision(ShapeEngine.Core.CollisionSystem.CollisionInformation)
+  href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_Collision_ShapeEngine_Core_CollisionSystem_CollisionInformation_
+  name: Collision(CollisionInformation)
+  nameWithType: CollisionObject.Collision(CollisionInformation)
+  fullName: ShapeEngine.Core.CollisionSystem.CollisionObject.Collision(ShapeEngine.Core.CollisionSystem.CollisionInformation)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.Collision(ShapeEngine.Core.CollisionSystem.CollisionInformation)
+    name: Collision
+    href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_Collision_ShapeEngine_Core_CollisionSystem_CollisionInformation_
+  - name: (
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionInformation
+    name: CollisionInformation
+    href: ShapeEngine.Core.CollisionSystem.CollisionInformation.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.Collision(ShapeEngine.Core.CollisionSystem.CollisionInformation)
+    name: Collision
+    href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_Collision_ShapeEngine_Core_CollisionSystem_CollisionInformation_
+  - name: (
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionInformation
+    name: CollisionInformation
+    href: ShapeEngine.Core.CollisionSystem.CollisionInformation.html
+  - name: )
 - uid: System.Action{ShapeEngine.Core.CollisionSystem.Collision}
   commentId: T:System.Action{ShapeEngine.Core.CollisionSystem.Collision}
   parent: System
@@ -4094,6 +4323,13 @@ references:
     name: Collision
     href: ShapeEngine.Core.CollisionSystem.Collision.html
   - name: )
+- uid: ShapeEngine.Core.CollisionSystem.Overlap
+  commentId: T:ShapeEngine.Core.CollisionSystem.Overlap
+  parent: ShapeEngine.Core.CollisionSystem
+  href: ShapeEngine.Core.CollisionSystem.Overlap.html
+  name: Overlap
+  nameWithType: Overlap
+  fullName: ShapeEngine.Core.CollisionSystem.Overlap
 - uid: System.Action{ShapeEngine.Core.CollisionSystem.Overlap}
   commentId: T:System.Action{ShapeEngine.Core.CollisionSystem.Overlap}
   parent: System
@@ -4268,6 +4504,18 @@ references:
   name: Enabled
   nameWithType: CollisionObject.Enabled
   fullName: ShapeEngine.Core.CollisionSystem.CollisionObject.Enabled
+- uid: ShapeEngine.Core.CollisionSystem.CollisionObject.CollisionPointsFilterType
+  commentId: F:ShapeEngine.Core.CollisionSystem.CollisionObject.CollisionPointsFilterType
+  href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_CollisionPointsFilterType
+  name: CollisionPointsFilterType
+  nameWithType: CollisionObject.CollisionPointsFilterType
+  fullName: ShapeEngine.Core.CollisionSystem.CollisionObject.CollisionPointsFilterType
+- uid: ShapeEngine.Core.CollisionSystem.CollisionObject.FilterCollisionPoints
+  commentId: F:ShapeEngine.Core.CollisionSystem.CollisionObject.FilterCollisionPoints
+  href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_FilterCollisionPoints
+  name: FilterCollisionPoints
+  nameWithType: CollisionObject.FilterCollisionPoints
+  fullName: ShapeEngine.Core.CollisionSystem.CollisionObject.FilterCollisionPoints
 - uid: ShapeEngine.Core.CollisionSystem.CollisionPointsFilterType
   commentId: T:ShapeEngine.Core.CollisionSystem.CollisionPointsFilterType
   parent: ShapeEngine.Core.CollisionSystem
@@ -4275,32 +4523,200 @@ references:
   name: CollisionPointsFilterType
   nameWithType: CollisionPointsFilterType
   fullName: ShapeEngine.Core.CollisionSystem.CollisionPointsFilterType
+- uid: ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderIntersected(ShapeEngine.Core.CollisionSystem.Collision)
+  commentId: M:ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderIntersected(ShapeEngine.Core.CollisionSystem.Collision)
+  href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_ColliderIntersected_ShapeEngine_Core_CollisionSystem_Collision_
+  name: ColliderIntersected(Collision)
+  nameWithType: CollisionObject.ColliderIntersected(Collision)
+  fullName: ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderIntersected(ShapeEngine.Core.CollisionSystem.Collision)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderIntersected(ShapeEngine.Core.CollisionSystem.Collision)
+    name: ColliderIntersected
+    href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_ColliderIntersected_ShapeEngine_Core_CollisionSystem_Collision_
+  - name: (
+  - uid: ShapeEngine.Core.CollisionSystem.Collision
+    name: Collision
+    href: ShapeEngine.Core.CollisionSystem.Collision.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderIntersected(ShapeEngine.Core.CollisionSystem.Collision)
+    name: ColliderIntersected
+    href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_ColliderIntersected_ShapeEngine_Core_CollisionSystem_Collision_
+  - name: (
+  - uid: ShapeEngine.Core.CollisionSystem.Collision
+    name: Collision
+    href: ShapeEngine.Core.CollisionSystem.Collision.html
+  - name: )
+- uid: ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderOverlapped(ShapeEngine.Core.CollisionSystem.Overlap)
+  commentId: M:ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderOverlapped(ShapeEngine.Core.CollisionSystem.Overlap)
+  href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_ColliderOverlapped_ShapeEngine_Core_CollisionSystem_Overlap_
+  name: ColliderOverlapped(Overlap)
+  nameWithType: CollisionObject.ColliderOverlapped(Overlap)
+  fullName: ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderOverlapped(ShapeEngine.Core.CollisionSystem.Overlap)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderOverlapped(ShapeEngine.Core.CollisionSystem.Overlap)
+    name: ColliderOverlapped
+    href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_ColliderOverlapped_ShapeEngine_Core_CollisionSystem_Overlap_
+  - name: (
+  - uid: ShapeEngine.Core.CollisionSystem.Overlap
+    name: Overlap
+    href: ShapeEngine.Core.CollisionSystem.Overlap.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderOverlapped(ShapeEngine.Core.CollisionSystem.Overlap)
+    name: ColliderOverlapped
+    href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_ColliderOverlapped_ShapeEngine_Core_CollisionSystem_Overlap_
+  - name: (
+  - uid: ShapeEngine.Core.CollisionSystem.Overlap
+    name: Overlap
+    href: ShapeEngine.Core.CollisionSystem.Overlap.html
+  - name: )
+- uid: ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderContactEnded(ShapeEngine.Core.CollisionSystem.Collider,ShapeEngine.Core.CollisionSystem.Collider)
+  commentId: M:ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderContactEnded(ShapeEngine.Core.CollisionSystem.Collider,ShapeEngine.Core.CollisionSystem.Collider)
+  href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_ColliderContactEnded_ShapeEngine_Core_CollisionSystem_Collider_ShapeEngine_Core_CollisionSystem_Collider_
+  name: ColliderContactEnded(Collider, Collider)
+  nameWithType: CollisionObject.ColliderContactEnded(Collider, Collider)
+  fullName: ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderContactEnded(ShapeEngine.Core.CollisionSystem.Collider, ShapeEngine.Core.CollisionSystem.Collider)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderContactEnded(ShapeEngine.Core.CollisionSystem.Collider,ShapeEngine.Core.CollisionSystem.Collider)
+    name: ColliderContactEnded
+    href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_ColliderContactEnded_ShapeEngine_Core_CollisionSystem_Collider_ShapeEngine_Core_CollisionSystem_Collider_
+  - name: (
+  - uid: ShapeEngine.Core.CollisionSystem.Collider
+    name: Collider
+    href: ShapeEngine.Core.CollisionSystem.Collider.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.Collider
+    name: Collider
+    href: ShapeEngine.Core.CollisionSystem.Collider.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderContactEnded(ShapeEngine.Core.CollisionSystem.Collider,ShapeEngine.Core.CollisionSystem.Collider)
+    name: ColliderContactEnded
+    href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_ColliderContactEnded_ShapeEngine_Core_CollisionSystem_Collider_ShapeEngine_Core_CollisionSystem_Collider_
+  - name: (
+  - uid: ShapeEngine.Core.CollisionSystem.Collider
+    name: Collider
+    href: ShapeEngine.Core.CollisionSystem.Collider.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.Collider
+    name: Collider
+    href: ShapeEngine.Core.CollisionSystem.Collider.html
+  - name: )
+- uid: ShapeEngine.Core.CollisionSystem.CollisionObject.OnColliderIntersected
+  commentId: E:ShapeEngine.Core.CollisionSystem.CollisionObject.OnColliderIntersected
+  href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_OnColliderIntersected
+  name: OnColliderIntersected
+  nameWithType: CollisionObject.OnColliderIntersected
+  fullName: ShapeEngine.Core.CollisionSystem.CollisionObject.OnColliderIntersected
+- uid: ShapeEngine.Core.CollisionSystem.CollisionObject.OnColliderOverlapped
+  commentId: E:ShapeEngine.Core.CollisionSystem.CollisionObject.OnColliderOverlapped
+  href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_OnColliderOverlapped
+  name: OnColliderOverlapped
+  nameWithType: CollisionObject.OnColliderOverlapped
+  fullName: ShapeEngine.Core.CollisionSystem.CollisionObject.OnColliderOverlapped
+- uid: ShapeEngine.Core.CollisionSystem.CollisionObject.OnColliderContactEnded
+  commentId: E:ShapeEngine.Core.CollisionSystem.CollisionObject.OnColliderContactEnded
+  href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_OnColliderContactEnded
+  name: OnColliderContactEnded
+  nameWithType: CollisionObject.OnColliderContactEnded
+  fullName: ShapeEngine.Core.CollisionSystem.CollisionObject.OnColliderContactEnded
+- uid: ShapeEngine.Core.CollisionSystem.Collider
+  commentId: T:ShapeEngine.Core.CollisionSystem.Collider
+  parent: ShapeEngine.Core.CollisionSystem
+  href: ShapeEngine.Core.CollisionSystem.Collider.html
+  name: Collider
+  nameWithType: Collider
+  fullName: ShapeEngine.Core.CollisionSystem.Collider
+- uid: ShapeEngine.Core.CollisionSystem.Collider.Intersected(ShapeEngine.Core.CollisionSystem.Collision)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Intersected(ShapeEngine.Core.CollisionSystem.Collision)
+  parent: ShapeEngine.Core.CollisionSystem.Collider
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersected_ShapeEngine_Core_CollisionSystem_Collision_
+  name: Intersected(Collision)
+  nameWithType: Collider.Intersected(Collision)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.Intersected(ShapeEngine.Core.CollisionSystem.Collision)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersected(ShapeEngine.Core.CollisionSystem.Collision)
+    name: Intersected
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersected_ShapeEngine_Core_CollisionSystem_Collision_
+  - name: (
+  - uid: ShapeEngine.Core.CollisionSystem.Collision
+    name: Collision
+    href: ShapeEngine.Core.CollisionSystem.Collision.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersected(ShapeEngine.Core.CollisionSystem.Collision)
+    name: Intersected
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersected_ShapeEngine_Core_CollisionSystem_Collision_
+  - name: (
+  - uid: ShapeEngine.Core.CollisionSystem.Collision
+    name: Collision
+    href: ShapeEngine.Core.CollisionSystem.Collision.html
+  - name: )
+- uid: ShapeEngine.Core.CollisionSystem.Collider.Overlapped(ShapeEngine.Core.CollisionSystem.Overlap)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Overlapped(ShapeEngine.Core.CollisionSystem.Overlap)
+  parent: ShapeEngine.Core.CollisionSystem.Collider
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Overlapped_ShapeEngine_Core_CollisionSystem_Overlap_
+  name: Overlapped(Overlap)
+  nameWithType: Collider.Overlapped(Overlap)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.Overlapped(ShapeEngine.Core.CollisionSystem.Overlap)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Overlapped(ShapeEngine.Core.CollisionSystem.Overlap)
+    name: Overlapped
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Overlapped_ShapeEngine_Core_CollisionSystem_Overlap_
+  - name: (
+  - uid: ShapeEngine.Core.CollisionSystem.Overlap
+    name: Overlap
+    href: ShapeEngine.Core.CollisionSystem.Overlap.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Overlapped(ShapeEngine.Core.CollisionSystem.Overlap)
+    name: Overlapped
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Overlapped_ShapeEngine_Core_CollisionSystem_Overlap_
+  - name: (
+  - uid: ShapeEngine.Core.CollisionSystem.Overlap
+    name: Overlap
+    href: ShapeEngine.Core.CollisionSystem.Overlap.html
+  - name: )
+- uid: ShapeEngine.Core.CollisionSystem.Collider.ContactEnded(ShapeEngine.Core.CollisionSystem.Collider)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.ContactEnded(ShapeEngine.Core.CollisionSystem.Collider)
+  parent: ShapeEngine.Core.CollisionSystem.Collider
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_ContactEnded_ShapeEngine_Core_CollisionSystem_Collider_
+  name: ContactEnded(Collider)
+  nameWithType: Collider.ContactEnded(Collider)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.ContactEnded(ShapeEngine.Core.CollisionSystem.Collider)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.ContactEnded(ShapeEngine.Core.CollisionSystem.Collider)
+    name: ContactEnded
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_ContactEnded_ShapeEngine_Core_CollisionSystem_Collider_
+  - name: (
+  - uid: ShapeEngine.Core.CollisionSystem.Collider
+    name: Collider
+    href: ShapeEngine.Core.CollisionSystem.Collider.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.ContactEnded(ShapeEngine.Core.CollisionSystem.Collider)
+    name: ContactEnded
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_ContactEnded_ShapeEngine_Core_CollisionSystem_Collider_
+  - name: (
+  - uid: ShapeEngine.Core.CollisionSystem.Collider
+    name: Collider
+    href: ShapeEngine.Core.CollisionSystem.Collider.html
+  - name: )
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.Collision*
   commentId: Overload:ShapeEngine.Core.CollisionSystem.CollisionObject.Collision
   href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_Collision_ShapeEngine_Core_CollisionSystem_CollisionInformation_
   name: Collision
   nameWithType: CollisionObject.Collision
   fullName: ShapeEngine.Core.CollisionSystem.CollisionObject.Collision
-- uid: ShapeEngine.Core.CollisionSystem.CollisionInformation
-  commentId: T:ShapeEngine.Core.CollisionSystem.CollisionInformation
-  parent: ShapeEngine.Core.CollisionSystem
-  href: ShapeEngine.Core.CollisionSystem.CollisionInformation.html
-  name: CollisionInformation
-  nameWithType: CollisionInformation
-  fullName: ShapeEngine.Core.CollisionSystem.CollisionInformation
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.ContactEnded*
   commentId: Overload:ShapeEngine.Core.CollisionSystem.CollisionObject.ContactEnded
   href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_ContactEnded_ShapeEngine_Core_CollisionSystem_CollisionObject_
   name: ContactEnded
   nameWithType: CollisionObject.ContactEnded
   fullName: ShapeEngine.Core.CollisionSystem.CollisionObject.ContactEnded
-- uid: ShapeEngine.Core.CollisionSystem.CollisionObject
-  commentId: T:ShapeEngine.Core.CollisionSystem.CollisionObject
-  parent: ShapeEngine.Core.CollisionSystem
-  href: ShapeEngine.Core.CollisionSystem.CollisionObject.html
-  name: CollisionObject
-  nameWithType: CollisionObject
-  fullName: ShapeEngine.Core.CollisionSystem.CollisionObject
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderIntersected*
   commentId: Overload:ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderIntersected
   href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_ColliderIntersected_ShapeEngine_Core_CollisionSystem_Collision_
@@ -4320,26 +4736,12 @@ references:
   name: ColliderOverlapped
   nameWithType: CollisionObject.ColliderOverlapped
   fullName: ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderOverlapped
-- uid: ShapeEngine.Core.CollisionSystem.Overlap
-  commentId: T:ShapeEngine.Core.CollisionSystem.Overlap
-  parent: ShapeEngine.Core.CollisionSystem
-  href: ShapeEngine.Core.CollisionSystem.Overlap.html
-  name: Overlap
-  nameWithType: Overlap
-  fullName: ShapeEngine.Core.CollisionSystem.Overlap
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderContactEnded*
   commentId: Overload:ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderContactEnded
   href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_ColliderContactEnded_ShapeEngine_Core_CollisionSystem_Collider_ShapeEngine_Core_CollisionSystem_Collider_
   name: ColliderContactEnded
   nameWithType: CollisionObject.ColliderContactEnded
   fullName: ShapeEngine.Core.CollisionSystem.CollisionObject.ColliderContactEnded
-- uid: ShapeEngine.Core.CollisionSystem.Collider
-  commentId: T:ShapeEngine.Core.CollisionSystem.Collider
-  parent: ShapeEngine.Core.CollisionSystem
-  href: ShapeEngine.Core.CollisionSystem.Collider.html
-  name: Collider
-  nameWithType: Collider
-  fullName: ShapeEngine.Core.CollisionSystem.Collider
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.AddCollider*
   commentId: Overload:ShapeEngine.Core.CollisionSystem.CollisionObject.AddCollider
   href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_AddCollider_ShapeEngine_Core_CollisionSystem_Collider_
@@ -4352,12 +4754,6 @@ references:
   name: RemoveCollider
   nameWithType: CollisionObject.RemoveCollider
   fullName: ShapeEngine.Core.CollisionSystem.CollisionObject.RemoveCollider
-- uid: ShapeEngine.Core.CollisionSystem.CollisionObject.OnCollisionSystemEntered*
-  commentId: Overload:ShapeEngine.Core.CollisionSystem.CollisionObject.OnCollisionSystemEntered
-  href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_OnCollisionSystemEntered_ShapeEngine_Core_CollisionSystem_CollisionHandler_
-  name: OnCollisionSystemEntered
-  nameWithType: CollisionObject.OnCollisionSystemEntered
-  fullName: ShapeEngine.Core.CollisionSystem.CollisionObject.OnCollisionSystemEntered
 - uid: ShapeEngine.Core.CollisionSystem.CollisionHandler
   commentId: T:ShapeEngine.Core.CollisionSystem.CollisionHandler
   parent: ShapeEngine.Core.CollisionSystem
@@ -4365,6 +4761,12 @@ references:
   name: CollisionHandler
   nameWithType: CollisionHandler
   fullName: ShapeEngine.Core.CollisionSystem.CollisionHandler
+- uid: ShapeEngine.Core.CollisionSystem.CollisionObject.OnCollisionSystemEntered*
+  commentId: Overload:ShapeEngine.Core.CollisionSystem.CollisionObject.OnCollisionSystemEntered
+  href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_OnCollisionSystemEntered_ShapeEngine_Core_CollisionSystem_CollisionHandler_
+  name: OnCollisionSystemEntered
+  nameWithType: CollisionObject.OnCollisionSystemEntered
+  fullName: ShapeEngine.Core.CollisionSystem.CollisionObject.OnCollisionSystemEntered
 - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.OnCollisionSystemLeft*
   commentId: Overload:ShapeEngine.Core.CollisionSystem.CollisionObject.OnCollisionSystemLeft
   href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_OnCollisionSystemLeft_ShapeEngine_Core_CollisionSystem_CollisionHandler_
@@ -4481,6 +4883,24 @@ references:
   name: HasColliders
   nameWithType: CollisionObject.HasColliders
   fullName: ShapeEngine.Core.CollisionSystem.CollisionObject.HasColliders
+- uid: ShapeEngine.Core.CollisionSystem.CollisionObject.OnColliderUpdateFinished
+  commentId: M:ShapeEngine.Core.CollisionSystem.CollisionObject.OnColliderUpdateFinished
+  href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_OnColliderUpdateFinished
+  name: OnColliderUpdateFinished()
+  nameWithType: CollisionObject.OnColliderUpdateFinished()
+  fullName: ShapeEngine.Core.CollisionSystem.CollisionObject.OnColliderUpdateFinished()
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.OnColliderUpdateFinished
+    name: OnColliderUpdateFinished
+    href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_OnColliderUpdateFinished
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionObject.OnColliderUpdateFinished
+    name: OnColliderUpdateFinished
+    href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_OnColliderUpdateFinished
+  - name: (
+  - name: )
 - uid: ShapeEngine.Core.PhysicsObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
   commentId: M:ShapeEngine.Core.PhysicsObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
   parent: ShapeEngine.Core.PhysicsObject
@@ -4568,6 +4988,13 @@ references:
   name: OnColliderUpdateFinished
   nameWithType: CollisionObject.OnColliderUpdateFinished
   fullName: ShapeEngine.Core.CollisionSystem.CollisionObject.OnColliderUpdateFinished
+- uid: ShapeEngine.Core.Shapes.Rect
+  commentId: T:ShapeEngine.Core.Shapes.Rect
+  parent: ShapeEngine.Core.Shapes
+  href: ShapeEngine.Core.Shapes.Rect.html
+  name: Rect
+  nameWithType: Rect
+  fullName: ShapeEngine.Core.Shapes.Rect
 - uid: ShapeEngine.Core.GameObject.GetBoundingBox
   commentId: M:ShapeEngine.Core.GameObject.GetBoundingBox
   parent: ShapeEngine.Core.GameObject
@@ -4593,13 +5020,6 @@ references:
   name: GetBoundingBox
   nameWithType: CollisionObject.GetBoundingBox
   fullName: ShapeEngine.Core.CollisionSystem.CollisionObject.GetBoundingBox
-- uid: ShapeEngine.Core.Shapes.Rect
-  commentId: T:ShapeEngine.Core.Shapes.Rect
-  parent: ShapeEngine.Core.Shapes
-  href: ShapeEngine.Core.Shapes.Rect.html
-  name: Rect
-  nameWithType: Rect
-  fullName: ShapeEngine.Core.Shapes.Rect
 - uid: ShapeEngine.Core.Shapes
   commentId: N:ShapeEngine.Core.Shapes
   href: ShapeEngine.html
@@ -4671,12 +5091,6 @@ references:
   name: Polyline
   nameWithType: Polyline
   fullName: ShapeEngine.Core.Shapes.Polyline
-- uid: ShapeEngine.Core.CollisionSystem.CollisionObject.Intersect*
-  commentId: Overload:ShapeEngine.Core.CollisionSystem.CollisionObject.Intersect
-  href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_Intersect_ShapeEngine_Core_CollisionSystem_CollisionObject_
-  name: Intersect
-  nameWithType: CollisionObject.Intersect
-  fullName: ShapeEngine.Core.CollisionSystem.CollisionObject.Intersect
 - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
   commentId: T:ShapeEngine.Core.CollisionSystem.CollisionPoints
   parent: ShapeEngine.Core.CollisionSystem
@@ -4684,3 +5098,9 @@ references:
   name: CollisionPoints
   nameWithType: CollisionPoints
   fullName: ShapeEngine.Core.CollisionSystem.CollisionPoints
+- uid: ShapeEngine.Core.CollisionSystem.CollisionObject.Intersect*
+  commentId: Overload:ShapeEngine.Core.CollisionSystem.CollisionObject.Intersect
+  href: ShapeEngine.Core.CollisionSystem.CollisionObject.html#ShapeEngine_Core_CollisionSystem_CollisionObject_Intersect_ShapeEngine_Core_CollisionSystem_CollisionObject_
+  name: Intersect
+  nameWithType: CollisionObject.Intersect
+  fullName: ShapeEngine.Core.CollisionSystem.CollisionObject.Intersect

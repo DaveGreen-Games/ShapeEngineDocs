@@ -26,10 +26,27 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: StatSimple
     path: ../ShapeEngine/ShapeEngine/Stats/StatSimple.cs
-    startLine: 2
+    startLine: 20
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Represents a simple stat with a base value and a current value that reflects all applied buffs.
+  remarks: Add or remove buff values to modify the total buff. <xref href="ShapeEngine.Stats.StatSimple.CurValue" data-throw-if-not-resolved="false"></xref> always reflects the base value with all buffs applied.
+  example:
+  - >-
+    <pre><code class="lang-csharp">var id = 1;
+
+    var baseValue = 10f;
+
+    var stat = new StatSimple(id, baseValue);
+
+    var flatValue = 4f;
+
+    var bonusValue = 1f; (+100%)
+
+    stat.AddBuff(new BuffValue(bonusValue, flatValue));
+
+    float current = stat.CurValue; // 28 -&gt; (10 + flatValue) * (1 + bonusValue)</code></pre>
   syntax:
     content: public class StatSimple
     content.vb: Public Class StatSimple
@@ -61,10 +78,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Id
     path: ../ShapeEngine/ShapeEngine/Stats/StatSimple.cs
-    startLine: 4
+    startLine: 25
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: The unique identifier for this stat.
+  example: []
   syntax:
     content: public uint Id { get; }
     parameters: []
@@ -90,10 +109,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BaseValue
     path: ../ShapeEngine/ShapeEngine/Stats/StatSimple.cs
-    startLine: 5
+    startLine: 29
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: The base value of the stat before buffs are applied.
+  example: []
   syntax:
     content: public float BaseValue { get; set; }
     parameters: []
@@ -119,10 +140,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CurValue
     path: ../ShapeEngine/ShapeEngine/Stats/StatSimple.cs
-    startLine: 6
+    startLine: 33
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: The current value of the stat after all buffs are applied.
+  example: []
   syntax:
     content: public float CurValue { get; }
     parameters: []
@@ -148,17 +171,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Stats/StatSimple.cs
-    startLine: 10
+    startLine: 42
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Stats.StatSimple" data-throw-if-not-resolved="false"></xref> class.
+  example: []
   syntax:
     content: public StatSimple(uint id, float baseValue)
     parameters:
     - id: id
       type: System.UInt32
+      description: The unique identifier for the stat.
     - id: baseValue
       type: System.Single
+      description: The base value of the stat.
     content.vb: Public Sub New(id As UInteger, baseValue As Single)
   overload: ShapeEngine.Stats.StatSimple.#ctor*
   nameWithType.vb: StatSimple.New(UInteger, Single)
@@ -182,15 +209,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddBuff
     path: ../ShapeEngine/ShapeEngine/Stats/StatSimple.cs
-    startLine: 16
+    startLine: 52
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Adds a buff value to this stat.
+  example: []
   syntax:
     content: public void AddBuff(BuffValue value)
     parameters:
     - id: value
       type: ShapeEngine.Stats.BuffValue
+      description: The buff value to add.
     content.vb: Public Sub AddBuff(value As BuffValue)
   overload: ShapeEngine.Stats.StatSimple.AddBuff*
 - uid: ShapeEngine.Stats.StatSimple.RemoveBuff(ShapeEngine.Stats.BuffValue)
@@ -211,15 +241,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveBuff
     path: ../ShapeEngine/ShapeEngine/Stats/StatSimple.cs
-    startLine: 21
+    startLine: 61
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Removes a buff value from this stat.
+  example: []
   syntax:
     content: public void RemoveBuff(BuffValue value)
     parameters:
     - id: value
       type: ShapeEngine.Stats.BuffValue
+      description: The buff value to remove.
     content.vb: Public Sub RemoveBuff(value As BuffValue)
   overload: ShapeEngine.Stats.StatSimple.RemoveBuff*
 - uid: ShapeEngine.Stats.StatSimple.Reset
@@ -240,15 +273,23 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Reset
     path: ../ShapeEngine/ShapeEngine/Stats/StatSimple.cs
-    startLine: 26
+    startLine: 69
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Resets the stat to its base value, removing all applied buffs.
+  example: []
   syntax:
     content: public void Reset()
     content.vb: Public Sub Reset()
   overload: ShapeEngine.Stats.StatSimple.Reset*
 references:
+- uid: ShapeEngine.Stats.StatSimple.CurValue
+  commentId: P:ShapeEngine.Stats.StatSimple.CurValue
+  href: ShapeEngine.Stats.StatSimple.html#ShapeEngine_Stats_StatSimple_CurValue
+  name: CurValue
+  nameWithType: StatSimple.CurValue
+  fullName: ShapeEngine.Stats.StatSimple.CurValue
 - uid: ShapeEngine.Stats
   commentId: N:ShapeEngine.Stats
   href: ShapeEngine.html
@@ -548,6 +589,12 @@ references:
   name: CurValue
   nameWithType: StatSimple.CurValue
   fullName: ShapeEngine.Stats.StatSimple.CurValue
+- uid: ShapeEngine.Stats.StatSimple
+  commentId: T:ShapeEngine.Stats.StatSimple
+  href: ShapeEngine.Stats.StatSimple.html
+  name: StatSimple
+  nameWithType: StatSimple
+  fullName: ShapeEngine.Stats.StatSimple
 - uid: ShapeEngine.Stats.StatSimple.#ctor*
   commentId: Overload:ShapeEngine.Stats.StatSimple.#ctor
   href: ShapeEngine.Stats.StatSimple.html#ShapeEngine_Stats_StatSimple__ctor_System_UInt32_System_Single_

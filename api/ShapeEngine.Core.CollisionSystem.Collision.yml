@@ -47,6 +47,7 @@ items:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
   summary: Contains the information of an intersection or an overlap between two colliders.
+  remarks: Provides access to the colliders, their velocities, collision points, and overlap information.
   example: []
   syntax:
     content: public class Collision
@@ -79,10 +80,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FirstContact
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/Collision.cs
-    startLine: 16
+    startLine: 17
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Indicates whether this is the first contact between the colliders.
+  example: []
   syntax:
     content: public readonly bool FirstContact
     return:
@@ -106,10 +109,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Self
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/Collision.cs
-    startLine: 17
+    startLine: 21
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the collider instance representing this object in the collision.
+  example: []
   syntax:
     content: public readonly Collider Self
     return:
@@ -133,10 +138,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Other
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/Collision.cs
-    startLine: 18
+    startLine: 25
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the collider instance representing the other object involved in the collision.
+  example: []
   syntax:
     content: public readonly Collider Other
     return:
@@ -160,10 +167,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SelfVel
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/Collision.cs
-    startLine: 19
+    startLine: 29
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: The velocity of the 'self' collider at the time of collision.
+  example: []
   syntax:
     content: public readonly Vector2 SelfVel
     return:
@@ -187,10 +196,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OtherVel
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/Collision.cs
-    startLine: 20
+    startLine: 33
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: The velocity of the 'other' collider at the time of collision.
+  example: []
   syntax:
     content: public readonly Vector2 OtherVel
     return:
@@ -214,10 +225,13 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Points
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/Collision.cs
-    startLine: 21
+    startLine: 40
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: The set of collision points, if any, for this collision.
+  remarks: If there are no collision points, this instance represents an overlap rather than an intersection.
+  example: []
   syntax:
     content: public readonly CollisionPoints? Points
     return:
@@ -241,10 +255,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Overlap
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/Collision.cs
-    startLine: 22
+    startLine: 44
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets an <xref href="ShapeEngine.Core.CollisionSystem.Collision.Overlap" data-throw-if-not-resolved="false"></xref> object representing this collision.
+  example: []
   syntax:
     content: public Overlap Overlap { get; }
     parameters: []
@@ -270,19 +286,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/Collision.cs
-    startLine: 26
+    startLine: 54
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.CollisionSystem.Collision" data-throw-if-not-resolved="false"></xref> class without collision points (Overlap).
+  example: []
   syntax:
     content: public Collision(Collider self, Collider other, bool firstContact)
     parameters:
     - id: self
       type: ShapeEngine.Core.CollisionSystem.Collider
+      description: The 'self' collider.
     - id: other
       type: ShapeEngine.Core.CollisionSystem.Collider
+      description: The 'other' collider.
     - id: firstContact
       type: System.Boolean
+      description: Whether this is the first contact.
     content.vb: Public Sub New(self As Collider, other As Collider, firstContact As Boolean)
   overload: ShapeEngine.Core.CollisionSystem.Collision.#ctor*
   nameWithType.vb: Collision.New(Collider, Collider, Boolean)
@@ -306,21 +327,32 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/Collision.cs
-    startLine: 35
+    startLine: 74
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.CollisionSystem.Collision" data-throw-if-not-resolved="false"></xref> class with collision points (Intersection).
+  example: []
   syntax:
     content: public Collision(Collider self, Collider other, bool firstContact, CollisionPoints? collisionPoints)
     parameters:
     - id: self
       type: ShapeEngine.Core.CollisionSystem.Collider
+      description: The 'self' collider.
     - id: other
       type: ShapeEngine.Core.CollisionSystem.Collider
+      description: The 'other' collider.
     - id: firstContact
       type: System.Boolean
+      description: Whether this is the first contact.
     - id: collisionPoints
       type: ShapeEngine.Core.CollisionSystem.CollisionPoints
+      description: >-
+        The set of collision points for this collision.
+
+        If null or empty (Count &lt;= 0), <xref href="ShapeEngine.Core.CollisionSystem.Collision.Points" data-throw-if-not-resolved="false"></xref> will be set to null,
+
+        indicating an overlap rather than an intersection.
     content.vb: Public Sub New(self As Collider, other As Collider, firstContact As Boolean, collisionPoints As CollisionPoints)
   overload: ShapeEngine.Core.CollisionSystem.Collision.#ctor*
   nameWithType.vb: Collision.New(Collider, Collider, Boolean, CollisionPoints)
@@ -344,14 +376,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Copy
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/Collision.cs
-    startLine: 62
+    startLine: 103
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Creates a deep copy of this collision.
+  example: []
   syntax:
     content: public Collision Copy()
     return:
       type: ShapeEngine.Core.CollisionSystem.Collision
+      description: A new <xref href="ShapeEngine.Core.CollisionSystem.Collision" data-throw-if-not-resolved="false"></xref> instance with copied data.
     content.vb: Public Function Copy() As Collision
   overload: ShapeEngine.Core.CollisionSystem.Collision.Copy*
 - uid: ShapeEngine.Core.CollisionSystem.Collision.Validate(ShapeEngine.Core.Structs.CollisionPoint@)
@@ -372,18 +407,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Validate
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/Collision.cs
-    startLine: 73
+    startLine: 112
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Validates the collision points using SelfVel as reference direction and Self.CurTransform.Position as reference point
+  summary: Validates the collision points using <xref href="ShapeEngine.Core.CollisionSystem.Collision.SelfVel" data-throw-if-not-resolved="false"></xref> as reference direction and <xref href="ShapeEngine.Core.CollisionSystem.Collision.Self" data-throw-if-not-resolved="false"></xref>.CurTransform.Position as reference point.
   example: []
   syntax:
     content: public bool Validate(out CollisionPoint combined)
     parameters:
     - id: combined
       type: ShapeEngine.Core.Structs.CollisionPoint
-      description: The average CollisionPoint of all valid collision points.
+      description: The average <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref> of all valid collision points.
     return:
       type: System.Boolean
       description: Returns true if there are valid collision points left.
@@ -410,21 +445,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Validate
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/Collision.cs
-    startLine: 89
+    startLine: 127
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Validates the collision points using SelfVel as reference direction and Self.CurTransform.Position as reference point
+  summary: Validates the collision points using <xref href="ShapeEngine.Core.CollisionSystem.Collision.SelfVel" data-throw-if-not-resolved="false"></xref> as reference direction and <xref href="ShapeEngine.Core.CollisionSystem.Collision.Self" data-throw-if-not-resolved="false"></xref>.CurTransform.Position as reference point.
   example: []
   syntax:
     content: public bool Validate(out CollisionPoint combined, out CollisionPoint closest)
     parameters:
     - id: combined
       type: ShapeEngine.Core.Structs.CollisionPoint
-      description: The average CollisionPoint of all valid collision points.
+      description: The average <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref> of all valid collision points.
     - id: closest
       type: ShapeEngine.Core.Structs.CollisionPoint
-      description: The closest CollisionPoint to the reference point (Self.CurTransform.Position)
+      description: The closest valid <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref> to the reference point.
     return:
       type: System.Boolean
       description: Returns true if there are valid collision points left.
@@ -451,18 +486,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Validate
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/Collision.cs
-    startLine: 105
+    startLine: 142
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Validates the collision points using SelfVel as reference direction and Self.CurTransform.Position as reference point
+  summary: Validates the collision points using <xref href="ShapeEngine.Core.CollisionSystem.Collision.SelfVel" data-throw-if-not-resolved="false"></xref> as reference direction and <xref href="ShapeEngine.Core.CollisionSystem.Collision.Self" data-throw-if-not-resolved="false"></xref>.CurTransform.Position as reference point.
   example: []
   syntax:
     content: public bool Validate(out CollisionPointValidationResult result)
     parameters:
     - id: result
       type: ShapeEngine.Core.Structs.CollisionPointValidationResult
-      description: A combination of useful collision points.
+      description: A collection of valid collision points.
     return:
       type: System.Boolean
       description: Returns true if there are valid collision points left.
@@ -489,17 +524,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Exists
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/Collision.cs
-    startLine: 120
+    startLine: 160
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Checks if there is any collision point that matches the conditions defined by the specified predicate.
+  example: []
   syntax:
     content: public bool Exists(Predicate<CollisionPoint> match)
     parameters:
     - id: match
       type: System.Predicate{ShapeEngine.Core.Structs.CollisionPoint}
+      description: The predicate that defines the conditions of the collision points to search for.
     return:
       type: System.Boolean
+      description: true if any collision point matches the predicate; otherwise, false.
     content.vb: Public Function Exists(match As Predicate(Of CollisionPoint)) As Boolean
   overload: ShapeEngine.Core.CollisionSystem.Collision.Exists*
   nameWithType.vb: Collision.Exists(Predicate(Of CollisionPoint))
@@ -523,17 +562,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Find
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/Collision.cs
-    startLine: 125
+    startLine: 171
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Finds the first collision point that matches the conditions defined by the specified predicate.
+  example: []
   syntax:
     content: public CollisionPoint Find(Predicate<CollisionPoint> match)
     parameters:
     - id: match
       type: System.Predicate{ShapeEngine.Core.Structs.CollisionPoint}
+      description: The predicate that defines the conditions of the collision point to search for.
     return:
       type: ShapeEngine.Core.Structs.CollisionPoint
+      description: The first collision point that matches the predicate, or a default <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref> if no match is found.
     content.vb: Public Function Find(match As Predicate(Of CollisionPoint)) As CollisionPoint
   overload: ShapeEngine.Core.CollisionSystem.Collision.Find*
   nameWithType.vb: Collision.Find(Predicate(Of CollisionPoint))
@@ -557,17 +600,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FindAll
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/Collision.cs
-    startLine: 130
+    startLine: 183
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Finds all collision points that match the conditions defined by the specified predicate.
+  example: []
   syntax:
     content: public CollisionPoints? FindAll(Predicate<CollisionPoint> match)
     parameters:
     - id: match
       type: System.Predicate{ShapeEngine.Core.Structs.CollisionPoint}
+      description: The predicate that defines the conditions of the collision points to search for.
     return:
       type: ShapeEngine.Core.CollisionSystem.CollisionPoints
+      description: >-
+        A new <xref href="ShapeEngine.Core.CollisionSystem.CollisionPoints" data-throw-if-not-resolved="false"></xref> instance containing all the collision points that match the predicate,
+
+        or null if no points match.
     content.vb: Public Function FindAll(match As Predicate(Of CollisionPoint)) As CollisionPoints
   overload: ShapeEngine.Core.CollisionSystem.Collision.FindAll*
   nameWithType.vb: Collision.FindAll(Predicate(Of CollisionPoint))
@@ -591,14 +641,20 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetCombinedCollisionPoint
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/Collision.cs
-    startLine: 137
+    startLine: 197
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Calculates the combined collision point from all valid collision points.
+  example: []
   syntax:
     content: public CollisionPoint GetCombinedCollisionPoint()
     return:
       type: ShapeEngine.Core.Structs.CollisionPoint
+      description: >-
+        The combined <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref> representing the average position and normal of all valid collision points,
+
+        or a default <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref> if there are no valid points.
     content.vb: Public Function GetCombinedCollisionPoint() As CollisionPoint
   overload: ShapeEngine.Core.CollisionSystem.Collision.GetCombinedCollisionPoint*
 - uid: ShapeEngine.Core.CollisionSystem.Collision.GetClosestCollisionPoint
@@ -619,14 +675,20 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetClosestCollisionPoint
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/Collision.cs
-    startLine: 142
+    startLine: 208
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Finds the collision point closest to the 'self' collider's position.
+  example: []
   syntax:
     content: public CollisionPoint GetClosestCollisionPoint()
     return:
       type: ShapeEngine.Core.Structs.CollisionPoint
+      description: >-
+        The closest <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref> to the 'self' collider's position,
+
+        or a default <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref> if there are no collision points.
     content.vb: Public Function GetClosestCollisionPoint() As CollisionPoint
   overload: ShapeEngine.Core.CollisionSystem.Collision.GetClosestCollisionPoint*
 - uid: ShapeEngine.Core.CollisionSystem.Collision.GetFurthestCollisionPoint
@@ -647,14 +709,20 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetFurthestCollisionPoint
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/Collision.cs
-    startLine: 147
+    startLine: 219
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Finds the collision point furthest from the 'self' collider's position.
+  example: []
   syntax:
     content: public CollisionPoint GetFurthestCollisionPoint()
     return:
       type: ShapeEngine.Core.Structs.CollisionPoint
+      description: >-
+        The furthest <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref> from the 'self' collider's position,
+
+        or a default <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref> if there are no collision points.
     content.vb: Public Function GetFurthestCollisionPoint() As CollisionPoint
   overload: ShapeEngine.Core.CollisionSystem.Collision.GetFurthestCollisionPoint*
 - uid: ShapeEngine.Core.CollisionSystem.Collision.GetClosestCollisionPoint(System.Single@)
@@ -675,17 +743,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetClosestCollisionPoint
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/Collision.cs
-    startLine: 152
+    startLine: 231
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Finds the collision point closest to the 'self' collider's position and provides the distance squared to that point.
+  example: []
   syntax:
     content: public CollisionPoint GetClosestCollisionPoint(out float closestDistanceSquared)
     parameters:
     - id: closestDistanceSquared
       type: System.Single
+      description: Outputs the distance squared to the closest collision point.
     return:
       type: ShapeEngine.Core.Structs.CollisionPoint
+      description: >-
+        The closest <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref> to the 'self' collider's position,
+
+        or a default <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref> if there are no collision points.
     content.vb: Public Function GetClosestCollisionPoint(closestDistanceSquared As Single) As CollisionPoint
   overload: ShapeEngine.Core.CollisionSystem.Collision.GetClosestCollisionPoint*
   nameWithType.vb: Collision.GetClosestCollisionPoint(Single)
@@ -709,17 +784,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetFurthestCollisionPoint
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/Collision.cs
-    startLine: 158
+    startLine: 244
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Finds the collision point furthest from the 'self' collider's position and provides the distance squared to that point.
+  example: []
   syntax:
     content: public CollisionPoint GetFurthestCollisionPoint(out float furthestDistanceSquared)
     parameters:
     - id: furthestDistanceSquared
       type: System.Single
+      description: Outputs the distance squared to the furthest collision point.
     return:
       type: ShapeEngine.Core.Structs.CollisionPoint
+      description: >-
+        The furthest <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref> from the 'self' collider's position,
+
+        or a default <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref> if there are no collision points.
     content.vb: Public Function GetFurthestCollisionPoint(furthestDistanceSquared As Single) As CollisionPoint
   overload: ShapeEngine.Core.CollisionSystem.Collision.GetFurthestCollisionPoint*
   nameWithType.vb: Collision.GetFurthestCollisionPoint(Single)
@@ -743,12 +825,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetCollisionPointFacingTowardsSelf
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/Collision.cs
-    startLine: 170
+    startLine: 258
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
   summary: >-
-    Finds the collision point with the normal facing most in the direction as the reference point.
+    Finds the collision point with the normal facing most in the direction of the <xref href="ShapeEngine.Core.CollisionSystem.Collision.Self" data-throw-if-not-resolved="false"></xref> colliders position.
 
     Each collision point normal is checked against the direction from the collision point towards the reference point.
   example: []
@@ -756,7 +838,10 @@ items:
     content: public CollisionPoint GetCollisionPointFacingTowardsSelf()
     return:
       type: ShapeEngine.Core.Structs.CollisionPoint
-      description: ''
+      description: >-
+        The <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref> facing most towards the 'self' collider's position,
+
+        or a default <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref> if there are no collision points.
     content.vb: Public Function GetCollisionPointFacingTowardsSelf() As CollisionPoint
   overload: ShapeEngine.Core.CollisionSystem.Collision.GetCollisionPointFacingTowardsSelf*
 - uid: ShapeEngine.Core.CollisionSystem.Collision.GetCollisionPointFacingTowardsSelfVel
@@ -777,17 +862,20 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetCollisionPointFacingTowardsSelfVel
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/Collision.cs
-    startLine: 180
+    startLine: 270
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Finds the collision point with the normal facing most in the direction as the reference direction.
+  summary: Finds the collision point with the normal facing most in the direction of <xref href="ShapeEngine.Core.CollisionSystem.Collision.SelfVel" data-throw-if-not-resolved="false"></xref>.
   example: []
   syntax:
     content: public CollisionPoint GetCollisionPointFacingTowardsSelfVel()
     return:
       type: ShapeEngine.Core.Structs.CollisionPoint
-      description: ''
+      description: >-
+        The <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref> facing most in the direction of <xref href="ShapeEngine.Core.CollisionSystem.Collision.SelfVel" data-throw-if-not-resolved="false"></xref>,
+
+        or a default <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref> if there are no collision points or if <xref href="ShapeEngine.Core.CollisionSystem.Collision.SelfVel" data-throw-if-not-resolved="false"></xref> is zero.
     content.vb: Public Function GetCollisionPointFacingTowardsSelfVel() As CollisionPoint
   overload: ShapeEngine.Core.CollisionSystem.Collision.GetCollisionPointFacingTowardsSelfVel*
 references:
@@ -1118,6 +1206,12 @@ references:
   name: CollisionPoints
   nameWithType: CollisionPoints
   fullName: ShapeEngine.Core.CollisionSystem.CollisionPoints
+- uid: ShapeEngine.Core.CollisionSystem.Collision.Overlap
+  commentId: P:ShapeEngine.Core.CollisionSystem.Collision.Overlap
+  href: ShapeEngine.Core.CollisionSystem.Collision.html#ShapeEngine_Core_CollisionSystem_Collision_Overlap
+  name: Overlap
+  nameWithType: Collision.Overlap
+  fullName: ShapeEngine.Core.CollisionSystem.Collision.Overlap
 - uid: ShapeEngine.Core.CollisionSystem.Collision.Overlap*
   commentId: Overload:ShapeEngine.Core.CollisionSystem.Collision.Overlap
   href: ShapeEngine.Core.CollisionSystem.Collision.html#ShapeEngine_Core_CollisionSystem_Collision_Overlap
@@ -1131,6 +1225,13 @@ references:
   name: Overlap
   nameWithType: Overlap
   fullName: ShapeEngine.Core.CollisionSystem.Overlap
+- uid: ShapeEngine.Core.CollisionSystem.Collision
+  commentId: T:ShapeEngine.Core.CollisionSystem.Collision
+  parent: ShapeEngine.Core.CollisionSystem
+  href: ShapeEngine.Core.CollisionSystem.Collision.html
+  name: Collision
+  nameWithType: Collision
+  fullName: ShapeEngine.Core.CollisionSystem.Collision
 - uid: ShapeEngine.Core.CollisionSystem.Collision.#ctor*
   commentId: Overload:ShapeEngine.Core.CollisionSystem.Collision.#ctor
   href: ShapeEngine.Core.CollisionSystem.Collision.html#ShapeEngine_Core_CollisionSystem_Collision__ctor_ShapeEngine_Core_CollisionSystem_Collider_ShapeEngine_Core_CollisionSystem_Collider_System_Boolean_
@@ -1140,25 +1241,30 @@ references:
   nameWithType.vb: Collision.New
   fullName.vb: ShapeEngine.Core.CollisionSystem.Collision.New
   name.vb: New
+- uid: ShapeEngine.Core.CollisionSystem.Collision.Points
+  commentId: F:ShapeEngine.Core.CollisionSystem.Collision.Points
+  href: ShapeEngine.Core.CollisionSystem.Collision.html#ShapeEngine_Core_CollisionSystem_Collision_Points
+  name: Points
+  nameWithType: Collision.Points
+  fullName: ShapeEngine.Core.CollisionSystem.Collision.Points
 - uid: ShapeEngine.Core.CollisionSystem.Collision.Copy*
   commentId: Overload:ShapeEngine.Core.CollisionSystem.Collision.Copy
   href: ShapeEngine.Core.CollisionSystem.Collision.html#ShapeEngine_Core_CollisionSystem_Collision_Copy
   name: Copy
   nameWithType: Collision.Copy
   fullName: ShapeEngine.Core.CollisionSystem.Collision.Copy
-- uid: ShapeEngine.Core.CollisionSystem.Collision
-  commentId: T:ShapeEngine.Core.CollisionSystem.Collision
-  parent: ShapeEngine.Core.CollisionSystem
-  href: ShapeEngine.Core.CollisionSystem.Collision.html
-  name: Collision
-  nameWithType: Collision
-  fullName: ShapeEngine.Core.CollisionSystem.Collision
-- uid: ShapeEngine.Core.CollisionSystem.Collision.Validate*
-  commentId: Overload:ShapeEngine.Core.CollisionSystem.Collision.Validate
-  href: ShapeEngine.Core.CollisionSystem.Collision.html#ShapeEngine_Core_CollisionSystem_Collision_Validate_ShapeEngine_Core_Structs_CollisionPoint__
-  name: Validate
-  nameWithType: Collision.Validate
-  fullName: ShapeEngine.Core.CollisionSystem.Collision.Validate
+- uid: ShapeEngine.Core.CollisionSystem.Collision.SelfVel
+  commentId: F:ShapeEngine.Core.CollisionSystem.Collision.SelfVel
+  href: ShapeEngine.Core.CollisionSystem.Collision.html#ShapeEngine_Core_CollisionSystem_Collision_SelfVel
+  name: SelfVel
+  nameWithType: Collision.SelfVel
+  fullName: ShapeEngine.Core.CollisionSystem.Collision.SelfVel
+- uid: ShapeEngine.Core.CollisionSystem.Collision.Self
+  commentId: F:ShapeEngine.Core.CollisionSystem.Collision.Self
+  href: ShapeEngine.Core.CollisionSystem.Collision.html#ShapeEngine_Core_CollisionSystem_Collision_Self
+  name: Self
+  nameWithType: Collision.Self
+  fullName: ShapeEngine.Core.CollisionSystem.Collision.Self
 - uid: ShapeEngine.Core.Structs.CollisionPoint
   commentId: T:ShapeEngine.Core.Structs.CollisionPoint
   parent: ShapeEngine.Core.Structs
@@ -1166,6 +1272,12 @@ references:
   name: CollisionPoint
   nameWithType: CollisionPoint
   fullName: ShapeEngine.Core.Structs.CollisionPoint
+- uid: ShapeEngine.Core.CollisionSystem.Collision.Validate*
+  commentId: Overload:ShapeEngine.Core.CollisionSystem.Collision.Validate
+  href: ShapeEngine.Core.CollisionSystem.Collision.html#ShapeEngine_Core_CollisionSystem_Collision_Validate_ShapeEngine_Core_Structs_CollisionPoint__
+  name: Validate
+  nameWithType: Collision.Validate
+  fullName: ShapeEngine.Core.CollisionSystem.Collision.Validate
 - uid: ShapeEngine.Core.Structs
   commentId: N:ShapeEngine.Core.Structs
   href: ShapeEngine.html

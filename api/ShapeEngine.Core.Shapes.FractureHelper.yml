@@ -25,10 +25,13 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FractureHelper
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/FractureHelper.cs
-    startLine: 4
+    startLine: 10
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Helper class for fracturing polygons using specified area and randomness parameters.
+  remarks: This class provides methods to fracture a polygon by cutting it with another polygon and subdividing the resulting pieces.
+  example: []
   syntax:
     content: public class FractureHelper
     content.vb: Public Class FractureHelper
@@ -60,10 +63,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MinArea
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/FractureHelper.cs
-    startLine: 6
+    startLine: 15
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: The minimum area for a fracture piece to be kept.
+  example: []
   syntax:
     content: public float MinArea { get; set; }
     parameters: []
@@ -89,10 +94,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MaxArea
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/FractureHelper.cs
-    startLine: 7
+    startLine: 20
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: The maximum area for a fracture piece to be kept.
+  example: []
   syntax:
     content: public float MaxArea { get; set; }
     parameters: []
@@ -118,10 +125,13 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: KeepChance
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/FractureHelper.cs
-    startLine: 8
+    startLine: 28
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: The probability that a generated fracture piece will be kept.
+  remarks: Value should be between <code>0</code> (never keep) and <code>1</code> (always keep).
+  example: []
   syntax:
     content: public float KeepChance { get; set; }
     parameters: []
@@ -147,10 +157,13 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: NarrowValue
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/FractureHelper.cs
-    startLine: 9
+    startLine: 36
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Controls how narrow the generated fracture pieces can be.
+  remarks: Lower values allow for narrower pieces.
+  example: []
   syntax:
     content: public float NarrowValue { get; set; }
     parameters: []
@@ -176,21 +189,27 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/FractureHelper.cs
-    startLine: 15
+    startLine: 45
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.Shapes.FractureHelper" data-throw-if-not-resolved="false"></xref> class.
+  example: []
   syntax:
     content: public FractureHelper(float minArea, float maxArea, float keepChance = 0.5, float narrowValue = 0.2)
     parameters:
     - id: minArea
       type: System.Single
+      description: The minimum area for a fracture piece to be kept.
     - id: maxArea
       type: System.Single
+      description: The maximum area for a fracture piece to be kept.
     - id: keepChance
       type: System.Single
+      description: The probability that a generated fracture piece will be kept. Default is 0.5.
     - id: narrowValue
       type: System.Single
+      description: Controls how narrow the generated fracture pieces can be. Default is 0.2.
     content.vb: Public Sub New(minArea As Single, maxArea As Single, keepChance As Single = 0.5, narrowValue As Single = 0.2)
   overload: ShapeEngine.Core.Shapes.FractureHelper.#ctor*
   nameWithType.vb: FractureHelper.New(Single, Single, Single, Single)
@@ -214,19 +233,25 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Fracture
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/FractureHelper.cs
-    startLine: 23
+    startLine: 69
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Fractures a polygon by cutting it with another polygon and subdividing the resulting pieces.
+  remarks: <ul><li>The method first computes the intersection and difference between the original shape and the cut shape.</li><li>The intersection pieces are triangulated and subdivided according to the area and randomness parameters.</li></ul>
+  example: []
   syntax:
     content: public FractureInfo Fracture(Polygon shape, Polygon cutShape)
     parameters:
     - id: shape
       type: ShapeEngine.Core.Shapes.Polygon
+      description: The original polygon to be fractured.
     - id: cutShape
       type: ShapeEngine.Core.Shapes.Polygon
+      description: The polygon used to cut the original shape.
     return:
       type: ShapeEngine.Core.Shapes.FractureInfo
+      description: A <xref href="ShapeEngine.Core.Shapes.FractureInfo" data-throw-if-not-resolved="false"></xref> object containing the new shapes, cutouts, and fracture pieces.
     content.vb: Public Function Fracture(shape As Polygon, cutShape As Polygon) As FractureInfo
   overload: ShapeEngine.Core.Shapes.FractureHelper.Fracture*
 references:
@@ -532,6 +557,12 @@ references:
   name: NarrowValue
   nameWithType: FractureHelper.NarrowValue
   fullName: ShapeEngine.Core.Shapes.FractureHelper.NarrowValue
+- uid: ShapeEngine.Core.Shapes.FractureHelper
+  commentId: T:ShapeEngine.Core.Shapes.FractureHelper
+  href: ShapeEngine.Core.Shapes.FractureHelper.html
+  name: FractureHelper
+  nameWithType: FractureHelper
+  fullName: ShapeEngine.Core.Shapes.FractureHelper
 - uid: ShapeEngine.Core.Shapes.FractureHelper.#ctor*
   commentId: Overload:ShapeEngine.Core.Shapes.FractureHelper.#ctor
   href: ShapeEngine.Core.Shapes.FractureHelper.html#ShapeEngine_Core_Shapes_FractureHelper__ctor_System_Single_System_Single_System_Single_System_Single_
@@ -541,6 +572,13 @@ references:
   nameWithType.vb: FractureHelper.New
   fullName.vb: ShapeEngine.Core.Shapes.FractureHelper.New
   name.vb: New
+- uid: ShapeEngine.Core.Shapes.FractureInfo
+  commentId: T:ShapeEngine.Core.Shapes.FractureInfo
+  parent: ShapeEngine.Core.Shapes
+  href: ShapeEngine.Core.Shapes.FractureInfo.html
+  name: FractureInfo
+  nameWithType: FractureInfo
+  fullName: ShapeEngine.Core.Shapes.FractureInfo
 - uid: ShapeEngine.Core.Shapes.FractureHelper.Fracture*
   commentId: Overload:ShapeEngine.Core.Shapes.FractureHelper.Fracture
   href: ShapeEngine.Core.Shapes.FractureHelper.html#ShapeEngine_Core_Shapes_FractureHelper_Fracture_ShapeEngine_Core_Shapes_Polygon_ShapeEngine_Core_Shapes_Polygon_
@@ -554,10 +592,3 @@ references:
   name: Polygon
   nameWithType: Polygon
   fullName: ShapeEngine.Core.Shapes.Polygon
-- uid: ShapeEngine.Core.Shapes.FractureInfo
-  commentId: T:ShapeEngine.Core.Shapes.FractureInfo
-  parent: ShapeEngine.Core.Shapes
-  href: ShapeEngine.Core.Shapes.FractureInfo.html
-  name: FractureInfo
-  nameWithType: FractureInfo
-  fullName: ShapeEngine.Core.Shapes.FractureInfo

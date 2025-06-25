@@ -28,10 +28,16 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PolyLineCollider
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/PolyLineCollider.cs
-    startLine: 5
+    startLine: 12
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Represents a polyline collider for collision detection, using a set of relative points.
+  remarks: >-
+    The polyline shape is recalculated based on the current transform.
+
+    The relative points define the shape in local space.
+  example: []
   syntax:
     content: 'public class PolyLineCollider : Collider, IShape'
     content.vb: Public Class PolyLineCollider Inherits Collider Implements IShape
@@ -159,10 +165,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RelativeShape
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/PolyLineCollider.cs
-    startLine: 7
+    startLine: 17
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: The polyline shape defined in local (relative) space.
+  example: []
   syntax:
     content: public Polyline RelativeShape
     return:
@@ -186,17 +194,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/PolyLineCollider.cs
-    startLine: 11
+    startLine: 29
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Initializes a new instance of <xref href="ShapeEngine.Core.CollisionSystem.PolyLineCollider" data-throw-if-not-resolved="false"></xref> with a set of relative points.
+  example: []
   syntax:
     content: public PolyLineCollider(Transform2D offset, Points relativePoints)
     parameters:
     - id: offset
       type: ShapeEngine.Core.Structs.Transform2D
+      description: The transform offset for the collider.
     - id: relativePoints
       type: ShapeEngine.Core.Shapes.Points
+      description: The points defining the polyline in local space.
     content.vb: Public Sub New(offset As Transform2D, relativePoints As Points)
   overload: ShapeEngine.Core.CollisionSystem.PolyLineCollider.#ctor*
   nameWithType.vb: PolyLineCollider.New(Transform2D, Points)
@@ -220,17 +232,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/PolyLineCollider.cs
-    startLine: 17
+    startLine: 39
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Initializes a new instance of <xref href="ShapeEngine.Core.CollisionSystem.PolyLineCollider" data-throw-if-not-resolved="false"></xref> with a relative polyline.
+  example: []
   syntax:
     content: public PolyLineCollider(Transform2D offset, Polyline relativePoints)
     parameters:
     - id: offset
       type: ShapeEngine.Core.Structs.Transform2D
+      description: The transform offset for the collider.
     - id: relativePoints
       type: ShapeEngine.Core.Shapes.Polyline
+      description: The polyline in local space.
     content.vb: Public Sub New(offset As Transform2D, relativePoints As Polyline)
   overload: ShapeEngine.Core.CollisionSystem.PolyLineCollider.#ctor*
   nameWithType.vb: PolyLineCollider.New(Transform2D, Polyline)
@@ -254,10 +270,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnInitialized
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/PolyLineCollider.cs
-    startLine: 24
+    startLine: 49
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Called when the collider is initialized.
   example: []
   syntax:
     content: protected override void OnInitialized()
@@ -282,10 +299,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RecalculateShape
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/PolyLineCollider.cs
-    startLine: 29
+    startLine: 56
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Recalculates the absolute polyline shape based on the current transform.
   example: []
   syntax:
     content: public override void RecalculateShape()
@@ -310,18 +328,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnShapeTransformChanged
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/PolyLineCollider.cs
-    startLine: 45
+    startLine: 75
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Called each frame after the transform was actualized from the parents
+  summary: Called when the shape's transform changes.
   example: []
   syntax:
     content: protected override void OnShapeTransformChanged(bool transformChanged)
     parameters:
     - id: transformChanged
       type: System.Boolean
-      description: ''
+      description: Indicates if the transform has changed.
     content.vb: Protected Overrides Sub OnShapeTransformChanged(transformChanged As Boolean)
   overridden: ShapeEngine.Core.Shapes.Shape.OnShapeTransformChanged(System.Boolean)
   overload: ShapeEngine.Core.CollisionSystem.PolyLineCollider.OnShapeTransformChanged*
@@ -346,15 +364,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetBoundingBox
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/PolyLineCollider.cs
-    startLine: 52
+    startLine: 84
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the bounding box of the polyline collider.
   example: []
   syntax:
     content: public override Rect GetBoundingBox()
     return:
       type: ShapeEngine.Core.Shapes.Rect
+      description: The bounding <xref href="ShapeEngine.Core.Shapes.Rect" data-throw-if-not-resolved="false"></xref>.
     content.vb: Public Overrides Function GetBoundingBox() As Rect
   overridden: ShapeEngine.Core.CollisionSystem.Collider.GetBoundingBox
   overload: ShapeEngine.Core.CollisionSystem.PolyLineCollider.GetBoundingBox*
@@ -376,15 +396,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetShapeType
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/PolyLineCollider.cs
-    startLine: 54
+    startLine: 89
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the shape type for this collider.
   example: []
   syntax:
     content: public override ShapeType GetShapeType()
     return:
       type: ShapeEngine.Core.CollisionSystem.ShapeType
+      description: <xref href="ShapeEngine.Core.CollisionSystem.ShapeType.PolyLine" data-throw-if-not-resolved="false"></xref>
     content.vb: Public Overrides Function GetShapeType() As ShapeType
   overridden: ShapeEngine.Core.Shapes.Shape.GetShapeType
   overload: ShapeEngine.Core.CollisionSystem.PolyLineCollider.GetShapeType*
@@ -406,15 +428,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetPolylineShape
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/PolyLineCollider.cs
-    startLine: 55
+    startLine: 94
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the polyline shape in world (absolute) space.
   example: []
   syntax:
     content: public override Polyline GetPolylineShape()
     return:
       type: ShapeEngine.Core.Shapes.Polyline
+      description: The <xref href="ShapeEngine.Core.Shapes.Polyline" data-throw-if-not-resolved="false"></xref> shape.
     content.vb: Public Overrides Function GetPolylineShape() As Polyline
   overridden: ShapeEngine.Core.Shapes.Shape.GetPolylineShape
   overload: ShapeEngine.Core.CollisionSystem.PolyLineCollider.GetPolylineShape*
@@ -3080,6 +3104,12 @@ references:
   name: Polyline
   nameWithType: Polyline
   fullName: ShapeEngine.Core.Shapes.Polyline
+- uid: ShapeEngine.Core.CollisionSystem.PolyLineCollider
+  commentId: T:ShapeEngine.Core.CollisionSystem.PolyLineCollider
+  href: ShapeEngine.Core.CollisionSystem.PolyLineCollider.html
+  name: PolyLineCollider
+  nameWithType: PolyLineCollider
+  fullName: ShapeEngine.Core.CollisionSystem.PolyLineCollider
 - uid: ShapeEngine.Core.CollisionSystem.PolyLineCollider.#ctor*
   commentId: Overload:ShapeEngine.Core.CollisionSystem.PolyLineCollider.#ctor
   href: ShapeEngine.Core.CollisionSystem.PolyLineCollider.html#ShapeEngine_Core_CollisionSystem_PolyLineCollider__ctor_ShapeEngine_Core_Structs_Transform2D_ShapeEngine_Core_Shapes_Points_
@@ -3231,6 +3261,13 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
+- uid: ShapeEngine.Core.Shapes.Rect
+  commentId: T:ShapeEngine.Core.Shapes.Rect
+  parent: ShapeEngine.Core.Shapes
+  href: ShapeEngine.Core.Shapes.Rect.html
+  name: Rect
+  nameWithType: Rect
+  fullName: ShapeEngine.Core.Shapes.Rect
 - uid: ShapeEngine.Core.CollisionSystem.Collider.GetBoundingBox
   commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetBoundingBox
   parent: ShapeEngine.Core.CollisionSystem.Collider
@@ -3256,13 +3293,12 @@ references:
   name: GetBoundingBox
   nameWithType: PolyLineCollider.GetBoundingBox
   fullName: ShapeEngine.Core.CollisionSystem.PolyLineCollider.GetBoundingBox
-- uid: ShapeEngine.Core.Shapes.Rect
-  commentId: T:ShapeEngine.Core.Shapes.Rect
-  parent: ShapeEngine.Core.Shapes
-  href: ShapeEngine.Core.Shapes.Rect.html
-  name: Rect
-  nameWithType: Rect
-  fullName: ShapeEngine.Core.Shapes.Rect
+- uid: ShapeEngine.Core.CollisionSystem.ShapeType.PolyLine
+  commentId: F:ShapeEngine.Core.CollisionSystem.ShapeType.PolyLine
+  href: ShapeEngine.Core.CollisionSystem.ShapeType.html#ShapeEngine_Core_CollisionSystem_ShapeType_PolyLine
+  name: PolyLine
+  nameWithType: ShapeType.PolyLine
+  fullName: ShapeEngine.Core.CollisionSystem.ShapeType.PolyLine
 - uid: ShapeEngine.Core.Shapes.Shape.GetShapeType
   commentId: M:ShapeEngine.Core.Shapes.Shape.GetShapeType
   parent: ShapeEngine.Core.Shapes.Shape

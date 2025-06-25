@@ -27,10 +27,16 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PolyLineShape
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/PolyLineShape.cs
-    startLine: 5
+    startLine: 12
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Represents a polyline shape that can be transformed and recalculated based on a relative set of points.
+  remarks: >-
+    This class is used to define a polyline (a series of connected line segments) in a transformed space.
+
+    The shape is recalculated whenever the transform changes.
+  example: []
   syntax:
     content: 'public class PolyLineShape : ShapeContainer, IShape'
     content.vb: Public Class PolyLineShape Inherits ShapeContainer Implements IShape
@@ -97,15 +103,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RelativeShape
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/PolyLineShape.cs
-    startLine: 7
+    startLine: 17
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: The polyline defined in the local (relative) coordinate space.
+  example: []
   syntax:
-    content: public Polyline RelativeShape
+    content: public readonly Polyline RelativeShape
     return:
       type: ShapeEngine.Core.Shapes.Polyline
-    content.vb: Public RelativeShape As Polyline
+    content.vb: Public ReadOnly RelativeShape As Polyline
 - uid: ShapeEngine.Core.Shapes.PolyLineShape.#ctor(ShapeEngine.Core.Structs.Transform2D,ShapeEngine.Core.Shapes.Points)
   commentId: M:ShapeEngine.Core.Shapes.PolyLineShape.#ctor(ShapeEngine.Core.Structs.Transform2D,ShapeEngine.Core.Shapes.Points)
   id: '#ctor(ShapeEngine.Core.Structs.Transform2D,ShapeEngine.Core.Shapes.Points)'
@@ -124,17 +132,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/PolyLineShape.cs
-    startLine: 11
+    startLine: 28
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.Shapes.PolyLineShape" data-throw-if-not-resolved="false"></xref> class using relative points.
+  example: []
   syntax:
     content: public PolyLineShape(Transform2D offset, Points relativePoints)
     parameters:
     - id: offset
       type: ShapeEngine.Core.Structs.Transform2D
+      description: The transform offset to apply to the shape.
     - id: relativePoints
       type: ShapeEngine.Core.Shapes.Points
+      description: The points that define the polyline in local space.
     content.vb: Public Sub New(offset As Transform2D, relativePoints As Points)
   overload: ShapeEngine.Core.Shapes.PolyLineShape.#ctor*
   nameWithType.vb: PolyLineShape.New(Transform2D, Points)
@@ -158,17 +170,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/PolyLineShape.cs
-    startLine: 18
+    startLine: 39
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.Shapes.PolyLineShape" data-throw-if-not-resolved="false"></xref> class using a relative polyline.
+  example: []
   syntax:
     content: public PolyLineShape(Transform2D offset, Polyline relativePoints)
     parameters:
     - id: offset
       type: ShapeEngine.Core.Structs.Transform2D
+      description: The transform offset to apply to the shape.
     - id: relativePoints
       type: ShapeEngine.Core.Shapes.Polyline
+      description: The polyline defined in local space.
     content.vb: Public Sub New(offset As Transform2D, relativePoints As Polyline)
   overload: ShapeEngine.Core.Shapes.PolyLineShape.#ctor*
   nameWithType.vb: PolyLineShape.New(Transform2D, Polyline)
@@ -192,10 +208,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnInitialized
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/PolyLineShape.cs
-    startLine: 26
+    startLine: 47
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Called after the shape is initialized. Override for custom logic.
   example: []
   syntax:
     content: protected override void OnInitialized()
@@ -220,10 +237,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RecalculateShape
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/PolyLineShape.cs
-    startLine: 30
+    startLine: 52
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Recalculates the shape's geometry or cached data. Override as needed.
   example: []
   syntax:
     content: public override void RecalculateShape()
@@ -248,18 +266,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnShapeTransformChanged
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/PolyLineShape.cs
-    startLine: 45
+    startLine: 68
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
-  summary: Called each frame after the transform was actualized from the parents
+  summary: Called each frame after the transform was actualized from the parents.
+  remarks: This method is called after <xref href="ShapeEngine.Core.Shapes.Shape.UpdateTransform(ShapeEngine.Core.Structs.Transform2D)" data-throw-if-not-resolved="false"></xref> is executed.
   example: []
   syntax:
     content: protected override void OnShapeTransformChanged(bool transformChanged)
     parameters:
     - id: transformChanged
       type: System.Boolean
-      description: ''
+      description: True if the transform changed since the last frame; otherwise, false.
     content.vb: Protected Overrides Sub OnShapeTransformChanged(transformChanged As Boolean)
   overridden: ShapeEngine.Core.Shapes.Shape.OnShapeTransformChanged(System.Boolean)
   overload: ShapeEngine.Core.Shapes.PolyLineShape.OnShapeTransformChanged*
@@ -284,15 +303,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetShapeType
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/PolyLineShape.cs
-    startLine: 51
+    startLine: 74
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Gets the type of the shape.
   example: []
   syntax:
     content: public override ShapeType GetShapeType()
     return:
       type: ShapeEngine.Core.CollisionSystem.ShapeType
+      description: The <xref href="ShapeEngine.Core.CollisionSystem.ShapeType" data-throw-if-not-resolved="false"></xref> of this shape.
     content.vb: Public Overrides Function GetShapeType() As ShapeType
   overridden: ShapeEngine.Core.Shapes.Shape.GetShapeType
   overload: ShapeEngine.Core.Shapes.PolyLineShape.GetShapeType*
@@ -314,15 +335,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetPolylineShape
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/PolyLineShape.cs
-    startLine: 52
+    startLine: 76
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Gets the shape as a <xref href="ShapeEngine.Core.Shapes.Polyline" data-throw-if-not-resolved="false"></xref>.
   example: []
   syntax:
     content: public override Polyline GetPolylineShape()
     return:
       type: ShapeEngine.Core.Shapes.Polyline
+      description: A <xref href="ShapeEngine.Core.Shapes.Polyline" data-throw-if-not-resolved="false"></xref> representation of the shape.
     content.vb: Public Overrides Function GetPolylineShape() As Polyline
   overridden: ShapeEngine.Core.Shapes.Shape.GetPolylineShape
   overload: ShapeEngine.Core.Shapes.PolyLineShape.GetPolylineShape*
@@ -1251,6 +1274,12 @@ references:
   name: Polyline
   nameWithType: Polyline
   fullName: ShapeEngine.Core.Shapes.Polyline
+- uid: ShapeEngine.Core.Shapes.PolyLineShape
+  commentId: T:ShapeEngine.Core.Shapes.PolyLineShape
+  href: ShapeEngine.Core.Shapes.PolyLineShape.html
+  name: PolyLineShape
+  nameWithType: PolyLineShape
+  fullName: ShapeEngine.Core.Shapes.PolyLineShape
 - uid: ShapeEngine.Core.Shapes.PolyLineShape.#ctor*
   commentId: Overload:ShapeEngine.Core.Shapes.PolyLineShape.#ctor
   href: ShapeEngine.Core.Shapes.PolyLineShape.html#ShapeEngine_Core_Shapes_PolyLineShape__ctor_ShapeEngine_Core_Structs_Transform2D_ShapeEngine_Core_Shapes_Points_
@@ -1402,6 +1431,13 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
+- uid: ShapeEngine.Core.CollisionSystem.ShapeType
+  commentId: T:ShapeEngine.Core.CollisionSystem.ShapeType
+  parent: ShapeEngine.Core.CollisionSystem
+  href: ShapeEngine.Core.CollisionSystem.ShapeType.html
+  name: ShapeType
+  nameWithType: ShapeType
+  fullName: ShapeEngine.Core.CollisionSystem.ShapeType
 - uid: ShapeEngine.Core.Shapes.Shape.GetShapeType
   commentId: M:ShapeEngine.Core.Shapes.Shape.GetShapeType
   parent: ShapeEngine.Core.Shapes.Shape
@@ -1427,13 +1463,6 @@ references:
   name: GetShapeType
   nameWithType: PolyLineShape.GetShapeType
   fullName: ShapeEngine.Core.Shapes.PolyLineShape.GetShapeType
-- uid: ShapeEngine.Core.CollisionSystem.ShapeType
-  commentId: T:ShapeEngine.Core.CollisionSystem.ShapeType
-  parent: ShapeEngine.Core.CollisionSystem
-  href: ShapeEngine.Core.CollisionSystem.ShapeType.html
-  name: ShapeType
-  nameWithType: ShapeType
-  fullName: ShapeEngine.Core.CollisionSystem.ShapeType
 - uid: ShapeEngine.Core.Shapes.Shape.GetPolylineShape
   commentId: M:ShapeEngine.Core.Shapes.Shape.GetPolylineShape
   parent: ShapeEngine.Core.Shapes.Shape

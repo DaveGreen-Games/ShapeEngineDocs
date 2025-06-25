@@ -28,11 +28,16 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GappedOutlineDrawingInfo
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GappedOutlineDrawingInfo.cs
-    startLine: 7
+    startLine: 9
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
-  summary: Used for DrawGappedOutline functions.
+  summary: >-
+    Contains information for drawing a gapped outline, such as the number of gaps,
+
+    the starting offset, and the percentage of the perimeter that is gapped.
+
+    Used for DrawGappedOutline functions.
   example: []
   syntax:
     content: public readonly struct GappedOutlineDrawingInfo
@@ -62,10 +67,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: StartOffset
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GappedOutlineDrawingInfo.cs
-    startLine: 9
+    startLine: 22
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: >-
+    Value between 0 and 1 to change where the first part is drawn (useful for animating it).
+
+    The offset value is wrapped between 0 and 1.
+  example:
+  - >-
+    For example:
+
+    <ul><li>If <code>startOffset</code> is 1.5, it wraps to 0.5.</li><li>If <code>startOffset</code> is -0.2, it wraps to 0.8.</li></ul>
   syntax:
     content: public readonly float StartOffset
     return:
@@ -89,10 +103,23 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Gaps
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GappedOutlineDrawingInfo.cs
-    startLine: 10
+    startLine: 39
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: >-
+    The number of gap segments (not drawn) in the outline.
+
+    The number of drawn segments always equals the number of gaps.
+  remarks: >-
+    The total gap length, defined by <xref href="ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.GapPerimeterPercentage" data-throw-if-not-resolved="false"></xref>, is divided equally among all <xref href="ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.Gaps" data-throw-if-not-resolved="false"></xref>.
+
+    The total drawn length, defined by <code>1 - GapPerimeterPercentage</code>, is also divided equally among all <xref href="ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.Gaps" data-throw-if-not-resolved="false"></xref>.
+  example:
+  - >-
+    For example:
+
+    <ul><li>6 gaps result in 6 drawn segments and 6 gaps. If <xref href="ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.GapPerimeterPercentage" data-throw-if-not-resolved="false"></xref> is 0.5, all segments and gaps are equal in length.</li><li>If <xref href="ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.GapPerimeterPercentage" data-throw-if-not-resolved="false"></xref> is 0.75, then 75% of the perimeter is divided into 6 gaps and 25% into 6 drawn segments.</li></ul>
   syntax:
     content: public readonly int Gaps
     return:
@@ -116,10 +143,13 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GapPerimeterPercentage
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GappedOutlineDrawingInfo.cs
-    startLine: 11
+    startLine: 51
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: The fraction of the total perimeter that should be a gap (not drawn).
+  remarks: The total drawn perimeter is divided equally among all drawn segments.
+  example: []
   syntax:
     content: public readonly float GapPerimeterPercentage
     return:
@@ -143,10 +173,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsValid
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GappedOutlineDrawingInfo.cs
-    startLine: 13
+    startLine: 56
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Indicates whether the current configuration is valid (gaps &gt; 0 and gap percentage between 0 and 1).
+  example: []
   syntax:
     content: public bool IsValid { get; }
     parameters: []
@@ -172,11 +204,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GappedOutlineDrawingInfo.cs
-    startLine: 21
+    startLine: 76
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
-  summary: ''
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.Structs.GappedOutlineDrawingInfo" data-throw-if-not-resolved="false"></xref> struct.
   example: []
   syntax:
     content: public GappedOutlineDrawingInfo(int gaps, float startOffset = 0, float gapPerimeterPercentage = 0.5)
@@ -188,10 +220,14 @@ items:
       type: System.Single
       description: >-
         Value between 0 and 1 to change where the first part is drawn (useful for animating it).
-            The offset value is wrapped between 0 and 1. 1.5 would result in 0.5. -0.2 would result in 0.8.
+            The offset value is wrapped between 0 and 1. Examples:
+            <ul><li>1.5 would result in 0.5.</li><li>-0.2 would result in 0.8</li></ul>
     - id: gapPerimeterPercentage
       type: System.Single
-      description: How much of the total perimeter should be not drawn. 1 - gapPercentage equals the total amount of perimeter drawn. If 0 normal outline is drawn, if 1 nothing is drawn.
+      description: >-
+        How much of the total perimeter should be a gap (not drawn).
+
+        <ul><li> <code>1 - gapPercentage</code> equals the total amount of perimeter drawn.</li><li>If 0 normal outline is drawn, if 1 nothing is drawn.</li></ul>
     content.vb: Public Sub New(gaps As Integer, startOffset As Single = 0, gapPerimeterPercentage As Single = 0.5)
   overload: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.#ctor*
   nameWithType.vb: GappedOutlineDrawingInfo.New(Integer, Single, Single)
@@ -215,17 +251,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MoveStartOffset
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GappedOutlineDrawingInfo.cs
-    startLine: 30
+    startLine: 88
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Returns a new <xref href="ShapeEngine.Core.Structs.GappedOutlineDrawingInfo" data-throw-if-not-resolved="false"></xref> with the start offset moved by the specified amount.
+  example: []
   syntax:
     content: public GappedOutlineDrawingInfo MoveStartOffset(float amount)
     parameters:
     - id: amount
       type: System.Single
+      description: The amount to move the start offset by.
     return:
       type: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo
+      description: A new <xref href="ShapeEngine.Core.Structs.GappedOutlineDrawingInfo" data-throw-if-not-resolved="false"></xref> with the updated start offset.
     content.vb: Public Function MoveStartOffset(amount As Single) As GappedOutlineDrawingInfo
   overload: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.MoveStartOffset*
   nameWithType.vb: GappedOutlineDrawingInfo.MoveStartOffset(Single)
@@ -249,17 +289,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ChangeStartOffset
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GappedOutlineDrawingInfo.cs
-    startLine: 31
+    startLine: 95
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Returns a new <xref href="ShapeEngine.Core.Structs.GappedOutlineDrawingInfo" data-throw-if-not-resolved="false"></xref> with the start offset set to the specified value.
+  example: []
   syntax:
     content: public GappedOutlineDrawingInfo ChangeStartOffset(float newStartOffset)
     parameters:
     - id: newStartOffset
       type: System.Single
+      description: The new start offset value.
     return:
       type: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo
+      description: A new <xref href="ShapeEngine.Core.Structs.GappedOutlineDrawingInfo" data-throw-if-not-resolved="false"></xref> with the updated start offset.
     content.vb: Public Function ChangeStartOffset(newStartOffset As Single) As GappedOutlineDrawingInfo
   overload: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.ChangeStartOffset*
   nameWithType.vb: GappedOutlineDrawingInfo.ChangeStartOffset(Single)
@@ -283,17 +327,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ChangeGaps
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GappedOutlineDrawingInfo.cs
-    startLine: 32
+    startLine: 102
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Returns a new <xref href="ShapeEngine.Core.Structs.GappedOutlineDrawingInfo" data-throw-if-not-resolved="false"></xref> with the number of gaps set to the specified value.
+  example: []
   syntax:
     content: public GappedOutlineDrawingInfo ChangeGaps(int newGaps)
     parameters:
     - id: newGaps
       type: System.Int32
+      description: The new number of gaps.
     return:
       type: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo
+      description: A new <xref href="ShapeEngine.Core.Structs.GappedOutlineDrawingInfo" data-throw-if-not-resolved="false"></xref> with the updated number of gaps.
     content.vb: Public Function ChangeGaps(newGaps As Integer) As GappedOutlineDrawingInfo
   overload: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.ChangeGaps*
   nameWithType.vb: GappedOutlineDrawingInfo.ChangeGaps(Integer)
@@ -317,17 +365,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ChangeGapPerimeterPercentage
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GappedOutlineDrawingInfo.cs
-    startLine: 33
+    startLine: 109
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Returns a new <xref href="ShapeEngine.Core.Structs.GappedOutlineDrawingInfo" data-throw-if-not-resolved="false"></xref> with the gap perimeter percentage set to the specified value.
+  example: []
   syntax:
     content: public GappedOutlineDrawingInfo ChangeGapPerimeterPercentage(float newGapPerimeterPercentage)
     parameters:
     - id: newGapPerimeterPercentage
       type: System.Single
+      description: The new gap perimeter percentage.
     return:
       type: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo
+      description: A new <xref href="ShapeEngine.Core.Structs.GappedOutlineDrawingInfo" data-throw-if-not-resolved="false"></xref> with the updated gap perimeter percentage.
     content.vb: Public Function ChangeGapPerimeterPercentage(newGapPerimeterPercentage As Single) As GappedOutlineDrawingInfo
   overload: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.ChangeGapPerimeterPercentage*
   nameWithType.vb: GappedOutlineDrawingInfo.ChangeGapPerimeterPercentage(Single)
@@ -592,6 +644,18 @@ references:
   nameWithType.vb: Single
   fullName.vb: Single
   name.vb: Single
+- uid: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.GapPerimeterPercentage
+  commentId: F:ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.GapPerimeterPercentage
+  href: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.html#ShapeEngine_Core_Structs_GappedOutlineDrawingInfo_GapPerimeterPercentage
+  name: GapPerimeterPercentage
+  nameWithType: GappedOutlineDrawingInfo.GapPerimeterPercentage
+  fullName: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.GapPerimeterPercentage
+- uid: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.Gaps
+  commentId: F:ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.Gaps
+  href: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.html#ShapeEngine_Core_Structs_GappedOutlineDrawingInfo_Gaps
+  name: Gaps
+  nameWithType: GappedOutlineDrawingInfo.Gaps
+  fullName: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.Gaps
 - uid: System.Int32
   commentId: T:System.Int32
   parent: System
@@ -620,6 +684,13 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
+- uid: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo
+  commentId: T:ShapeEngine.Core.Structs.GappedOutlineDrawingInfo
+  parent: ShapeEngine.Core.Structs
+  href: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.html
+  name: GappedOutlineDrawingInfo
+  nameWithType: GappedOutlineDrawingInfo
+  fullName: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo
 - uid: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.#ctor*
   commentId: Overload:ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.#ctor
   href: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.html#ShapeEngine_Core_Structs_GappedOutlineDrawingInfo__ctor_System_Int32_System_Single_System_Single_
@@ -635,13 +706,6 @@ references:
   name: MoveStartOffset
   nameWithType: GappedOutlineDrawingInfo.MoveStartOffset
   fullName: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.MoveStartOffset
-- uid: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo
-  commentId: T:ShapeEngine.Core.Structs.GappedOutlineDrawingInfo
-  parent: ShapeEngine.Core.Structs
-  href: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.html
-  name: GappedOutlineDrawingInfo
-  nameWithType: GappedOutlineDrawingInfo
-  fullName: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo
 - uid: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.ChangeStartOffset*
   commentId: Overload:ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.ChangeStartOffset
   href: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.html#ShapeEngine_Core_Structs_GappedOutlineDrawingInfo_ChangeStartOffset_System_Single_

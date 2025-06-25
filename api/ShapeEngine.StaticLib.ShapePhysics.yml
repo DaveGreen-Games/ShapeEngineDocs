@@ -76,10 +76,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ShapePhysics
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 6
+    startLine: 9
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
+  summary: Provides static methods for various physics calculations, including drag, attraction, repulsion, friction, and reverse attraction forces.
+  example: []
   syntax:
     content: public static class ShapePhysics
     content.vb: Public Module ShapePhysics
@@ -111,7 +113,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GReal
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 11
+    startLine: 14
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -140,7 +142,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: G
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 16
+    startLine: 19
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -172,7 +174,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateElasticCollisionCircles
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 119
+    startLine: 122
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -228,7 +230,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateElasticCollisionCirclesSelf
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 160
+    startLine: 163
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -284,7 +286,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateElasticCollision
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 194
+    startLine: 197
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -337,7 +339,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateElasticCollisionSelf
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 232
+    startLine: 235
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -391,7 +393,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyElasticCollision
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 260
+    startLine: 263
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -436,7 +438,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyElasticCollisionSelf
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 273
+    startLine: 276
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -481,19 +483,27 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyElasticCollisionCircleSelf
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 279
+    startLine: 291
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
+  summary: >-
+    Calculates and applies the new velocity to <code class="paramref">obj1</code> after an elastic collision with <code class="paramref">obj2</code>.
+
+    Assumes both objects are circles. Only <code class="paramref">obj1</code>'s velocity is updated.
+  example: []
   syntax:
     content: public static void ApplyElasticCollisionCircleSelf(this PhysicsObject obj1, PhysicsObject obj2, float r = 1)
     parameters:
     - id: obj1
       type: ShapeEngine.Core.PhysicsObject
+      description: The first physics object (velocity will be updated).
     - id: obj2
       type: ShapeEngine.Core.PhysicsObject
+      description: The second physics object.
     - id: r
       type: System.Single
+      description: The elasticity of the collision. 0 means all energy is lost after collision, 1 means full energy is retained after collision.
     content.vb: Public Shared Sub ApplyElasticCollisionCircleSelf(obj1 As PhysicsObject, obj2 As PhysicsObject, r As Single = 1)
   overload: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionCircleSelf*
   nameWithType.vb: ShapePhysics.ApplyElasticCollisionCircleSelf(PhysicsObject, PhysicsObject, Single)
@@ -517,7 +527,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateDragFactor
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 295
+    startLine: 307
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -558,21 +568,33 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateDragForce
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 304
+    startLine: 326
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
+  summary: >-
+    Calculates the drag force to apply to an object based on its velocity, drag coefficient, and delta time.
+
+    The drag force is frame rate independent and always acts opposite to the velocity.
+  remarks: >-
+    Returns a zero vector if the drag coefficient is less than or equal to 0,
+        and returns <code>-velocity</code> if the drag coefficient is greater than or equal to 1.
+  example: []
   syntax:
     content: public static Vector2 CalculateDragForce(Vector2 velocity, float dragCoefficient, float deltaTime)
     parameters:
     - id: velocity
       type: System.Numerics.Vector2
+      description: The current velocity of the object.
     - id: dragCoefficient
       type: System.Single
+      description: The drag coefficient (between 0 and 1). 0 means no drag, 1 means full stop in one frame.
     - id: deltaTime
       type: System.Single
+      description: The time step over which to apply the drag.
     return:
       type: System.Numerics.Vector2
+      description: The drag force vector to apply.
     content.vb: Public Shared Function CalculateDragForce(velocity As Vector2, dragCoefficient As Single, deltaTime As Single) As Vector2
   overload: ShapeEngine.StaticLib.ShapePhysics.CalculateDragForce*
   nameWithType.vb: ShapePhysics.CalculateDragForce(Vector2, Single, Single)
@@ -596,7 +618,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateDragForce
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 322
+    startLine: 344
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -646,7 +668,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyDragForce
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 343
+    startLine: 365
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -690,7 +712,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyDragForce
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 357
+    startLine: 379
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -734,7 +756,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyDragForce
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 374
+    startLine: 396
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -784,7 +806,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateDragForceRealistic
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 396
+    startLine: 418
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -834,7 +856,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateAttraction
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 421
+    startLine: 443
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -881,17 +903,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyAttraction
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 446
+    startLine: 474
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
+  summary: >-
+    Applies the gravitational attraction force between two <xref href="ShapeEngine.Core.PhysicsObject" data-throw-if-not-resolved="false"></xref> instances.
+
+    The force is calculated using their positions and masses, and applied to both objects.
+  example: []
   syntax:
     content: public static void ApplyAttraction(this PhysicsObject obj1, PhysicsObject obj2)
     parameters:
     - id: obj1
       type: ShapeEngine.Core.PhysicsObject
+      description: The first physics object (force will be applied).
     - id: obj2
       type: ShapeEngine.Core.PhysicsObject
+      description: The second physics object (force will be applied).
     content.vb: Public Shared Sub ApplyAttraction(obj1 As PhysicsObject, obj2 As PhysicsObject)
   overload: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction*
 - uid: ShapeEngine.StaticLib.ShapePhysics.CalculateAttraction(System.Numerics.Vector2,System.Numerics.Vector2,System.Single)
@@ -912,7 +941,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateAttraction
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 458
+    startLine: 486
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -957,19 +986,27 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyAttraction
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 480
+    startLine: 515
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
+  summary: >-
+    Applies an attraction force to the specified <code class="paramref">obj</code> towards a given <code class="paramref">attractionPoint</code>.
+
+    The force magnitude is determined by <code class="paramref">attractionForce</code> and decreases with the square of the distance.
+  example: []
   syntax:
     content: public static void ApplyAttraction(this PhysicsObject obj, Vector2 attractionPoint, float attractionForce)
     parameters:
     - id: obj
       type: ShapeEngine.Core.PhysicsObject
+      description: The physics object to apply the force to.
     - id: attractionPoint
       type: System.Numerics.Vector2
+      description: The point towards which the object is attracted.
     - id: attractionForce
       type: System.Single
+      description: The strength of the attraction force.
     content.vb: Public Shared Sub ApplyAttraction(obj As PhysicsObject, attractionPoint As Vector2, attractionForce As Single)
   overload: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction*
   nameWithType.vb: ShapePhysics.ApplyAttraction(PhysicsObject, Vector2, Single)
@@ -993,7 +1030,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateAttraction
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 496
+    startLine: 531
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -1046,21 +1083,35 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyAttraction
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 518
+    startLine: 565
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
+  summary: >-
+    Applies an attraction force to the specified <code class="paramref">obj</code> towards a given <code class="paramref">attractionPoint</code>.
+
+    The force magnitude is determined by <code class="paramref">attractionForce</code> and decreases with the square of the distance,
+
+    modulated by the direction of <code class="paramref">attractionNormal</code>.
+  example: []
   syntax:
     content: public static void ApplyAttraction(this PhysicsObject obj, Vector2 attractionPoint, float attractionForce, Vector2 attractionNormal)
     parameters:
     - id: obj
       type: ShapeEngine.Core.PhysicsObject
+      description: The physics object to apply the force to.
     - id: attractionPoint
       type: System.Numerics.Vector2
+      description: The point towards which the object is attracted.
     - id: attractionForce
       type: System.Single
+      description: The strength of the attraction force.
     - id: attractionNormal
       type: System.Numerics.Vector2
+      description: >-
+        Determines the direction from which the attraction force works.
+
+        Pointing in the same direction as <code class="paramref">attractionNormal</code> results in maximum attraction force.
     content.vb: Public Shared Sub ApplyAttraction(obj As PhysicsObject, attractionPoint As Vector2, attractionForce As Single, attractionNormal As Vector2)
   overload: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction*
   nameWithType.vb: ShapePhysics.ApplyAttraction(PhysicsObject, Vector2, Single, Vector2)
@@ -1084,7 +1135,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateAttraction
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 530
+    startLine: 577
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -1131,21 +1182,30 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyAttraction
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 552
+    startLine: 609
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
+  summary: >-
+    Applies an attraction force to the specified <code class="paramref">obj</code> towards a given <code class="paramref">attractionPoint</code>.
+
+    The force magnitude is determined by <code class="paramref">attractionForce</code> and decreases with distance raised to the power of <code class="paramref">distanceScalePower</code>.
+  example: []
   syntax:
     content: public static void ApplyAttraction(this PhysicsObject obj, Vector2 attractionPoint, float attractionForce, float distanceScalePower)
     parameters:
     - id: obj
       type: ShapeEngine.Core.PhysicsObject
+      description: The physics object to apply the force to.
     - id: attractionPoint
       type: System.Numerics.Vector2
+      description: The point towards which the object is attracted.
     - id: attractionForce
       type: System.Single
+      description: The strength of the attraction force.
     - id: distanceScalePower
       type: System.Single
+      description: The exponent for distance scaling. A value of 2 means the force decreases with the square of the distance.
     content.vb: Public Shared Sub ApplyAttraction(obj As PhysicsObject, attractionPoint As Vector2, attractionForce As Single, distanceScalePower As Single)
   overload: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction*
   nameWithType.vb: ShapePhysics.ApplyAttraction(PhysicsObject, Vector2, Single, Single)
@@ -1169,7 +1229,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyRepulsion
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 568
+    startLine: 625
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -1215,17 +1275,26 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyRepulsion
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 592
+    startLine: 656
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
+  summary: >-
+    Applies a repulsion force between two <xref href="ShapeEngine.Core.PhysicsObject" data-throw-if-not-resolved="false"></xref> instances.
+
+    The force is calculated using their positions and masses,
+
+    and applied to both objects.
+  example: []
   syntax:
     content: public static void ApplyRepulsion(PhysicsObject obj1, PhysicsObject obj2)
     parameters:
     - id: obj1
       type: ShapeEngine.Core.PhysicsObject
+      description: The first physics object (force will be applied).
     - id: obj2
       type: ShapeEngine.Core.PhysicsObject
+      description: The second physics object (force will be applied).
     content.vb: Public Shared Sub ApplyRepulsion(obj1 As PhysicsObject, obj2 As PhysicsObject)
   overload: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion*
 - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(System.Numerics.Vector2,System.Numerics.Vector2,System.Single)
@@ -1246,7 +1315,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyRepulsion
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 604
+    startLine: 668
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -1291,19 +1360,27 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyRepulsion
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 626
+    startLine: 698
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
+  summary: >-
+    Applies a repulsion force to the specified <code class="paramref">obj</code> away from a given <code class="paramref">repulsionPoint</code>.
+
+    The force magnitude is determined by <code class="paramref">repulsionForce</code> and decreases with the square of the distance.
+  example: []
   syntax:
     content: public static void ApplyRepulsion(this PhysicsObject obj, Vector2 repulsionPoint, float repulsionForce)
     parameters:
     - id: obj
       type: ShapeEngine.Core.PhysicsObject
+      description: The physics object to apply the force to.
     - id: repulsionPoint
       type: System.Numerics.Vector2
+      description: The point from which the object is repelled.
     - id: repulsionForce
       type: System.Single
+      description: The strength of the repulsion force.
     content.vb: Public Shared Sub ApplyRepulsion(obj As PhysicsObject, repulsionPoint As Vector2, repulsionForce As Single)
   overload: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion*
   nameWithType.vb: ShapePhysics.ApplyRepulsion(PhysicsObject, Vector2, Single)
@@ -1327,7 +1404,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyRepulsion
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 642
+    startLine: 714
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -1380,21 +1457,35 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyRepulsion
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 664
+    startLine: 748
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
+  summary: >-
+    Applies a repulsion force to the specified <code class="paramref">obj</code> away from a given <code class="paramref">repulsionPoint</code>,
+
+    modulated by the direction of <code class="paramref">repulsionNormal</code>.
+
+    The force magnitude is determined by <code class="paramref">repulsionForce</code> and decreases with the square of the distance.
+  example: []
   syntax:
     content: public static void ApplyRepulsion(this PhysicsObject obj, Vector2 repulsionPoint, float repulsionForce, Vector2 repulsionNormal)
     parameters:
     - id: obj
       type: ShapeEngine.Core.PhysicsObject
+      description: The physics object to apply the force to.
     - id: repulsionPoint
       type: System.Numerics.Vector2
+      description: The point from which the object is repelled.
     - id: repulsionForce
       type: System.Single
+      description: The strength of the repulsion force.
     - id: repulsionNormal
       type: System.Numerics.Vector2
+      description: >-
+        Determines the direction from which the repulsion force works.
+
+        Pointing in the same direction as <code class="paramref">repulsionNormal</code> results in maximum repulsion force.
     content.vb: Public Shared Sub ApplyRepulsion(obj As PhysicsObject, repulsionPoint As Vector2, repulsionForce As Single, repulsionNormal As Vector2)
   overload: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion*
   nameWithType.vb: ShapePhysics.ApplyRepulsion(PhysicsObject, Vector2, Single, Vector2)
@@ -1418,7 +1509,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyRepulsion
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 676
+    startLine: 760
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -1465,21 +1556,30 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyRepulsion
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 698
+    startLine: 792
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
+  summary: >-
+    Applies a repulsion force to the specified <code class="paramref">obj</code> away from a given <code class="paramref">repulsionPoint</code>.
+
+    The force magnitude is determined by <code class="paramref">repulsionForce</code> and decreases with distance raised to the power of <code class="paramref">distanceScalePower</code>.
+  example: []
   syntax:
     content: public static void ApplyRepulsion(this PhysicsObject obj, Vector2 repulsionPoint, float repulsionForce, float distanceScalePower)
     parameters:
     - id: obj
       type: ShapeEngine.Core.PhysicsObject
+      description: The physics object to apply the force to.
     - id: repulsionPoint
       type: System.Numerics.Vector2
+      description: The point from which the object is repelled.
     - id: repulsionForce
       type: System.Single
+      description: The strength of the repulsion force.
     - id: distanceScalePower
       type: System.Single
+      description: The exponent for distance scaling. A value of 2 means the force decreases with the square of the distance.
     content.vb: Public Shared Sub ApplyRepulsion(obj As PhysicsObject, repulsionPoint As Vector2, repulsionForce As Single, distanceScalePower As Single)
   overload: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion*
   nameWithType.vb: ShapePhysics.ApplyRepulsion(PhysicsObject, Vector2, Single, Single)
@@ -1503,7 +1603,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateFrictionTangent
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 716
+    startLine: 810
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -1546,7 +1646,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateFrictionForce
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 731
+    startLine: 825
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -1593,7 +1693,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateFrictionForceRealistic
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 750
+    startLine: 844
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -1640,21 +1740,32 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyFrictionForce
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 761
+    startLine: 864
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
+  summary: >-
+    Applies a friction force to the specified <code class="paramref">obj</code> based on its velocity and the given surface normal.
+
+    The friction force acts opposite to the direction of motion and is scaled by the provided <code class="paramref">frictionForce</code>.
+
+    The force is only applied if the object is moving and the tangent component of the velocity is non-zero.
+  example: []
   syntax:
     content: public static bool ApplyFrictionForce(PhysicsObject obj, Vector2 surfaceNormal, float frictionForce)
     parameters:
     - id: obj
       type: ShapeEngine.Core.PhysicsObject
+      description: The physics object to apply the friction force to.
     - id: surfaceNormal
       type: System.Numerics.Vector2
+      description: The normal vector of the surface the object is in contact with.
     - id: frictionForce
       type: System.Single
+      description: The coefficient or magnitude of the friction force to apply.
     return:
       type: System.Boolean
+      description: Returns true if a friction force was applied; otherwise, false.
     content.vb: Public Shared Function ApplyFrictionForce(obj As PhysicsObject, surfaceNormal As Vector2, frictionForce As Single) As Boolean
   overload: ShapeEngine.StaticLib.ShapePhysics.ApplyFrictionForce*
   nameWithType.vb: ShapePhysics.ApplyFrictionForce(PhysicsObject, Vector2, Single)
@@ -1678,21 +1789,32 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyFrictionForceRealistic
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 775
+    startLine: 887
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
+  summary: >-
+    Applies a realistic friction force to the specified <code class="paramref">obj</code> based on its velocity and the given <code class="paramref">surfaceNormal</code>.
+
+    The friction force acts opposite to the tangent component of the velocity and is scaled by <code class="paramref">frictionForce</code>.
+
+    The force is only applied if the tangent component of the velocity is non-zero.
+  example: []
   syntax:
     content: public static bool ApplyFrictionForceRealistic(PhysicsObject obj, Vector2 surfaceNormal, float frictionForce)
     parameters:
     - id: obj
       type: ShapeEngine.Core.PhysicsObject
+      description: The physics object to apply the friction force to.
     - id: surfaceNormal
       type: System.Numerics.Vector2
+      description: The normal vector of the surface the object is in contact with.
     - id: frictionForce
       type: System.Single
+      description: The coefficient or magnitude of the friction force to apply.
     return:
       type: System.Boolean
+      description: Returns true if a friction force was applied; otherwise, false.
     content.vb: Public Shared Function ApplyFrictionForceRealistic(obj As PhysicsObject, surfaceNormal As Vector2, frictionForce As Single) As Boolean
   overload: ShapeEngine.StaticLib.ShapePhysics.ApplyFrictionForceRealistic*
   nameWithType.vb: ShapePhysics.ApplyFrictionForceRealistic(PhysicsObject, Vector2, Single)
@@ -1716,7 +1838,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateReverseAttractionForceRealistic
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 804
+    startLine: 916
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -1770,7 +1892,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyReverseAttractionForceRealistic
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 837
+    startLine: 949
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -1810,7 +1932,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateReverseAttractionForceRealistic
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 873
+    startLine: 985
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -1864,7 +1986,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateReverseAttractionForceRealistic
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 910
+    startLine: 1022
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -1923,7 +2045,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyReverseAttractionForceRealistic
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 943
+    startLine: 1055
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -1974,7 +2096,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyReverseAttractionForceRealistic
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 981
+    startLine: 1093
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -2030,7 +2152,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateReverseAttractionForceDirectional
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 1022
+    startLine: 1134
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -2091,7 +2213,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyReverseAttractionForceDirectional
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 1057
+    startLine: 1169
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -2147,7 +2269,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateReverseAttractionForceDirectional
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 1099
+    startLine: 1211
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -2213,7 +2335,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyReverseAttractionForceDirectional
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 1136
+    startLine: 1248
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -2274,7 +2396,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateReverseAttractionForceDirectional
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 1177
+    startLine: 1289
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -2340,7 +2462,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateReverseAttractionForce
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 1214
+    startLine: 1326
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -2401,7 +2523,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateReverseAttractionForceDirectional
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 1257
+    startLine: 1369
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -2472,7 +2594,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyReverseAttractionForceDirectional
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 1296
+    startLine: 1408
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -2538,7 +2660,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateReverseAttractionForce
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 1335
+    startLine: 1447
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -2592,7 +2714,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateReverseAttractionForce
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 1362
+    startLine: 1474
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -2651,7 +2773,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyReverseAttractionForce
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 1387
+    startLine: 1499
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -2705,7 +2827,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyReverseAttractionForce
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 1415
+    startLine: 1527
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -2764,7 +2886,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CalculateReverseAttractionForce
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 1440
+    startLine: 1552
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib
@@ -2811,7 +2933,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyReverseAttractionForce
     path: ../ShapeEngine/ShapeEngine/StaticLib/ShapePhysics.cs
-    startLine: 1460
+    startLine: 1572
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib

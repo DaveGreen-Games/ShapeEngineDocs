@@ -61,11 +61,20 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SpawnArea
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 13
+    startLine: 19
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Provides a simple area for managing adding/removing, updating, and drawing of area objects. Does not provide a collision system.
+  summary: >-
+    Provides a simple area for managing <xref href="ShapeEngine.Core.GameObject" data-throw-if-not-resolved="false"></xref> instances with  adding/removing, updating, and drawing functions.
+
+    Does not provide a collision system.
+
+    <xref href="ShapeEngine.Core.CollisionSystem.CollisionHandler" data-throw-if-not-resolved="false"></xref> provides a collision system if needed.
+  remarks: >-
+    SpawnArea manages collections of <xref href="ShapeEngine.Core.GameObject" data-throw-if-not-resolved="false"></xref>s, organized by layer, and provides update, draw, and removal logic.
+
+    It supports parallax, area clearing, and event hooks for object addition/removal.
   example: []
   syntax:
     content: 'public class SpawnArea : IUpdateable, IDrawable, IBounds'
@@ -102,10 +111,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnGameObjectAdded
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 15
+    startLine: 27
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: >-
+    Occurs when a <xref href="ShapeEngine.Core.GameObject" data-throw-if-not-resolved="false"></xref> is added to the area.
+
+    <ul><li>GameObject: The object being added.</li></ul>
+  example: []
   syntax:
     content: public event Action<GameObject>? OnGameObjectAdded
     return:
@@ -129,10 +143,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnGameObjectRemoved
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 16
+    startLine: 34
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: >-
+    Occurs when a <xref href="ShapeEngine.Core.GameObject" data-throw-if-not-resolved="false"></xref> is removed from the area.
+
+    <ul><li>GameObject: The object being removed.</li></ul>
+  example: []
   syntax:
     content: public event Action<GameObject>? OnGameObjectRemoved
     return:
@@ -156,10 +175,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: NewLayerStartCapacity
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 19
+    startLine: 39
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: The initial capacity for new layers.
+  example: []
   syntax:
     content: public int NewLayerStartCapacity
     return:
@@ -183,10 +204,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Count
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 20
+    startLine: 43
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Gets the total number of game objects in the area.
+  example: []
   syntax:
     content: public int Count { get; }
     parameters: []
@@ -212,10 +235,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Bounds
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 21
+    startLine: 47
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Gets or sets the bounds of the spawn area.
   example: []
   syntax:
     content: public Rect Bounds { get; protected set; }
@@ -244,10 +268,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ParallaxePosition
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 22
+    startLine: 51
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Gets or sets the parallax position for the area.
+  example: []
   syntax:
     content: public Vector2 ParallaxePosition { get; set; }
     parameters: []
@@ -273,21 +299,27 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 33
+    startLine: 69
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.SpawnArea" data-throw-if-not-resolved="false"></xref> class with the specified position and size.
+  example: []
   syntax:
     content: public SpawnArea(float x, float y, float w, float h)
     parameters:
     - id: x
       type: System.Single
+      description: The x-coordinate of the spawn area's position.
     - id: y
       type: System.Single
+      description: The y-coordinate of the spawn area's position.
     - id: w
       type: System.Single
+      description: The width of the spawn area.
     - id: h
       type: System.Single
+      description: The height of the spawn area.
     content.vb: Public Sub New(x As Single, y As Single, w As Single, h As Single)
   overload: ShapeEngine.Core.SpawnArea.#ctor*
   nameWithType.vb: SpawnArea.New(Single, Single, Single, Single)
@@ -311,15 +343,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 37
+    startLine: 77
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.SpawnArea" data-throw-if-not-resolved="false"></xref> class with the specified bounds.
+  example: []
   syntax:
     content: public SpawnArea(Rect bounds)
     parameters:
     - id: bounds
       type: ShapeEngine.Core.Shapes.Rect
+      description: The bounds of the spawn area.
     content.vb: Public Sub New(bounds As Rect)
   overload: ShapeEngine.Core.SpawnArea.#ctor*
   nameWithType.vb: SpawnArea.New(Rect)
@@ -343,16 +378,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ResizeBounds
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 43
+    startLine: 86
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Resizes the bounds of the spawn area.
   example: []
   syntax:
     content: public virtual void ResizeBounds(Rect newBounds)
     parameters:
     - id: newBounds
       type: ShapeEngine.Core.Shapes.Rect
+      description: The new bounds for the spawn area.
     content.vb: Public Overridable Sub ResizeBounds(newBounds As Rect)
   overload: ShapeEngine.Core.SpawnArea.ResizeBounds*
   implements:
@@ -375,17 +412,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HasLayer
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 47
+    startLine: 95
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Determines whether the specified layer exists in the spawn area.
+  example: []
   syntax:
     content: public bool HasLayer(uint layer)
     parameters:
     - id: layer
       type: System.UInt32
+      description: The layer to check.
     return:
       type: System.Boolean
+      description: <code>true</code> if the layer exists; otherwise, <code>false</code>.
     content.vb: Public Function HasLayer(layer As UInteger) As Boolean
   overload: ShapeEngine.Core.SpawnArea.HasLayer*
   nameWithType.vb: SpawnArea.HasLayer(UInteger)
@@ -409,19 +450,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 49
+    startLine: 103
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Retrieves a list of game objects in the specified layer that match the given criteria.
+  example: []
   syntax:
     content: public List<GameObject>? GetGameObjects(uint layer, Predicate<GameObject> match)
     parameters:
     - id: layer
       type: System.UInt32
+      description: The layer to search.
     - id: match
       type: System.Predicate{ShapeEngine.Core.GameObject}
+      description: The criteria that game objects must match.
     return:
       type: System.Collections.Generic.List{ShapeEngine.Core.GameObject}
+      description: A list of matching game objects, or <code>null</code> if none found.
     content.vb: Public Function GetGameObjects(layer As UInteger, match As Predicate(Of GameObject)) As List(Of GameObject)
   overload: ShapeEngine.Core.SpawnArea.GetGameObjects*
   nameWithType.vb: SpawnArea.GetGameObjects(UInteger, Predicate(Of GameObject))
@@ -445,19 +491,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 54
+    startLine: 114
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Fills the provided list with game objects in the specified layer that match the given criteria.
+  example: []
   syntax:
     content: public void GetGameObjects(uint layer, Predicate<GameObject> match, ref List<GameObject> result)
     parameters:
     - id: layer
       type: System.UInt32
+      description: The layer to search.
     - id: match
       type: System.Predicate{ShapeEngine.Core.GameObject}
+      description: The criteria that game objects must match.
     - id: result
       type: System.Collections.Generic.List{ShapeEngine.Core.GameObject}
+      description: The list to fill with matching game objects.
     content.vb: Public Sub GetGameObjects(layer As UInteger, match As Predicate(Of GameObject), result As List(Of GameObject))
   overload: ShapeEngine.Core.SpawnArea.GetGameObjects*
   nameWithType.vb: SpawnArea.GetGameObjects(UInteger, Predicate(Of GameObject), List(Of GameObject))
@@ -481,17 +532,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 65
+    startLine: 130
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Retrieves a list of game objects in the spawn area that match the given criteria, across all layers specified by the layer mask.
+  example: []
   syntax:
     content: public void GetGameObjects(BitFlag layerMask, ref List<GameObject> result)
     parameters:
     - id: layerMask
       type: ShapeEngine.Core.Structs.BitFlag
+      description: The layer mask specifying which layers to include in the search.
     - id: result
       type: System.Collections.Generic.List{ShapeEngine.Core.GameObject}
+      description: The list to fill with matching game objects.
     content.vb: Public Sub GetGameObjects(layerMask As BitFlag, result As List(Of GameObject))
   overload: ShapeEngine.Core.SpawnArea.GetGameObjects*
   nameWithType.vb: SpawnArea.GetGameObjects(BitFlag, List(Of GameObject))
@@ -515,19 +570,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 80
+    startLine: 151
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Retrieves a list of game objects in the specified layers that match the given criteria.
+  example: []
   syntax:
     content: public void GetGameObjects(BitFlag layerMask, Predicate<GameObject> match, ref List<GameObject> result)
     parameters:
     - id: layerMask
       type: ShapeEngine.Core.Structs.BitFlag
+      description: The layer mask specifying which layers to include in the search.
     - id: match
       type: System.Predicate{ShapeEngine.Core.GameObject}
+      description: The criteria that game objects must match.
     - id: result
       type: System.Collections.Generic.List{ShapeEngine.Core.GameObject}
+      description: The list to fill with matching game objects.
     content.vb: Public Sub GetGameObjects(layerMask As BitFlag, match As Predicate(Of GameObject), result As List(Of GameObject))
   overload: ShapeEngine.Core.SpawnArea.GetGameObjects*
   nameWithType.vb: SpawnArea.GetGameObjects(BitFlag, Predicate(Of GameObject), List(Of GameObject))
@@ -551,14 +611,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetAllGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 97
+    startLine: 172
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Retrieves all game objects in the spawn area.
+  example: []
   syntax:
     content: public List<GameObject>? GetAllGameObjects()
     return:
       type: System.Collections.Generic.List{ShapeEngine.Core.GameObject}
+      description: A list of all game objects in the spawn area, or <code>null</code> if there are none.
     content.vb: Public Function GetAllGameObjects() As List(Of GameObject)
   overload: ShapeEngine.Core.SpawnArea.GetAllGameObjects*
 - uid: ShapeEngine.Core.SpawnArea.GetAllGameObjects(System.Collections.Generic.List{ShapeEngine.Core.GameObject}@)
@@ -579,15 +642,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetAllGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 107
+    startLine: 186
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Fills the provided list with all game objects in the spawn area.
+  example: []
   syntax:
     content: public void GetAllGameObjects(ref List<GameObject> result)
     parameters:
     - id: result
       type: System.Collections.Generic.List{ShapeEngine.Core.GameObject}
+      description: The list to fill with all game objects.
     content.vb: Public Sub GetAllGameObjects(result As List(Of GameObject))
   overload: ShapeEngine.Core.SpawnArea.GetAllGameObjects*
   nameWithType.vb: SpawnArea.GetAllGameObjects(List(Of GameObject))
@@ -611,17 +677,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetAllGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 117
+    startLine: 201
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Retrieves a list of all game objects in the spawn area that match the given criteria.
+  example: []
   syntax:
     content: public void GetAllGameObjects(Predicate<GameObject> match, ref List<GameObject> result)
     parameters:
     - id: match
       type: System.Predicate{ShapeEngine.Core.GameObject}
+      description: The criteria that game objects must match.
     - id: result
       type: System.Collections.Generic.List{ShapeEngine.Core.GameObject}
+      description: The list to fill with matching game objects.
     content.vb: Public Sub GetAllGameObjects(match As Predicate(Of GameObject), result As List(Of GameObject))
   overload: ShapeEngine.Core.SpawnArea.GetAllGameObjects*
   nameWithType.vb: SpawnArea.GetAllGameObjects(Predicate(Of GameObject), List(Of GameObject))
@@ -645,17 +715,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetAllGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 127
+    startLine: 216
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Retrieves a list of all game objects in the spawn area that match the given criteria.
+  example: []
   syntax:
     content: public List<GameObject>? GetAllGameObjects(Predicate<GameObject> match)
     parameters:
     - id: match
       type: System.Predicate{ShapeEngine.Core.GameObject}
+      description: The criteria that game objects must match.
     return:
       type: System.Collections.Generic.List{ShapeEngine.Core.GameObject}
+      description: A list of matching game objects, or <code>null</code> if none found.
     content.vb: Public Function GetAllGameObjects(match As Predicate(Of GameObject)) As List(Of GameObject)
   overload: ShapeEngine.Core.SpawnArea.GetAllGameObjects*
   nameWithType.vb: SpawnArea.GetAllGameObjects(Predicate(Of GameObject))
@@ -679,15 +753,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddGameObject
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 139
+    startLine: 231
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Adds a game object to the spawn area.
+  example: []
   syntax:
     content: public void AddGameObject(GameObject gameObject)
     parameters:
     - id: gameObject
       type: ShapeEngine.Core.GameObject
+      description: The game object to add.
     content.vb: Public Sub AddGameObject(gameObject As GameObject)
   overload: ShapeEngine.Core.SpawnArea.AddGameObject*
 - uid: ShapeEngine.Core.SpawnArea.AddGameObjects(ShapeEngine.Core.GameObject[])
@@ -708,15 +785,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 151
+    startLine: 247
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Adds multiple game objects to the spawn area.
+  example: []
   syntax:
     content: public void AddGameObjects(params GameObject[] areaObjects)
     parameters:
     - id: areaObjects
       type: ShapeEngine.Core.GameObject[]
+      description: The game objects to add.
     content.vb: Public Sub AddGameObjects(ParamArray areaObjects As GameObject())
   overload: ShapeEngine.Core.SpawnArea.AddGameObjects*
   nameWithType.vb: SpawnArea.AddGameObjects(ParamArray GameObject())
@@ -740,15 +820,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 152
+    startLine: 252
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Adds multiple game objects to the spawn area.
+  example: []
   syntax:
     content: public void AddGameObjects(IEnumerable<GameObject> areaObjects)
     parameters:
     - id: areaObjects
       type: System.Collections.Generic.IEnumerable{ShapeEngine.Core.GameObject}
+      description: The game objects to add.
     content.vb: Public Sub AddGameObjects(areaObjects As IEnumerable(Of GameObject))
   overload: ShapeEngine.Core.SpawnArea.AddGameObjects*
   nameWithType.vb: SpawnArea.AddGameObjects(IEnumerable(Of GameObject))
@@ -772,17 +855,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveGameObject
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 153
+    startLine: 258
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Removes a game object from the spawn area.
+  example: []
   syntax:
     content: public bool RemoveGameObject(GameObject gameObject)
     parameters:
     - id: gameObject
       type: ShapeEngine.Core.GameObject
+      description: The game object to remove.
     return:
       type: System.Boolean
+      description: <code>true</code> if the game object was successfully removed; otherwise, <code>false</code>.
     content.vb: Public Function RemoveGameObject(gameObject As GameObject) As Boolean
   overload: ShapeEngine.Core.SpawnArea.RemoveGameObject*
 - uid: ShapeEngine.Core.SpawnArea.RemoveGameObjects(ShapeEngine.Core.GameObject[])
@@ -803,15 +890,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 165
+    startLine: 274
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Removes multiple game objects from the spawn area.
+  example: []
   syntax:
     content: public void RemoveGameObjects(params GameObject[] areaObjects)
     parameters:
     - id: areaObjects
       type: ShapeEngine.Core.GameObject[]
+      description: The game objects to remove.
     content.vb: Public Sub RemoveGameObjects(ParamArray areaObjects As GameObject())
   overload: ShapeEngine.Core.SpawnArea.RemoveGameObjects*
   nameWithType.vb: SpawnArea.RemoveGameObjects(ParamArray GameObject())
@@ -835,15 +925,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 172
+    startLine: 285
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Removes multiple game objects from the spawn area.
+  example: []
   syntax:
     content: public void RemoveGameObjects(IEnumerable<GameObject> areaObjects)
     parameters:
     - id: areaObjects
       type: System.Collections.Generic.IEnumerable{ShapeEngine.Core.GameObject}
+      description: The game objects to remove.
     content.vb: Public Sub RemoveGameObjects(areaObjects As IEnumerable(Of GameObject))
   overload: ShapeEngine.Core.SpawnArea.RemoveGameObjects*
   nameWithType.vb: SpawnArea.RemoveGameObjects(IEnumerable(Of GameObject))
@@ -867,19 +960,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 181
+    startLine: 300
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Removes game objects from the specified layer that match the given criteria.
+  example: []
   syntax:
     content: public void RemoveGameObjects(uint layer, Predicate<GameObject> match, ref List<GameObject> result)
     parameters:
     - id: layer
       type: System.UInt32
+      description: The layer to remove game objects from.
     - id: match
       type: System.Predicate{ShapeEngine.Core.GameObject}
+      description: The criteria that game objects must match to be removed.
     - id: result
       type: System.Collections.Generic.List{ShapeEngine.Core.GameObject}
+      description: The list to fill with removed game objects.
     content.vb: Public Sub RemoveGameObjects(layer As UInteger, match As Predicate(Of GameObject), result As List(Of GameObject))
   overload: ShapeEngine.Core.SpawnArea.RemoveGameObjects*
   nameWithType.vb: SpawnArea.RemoveGameObjects(UInteger, Predicate(Of GameObject), List(Of GameObject))
@@ -903,17 +1001,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 193
+    startLine: 318
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: >-
+    Removes game objects from the spawn area that match the given criteria,
+
+    across all layers specified by the layer mask.
+  example: []
   syntax:
     content: public void RemoveGameObjects(BitFlag layerMask, ref List<GameObject> result)
     parameters:
     - id: layerMask
       type: ShapeEngine.Core.Structs.BitFlag
+      description: The layer mask specifying which layers to include in the removal.
     - id: result
       type: System.Collections.Generic.List{ShapeEngine.Core.GameObject}
+      description: The list to fill with removed game objects.
     content.vb: Public Sub RemoveGameObjects(layerMask As BitFlag, result As List(Of GameObject))
   overload: ShapeEngine.Core.SpawnArea.RemoveGameObjects*
   nameWithType.vb: SpawnArea.RemoveGameObjects(BitFlag, List(Of GameObject))
@@ -937,19 +1042,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 204
+    startLine: 335
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Removes game objects from the specified layers that match the given criteria.
+  example: []
   syntax:
     content: public void RemoveGameObjects(BitFlag layerMask, Predicate<GameObject> match, ref List<GameObject> result)
     parameters:
     - id: layerMask
       type: ShapeEngine.Core.Structs.BitFlag
+      description: The layer mask specifying which layers to include in the removal.
     - id: match
       type: System.Predicate{ShapeEngine.Core.GameObject}
+      description: The criteria that game objects must match to be removed.
     - id: result
       type: System.Collections.Generic.List{ShapeEngine.Core.GameObject}
+      description: The list to fill with removed game objects.
     content.vb: Public Sub RemoveGameObjects(layerMask As BitFlag, match As Predicate(Of GameObject), result As List(Of GameObject))
   overload: ShapeEngine.Core.SpawnArea.RemoveGameObjects*
   nameWithType.vb: SpawnArea.RemoveGameObjects(BitFlag, Predicate(Of GameObject), List(Of GameObject))
@@ -973,15 +1083,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 215
+    startLine: 350
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Removes all game objects from the spawn area that match the given criteria.
+  example: []
   syntax:
     content: public void RemoveGameObjects(Predicate<GameObject> match)
     parameters:
     - id: match
       type: System.Predicate{ShapeEngine.Core.GameObject}
+      description: The criteria that game objects must match to be removed.
     content.vb: Public Sub RemoveGameObjects(match As Predicate(Of GameObject))
   overload: ShapeEngine.Core.SpawnArea.RemoveGameObjects*
   nameWithType.vb: SpawnArea.RemoveGameObjects(Predicate(Of GameObject))
@@ -1005,17 +1118,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ClearArea
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 227
+    startLine: 366
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Clears a specified area of the spawn area, removing all game objects within it that match the layer mask.
+  example: []
   syntax:
     content: public void ClearArea(Rect area, BitFlag areaLayerMask)
     parameters:
     - id: area
       type: ShapeEngine.Core.Shapes.Rect
+      description: The area to clear.
     - id: areaLayerMask
       type: ShapeEngine.Core.Structs.BitFlag
+      description: The layer mask specifying which layers to clear.
     content.vb: Public Sub ClearArea(area As Rect, areaLayerMask As BitFlag)
   overload: ShapeEngine.Core.SpawnArea.ClearArea*
 - uid: ShapeEngine.Core.SpawnArea.GameObjectWasAdded(ShapeEngine.Core.GameObject)
@@ -1036,15 +1153,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GameObjectWasAdded
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 234
+    startLine: 378
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Called when a game object is added to the spawn area.
+  remarks: Override for custom logic.
+  example: []
   syntax:
     content: protected virtual void GameObjectWasAdded(GameObject obj)
     parameters:
     - id: obj
       type: ShapeEngine.Core.GameObject
+      description: The game object that was added.
     content.vb: Protected Overridable Sub GameObjectWasAdded(obj As GameObject)
   overload: ShapeEngine.Core.SpawnArea.GameObjectWasAdded*
 - uid: ShapeEngine.Core.SpawnArea.GameObjectWasRemoved(ShapeEngine.Core.GameObject)
@@ -1065,15 +1186,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GameObjectWasRemoved
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 235
+    startLine: 384
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Called when a game object is removed from the spawn area.
+  remarks: Override for custom logic.
+  example: []
   syntax:
     content: protected virtual void GameObjectWasRemoved(GameObject obj)
     parameters:
     - id: obj
       type: ShapeEngine.Core.GameObject
+      description: The game object that was removed.
     content.vb: Protected Overridable Sub GameObjectWasRemoved(obj As GameObject)
   overload: ShapeEngine.Core.SpawnArea.GameObjectWasRemoved*
 - uid: ShapeEngine.Core.SpawnArea.Clear
@@ -1094,10 +1219,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Clear
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 237
+    startLine: 389
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Clears all game objects from the spawn area.
+  example: []
   syntax:
     content: public virtual void Clear()
     content.vb: Public Overridable Sub Clear()
@@ -1120,15 +1247,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ClearLayer
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 248
+    startLine: 404
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Clears all game objects from the specified layer.
+  example: []
   syntax:
     content: public virtual void ClearLayer(uint layer)
     parameters:
     - id: layer
       type: System.UInt32
+      description: The layer to clear.
     content.vb: Public Overridable Sub ClearLayer(layer As UInteger)
   overload: ShapeEngine.Core.SpawnArea.ClearLayer*
   nameWithType.vb: SpawnArea.ClearLayer(UInteger)
@@ -1152,10 +1282,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Start
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 263
+    startLine: 422
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Initializes the spawn area. Override to add custom initialization logic.
+  example: []
   syntax:
     content: public virtual void Start()
     content.vb: Public Overridable Sub Start()
@@ -1178,10 +1310,13 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Close
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 264
+    startLine: 427
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Closes the spawn area, clearing all objects. Override to add custom closing logic.
+  remarks: Calls <xref href="ShapeEngine.Core.SpawnArea.Clear" data-throw-if-not-resolved="false"></xref> function.
+  example: []
   syntax:
     content: public virtual void Close()
     content.vb: Public Overridable Sub Close()
@@ -1204,19 +1339,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawDebug
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 269
+    startLine: 438
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Draws debug information for the spawn area.
+  example: []
   syntax:
     content: public virtual void DrawDebug(ColorRgba bounds, ColorRgba border, ColorRgba fill)
     parameters:
     - id: bounds
       type: ShapeEngine.Color.ColorRgba
+      description: The color for the bounds.
     - id: border
       type: ShapeEngine.Color.ColorRgba
+      description: The color for the border.
     - id: fill
       type: ShapeEngine.Color.ColorRgba
+      description: The color for the fill.
     content.vb: Public Overridable Sub DrawDebug(bounds As ColorRgba, border As ColorRgba, fill As ColorRgba)
   overload: ShapeEngine.Core.SpawnArea.DrawDebug*
 - uid: ShapeEngine.Core.SpawnArea.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
@@ -1237,27 +1377,27 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 275
+    startLine: 451
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Called every frame. Called before FixedUpdate if fixed framerate is enabled.
+  summary: Updates the spawn area and all contained game objects. This method is called with variable time steps.
   example: []
   syntax:
     content: public virtual void Update(GameTime time, ScreenInfo game, ScreenInfo gameUi, ScreenInfo ui)
     parameters:
     - id: time
       type: ShapeEngine.Core.Structs.GameTime
-      description: ''
+      description: The current game time.
     - id: game
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: The screen information for the game area.
     - id: gameUi
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: The screen information for the game UI area.
     - id: ui
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: The screen information for the UI area.
     content.vb: Public Overridable Sub Update(time As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo)
   overload: ShapeEngine.Core.SpawnArea.Update*
   implements:
@@ -1280,21 +1420,30 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PreFixedUpdate
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 325
+    startLine: 509
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: >-
+    Pre-updates the spawn area and all contained game objects.
+
+    This method is called before the fixed update step.
+  example: []
   syntax:
     content: public virtual void PreFixedUpdate(GameTime time, ScreenInfo game, ScreenInfo gameUi, ScreenInfo ui)
     parameters:
     - id: time
       type: ShapeEngine.Core.Structs.GameTime
+      description: The current game time.
     - id: game
       type: ShapeEngine.Core.Structs.ScreenInfo
+      description: The screen information for the game area.
     - id: gameUi
       type: ShapeEngine.Core.Structs.ScreenInfo
+      description: The screen information for the game UI area.
     - id: ui
       type: ShapeEngine.Core.Structs.ScreenInfo
+      description: The screen information for the UI area.
     content.vb: Public Overridable Sub PreFixedUpdate(time As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo)
   overload: ShapeEngine.Core.SpawnArea.PreFixedUpdate*
 - uid: ShapeEngine.Core.SpawnArea.FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
@@ -1315,27 +1464,30 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FixedUpdate
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 356
+    startLine: 548
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Only called when fixed framerate is enabled. Called in fixed interval.
+  summary: >-
+    Fixed updates the spawn area and all contained game objects.
+
+    This method is called with fixed time steps.
   example: []
   syntax:
     content: public virtual void FixedUpdate(GameTime fixedTime, ScreenInfo game, ScreenInfo gameUi, ScreenInfo ui)
     parameters:
     - id: fixedTime
       type: ShapeEngine.Core.Structs.GameTime
-      description: ''
+      description: The current fixed game time.
     - id: game
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: The screen information for the game area.
     - id: gameUi
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: The screen information for the game UI area.
     - id: ui
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: The screen information for the UI area.
     content.vb: Public Overridable Sub FixedUpdate(fixedTime As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo)
   overload: ShapeEngine.Core.SpawnArea.FixedUpdate*
   implements:
@@ -1358,30 +1510,33 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InterpolateFixedUpdate
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 378
+    startLine: 579
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Only called when fixed framerate is enabled. Called every frame after fixed update calls.
+  summary: >-
+    Interpolates and updates the spawn area and all contained game objects.
+
+    This method is called for smooth frame-rate independent rendering.
   example: []
   syntax:
     content: public virtual void InterpolateFixedUpdate(GameTime time, ScreenInfo game, ScreenInfo gameUi, ScreenInfo ui, float f)
     parameters:
     - id: time
       type: ShapeEngine.Core.Structs.GameTime
-      description: ''
+      description: The current game time.
     - id: game
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: The screen information for the game area.
     - id: gameUi
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: The screen information for the game UI area.
     - id: ui
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: The screen information for the UI area.
     - id: f
       type: System.Single
-      description: ''
+      description: The interpolation factor.
     content.vb: Public Overridable Sub InterpolateFixedUpdate(time As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo, f As Single)
   overload: ShapeEngine.Core.SpawnArea.InterpolateFixedUpdate*
   implements:
@@ -1407,18 +1562,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawGame
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 400
+    startLine: 605
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Draw the game here. Is affected by screen shaders and the camera.
+  summary: Draws the game objects that are marked for drawing to the game area.
   example: []
   syntax:
     content: public virtual void DrawGame(ScreenInfo game)
     parameters:
     - id: game
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: The screen information for the game area.
     content.vb: Public Overridable Sub DrawGame(game As ScreenInfo)
   overload: ShapeEngine.Core.SpawnArea.DrawGame*
   implements:
@@ -1441,23 +1596,37 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawGameUI
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 407
+    startLine: 616
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Draw to the game ui here. Is affected by screen shaders but NOT by the camera.
+  summary: Draws the game objects that are marked for drawing to the game UI area.
   example: []
   syntax:
     content: public virtual void DrawGameUI(ScreenInfo gameUi)
     parameters:
     - id: gameUi
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: The screen information for the game UI area.
     content.vb: Public Overridable Sub DrawGameUI(gameUi As ScreenInfo)
   overload: ShapeEngine.Core.SpawnArea.DrawGameUI*
   implements:
   - ShapeEngine.Core.Interfaces.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
 references:
+- uid: ShapeEngine.Core.GameObject
+  commentId: T:ShapeEngine.Core.GameObject
+  parent: ShapeEngine.Core
+  href: ShapeEngine.Core.GameObject.html
+  name: GameObject
+  nameWithType: GameObject
+  fullName: ShapeEngine.Core.GameObject
+- uid: ShapeEngine.Core.CollisionSystem.CollisionHandler
+  commentId: T:ShapeEngine.Core.CollisionSystem.CollisionHandler
+  parent: ShapeEngine.Core.CollisionSystem
+  href: ShapeEngine.Core.CollisionSystem.CollisionHandler.html
+  name: CollisionHandler
+  nameWithType: CollisionHandler
+  fullName: ShapeEngine.Core.CollisionSystem.CollisionHandler
 - uid: ShapeEngine.Core
   commentId: N:ShapeEngine.Core
   href: ShapeEngine.html
@@ -1731,6 +1900,36 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
+- uid: ShapeEngine.Core.CollisionSystem
+  commentId: N:ShapeEngine.Core.CollisionSystem
+  href: ShapeEngine.html
+  name: ShapeEngine.Core.CollisionSystem
+  nameWithType: ShapeEngine.Core.CollisionSystem
+  fullName: ShapeEngine.Core.CollisionSystem
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+  - name: .
+  - uid: ShapeEngine.Core.CollisionSystem
+    name: CollisionSystem
+    href: ShapeEngine.Core.CollisionSystem.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+  - name: .
+  - uid: ShapeEngine.Core.CollisionSystem
+    name: CollisionSystem
+    href: ShapeEngine.Core.CollisionSystem.html
 - uid: System
   commentId: N:System
   isExternal: true
@@ -1937,6 +2136,13 @@ references:
     name: Numerics
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.numerics
+- uid: ShapeEngine.Core.SpawnArea
+  commentId: T:ShapeEngine.Core.SpawnArea
+  parent: ShapeEngine.Core
+  href: ShapeEngine.Core.SpawnArea.html
+  name: SpawnArea
+  nameWithType: SpawnArea
+  fullName: ShapeEngine.Core.SpawnArea
 - uid: ShapeEngine.Core.SpawnArea.#ctor*
   commentId: Overload:ShapeEngine.Core.SpawnArea.#ctor
   href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea__ctor_System_Single_System_Single_System_Single_System_Single_
@@ -2230,13 +2436,6 @@ references:
   name: AddGameObject
   nameWithType: SpawnArea.AddGameObject
   fullName: ShapeEngine.Core.SpawnArea.AddGameObject
-- uid: ShapeEngine.Core.GameObject
-  commentId: T:ShapeEngine.Core.GameObject
-  parent: ShapeEngine.Core
-  href: ShapeEngine.Core.GameObject.html
-  name: GameObject
-  nameWithType: GameObject
-  fullName: ShapeEngine.Core.GameObject
 - uid: ShapeEngine.Core.SpawnArea.AddGameObjects*
   commentId: Overload:ShapeEngine.Core.SpawnArea.AddGameObjects
   href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_AddGameObjects_ShapeEngine_Core_GameObject___
@@ -2373,6 +2572,24 @@ references:
   name: Start
   nameWithType: SpawnArea.Start
   fullName: ShapeEngine.Core.SpawnArea.Start
+- uid: ShapeEngine.Core.SpawnArea.Clear
+  commentId: M:ShapeEngine.Core.SpawnArea.Clear
+  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_Clear
+  name: Clear()
+  nameWithType: SpawnArea.Clear()
+  fullName: ShapeEngine.Core.SpawnArea.Clear()
+  spec.csharp:
+  - uid: ShapeEngine.Core.SpawnArea.Clear
+    name: Clear
+    href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_Clear
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.SpawnArea.Clear
+    name: Clear
+    href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_Clear
+  - name: (
+  - name: )
 - uid: ShapeEngine.Core.SpawnArea.Close*
   commentId: Overload:ShapeEngine.Core.SpawnArea.Close
   href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_Close

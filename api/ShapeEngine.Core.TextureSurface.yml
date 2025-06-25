@@ -36,18 +36,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TextureSurface
     path: ../ShapeEngine/ShapeEngine/Core/TextureSurface.cs
-    startLine: 17
+    startLine: 16
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: >-
-    Allows you to create a render texture and draw to its surface.
+  summary: Represents a renderable texture surface that allows drawing operations onto an off-screen texture.
+  remarks: >-
+    The texture is created with a fixed size and cannot be resized after creation. 
 
-    The texture can not be resized after creation and has to be manually unloaded.
+    You must manually unload the texture using <xref href="ShapeEngine.Core.TextureSurface.Unload" data-throw-if-not-resolved="false"></xref> to free resources.
 
-    Multiple functions allow you to draw to the texture (or part of it) to the screen.
-
-    UseBegin/EndDraw to draw to the texture with any drawing functions.
+    Use <xref href="ShapeEngine.Core.TextureSurface.BeginDraw" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Core.TextureSurface.EndDraw" data-throw-if-not-resolved="false"></xref> to perform drawing operations on the texture.
   example: []
   syntax:
     content: public class TextureSurface
@@ -80,28 +79,25 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/TextureSurface.cs
-    startLine: 17
+    startLine: 16
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: >-
-    Allows you to create a render texture and draw to its surface.
+  summary: Represents a renderable texture surface that allows drawing operations onto an off-screen texture.
+  remarks: >-
+    The texture is created with a fixed size and cannot be resized after creation. 
 
-    The texture can not be resized after creation and has to be manually unloaded.
+    You must manually unload the texture using <xref href="ShapeEngine.Core.TextureSurface.Unload" data-throw-if-not-resolved="false"></xref> to free resources.
 
-    Multiple functions allow you to draw to the texture (or part of it) to the screen.
-
-    UseBegin/EndDraw to draw to the texture with any drawing functions.
+    Use <xref href="ShapeEngine.Core.TextureSurface.BeginDraw" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Core.TextureSurface.EndDraw" data-throw-if-not-resolved="false"></xref> to perform drawing operations on the texture.
   example: []
   syntax:
     content: public TextureSurface(int width, int height)
     parameters:
     - id: width
       type: System.Int32
-      description: The width of the texture. Must be bigger than 0.
     - id: height
       type: System.Int32
-      description: The height of the texture. Must be bigger than 0.
     content.vb: Public Sub New(width As Integer, height As Integer)
   overload: ShapeEngine.Core.TextureSurface.#ctor*
   nameWithType.vb: TextureSurface.New(Integer, Integer)
@@ -125,10 +121,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Rect
     path: ../ShapeEngine/ShapeEngine/Core/TextureSurface.cs
-    startLine: 19
+    startLine: 21
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Gets the rectangle representing the bounds and size of the texture surface.
+  example: []
   syntax:
     content: public Rect Rect { get; }
     parameters: []
@@ -154,19 +152,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Draw
     path: ../ShapeEngine/ShapeEngine/Core/TextureSurface.cs
-    startLine: 23
+    startLine: 32
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Draws the texture at the specified integer coordinates.
+  example: []
   syntax:
     content: public void Draw(int x, int y, ColorRgba tint)
     parameters:
     - id: x
       type: System.Int32
+      description: The X coordinate on the screen.
     - id: y
       type: System.Int32
+      description: The Y coordinate on the screen.
     - id: tint
       type: ShapeEngine.Color.ColorRgba
+      description: The color tint to apply to the texture.
     content.vb: Public Sub Draw(x As Integer, y As Integer, tint As ColorRgba)
   overload: ShapeEngine.Core.TextureSurface.Draw*
   nameWithType.vb: TextureSurface.Draw(Integer, Integer, ColorRgba)
@@ -190,17 +193,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Draw
     path: ../ShapeEngine/ShapeEngine/Core/TextureSurface.cs
-    startLine: 27
+    startLine: 42
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Draws the texture at the specified position.
+  example: []
   syntax:
     content: public void Draw(Vector2 position, ColorRgba tint)
     parameters:
     - id: position
       type: System.Numerics.Vector2
+      description: The position on the screen.
     - id: tint
       type: ShapeEngine.Color.ColorRgba
+      description: The color tint to apply to the texture.
     content.vb: Public Sub Draw(position As Vector2, tint As ColorRgba)
   overload: ShapeEngine.Core.TextureSurface.Draw*
 - uid: ShapeEngine.Core.TextureSurface.Draw(System.Numerics.Vector2,ShapeEngine.Core.Structs.AnchorPoint,ShapeEngine.Color.ColorRgba)
@@ -221,19 +228,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Draw
     path: ../ShapeEngine/ShapeEngine/Core/TextureSurface.cs
-    startLine: 31
+    startLine: 53
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Draws the texture at the specified position using an anchor point.
+  example: []
   syntax:
     content: public void Draw(Vector2 position, AnchorPoint anchorPoint, ColorRgba tint)
     parameters:
     - id: position
       type: System.Numerics.Vector2
+      description: The position on the screen.
     - id: anchorPoint
       type: ShapeEngine.Core.Structs.AnchorPoint
+      description: The anchor point for positioning the texture.
     - id: tint
       type: ShapeEngine.Color.ColorRgba
+      description: The color tint to apply to the texture.
     content.vb: Public Sub Draw(position As Vector2, anchorPoint As AnchorPoint, tint As ColorRgba)
   overload: ShapeEngine.Core.TextureSurface.Draw*
 - uid: ShapeEngine.Core.TextureSurface.Draw(System.Numerics.Vector2,System.Single,ShapeEngine.Color.ColorRgba)
@@ -254,19 +266,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Draw
     path: ../ShapeEngine/ShapeEngine/Core/TextureSurface.cs
-    startLine: 36
+    startLine: 65
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Draws the texture at the specified position with scaling.
+  example: []
   syntax:
     content: public void Draw(Vector2 position, float scale, ColorRgba tint)
     parameters:
     - id: position
       type: System.Numerics.Vector2
+      description: The position on the screen.
     - id: scale
       type: System.Single
+      description: The scale factor to apply to the texture.
     - id: tint
       type: ShapeEngine.Color.ColorRgba
+      description: The color tint to apply to the texture.
     content.vb: Public Sub Draw(position As Vector2, scale As Single, tint As ColorRgba)
   overload: ShapeEngine.Core.TextureSurface.Draw*
   nameWithType.vb: TextureSurface.Draw(Vector2, Single, ColorRgba)
@@ -290,21 +307,27 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Draw
     path: ../ShapeEngine/ShapeEngine/Core/TextureSurface.cs
-    startLine: 40
+    startLine: 77
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Draws the texture at the specified position using an anchor point and scaling.
+  example: []
   syntax:
     content: public void Draw(Vector2 position, AnchorPoint anchorPoint, float scale, ColorRgba tint)
     parameters:
     - id: position
       type: System.Numerics.Vector2
+      description: The position on the screen.
     - id: anchorPoint
       type: ShapeEngine.Core.Structs.AnchorPoint
+      description: The anchor point for positioning the texture.
     - id: scale
       type: System.Single
+      description: The scale factor to apply to the texture.
     - id: tint
       type: ShapeEngine.Color.ColorRgba
+      description: The color tint to apply to the texture.
     content.vb: Public Sub Draw(position As Vector2, anchorPoint As AnchorPoint, scale As Single, tint As ColorRgba)
   overload: ShapeEngine.Core.TextureSurface.Draw*
   nameWithType.vb: TextureSurface.Draw(Vector2, AnchorPoint, Single, ColorRgba)
@@ -328,23 +351,30 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Draw
     path: ../ShapeEngine/ShapeEngine/Core/TextureSurface.cs
-    startLine: 45
+    startLine: 91
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Draws the texture at the specified position with scaling, rotation, and origin.
+  example: []
   syntax:
     content: public void Draw(Vector2 position, float scale, float rotationDeg, AnchorPoint origin, ColorRgba tint)
     parameters:
     - id: position
       type: System.Numerics.Vector2
+      description: The position on the screen.
     - id: scale
       type: System.Single
+      description: The scale factor to apply to the texture.
     - id: rotationDeg
       type: System.Single
+      description: The rotation in degrees.
     - id: origin
       type: ShapeEngine.Core.Structs.AnchorPoint
+      description: The origin point for rotation and scaling.
     - id: tint
       type: ShapeEngine.Color.ColorRgba
+      description: The color tint to apply to the texture.
     content.vb: Public Sub Draw(position As Vector2, scale As Single, rotationDeg As Single, origin As AnchorPoint, tint As ColorRgba)
   overload: ShapeEngine.Core.TextureSurface.Draw*
   nameWithType.vb: TextureSurface.Draw(Vector2, Single, Single, AnchorPoint, ColorRgba)
@@ -368,21 +398,27 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Draw
     path: ../ShapeEngine/ShapeEngine/Core/TextureSurface.cs
-    startLine: 56
+    startLine: 106
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Draws a portion of the texture (source rectangle) at the specified position using an anchor point.
+  example: []
   syntax:
     content: public void Draw(Rect source, Vector2 position, AnchorPoint anchorPoint, ColorRgba tint)
     parameters:
     - id: source
       type: ShapeEngine.Core.Shapes.Rect
+      description: The source rectangle within the texture to draw.
     - id: position
       type: System.Numerics.Vector2
+      description: The position on the screen.
     - id: anchorPoint
       type: ShapeEngine.Core.Structs.AnchorPoint
+      description: The anchor point for positioning the texture.
     - id: tint
       type: ShapeEngine.Color.ColorRgba
+      description: The color tint to apply to the texture.
     content.vb: Public Sub Draw(source As Rect, position As Vector2, anchorPoint As AnchorPoint, tint As ColorRgba)
   overload: ShapeEngine.Core.TextureSurface.Draw*
 - uid: ShapeEngine.Core.TextureSurface.Draw(ShapeEngine.Core.Shapes.Rect,ShapeEngine.Color.ColorRgba)
@@ -403,17 +439,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Draw
     path: ../ShapeEngine/ShapeEngine/Core/TextureSurface.cs
-    startLine: 61
+    startLine: 117
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Draws the texture stretched or shrunk to fit the specified destination rectangle.
+  example: []
   syntax:
     content: public void Draw(Rect destination, ColorRgba tint)
     parameters:
     - id: destination
       type: ShapeEngine.Core.Shapes.Rect
+      description: The destination rectangle on the screen.
     - id: tint
       type: ShapeEngine.Color.ColorRgba
+      description: The color tint to apply to the texture.
     content.vb: Public Sub Draw(destination As Rect, tint As ColorRgba)
   overload: ShapeEngine.Core.TextureSurface.Draw*
 - uid: ShapeEngine.Core.TextureSurface.Draw(ShapeEngine.Core.Shapes.Rect,ShapeEngine.Core.Shapes.Rect,ShapeEngine.Color.ColorRgba)
@@ -434,19 +474,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Draw
     path: ../ShapeEngine/ShapeEngine/Core/TextureSurface.cs
-    startLine: 65
+    startLine: 128
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Draws a portion of the texture (source rectangle) to a destination rectangle.
+  example: []
   syntax:
     content: public void Draw(Rect source, Rect destination, ColorRgba tint)
     parameters:
     - id: source
       type: ShapeEngine.Core.Shapes.Rect
+      description: The source rectangle within the texture to draw.
     - id: destination
       type: ShapeEngine.Core.Shapes.Rect
+      description: The destination rectangle on the screen.
     - id: tint
       type: ShapeEngine.Color.ColorRgba
+      description: The color tint to apply to the texture.
     content.vb: Public Sub Draw(source As Rect, destination As Rect, tint As ColorRgba)
   overload: ShapeEngine.Core.TextureSurface.Draw*
 - uid: ShapeEngine.Core.TextureSurface.Draw(ShapeEngine.Core.Shapes.Rect,System.Numerics.Vector2,System.Single,System.Single,ShapeEngine.Core.Structs.AnchorPoint,ShapeEngine.Color.ColorRgba)
@@ -467,25 +512,33 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Draw
     path: ../ShapeEngine/ShapeEngine/Core/TextureSurface.cs
-    startLine: 69
+    startLine: 142
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Draws a portion of the texture (source rectangle) at the specified position with scaling, rotation, and origin.
+  example: []
   syntax:
     content: public void Draw(Rect source, Vector2 position, float scale, float rotationDeg, AnchorPoint origin, ColorRgba tint)
     parameters:
     - id: source
       type: ShapeEngine.Core.Shapes.Rect
+      description: The source rectangle within the texture to draw.
     - id: position
       type: System.Numerics.Vector2
+      description: The position on the screen.
     - id: scale
       type: System.Single
+      description: The scale factor to apply to the texture.
     - id: rotationDeg
       type: System.Single
+      description: The rotation in degrees.
     - id: origin
       type: ShapeEngine.Core.Structs.AnchorPoint
+      description: The origin point for rotation and scaling.
     - id: tint
       type: ShapeEngine.Color.ColorRgba
+      description: The color tint to apply to the texture.
     content.vb: Public Sub Draw(source As Rect, position As Vector2, scale As Single, rotationDeg As Single, origin As AnchorPoint, tint As ColorRgba)
   overload: ShapeEngine.Core.TextureSurface.Draw*
   nameWithType.vb: TextureSurface.Draw(Rect, Vector2, Single, Single, AnchorPoint, ColorRgba)
@@ -509,10 +562,13 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BeginDraw
     path: ../ShapeEngine/ShapeEngine/Core/TextureSurface.cs
-    startLine: 84
+    startLine: 159
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Begins drawing to the texture surface.
+  remarks: All subsequent drawing operations will be rendered to this texture until <xref href="ShapeEngine.Core.TextureSurface.EndDraw" data-throw-if-not-resolved="false"></xref> is called.
+  example: []
   syntax:
     content: public void BeginDraw()
     content.vb: Public Sub BeginDraw()
@@ -535,15 +591,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BeginDraw
     path: ../ShapeEngine/ShapeEngine/Core/TextureSurface.cs
-    startLine: 85
+    startLine: 168
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Begins drawing to the texture surface and clears it with the specified color.
+  remarks: All subsequent drawing operations will be rendered to this texture until <xref href="ShapeEngine.Core.TextureSurface.EndDraw" data-throw-if-not-resolved="false"></xref> is called.
+  example: []
   syntax:
     content: public void BeginDraw(ColorRgba clearColor)
     parameters:
     - id: clearColor
       type: ShapeEngine.Color.ColorRgba
+      description: The color to clear the texture with before drawing.
     content.vb: Public Sub BeginDraw(clearColor As ColorRgba)
   overload: ShapeEngine.Core.TextureSurface.BeginDraw*
 - uid: ShapeEngine.Core.TextureSurface.SetTextureFilter(Raylib_cs.TextureFilter)
@@ -564,15 +624,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SetTextureFilter
     path: ../ShapeEngine/ShapeEngine/Core/TextureSurface.cs
-    startLine: 90
+    startLine: 181
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Sets the filtering mode for the texture.
+  remarks: Filtering affects how the texture is sampled when scaled or transformed.
+  example: []
   syntax:
     content: public void SetTextureFilter(TextureFilter filter)
     parameters:
     - id: filter
       type: Raylib_cs.TextureFilter
+      description: The texture filtering mode to use.
     content.vb: Public Sub SetTextureFilter(filter As TextureFilter)
   overload: ShapeEngine.Core.TextureSurface.SetTextureFilter*
 - uid: ShapeEngine.Core.TextureSurface.EndDraw
@@ -593,10 +657,13 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: EndDraw
     path: ../ShapeEngine/ShapeEngine/Core/TextureSurface.cs
-    startLine: 91
+    startLine: 189
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Ends drawing to the texture surface.
+  remarks: Call this after <xref href="ShapeEngine.Core.TextureSurface.BeginDraw" data-throw-if-not-resolved="false"></xref> to finalize drawing operations to the texture.
+  example: []
   syntax:
     content: public void EndDraw()
     content.vb: Public Sub EndDraw()
@@ -619,15 +686,72 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Unload
     path: ../ShapeEngine/ShapeEngine/Core/TextureSurface.cs
-    startLine: 92
+    startLine: 197
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Unloads the render texture and frees associated resources.
+  remarks: Call this when the texture surface is no longer needed to avoid memory leaks.
+  example: []
   syntax:
     content: public void Unload()
     content.vb: Public Sub Unload()
   overload: ShapeEngine.Core.TextureSurface.Unload*
 references:
+- uid: ShapeEngine.Core.TextureSurface.Unload
+  commentId: M:ShapeEngine.Core.TextureSurface.Unload
+  href: ShapeEngine.Core.TextureSurface.html#ShapeEngine_Core_TextureSurface_Unload
+  name: Unload()
+  nameWithType: TextureSurface.Unload()
+  fullName: ShapeEngine.Core.TextureSurface.Unload()
+  spec.csharp:
+  - uid: ShapeEngine.Core.TextureSurface.Unload
+    name: Unload
+    href: ShapeEngine.Core.TextureSurface.html#ShapeEngine_Core_TextureSurface_Unload
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.TextureSurface.Unload
+    name: Unload
+    href: ShapeEngine.Core.TextureSurface.html#ShapeEngine_Core_TextureSurface_Unload
+  - name: (
+  - name: )
+- uid: ShapeEngine.Core.TextureSurface.BeginDraw
+  commentId: M:ShapeEngine.Core.TextureSurface.BeginDraw
+  href: ShapeEngine.Core.TextureSurface.html#ShapeEngine_Core_TextureSurface_BeginDraw
+  name: BeginDraw()
+  nameWithType: TextureSurface.BeginDraw()
+  fullName: ShapeEngine.Core.TextureSurface.BeginDraw()
+  spec.csharp:
+  - uid: ShapeEngine.Core.TextureSurface.BeginDraw
+    name: BeginDraw
+    href: ShapeEngine.Core.TextureSurface.html#ShapeEngine_Core_TextureSurface_BeginDraw
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.TextureSurface.BeginDraw
+    name: BeginDraw
+    href: ShapeEngine.Core.TextureSurface.html#ShapeEngine_Core_TextureSurface_BeginDraw
+  - name: (
+  - name: )
+- uid: ShapeEngine.Core.TextureSurface.EndDraw
+  commentId: M:ShapeEngine.Core.TextureSurface.EndDraw
+  href: ShapeEngine.Core.TextureSurface.html#ShapeEngine_Core_TextureSurface_EndDraw
+  name: EndDraw()
+  nameWithType: TextureSurface.EndDraw()
+  fullName: ShapeEngine.Core.TextureSurface.EndDraw()
+  spec.csharp:
+  - uid: ShapeEngine.Core.TextureSurface.EndDraw
+    name: EndDraw
+    href: ShapeEngine.Core.TextureSurface.html#ShapeEngine_Core_TextureSurface_EndDraw
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.TextureSurface.EndDraw
+    name: EndDraw
+    href: ShapeEngine.Core.TextureSurface.html#ShapeEngine_Core_TextureSurface_EndDraw
+  - name: (
+  - name: )
 - uid: ShapeEngine.Core
   commentId: N:ShapeEngine.Core
   href: ShapeEngine.html

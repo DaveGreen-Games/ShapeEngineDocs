@@ -33,10 +33,13 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SegmentCollider
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SegmentCollider.cs
-    startLine: 8
+    startLine: 13
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Represents a segment collider for collision detection.
+  remarks: The segment is defined by a direction and origin offset, and uses the current transform for position and orientation.
+  example: []
   syntax:
     content: 'public class SegmentCollider : Collider, IShape'
     content.vb: Public Class SegmentCollider Inherits Collider Implements IShape
@@ -164,11 +167,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OriginOffset
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SegmentCollider.cs
-    startLine: 17
+    startLine: 22
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: 0 Start = Position / 0.5 Center = Position / 1 End = Position
+  summary: Gets or sets the origin offset (0=start, 0.5=center, 1=end).
   example: []
   syntax:
     content: public float OriginOffset { get; set; }
@@ -195,10 +198,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Dir
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SegmentCollider.cs
-    startLine: 26
+    startLine: 34
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets or sets the direction vector of the segment.
+  example: []
   syntax:
     content: public Vector2 Dir { get; set; }
     parameters: []
@@ -224,10 +229,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Start
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SegmentCollider.cs
-    startLine: 38
+    startLine: 49
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the start point of the segment in world space.
+  example: []
   syntax:
     content: public Vector2 Start { get; }
     parameters: []
@@ -253,10 +260,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: End
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SegmentCollider.cs
-    startLine: 39
+    startLine: 54
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the end point of the segment in world space.
+  example: []
   syntax:
     content: public Vector2 End { get; }
     parameters: []
@@ -282,10 +291,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Center
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SegmentCollider.cs
-    startLine: 41
+    startLine: 59
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the center point of the segment.
+  example: []
   syntax:
     content: public Vector2 Center { get; }
     parameters: []
@@ -311,10 +322,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Displacement
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SegmentCollider.cs
-    startLine: 43
+    startLine: 64
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the displacement vector from start to end.
+  example: []
   syntax:
     content: public Vector2 Displacement { get; }
     parameters: []
@@ -340,10 +353,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnInitialized
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SegmentCollider.cs
-    startLine: 45
+    startLine: 69
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Called when the collider is initialized. Recalculates the segment shape.
   example: []
   syntax:
     content: protected override void OnInitialized()
@@ -368,10 +382,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RecalculateShape
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SegmentCollider.cs
-    startLine: 50
+    startLine: 77
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Recalculates the shape of the collider based on the current transform and parameters.
   example: []
   syntax:
     content: public override void RecalculateShape()
@@ -396,18 +411,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnShapeTransformChanged
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SegmentCollider.cs
-    startLine: 56
+    startLine: 88
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Called each frame after the transform was actualized from the parents
+  summary: >-
+    Called when the shape's transform changes.
+
+    Recalculates the segment shape if the transform has changed.
   example: []
   syntax:
     content: protected override void OnShapeTransformChanged(bool transformChanged)
     parameters:
     - id: transformChanged
       type: System.Boolean
-      description: ''
+      description: Indicates whether the transform has changed.
     content.vb: Protected Overrides Sub OnShapeTransformChanged(transformChanged As Boolean)
   overridden: ShapeEngine.Core.Shapes.Shape.OnShapeTransformChanged(System.Boolean)
   overload: ShapeEngine.Core.CollisionSystem.SegmentCollider.OnShapeTransformChanged*
@@ -432,19 +450,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SegmentCollider.cs
-    startLine: 62
+    startLine: 100
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Initializes a new instance of <xref href="ShapeEngine.Core.CollisionSystem.SegmentCollider" data-throw-if-not-resolved="false"></xref> with a transform offset, direction, and origin offset.
+  example: []
   syntax:
     content: public SegmentCollider(Transform2D offset, Vector2 dir, float originOffset = 0)
     parameters:
     - id: offset
       type: ShapeEngine.Core.Structs.Transform2D
+      description: The transform offset for the collider.
     - id: dir
       type: System.Numerics.Vector2
+      description: The direction vector of the segment.
     - id: originOffset
       type: System.Single
+      description: The origin offset (0=start, 0.5=center, 1=end).
     content.vb: Public Sub New(offset As Transform2D, dir As Vector2, originOffset As Single = 0)
   overload: ShapeEngine.Core.CollisionSystem.SegmentCollider.#ctor*
   nameWithType.vb: SegmentCollider.New(Transform2D, Vector2, Single)
@@ -468,19 +491,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SegmentCollider.cs
-    startLine: 68
+    startLine: 111
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Initializes a new instance of <xref href="ShapeEngine.Core.CollisionSystem.SegmentCollider" data-throw-if-not-resolved="false"></xref> from a segment and parent position.
+  example: []
   syntax:
     content: public SegmentCollider(Segment segment, Vector2 parentPosition, float originOffset = 0)
     parameters:
     - id: segment
       type: ShapeEngine.Core.Shapes.Segment
+      description: The segment to use.
     - id: parentPosition
       type: System.Numerics.Vector2
+      description: The parent object's position.
     - id: originOffset
       type: System.Single
+      description: The origin offset (0=start, 0.5=center, 1=end).
     content.vb: Public Sub New(segment As Segment, parentPosition As Vector2, originOffset As Single = 0)
   overload: ShapeEngine.Core.CollisionSystem.SegmentCollider.#ctor*
   nameWithType.vb: SegmentCollider.New(Segment, Vector2, Single)
@@ -504,15 +532,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetBoundingBox
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SegmentCollider.cs
-    startLine: 76
+    startLine: 122
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the bounding box of the segment collider.
   example: []
   syntax:
     content: public override Rect GetBoundingBox()
     return:
       type: ShapeEngine.Core.Shapes.Rect
+      description: The bounding <xref href="ShapeEngine.Core.Shapes.Rect" data-throw-if-not-resolved="false"></xref>.
     content.vb: Public Overrides Function GetBoundingBox() As Rect
   overridden: ShapeEngine.Core.CollisionSystem.Collider.GetBoundingBox
   overload: ShapeEngine.Core.CollisionSystem.SegmentCollider.GetBoundingBox*
@@ -534,15 +564,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetShapeType
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SegmentCollider.cs
-    startLine: 90
+    startLine: 127
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the shape type for this collider.
   example: []
   syntax:
     content: public override ShapeType GetShapeType()
     return:
       type: ShapeEngine.Core.CollisionSystem.ShapeType
+      description: <xref href="ShapeEngine.Core.CollisionSystem.ShapeType.Segment" data-throw-if-not-resolved="false"></xref>
     content.vb: Public Overrides Function GetShapeType() As ShapeType
   overridden: ShapeEngine.Core.Shapes.Shape.GetShapeType
   overload: ShapeEngine.Core.CollisionSystem.SegmentCollider.GetShapeType*
@@ -564,15 +596,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetSegmentShape
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/SegmentCollider.cs
-    startLine: 91
+    startLine: 132
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the segment shape in world (absolute) space.
   example: []
   syntax:
     content: public override Segment GetSegmentShape()
     return:
       type: ShapeEngine.Core.Shapes.Segment
+      description: The <xref href="ShapeEngine.Core.Shapes.Segment" data-throw-if-not-resolved="false"></xref> shape.
     content.vb: Public Overrides Function GetSegmentShape() As Segment
   overridden: ShapeEngine.Core.Shapes.Shape.GetSegmentShape
   overload: ShapeEngine.Core.CollisionSystem.SegmentCollider.GetSegmentShape*
@@ -3411,6 +3445,12 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
+- uid: ShapeEngine.Core.CollisionSystem.SegmentCollider
+  commentId: T:ShapeEngine.Core.CollisionSystem.SegmentCollider
+  href: ShapeEngine.Core.CollisionSystem.SegmentCollider.html
+  name: SegmentCollider
+  nameWithType: SegmentCollider
+  fullName: ShapeEngine.Core.CollisionSystem.SegmentCollider
 - uid: ShapeEngine.Core.CollisionSystem.SegmentCollider.#ctor*
   commentId: Overload:ShapeEngine.Core.CollisionSystem.SegmentCollider.#ctor
   href: ShapeEngine.Core.CollisionSystem.SegmentCollider.html#ShapeEngine_Core_CollisionSystem_SegmentCollider__ctor_ShapeEngine_Core_Structs_Transform2D_System_Numerics_Vector2_System_Single_
@@ -3464,6 +3504,13 @@ references:
   name: Segment
   nameWithType: Segment
   fullName: ShapeEngine.Core.Shapes.Segment
+- uid: ShapeEngine.Core.Shapes.Rect
+  commentId: T:ShapeEngine.Core.Shapes.Rect
+  parent: ShapeEngine.Core.Shapes
+  href: ShapeEngine.Core.Shapes.Rect.html
+  name: Rect
+  nameWithType: Rect
+  fullName: ShapeEngine.Core.Shapes.Rect
 - uid: ShapeEngine.Core.CollisionSystem.Collider.GetBoundingBox
   commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetBoundingBox
   parent: ShapeEngine.Core.CollisionSystem.Collider
@@ -3489,13 +3536,12 @@ references:
   name: GetBoundingBox
   nameWithType: SegmentCollider.GetBoundingBox
   fullName: ShapeEngine.Core.CollisionSystem.SegmentCollider.GetBoundingBox
-- uid: ShapeEngine.Core.Shapes.Rect
-  commentId: T:ShapeEngine.Core.Shapes.Rect
-  parent: ShapeEngine.Core.Shapes
-  href: ShapeEngine.Core.Shapes.Rect.html
-  name: Rect
-  nameWithType: Rect
-  fullName: ShapeEngine.Core.Shapes.Rect
+- uid: ShapeEngine.Core.CollisionSystem.ShapeType.Segment
+  commentId: F:ShapeEngine.Core.CollisionSystem.ShapeType.Segment
+  href: ShapeEngine.Core.CollisionSystem.ShapeType.html#ShapeEngine_Core_CollisionSystem_ShapeType_Segment
+  name: Segment
+  nameWithType: ShapeType.Segment
+  fullName: ShapeEngine.Core.CollisionSystem.ShapeType.Segment
 - uid: ShapeEngine.Core.Shapes.Shape.GetShapeType
   commentId: M:ShapeEngine.Core.Shapes.Shape.GetShapeType
   parent: ShapeEngine.Core.Shapes.Shape

@@ -35,10 +35,20 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CircleSectorCollider
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CircleSectorCollider.cs
-    startLine: 7
+    startLine: 18
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Represents a circle sector collider for collision detection.
+  remarks: >-
+    The circle sector is defined by its center, radius, rotation, sector angle, and arc accuracy.
+
+    The shape is recalculated based on the current transform and sector parameters.
+  example:
+  - >-
+    Example usage: Attach to an enemy to represent its field of view or detection cone,
+
+    such as for vision checks, area-of-effect attacks, or directional triggers.
   syntax:
     content: 'public class CircleSectorCollider : Collider, IShape'
     content.vb: Public Class CircleSectorCollider Inherits Collider Implements IShape
@@ -166,11 +176,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ArcPoints
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CircleSectorCollider.cs
-    startLine: 13
+    startLine: 24
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: How many points are used for the circle sector arc. 0 creates a triangle where the arc is a straight line.
+  summary: >-
+    How many points are used for the circle sector arc.
+
+    0 creates a triangle where the arc is a straight line.
   example: []
   syntax:
     content: public int ArcPoints { get; }
@@ -197,11 +210,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AngleSectorRad
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CircleSectorCollider.cs
-    startLine: 18
+    startLine: 28
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: How wide the circle sector is.
+  summary: How wide the circle sector is, in radians.
   example: []
   syntax:
     content: public float AngleSectorRad { get; }
@@ -228,11 +241,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Center
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CircleSectorCollider.cs
-    startLine: 24
+    startLine: 32
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Represents CurTransform.Position
+  summary: Represents Collider.CurTransform.Position (center of the sector).
   example: []
   syntax:
     content: public Vector2 Center { get; }
@@ -259,11 +272,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Radius
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CircleSectorCollider.cs
-    startLine: 29
+    startLine: 36
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Represents CurTransform.ScaledSize.Radius
+  summary: Represents Collider.CurTransform.ScaledSize.Radius (radius of the sector).
   example: []
   syntax:
     content: public float Radius { get; }
@@ -290,11 +303,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RotationRad
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CircleSectorCollider.cs
-    startLine: 34
+    startLine: 40
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Represents CurTransform.RotationRad
+  summary: Represents Collider.CurTransform.RotationRad (rotation of the sector).
   example: []
   syntax:
     content: public float RotationRad { get; }
@@ -321,19 +334,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CircleSectorCollider.cs
-    startLine: 40
+    startLine: 52
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Initializes a new instance of <xref href="ShapeEngine.Core.CollisionSystem.CircleSectorCollider" data-throw-if-not-resolved="false"></xref> with a transform offset, sector angle, and arc accuracy.
+  example: []
   syntax:
     content: public CircleSectorCollider(Transform2D offset, float angleSectorRad, int arcPoints = 5)
     parameters:
     - id: offset
       type: ShapeEngine.Core.Structs.Transform2D
+      description: The transform offset for the collider.
     - id: angleSectorRad
       type: System.Single
+      description: The angle of the sector in radians.
     - id: arcPoints
       type: System.Int32
+      description: The number of points used for the arc (accuracy).
     content.vb: Public Sub New(offset As Transform2D, angleSectorRad As Single, arcPoints As Integer = 5)
   overload: ShapeEngine.Core.CollisionSystem.CircleSectorCollider.#ctor*
   nameWithType.vb: CircleSectorCollider.New(Transform2D, Single, Integer)
@@ -357,10 +375,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnInitialized
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CircleSectorCollider.cs
-    startLine: 48
+    startLine: 63
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Called when the collider is initialized. Calculates the initial points of the sector shape.
   example: []
   syntax:
     content: protected override void OnInitialized()
@@ -385,10 +404,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RecalculateShape
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CircleSectorCollider.cs
-    startLine: 53
+    startLine: 71
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Recalculates the points of the sector shape. Called when the shape needs to be updated.
   example: []
   syntax:
     content: public override void RecalculateShape()
@@ -413,18 +433,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnShapeTransformChanged
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CircleSectorCollider.cs
-    startLine: 58
+    startLine: 80
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Called each frame after the transform was actualized from the parents
+  summary: Called when the shape's transform changes. Recalculates the sector points if the transform or state is dirty.
   example: []
   syntax:
     content: protected override void OnShapeTransformChanged(bool transformChanged)
     parameters:
     - id: transformChanged
       type: System.Boolean
-      description: ''
+      description: Indicates if the transform has changed.
     content.vb: Protected Overrides Sub OnShapeTransformChanged(transformChanged As Boolean)
   overridden: ShapeEngine.Core.Shapes.Shape.OnShapeTransformChanged(System.Boolean)
   overload: ShapeEngine.Core.CollisionSystem.CircleSectorCollider.OnShapeTransformChanged*
@@ -449,15 +469,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetBoundingBox
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CircleSectorCollider.cs
-    startLine: 81
+    startLine: 107
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the bounding box of the circle sector collider.
   example: []
   syntax:
     content: public override Rect GetBoundingBox()
     return:
       type: ShapeEngine.Core.Shapes.Rect
+      description: The bounding <xref href="ShapeEngine.Core.Shapes.Rect" data-throw-if-not-resolved="false"></xref>.
     content.vb: Public Overrides Function GetBoundingBox() As Rect
   overridden: ShapeEngine.Core.CollisionSystem.Collider.GetBoundingBox
   overload: ShapeEngine.Core.CollisionSystem.CircleSectorCollider.GetBoundingBox*
@@ -479,15 +501,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetShapeType
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CircleSectorCollider.cs
-    startLine: 82
+    startLine: 112
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the shape type for this collider.
   example: []
   syntax:
     content: public override ShapeType GetShapeType()
     return:
       type: ShapeEngine.Core.CollisionSystem.ShapeType
+      description: <xref href="ShapeEngine.Core.CollisionSystem.ShapeType.Poly" data-throw-if-not-resolved="false"></xref>
     content.vb: Public Overrides Function GetShapeType() As ShapeType
   overridden: ShapeEngine.Core.Shapes.Shape.GetShapeType
   overload: ShapeEngine.Core.CollisionSystem.CircleSectorCollider.GetShapeType*
@@ -509,15 +533,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetPolygonShape
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CircleSectorCollider.cs
-    startLine: 83
+    startLine: 117
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the polygon shape representing the sector in world (absolute) space.
   example: []
   syntax:
     content: public override Polygon GetPolygonShape()
     return:
       type: ShapeEngine.Core.Shapes.Polygon
+      description: The <xref href="ShapeEngine.Core.Shapes.Polygon" data-throw-if-not-resolved="false"></xref> shape.
     content.vb: Public Overrides Function GetPolygonShape() As Polygon
   overridden: ShapeEngine.Core.Shapes.Shape.GetPolygonShape
   overload: ShapeEngine.Core.CollisionSystem.CircleSectorCollider.GetPolygonShape*
@@ -539,15 +565,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SetAccuracy
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CircleSectorCollider.cs
-    startLine: 87
+    startLine: 123
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Sets the arc accuracy (number of points for the arc).
+  example: []
   syntax:
     content: public void SetAccuracy(int value)
     parameters:
     - id: value
       type: System.Int32
+      description: The number of arc points.
     content.vb: Public Sub SetAccuracy(value As Integer)
   overload: ShapeEngine.Core.CollisionSystem.CircleSectorCollider.SetAccuracy*
   nameWithType.vb: CircleSectorCollider.SetAccuracy(Integer)
@@ -571,15 +600,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SetAngleSector
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CircleSectorCollider.cs
-    startLine: 93
+    startLine: 133
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Sets the sector angle in radians.
+  example: []
   syntax:
     content: public void SetAngleSector(float radians)
     parameters:
     - id: radians
       type: System.Single
+      description: The angle in radians.
     content.vb: Public Sub SetAngleSector(radians As Single)
   overload: ShapeEngine.Core.CollisionSystem.CircleSectorCollider.SetAngleSector*
   nameWithType.vb: CircleSectorCollider.SetAngleSector(Single)
@@ -603,15 +635,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ChangeAccuracy
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CircleSectorCollider.cs
-    startLine: 104
+    startLine: 145
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Changes the arc accuracy by a given amount.
+  example: []
   syntax:
     content: public void ChangeAccuracy(int amount)
     parameters:
     - id: amount
       type: System.Int32
+      description: The amount to change the arc points by.
     content.vb: Public Sub ChangeAccuracy(amount As Integer)
   overload: ShapeEngine.Core.CollisionSystem.CircleSectorCollider.ChangeAccuracy*
   nameWithType.vb: CircleSectorCollider.ChangeAccuracy(Integer)
@@ -635,15 +670,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ChangeAngleSector
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/CircleSectorCollider.cs
-    startLine: 109
+    startLine: 154
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Changes the sector angle by a given amount in radians.
+  example: []
   syntax:
     content: public void ChangeAngleSector(float radians)
     parameters:
     - id: radians
       type: System.Single
+      description: The amount to change the angle by (in radians).
     content.vb: Public Sub ChangeAngleSector(radians As Single)
   overload: ShapeEngine.Core.CollisionSystem.CircleSectorCollider.ChangeAngleSector*
   nameWithType.vb: CircleSectorCollider.ChangeAngleSector(Single)
@@ -3391,6 +3429,12 @@ references:
   name: RotationRad
   nameWithType: CircleSectorCollider.RotationRad
   fullName: ShapeEngine.Core.CollisionSystem.CircleSectorCollider.RotationRad
+- uid: ShapeEngine.Core.CollisionSystem.CircleSectorCollider
+  commentId: T:ShapeEngine.Core.CollisionSystem.CircleSectorCollider
+  href: ShapeEngine.Core.CollisionSystem.CircleSectorCollider.html
+  name: CircleSectorCollider
+  nameWithType: CircleSectorCollider
+  fullName: ShapeEngine.Core.CollisionSystem.CircleSectorCollider
 - uid: ShapeEngine.Core.CollisionSystem.CircleSectorCollider.#ctor*
   commentId: Overload:ShapeEngine.Core.CollisionSystem.CircleSectorCollider.#ctor
   href: ShapeEngine.Core.CollisionSystem.CircleSectorCollider.html#ShapeEngine_Core_CollisionSystem_CircleSectorCollider__ctor_ShapeEngine_Core_Structs_Transform2D_System_Single_System_Int32_
@@ -3535,6 +3579,13 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
+- uid: ShapeEngine.Core.Shapes.Rect
+  commentId: T:ShapeEngine.Core.Shapes.Rect
+  parent: ShapeEngine.Core.Shapes
+  href: ShapeEngine.Core.Shapes.Rect.html
+  name: Rect
+  nameWithType: Rect
+  fullName: ShapeEngine.Core.Shapes.Rect
 - uid: ShapeEngine.Core.CollisionSystem.Collider.GetBoundingBox
   commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetBoundingBox
   parent: ShapeEngine.Core.CollisionSystem.Collider
@@ -3560,13 +3611,12 @@ references:
   name: GetBoundingBox
   nameWithType: CircleSectorCollider.GetBoundingBox
   fullName: ShapeEngine.Core.CollisionSystem.CircleSectorCollider.GetBoundingBox
-- uid: ShapeEngine.Core.Shapes.Rect
-  commentId: T:ShapeEngine.Core.Shapes.Rect
-  parent: ShapeEngine.Core.Shapes
-  href: ShapeEngine.Core.Shapes.Rect.html
-  name: Rect
-  nameWithType: Rect
-  fullName: ShapeEngine.Core.Shapes.Rect
+- uid: ShapeEngine.Core.CollisionSystem.ShapeType.Poly
+  commentId: F:ShapeEngine.Core.CollisionSystem.ShapeType.Poly
+  href: ShapeEngine.Core.CollisionSystem.ShapeType.html#ShapeEngine_Core_CollisionSystem_ShapeType_Poly
+  name: Poly
+  nameWithType: ShapeType.Poly
+  fullName: ShapeEngine.Core.CollisionSystem.ShapeType.Poly
 - uid: ShapeEngine.Core.Shapes.Shape.GetShapeType
   commentId: M:ShapeEngine.Core.Shapes.Shape.GetShapeType
   parent: ShapeEngine.Core.Shapes.Shape
@@ -3599,6 +3649,13 @@ references:
   name: ShapeType
   nameWithType: ShapeType
   fullName: ShapeEngine.Core.CollisionSystem.ShapeType
+- uid: ShapeEngine.Core.Shapes.Polygon
+  commentId: T:ShapeEngine.Core.Shapes.Polygon
+  parent: ShapeEngine.Core.Shapes
+  href: ShapeEngine.Core.Shapes.Polygon.html
+  name: Polygon
+  nameWithType: Polygon
+  fullName: ShapeEngine.Core.Shapes.Polygon
 - uid: ShapeEngine.Core.Shapes.Shape.GetPolygonShape
   commentId: M:ShapeEngine.Core.Shapes.Shape.GetPolygonShape
   parent: ShapeEngine.Core.Shapes.Shape
@@ -3624,13 +3681,6 @@ references:
   name: GetPolygonShape
   nameWithType: CircleSectorCollider.GetPolygonShape
   fullName: ShapeEngine.Core.CollisionSystem.CircleSectorCollider.GetPolygonShape
-- uid: ShapeEngine.Core.Shapes.Polygon
-  commentId: T:ShapeEngine.Core.Shapes.Polygon
-  parent: ShapeEngine.Core.Shapes
-  href: ShapeEngine.Core.Shapes.Polygon.html
-  name: Polygon
-  nameWithType: Polygon
-  fullName: ShapeEngine.Core.Shapes.Polygon
 - uid: ShapeEngine.Core.CollisionSystem.CircleSectorCollider.SetAccuracy*
   commentId: Overload:ShapeEngine.Core.CollisionSystem.CircleSectorCollider.SetAccuracy
   href: ShapeEngine.Core.CollisionSystem.CircleSectorCollider.html#ShapeEngine_Core_CollisionSystem_CircleSectorCollider_SetAccuracy_System_Int32_

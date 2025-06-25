@@ -34,10 +34,16 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Stats
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 5
+    startLine: 9
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Manages a collection of stats and buffs, providing methods to update, add, and remove stats and buffs.
+  remarks: >-
+    The <xref href="ShapeEngine.Stats.Stats" data-throw-if-not-resolved="false"></xref> class coordinates the application and removal of buffs to stats,
+
+    and raises events for buff changes.
+  example: []
   syntax:
     content: public class Stats
     content.vb: Public Class Stats
@@ -69,10 +75,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnBuffStackAdded
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 7
+    startLine: 14
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Event triggered when a buff stack is added.
+  example: []
   syntax:
     content: public event Action<IBuff, int>? OnBuffStackAdded
     return:
@@ -96,10 +104,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnBuffStackRemoved
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 8
+    startLine: 18
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Event triggered when a buff stack is removed.
+  example: []
   syntax:
     content: public event Action<IBuff, int>? OnBuffStackRemoved
     return:
@@ -123,10 +133,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnBuffRemoved
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 9
+    startLine: 22
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Event triggered when a buff is removed.
+  example: []
   syntax:
     content: public event Action<IBuff>? OnBuffRemoved
     return:
@@ -150,10 +162,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnBuffAdded
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 10
+    startLine: 26
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Event triggered when a buff is added.
+  example: []
   syntax:
     content: public event Action<IBuff>? OnBuffAdded
     return:
@@ -177,10 +191,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 15
+    startLine: 34
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Stats.Stats" data-throw-if-not-resolved="false"></xref> class.
+  example: []
   syntax:
     content: public Stats()
     content.vb: Public Sub New()
@@ -206,15 +222,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 21
+    startLine: 44
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Updates all buffs and stats, applying and removing buffs as needed.
+  example: []
   syntax:
     content: public void Update(float dt)
     parameters:
     - id: dt
       type: System.Single
+      description: The time delta since the last update.
     content.vb: Public Sub Update(dt As Single)
   overload: ShapeEngine.Stats.Stats.Update*
   nameWithType.vb: Stats.Update(Single)
@@ -238,15 +257,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddStat
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 46
+    startLine: 73
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Adds a stat to the collection, replacing any existing stat with the same ID.
+  example: []
   syntax:
     content: public void AddStat(Stat stat)
     parameters:
     - id: stat
       type: ShapeEngine.Stats.Stat
+      description: The stat to add.
     content.vb: Public Sub AddStat(stat As Stat)
   overload: ShapeEngine.Stats.Stats.AddStat*
 - uid: ShapeEngine.Stats.Stats.RemoveStat(ShapeEngine.Stats.Stat)
@@ -267,17 +289,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveStat
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 50
+    startLine: 82
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Removes a stat from the collection and resets it.
+  example: []
   syntax:
     content: public bool RemoveStat(Stat stat)
     parameters:
     - id: stat
       type: ShapeEngine.Stats.Stat
+      description: The stat to remove.
     return:
       type: System.Boolean
+      description: True if the stat was removed; otherwise, false.
     content.vb: Public Function RemoveStat(stat As Stat) As Boolean
   overload: ShapeEngine.Stats.Stats.RemoveStat*
 - uid: ShapeEngine.Stats.Stats.AddBuffStack(ShapeEngine.Stats.IBuff)
@@ -298,17 +324,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddBuffStack
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 56
+    startLine: 93
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Adds a stack to a buff, or adds the buff if it does not exist.
+  example: []
   syntax:
     content: public bool AddBuffStack(IBuff buff)
     parameters:
     - id: buff
       type: ShapeEngine.Stats.IBuff
+      description: The buff to add or stack.
     return:
       type: System.Boolean
+      description: True if the buff was newly added; false if a stack was added to an existing buff.
     content.vb: Public Function AddBuffStack(buff As IBuff) As Boolean
   overload: ShapeEngine.Stats.Stats.AddBuffStack*
 - uid: ShapeEngine.Stats.Stats.RemoveBuffStack(ShapeEngine.Stats.IBuff)
@@ -329,17 +359,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveBuffStack
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 71
+    startLine: 113
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Removes a stack from a buff, or removes the buff if no stacks remain.
+  example: []
   syntax:
     content: public bool RemoveBuffStack(IBuff buff)
     parameters:
     - id: buff
       type: ShapeEngine.Stats.IBuff
+      description: The buff to remove a stack from.
     return:
       type: System.Boolean
+      description: True if the buff was removed; false if only a stack was removed or the buff was not found.
     content.vb: Public Function RemoveBuffStack(buff As IBuff) As Boolean
   overload: ShapeEngine.Stats.Stats.RemoveBuffStack*
 - uid: ShapeEngine.Stats.Stats.DeleteBuff(ShapeEngine.Stats.IBuff)
@@ -360,17 +394,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DeleteBuff
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 87
+    startLine: 134
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Deletes a buff from the collection without triggering events or stack logic.
+  example: []
   syntax:
     content: public bool DeleteBuff(IBuff buff)
     parameters:
     - id: buff
       type: ShapeEngine.Stats.IBuff
+      description: The buff to delete.
     return:
       type: System.Boolean
+      description: True if the buff was deleted; otherwise, false.
     content.vb: Public Function DeleteBuff(buff As IBuff) As Boolean
   overload: ShapeEngine.Stats.Stats.DeleteBuff*
 - uid: ShapeEngine.Stats.Stats.BuffWasRemoved(ShapeEngine.Stats.IBuff)
@@ -391,15 +429,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BuffWasRemoved
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 89
+    startLine: 140
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Called when a buff is removed. Override to add custom logic.
+  example: []
   syntax:
     content: protected virtual void BuffWasRemoved(IBuff buff)
     parameters:
     - id: buff
       type: ShapeEngine.Stats.IBuff
+      description: The buff that was removed.
     content.vb: Protected Overridable Sub BuffWasRemoved(buff As IBuff)
   overload: ShapeEngine.Stats.Stats.BuffWasRemoved*
 - uid: ShapeEngine.Stats.Stats.BuffWasAdded(ShapeEngine.Stats.IBuff)
@@ -420,15 +461,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BuffWasAdded
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 90
+    startLine: 145
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Called when a buff is added. Override to add custom logic.
+  example: []
   syntax:
     content: protected virtual void BuffWasAdded(IBuff buff)
     parameters:
     - id: buff
       type: ShapeEngine.Stats.IBuff
+      description: The buff that was added.
     content.vb: Protected Overridable Sub BuffWasAdded(buff As IBuff)
   overload: ShapeEngine.Stats.Stats.BuffWasAdded*
 - uid: ShapeEngine.Stats.Stats.BuffStackWasAdded(ShapeEngine.Stats.IBuff,System.Int32)
@@ -449,17 +493,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BuffStackWasAdded
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 91
+    startLine: 151
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Called when a buff stack is added. Override to add custom logic.
+  example: []
   syntax:
     content: protected virtual void BuffStackWasAdded(IBuff buff, int amount)
     parameters:
     - id: buff
       type: ShapeEngine.Stats.IBuff
+      description: The buff whose stack was added.
     - id: amount
       type: System.Int32
+      description: The number of stacks added.
     content.vb: Protected Overridable Sub BuffStackWasAdded(buff As IBuff, amount As Integer)
   overload: ShapeEngine.Stats.Stats.BuffStackWasAdded*
   nameWithType.vb: Stats.BuffStackWasAdded(IBuff, Integer)
@@ -483,23 +531,33 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BuffStackWasRemoved
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 92
+    startLine: 157
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Called when a buff stack is removed. Override to add custom logic.
+  example: []
   syntax:
     content: protected virtual void BuffStackWasRemoved(IBuff buff, int amount)
     parameters:
     - id: buff
       type: ShapeEngine.Stats.IBuff
+      description: The buff whose stack was removed.
     - id: amount
       type: System.Int32
+      description: The number of stacks removed.
     content.vb: Protected Overridable Sub BuffStackWasRemoved(buff As IBuff, amount As Integer)
   overload: ShapeEngine.Stats.Stats.BuffStackWasRemoved*
   nameWithType.vb: Stats.BuffStackWasRemoved(IBuff, Integer)
   fullName.vb: ShapeEngine.Stats.Stats.BuffStackWasRemoved(ShapeEngine.Stats.IBuff, Integer)
   name.vb: BuffStackWasRemoved(IBuff, Integer)
 references:
+- uid: ShapeEngine.Stats.Stats
+  commentId: T:ShapeEngine.Stats.Stats
+  href: ShapeEngine.Stats.Stats.html
+  name: Stats
+  nameWithType: Stats
+  fullName: ShapeEngine.Stats.Stats
 - uid: ShapeEngine.Stats
   commentId: N:ShapeEngine.Stats
   href: ShapeEngine.html

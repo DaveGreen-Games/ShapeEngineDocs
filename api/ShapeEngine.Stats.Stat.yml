@@ -32,10 +32,13 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Stat
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 5
+    startLine: 11
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Represents a stat that can be affected by buffs, supporting base value, current value, and locking.
+  remarks: Implements the <xref href="ShapeEngine.Stats.IStat" data-throw-if-not-resolved="false"></xref> interface and provides methods for applying and resetting buffs.
+  example: []
   syntax:
     content: 'public class Stat : IStat'
     content.vb: Public Class Stat Implements IStat
@@ -68,10 +71,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Id
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 8
+    startLine: 17
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: The unique identifier for this stat.
+  example: []
   syntax:
     content: public uint Id { get; }
     parameters: []
@@ -97,10 +102,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Name
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 9
+    startLine: 21
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: The display name of the stat.
+  example: []
   syntax:
     content: public string Name
     return:
@@ -124,10 +131,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: NameAbbreviation
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 10
+    startLine: 25
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: The abbreviated display name of the stat.
+  example: []
   syntax:
     content: public string NameAbbreviation
     return:
@@ -151,10 +160,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BaseValue
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 11
+    startLine: 29
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: The base value of the stat before buffs are applied.
+  example: []
   syntax:
     content: public float BaseValue { get; set; }
     parameters: []
@@ -180,10 +191,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CurValue
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 12
+    startLine: 33
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: The current value of the stat after all buffs are applied.
+  example: []
   syntax:
     content: public float CurValue { get; }
     parameters: []
@@ -209,10 +222,13 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Locked
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 13
+    startLine: 38
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Gets or sets whether the stat is locked (prevents further buff application).
+  remarks: Setting Locked to true will reset the stat.
+  example: []
   syntax:
     content: public bool Locked { get; set; }
     parameters: []
@@ -238,19 +254,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 26
+    startLine: 57
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Stats.Stat" data-throw-if-not-resolved="false"></xref> class.
+  example: []
   syntax:
     content: public Stat(uint id, float baseValue, BitFlag tagMask)
     parameters:
     - id: id
       type: System.UInt32
+      description: The unique identifier for the stat.
     - id: baseValue
       type: System.Single
+      description: The base value of the stat.
     - id: tagMask
       type: ShapeEngine.Core.Structs.BitFlag
+      description: The tag mask for determining which buffs affect this stat.
     content.vb: Public Sub New(id As UInteger, baseValue As Single, tagMask As BitFlag)
   overload: ShapeEngine.Stats.Stat.#ctor*
   nameWithType.vb: Stat.New(UInteger, Single, BitFlag)
@@ -274,15 +295,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Draw
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 34
+    startLine: 69
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: >-
+    Draws the stat in the specified rectangle.
+
+    Default implementation does nothing.
+  example: []
   syntax:
     content: public virtual void Draw(Rect rect)
     parameters:
     - id: rect
       type: ShapeEngine.Core.Shapes.Rect
+      description: The rectangle to draw in.
     content.vb: Public Overridable Sub Draw(rect As Rect)
   overload: ShapeEngine.Stats.Stat.Draw*
 - uid: ShapeEngine.Stats.Stat.ToString
@@ -303,14 +330,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToString
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 36
+    startLine: 75
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Returns a string representation of the stat, including its name and current value.
+  example: []
   syntax:
     content: public string ToString()
     return:
       type: System.String
+      description: A string describing the stat.
     content.vb: Public Function ToString() As String
   overload: ShapeEngine.Stats.Stat.ToString*
 - uid: ShapeEngine.Stats.Stat.ToText(System.Boolean)
@@ -331,17 +361,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToText
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 41
+    startLine: 85
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Returns a string representation of the stat, optionally abbreviated.
+  example: []
   syntax:
     content: public virtual string ToText(bool abbreviated)
     parameters:
     - id: abbreviated
       type: System.Boolean
+      description: Whether to use the abbreviated name.
     return:
       type: System.String
+      description: A string describing the stat.
     content.vb: Public Overridable Function ToText(abbreviated As Boolean) As String
   overload: ShapeEngine.Stats.Stat.ToText*
   nameWithType.vb: Stat.ToText(Boolean)
@@ -365,18 +399,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsAffected
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 48
+    startLine: 93
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Determines whether this stat is affected by a given tag.
   example: []
   syntax:
     content: public bool IsAffected(uint tag)
     parameters:
     - id: tag
       type: System.UInt32
+      description: The tag to check for effect applicability.
     return:
       type: System.Boolean
+      description: True if the stat is affected by the tag; otherwise, false.
     content.vb: Public Function IsAffected(tag As UInteger) As Boolean
   overload: ShapeEngine.Stats.Stat.IsAffected*
   implements:
@@ -402,10 +439,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Reset
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 49
+    startLine: 95
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Resets the stat to its base value, removing all applied buffs.
   example: []
   syntax:
     content: public void Reset()
@@ -431,21 +469,30 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Apply
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 53
+    startLine: 103
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Applies a buff value to this stat if the stat is not locked.
   example: []
   syntax:
     content: public void Apply(BuffValue buffValue)
     parameters:
     - id: buffValue
       type: ShapeEngine.Stats.BuffValue
+      description: The buff value to apply.
     content.vb: Public Sub Apply(buffValue As BuffValue)
   overload: ShapeEngine.Stats.Stat.Apply*
   implements:
   - ShapeEngine.Stats.IStat.Apply(ShapeEngine.Stats.BuffValue)
 references:
+- uid: ShapeEngine.Stats.IStat
+  commentId: T:ShapeEngine.Stats.IStat
+  parent: ShapeEngine.Stats
+  href: ShapeEngine.Stats.IStat.html
+  name: IStat
+  nameWithType: IStat
+  fullName: ShapeEngine.Stats.IStat
 - uid: ShapeEngine.Stats
   commentId: N:ShapeEngine.Stats
   href: ShapeEngine.html
@@ -479,13 +526,6 @@ references:
   nameWithType.vb: Object
   fullName.vb: Object
   name.vb: Object
-- uid: ShapeEngine.Stats.IStat
-  commentId: T:ShapeEngine.Stats.IStat
-  parent: ShapeEngine.Stats
-  href: ShapeEngine.Stats.IStat.html
-  name: IStat
-  nameWithType: IStat
-  fullName: ShapeEngine.Stats.IStat
 - uid: System.Object.Equals(System.Object)
   commentId: M:System.Object.Equals(System.Object)
   parent: System.Object
@@ -756,6 +796,13 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
+- uid: ShapeEngine.Stats.Stat
+  commentId: T:ShapeEngine.Stats.Stat
+  parent: ShapeEngine.Stats
+  href: ShapeEngine.Stats.Stat.html
+  name: Stat
+  nameWithType: Stat
+  fullName: ShapeEngine.Stats.Stat
 - uid: ShapeEngine.Stats.Stat.#ctor*
   commentId: Overload:ShapeEngine.Stats.Stat.#ctor
   href: ShapeEngine.Stats.Stat.html#ShapeEngine_Stats_Stat__ctor_System_UInt32_System_Single_ShapeEngine_Core_Structs_BitFlag_

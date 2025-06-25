@@ -30,10 +30,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ShapeGappedDrawing
     path: ../ShapeEngine/ShapeEngine/StaticLib/Drawing/ShapeGappedDrawing.cs
-    startLine: 6
+    startLine: 14
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib.Drawing
+  summary: >-
+    Provides static methods for drawing shapes and outlines with configurable gaps (dashed or segmented effects).
+
+    These methods allow for drawing lines, outlines, and various shapes with gaps, based on the specified parameters.
+  remarks: >-
+    All methods in this class are static and intended for rendering shapes with customizable gaps.
+
+    Useful for visual effects such as dashed lines, segmented outlines, or highlighting.
+  example: []
   syntax:
     content: public static class ShapeGappedDrawing
     content.vb: Public Module ShapeGappedDrawing
@@ -65,36 +74,45 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawGappedSegment
     path: ../ShapeEngine/ShapeEngine/StaticLib/Drawing/ShapeGappedDrawing.cs
-    startLine: 19
+    startLine: 35
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib.Drawing
-  summary: >-
-    Draws a line that is interrupted by gaps specified by the parameters.
+  summary: Draws a line segment with gaps, creating a dashed or segmented effect.
+  remarks: >-
+    - If <code class="paramref">gapDrawingInfo.Gaps.Gaps</code> is 0 or <code class="paramref">gapDrawingInfo.GapPerimeterPercentage.GapPerimeterPercentage</code> is 0, the line is drawn solid.
 
-    1 gap with 0.5 gap percentage would result in half of the line visible and the other not visible.
+    - If <code class="paramref">gapDrawingInfo.GapPerimeterPercentage.GapPerimeterPercentage</code> is 1 or greater, no line is drawn.
   example: []
   syntax:
     content: public static float DrawGappedSegment(Vector2 start, Vector2 end, float length, LineDrawingInfo lineInfo, GappedOutlineDrawingInfo gapDrawingInfo)
     parameters:
     - id: start
       type: System.Numerics.Vector2
-      description: The start of the line.
+      description: The starting point of the line segment.
     - id: end
       type: System.Numerics.Vector2
-      description: The end of the line.
+      description: The ending point of the line segment.
     - id: length
       type: System.Single
-      description: The length of the line. If zero or negative the function will calculate the length and return it.
+      description: >-
+        The length of the line.
+
+        If zero or negative, the method calculates it automatically.
+
+        Providing a known length avoids redundant calculations and improves performance, especially for static segments.
     - id: lineInfo
       type: ShapeEngine.Core.Structs.LineDrawingInfo
-      description: The parameters for how to draw the line.
+      description: Parameters describing how to draw the line (e.g., color, thickness).
     - id: gapDrawingInfo
       type: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo
-      description: Info for how to draw the gaps.
+      description: Parameters describing the gap configuration (number of gaps, gap percentage, etc.).
     return:
       type: System.Single
-      description: Returns the length of the line if positive otherwise -1.
+      description: >-
+        The length of the line if positive; otherwise, -1.
+
+        If the shape does not change, the valid length can be reused in subsequent frames to avoid recalculating.
     content.vb: Public Shared Function DrawGappedSegment(start As Vector2, [end] As Vector2, length As Single, lineInfo As LineDrawingInfo, gapDrawingInfo As GappedOutlineDrawingInfo) As Single
   overload: ShapeEngine.StaticLib.Drawing.ShapeGappedDrawing.DrawGappedSegment*
   nameWithType.vb: ShapeGappedDrawing.DrawGappedSegment(Vector2, Vector2, Single, LineDrawingInfo, GappedOutlineDrawingInfo)
@@ -119,32 +137,42 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawGappedOutline
     path: ../ShapeEngine/ShapeEngine/StaticLib/Drawing/ShapeGappedDrawing.cs
-    startLine: 116
+    startLine: 143
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib.Drawing
-  summary: >-
-    Draws an outline that is interrupted by gaps specified by the parameters.
+  summary: Draws an outline (closed polyline) with gaps, creating a dashed or segmented effect.
+  remarks: >-
+    - If <code class="paramref">gapDrawingInfo.Gaps.Gaps</code> is 0 or <code class="paramref">gapDrawingInfo.GapPerimeterPercentage.GapPerimeterPercentage</code> is 0, the outline is drawn solid.
 
-    1 gap with 0.5 gap percentage would result in half of the outline visible and the other not visible.
+    - If <code class="paramref">gapDrawingInfo.GapPerimeterPercentage.GapPerimeterPercentage</code> is 1 or greater, no outline is drawn.
   example: []
   syntax:
     content: public static float DrawGappedOutline(this List<Vector2> shapePoints, float perimeter, LineDrawingInfo lineInfo, GappedOutlineDrawingInfo gapDrawingInfo)
     parameters:
     - id: shapePoints
       type: System.Collections.Generic.List{System.Numerics.Vector2}
-      description: The points for the outline.
+      description: The list of points defining the outline.
     - id: perimeter
       type: System.Single
-      description: The total length of the perimeter. If less than 0 the functions calculates this (more expensive).
+      description: >-
+        The total length of the outline.
+
+        If zero or negative, the method calculates it automatically.
+
+        Providing a known length avoids redundant calculations and improves performance, especially for static segments.
     - id: lineInfo
       type: ShapeEngine.Core.Structs.LineDrawingInfo
-      description: The parameters for how to draw the line.
+      description: Parameters describing how to draw the outline.
     - id: gapDrawingInfo
       type: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo
-      description: Info for how to draw the gaps.
+      description: Parameters describing the gap configuration.
     return:
       type: System.Single
+      description: >-
+        The perimeter of the outline if positive; otherwise, -1.
+
+        If the shape does not change, the valid length can be reused in subsequent frames to avoid recalculating.
     content.vb: Public Shared Function DrawGappedOutline(shapePoints As List(Of Vector2), perimeter As Single, lineInfo As LineDrawingInfo, gapDrawingInfo As GappedOutlineDrawingInfo) As Single
   overload: ShapeEngine.StaticLib.Drawing.ShapeGappedDrawing.DrawGappedOutline*
   nameWithType.vb: ShapeGappedDrawing.DrawGappedOutline(List(Of Vector2), Single, LineDrawingInfo, GappedOutlineDrawingInfo)
@@ -169,32 +197,42 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawGappedOutline
     path: ../ShapeEngine/ShapeEngine/StaticLib/Drawing/ShapeGappedDrawing.cs
-    startLine: 219
+    startLine: 257
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib.Drawing
-  summary: >-
-    Draws an outline that is interrupted by gaps specified by the parameters.
+  summary: Draws an outline (closed polyline) with gaps for a <xref href="ShapeEngine.Core.Shapes.Points" data-throw-if-not-resolved="false"></xref> collection.
+  remarks: >-
+    - If <code class="paramref">gapDrawingInfo.Gaps.Gaps</code> is 0 or <code class="paramref">gapDrawingInfo.GapPerimeterPercentage.GapPerimeterPercentage</code> is 0, the outline is drawn solid.
 
-    1 gap with 0.5 gap percentage would result in half of the outline visible and the other not visible.
+    - If <code class="paramref">gapDrawingInfo.GapPerimeterPercentage.GapPerimeterPercentage</code> is 1 or greater, no outline is drawn.
   example: []
   syntax:
     content: public static float DrawGappedOutline(this Points shapePoints, float perimeter, LineDrawingInfo lineInfo, GappedOutlineDrawingInfo gapDrawingInfo)
     parameters:
     - id: shapePoints
       type: ShapeEngine.Core.Shapes.Points
-      description: The points for the outline.
+      description: The points defining the outline.
     - id: perimeter
       type: System.Single
-      description: The total length of the perimeter. If less than 0 the functions calculates this (more expensive).
+      description: >-
+        The total length of the outline.
+
+        If zero or negative, the method calculates it automatically.
+
+        Providing a known length avoids redundant calculations and improves performance, especially for static segments.
     - id: lineInfo
       type: ShapeEngine.Core.Structs.LineDrawingInfo
-      description: The parameters for how to draw the line.
+      description: Parameters describing how to draw the outline.
     - id: gapDrawingInfo
       type: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo
-      description: Info for how to draw the gaps.
+      description: Parameters describing the gap configuration.
     return:
       type: System.Single
+      description: >-
+        The perimeter of the outline if positive; otherwise, -1.
+
+        If the shape does not change, the valid length can be reused in subsequent frames to avoid recalculating.
     content.vb: Public Shared Function DrawGappedOutline(shapePoints As Points, perimeter As Single, lineInfo As LineDrawingInfo, gapDrawingInfo As GappedOutlineDrawingInfo) As Single
   overload: ShapeEngine.StaticLib.Drawing.ShapeGappedDrawing.DrawGappedOutline*
   nameWithType.vb: ShapeGappedDrawing.DrawGappedOutline(Points, Single, LineDrawingInfo, GappedOutlineDrawingInfo)
@@ -219,14 +257,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawGapped
     path: ../ShapeEngine/ShapeEngine/StaticLib/Drawing/ShapeGappedDrawing.cs
-    startLine: 324
+    startLine: 371
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib.Drawing
-  summary: >-
-    Draws a segment that is interrupted by gaps specified by the parameters.
-
-    1 gap with 0.5 gap percentage would result in half of the segment visible and the other not visible.
+  summary: Draws a segment with gaps, creating a dashed or segmented effect.
+  remarks: This is a convenience wrapper for <xref href="ShapeEngine.StaticLib.Drawing.ShapeGappedDrawing.DrawGappedSegment(System.Numerics.Vector2%2cSystem.Numerics.Vector2%2cSystem.Single%2cShapeEngine.Core.Structs.LineDrawingInfo%2cShapeEngine.Core.Structs.GappedOutlineDrawingInfo)" data-throw-if-not-resolved="false"></xref>.
   example: []
   syntax:
     content: public static float DrawGapped(this Segment s, float length, LineDrawingInfo lineInfo, GappedOutlineDrawingInfo gapDrawingInfo)
@@ -236,16 +272,24 @@ items:
       description: The segment to draw.
     - id: length
       type: System.Single
-      description: The length of the segment. If zero or negative the function will calculate the length and return it.
+      description: >-
+        The length of the segment.
+
+        If zero or negative, the method calculates it automatically.
+
+        Providing a known length avoids redundant calculations and improves performance, especially for static segments.
     - id: lineInfo
       type: ShapeEngine.Core.Structs.LineDrawingInfo
-      description: The parameters for how to draw the segment.
+      description: Parameters describing how to draw the segment.
     - id: gapDrawingInfo
       type: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo
-      description: Info for how to draw the gaps.
+      description: Parameters describing the gap configuration.
     return:
       type: System.Single
-      description: Returns the length of the segment if positive otherwise -1.
+      description: >-
+        Returns the segment length if positive; otherwise, returns -1.
+
+        If the shape does not change, the valid length can be reused in subsequent frames to avoid recalculating.
     content.vb: Public Shared Function DrawGapped(s As Segment, length As Single, lineInfo As LineDrawingInfo, gapDrawingInfo As GappedOutlineDrawingInfo) As Single
   overload: ShapeEngine.StaticLib.Drawing.ShapeGappedDrawing.DrawGapped*
   nameWithType.vb: ShapeGappedDrawing.DrawGapped(Segment, Single, LineDrawingInfo, GappedOutlineDrawingInfo)
@@ -270,33 +314,36 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawGappedOutline
     path: ../ShapeEngine/ShapeEngine/StaticLib/Drawing/ShapeGappedDrawing.cs
-    startLine: 337
+    startLine: 387
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib.Drawing
-  summary: >-
-    Draws an outline that is interrupted by gaps specified by the parameters.
+  summary: Draws a gapped outline for a circle, creating a dashed or segmented circular outline.
+  remarks: >-
+    - If <code class="paramref">gapDrawingInfo.Gaps.Gaps</code> is 0 or <code class="paramref">gapDrawingInfo.GapPerimeterPercentage.GapPerimeterPercentage</code> is 0, the outline is drawn solid.
 
-    1 gap with 0.5 gap percentage would result in half of the outline visible and the other not visible.
+    - If <code class="paramref">gapDrawingInfo.GapPerimeterPercentage.GapPerimeterPercentage</code> is 1 or greater, no outline is drawn.
+
+    - The <code class="paramref">sides</code> parameter controls the smoothness of the circle.
   example: []
   syntax:
     content: public static void DrawGappedOutline(this Circle circle, LineDrawingInfo lineInfo, GappedOutlineDrawingInfo gapDrawingInfo, float rotDeg, int sides = 18)
     parameters:
     - id: circle
       type: ShapeEngine.Core.Shapes.Circle
-      description: The circle to use for drawing.
+      description: The circle to draw.
     - id: lineInfo
       type: ShapeEngine.Core.Structs.LineDrawingInfo
-      description: The parameters for how to draw the line.
+      description: Parameters describing how to draw the outline.
     - id: gapDrawingInfo
       type: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo
-      description: Info for how to draw the gaps.
+      description: Parameters describing the gap configuration.
     - id: rotDeg
       type: System.Single
-      description: The rotation of the circle.
+      description: The rotation of the circle in degrees.
     - id: sides
       type: System.Int32
-      description: With how many sides should the circle be drawn.
+      description: The number of sides to approximate the circle (minimum 3).
     content.vb: Public Shared Sub DrawGappedOutline(circle As Circle, lineInfo As LineDrawingInfo, gapDrawingInfo As GappedOutlineDrawingInfo, rotDeg As Single, sides As Integer = 18)
   overload: ShapeEngine.StaticLib.Drawing.ShapeGappedDrawing.DrawGappedOutline*
   nameWithType.vb: ShapeGappedDrawing.DrawGappedOutline(Circle, LineDrawingInfo, GappedOutlineDrawingInfo, Single, Integer)
@@ -320,14 +367,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawGappedRing
     path: ../ShapeEngine/ShapeEngine/StaticLib/Drawing/ShapeGappedDrawing.cs
-    startLine: 448
+    startLine: 496
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib.Drawing
-  summary: >-
-    Draws an outline that is interrupted by gaps specified by the parameters.
+  summary: Draws a gapped outline for a ring (annulus), creating dashed or segmented outlines for both inner and outer circles.
+  remarks: >-
+    - If both radii are zero or negative, nothing is drawn.
 
-    1 gap with 0.5 gap percentage would result in half of the outline visible and the other not visible.
+    - The number of sides for each circle is determined by the radius and <code class="paramref">sideLength</code>.
   example: []
   syntax:
     content: public static void DrawGappedRing(Vector2 center, float innerRadius, float outerRadius, LineDrawingInfo lineInfo, GappedOutlineDrawingInfo gapDrawingInfo, float rotDeg, float sideLength = 8)
@@ -337,22 +385,22 @@ items:
       description: The center of the ring.
     - id: innerRadius
       type: System.Single
-      description: The radius of the inner ring.
+      description: The radius of the inner circle. If zero or negative, only the outer circle is drawn.
     - id: outerRadius
       type: System.Single
-      description: The radius of the outer ring.
+      description: The radius of the outer circle. If zero or negative, only the inner circle is drawn.
     - id: lineInfo
       type: ShapeEngine.Core.Structs.LineDrawingInfo
-      description: The parameters for how to draw the line.
+      description: Parameters describing how to draw the outlines.
     - id: gapDrawingInfo
       type: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo
-      description: Info for how to draw the gaps.
+      description: Parameters describing the gap configuration.
     - id: rotDeg
       type: System.Single
-      description: The rotation of the circle.
+      description: The rotation of the ring in degrees.
     - id: sideLength
       type: System.Single
-      description: The side lengths of the circle.
+      description: The approximate length of each side used to approximate the circles.
     content.vb: Public Shared Sub DrawGappedRing(center As Vector2, innerRadius As Single, outerRadius As Single, lineInfo As LineDrawingInfo, gapDrawingInfo As GappedOutlineDrawingInfo, rotDeg As Single, sideLength As Single = 8)
   overload: ShapeEngine.StaticLib.Drawing.ShapeGappedDrawing.DrawGappedRing*
   nameWithType.vb: ShapeGappedDrawing.DrawGappedRing(Vector2, Single, Single, LineDrawingInfo, GappedOutlineDrawingInfo, Single, Single)
@@ -377,32 +425,42 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawGappedOutline
     path: ../ShapeEngine/ShapeEngine/StaticLib/Drawing/ShapeGappedDrawing.cs
-    startLine: 480
+    startLine: 539
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib.Drawing
-  summary: >-
-    Draws an outline that is interrupted by gaps specified by the parameters.
+  summary: Draws a gapped outline for a triangle, creating a dashed or segmented effect along the triangle's perimeter.
+  remarks: >-
+    - If <code class="paramref">gapDrawingInfo.Gaps.Gaps</code> is 0 or <code class="paramref">gapDrawingInfo.GapPerimeterPercentage.GapPerimeterPercentage</code> is 0, the outline is drawn solid.
 
-    1 gap with 0.5 gap percentage would result in half of the outline visible and the other not visible.
+    - If <code class="paramref">gapDrawingInfo.GapPerimeterPercentage.GapPerimeterPercentage</code> is 1 or greater, no outline is drawn.
   example: []
   syntax:
     content: public static float DrawGappedOutline(this Triangle triangle, float perimeter, LineDrawingInfo lineInfo, GappedOutlineDrawingInfo gapDrawingInfo)
     parameters:
     - id: triangle
       type: ShapeEngine.Core.Shapes.Triangle
-      description: The triangle for drawing the outline.
+      description: The triangle to draw.
     - id: perimeter
       type: System.Single
-      description: The total length of the perimeter. If less than 0 the functions calculates this (more expensive).
+      description: >-
+        The total length of the triangle's perimeter.
+
+        If zero or negative, the method calculates it automatically.
+
+        Providing a known length avoids redundant calculations and improves performance, especially for static segments.
     - id: lineInfo
       type: ShapeEngine.Core.Structs.LineDrawingInfo
-      description: The parameters for how to draw the line.
+      description: Parameters describing how to draw the outline.
     - id: gapDrawingInfo
       type: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo
-      description: Info for how to draw the gaps.
+      description: Parameters describing the gap configuration.
     return:
       type: System.Single
+      description: >-
+        The perimeter of the triangle if positive; otherwise, -1.
+
+        If the shape does not change, the valid length can be reused in subsequent frames to avoid recalculating.
     content.vb: Public Shared Function DrawGappedOutline(triangle As Triangle, perimeter As Single, lineInfo As LineDrawingInfo, gapDrawingInfo As GappedOutlineDrawingInfo) As Single
   overload: ShapeEngine.StaticLib.Drawing.ShapeGappedDrawing.DrawGappedOutline*
   nameWithType.vb: ShapeGappedDrawing.DrawGappedOutline(Triangle, Single, LineDrawingInfo, GappedOutlineDrawingInfo)
@@ -427,32 +485,42 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawGappedOutline
     path: ../ShapeEngine/ShapeEngine/StaticLib/Drawing/ShapeGappedDrawing.cs
-    startLine: 589
+    startLine: 657
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib.Drawing
-  summary: >-
-    Draws an outline that is interrupted by gaps specified by the parameters.
+  summary: Draws a gapped outline for a rectangle, creating a dashed or segmented effect along the rectangle's perimeter.
+  remarks: >-
+    - If <code class="paramref">gapDrawingInfo.Gaps.Gaps</code> is 0 or <code class="paramref">gapDrawingInfo.GapPerimeterPercentage.GapPerimeterPercentage</code> is 0, the outline is drawn solid.
 
-    1 gap with 0.5 gap percentage would result in half of the outline visible and the other not visible.
+    - If <code class="paramref">gapDrawingInfo.GapPerimeterPercentage.GapPerimeterPercentage</code> is 1 or greater, no outline is drawn.
   example: []
   syntax:
     content: public static float DrawGappedOutline(this Rect rect, float perimeter, LineDrawingInfo lineInfo, GappedOutlineDrawingInfo gapDrawingInfo)
     parameters:
     - id: rect
       type: ShapeEngine.Core.Shapes.Rect
-      description: The rect for drawing the outline.
+      description: The rectangle to draw.
     - id: perimeter
       type: System.Single
-      description: The total length of the perimeter. If less than 0 the functions calculates this (more expensive).
+      description: >-
+        The total length of the rectangle's perimeter.
+
+        If zero or negative, the method calculates it automatically.
+
+        Providing a known length avoids redundant calculations and improves performance, especially for static segments.
     - id: lineInfo
       type: ShapeEngine.Core.Structs.LineDrawingInfo
-      description: The parameters for how to draw the line.
+      description: Parameters describing how to draw the outline.
     - id: gapDrawingInfo
       type: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo
-      description: Info for how to draw the gaps.
+      description: Parameters describing the gap configuration.
     return:
       type: System.Single
+      description: >-
+        The perimeter of the rectangle if positive; otherwise, -1.
+
+        If the shape does not change, the valid length can be reused in subsequent frames to avoid recalculating.
     content.vb: Public Shared Function DrawGappedOutline(rect As Rect, perimeter As Single, lineInfo As LineDrawingInfo, gapDrawingInfo As GappedOutlineDrawingInfo) As Single
   overload: ShapeEngine.StaticLib.Drawing.ShapeGappedDrawing.DrawGappedOutline*
   nameWithType.vb: ShapeGappedDrawing.DrawGappedOutline(Rect, Single, LineDrawingInfo, GappedOutlineDrawingInfo)
@@ -477,32 +545,42 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawGappedOutline
     path: ../ShapeEngine/ShapeEngine/StaticLib/Drawing/ShapeGappedDrawing.cs
-    startLine: 695
+    startLine: 774
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib.Drawing
-  summary: >-
-    Draws an outline that is interrupted by gaps specified by the parameters.
+  summary: Draws a gapped outline for a quadrilateral, creating a dashed or segmented effect along the quad's perimeter.
+  remarks: >-
+    - If <code class="paramref">gapDrawingInfo.Gaps.Gaps</code> is 0 or <code class="paramref">gapDrawingInfo.GapPerimeterPercentage.GapPerimeterPercentage</code> is 0, the outline is drawn solid.
 
-    1 gap with 0.5 gap percentage would result in half of the outline visible and the other not visible.
+    - If <code class="paramref">gapDrawingInfo.GapPerimeterPercentage.GapPerimeterPercentage</code> is 1 or greater, no outline is drawn.
   example: []
   syntax:
     content: public static float DrawGappedOutline(this Quad quad, float perimeter, LineDrawingInfo lineInfo, GappedOutlineDrawingInfo gapDrawingInfo)
     parameters:
     - id: quad
       type: ShapeEngine.Core.Shapes.Quad
-      description: The quad for drawing the outline.
+      description: The quadrilateral to draw.
     - id: perimeter
       type: System.Single
-      description: The total length of the perimeter. If less than 0 the functions calculates this (more expensive).
+      description: >-
+        The total length of the quad's perimeter.
+
+        If zero or negative, the method calculates it automatically.
+
+        Providing a known length avoids redundant calculations and improves performance, especially for static segments.
     - id: lineInfo
       type: ShapeEngine.Core.Structs.LineDrawingInfo
-      description: The parameters for how to draw the line.
+      description: Parameters describing how to draw the outline.
     - id: gapDrawingInfo
       type: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo
-      description: Info for how to draw the gaps.
+      description: Parameters describing the gap configuration.
     return:
       type: System.Single
+      description: >-
+        The perimeter of the quad if positive; otherwise, -1.
+
+        If the shape does not change, the valid length can be reused in subsequent frames to avoid recalculating.
     content.vb: Public Shared Function DrawGappedOutline(quad As Quad, perimeter As Single, lineInfo As LineDrawingInfo, gapDrawingInfo As GappedOutlineDrawingInfo) As Single
   overload: ShapeEngine.StaticLib.Drawing.ShapeGappedDrawing.DrawGappedOutline*
   nameWithType.vb: ShapeGappedDrawing.DrawGappedOutline(Quad, Single, LineDrawingInfo, GappedOutlineDrawingInfo)
@@ -527,32 +605,42 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawGappedOutline
     path: ../ShapeEngine/ShapeEngine/StaticLib/Drawing/ShapeGappedDrawing.cs
-    startLine: 804
+    startLine: 892
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib.Drawing
-  summary: >-
-    Draws an outline that is interrupted by gaps specified by the parameters.
+  summary: Draws a gapped outline for a polygon, creating a dashed or segmented effect along the polygon's perimeter.
+  remarks: >-
+    - If <code class="paramref">gapDrawingInfo.Gaps.Gaps</code> is 0 or <code class="paramref">gapDrawingInfo.GapPerimeterPercentage.GapPerimeterPercentage</code> is 0, the outline is drawn solid.
 
-    1 gap with 0.5 gap percentage would result in half of the outline visible and the other not visible.
+    - If <code class="paramref">gapDrawingInfo.GapPerimeterPercentage.GapPerimeterPercentage</code> is 1 or greater, no outline is drawn.
   example: []
   syntax:
     content: public static float DrawGappedOutline(this Polygon poly, float perimeter, LineDrawingInfo lineInfo, GappedOutlineDrawingInfo gapDrawingInfo)
     parameters:
     - id: poly
       type: ShapeEngine.Core.Shapes.Polygon
-      description: The polygon outline.
+      description: The polygon to draw.
     - id: perimeter
       type: System.Single
-      description: The total length of the perimeter. If less than 0 the functions calculates this (more expensive).
+      description: >-
+        The total length of the polygon's perimeter.
+
+        If zero or negative, the method calculates it automatically.
+
+        Providing a known length avoids redundant calculations and improves performance, especially for static segments.
     - id: lineInfo
       type: ShapeEngine.Core.Structs.LineDrawingInfo
-      description: The parameters for how to draw the line.
+      description: Parameters describing how to draw the outline.
     - id: gapDrawingInfo
       type: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo
-      description: Info for how to draw the gaps.
+      description: Parameters describing the gap configuration.
     return:
       type: System.Single
+      description: >-
+        The perimeter of the polygon if positive; otherwise, -1.
+
+        If the shape does not change, the valid length can be reused in subsequent frames to avoid recalculating.
     content.vb: Public Shared Function DrawGappedOutline(poly As Polygon, perimeter As Single, lineInfo As LineDrawingInfo, gapDrawingInfo As GappedOutlineDrawingInfo) As Single
   overload: ShapeEngine.StaticLib.Drawing.ShapeGappedDrawing.DrawGappedOutline*
   nameWithType.vb: ShapeGappedDrawing.DrawGappedOutline(Polygon, Single, LineDrawingInfo, GappedOutlineDrawingInfo)
@@ -577,32 +665,42 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawGappedOutline
     path: ../ShapeEngine/ShapeEngine/StaticLib/Drawing/ShapeGappedDrawing.cs
-    startLine: 907
+    startLine: 1006
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.StaticLib.Drawing
-  summary: >-
-    Draws an outline that is interrupted by gaps specified by the parameters.
+  summary: Draws a gapped outline for a polyline (open or closed), creating a dashed or segmented effect along the polyline's length.
+  remarks: >-
+    - If <code class="paramref">gapDrawingInfo.Gaps.Gaps</code> is 0 or <code class="paramref">gapDrawingInfo.GapPerimeterPercentage.GapPerimeterPercentage</code> is 0, the polyline is drawn solid.
 
-    1 gap with 0.5 gap percentage would result in half of the outline visible and the other not visible.
+    - If <code class="paramref">gapDrawingInfo.GapPerimeterPercentage.GapPerimeterPercentage</code> is 1 or greater, no polyline is drawn.
   example: []
   syntax:
     content: public static float DrawGappedOutline(this Polyline polyline, float perimeter, LineDrawingInfo lineInfo, GappedOutlineDrawingInfo gapDrawingInfo)
     parameters:
     - id: polyline
       type: ShapeEngine.Core.Shapes.Polyline
-      description: The polyline for drawing the outline.
+      description: The polyline to draw.
     - id: perimeter
       type: System.Single
-      description: The total length of the perimeter. If less than 0 the functions calculates this (more expensive).
+      description: >-
+        The total length of the polyline.
+
+        If zero or negative, the method calculates it automatically.
+
+        Providing a known length avoids redundant calculations and improves performance, especially for static segments.
     - id: lineInfo
       type: ShapeEngine.Core.Structs.LineDrawingInfo
-      description: The parameters for how to draw the line.
+      description: Parameters describing how to draw the polyline.
     - id: gapDrawingInfo
       type: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo
-      description: Info for how to draw the gaps.
+      description: Parameters describing the gap configuration.
     return:
       type: System.Single
+      description: >-
+        The perimeter of the polyline if positive; otherwise, -1.
+
+        If the shape does not change, the valid length can be reused in subsequent frames to avoid recalculating.
     content.vb: Public Shared Function DrawGappedOutline(polyline As Polyline, perimeter As Single, lineInfo As LineDrawingInfo, gapDrawingInfo As GappedOutlineDrawingInfo) As Single
   overload: ShapeEngine.StaticLib.Drawing.ShapeGappedDrawing.DrawGappedOutline*
   nameWithType.vb: ShapeGappedDrawing.DrawGappedOutline(Polyline, Single, LineDrawingInfo, GappedOutlineDrawingInfo)
@@ -1115,6 +1213,80 @@ references:
   - uid: ShapeEngine.Core.Shapes
     name: Shapes
     href: ShapeEngine.Core.Shapes.html
+- uid: ShapeEngine.StaticLib.Drawing.ShapeGappedDrawing.DrawGappedSegment(System.Numerics.Vector2,System.Numerics.Vector2,System.Single,ShapeEngine.Core.Structs.LineDrawingInfo,ShapeEngine.Core.Structs.GappedOutlineDrawingInfo)
+  commentId: M:ShapeEngine.StaticLib.Drawing.ShapeGappedDrawing.DrawGappedSegment(System.Numerics.Vector2,System.Numerics.Vector2,System.Single,ShapeEngine.Core.Structs.LineDrawingInfo,ShapeEngine.Core.Structs.GappedOutlineDrawingInfo)
+  isExternal: true
+  href: ShapeEngine.StaticLib.Drawing.ShapeGappedDrawing.html#ShapeEngine_StaticLib_Drawing_ShapeGappedDrawing_DrawGappedSegment_System_Numerics_Vector2_System_Numerics_Vector2_System_Single_ShapeEngine_Core_Structs_LineDrawingInfo_ShapeEngine_Core_Structs_GappedOutlineDrawingInfo_
+  name: DrawGappedSegment(Vector2, Vector2, float, LineDrawingInfo, GappedOutlineDrawingInfo)
+  nameWithType: ShapeGappedDrawing.DrawGappedSegment(Vector2, Vector2, float, LineDrawingInfo, GappedOutlineDrawingInfo)
+  fullName: ShapeEngine.StaticLib.Drawing.ShapeGappedDrawing.DrawGappedSegment(System.Numerics.Vector2, System.Numerics.Vector2, float, ShapeEngine.Core.Structs.LineDrawingInfo, ShapeEngine.Core.Structs.GappedOutlineDrawingInfo)
+  nameWithType.vb: ShapeGappedDrawing.DrawGappedSegment(Vector2, Vector2, Single, LineDrawingInfo, GappedOutlineDrawingInfo)
+  fullName.vb: ShapeEngine.StaticLib.Drawing.ShapeGappedDrawing.DrawGappedSegment(System.Numerics.Vector2, System.Numerics.Vector2, Single, ShapeEngine.Core.Structs.LineDrawingInfo, ShapeEngine.Core.Structs.GappedOutlineDrawingInfo)
+  name.vb: DrawGappedSegment(Vector2, Vector2, Single, LineDrawingInfo, GappedOutlineDrawingInfo)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.Drawing.ShapeGappedDrawing.DrawGappedSegment(System.Numerics.Vector2,System.Numerics.Vector2,System.Single,ShapeEngine.Core.Structs.LineDrawingInfo,ShapeEngine.Core.Structs.GappedOutlineDrawingInfo)
+    name: DrawGappedSegment
+    href: ShapeEngine.StaticLib.Drawing.ShapeGappedDrawing.html#ShapeEngine_StaticLib_Drawing_ShapeGappedDrawing_DrawGappedSegment_System_Numerics_Vector2_System_Numerics_Vector2_System_Single_ShapeEngine_Core_Structs_LineDrawingInfo_ShapeEngine_Core_Structs_GappedOutlineDrawingInfo_
+  - name: (
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Structs.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Core.Structs.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo
+    name: GappedOutlineDrawingInfo
+    href: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.Drawing.ShapeGappedDrawing.DrawGappedSegment(System.Numerics.Vector2,System.Numerics.Vector2,System.Single,ShapeEngine.Core.Structs.LineDrawingInfo,ShapeEngine.Core.Structs.GappedOutlineDrawingInfo)
+    name: DrawGappedSegment
+    href: ShapeEngine.StaticLib.Drawing.ShapeGappedDrawing.html#ShapeEngine_StaticLib_Drawing_ShapeGappedDrawing_DrawGappedSegment_System_Numerics_Vector2_System_Numerics_Vector2_System_Single_ShapeEngine_Core_Structs_LineDrawingInfo_ShapeEngine_Core_Structs_GappedOutlineDrawingInfo_
+  - name: (
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Structs.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Core.Structs.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo
+    name: GappedOutlineDrawingInfo
+    href: ShapeEngine.Core.Structs.GappedOutlineDrawingInfo.html
+  - name: )
 - uid: ShapeEngine.StaticLib.Drawing.ShapeGappedDrawing.DrawGapped*
   commentId: Overload:ShapeEngine.StaticLib.Drawing.ShapeGappedDrawing.DrawGapped
   href: ShapeEngine.StaticLib.Drawing.ShapeGappedDrawing.html#ShapeEngine_StaticLib_Drawing_ShapeGappedDrawing_DrawGapped_ShapeEngine_Core_Shapes_Segment_System_Single_ShapeEngine_Core_Structs_LineDrawingInfo_ShapeEngine_Core_Structs_GappedOutlineDrawingInfo_

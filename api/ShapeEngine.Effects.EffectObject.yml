@@ -30,10 +30,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: EffectObject
     path: ../ShapeEngine/ShapeEngine/Effects/EffectObject.cs
-    startLine: 10
+    startLine: 13
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Effects
+  summary: Represents a base class for effect objects with lifetime and tweening support.
+  example: []
   syntax:
     content: 'public abstract class EffectObject : GameObject, IUpdateable, IDrawable'
     content.vb: Public MustInherit Class EffectObject Inherits GameObject Implements IUpdateable, IDrawable
@@ -92,15 +94,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TweenType
     path: ../ShapeEngine/ShapeEngine/Effects/EffectObject.cs
-    startLine: 12
+    startLine: 18
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Effects
+  summary: Gets or sets the tween type used for transitions.
+  example: []
   syntax:
     content: public TweenType TweenType { get; set; }
     parameters: []
     return:
-      type: ShapeEngine.StaticLib.TweenType
+      type: ShapeEngine.Core.TweenType
     content.vb: Public Property TweenType As TweenType
   overload: ShapeEngine.Effects.EffectObject.TweenType*
 - uid: ShapeEngine.Effects.EffectObject.LifetimeF
@@ -121,10 +125,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LifetimeF
     path: ../ShapeEngine/ShapeEngine/Effects/EffectObject.cs
-    startLine: 13
+    startLine: 23
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Effects
+  summary: Gets the normalized lifetime progress (0 = start, 1 = end).
+  example: []
   syntax:
     content: public float LifetimeF { get; }
     parameters: []
@@ -150,10 +156,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: lifetimeTimer
     path: ../ShapeEngine/ShapeEngine/Effects/EffectObject.cs
-    startLine: 14
+    startLine: 28
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Effects
+  summary: Timer used to track the lifetime of the effect.
+  example: []
   syntax:
     content: protected BasicTimer lifetimeTimer
     return:
@@ -177,17 +185,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Effects/EffectObject.cs
-    startLine: 17
+    startLine: 35
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Effects
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Effects.EffectObject" data-throw-if-not-resolved="false"></xref> class.
+  example: []
   syntax:
     content: public EffectObject(Vector2 pos, Size size)
     parameters:
     - id: pos
       type: System.Numerics.Vector2
+      description: The position of the effect object.
     - id: size
       type: ShapeEngine.Core.Structs.Size
+      description: The size of the effect object.
     content.vb: Public Sub New(pos As Vector2, size As Size)
   overload: ShapeEngine.Effects.EffectObject.#ctor*
   nameWithType.vb: EffectObject.New(Vector2, Size)
@@ -211,19 +223,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Effects/EffectObject.cs
-    startLine: 22
+    startLine: 46
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Effects
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Effects.EffectObject" data-throw-if-not-resolved="false"></xref> class with a specified lifetime.
+  example: []
   syntax:
     content: public EffectObject(Vector2 pos, Size size, float lifeTime)
     parameters:
     - id: pos
       type: System.Numerics.Vector2
+      description: The position of the effect object.
     - id: size
       type: ShapeEngine.Core.Structs.Size
+      description: The size of the effect object.
     - id: lifeTime
       type: System.Single
+      description: The lifetime of the effect object in seconds.
     content.vb: Public Sub New(pos As Vector2, size As Size, lifeTime As Single)
   overload: ShapeEngine.Effects.EffectObject.#ctor*
   nameWithType.vb: EffectObject.New(Vector2, Size, Single)
@@ -247,20 +264,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TryKill
     path: ../ShapeEngine/ShapeEngine/Effects/EffectObject.cs
-    startLine: 28
+    startLine: 58
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Effects
+  summary: Attempts to kill the effect object.
   example: []
   syntax:
     content: protected override bool TryKill(string? killMessage = null, GameObject? killer = null)
     parameters:
     - id: killMessage
       type: System.String
+      description: Optional kill message.
     - id: killer
       type: ShapeEngine.Core.GameObject
+      description: Optional killer object.
     return:
       type: System.Boolean
+      description: True if the object was killed; otherwise, false.
     content.vb: Protected Overrides Function TryKill(killMessage As String = Nothing, killer As GameObject = Nothing) As Boolean
   overridden: ShapeEngine.Core.GameObject.TryKill(System.String,ShapeEngine.Core.GameObject)
   overload: ShapeEngine.Effects.EffectObject.TryKill*
@@ -285,15 +306,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetBoundingBox
     path: ../ShapeEngine/ShapeEngine/Effects/EffectObject.cs
-    startLine: 34
+    startLine: 68
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Effects
+  summary: Gets the bounding box of the effect object.
   example: []
   syntax:
     content: public override Rect GetBoundingBox()
     return:
       type: ShapeEngine.Core.Shapes.Rect
+      description: The bounding box as a <xref href="ShapeEngine.Core.Shapes.Rect" data-throw-if-not-resolved="false"></xref>.
     content.vb: Public Overrides Function GetBoundingBox() As Rect
   overridden: ShapeEngine.Core.GameObject.GetBoundingBox
   overload: ShapeEngine.Effects.EffectObject.GetBoundingBox*
@@ -315,19 +338,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetTweenFloat
     path: ../ShapeEngine/ShapeEngine/Effects/EffectObject.cs
-    startLine: 35
+    startLine: 76
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Effects
+  summary: Tweens a float value from start to end based on the effect's lifetime and tween type.
+  example: []
   syntax:
     content: protected float GetTweenFloat(float start, float end)
     parameters:
     - id: start
       type: System.Single
+      description: The start value.
     - id: end
       type: System.Single
+      description: The end value.
     return:
       type: System.Single
+      description: The tweened float value.
     content.vb: Protected Function GetTweenFloat(start As Single, [end] As Single) As Single
   overload: ShapeEngine.Effects.EffectObject.GetTweenFloat*
   nameWithType.vb: EffectObject.GetTweenFloat(Single, Single)
@@ -351,19 +379,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetTweenVector2
     path: ../ShapeEngine/ShapeEngine/Effects/EffectObject.cs
-    startLine: 36
+    startLine: 84
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Effects
+  summary: Tweens a <xref href="System.Numerics.Vector2" data-throw-if-not-resolved="false"></xref> value from start to end based on the effect's lifetime and tween type.
+  example: []
   syntax:
     content: protected Vector2 GetTweenVector2(Vector2 start, Vector2 end)
     parameters:
     - id: start
       type: System.Numerics.Vector2
+      description: The start vector.
     - id: end
       type: System.Numerics.Vector2
+      description: The end vector.
     return:
       type: System.Numerics.Vector2
+      description: The tweened <xref href="System.Numerics.Vector2" data-throw-if-not-resolved="false"></xref> value.
     content.vb: Protected Function GetTweenVector2(start As Vector2, [end] As Vector2) As Vector2
   overload: ShapeEngine.Effects.EffectObject.GetTweenVector2*
 - uid: ShapeEngine.Effects.EffectObject.GetTweenColor(ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)
@@ -384,19 +417,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetTweenColor
     path: ../ShapeEngine/ShapeEngine/Effects/EffectObject.cs
-    startLine: 37
+    startLine: 92
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Effects
+  summary: Tweens a <xref href="ShapeEngine.Color.ColorRgba" data-throw-if-not-resolved="false"></xref> value from start to end based on the effect's lifetime and tween type.
+  example: []
   syntax:
     content: protected ColorRgba GetTweenColor(ColorRgba startColorRgba, ColorRgba endColorRgba)
     parameters:
     - id: startColorRgba
       type: ShapeEngine.Color.ColorRgba
+      description: The start color.
     - id: endColorRgba
       type: ShapeEngine.Color.ColorRgba
+      description: The end color.
     return:
       type: ShapeEngine.Color.ColorRgba
+      description: The tweened <xref href="ShapeEngine.Color.ColorRgba" data-throw-if-not-resolved="false"></xref> value.
     content.vb: Protected Function GetTweenColor(startColorRgba As ColorRgba, endColorRgba As ColorRgba) As ColorRgba
   overload: ShapeEngine.Effects.EffectObject.GetTweenColor*
 - uid: ShapeEngine.Effects.EffectObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
@@ -417,27 +455,27 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/Effects/EffectObject.cs
-    startLine: 39
+    startLine: 101
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Effects
-  summary: Called every frame. Called before FixedUpdate if fixed framerate is enabled.
+  summary: Updates the effect object and its lifetime.
   example: []
   syntax:
     content: public override void Update(GameTime time, ScreenInfo game, ScreenInfo gameUi, ScreenInfo ui)
     parameters:
     - id: time
       type: ShapeEngine.Core.Structs.GameTime
-      description: ''
+      description: The current game time.
     - id: game
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: The game screen info.
     - id: gameUi
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: The game UI screen info.
     - id: ui
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: The UI screen info.
     content.vb: Public Overrides Sub Update(time As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo)
   overridden: ShapeEngine.Core.GameObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
   overload: ShapeEngine.Effects.EffectObject.Update*
@@ -1380,35 +1418,13 @@ references:
   name: TweenType
   nameWithType: EffectObject.TweenType
   fullName: ShapeEngine.Effects.EffectObject.TweenType
-- uid: ShapeEngine.StaticLib.TweenType
-  commentId: T:ShapeEngine.StaticLib.TweenType
-  parent: ShapeEngine.StaticLib
-  href: ShapeEngine.StaticLib.TweenType.html
+- uid: ShapeEngine.Core.TweenType
+  commentId: T:ShapeEngine.Core.TweenType
+  parent: ShapeEngine.Core
+  href: ShapeEngine.Core.TweenType.html
   name: TweenType
   nameWithType: TweenType
-  fullName: ShapeEngine.StaticLib.TweenType
-- uid: ShapeEngine.StaticLib
-  commentId: N:ShapeEngine.StaticLib
-  href: ShapeEngine.html
-  name: ShapeEngine.StaticLib
-  nameWithType: ShapeEngine.StaticLib
-  fullName: ShapeEngine.StaticLib
-  spec.csharp:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.StaticLib
-    name: StaticLib
-    href: ShapeEngine.StaticLib.html
-  spec.vb:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.StaticLib
-    name: StaticLib
-    href: ShapeEngine.StaticLib.html
+  fullName: ShapeEngine.Core.TweenType
 - uid: ShapeEngine.Effects.EffectObject.LifetimeF*
   commentId: Overload:ShapeEngine.Effects.EffectObject.LifetimeF
   href: ShapeEngine.Effects.EffectObject.html#ShapeEngine_Effects_EffectObject_LifetimeF
@@ -1455,6 +1471,13 @@ references:
   - uid: ShapeEngine.Timing
     name: Timing
     href: ShapeEngine.Timing.html
+- uid: ShapeEngine.Effects.EffectObject
+  commentId: T:ShapeEngine.Effects.EffectObject
+  parent: ShapeEngine.Effects
+  href: ShapeEngine.Effects.EffectObject.html
+  name: EffectObject
+  nameWithType: EffectObject
+  fullName: ShapeEngine.Effects.EffectObject
 - uid: ShapeEngine.Effects.EffectObject.#ctor*
   commentId: Overload:ShapeEngine.Effects.EffectObject.#ctor
   href: ShapeEngine.Effects.EffectObject.html#ShapeEngine_Effects_EffectObject__ctor_System_Numerics_Vector2_ShapeEngine_Core_Structs_Size_
@@ -1605,6 +1628,13 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
+- uid: ShapeEngine.Core.Shapes.Rect
+  commentId: T:ShapeEngine.Core.Shapes.Rect
+  parent: ShapeEngine.Core.Shapes
+  href: ShapeEngine.Core.Shapes.Rect.html
+  name: Rect
+  nameWithType: Rect
+  fullName: ShapeEngine.Core.Shapes.Rect
 - uid: ShapeEngine.Core.GameObject.GetBoundingBox
   commentId: M:ShapeEngine.Core.GameObject.GetBoundingBox
   parent: ShapeEngine.Core.GameObject
@@ -1630,13 +1660,6 @@ references:
   name: GetBoundingBox
   nameWithType: EffectObject.GetBoundingBox
   fullName: ShapeEngine.Effects.EffectObject.GetBoundingBox
-- uid: ShapeEngine.Core.Shapes.Rect
-  commentId: T:ShapeEngine.Core.Shapes.Rect
-  parent: ShapeEngine.Core.Shapes
-  href: ShapeEngine.Core.Shapes.Rect.html
-  name: Rect
-  nameWithType: Rect
-  fullName: ShapeEngine.Core.Shapes.Rect
 - uid: ShapeEngine.Core.Shapes
   commentId: N:ShapeEngine.Core.Shapes
   href: ShapeEngine.html
@@ -1679,12 +1702,6 @@ references:
   name: GetTweenVector2
   nameWithType: EffectObject.GetTweenVector2
   fullName: ShapeEngine.Effects.EffectObject.GetTweenVector2
-- uid: ShapeEngine.Effects.EffectObject.GetTweenColor*
-  commentId: Overload:ShapeEngine.Effects.EffectObject.GetTweenColor
-  href: ShapeEngine.Effects.EffectObject.html#ShapeEngine_Effects_EffectObject_GetTweenColor_ShapeEngine_Color_ColorRgba_ShapeEngine_Color_ColorRgba_
-  name: GetTweenColor
-  nameWithType: EffectObject.GetTweenColor
-  fullName: ShapeEngine.Effects.EffectObject.GetTweenColor
 - uid: ShapeEngine.Color.ColorRgba
   commentId: T:ShapeEngine.Color.ColorRgba
   parent: ShapeEngine.Color
@@ -1692,6 +1709,12 @@ references:
   name: ColorRgba
   nameWithType: ColorRgba
   fullName: ShapeEngine.Color.ColorRgba
+- uid: ShapeEngine.Effects.EffectObject.GetTweenColor*
+  commentId: Overload:ShapeEngine.Effects.EffectObject.GetTweenColor
+  href: ShapeEngine.Effects.EffectObject.html#ShapeEngine_Effects_EffectObject_GetTweenColor_ShapeEngine_Color_ColorRgba_ShapeEngine_Color_ColorRgba_
+  name: GetTweenColor
+  nameWithType: EffectObject.GetTweenColor
+  fullName: ShapeEngine.Effects.EffectObject.GetTweenColor
 - uid: ShapeEngine.Color
   commentId: N:ShapeEngine.Color
   href: ShapeEngine.html

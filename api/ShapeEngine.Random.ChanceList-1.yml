@@ -26,14 +26,31 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ChanceList
     path: ../ShapeEngine/ShapeEngine/Random/ChanceList.cs
-    startLine: 4
+    startLine: 15
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Represents a list of values with weighted chances for random selection.
+  remarks: >-
+    The list is populated with each value repeated according to its specified amount,
+
+    representing its weight in the selection process.
+
+    Each time a random value is picked,
+
+    it is removed from the list, ensuring that every value is selected exactly as many times
+
+    as its weight before the list is refilled with the original entries.
+
+    This guarantees proportional selection: for example, if value A appears 10 times and value B appears 5 times,
+
+    then over 15 picks, value A will always be chosen 10 times and value B 5 times, in a randomized order.
+  example: []
   syntax:
     content: public class ChanceList<T>
     typeParameters:
     - id: T
+      description: The type of values in the list.
     content.vb: Public Class ChanceList(Of T)
   inheritance:
   - System.Object
@@ -66,15 +83,22 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Random/ChanceList.cs
-    startLine: 11
+    startLine: 30
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Random.ChanceList%601" data-throw-if-not-resolved="false"></xref> class with the specified entries and a random seed.
+  remarks: >-
+    The Amount specifies the number of times the value will be added to the list.
+
+    Therefore, the amount represents the weight of the item.
+  example: []
   syntax:
     content: public ChanceList(params (int amount, T value)[] entries)
     parameters:
     - id: entries
       type: System.ValueTuple{System.Int32,{T}}[]
+      description: An array of tuples specifying the amount and value for each entry.
     content.vb: Public Sub New(ParamArray entries As (amount As Integer, value As T)())
   overload: ShapeEngine.Random.ChanceList`1.#ctor*
   nameWithType.vb: ChanceList(Of T).New(ParamArray (amount As Integer, value As T)())
@@ -98,17 +122,25 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Random/ChanceList.cs
-    startLine: 17
+    startLine: 45
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Random.ChanceList%601" data-throw-if-not-resolved="false"></xref> class with the specified seed and entries.
+  remarks: >-
+    The Amount specifies the number of times the value will be added to the list.
+
+    Therefore, the amount represents the weight of the item.
+  example: []
   syntax:
     content: public ChanceList(int seed, params (int amount, T value)[] entries)
     parameters:
     - id: seed
       type: System.Int32
+      description: The seed for the random number generator.
     - id: entries
       type: System.ValueTuple{System.Int32,{T}}[]
+      description: An array of tuples specifying the amount and value for each entry.
     content.vb: Public Sub New(seed As Integer, ParamArray entries As (amount As Integer, value As T)())
   overload: ShapeEngine.Random.ChanceList`1.#ctor*
   nameWithType.vb: ChanceList(Of T).New(Integer, ParamArray (amount As Integer, value As T)())
@@ -132,10 +164,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Refill
     path: ../ShapeEngine/ShapeEngine/Random/ChanceList.cs
-    startLine: 24
+    startLine: 55
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Clears and refills the list of values based on the original entries.
+  example: []
   syntax:
     content: public void Refill()
     content.vb: Public Sub Refill()
@@ -160,17 +194,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Next
     path: ../ShapeEngine/ShapeEngine/Random/ChanceList.cs
-    startLine: 30
+    startLine: 66
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random value matching the given predicate, or the default value if none match.
+  example: []
   syntax:
     content: public T? Next(Predicate<T> match)
     parameters:
     - id: match
       type: System.Predicate{{T}}
+      description: Predicate to filter values.
     return:
       type: '{T}'
+      description: A random value matching the predicate, or default if none found.
     content.vb: Public Function [Next](match As Predicate(Of T)) As T
   overload: ShapeEngine.Random.ChanceList`1.Next*
   nameWithType.vb: ChanceList(Of T).Next(Predicate(Of T))
@@ -194,19 +232,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Next
     path: ../ShapeEngine/ShapeEngine/Random/ChanceList.cs
-    startLine: 41
+    startLine: 83
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a list of random values, with the number of values chosen randomly between min and max.
+  example: []
   syntax:
     content: public List<T> Next(int min, int max)
     parameters:
     - id: min
       type: System.Int32
+      description: Minimum number of values to return.
     - id: max
       type: System.Int32
+      description: Maximum number of values to return.
     return:
       type: System.Collections.Generic.List{{T}}
+      description: A list of randomly selected values.
     content.vb: Public Function [Next](min As Integer, max As Integer) As List(Of T)
   overload: ShapeEngine.Random.ChanceList`1.Next*
   nameWithType.vb: ChanceList(Of T).Next(Integer, Integer)
@@ -230,17 +273,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Next
     path: ../ShapeEngine/ShapeEngine/Random/ChanceList.cs
-    startLine: 45
+    startLine: 92
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a list of the specified number of random values.
+  example: []
   syntax:
     content: public List<T> Next(int amount)
     parameters:
     - id: amount
       type: System.Int32
+      description: The number of values to return.
     return:
       type: System.Collections.Generic.List{{T}}
+      description: A list of randomly selected values.
     content.vb: Public Function [Next](amount As Integer) As List(Of T)
   overload: ShapeEngine.Random.ChanceList`1.Next*
   nameWithType.vb: ChanceList(Of T).Next(Integer)
@@ -264,14 +311,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Next
     path: ../ShapeEngine/ShapeEngine/Random/ChanceList.cs
-    startLine: 54
+    startLine: 105
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a single random value and removes it from the list.
+  example: []
   syntax:
     content: public T Next()
     return:
       type: '{T}'
+      description: A randomly selected value.
     content.vb: Public Function [Next]() As T
   overload: ShapeEngine.Random.ChanceList`1.Next*
   nameWithType.vb: ChanceList(Of T).Next()
@@ -536,6 +586,31 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: ShapeEngine.Random.ChanceList`1
+  commentId: T:ShapeEngine.Random.ChanceList`1
+  href: ShapeEngine.Random.ChanceList-1.html
+  name: ChanceList<T>
+  nameWithType: ChanceList<T>
+  fullName: ShapeEngine.Random.ChanceList<T>
+  nameWithType.vb: ChanceList(Of T)
+  fullName.vb: ShapeEngine.Random.ChanceList(Of T)
+  name.vb: ChanceList(Of T)
+  spec.csharp:
+  - uid: ShapeEngine.Random.ChanceList`1
+    name: ChanceList
+    href: ShapeEngine.Random.ChanceList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: ShapeEngine.Random.ChanceList`1
+    name: ChanceList
+    href: ShapeEngine.Random.ChanceList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
 - uid: ShapeEngine.Random.ChanceList`1.#ctor*
   commentId: Overload:ShapeEngine.Random.ChanceList`1.#ctor
   href: ShapeEngine.Random.ChanceList-1.html#ShapeEngine_Random_ChanceList_1__ctor_System_ValueTuple_System_Int32__0____
