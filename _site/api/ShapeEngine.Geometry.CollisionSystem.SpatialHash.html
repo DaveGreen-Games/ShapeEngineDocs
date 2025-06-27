@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class SpatialHash | ShapeEngine </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class SpatialHash | ShapeEngine ">
+      
+      <meta name="description" content="Implements a spatial hash grid for efficient broad-phase collision detection and spatial queries.">
+      <link rel="icon" href="../media/shape-engine.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/DaveGreen-Games/ShapeEngine/new/main/apiSpec/new?filename=ShapeEngine_Geometry_CollisionSystem_SpatialHash.md&amp;value=---%0Auid%3A%20ShapeEngine.Geometry.CollisionSystem.SpatialHash%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="https://davegreen-games.github.io/ShapeEngineDocs/">
+            <img id="logo" class="svg" src="../media/shape-engine.ico" alt="ShapeEngine">
+            ShapeEngine
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash">
+
+
+
+  <h1 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash" class="text-break">
+Class SpatialHash  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="ShapeEngine.html">ShapeEngine</a>.<a class="xref" href="ShapeEngine.Geometry.html">Geometry</a>.<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.html">CollisionSystem</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>ShapeEngine.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Implements a spatial hash grid for efficient broad-phase collision detection and spatial queries.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class SpatialHash : IBounds</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">SpatialHash</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="ShapeEngine.Core.IBounds.html">IBounds</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+  <h2 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>The spatial hash divides a 2D space into a grid of buckets, each containing colliders that overlap its region.
+Provides fast lookup for collision candidates and supports dynamic resizing and grid changes.</p>
+</div>
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash__ctor_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.#ctor*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash__ctor_ShapeEngine_Geometry_RectDef_Rect_System_Int32_System_Int32_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.#ctor(ShapeEngine.Geometry.RectDef.Rect,System.Int32,System.Int32)">
+  SpatialHash(Rect, int, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L122"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.html">SpatialHash</a> class with a bounding rectangle and grid size.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SpatialHash(Rect bounds, int rows, int cols)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>bounds</code> <a class="xref" href="ShapeEngine.Geometry.RectDef.Rect.html">Rect</a></dt>
+    <dd><p>The bounding rectangle for the grid.</p>
+</dd>
+    <dt><code>rows</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The number of rows in the grid.</p>
+</dd>
+    <dt><code>cols</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The number of columns in the grid.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash__ctor_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.#ctor*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash__ctor_System_Single_System_Single_System_Single_System_Single_System_Int32_System_Int32_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.#ctor(System.Single,System.Single,System.Single,System.Single,System.Int32,System.Int32)">
+  SpatialHash(float, float, float, float, int, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L103"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.html">SpatialHash</a> class with explicit bounds and grid size.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SpatialHash(float x, float y, float w, float h, int rows, int cols)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>x</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>The X coordinate of the grid's top-left corner.</p>
+</dd>
+    <dt><code>y</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>The Y coordinate of the grid's top-left corner.</p>
+</dd>
+    <dt><code>w</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>The width of the grid.</p>
+</dd>
+    <dt><code>h</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>The height of the grid.</p>
+</dd>
+    <dt><code>rows</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The number of rows in the grid.</p>
+</dd>
+    <dt><code>cols</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The number of columns in the grid.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_Bounds_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bounds*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_Bounds" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bounds">
+  Bounds
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L62"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the bounds of the spatial hash grid.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Rect Bounds { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ShapeEngine.Geometry.RectDef.Rect.html">Rect</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_BucketCount_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.BucketCount*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_BucketCount" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.BucketCount">
+  BucketCount
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L74"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the total number of buckets in the grid.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int BucketCount { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_Cols_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.Cols*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_Cols" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.Cols">
+  Cols
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L82"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the number of columns in the grid.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Cols { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_Rows_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.Rows*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_Rows" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.Rows">
+  Rows
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the number of rows in the grid.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Rows { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_SpacingX_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.SpacingX*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_SpacingX" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.SpacingX">
+  SpacingX
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L66"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the width of each grid cell.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float SpacingX { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_SpacingY_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.SpacingY*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_SpacingY" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.SpacingY">
+  SpacingY
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L70"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the height of each grid cell.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float SpacingY { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_ChangeGrid_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.ChangeGrid*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_ChangeGrid_System_Int32_System_Int32_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.ChangeGrid(System.Int32,System.Int32)">
+  ChangeGrid(int, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L188"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Changes the number of rows and columns in the grid. This operation clears all buckets.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ChangeGrid(int rows, int cols)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>rows</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The new number of rows.</p>
+</dd>
+    <dt><code>cols</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The new number of columns.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_ChangeGrid_System_Int32_System_Int32__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Recalculates spacing, clears and removes all old buckets, and then creates new buckets according to <code>rows*cols</code>.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_Close_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.Close*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_Close" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.Close">
+  Close()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L164"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Clears all buckets and internal registers, releasing resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Close()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_DebugDraw_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.DebugDraw*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_DebugDraw_ShapeEngine_Color_ColorRgba_ShapeEngine_Color_ColorRgba_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.DebugDraw(ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)">
+  DebugDraw(ColorRgba, ColorRgba)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L484"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Draws the spatial hash grid and filled cells for debugging purposes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void DebugDraw(ColorRgba border, ColorRgba fill)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>border</code> <a class="xref" href="ShapeEngine.Color.ColorRgba.html">ColorRgba</a></dt>
+    <dd><p>The color for the grid lines.</p>
+</dd>
+    <dt><code>fill</code> <a class="xref" href="ShapeEngine.Color.ColorRgba.html">ColorRgba</a></dt>
+    <dd><p>The color to fill non-empty cells.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_Fill_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.Fill*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_Fill_System_Collections_Generic_IEnumerable_ShapeEngine_Geometry_CollisionSystem_CollisionObject__" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.Fill(System.Collections.Generic.IEnumerable{ShapeEngine.Geometry.CollisionSystem.CollisionObject})">
+  Fill(IEnumerable&lt;CollisionObject&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L142"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Fills the spatial hash with all colliders from the provided collision objects.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Fill(IEnumerable&lt;CollisionObject&gt; collisionBodies)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>collisionBodies</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.CollisionObject.html">CollisionObject</a>&gt;</dt>
+    <dd><p>The collection of collision objects to add.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetCandidateBuckets_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetCandidateBuckets*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetCandidateBuckets_ShapeEngine_Geometry_CircleDef_Circle_System_Collections_Generic_List_ShapeEngine_Geometry_CollisionSystem_SpatialHash_Bucket___" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetCandidateBuckets(ShapeEngine.Geometry.CircleDef.Circle,System.Collections.Generic.List{ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bucket}@)">
+  GetCandidateBuckets(Circle, ref List&lt;Bucket&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L292"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets all buckets that may contain colliders overlapping the given circle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetCandidateBuckets(Circle circle, ref List&lt;SpatialHash.Bucket&gt; candidateBuckets)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>circle</code> <a class="xref" href="ShapeEngine.Geometry.CircleDef.Circle.html">Circle</a></dt>
+    <dd><p>The circle to query.</p>
+</dd>
+    <dt><code>candidateBuckets</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.html">SpatialHash</a>.<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bucket.html">Bucket</a>&gt;</dt>
+    <dd><p>A list to populate with candidate buckets.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetCandidateBuckets_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetCandidateBuckets*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetCandidateBuckets_ShapeEngine_Geometry_CollisionSystem_Collider_System_Collections_Generic_List_ShapeEngine_Geometry_CollisionSystem_SpatialHash_Bucket___" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetCandidateBuckets(ShapeEngine.Geometry.CollisionSystem.Collider,System.Collections.Generic.List{ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bucket}@)">
+  GetCandidateBuckets(Collider, ref List&lt;Bucket&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L232"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets all buckets that may contain colliders overlapping the given collider.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetCandidateBuckets(Collider collider, ref List&lt;SpatialHash.Bucket&gt; candidateBuckets)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>collider</code> <a class="xref" href="ShapeEngine.Geometry.CollisionSystem.Collider.html">Collider</a></dt>
+    <dd><p>The collider to query.</p>
+</dd>
+    <dt><code>candidateBuckets</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.html">SpatialHash</a>.<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bucket.html">Bucket</a>&gt;</dt>
+    <dd><p>A list to populate with candidate buckets.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetCandidateBuckets_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetCandidateBuckets*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetCandidateBuckets_ShapeEngine_Geometry_CollisionSystem_CollisionObject_System_Collections_Generic_List_ShapeEngine_Geometry_CollisionSystem_SpatialHash_Bucket___" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetCandidateBuckets(ShapeEngine.Geometry.CollisionSystem.CollisionObject,System.Collections.Generic.List{ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bucket}@)">
+  GetCandidateBuckets(CollisionObject, ref List&lt;Bucket&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L220"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets all buckets that may contain colliders overlapping the given collision object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetCandidateBuckets(CollisionObject collidable, ref List&lt;SpatialHash.Bucket&gt; candidateBuckets)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>collidable</code> <a class="xref" href="ShapeEngine.Geometry.CollisionSystem.CollisionObject.html">CollisionObject</a></dt>
+    <dd><p>The collision object to query.</p>
+</dd>
+    <dt><code>candidateBuckets</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.html">SpatialHash</a>.<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bucket.html">Bucket</a>&gt;</dt>
+    <dd><p>A list to populate with candidate buckets.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetCandidateBuckets_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetCandidateBuckets*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetCandidateBuckets_ShapeEngine_Geometry_LineDef_Line_System_Collections_Generic_List_ShapeEngine_Geometry_CollisionSystem_SpatialHash_Bucket___" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetCandidateBuckets(ShapeEngine.Geometry.LineDef.Line,System.Collections.Generic.List{ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bucket}@)">
+  GetCandidateBuckets(Line, ref List&lt;Bucket&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L268"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets all buckets that may contain colliders overlapping the given line.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetCandidateBuckets(Line line, ref List&lt;SpatialHash.Bucket&gt; candidateBuckets)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>line</code> <a class="xref" href="ShapeEngine.Geometry.LineDef.Line.html">Line</a></dt>
+    <dd><p>The line to query.</p>
+</dd>
+    <dt><code>candidateBuckets</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.html">SpatialHash</a>.<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bucket.html">Bucket</a>&gt;</dt>
+    <dd><p>A list to populate with candidate buckets.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetCandidateBuckets_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetCandidateBuckets*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetCandidateBuckets_ShapeEngine_Geometry_PolygonDef_Polygon_System_Collections_Generic_List_ShapeEngine_Geometry_CollisionSystem_SpatialHash_Bucket___" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetCandidateBuckets(ShapeEngine.Geometry.PolygonDef.Polygon,System.Collections.Generic.List{ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bucket}@)">
+  GetCandidateBuckets(Polygon, ref List&lt;Bucket&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L340"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets all buckets that may contain colliders overlapping the given polygon.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetCandidateBuckets(Polygon poly, ref List&lt;SpatialHash.Bucket&gt; candidateBuckets)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>poly</code> <a class="xref" href="ShapeEngine.Geometry.PolygonDef.Polygon.html">Polygon</a></dt>
+    <dd><p>The polygon to query.</p>
+</dd>
+    <dt><code>candidateBuckets</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.html">SpatialHash</a>.<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bucket.html">Bucket</a>&gt;</dt>
+    <dd><p>A list to populate with candidate buckets.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetCandidateBuckets_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetCandidateBuckets*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetCandidateBuckets_ShapeEngine_Geometry_PolylineDef_Polyline_System_Collections_Generic_List_ShapeEngine_Geometry_CollisionSystem_SpatialHash_Bucket___" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetCandidateBuckets(ShapeEngine.Geometry.PolylineDef.Polyline,System.Collections.Generic.List{ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bucket}@)">
+  GetCandidateBuckets(Polyline, ref List&lt;Bucket&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L352"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets all buckets that may contain colliders overlapping the given polyline.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetCandidateBuckets(Polyline polyLine, ref List&lt;SpatialHash.Bucket&gt; candidateBuckets)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>polyLine</code> <a class="xref" href="ShapeEngine.Geometry.PolylineDef.Polyline.html">Polyline</a></dt>
+    <dd><p>The polyline to query.</p>
+</dd>
+    <dt><code>candidateBuckets</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.html">SpatialHash</a>.<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bucket.html">Bucket</a>&gt;</dt>
+    <dd><p>A list to populate with candidate buckets.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetCandidateBuckets_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetCandidateBuckets*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetCandidateBuckets_ShapeEngine_Geometry_QuadDef_Quad_System_Collections_Generic_List_ShapeEngine_Geometry_CollisionSystem_SpatialHash_Bucket___" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetCandidateBuckets(ShapeEngine.Geometry.QuadDef.Quad,System.Collections.Generic.List{ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bucket}@)">
+  GetCandidateBuckets(Quad, ref List&lt;Bucket&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L328"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets all buckets that may contain colliders overlapping the given quad.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetCandidateBuckets(Quad quad, ref List&lt;SpatialHash.Bucket&gt; candidateBuckets)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>quad</code> <a class="xref" href="ShapeEngine.Geometry.QuadDef.Quad.html">Quad</a></dt>
+    <dd><p>The quad to query.</p>
+</dd>
+    <dt><code>candidateBuckets</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.html">SpatialHash</a>.<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bucket.html">Bucket</a>&gt;</dt>
+    <dd><p>A list to populate with candidate buckets.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetCandidateBuckets_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetCandidateBuckets*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetCandidateBuckets_ShapeEngine_Geometry_RayDef_Ray_System_Collections_Generic_List_ShapeEngine_Geometry_CollisionSystem_SpatialHash_Bucket___" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetCandidateBuckets(ShapeEngine.Geometry.RayDef.Ray,System.Collections.Generic.List{ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bucket}@)">
+  GetCandidateBuckets(Ray, ref List&lt;Bucket&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L280"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets all buckets that may contain colliders overlapping the given ray.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetCandidateBuckets(Ray ray, ref List&lt;SpatialHash.Bucket&gt; candidateBuckets)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ray</code> <a class="xref" href="ShapeEngine.Geometry.RayDef.Ray.html">Ray</a></dt>
+    <dd><p>The ray to query.</p>
+</dd>
+    <dt><code>candidateBuckets</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.html">SpatialHash</a>.<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bucket.html">Bucket</a>&gt;</dt>
+    <dd><p>A list to populate with candidate buckets.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetCandidateBuckets_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetCandidateBuckets*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetCandidateBuckets_ShapeEngine_Geometry_RectDef_Rect_System_Collections_Generic_List_ShapeEngine_Geometry_CollisionSystem_SpatialHash_Bucket___" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetCandidateBuckets(ShapeEngine.Geometry.RectDef.Rect,System.Collections.Generic.List{ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bucket}@)">
+  GetCandidateBuckets(Rect, ref List&lt;Bucket&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L316"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets all buckets that may contain colliders overlapping the given rectangle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetCandidateBuckets(Rect rect, ref List&lt;SpatialHash.Bucket&gt; candidateBuckets)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>rect</code> <a class="xref" href="ShapeEngine.Geometry.RectDef.Rect.html">Rect</a></dt>
+    <dd><p>The rectangle to query.</p>
+</dd>
+    <dt><code>candidateBuckets</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.html">SpatialHash</a>.<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bucket.html">Bucket</a>&gt;</dt>
+    <dd><p>A list to populate with candidate buckets.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetCandidateBuckets_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetCandidateBuckets*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetCandidateBuckets_ShapeEngine_Geometry_SegmentDef_Segment_System_Collections_Generic_List_ShapeEngine_Geometry_CollisionSystem_SpatialHash_Bucket___" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetCandidateBuckets(ShapeEngine.Geometry.SegmentDef.Segment,System.Collections.Generic.List{ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bucket}@)">
+  GetCandidateBuckets(Segment, ref List&lt;Bucket&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L256"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets all buckets that may contain colliders overlapping the given segment.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetCandidateBuckets(Segment segment, ref List&lt;SpatialHash.Bucket&gt; candidateBuckets)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>segment</code> <a class="xref" href="ShapeEngine.Geometry.SegmentDef.Segment.html">Segment</a></dt>
+    <dd><p>The segment to query.</p>
+</dd>
+    <dt><code>candidateBuckets</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.html">SpatialHash</a>.<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bucket.html">Bucket</a>&gt;</dt>
+    <dd><p>A list to populate with candidate buckets.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetCandidateBuckets_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetCandidateBuckets*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetCandidateBuckets_ShapeEngine_Geometry_TriangleDef_Triangle_System_Collections_Generic_List_ShapeEngine_Geometry_CollisionSystem_SpatialHash_Bucket___" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetCandidateBuckets(ShapeEngine.Geometry.TriangleDef.Triangle,System.Collections.Generic.List{ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bucket}@)">
+  GetCandidateBuckets(Triangle, ref List&lt;Bucket&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L304"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets all buckets that may contain colliders overlapping the given triangle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetCandidateBuckets(Triangle triangle, ref List&lt;SpatialHash.Bucket&gt; candidateBuckets)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>triangle</code> <a class="xref" href="ShapeEngine.Geometry.TriangleDef.Triangle.html">Triangle</a></dt>
+    <dd><p>The triangle to query.</p>
+</dd>
+    <dt><code>candidateBuckets</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.html">SpatialHash</a>.<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bucket.html">Bucket</a>&gt;</dt>
+    <dd><p>A list to populate with candidate buckets.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetRegisteredCollisionCandidateBuckets_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetRegisteredCollisionCandidateBuckets*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetRegisteredCollisionCandidateBuckets_ShapeEngine_Geometry_CollisionSystem_Collider_System_Collections_Generic_List_ShapeEngine_Geometry_CollisionSystem_SpatialHash_Bucket___" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetRegisteredCollisionCandidateBuckets(ShapeEngine.Geometry.CollisionSystem.Collider,System.Collections.Generic.List{ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bucket}@)">
+  GetRegisteredCollisionCandidateBuckets(Collider, ref List&lt;Bucket&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L205"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the buckets containing the specified collider, if registered.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetRegisteredCollisionCandidateBuckets(Collider collider, ref List&lt;SpatialHash.Bucket&gt; candidateBuckets)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>collider</code> <a class="xref" href="ShapeEngine.Geometry.CollisionSystem.Collider.html">Collider</a></dt>
+    <dd><p>The collider to look up.</p>
+</dd>
+    <dt><code>candidateBuckets</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.html">SpatialHash</a>.<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.SpatialHash.Bucket.html">Bucket</a>&gt;</dt>
+    <dd><p>A list to populate with candidate buckets.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetUniqueCandidates_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetUniqueCandidates*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetUniqueCandidates_ShapeEngine_Geometry_CircleDef_Circle_System_Collections_Generic_HashSet_ShapeEngine_Geometry_CollisionSystem_Collider___" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetUniqueCandidates(ShapeEngine.Geometry.CircleDef.Circle,System.Collections.Generic.HashSet{ShapeEngine.Geometry.CollisionSystem.Collider}@)">
+  GetUniqueCandidates(Circle, ref HashSet&lt;Collider&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L412"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets all unique colliders that may overlap the given circle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetUniqueCandidates(Circle circle, ref HashSet&lt;Collider&gt; candidates)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>circle</code> <a class="xref" href="ShapeEngine.Geometry.CircleDef.Circle.html">Circle</a></dt>
+    <dd><p>The circle to query.</p>
+</dd>
+    <dt><code>candidates</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1">HashSet</a>&lt;<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.Collider.html">Collider</a>&gt;</dt>
+    <dd><p>A set to populate with unique colliders.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetUniqueCandidates_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetUniqueCandidates*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetUniqueCandidates_ShapeEngine_Geometry_CollisionSystem_Collider_System_Collections_Generic_HashSet_ShapeEngine_Geometry_CollisionSystem_Collider___" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetUniqueCandidates(ShapeEngine.Geometry.CollisionSystem.Collider,System.Collections.Generic.HashSet{ShapeEngine.Geometry.CollisionSystem.Collider}@)">
+  GetUniqueCandidates(Collider, ref HashSet&lt;Collider&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L377"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets all unique colliders that may overlap the given collider.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetUniqueCandidates(Collider collider, ref HashSet&lt;Collider&gt; candidates)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>collider</code> <a class="xref" href="ShapeEngine.Geometry.CollisionSystem.Collider.html">Collider</a></dt>
+    <dd><p>The collider to query.</p>
+</dd>
+    <dt><code>candidates</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1">HashSet</a>&lt;<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.Collider.html">Collider</a>&gt;</dt>
+    <dd><p>A set to populate with unique colliders.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetUniqueCandidates_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetUniqueCandidates*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetUniqueCandidates_ShapeEngine_Geometry_CollisionSystem_CollisionObject_System_Collections_Generic_HashSet_ShapeEngine_Geometry_CollisionSystem_Collider___" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetUniqueCandidates(ShapeEngine.Geometry.CollisionSystem.CollisionObject,System.Collections.Generic.HashSet{ShapeEngine.Geometry.CollisionSystem.Collider}@)">
+  GetUniqueCandidates(CollisionObject, ref HashSet&lt;Collider&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L364"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets all unique colliders that may overlap the given collision object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetUniqueCandidates(CollisionObject collisionBody, ref HashSet&lt;Collider&gt; candidates)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>collisionBody</code> <a class="xref" href="ShapeEngine.Geometry.CollisionSystem.CollisionObject.html">CollisionObject</a></dt>
+    <dd><p>The collision object to query.</p>
+</dd>
+    <dt><code>candidates</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1">HashSet</a>&lt;<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.Collider.html">Collider</a>&gt;</dt>
+    <dd><p>A set to populate with unique colliders.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetUniqueCandidates_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetUniqueCandidates*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetUniqueCandidates_ShapeEngine_Geometry_PolygonDef_Polygon_System_Collections_Generic_HashSet_ShapeEngine_Geometry_CollisionSystem_Collider___" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetUniqueCandidates(ShapeEngine.Geometry.PolygonDef.Polygon,System.Collections.Generic.HashSet{ShapeEngine.Geometry.CollisionSystem.Collider}@)">
+  GetUniqueCandidates(Polygon, ref HashSet&lt;Collider&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L460"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets all unique colliders that may overlap the given polygon.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetUniqueCandidates(Polygon poly, ref HashSet&lt;Collider&gt; candidates)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>poly</code> <a class="xref" href="ShapeEngine.Geometry.PolygonDef.Polygon.html">Polygon</a></dt>
+    <dd><p>The polygon to query.</p>
+</dd>
+    <dt><code>candidates</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1">HashSet</a>&lt;<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.Collider.html">Collider</a>&gt;</dt>
+    <dd><p>A set to populate with unique colliders.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetUniqueCandidates_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetUniqueCandidates*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetUniqueCandidates_ShapeEngine_Geometry_PolylineDef_Polyline_System_Collections_Generic_HashSet_ShapeEngine_Geometry_CollisionSystem_Collider___" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetUniqueCandidates(ShapeEngine.Geometry.PolylineDef.Polyline,System.Collections.Generic.HashSet{ShapeEngine.Geometry.CollisionSystem.Collider}@)">
+  GetUniqueCandidates(Polyline, ref HashSet&lt;Collider&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L472"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets all unique colliders that may overlap the given polyline.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetUniqueCandidates(Polyline polyLine, ref HashSet&lt;Collider&gt; candidates)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>polyLine</code> <a class="xref" href="ShapeEngine.Geometry.PolylineDef.Polyline.html">Polyline</a></dt>
+    <dd><p>The polyline to query.</p>
+</dd>
+    <dt><code>candidates</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1">HashSet</a>&lt;<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.Collider.html">Collider</a>&gt;</dt>
+    <dd><p>A set to populate with unique colliders.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetUniqueCandidates_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetUniqueCandidates*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetUniqueCandidates_ShapeEngine_Geometry_QuadDef_Quad_System_Collections_Generic_HashSet_ShapeEngine_Geometry_CollisionSystem_Collider___" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetUniqueCandidates(ShapeEngine.Geometry.QuadDef.Quad,System.Collections.Generic.HashSet{ShapeEngine.Geometry.CollisionSystem.Collider}@)">
+  GetUniqueCandidates(Quad, ref HashSet&lt;Collider&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L448"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets all unique colliders that may overlap the given quad.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetUniqueCandidates(Quad quad, ref HashSet&lt;Collider&gt; candidates)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>quad</code> <a class="xref" href="ShapeEngine.Geometry.QuadDef.Quad.html">Quad</a></dt>
+    <dd><p>The quad to query.</p>
+</dd>
+    <dt><code>candidates</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1">HashSet</a>&lt;<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.Collider.html">Collider</a>&gt;</dt>
+    <dd><p>A set to populate with unique colliders.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetUniqueCandidates_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetUniqueCandidates*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetUniqueCandidates_ShapeEngine_Geometry_RectDef_Rect_System_Collections_Generic_HashSet_ShapeEngine_Geometry_CollisionSystem_Collider___" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetUniqueCandidates(ShapeEngine.Geometry.RectDef.Rect,System.Collections.Generic.HashSet{ShapeEngine.Geometry.CollisionSystem.Collider}@)">
+  GetUniqueCandidates(Rect, ref HashSet&lt;Collider&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L436"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets all unique colliders that may overlap the given rectangle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetUniqueCandidates(Rect rect, ref HashSet&lt;Collider&gt; candidates)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>rect</code> <a class="xref" href="ShapeEngine.Geometry.RectDef.Rect.html">Rect</a></dt>
+    <dd><p>The rectangle to query.</p>
+</dd>
+    <dt><code>candidates</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1">HashSet</a>&lt;<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.Collider.html">Collider</a>&gt;</dt>
+    <dd><p>A set to populate with unique colliders.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetUniqueCandidates_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetUniqueCandidates*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetUniqueCandidates_ShapeEngine_Geometry_SegmentDef_Segment_System_Collections_Generic_HashSet_ShapeEngine_Geometry_CollisionSystem_Collider___" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetUniqueCandidates(ShapeEngine.Geometry.SegmentDef.Segment,System.Collections.Generic.HashSet{ShapeEngine.Geometry.CollisionSystem.Collider}@)">
+  GetUniqueCandidates(Segment, ref HashSet&lt;Collider&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L400"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets all unique colliders that may overlap the given segment.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetUniqueCandidates(Segment segment, ref HashSet&lt;Collider&gt; candidates)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>segment</code> <a class="xref" href="ShapeEngine.Geometry.SegmentDef.Segment.html">Segment</a></dt>
+    <dd><p>The segment to query.</p>
+</dd>
+    <dt><code>candidates</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1">HashSet</a>&lt;<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.Collider.html">Collider</a>&gt;</dt>
+    <dd><p>A set to populate with unique colliders.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetUniqueCandidates_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetUniqueCandidates*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_GetUniqueCandidates_ShapeEngine_Geometry_TriangleDef_Triangle_System_Collections_Generic_HashSet_ShapeEngine_Geometry_CollisionSystem_Collider___" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.GetUniqueCandidates(ShapeEngine.Geometry.TriangleDef.Triangle,System.Collections.Generic.HashSet{ShapeEngine.Geometry.CollisionSystem.Collider}@)">
+  GetUniqueCandidates(Triangle, ref HashSet&lt;Collider&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L424"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets all unique colliders that may overlap the given triangle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetUniqueCandidates(Triangle triangle, ref HashSet&lt;Collider&gt; candidates)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>triangle</code> <a class="xref" href="ShapeEngine.Geometry.TriangleDef.Triangle.html">Triangle</a></dt>
+    <dd><p>The triangle to query.</p>
+</dd>
+    <dt><code>candidates</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1">HashSet</a>&lt;<a class="xref" href="ShapeEngine.Geometry.CollisionSystem.Collider.html">Collider</a>&gt;</dt>
+    <dd><p>A set to populate with unique colliders.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_ResizeBounds_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.ResizeBounds*"></a>
+
+  <h3 id="ShapeEngine_Geometry_CollisionSystem_SpatialHash_ResizeBounds_ShapeEngine_Geometry_RectDef_Rect_" data-uid="ShapeEngine.Geometry.CollisionSystem.SpatialHash.ResizeBounds(ShapeEngine.Geometry.RectDef.Rect)">
+  ResizeBounds(Rect)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L174"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Queues a resize of the spatial hash bounds to the specified rectangle. The resize is applied on the next clear.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ResizeBounds(Rect targetBounds)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>targetBounds</code> <a class="xref" href="ShapeEngine.Geometry.RectDef.Rect.html">Rect</a></dt>
+    <dd><p>The new bounds for the grid.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Geometry/CollisionSystem/SpatialHash.cs/#L24" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
