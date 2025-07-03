@@ -23,14 +23,14 @@ items:
   - ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.OtherCollisionObject
   - ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.SortClosestFirst(System.Numerics.Vector2)
   - ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.SortFurthestFirst(System.Numerics.Vector2)
-  - ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
-  - ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
   - ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.CollisionPointValidationResult@)
-  - ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
-  - ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
+  - ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
+  - ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
   - ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.CollisionPointValidationResult@)
-  - ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.ValidateByOther(ShapeEngine.Geometry.CollisionSystem.CollisionPoint@,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
+  - ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
+  - ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
   - ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.ValidateByOther(ShapeEngine.Geometry.CollisionSystem.CollisionPointValidationResult@)
+  - ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.ValidateByOther(ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
   langs:
   - csharp
   - vb
@@ -316,14 +316,14 @@ items:
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CollisionSystem
-  summary: Calculates the average collision point and normal from all entries in the register.
+  summary: Calculates the average intersection point and normal from all entries in the register.
   example: []
   syntax:
-    content: public CollisionPoint GetAverageCollisionPoint()
+    content: public IntersectionPoint GetAverageCollisionPoint()
     return:
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: A <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref> representing the average point and normal.
-    content.vb: Public Function GetAverageCollisionPoint() As CollisionPoint
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: A <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref> representing the average point and normal.
+    content.vb: Public Function GetAverageCollisionPoint() As IntersectionPoint
   overload: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.GetAverageCollisionPoint*
 - uid: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.SortClosestFirst(System.Numerics.Vector2)
   commentId: M:ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.SortClosestFirst(System.Numerics.Vector2)
@@ -499,7 +499,7 @@ items:
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CollisionSystem
-  summary: Gets the entry whose closest collision point is nearest to the reference point.
+  summary: Gets the entry whose closest intersection point is nearest to the reference point.
   example: []
   syntax:
     content: public IntersectSpaceEntry? GetClosestEntry(Vector2 referencePoint, out float closestDistanceSquared)
@@ -509,7 +509,7 @@ items:
       description: The point to compare distances from.
     - id: closestDistanceSquared
       type: System.Single
-      description: The squared distance to the closest collision point.
+      description: The squared distance to the closest intersection point.
     return:
       type: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceEntry
       description: The closest <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectSpaceEntry" data-throw-if-not-resolved="false"></xref> or null if none exist.
@@ -540,7 +540,7 @@ items:
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CollisionSystem
-  summary: Gets the entry whose furthest collision point is furthest from the reference point.
+  summary: Gets the entry whose furthest intersection point is furthest from the reference point.
   example: []
   syntax:
     content: public IntersectSpaceEntry? GetFurthestEntry(Vector2 referencePoint, out float furthestDistanceSquared)
@@ -550,7 +550,7 @@ items:
       description: The point to compare distances from.
     - id: furthestDistanceSquared
       type: System.Single
-      description: The squared distance to the furthest collision point.
+      description: The squared distance to the furthest intersection point.
     return:
       type: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceEntry
       description: The furthest <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectSpaceEntry" data-throw-if-not-resolved="false"></xref> or null if none exist.
@@ -581,21 +581,21 @@ items:
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CollisionSystem
-  summary: Gets the collision point in all entries that is closest to the reference point.
+  summary: Gets the intersection point in all entries that is closest to the reference point.
   example: []
   syntax:
-    content: public CollisionPoint GetClosestCollisionPoint(Vector2 referencePoint, out float closestDistanceSquared)
+    content: public IntersectionPoint GetClosestCollisionPoint(Vector2 referencePoint, out float closestDistanceSquared)
     parameters:
     - id: referencePoint
       type: System.Numerics.Vector2
       description: The point to compare distances from.
     - id: closestDistanceSquared
       type: System.Single
-      description: The squared distance to the closest collision point.
+      description: The squared distance to the closest intersection point.
     return:
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The closest <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref> or a default value if none exist.
-    content.vb: Public Function GetClosestCollisionPoint(referencePoint As Vector2, closestDistanceSquared As Single) As CollisionPoint
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The closest <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref> or a default value if none exist.
+    content.vb: Public Function GetClosestCollisionPoint(referencePoint As Vector2, closestDistanceSquared As Single) As IntersectionPoint
   overload: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.GetClosestCollisionPoint*
   nameWithType.vb: IntersectSpaceRegister.GetClosestCollisionPoint(Vector2, Single)
   fullName.vb: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.GetClosestCollisionPoint(System.Numerics.Vector2, Single)
@@ -622,21 +622,21 @@ items:
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CollisionSystem
-  summary: Gets the collision point in all entries that is furthest from the reference point.
+  summary: Gets the intersection point in all entries that is furthest from the reference point.
   example: []
   syntax:
-    content: public CollisionPoint GetFurthestCollisionPoint(Vector2 referencePoint, out float furthestDistanceSquared)
+    content: public IntersectionPoint GetFurthestCollisionPoint(Vector2 referencePoint, out float furthestDistanceSquared)
     parameters:
     - id: referencePoint
       type: System.Numerics.Vector2
       description: The point to compare distances from.
     - id: furthestDistanceSquared
       type: System.Single
-      description: The squared distance to the furthest collision point.
+      description: The squared distance to the furthest intersection point.
     return:
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The furthest <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref> or a default value if none exist.
-    content.vb: Public Function GetFurthestCollisionPoint(referencePoint As Vector2, furthestDistanceSquared As Single) As CollisionPoint
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The furthest <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref> or a default value if none exist.
+    content.vb: Public Function GetFurthestCollisionPoint(referencePoint As Vector2, furthestDistanceSquared As Single) As IntersectionPoint
   overload: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.GetFurthestCollisionPoint*
   nameWithType.vb: IntersectSpaceRegister.GetFurthestCollisionPoint(Vector2, Single)
   fullName.vb: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.GetFurthestCollisionPoint(System.Numerics.Vector2, Single)
@@ -663,18 +663,18 @@ items:
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CollisionSystem
-  summary: Gets the collision point whose normal is most closely facing towards the specified reference point.
+  summary: Gets the intersection point whose normal is most closely facing towards the specified reference point.
   example: []
   syntax:
-    content: public CollisionPoint GetCollisionPointFacingTowardsPoint(Vector2 referencePoint)
+    content: public IntersectionPoint GetCollisionPointFacingTowardsPoint(Vector2 referencePoint)
     parameters:
     - id: referencePoint
       type: System.Numerics.Vector2
       description: The point to compare direction against.
     return:
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref> facing most towards the reference point, or a default value if none exist.
-    content.vb: Public Function GetCollisionPointFacingTowardsPoint(referencePoint As Vector2) As CollisionPoint
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref> facing most towards the reference point, or a default value if none exist.
+    content.vb: Public Function GetCollisionPointFacingTowardsPoint(referencePoint As Vector2) As IntersectionPoint
   overload: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.GetCollisionPointFacingTowardsPoint*
 - uid: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.GetCollisionPointFacingTowardsDir(System.Numerics.Vector2)
   commentId: M:ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.GetCollisionPointFacingTowardsDir(System.Numerics.Vector2)
@@ -698,18 +698,18 @@ items:
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CollisionSystem
-  summary: Gets the collision point whose normal is most closely facing towards the specified reference direction.
+  summary: Gets the intersection point whose normal is most closely facing towards the specified reference direction.
   example: []
   syntax:
-    content: public CollisionPoint GetCollisionPointFacingTowardsDir(Vector2 referenceDirection)
+    content: public IntersectionPoint GetCollisionPointFacingTowardsDir(Vector2 referenceDirection)
     parameters:
     - id: referenceDirection
       type: System.Numerics.Vector2
       description: The direction to compare against.
     return:
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref> facing most towards the reference direction, or a default value if none exist.
-    content.vb: Public Function GetCollisionPointFacingTowardsDir(referenceDirection As Vector2) As CollisionPoint
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref> facing most towards the reference direction, or a default value if none exist.
+    content.vb: Public Function GetCollisionPointFacingTowardsDir(referenceDirection As Vector2) As IntersectionPoint
   overload: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.GetCollisionPointFacingTowardsDir*
 - uid: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.GetCollisionPointFacingTowardsPoint
   commentId: M:ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.GetCollisionPointFacingTowardsPoint
@@ -733,14 +733,14 @@ items:
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CollisionSystem
-  summary: Gets the collision point whose normal is most closely facing towards the position of the associated collision object.
+  summary: Gets the intersection point whose normal is most closely facing towards the position of the associated collision object.
   example: []
   syntax:
-    content: public CollisionPoint GetCollisionPointFacingTowardsPoint()
+    content: public IntersectionPoint GetCollisionPointFacingTowardsPoint()
     return:
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref> facing most towards the object's position.
-    content.vb: Public Function GetCollisionPointFacingTowardsPoint() As CollisionPoint
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref> facing most towards the object's position.
+    content.vb: Public Function GetCollisionPointFacingTowardsPoint() As IntersectionPoint
   overload: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.GetCollisionPointFacingTowardsPoint*
 - uid: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.GetCollisionPointFacingTowardsDir
   commentId: M:ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.GetCollisionPointFacingTowardsDir
@@ -764,25 +764,25 @@ items:
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CollisionSystem
-  summary: Gets the collision point whose normal is most closely facing towards the velocity of the associated collision object.
+  summary: Gets the intersection point whose normal is most closely facing towards the velocity of the associated collision object.
   example: []
   syntax:
-    content: public CollisionPoint GetCollisionPointFacingTowardsDir()
+    content: public IntersectionPoint GetCollisionPointFacingTowardsDir()
     return:
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref> facing most towards the object's velocity.
-    content.vb: Public Function GetCollisionPointFacingTowardsDir() As CollisionPoint
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref> facing most towards the object's velocity.
+    content.vb: Public Function GetCollisionPointFacingTowardsDir() As IntersectionPoint
   overload: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.GetCollisionPointFacingTowardsDir*
-- uid: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
-  commentId: M:ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
-  id: Validate(System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
+- uid: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
+  commentId: M:ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
+  id: Validate(System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
   parent: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister
   langs:
   - csharp
   - vb
-  name: Validate(Vector2, out CollisionPoint)
-  nameWithType: IntersectSpaceRegister.Validate(Vector2, out CollisionPoint)
-  fullName: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2, out ShapeEngine.Geometry.CollisionSystem.CollisionPoint)
+  name: Validate(Vector2, out IntersectionPoint)
+  nameWithType: IntersectSpaceRegister.Validate(Vector2, out IntersectionPoint)
+  fullName: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2, out ShapeEngine.Geometry.CollisionSystem.IntersectionPoint)
   type: Method
   source:
     remote:
@@ -799,39 +799,39 @@ items:
   remarks: >-
     Removes:
 
-    - Invalid <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref>s
+    - Invalid <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref>s
 
     - Points with normals facing in the same direction as the reference direction
 
-    - Points with normals facing in the opposite direction as the reference point (from CollisionPoint towards the reference point)
+    - Points with normals facing in the opposite direction as the reference point (from IntersectionPoint towards the reference point)
   example: []
   syntax:
-    content: public bool Validate(Vector2 referenceDirection, out CollisionPoint combined)
+    content: public bool Validate(Vector2 referenceDirection, out IntersectionPoint combined)
     parameters:
     - id: referenceDirection
       type: System.Numerics.Vector2
-      description: The direction to check collision point normals against.
+      description: The direction to check intersection point normals against.
     - id: combined
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The averaged collision point of all remaining valid points.
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The averaged intersection point of all remaining valid points.
     return:
       type: System.Boolean
       description: True if there are valid points remaining; otherwise, false.
-    content.vb: Public Function Validate(referenceDirection As Vector2, combined As CollisionPoint) As Boolean
+    content.vb: Public Function Validate(referenceDirection As Vector2, combined As IntersectionPoint) As Boolean
   overload: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate*
-  nameWithType.vb: IntersectSpaceRegister.Validate(Vector2, CollisionPoint)
-  fullName.vb: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2, ShapeEngine.Geometry.CollisionSystem.CollisionPoint)
-  name.vb: Validate(Vector2, CollisionPoint)
-- uid: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
-  commentId: M:ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
-  id: Validate(System.Numerics.Vector2,System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
+  nameWithType.vb: IntersectSpaceRegister.Validate(Vector2, IntersectionPoint)
+  fullName.vb: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2, ShapeEngine.Geometry.CollisionSystem.IntersectionPoint)
+  name.vb: Validate(Vector2, IntersectionPoint)
+- uid: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
+  commentId: M:ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
+  id: Validate(System.Numerics.Vector2,System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
   parent: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister
   langs:
   - csharp
   - vb
-  name: Validate(Vector2, Vector2, out CollisionPoint)
-  nameWithType: IntersectSpaceRegister.Validate(Vector2, Vector2, out CollisionPoint)
-  fullName: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2, System.Numerics.Vector2, out ShapeEngine.Geometry.CollisionSystem.CollisionPoint)
+  name: Validate(Vector2, Vector2, out IntersectionPoint)
+  nameWithType: IntersectSpaceRegister.Validate(Vector2, Vector2, out IntersectionPoint)
+  fullName: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2, System.Numerics.Vector2, out ShapeEngine.Geometry.CollisionSystem.IntersectionPoint)
   type: Method
   source:
     remote:
@@ -848,42 +848,42 @@ items:
   remarks: >-
     Removes:
 
-    - Invalid <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref>s
+    - Invalid <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref>s
 
     - Points with normals facing in the same direction as the reference direction
 
-    - Points with normals facing in the opposite direction as the reference point (from CollisionPoint towards the reference point)
+    - Points with normals facing in the opposite direction as the reference point (from IntersectionPoint towards the reference point)
   example: []
   syntax:
-    content: public bool Validate(Vector2 referenceDirection, Vector2 referencePoint, out CollisionPoint combined)
+    content: public bool Validate(Vector2 referenceDirection, Vector2 referencePoint, out IntersectionPoint combined)
     parameters:
     - id: referenceDirection
       type: System.Numerics.Vector2
-      description: The direction to check collision point normals against.
+      description: The direction to check intersection point normals against.
     - id: referencePoint
       type: System.Numerics.Vector2
       description: The point to check direction from.
     - id: combined
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The averaged collision point of all remaining valid points.
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The averaged intersection point of all remaining valid points.
     return:
       type: System.Boolean
       description: True if there are valid points remaining; otherwise, false.
-    content.vb: Public Function Validate(referenceDirection As Vector2, referencePoint As Vector2, combined As CollisionPoint) As Boolean
+    content.vb: Public Function Validate(referenceDirection As Vector2, referencePoint As Vector2, combined As IntersectionPoint) As Boolean
   overload: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate*
-  nameWithType.vb: IntersectSpaceRegister.Validate(Vector2, Vector2, CollisionPoint)
-  fullName.vb: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2, System.Numerics.Vector2, ShapeEngine.Geometry.CollisionSystem.CollisionPoint)
-  name.vb: Validate(Vector2, Vector2, CollisionPoint)
-- uid: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
-  commentId: M:ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
-  id: Validate(System.Numerics.Vector2,System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
+  nameWithType.vb: IntersectSpaceRegister.Validate(Vector2, Vector2, IntersectionPoint)
+  fullName.vb: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2, System.Numerics.Vector2, ShapeEngine.Geometry.CollisionSystem.IntersectionPoint)
+  name.vb: Validate(Vector2, Vector2, IntersectionPoint)
+- uid: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
+  commentId: M:ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
+  id: Validate(System.Numerics.Vector2,System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
   parent: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister
   langs:
   - csharp
   - vb
-  name: Validate(Vector2, Vector2, out CollisionPoint, out CollisionPoint)
-  nameWithType: IntersectSpaceRegister.Validate(Vector2, Vector2, out CollisionPoint, out CollisionPoint)
-  fullName: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2, System.Numerics.Vector2, out ShapeEngine.Geometry.CollisionSystem.CollisionPoint, out ShapeEngine.Geometry.CollisionSystem.CollisionPoint)
+  name: Validate(Vector2, Vector2, out IntersectionPoint, out IntersectionPoint)
+  nameWithType: IntersectSpaceRegister.Validate(Vector2, Vector2, out IntersectionPoint, out IntersectionPoint)
+  fullName: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2, System.Numerics.Vector2, out ShapeEngine.Geometry.CollisionSystem.IntersectionPoint, out ShapeEngine.Geometry.CollisionSystem.IntersectionPoint)
   type: Method
   source:
     remote:
@@ -900,45 +900,45 @@ items:
   remarks: >-
     Removes:
 
-    - Invalid <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref>s
+    - Invalid <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref>s
 
     - Points with normals facing in the same direction as the reference direction
 
-    - Points with normals facing in the opposite direction as the reference point (from CollisionPoint towards the reference point)
+    - Points with normals facing in the opposite direction as the reference point (from IntersectionPoint towards the reference point)
   example: []
   syntax:
-    content: public bool Validate(Vector2 referenceDirection, Vector2 referencePoint, out CollisionPoint combined, out CollisionPoint closest)
+    content: public bool Validate(Vector2 referenceDirection, Vector2 referencePoint, out IntersectionPoint combined, out IntersectionPoint closest)
     parameters:
     - id: referenceDirection
       type: System.Numerics.Vector2
-      description: The direction to check collision point normals against.
+      description: The direction to check intersection point normals against.
     - id: referencePoint
       type: System.Numerics.Vector2
       description: The point to check direction from.
     - id: combined
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The averaged collision point of all remaining valid points.
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The averaged intersection point of all remaining valid points.
     - id: closest
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The closest collision point to the reference point.
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The closest intersection point to the reference point.
     return:
       type: System.Boolean
       description: True if there are valid points remaining; otherwise, false.
-    content.vb: Public Function Validate(referenceDirection As Vector2, referencePoint As Vector2, combined As CollisionPoint, closest As CollisionPoint) As Boolean
+    content.vb: Public Function Validate(referenceDirection As Vector2, referencePoint As Vector2, combined As IntersectionPoint, closest As IntersectionPoint) As Boolean
   overload: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate*
-  nameWithType.vb: IntersectSpaceRegister.Validate(Vector2, Vector2, CollisionPoint, CollisionPoint)
-  fullName.vb: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2, System.Numerics.Vector2, ShapeEngine.Geometry.CollisionSystem.CollisionPoint, ShapeEngine.Geometry.CollisionSystem.CollisionPoint)
-  name.vb: Validate(Vector2, Vector2, CollisionPoint, CollisionPoint)
-- uid: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
-  commentId: M:ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
-  id: Validate(System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
+  nameWithType.vb: IntersectSpaceRegister.Validate(Vector2, Vector2, IntersectionPoint, IntersectionPoint)
+  fullName.vb: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2, System.Numerics.Vector2, ShapeEngine.Geometry.CollisionSystem.IntersectionPoint, ShapeEngine.Geometry.CollisionSystem.IntersectionPoint)
+  name.vb: Validate(Vector2, Vector2, IntersectionPoint, IntersectionPoint)
+- uid: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
+  commentId: M:ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
+  id: Validate(System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
   parent: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister
   langs:
   - csharp
   - vb
-  name: Validate(Vector2, out CollisionPoint, out CollisionPoint)
-  nameWithType: IntersectSpaceRegister.Validate(Vector2, out CollisionPoint, out CollisionPoint)
-  fullName: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2, out ShapeEngine.Geometry.CollisionSystem.CollisionPoint, out ShapeEngine.Geometry.CollisionSystem.CollisionPoint)
+  name: Validate(Vector2, out IntersectionPoint, out IntersectionPoint)
+  nameWithType: IntersectSpaceRegister.Validate(Vector2, out IntersectionPoint, out IntersectionPoint)
+  fullName: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2, out ShapeEngine.Geometry.CollisionSystem.IntersectionPoint, out ShapeEngine.Geometry.CollisionSystem.IntersectionPoint)
   type: Method
   source:
     remote:
@@ -955,32 +955,32 @@ items:
   remarks: >-
     Removes:
 
-    - Invalid <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref>s
+    - Invalid <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref>s
 
     - Points with normals facing in the same direction as the reference direction
 
-    - Points with normals facing in the opposite direction as the reference point (from CollisionPoint towards the reference point)
+    - Points with normals facing in the opposite direction as the reference point (from IntersectionPoint towards the reference point)
   example: []
   syntax:
-    content: public bool Validate(Vector2 referencePoint, out CollisionPoint combined, out CollisionPoint closest)
+    content: public bool Validate(Vector2 referencePoint, out IntersectionPoint combined, out IntersectionPoint closest)
     parameters:
     - id: referencePoint
       type: System.Numerics.Vector2
       description: The point to check direction from.
     - id: combined
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The averaged collision point of all remaining valid points.
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The averaged intersection point of all remaining valid points.
     - id: closest
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The closest collision point to the reference point.
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The closest intersection point to the reference point.
     return:
       type: System.Boolean
       description: True if there are valid points remaining; otherwise, false.
-    content.vb: Public Function Validate(referencePoint As Vector2, combined As CollisionPoint, closest As CollisionPoint) As Boolean
+    content.vb: Public Function Validate(referencePoint As Vector2, combined As IntersectionPoint, closest As IntersectionPoint) As Boolean
   overload: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate*
-  nameWithType.vb: IntersectSpaceRegister.Validate(Vector2, CollisionPoint, CollisionPoint)
-  fullName.vb: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2, ShapeEngine.Geometry.CollisionSystem.CollisionPoint, ShapeEngine.Geometry.CollisionSystem.CollisionPoint)
-  name.vb: Validate(Vector2, CollisionPoint, CollisionPoint)
+  nameWithType.vb: IntersectSpaceRegister.Validate(Vector2, IntersectionPoint, IntersectionPoint)
+  fullName.vb: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2, ShapeEngine.Geometry.CollisionSystem.IntersectionPoint, ShapeEngine.Geometry.CollisionSystem.IntersectionPoint)
+  name.vb: Validate(Vector2, IntersectionPoint, IntersectionPoint)
 - uid: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.CollisionPointValidationResult@)
   commentId: M:ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.CollisionPointValidationResult@)
   id: Validate(System.Numerics.Vector2,ShapeEngine.Geometry.CollisionSystem.CollisionPointValidationResult@)
@@ -1007,11 +1007,11 @@ items:
   remarks: >-
     Removes:
 
-    - Invalid <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref>s
+    - Invalid <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref>s
 
     - Points with normals facing in the same direction as the reference direction
 
-    - Points with normals facing in the opposite direction as the reference point (from CollisionPoint towards the reference point)
+    - Points with normals facing in the opposite direction as the reference point (from IntersectionPoint towards the reference point)
   example: []
   syntax:
     content: public bool Validate(Vector2 referencePoint, out CollisionPointValidationResult validationResult)
@@ -1056,18 +1056,18 @@ items:
   remarks: >-
     Removes:
 
-    - Invalid <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref>s
+    - Invalid <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref>s
 
     - Points with normals facing in the same direction as the reference direction
 
-    - Points with normals facing in the opposite direction as the reference point (from CollisionPoint towards the reference point)
+    - Points with normals facing in the opposite direction as the reference point (from IntersectionPoint towards the reference point)
   example: []
   syntax:
     content: public bool Validate(Vector2 referenceDirection, Vector2 referencePoint, out CollisionPointValidationResult validationResult)
     parameters:
     - id: referenceDirection
       type: System.Numerics.Vector2
-      description: The direction to check collision point normals against.
+      description: The direction to check intersection point normals against.
     - id: referencePoint
       type: System.Numerics.Vector2
       description: The point to check direction from.
@@ -1082,16 +1082,16 @@ items:
   nameWithType.vb: IntersectSpaceRegister.Validate(Vector2, Vector2, CollisionPointValidationResult)
   fullName.vb: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate(System.Numerics.Vector2, System.Numerics.Vector2, ShapeEngine.Geometry.CollisionSystem.CollisionPointValidationResult)
   name.vb: Validate(Vector2, Vector2, CollisionPointValidationResult)
-- uid: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.ValidateByOther(ShapeEngine.Geometry.CollisionSystem.CollisionPoint@,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
-  commentId: M:ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.ValidateByOther(ShapeEngine.Geometry.CollisionSystem.CollisionPoint@,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
-  id: ValidateByOther(ShapeEngine.Geometry.CollisionSystem.CollisionPoint@,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
+- uid: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.ValidateByOther(ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
+  commentId: M:ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.ValidateByOther(ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
+  id: ValidateByOther(ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
   parent: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister
   langs:
   - csharp
   - vb
-  name: ValidateByOther(out CollisionPoint, out CollisionPoint)
-  nameWithType: IntersectSpaceRegister.ValidateByOther(out CollisionPoint, out CollisionPoint)
-  fullName: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.ValidateByOther(out ShapeEngine.Geometry.CollisionSystem.CollisionPoint, out ShapeEngine.Geometry.CollisionSystem.CollisionPoint)
+  name: ValidateByOther(out IntersectionPoint, out IntersectionPoint)
+  nameWithType: IntersectSpaceRegister.ValidateByOther(out IntersectionPoint, out IntersectionPoint)
+  fullName: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.ValidateByOther(out ShapeEngine.Geometry.CollisionSystem.IntersectionPoint, out ShapeEngine.Geometry.CollisionSystem.IntersectionPoint)
   type: Method
   source:
     remote:
@@ -1107,33 +1107,33 @@ items:
   summary: >-
     Removes:
 
-    - invalid CollisionPoints
+    - invalid IntersectionPoints
 
-    - CollisionPoints with normals facing in the same direction as the reference direction
+    - IntersectionPoints with normals facing in the same direction as the reference direction
 
-    - CollisionPoints with normals facing in the opposite direction as the reference point (from CollisionPoint towards the reference point)
+    - IntersectionPoints with normals facing in the opposite direction as the reference point (from IntersectionPoint towards the reference point)
 
     - Uses Object.Velocity as reference direction.
 
     - Uses Object.Transform.Position as reference point.
   example: []
   syntax:
-    content: public bool ValidateByOther(out CollisionPoint combined, out CollisionPoint closest)
+    content: public bool ValidateByOther(out IntersectionPoint combined, out IntersectionPoint closest)
     parameters:
     - id: combined
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: An averaged CollisionPoint of all remaining CollisionPoints of all entries.
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: An averaged IntersectionPoint of all remaining IntersectionPoints of all entries.
     - id: closest
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The CollisionPoint that is closest to the referencePoint.
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The IntersectionPoint that is closest to the referencePoint.
     return:
       type: System.Boolean
       description: Returns true if there are valid points remaining
-    content.vb: Public Function ValidateByOther(combined As CollisionPoint, closest As CollisionPoint) As Boolean
+    content.vb: Public Function ValidateByOther(combined As IntersectionPoint, closest As IntersectionPoint) As Boolean
   overload: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.ValidateByOther*
-  nameWithType.vb: IntersectSpaceRegister.ValidateByOther(CollisionPoint, CollisionPoint)
-  fullName.vb: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.ValidateByOther(ShapeEngine.Geometry.CollisionSystem.CollisionPoint, ShapeEngine.Geometry.CollisionSystem.CollisionPoint)
-  name.vb: ValidateByOther(CollisionPoint, CollisionPoint)
+  nameWithType.vb: IntersectSpaceRegister.ValidateByOther(IntersectionPoint, IntersectionPoint)
+  fullName.vb: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.ValidateByOther(ShapeEngine.Geometry.CollisionSystem.IntersectionPoint, ShapeEngine.Geometry.CollisionSystem.IntersectionPoint)
+  name.vb: ValidateByOther(IntersectionPoint, IntersectionPoint)
 - uid: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.ValidateByOther(ShapeEngine.Geometry.CollisionSystem.CollisionPointValidationResult@)
   commentId: M:ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.ValidateByOther(ShapeEngine.Geometry.CollisionSystem.CollisionPointValidationResult@)
   id: ValidateByOther(ShapeEngine.Geometry.CollisionSystem.CollisionPointValidationResult@)
@@ -1159,11 +1159,11 @@ items:
   summary: >-
     Removes:
 
-    - invalid CollisionPoints
+    - invalid IntersectionPoints
 
-    - CollisionPoints with normals facing in the same direction as the reference direction
+    - IntersectionPoints with normals facing in the same direction as the reference direction
 
-    - CollisionPoints with normals facing in the opposite direction as the reference point (from CollisionPoint towards the reference point)
+    - IntersectionPoints with normals facing in the opposite direction as the reference point (from IntersectionPoint towards the reference point)
 
     - Uses Object.Velocity as reference direction.
 
@@ -1174,7 +1174,7 @@ items:
     parameters:
     - id: validationResult
       type: ShapeEngine.Geometry.CollisionSystem.CollisionPointValidationResult
-      description: The result of the combined CollisionPoint, and the  closest/furthest collision point from the reference point, and the CollisionPoint with normal facing towards the referencePoint.
+      description: The result of the combined IntersectionPoint, and the  closest/furthest intersection point from the reference point, and the IntersectionPoint with normal facing towards the referencePoint.
     return:
       type: System.Boolean
       description: Returns true if there are valid points remaining
@@ -6070,13 +6070,13 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
-- uid: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-  commentId: T:ShapeEngine.Geometry.CollisionSystem.CollisionPoint
+- uid: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+  commentId: T:ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
   parent: ShapeEngine.Geometry.CollisionSystem
-  href: ShapeEngine.Geometry.CollisionSystem.CollisionPoint.html
-  name: CollisionPoint
-  nameWithType: CollisionPoint
-  fullName: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
+  href: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint.html
+  name: IntersectionPoint
+  nameWithType: IntersectionPoint
+  fullName: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
 - uid: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.GetAverageCollisionPoint*
   commentId: Overload:ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.GetAverageCollisionPoint
   href: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.html#ShapeEngine_Geometry_CollisionSystem_IntersectSpaceRegister_GetAverageCollisionPoint
@@ -6191,7 +6191,7 @@ references:
   fullName: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.GetCollisionPointFacingTowardsDir
 - uid: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate*
   commentId: Overload:ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate
-  href: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.html#ShapeEngine_Geometry_CollisionSystem_IntersectSpaceRegister_Validate_System_Numerics_Vector2_ShapeEngine_Geometry_CollisionSystem_CollisionPoint__
+  href: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.html#ShapeEngine_Geometry_CollisionSystem_IntersectSpaceRegister_Validate_System_Numerics_Vector2_ShapeEngine_Geometry_CollisionSystem_IntersectionPoint__
   name: Validate
   nameWithType: IntersectSpaceRegister.Validate
   fullName: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.Validate
@@ -6204,7 +6204,7 @@ references:
   fullName: ShapeEngine.Geometry.CollisionSystem.CollisionPointValidationResult
 - uid: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.ValidateByOther*
   commentId: Overload:ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.ValidateByOther
-  href: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.html#ShapeEngine_Geometry_CollisionSystem_IntersectSpaceRegister_ValidateByOther_ShapeEngine_Geometry_CollisionSystem_CollisionPoint__ShapeEngine_Geometry_CollisionSystem_CollisionPoint__
+  href: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.html#ShapeEngine_Geometry_CollisionSystem_IntersectSpaceRegister_ValidateByOther_ShapeEngine_Geometry_CollisionSystem_IntersectionPoint__ShapeEngine_Geometry_CollisionSystem_IntersectionPoint__
   name: ValidateByOther
   nameWithType: IntersectSpaceRegister.ValidateByOther
   fullName: ShapeEngine.Geometry.CollisionSystem.IntersectSpaceRegister.ValidateByOther

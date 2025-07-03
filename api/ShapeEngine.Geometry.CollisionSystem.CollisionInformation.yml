@@ -9,11 +9,11 @@ items:
   - ShapeEngine.Geometry.CollisionSystem.CollisionInformation.#ctor(ShapeEngine.Geometry.CollisionSystem.CollisionObject,ShapeEngine.Geometry.CollisionSystem.CollisionObject,System.Boolean,System.Collections.Generic.List{ShapeEngine.Geometry.CollisionSystem.Collision})
   - ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Add(ShapeEngine.Geometry.CollisionSystem.Collision)
   - ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Copy
-  - ShapeEngine.Geometry.CollisionSystem.CollisionInformation.ExistsCollisionPoint(System.Predicate{ShapeEngine.Geometry.CollisionSystem.CollisionPoint})
+  - ShapeEngine.Geometry.CollisionSystem.CollisionInformation.ExistsCollisionPoint(System.Predicate{ShapeEngine.Geometry.CollisionSystem.IntersectionPoint})
   - ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FilterCollisions(System.Predicate{ShapeEngine.Geometry.CollisionSystem.Collision})
-  - ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FilteredCollisionPoint
-  - ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindAllCollisionPoints(System.Predicate{ShapeEngine.Geometry.CollisionSystem.CollisionPoint})
-  - ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindCollisionPoint(System.Predicate{ShapeEngine.Geometry.CollisionSystem.CollisionPoint})
+  - ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FilteredIntersectionPoint
+  - ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindAllCollisionPoints(System.Predicate{ShapeEngine.Geometry.CollisionSystem.IntersectionPoint})
+  - ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindCollisionPoint(System.Predicate{ShapeEngine.Geometry.CollisionSystem.IntersectionPoint})
   - ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FirstContact
   - ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetAllFirstContactCollisions
   - ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetAllOtherColliders
@@ -32,9 +32,9 @@ items:
   - ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Self
   - ShapeEngine.Geometry.CollisionSystem.CollisionInformation.SelfVel
   - ShapeEngine.Geometry.CollisionSystem.CollisionInformation.TotalCollisionPointCount
-  - ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate(ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
-  - ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate(ShapeEngine.Geometry.CollisionSystem.CollisionPoint@,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
   - ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate(ShapeEngine.Geometry.CollisionSystem.CollisionPointValidationResult@)
+  - ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate(ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
+  - ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate(ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
   langs:
   - csharp
   - vb
@@ -308,42 +308,42 @@ items:
       type: System.Int32
     content.vb: Public Property TotalCollisionPointCount As Integer
   overload: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.TotalCollisionPointCount*
-- uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FilteredCollisionPoint
-  commentId: P:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FilteredCollisionPoint
-  id: FilteredCollisionPoint
+- uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FilteredIntersectionPoint
+  commentId: P:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FilteredIntersectionPoint
+  id: FilteredIntersectionPoint
   parent: ShapeEngine.Geometry.CollisionSystem.CollisionInformation
   langs:
   - csharp
   - vb
-  name: FilteredCollisionPoint
-  nameWithType: CollisionInformation.FilteredCollisionPoint
-  fullName: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FilteredCollisionPoint
+  name: FilteredIntersectionPoint
+  nameWithType: CollisionInformation.FilteredIntersectionPoint
+  fullName: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FilteredIntersectionPoint
   type: Property
   source:
     remote:
       path: ShapeEngine/Geometry/CollisionSystem/CollisionInformation.cs
       branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: FilteredCollisionPoint
+    id: FilteredIntersectionPoint
     path: ../ShapeEngine/ShapeEngine/Geometry/CollisionSystem/CollisionInformation.cs
     startLine: 45
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CollisionSystem
   summary: >-
-    The filtered collision point.
+    The filtered intersection point.
 
     Only valid when the collision object has <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionObject.FilterCollisionPoints" data-throw-if-not-resolved="false"></xref> enabled and
 
     the collider has <xref href="ShapeEngine.Geometry.CollisionSystem.Collider.ComputeIntersections" data-throw-if-not-resolved="false"></xref> enabled.
   example: []
   syntax:
-    content: public CollisionPoint FilteredCollisionPoint { get; }
+    content: public IntersectionPoint FilteredIntersectionPoint { get; }
     parameters: []
     return:
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-    content.vb: Public Property FilteredCollisionPoint As CollisionPoint
-  overload: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FilteredCollisionPoint*
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+    content.vb: Public Property FilteredIntersectionPoint As IntersectionPoint
+  overload: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FilteredIntersectionPoint*
 - uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.#ctor(ShapeEngine.Geometry.CollisionSystem.CollisionObject,ShapeEngine.Geometry.CollisionSystem.CollisionObject,System.Boolean)
   commentId: M:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.#ctor(ShapeEngine.Geometry.CollisionSystem.CollisionObject,ShapeEngine.Geometry.CollisionSystem.CollisionObject,System.Boolean)
   id: '#ctor(ShapeEngine.Geometry.CollisionSystem.CollisionObject,ShapeEngine.Geometry.CollisionSystem.CollisionObject,System.Boolean)'
@@ -429,16 +429,16 @@ items:
   nameWithType.vb: CollisionInformation.New(CollisionObject, CollisionObject, Boolean, List(Of Collision))
   fullName.vb: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.New(ShapeEngine.Geometry.CollisionSystem.CollisionObject, ShapeEngine.Geometry.CollisionSystem.CollisionObject, Boolean, System.Collections.Generic.List(Of ShapeEngine.Geometry.CollisionSystem.Collision))
   name.vb: New(CollisionObject, CollisionObject, Boolean, List(Of Collision))
-- uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate(ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
-  commentId: M:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate(ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
-  id: Validate(ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
+- uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate(ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
+  commentId: M:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate(ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
+  id: Validate(ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
   parent: ShapeEngine.Geometry.CollisionSystem.CollisionInformation
   langs:
   - csharp
   - vb
-  name: Validate(out CollisionPoint)
-  nameWithType: CollisionInformation.Validate(out CollisionPoint)
-  fullName: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate(out ShapeEngine.Geometry.CollisionSystem.CollisionPoint)
+  name: Validate(out IntersectionPoint)
+  nameWithType: CollisionInformation.Validate(out IntersectionPoint)
+  fullName: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate(out ShapeEngine.Geometry.CollisionSystem.IntersectionPoint)
   type: Method
   source:
     remote:
@@ -454,29 +454,29 @@ items:
   summary: Validates the collisions and removes invalid ones using <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionInformation.SelfVel" data-throw-if-not-resolved="false"></xref> as reference direction and <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Self" data-throw-if-not-resolved="false"></xref>.CurTransform.Position as reference point.
   example: []
   syntax:
-    content: public bool Validate(out CollisionPoint combined)
+    content: public bool Validate(out IntersectionPoint combined)
     parameters:
     - id: combined
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The average <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref> of all valid collision points.
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The average <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref> of all valid collision points.
     return:
       type: System.Boolean
       description: Returns true if there are valid collision points left.
-    content.vb: Public Function Validate(combined As CollisionPoint) As Boolean
+    content.vb: Public Function Validate(combined As IntersectionPoint) As Boolean
   overload: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate*
-  nameWithType.vb: CollisionInformation.Validate(CollisionPoint)
-  fullName.vb: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate(ShapeEngine.Geometry.CollisionSystem.CollisionPoint)
-  name.vb: Validate(CollisionPoint)
-- uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate(ShapeEngine.Geometry.CollisionSystem.CollisionPoint@,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
-  commentId: M:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate(ShapeEngine.Geometry.CollisionSystem.CollisionPoint@,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
-  id: Validate(ShapeEngine.Geometry.CollisionSystem.CollisionPoint@,ShapeEngine.Geometry.CollisionSystem.CollisionPoint@)
+  nameWithType.vb: CollisionInformation.Validate(IntersectionPoint)
+  fullName.vb: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate(ShapeEngine.Geometry.CollisionSystem.IntersectionPoint)
+  name.vb: Validate(IntersectionPoint)
+- uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate(ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
+  commentId: M:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate(ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
+  id: Validate(ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@,ShapeEngine.Geometry.CollisionSystem.IntersectionPoint@)
   parent: ShapeEngine.Geometry.CollisionSystem.CollisionInformation
   langs:
   - csharp
   - vb
-  name: Validate(out CollisionPoint, out CollisionPoint)
-  nameWithType: CollisionInformation.Validate(out CollisionPoint, out CollisionPoint)
-  fullName: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate(out ShapeEngine.Geometry.CollisionSystem.CollisionPoint, out ShapeEngine.Geometry.CollisionSystem.CollisionPoint)
+  name: Validate(out IntersectionPoint, out IntersectionPoint)
+  nameWithType: CollisionInformation.Validate(out IntersectionPoint, out IntersectionPoint)
+  fullName: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate(out ShapeEngine.Geometry.CollisionSystem.IntersectionPoint, out ShapeEngine.Geometry.CollisionSystem.IntersectionPoint)
   type: Method
   source:
     remote:
@@ -492,22 +492,22 @@ items:
   summary: Validates the collisions and removes invalid ones using <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionInformation.SelfVel" data-throw-if-not-resolved="false"></xref> as reference direction and <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Self" data-throw-if-not-resolved="false"></xref>.CurTransform.Position as reference point.
   example: []
   syntax:
-    content: public bool Validate(out CollisionPoint combined, out CollisionPoint closest)
+    content: public bool Validate(out IntersectionPoint combined, out IntersectionPoint closest)
     parameters:
     - id: combined
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The average <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref> of all valid collision points.
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The average <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref> of all valid collision points.
     - id: closest
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The closest valid <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref> to the reference point.
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The closest valid <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref> to the reference point.
     return:
       type: System.Boolean
       description: Returns true if there are valid collision points left.
-    content.vb: Public Function Validate(combined As CollisionPoint, closest As CollisionPoint) As Boolean
+    content.vb: Public Function Validate(combined As IntersectionPoint, closest As IntersectionPoint) As Boolean
   overload: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate*
-  nameWithType.vb: CollisionInformation.Validate(CollisionPoint, CollisionPoint)
-  fullName.vb: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate(ShapeEngine.Geometry.CollisionSystem.CollisionPoint, ShapeEngine.Geometry.CollisionSystem.CollisionPoint)
-  name.vb: Validate(CollisionPoint, CollisionPoint)
+  nameWithType.vb: CollisionInformation.Validate(IntersectionPoint, IntersectionPoint)
+  fullName.vb: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate(ShapeEngine.Geometry.CollisionSystem.IntersectionPoint, ShapeEngine.Geometry.CollisionSystem.IntersectionPoint)
+  name.vb: Validate(IntersectionPoint, IntersectionPoint)
 - uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate(ShapeEngine.Geometry.CollisionSystem.CollisionPointValidationResult@)
   commentId: M:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate(ShapeEngine.Geometry.CollisionSystem.CollisionPointValidationResult@)
   id: Validate(ShapeEngine.Geometry.CollisionSystem.CollisionPointValidationResult@)
@@ -740,16 +740,16 @@ items:
       description: A set of all other colliders involved in first contact collisions, or null if there are none.
     content.vb: Public Function GetAllOtherFirstContactColliders() As HashSet(Of Collider)
   overload: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetAllOtherFirstContactColliders*
-- uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.ExistsCollisionPoint(System.Predicate{ShapeEngine.Geometry.CollisionSystem.CollisionPoint})
-  commentId: M:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.ExistsCollisionPoint(System.Predicate{ShapeEngine.Geometry.CollisionSystem.CollisionPoint})
-  id: ExistsCollisionPoint(System.Predicate{ShapeEngine.Geometry.CollisionSystem.CollisionPoint})
+- uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.ExistsCollisionPoint(System.Predicate{ShapeEngine.Geometry.CollisionSystem.IntersectionPoint})
+  commentId: M:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.ExistsCollisionPoint(System.Predicate{ShapeEngine.Geometry.CollisionSystem.IntersectionPoint})
+  id: ExistsCollisionPoint(System.Predicate{ShapeEngine.Geometry.CollisionSystem.IntersectionPoint})
   parent: ShapeEngine.Geometry.CollisionSystem.CollisionInformation
   langs:
   - csharp
   - vb
-  name: ExistsCollisionPoint(Predicate<CollisionPoint>)
-  nameWithType: CollisionInformation.ExistsCollisionPoint(Predicate<CollisionPoint>)
-  fullName: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.ExistsCollisionPoint(System.Predicate<ShapeEngine.Geometry.CollisionSystem.CollisionPoint>)
+  name: ExistsCollisionPoint(Predicate<IntersectionPoint>)
+  nameWithType: CollisionInformation.ExistsCollisionPoint(Predicate<IntersectionPoint>)
+  fullName: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.ExistsCollisionPoint(System.Predicate<ShapeEngine.Geometry.CollisionSystem.IntersectionPoint>)
   type: Method
   source:
     remote:
@@ -762,32 +762,32 @@ items:
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CollisionSystem
-  summary: Determines whether any collision point in any collision matches the specified predicate.
+  summary: Determines whether any intersection point in any collision matches the specified predicate.
   example: []
   syntax:
-    content: public bool ExistsCollisionPoint(Predicate<CollisionPoint> match)
+    content: public bool ExistsCollisionPoint(Predicate<IntersectionPoint> match)
     parameters:
     - id: match
-      type: System.Predicate{ShapeEngine.Geometry.CollisionSystem.CollisionPoint}
-      description: A predicate to test each collision point.
+      type: System.Predicate{ShapeEngine.Geometry.CollisionSystem.IntersectionPoint}
+      description: A predicate to test each intersection point.
     return:
       type: System.Boolean
-      description: True if a matching collision point exists; otherwise, false.
-    content.vb: Public Function ExistsCollisionPoint(match As Predicate(Of CollisionPoint)) As Boolean
+      description: True if a matching intersection point exists; otherwise, false.
+    content.vb: Public Function ExistsCollisionPoint(match As Predicate(Of IntersectionPoint)) As Boolean
   overload: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.ExistsCollisionPoint*
-  nameWithType.vb: CollisionInformation.ExistsCollisionPoint(Predicate(Of CollisionPoint))
-  fullName.vb: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.ExistsCollisionPoint(System.Predicate(Of ShapeEngine.Geometry.CollisionSystem.CollisionPoint))
-  name.vb: ExistsCollisionPoint(Predicate(Of CollisionPoint))
-- uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindCollisionPoint(System.Predicate{ShapeEngine.Geometry.CollisionSystem.CollisionPoint})
-  commentId: M:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindCollisionPoint(System.Predicate{ShapeEngine.Geometry.CollisionSystem.CollisionPoint})
-  id: FindCollisionPoint(System.Predicate{ShapeEngine.Geometry.CollisionSystem.CollisionPoint})
+  nameWithType.vb: CollisionInformation.ExistsCollisionPoint(Predicate(Of IntersectionPoint))
+  fullName.vb: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.ExistsCollisionPoint(System.Predicate(Of ShapeEngine.Geometry.CollisionSystem.IntersectionPoint))
+  name.vb: ExistsCollisionPoint(Predicate(Of IntersectionPoint))
+- uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindCollisionPoint(System.Predicate{ShapeEngine.Geometry.CollisionSystem.IntersectionPoint})
+  commentId: M:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindCollisionPoint(System.Predicate{ShapeEngine.Geometry.CollisionSystem.IntersectionPoint})
+  id: FindCollisionPoint(System.Predicate{ShapeEngine.Geometry.CollisionSystem.IntersectionPoint})
   parent: ShapeEngine.Geometry.CollisionSystem.CollisionInformation
   langs:
   - csharp
   - vb
-  name: FindCollisionPoint(Predicate<CollisionPoint>)
-  nameWithType: CollisionInformation.FindCollisionPoint(Predicate<CollisionPoint>)
-  fullName: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindCollisionPoint(System.Predicate<ShapeEngine.Geometry.CollisionSystem.CollisionPoint>)
+  name: FindCollisionPoint(Predicate<IntersectionPoint>)
+  nameWithType: CollisionInformation.FindCollisionPoint(Predicate<IntersectionPoint>)
+  fullName: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindCollisionPoint(System.Predicate<ShapeEngine.Geometry.CollisionSystem.IntersectionPoint>)
   type: Method
   source:
     remote:
@@ -801,34 +801,34 @@ items:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CollisionSystem
   summary: >-
-    Returns the first <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref> that matches the given predicate across all collisions.
+    Returns the first <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref> that matches the given predicate across all collisions.
 
-    If no matching collision point is found, returns an empty <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref>.
+    If no matching intersection point is found, returns an empty <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref>.
   example: []
   syntax:
-    content: public CollisionPoint FindCollisionPoint(Predicate<CollisionPoint> match)
+    content: public IntersectionPoint FindCollisionPoint(Predicate<IntersectionPoint> match)
     parameters:
     - id: match
-      type: System.Predicate{ShapeEngine.Geometry.CollisionSystem.CollisionPoint}
-      description: Predicate to test each collision point.
+      type: System.Predicate{ShapeEngine.Geometry.CollisionSystem.IntersectionPoint}
+      description: Predicate to test each intersection point.
     return:
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The first matching <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref>, or an empty one if none found.
-    content.vb: Public Function FindCollisionPoint(match As Predicate(Of CollisionPoint)) As CollisionPoint
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The first matching <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref>, or an empty one if none found.
+    content.vb: Public Function FindCollisionPoint(match As Predicate(Of IntersectionPoint)) As IntersectionPoint
   overload: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindCollisionPoint*
-  nameWithType.vb: CollisionInformation.FindCollisionPoint(Predicate(Of CollisionPoint))
-  fullName.vb: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindCollisionPoint(System.Predicate(Of ShapeEngine.Geometry.CollisionSystem.CollisionPoint))
-  name.vb: FindCollisionPoint(Predicate(Of CollisionPoint))
-- uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindAllCollisionPoints(System.Predicate{ShapeEngine.Geometry.CollisionSystem.CollisionPoint})
-  commentId: M:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindAllCollisionPoints(System.Predicate{ShapeEngine.Geometry.CollisionSystem.CollisionPoint})
-  id: FindAllCollisionPoints(System.Predicate{ShapeEngine.Geometry.CollisionSystem.CollisionPoint})
+  nameWithType.vb: CollisionInformation.FindCollisionPoint(Predicate(Of IntersectionPoint))
+  fullName.vb: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindCollisionPoint(System.Predicate(Of ShapeEngine.Geometry.CollisionSystem.IntersectionPoint))
+  name.vb: FindCollisionPoint(Predicate(Of IntersectionPoint))
+- uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindAllCollisionPoints(System.Predicate{ShapeEngine.Geometry.CollisionSystem.IntersectionPoint})
+  commentId: M:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindAllCollisionPoints(System.Predicate{ShapeEngine.Geometry.CollisionSystem.IntersectionPoint})
+  id: FindAllCollisionPoints(System.Predicate{ShapeEngine.Geometry.CollisionSystem.IntersectionPoint})
   parent: ShapeEngine.Geometry.CollisionSystem.CollisionInformation
   langs:
   - csharp
   - vb
-  name: FindAllCollisionPoints(Predicate<CollisionPoint>)
-  nameWithType: CollisionInformation.FindAllCollisionPoints(Predicate<CollisionPoint>)
-  fullName: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindAllCollisionPoints(System.Predicate<ShapeEngine.Geometry.CollisionSystem.CollisionPoint>)
+  name: FindAllCollisionPoints(Predicate<IntersectionPoint>)
+  nameWithType: CollisionInformation.FindAllCollisionPoints(Predicate<IntersectionPoint>)
+  fullName: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindAllCollisionPoints(System.Predicate<ShapeEngine.Geometry.CollisionSystem.IntersectionPoint>)
   type: Method
   source:
     remote:
@@ -844,22 +844,22 @@ items:
   summary: >-
     Finds all collision points that match the given predicate across all valid collisions.
 
-    Returns a <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoints" data-throw-if-not-resolved="false"></xref> collection if any are found; otherwise, returns null.
+    Returns a <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoints" data-throw-if-not-resolved="false"></xref> collection if any are found; otherwise, returns null.
   example: []
   syntax:
-    content: public CollisionPoints? FindAllCollisionPoints(Predicate<CollisionPoint> match)
+    content: public IntersectionPoints? FindAllCollisionPoints(Predicate<IntersectionPoint> match)
     parameters:
     - id: match
-      type: System.Predicate{ShapeEngine.Geometry.CollisionSystem.CollisionPoint}
-      description: Predicate to test each collision point.
+      type: System.Predicate{ShapeEngine.Geometry.CollisionSystem.IntersectionPoint}
+      description: Predicate to test each intersection point.
     return:
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoints
-      description: A <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoints" data-throw-if-not-resolved="false"></xref> collection of matching points, or null if none found.
-    content.vb: Public Function FindAllCollisionPoints(match As Predicate(Of CollisionPoint)) As CollisionPoints
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoints
+      description: A <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoints" data-throw-if-not-resolved="false"></xref> collection of matching points, or null if none found.
+    content.vb: Public Function FindAllCollisionPoints(match As Predicate(Of IntersectionPoint)) As IntersectionPoints
   overload: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindAllCollisionPoints*
-  nameWithType.vb: CollisionInformation.FindAllCollisionPoints(Predicate(Of CollisionPoint))
-  fullName.vb: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindAllCollisionPoints(System.Predicate(Of ShapeEngine.Geometry.CollisionSystem.CollisionPoint))
-  name.vb: FindAllCollisionPoints(Predicate(Of CollisionPoint))
+  nameWithType.vb: CollisionInformation.FindAllCollisionPoints(Predicate(Of IntersectionPoint))
+  fullName.vb: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindAllCollisionPoints(System.Predicate(Of ShapeEngine.Geometry.CollisionSystem.IntersectionPoint))
+  name.vb: FindAllCollisionPoints(Predicate(Of IntersectionPoint))
 - uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetClosestCollisionPoint
   commentId: M:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetClosestCollisionPoint
   id: GetClosestCollisionPoint
@@ -882,14 +882,14 @@ items:
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CollisionSystem
-  summary: Returns the closest <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref> to <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Self" data-throw-if-not-resolved="false"></xref>.Transform.Position across all valid collisions.
+  summary: Returns the closest <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref> to <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Self" data-throw-if-not-resolved="false"></xref>.Transform.Position across all valid collisions.
   example: []
   syntax:
-    content: public CollisionPoint GetClosestCollisionPoint()
+    content: public IntersectionPoint GetClosestCollisionPoint()
     return:
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The closest <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref>, or an empty one if none exist.
-    content.vb: Public Function GetClosestCollisionPoint() As CollisionPoint
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The closest <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref>, or an empty one if none exist.
+    content.vb: Public Function GetClosestCollisionPoint() As IntersectionPoint
   overload: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetClosestCollisionPoint*
 - uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetFurthestCollisionPoint
   commentId: M:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetFurthestCollisionPoint
@@ -913,14 +913,14 @@ items:
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CollisionSystem
-  summary: Returns the furthest <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref> from <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Self" data-throw-if-not-resolved="false"></xref>.Transform.Position across all valid collisions.
+  summary: Returns the furthest <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref> from <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Self" data-throw-if-not-resolved="false"></xref>.Transform.Position across all valid collisions.
   example: []
   syntax:
-    content: public CollisionPoint GetFurthestCollisionPoint()
+    content: public IntersectionPoint GetFurthestCollisionPoint()
     return:
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The furthest <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref>, or an empty one if none exist.
-    content.vb: Public Function GetFurthestCollisionPoint() As CollisionPoint
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The furthest <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref>, or an empty one if none exist.
+    content.vb: Public Function GetFurthestCollisionPoint() As IntersectionPoint
   overload: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetFurthestCollisionPoint*
 - uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetCombinedCollisionPoint
   commentId: M:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetCombinedCollisionPoint
@@ -945,16 +945,16 @@ items:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CollisionSystem
   summary: >-
-    Calculates and returns the average (combined) collision point from all valid collision points
+    Calculates and returns the average (combined) intersection point from all valid collision points
 
     across all valid collisions in this collection.
   example: []
   syntax:
-    content: public CollisionPoint GetCombinedCollisionPoint()
+    content: public IntersectionPoint GetCombinedCollisionPoint()
     return:
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The combined <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref> if any exist; otherwise, an empty <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref>.
-    content.vb: Public Function GetCombinedCollisionPoint() As CollisionPoint
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The combined <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref> if any exist; otherwise, an empty <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref>.
+    content.vb: Public Function GetCombinedCollisionPoint() As IntersectionPoint
   overload: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetCombinedCollisionPoint*
 - uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetClosestCollisionPoint(System.Numerics.Vector2)
   commentId: M:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetClosestCollisionPoint(System.Numerics.Vector2)
@@ -978,18 +978,18 @@ items:
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CollisionSystem
-  summary: Returns the closest <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref> to the specified reference point across all valid collisions.
+  summary: Returns the closest <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref> to the specified reference point across all valid collisions.
   example: []
   syntax:
-    content: public CollisionPoint GetClosestCollisionPoint(Vector2 referencePoint)
+    content: public IntersectionPoint GetClosestCollisionPoint(Vector2 referencePoint)
     parameters:
     - id: referencePoint
       type: System.Numerics.Vector2
       description: The reference point to measure distance from.
     return:
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The closest <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref>, or an empty one if none exist.
-    content.vb: Public Function GetClosestCollisionPoint(referencePoint As Vector2) As CollisionPoint
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The closest <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref>, or an empty one if none exist.
+    content.vb: Public Function GetClosestCollisionPoint(referencePoint As Vector2) As IntersectionPoint
   overload: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetClosestCollisionPoint*
 - uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetFurthestCollisionPoint(System.Numerics.Vector2)
   commentId: M:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetFurthestCollisionPoint(System.Numerics.Vector2)
@@ -1013,18 +1013,18 @@ items:
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CollisionSystem
-  summary: Gets the furthest collision point from the specified reference point within all valid collisions.
+  summary: Gets the furthest intersection point from the specified reference point within all valid collisions.
   example: []
   syntax:
-    content: public CollisionPoint GetFurthestCollisionPoint(Vector2 referencePoint)
+    content: public IntersectionPoint GetFurthestCollisionPoint(Vector2 referencePoint)
     parameters:
     - id: referencePoint
       type: System.Numerics.Vector2
       description: The reference point to measure distance from.
     return:
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The furthest <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref> from the reference point, or an empty <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref> if none exist.
-    content.vb: Public Function GetFurthestCollisionPoint(referencePoint As Vector2) As CollisionPoint
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The furthest <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref> from the reference point, or an empty <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref> if none exist.
+    content.vb: Public Function GetFurthestCollisionPoint(referencePoint As Vector2) As IntersectionPoint
   overload: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetFurthestCollisionPoint*
 - uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetClosestCollisionPoint(System.Single@)
   commentId: M:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetClosestCollisionPoint(System.Single@)
@@ -1049,22 +1049,22 @@ items:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CollisionSystem
   summary: >-
-    Returns the closest <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref> to <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Self" data-throw-if-not-resolved="false"></xref>.Transform.Position within all valid collisions,
+    Returns the closest <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref> to <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Self" data-throw-if-not-resolved="false"></xref>.Transform.Position within all valid collisions,
 
-    and outputs the squared distance to that point. If no valid collision points exist, returns an empty <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref>
+    and outputs the squared distance to that point. If no valid collision points exist, returns an empty <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref>
 
     and sets <code class="paramref">closestDistanceSquared</code> to a negative value.
   example: []
   syntax:
-    content: public CollisionPoint GetClosestCollisionPoint(out float closestDistanceSquared)
+    content: public IntersectionPoint GetClosestCollisionPoint(out float closestDistanceSquared)
     parameters:
     - id: closestDistanceSquared
       type: System.Single
-      description: The squared distance to the closest collision point, or a negative value if none found.
+      description: The squared distance to the closest intersection point, or a negative value if none found.
     return:
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The closest <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref>, or an empty one if none exist.
-    content.vb: Public Function GetClosestCollisionPoint(closestDistanceSquared As Single) As CollisionPoint
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The closest <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref>, or an empty one if none exist.
+    content.vb: Public Function GetClosestCollisionPoint(closestDistanceSquared As Single) As IntersectionPoint
   overload: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetClosestCollisionPoint*
   nameWithType.vb: CollisionInformation.GetClosestCollisionPoint(Single)
   fullName.vb: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetClosestCollisionPoint(Single)
@@ -1092,22 +1092,22 @@ items:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CollisionSystem
   summary: >-
-    Returns the furthest <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref> from <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Self" data-throw-if-not-resolved="false"></xref>.Transform.Position across all valid collisions,
+    Returns the furthest <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref> from <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Self" data-throw-if-not-resolved="false"></xref>.Transform.Position across all valid collisions,
 
-    and outputs the squared distance to that point. If no valid collision points exist, returns an empty <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref>
+    and outputs the squared distance to that point. If no valid collision points exist, returns an empty <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref>
 
     and sets <code class="paramref">furthestDistanceSquared</code> to a negative value.
   example: []
   syntax:
-    content: public CollisionPoint GetFurthestCollisionPoint(out float furthestDistanceSquared)
+    content: public IntersectionPoint GetFurthestCollisionPoint(out float furthestDistanceSquared)
     parameters:
     - id: furthestDistanceSquared
       type: System.Single
-      description: The squared distance to the furthest collision point, or a negative value if none found.
+      description: The squared distance to the furthest intersection point, or a negative value if none found.
     return:
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The furthest <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref> from <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Self" data-throw-if-not-resolved="false"></xref>.Transform.Position, or an empty one if none exist.
-    content.vb: Public Function GetFurthestCollisionPoint(furthestDistanceSquared As Single) As CollisionPoint
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The furthest <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref> from <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Self" data-throw-if-not-resolved="false"></xref>.Transform.Position, or an empty one if none exist.
+    content.vb: Public Function GetFurthestCollisionPoint(furthestDistanceSquared As Single) As IntersectionPoint
   overload: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetFurthestCollisionPoint*
   nameWithType.vb: CollisionInformation.GetFurthestCollisionPoint(Single)
   fullName.vb: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetFurthestCollisionPoint(Single)
@@ -1135,27 +1135,27 @@ items:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CollisionSystem
   summary: >-
-    Returns the closest <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref> to the specified reference point within all valid collisions,
+    Returns the closest <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref> to the specified reference point within all valid collisions,
 
     and outputs the squared distance to that point.
 
-    If no valid collision points exist, returns an empty <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref>
+    If no valid collision points exist, returns an empty <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref>
 
     and sets <code class="paramref">closestDistanceSquared</code> to a negative value.
   example: []
   syntax:
-    content: public CollisionPoint GetClosestCollisionPoint(Vector2 referencePoint, out float closestDistanceSquared)
+    content: public IntersectionPoint GetClosestCollisionPoint(Vector2 referencePoint, out float closestDistanceSquared)
     parameters:
     - id: referencePoint
       type: System.Numerics.Vector2
-      description: The reference point for finding the closest collision point.
+      description: The reference point for finding the closest intersection point.
     - id: closestDistanceSquared
       type: System.Single
-      description: The squared distance between the closest collision point and the reference point. Negative if no valid point is found.
+      description: The squared distance between the closest intersection point and the reference point. Negative if no valid point is found.
     return:
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The closest <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref>, or an empty one if none exist.
-    content.vb: Public Function GetClosestCollisionPoint(referencePoint As Vector2, closestDistanceSquared As Single) As CollisionPoint
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The closest <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref>, or an empty one if none exist.
+    content.vb: Public Function GetClosestCollisionPoint(referencePoint As Vector2, closestDistanceSquared As Single) As IntersectionPoint
   overload: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetClosestCollisionPoint*
   nameWithType.vb: CollisionInformation.GetClosestCollisionPoint(Vector2, Single)
   fullName.vb: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetClosestCollisionPoint(System.Numerics.Vector2, Single)
@@ -1183,27 +1183,27 @@ items:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CollisionSystem
   summary: >-
-    Returns the furthest <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref> from the specified reference point within all valid collisions,
+    Returns the furthest <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref> from the specified reference point within all valid collisions,
 
     and outputs the squared distance to that point.
 
-    If no valid collision points exist, returns an empty <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref>
+    If no valid collision points exist, returns an empty <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref>
 
     and sets <code class="paramref">furthestDistanceSquared</code> to a negative value.
   example: []
   syntax:
-    content: public CollisionPoint GetFurthestCollisionPoint(Vector2 referencePoint, out float furthestDistanceSquared)
+    content: public IntersectionPoint GetFurthestCollisionPoint(Vector2 referencePoint, out float furthestDistanceSquared)
     parameters:
     - id: referencePoint
       type: System.Numerics.Vector2
-      description: The reference point for finding the furthest collision point.
+      description: The reference point for finding the furthest intersection point.
     - id: furthestDistanceSquared
       type: System.Single
-      description: The squared distance between the furthest collision point and the reference point. Negative if no valid point is found.
+      description: The squared distance between the furthest intersection point and the reference point. Negative if no valid point is found.
     return:
-      type: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-      description: The furthest <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionPoint" data-throw-if-not-resolved="false"></xref>, or an empty one if none exist.
-    content.vb: Public Function GetFurthestCollisionPoint(referencePoint As Vector2, furthestDistanceSquared As Single) As CollisionPoint
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+      description: The furthest <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoint" data-throw-if-not-resolved="false"></xref>, or an empty one if none exist.
+    content.vb: Public Function GetFurthestCollisionPoint(referencePoint As Vector2, furthestDistanceSquared As Single) As IntersectionPoint
   overload: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetFurthestCollisionPoint*
   nameWithType.vb: CollisionInformation.GetFurthestCollisionPoint(Vector2, Single)
   fullName.vb: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetFurthestCollisionPoint(System.Numerics.Vector2, Single)
@@ -6053,19 +6053,19 @@ references:
   name: ComputeIntersections
   nameWithType: Collider.ComputeIntersections
   fullName: ShapeEngine.Geometry.CollisionSystem.Collider.ComputeIntersections
-- uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FilteredCollisionPoint*
-  commentId: Overload:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FilteredCollisionPoint
-  href: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.html#ShapeEngine_Geometry_CollisionSystem_CollisionInformation_FilteredCollisionPoint
-  name: FilteredCollisionPoint
-  nameWithType: CollisionInformation.FilteredCollisionPoint
-  fullName: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FilteredCollisionPoint
-- uid: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-  commentId: T:ShapeEngine.Geometry.CollisionSystem.CollisionPoint
+- uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FilteredIntersectionPoint*
+  commentId: Overload:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FilteredIntersectionPoint
+  href: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.html#ShapeEngine_Geometry_CollisionSystem_CollisionInformation_FilteredIntersectionPoint
+  name: FilteredIntersectionPoint
+  nameWithType: CollisionInformation.FilteredIntersectionPoint
+  fullName: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FilteredIntersectionPoint
+- uid: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+  commentId: T:ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
   parent: ShapeEngine.Geometry.CollisionSystem
-  href: ShapeEngine.Geometry.CollisionSystem.CollisionPoint.html
-  name: CollisionPoint
-  nameWithType: CollisionPoint
-  fullName: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
+  href: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint.html
+  name: IntersectionPoint
+  nameWithType: IntersectionPoint
+  fullName: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
 - uid: ShapeEngine.Geometry.CollisionSystem.Collider
   commentId: T:ShapeEngine.Geometry.CollisionSystem.Collider
   parent: ShapeEngine.Geometry.CollisionSystem
@@ -6103,7 +6103,7 @@ references:
   fullName: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Self
 - uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate*
   commentId: Overload:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate
-  href: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.html#ShapeEngine_Geometry_CollisionSystem_CollisionInformation_Validate_ShapeEngine_Geometry_CollisionSystem_CollisionPoint__
+  href: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.html#ShapeEngine_Geometry_CollisionSystem_CollisionInformation_Validate_ShapeEngine_Geometry_CollisionSystem_IntersectionPoint__
   name: Validate
   nameWithType: CollisionInformation.Validate
   fullName: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.Validate
@@ -6281,30 +6281,30 @@ references:
   fullName: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.GetAllOtherFirstContactColliders
 - uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.ExistsCollisionPoint*
   commentId: Overload:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.ExistsCollisionPoint
-  href: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.html#ShapeEngine_Geometry_CollisionSystem_CollisionInformation_ExistsCollisionPoint_System_Predicate_ShapeEngine_Geometry_CollisionSystem_CollisionPoint__
+  href: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.html#ShapeEngine_Geometry_CollisionSystem_CollisionInformation_ExistsCollisionPoint_System_Predicate_ShapeEngine_Geometry_CollisionSystem_IntersectionPoint__
   name: ExistsCollisionPoint
   nameWithType: CollisionInformation.ExistsCollisionPoint
   fullName: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.ExistsCollisionPoint
-- uid: System.Predicate{ShapeEngine.Geometry.CollisionSystem.CollisionPoint}
-  commentId: T:System.Predicate{ShapeEngine.Geometry.CollisionSystem.CollisionPoint}
+- uid: System.Predicate{ShapeEngine.Geometry.CollisionSystem.IntersectionPoint}
+  commentId: T:System.Predicate{ShapeEngine.Geometry.CollisionSystem.IntersectionPoint}
   parent: System
   definition: System.Predicate`1
   href: https://learn.microsoft.com/dotnet/api/system.predicate-1
-  name: Predicate<CollisionPoint>
-  nameWithType: Predicate<CollisionPoint>
-  fullName: System.Predicate<ShapeEngine.Geometry.CollisionSystem.CollisionPoint>
-  nameWithType.vb: Predicate(Of CollisionPoint)
-  fullName.vb: System.Predicate(Of ShapeEngine.Geometry.CollisionSystem.CollisionPoint)
-  name.vb: Predicate(Of CollisionPoint)
+  name: Predicate<IntersectionPoint>
+  nameWithType: Predicate<IntersectionPoint>
+  fullName: System.Predicate<ShapeEngine.Geometry.CollisionSystem.IntersectionPoint>
+  nameWithType.vb: Predicate(Of IntersectionPoint)
+  fullName.vb: System.Predicate(Of ShapeEngine.Geometry.CollisionSystem.IntersectionPoint)
+  name.vb: Predicate(Of IntersectionPoint)
   spec.csharp:
   - uid: System.Predicate`1
     name: Predicate
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.predicate-1
   - name: <
-  - uid: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-    name: CollisionPoint
-    href: ShapeEngine.Geometry.CollisionSystem.CollisionPoint.html
+  - uid: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+    name: IntersectionPoint
+    href: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint.html
   - name: '>'
   spec.vb:
   - uid: System.Predicate`1
@@ -6314,26 +6314,26 @@ references:
   - name: (
   - name: Of
   - name: " "
-  - uid: ShapeEngine.Geometry.CollisionSystem.CollisionPoint
-    name: CollisionPoint
-    href: ShapeEngine.Geometry.CollisionSystem.CollisionPoint.html
+  - uid: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint
+    name: IntersectionPoint
+    href: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint.html
   - name: )
 - uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindCollisionPoint*
   commentId: Overload:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindCollisionPoint
-  href: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.html#ShapeEngine_Geometry_CollisionSystem_CollisionInformation_FindCollisionPoint_System_Predicate_ShapeEngine_Geometry_CollisionSystem_CollisionPoint__
+  href: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.html#ShapeEngine_Geometry_CollisionSystem_CollisionInformation_FindCollisionPoint_System_Predicate_ShapeEngine_Geometry_CollisionSystem_IntersectionPoint__
   name: FindCollisionPoint
   nameWithType: CollisionInformation.FindCollisionPoint
   fullName: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindCollisionPoint
-- uid: ShapeEngine.Geometry.CollisionSystem.CollisionPoints
-  commentId: T:ShapeEngine.Geometry.CollisionSystem.CollisionPoints
+- uid: ShapeEngine.Geometry.CollisionSystem.IntersectionPoints
+  commentId: T:ShapeEngine.Geometry.CollisionSystem.IntersectionPoints
   parent: ShapeEngine.Geometry.CollisionSystem
-  href: ShapeEngine.Geometry.CollisionSystem.CollisionPoints.html
-  name: CollisionPoints
-  nameWithType: CollisionPoints
-  fullName: ShapeEngine.Geometry.CollisionSystem.CollisionPoints
+  href: ShapeEngine.Geometry.CollisionSystem.IntersectionPoints.html
+  name: IntersectionPoints
+  nameWithType: IntersectionPoints
+  fullName: ShapeEngine.Geometry.CollisionSystem.IntersectionPoints
 - uid: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindAllCollisionPoints*
   commentId: Overload:ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindAllCollisionPoints
-  href: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.html#ShapeEngine_Geometry_CollisionSystem_CollisionInformation_FindAllCollisionPoints_System_Predicate_ShapeEngine_Geometry_CollisionSystem_CollisionPoint__
+  href: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.html#ShapeEngine_Geometry_CollisionSystem_CollisionInformation_FindAllCollisionPoints_System_Predicate_ShapeEngine_Geometry_CollisionSystem_IntersectionPoint__
   name: FindAllCollisionPoints
   nameWithType: CollisionInformation.FindAllCollisionPoints
   fullName: ShapeEngine.Geometry.CollisionSystem.CollisionInformation.FindAllCollisionPoints
