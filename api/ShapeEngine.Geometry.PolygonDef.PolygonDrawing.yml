@@ -19,6 +19,7 @@ items:
   - ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawCorneredRelative(ShapeEngine.Geometry.PolygonDef.Polygon,System.Single,ShapeEngine.Color.ColorRgba,System.Collections.Generic.List{System.Single},ShapeEngine.Geometry.LineCapType,System.Int32)
   - ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawCorneredRelative(ShapeEngine.Geometry.PolygonDef.Polygon,System.Single,ShapeEngine.Color.ColorRgba,System.Single,ShapeEngine.Geometry.LineCapType,System.Int32)
   - ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawCorneredRelative(ShapeEngine.Geometry.PolygonDef.Polygon,System.Single,ShapeEngine.Geometry.LineDrawingInfo)
+  - ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawGlow(ShapeEngine.Geometry.PolygonDef.Polygon,System.Single,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba,System.Int32,ShapeEngine.Geometry.LineCapType,System.Int32)
   - ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLines(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Core.Structs.Transform2D,ShapeEngine.Geometry.LineDrawingInfo)
   - ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLines(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Core.Structs.Transform2D,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Geometry.LineCapType,System.Int32)
   - ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLines(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo)
@@ -1671,6 +1672,67 @@ items:
   nameWithType.vb: PolygonDrawing.DrawLinesScaled(Polygon, Transform2D, LineDrawingInfo, Single, Single)
   fullName.vb: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesScaled(ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Core.Structs.Transform2D, ShapeEngine.Geometry.LineDrawingInfo, Single, Single)
   name.vb: DrawLinesScaled(Polygon, Transform2D, LineDrawingInfo, Single, Single)
+- uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawGlow(ShapeEngine.Geometry.PolygonDef.Polygon,System.Single,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba,System.Int32,ShapeEngine.Geometry.LineCapType,System.Int32)
+  commentId: M:ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawGlow(ShapeEngine.Geometry.PolygonDef.Polygon,System.Single,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba,System.Int32,ShapeEngine.Geometry.LineCapType,System.Int32)
+  id: DrawGlow(ShapeEngine.Geometry.PolygonDef.Polygon,System.Single,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba,System.Int32,ShapeEngine.Geometry.LineCapType,System.Int32)
+  isExtensionMethod: true
+  parent: ShapeEngine.Geometry.PolygonDef.PolygonDrawing
+  langs:
+  - csharp
+  - vb
+  name: DrawGlow(Polygon, float, float, ColorRgba, ColorRgba, int, LineCapType, int)
+  nameWithType: PolygonDrawing.DrawGlow(Polygon, float, float, ColorRgba, ColorRgba, int, LineCapType, int)
+  fullName: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawGlow(ShapeEngine.Geometry.PolygonDef.Polygon, float, float, ShapeEngine.Color.ColorRgba, ShapeEngine.Color.ColorRgba, int, ShapeEngine.Geometry.LineCapType, int)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/PolygonDef/PolygonDrawing.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: DrawGlow
+    path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/PolygonDrawing.cs
+    startLine: 741
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.PolygonDef
+  summary: Draws the polygon with a glow effect, interpolating width and color along each segment.
+  remarks: >-
+    This method creates a glowing outline effect by drawing multiple segments on top of each other, interpolating width and color across all steps.
+
+    <ul><li>The first step uses <code class="paramref">width</code> and <code class="paramref">color</code>.</li><li>The last step uses <code class="paramref">endWidth</code> and <code class="paramref">endColorRgba</code>.</li><li>Intermediate steps interpolate between <code class="paramref">width</code> / <code class="paramref">endWidth</code> and <code class="paramref">color</code> / <code class="paramref">endColorRgba</code>.</li><li>Because steps are drawn on top of each other <code class="paramref">width</code> should be bigger than <code class="paramref">endWidth</code>.</li></ul>
+  example: []
+  syntax:
+    content: public static void DrawGlow(this Polygon polygon, float width, float endWidth, ColorRgba color, ColorRgba endColorRgba, int steps, LineCapType capType = LineCapType.CappedExtended, int capPoints = 2)
+    parameters:
+    - id: polygon
+      type: ShapeEngine.Geometry.PolygonDef.Polygon
+      description: The polygon to draw.
+    - id: width
+      type: System.Single
+      description: The starting width of the glow. Should be bigger than <code>endWidth</code>
+    - id: endWidth
+      type: System.Single
+      description: The ending width of the glow. Should be smaller than <code>width</code>
+    - id: color
+      type: ShapeEngine.Color.ColorRgba
+      description: The starting color of the glow.
+    - id: endColorRgba
+      type: ShapeEngine.Color.ColorRgba
+      description: The ending color of the glow.
+    - id: steps
+      type: System.Int32
+      description: The number of interpolation steps for the glow effect.
+    - id: capType
+      type: ShapeEngine.Geometry.LineCapType
+      description: The type of line cap to use at segment ends.
+    - id: capPoints
+      type: System.Int32
+      description: The number of points used for the cap rendering.
+    content.vb: Public Shared Sub DrawGlow(polygon As Polygon, width As Single, endWidth As Single, color As ColorRgba, endColorRgba As ColorRgba, steps As Integer, capType As LineCapType = LineCapType.CappedExtended, capPoints As Integer = 2)
+  overload: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawGlow*
+  nameWithType.vb: PolygonDrawing.DrawGlow(Polygon, Single, Single, ColorRgba, ColorRgba, Integer, LineCapType, Integer)
+  fullName.vb: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawGlow(ShapeEngine.Geometry.PolygonDef.Polygon, Single, Single, ShapeEngine.Color.ColorRgba, ShapeEngine.Color.ColorRgba, Integer, ShapeEngine.Geometry.LineCapType, Integer)
+  name.vb: DrawGlow(Polygon, Single, Single, ColorRgba, ColorRgba, Integer, LineCapType, Integer)
 references:
 - uid: ShapeEngine.Geometry.PolygonDef.Polygon
   commentId: T:ShapeEngine.Geometry.PolygonDef.Polygon
@@ -2276,3 +2338,9 @@ references:
   name: DrawLinesScaled
   nameWithType: PolygonDrawing.DrawLinesScaled
   fullName: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesScaled
+- uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawGlow*
+  commentId: Overload:ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawGlow
+  href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawGlow_ShapeEngine_Geometry_PolygonDef_Polygon_System_Single_System_Single_ShapeEngine_Color_ColorRgba_ShapeEngine_Color_ColorRgba_System_Int32_ShapeEngine_Geometry_LineCapType_System_Int32_
+  name: DrawGlow
+  nameWithType: PolygonDrawing.DrawGlow
+  fullName: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawGlow
