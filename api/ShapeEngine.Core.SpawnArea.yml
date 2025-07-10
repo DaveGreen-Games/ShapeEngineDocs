@@ -36,7 +36,6 @@ items:
   - ShapeEngine.Core.SpawnArea.OnGameObjectAdded
   - ShapeEngine.Core.SpawnArea.OnGameObjectRemoved
   - ShapeEngine.Core.SpawnArea.ParallaxePosition
-  - ShapeEngine.Core.SpawnArea.PreFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
   - ShapeEngine.Core.SpawnArea.RemoveGameObject(ShapeEngine.Core.GameObject)
   - ShapeEngine.Core.SpawnArea.RemoveGameObjects(ShapeEngine.Core.GameObject[])
   - ShapeEngine.Core.SpawnArea.RemoveGameObjects(ShapeEngine.Core.Structs.BitFlag,System.Collections.Generic.List{ShapeEngine.Core.GameObject}@)
@@ -46,7 +45,7 @@ items:
   - ShapeEngine.Core.SpawnArea.RemoveGameObjects(System.UInt32,System.Predicate{ShapeEngine.Core.GameObject},System.Collections.Generic.List{ShapeEngine.Core.GameObject}@)
   - ShapeEngine.Core.SpawnArea.ResizeBounds(ShapeEngine.Geometry.RectDef.Rect)
   - ShapeEngine.Core.SpawnArea.Start
-  - ShapeEngine.Core.SpawnArea.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  - ShapeEngine.Core.SpawnArea.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Boolean)
   langs:
   - csharp
   - vb
@@ -77,12 +76,11 @@ items:
     It supports parallax, area clearing, and event hooks for object addition/removal.
   example: []
   syntax:
-    content: 'public class SpawnArea : IUpdateable, IDrawable, IBounds'
-    content.vb: Public Class SpawnArea Implements IUpdateable, IDrawable, IBounds
+    content: 'public class SpawnArea : IDrawable, IBounds'
+    content.vb: Public Class SpawnArea Implements IDrawable, IBounds
   inheritance:
   - System.Object
   implements:
-  - ShapeEngine.Core.IUpdateable
   - ShapeEngine.Core.IDrawable
   - ShapeEngine.Core.IBounds
   inheritedMembers:
@@ -1359,16 +1357,16 @@ items:
       description: The color for the fill.
     content.vb: Public Overridable Sub DrawDebug(bounds As ColorRgba, border As ColorRgba, fill As ColorRgba)
   overload: ShapeEngine.Core.SpawnArea.DrawDebug*
-- uid: ShapeEngine.Core.SpawnArea.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  commentId: M:ShapeEngine.Core.SpawnArea.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  id: Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+- uid: ShapeEngine.Core.SpawnArea.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Boolean)
+  commentId: M:ShapeEngine.Core.SpawnArea.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Boolean)
+  id: Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Boolean)
   parent: ShapeEngine.Core.SpawnArea
   langs:
   - csharp
   - vb
-  name: Update(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
-  nameWithType: SpawnArea.Update(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
-  fullName: ShapeEngine.Core.SpawnArea.Update(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
+  name: Update(GameTime, ScreenInfo, ScreenInfo, ScreenInfo, bool)
+  nameWithType: SpawnArea.Update(GameTime, ScreenInfo, ScreenInfo, ScreenInfo, bool)
+  fullName: ShapeEngine.Core.SpawnArea.Update(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, bool)
   type: Method
   source:
     remote:
@@ -1377,14 +1375,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 449
+    startLine: 450
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
   summary: Updates the spawn area and all contained game objects. This method is called with variable time steps.
   example: []
   syntax:
-    content: public virtual void Update(GameTime time, ScreenInfo game, ScreenInfo gameUi, ScreenInfo ui)
+    content: public virtual void Update(GameTime time, ScreenInfo game, ScreenInfo gameUi, ScreenInfo ui, bool fixedFramerateMode)
     parameters:
     - id: time
       type: ShapeEngine.Core.Structs.GameTime
@@ -1398,54 +1396,14 @@ items:
     - id: ui
       type: ShapeEngine.Core.Structs.ScreenInfo
       description: The screen information for the UI area.
-    content.vb: Public Overridable Sub Update(time As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo)
+    - id: fixedFramerateMode
+      type: System.Boolean
+      description: If this update is called in the open frame rate or fixed frame rate mode.
+    content.vb: Public Overridable Sub Update(time As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo, fixedFramerateMode As Boolean)
   overload: ShapeEngine.Core.SpawnArea.Update*
-  implements:
-  - ShapeEngine.Core.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-- uid: ShapeEngine.Core.SpawnArea.PreFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  commentId: M:ShapeEngine.Core.SpawnArea.PreFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  id: PreFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  parent: ShapeEngine.Core.SpawnArea
-  langs:
-  - csharp
-  - vb
-  name: PreFixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
-  nameWithType: SpawnArea.PreFixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
-  fullName: ShapeEngine.Core.SpawnArea.PreFixedUpdate(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: PreFixedUpdate
-    path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 507
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core
-  summary: >-
-    Pre-updates the spawn area and all contained game objects.
-
-    This method is called before the fixed update step.
-  example: []
-  syntax:
-    content: public virtual void PreFixedUpdate(GameTime time, ScreenInfo game, ScreenInfo gameUi, ScreenInfo ui)
-    parameters:
-    - id: time
-      type: ShapeEngine.Core.Structs.GameTime
-      description: The current game time.
-    - id: game
-      type: ShapeEngine.Core.Structs.ScreenInfo
-      description: The screen information for the game area.
-    - id: gameUi
-      type: ShapeEngine.Core.Structs.ScreenInfo
-      description: The screen information for the game UI area.
-    - id: ui
-      type: ShapeEngine.Core.Structs.ScreenInfo
-      description: The screen information for the UI area.
-    content.vb: Public Overridable Sub PreFixedUpdate(time As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo)
-  overload: ShapeEngine.Core.SpawnArea.PreFixedUpdate*
+  nameWithType.vb: SpawnArea.Update(GameTime, ScreenInfo, ScreenInfo, ScreenInfo, Boolean)
+  fullName.vb: ShapeEngine.Core.SpawnArea.Update(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, Boolean)
+  name.vb: Update(GameTime, ScreenInfo, ScreenInfo, ScreenInfo, Boolean)
 - uid: ShapeEngine.Core.SpawnArea.FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
   commentId: M:ShapeEngine.Core.SpawnArea.FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
   id: FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
@@ -1464,7 +1422,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FixedUpdate
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 546
+    startLine: 542
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1490,8 +1448,6 @@ items:
       description: The screen information for the UI area.
     content.vb: Public Overridable Sub FixedUpdate(fixedTime As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo)
   overload: ShapeEngine.Core.SpawnArea.FixedUpdate*
-  implements:
-  - ShapeEngine.Core.IUpdateable.FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
 - uid: ShapeEngine.Core.SpawnArea.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Single)
   commentId: M:ShapeEngine.Core.SpawnArea.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Single)
   id: InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Single)
@@ -1510,7 +1466,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InterpolateFixedUpdate
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 577
+    startLine: 573
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1539,8 +1495,6 @@ items:
       description: The interpolation factor.
     content.vb: Public Overridable Sub InterpolateFixedUpdate(time As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo, f As Single)
   overload: ShapeEngine.Core.SpawnArea.InterpolateFixedUpdate*
-  implements:
-  - ShapeEngine.Core.IUpdateable.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Single)
   nameWithType.vb: SpawnArea.InterpolateFixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo, Single)
   fullName.vb: ShapeEngine.Core.SpawnArea.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, Single)
   name.vb: InterpolateFixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo, Single)
@@ -1562,7 +1516,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawGame
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 603
+    startLine: 599
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1596,7 +1550,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawGameUI
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 614
+    startLine: 610
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1660,13 +1614,6 @@ references:
   nameWithType.vb: Object
   fullName.vb: Object
   name.vb: Object
-- uid: ShapeEngine.Core.IUpdateable
-  commentId: T:ShapeEngine.Core.IUpdateable
-  parent: ShapeEngine.Core
-  href: ShapeEngine.Core.IUpdateable.html
-  name: IUpdateable
-  nameWithType: IUpdateable
-  fullName: ShapeEngine.Core.IUpdateable
 - uid: ShapeEngine.Core.IDrawable
   commentId: T:ShapeEngine.Core.IDrawable
   parent: ShapeEngine.Core
@@ -2603,65 +2550,10 @@ references:
     href: ShapeEngine.Color.html
 - uid: ShapeEngine.Core.SpawnArea.Update*
   commentId: Overload:ShapeEngine.Core.SpawnArea.Update
-  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
+  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_System_Boolean_
   name: Update
   nameWithType: SpawnArea.Update
   fullName: ShapeEngine.Core.SpawnArea.Update
-- uid: ShapeEngine.Core.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  commentId: M:ShapeEngine.Core.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  parent: ShapeEngine.Core.IUpdateable
-  href: ShapeEngine.Core.IUpdateable.html#ShapeEngine_Core_IUpdateable_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
-  name: Update(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
-  nameWithType: IUpdateable.Update(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
-  fullName: ShapeEngine.Core.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
-  spec.csharp:
-  - uid: ShapeEngine.Core.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-    name: Update
-    href: ShapeEngine.Core.IUpdateable.html#ShapeEngine_Core_IUpdateable_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
-  - name: (
-  - uid: ShapeEngine.Core.Structs.GameTime
-    name: GameTime
-    href: ShapeEngine.Core.Structs.GameTime.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-    name: Update
-    href: ShapeEngine.Core.IUpdateable.html#ShapeEngine_Core_IUpdateable_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
-  - name: (
-  - uid: ShapeEngine.Core.Structs.GameTime
-    name: GameTime
-    href: ShapeEngine.Core.Structs.GameTime.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: )
 - uid: ShapeEngine.Core.Structs.GameTime
   commentId: T:ShapeEngine.Core.Structs.GameTime
   parent: ShapeEngine.Core.Structs
@@ -2676,150 +2568,18 @@ references:
   name: ScreenInfo
   nameWithType: ScreenInfo
   fullName: ShapeEngine.Core.Structs.ScreenInfo
-- uid: ShapeEngine.Core.SpawnArea.PreFixedUpdate*
-  commentId: Overload:ShapeEngine.Core.SpawnArea.PreFixedUpdate
-  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_PreFixedUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
-  name: PreFixedUpdate
-  nameWithType: SpawnArea.PreFixedUpdate
-  fullName: ShapeEngine.Core.SpawnArea.PreFixedUpdate
 - uid: ShapeEngine.Core.SpawnArea.FixedUpdate*
   commentId: Overload:ShapeEngine.Core.SpawnArea.FixedUpdate
   href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_FixedUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
   name: FixedUpdate
   nameWithType: SpawnArea.FixedUpdate
   fullName: ShapeEngine.Core.SpawnArea.FixedUpdate
-- uid: ShapeEngine.Core.IUpdateable.FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  commentId: M:ShapeEngine.Core.IUpdateable.FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  parent: ShapeEngine.Core.IUpdateable
-  href: ShapeEngine.Core.IUpdateable.html#ShapeEngine_Core_IUpdateable_FixedUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
-  name: FixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
-  nameWithType: IUpdateable.FixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
-  fullName: ShapeEngine.Core.IUpdateable.FixedUpdate(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
-  spec.csharp:
-  - uid: ShapeEngine.Core.IUpdateable.FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-    name: FixedUpdate
-    href: ShapeEngine.Core.IUpdateable.html#ShapeEngine_Core_IUpdateable_FixedUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
-  - name: (
-  - uid: ShapeEngine.Core.Structs.GameTime
-    name: GameTime
-    href: ShapeEngine.Core.Structs.GameTime.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.IUpdateable.FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-    name: FixedUpdate
-    href: ShapeEngine.Core.IUpdateable.html#ShapeEngine_Core_IUpdateable_FixedUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
-  - name: (
-  - uid: ShapeEngine.Core.Structs.GameTime
-    name: GameTime
-    href: ShapeEngine.Core.Structs.GameTime.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: )
 - uid: ShapeEngine.Core.SpawnArea.InterpolateFixedUpdate*
   commentId: Overload:ShapeEngine.Core.SpawnArea.InterpolateFixedUpdate
   href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_InterpolateFixedUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_System_Single_
   name: InterpolateFixedUpdate
   nameWithType: SpawnArea.InterpolateFixedUpdate
   fullName: ShapeEngine.Core.SpawnArea.InterpolateFixedUpdate
-- uid: ShapeEngine.Core.IUpdateable.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Single)
-  commentId: M:ShapeEngine.Core.IUpdateable.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Single)
-  parent: ShapeEngine.Core.IUpdateable
-  isExternal: true
-  href: ShapeEngine.Core.IUpdateable.html#ShapeEngine_Core_IUpdateable_InterpolateFixedUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_System_Single_
-  name: InterpolateFixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo, float)
-  nameWithType: IUpdateable.InterpolateFixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo, float)
-  fullName: ShapeEngine.Core.IUpdateable.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, float)
-  nameWithType.vb: IUpdateable.InterpolateFixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo, Single)
-  fullName.vb: ShapeEngine.Core.IUpdateable.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, Single)
-  name.vb: InterpolateFixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo, Single)
-  spec.csharp:
-  - uid: ShapeEngine.Core.IUpdateable.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Single)
-    name: InterpolateFixedUpdate
-    href: ShapeEngine.Core.IUpdateable.html#ShapeEngine_Core_IUpdateable_InterpolateFixedUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_System_Single_
-  - name: (
-  - uid: ShapeEngine.Core.Structs.GameTime
-    name: GameTime
-    href: ShapeEngine.Core.Structs.GameTime.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: System.Single
-    name: float
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.single
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.IUpdateable.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Single)
-    name: InterpolateFixedUpdate
-    href: ShapeEngine.Core.IUpdateable.html#ShapeEngine_Core_IUpdateable_InterpolateFixedUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_System_Single_
-  - name: (
-  - uid: ShapeEngine.Core.Structs.GameTime
-    name: GameTime
-    href: ShapeEngine.Core.Structs.GameTime.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: System.Single
-    name: Single
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.single
-  - name: )
 - uid: ShapeEngine.Core.SpawnArea.DrawGame*
   commentId: Overload:ShapeEngine.Core.SpawnArea.DrawGame
   href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_DrawGame_ShapeEngine_Core_Structs_ScreenInfo_
