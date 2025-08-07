@@ -89,7 +89,7 @@
 
 
   <h1 id="ShapeEngine_Input_InputAction" data-uid="ShapeEngine.Input.InputAction" class="text-break">
-Class InputAction  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L11"><i class="bi bi-code-slash"></i></a>
+Class InputAction  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L14"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -103,7 +103,7 @@ Handles state, multi-tap, hold, and axis sensitivity/gravity.</p>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class InputAction</code></pre>
+    <pre><code class="lang-csharp hljs">public class InputAction : IComparable&lt;InputAction&gt;, ICopyable&lt;InputAction&gt;, IEquatable&lt;InputAction&gt;</code></pre>
   </div>
 
 
@@ -117,19 +117,21 @@ Handles state, multi-tap, hold, and axis sensitivity/gravity.</p>
     </dd>
   </dl>
 
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.icomparable-1">IComparable</a>&lt;<a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a>&gt;</div>
+      <div><a class="xref" href="ShapeEngine.Core.ICopyable-1.html">ICopyable</a>&lt;<a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a>&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a>&gt;</div>
+    </dd>
+  </dl>
 
 
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
     <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
-    </div>
-    <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
@@ -148,6 +150,9 @@ Handles state, multi-tap, hold, and axis sensitivity/gravity.</p>
 
 
 
+  <h2 id="ShapeEngine_Input_InputAction_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>Use <a class="xref" href="ShapeEngine.Input.InputActionTree.html">InputActionTree</a> for updating and managing multiple <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> instances.</p>
+</div>
 
 
   <h2 class="section" id="constructors">Constructors
@@ -158,10 +163,11 @@ Handles state, multi-tap, hold, and axis sensitivity/gravity.</p>
 
   <h3 id="ShapeEngine_Input_InputAction__ctor" data-uid="ShapeEngine.Input.InputAction.#ctor">
   InputAction()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L122"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L199"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Initializes a new instance of <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> with a unique ID.</p>
+  <div class="markdown level1 summary"><p>Initializes a new instance of <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> with a unique ID.
+<a class="xref" href="ShapeEngine.Input.InputAction.html#ShapeEngine_Input_InputAction_Settings">Settings</a> are set to default values.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -183,92 +189,26 @@ Handles state, multi-tap, hold, and axis sensitivity/gravity.</p>
 
   <a id="ShapeEngine_Input_InputAction__ctor_" data-uid="ShapeEngine.Input.InputAction.#ctor*"></a>
 
-  <h3 id="ShapeEngine_Input_InputAction__ctor_ShapeEngine_Input_IInputType___" data-uid="ShapeEngine.Input.InputAction.#ctor(ShapeEngine.Input.IInputType[])">
-  InputAction(params IInputType[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L150"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Input_InputAction__ctor_ShapeEngine_Input_InputActionSettings_ShapeEngine_Input_IInputType___" data-uid="ShapeEngine.Input.InputAction.#ctor(ShapeEngine.Input.InputActionSettings,ShapeEngine.Input.IInputType[])">
+  InputAction(InputActionSettings, params IInputType[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L236"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Initializes a new instance of <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> with input types.</p>
+  <div class="markdown level1 summary"><p>Initializes a new instance of <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> with the specified settings and input types.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public InputAction(params IInputType[] inputTypes)</code></pre>
+    <pre><code class="lang-csharp hljs">public InputAction(InputActionSettings settings, params IInputType[] inputTypes)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>inputTypes</code> <a class="xref" href="ShapeEngine.Input.IInputType.html">IInputType</a>[]</dt>
-    <dd><p>The input types for this action.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-
-  <a id="ShapeEngine_Input_InputAction__ctor_" data-uid="ShapeEngine.Input.InputAction.#ctor*"></a>
-
-  <h3 id="ShapeEngine_Input_InputAction__ctor_System_UInt32_" data-uid="ShapeEngine.Input.InputAction.#ctor(System.UInt32)">
-  InputAction(uint)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L130"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Initializes a new instance of <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> with a specific access tag.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public InputAction(uint accessTag)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>accessTag</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
-    <dd><p>The access tag for this action.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-
-  <a id="ShapeEngine_Input_InputAction__ctor_" data-uid="ShapeEngine.Input.InputAction.#ctor*"></a>
-
-  <h3 id="ShapeEngine_Input_InputAction__ctor_System_UInt32_ShapeEngine_Input_IInputType___" data-uid="ShapeEngine.Input.InputAction.#ctor(System.UInt32,ShapeEngine.Input.IInputType[])">
-  InputAction(uint, params IInputType[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L160"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Initializes a new instance of <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> with a specific access tag and input types.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public InputAction(uint accessTag, params IInputType[] inputTypes)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>accessTag</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
-    <dd><p>The access tag for this action.</p>
+    <dt><code>settings</code> <a class="xref" href="ShapeEngine.Input.InputActionSettings.html">InputActionSettings</a></dt>
+    <dd><p>The settings for this action.</p>
 </dd>
     <dt><code>inputTypes</code> <a class="xref" href="ShapeEngine.Input.IInputType.html">IInputType</a>[]</dt>
-    <dd><p>The input types for this action.</p>
+    <dd><p>The input types to associate with this action.</p>
 </dd>
   </dl>
 
@@ -285,17 +225,17 @@ Handles state, multi-tap, hold, and axis sensitivity/gravity.</p>
 
   <a id="ShapeEngine_Input_InputAction__ctor_" data-uid="ShapeEngine.Input.InputAction.#ctor*"></a>
 
-  <h3 id="ShapeEngine_Input_InputAction__ctor_System_UInt32_ShapeEngine_Input_ShapeGamepadDevice_" data-uid="ShapeEngine.Input.InputAction.#ctor(System.UInt32,ShapeEngine.Input.ShapeGamepadDevice)">
-  InputAction(uint, ShapeGamepadDevice)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L140"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Input_InputAction__ctor_System_UInt32_ShapeEngine_Input_GamepadDevice_ShapeEngine_Input_InputActionSettings_" data-uid="ShapeEngine.Input.InputAction.#ctor(System.UInt32,ShapeEngine.Input.GamepadDevice,ShapeEngine.Input.InputActionSettings)">
+  InputAction(uint, GamepadDevice, InputActionSettings)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L223"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Initializes a new instance of <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> with a specific access tag and gamepad.</p>
+  <div class="markdown level1 summary"><p>Initializes a new instance of <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> with the specified access tag, gamepad, and settings.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public InputAction(uint accessTag, ShapeGamepadDevice gamepad)</code></pre>
+    <pre><code class="lang-csharp hljs">public InputAction(uint accessTag, GamepadDevice gamepad, InputActionSettings settings)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -303,9 +243,12 @@ Handles state, multi-tap, hold, and axis sensitivity/gravity.</p>
     <dt><code>accessTag</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
     <dd><p>The access tag for this action.</p>
 </dd>
-    <dt><code>gamepad</code> <a class="xref" href="ShapeEngine.Input.ShapeGamepadDevice.html">ShapeGamepadDevice</a></dt>
+    <dt><code>gamepad</code> <a class="xref" href="ShapeEngine.Input.GamepadDevice.html">GamepadDevice</a></dt>
     <dd><p>The associated gamepad device.</p>
 </dd>
+    <dt><code>settings</code> <a class="xref" href="ShapeEngine.Input.InputActionSettings.html">InputActionSettings</a></dt>
+    <dd><p>The settings for this action.</p>
+</dd>
   </dl>
 
 
@@ -321,17 +264,17 @@ Handles state, multi-tap, hold, and axis sensitivity/gravity.</p>
 
   <a id="ShapeEngine_Input_InputAction__ctor_" data-uid="ShapeEngine.Input.InputAction.#ctor*"></a>
 
-  <h3 id="ShapeEngine_Input_InputAction__ctor_System_UInt32_ShapeEngine_Input_ShapeGamepadDevice_ShapeEngine_Input_IInputType___" data-uid="ShapeEngine.Input.InputAction.#ctor(System.UInt32,ShapeEngine.Input.ShapeGamepadDevice,ShapeEngine.Input.IInputType[])">
-  InputAction(uint, ShapeGamepadDevice, params IInputType[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L172"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Input_InputAction__ctor_System_UInt32_ShapeEngine_Input_GamepadDevice_ShapeEngine_Input_InputActionSettings_ShapeEngine_Input_IInputType___" data-uid="ShapeEngine.Input.InputAction.#ctor(System.UInt32,ShapeEngine.Input.GamepadDevice,ShapeEngine.Input.InputActionSettings,ShapeEngine.Input.IInputType[])">
+  InputAction(uint, GamepadDevice, InputActionSettings, params IInputType[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L264"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Initializes a new instance of <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> with a specific access tag, gamepad, and input types.</p>
+  <div class="markdown level1 summary"><p>Initializes a new instance of <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> with the specified access tag, gamepad, settings, and input types.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public InputAction(uint accessTag, ShapeGamepadDevice gamepad, params IInputType[] inputTypes)</code></pre>
+    <pre><code class="lang-csharp hljs">public InputAction(uint accessTag, GamepadDevice gamepad, InputActionSettings settings, params IInputType[] inputTypes)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -339,11 +282,89 @@ Handles state, multi-tap, hold, and axis sensitivity/gravity.</p>
     <dt><code>accessTag</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
     <dd><p>The access tag for this action.</p>
 </dd>
-    <dt><code>gamepad</code> <a class="xref" href="ShapeEngine.Input.ShapeGamepadDevice.html">ShapeGamepadDevice</a></dt>
+    <dt><code>gamepad</code> <a class="xref" href="ShapeEngine.Input.GamepadDevice.html">GamepadDevice</a></dt>
     <dd><p>The associated gamepad device.</p>
 </dd>
+    <dt><code>settings</code> <a class="xref" href="ShapeEngine.Input.InputActionSettings.html">InputActionSettings</a></dt>
+    <dd><p>The settings for this action.</p>
+</dd>
     <dt><code>inputTypes</code> <a class="xref" href="ShapeEngine.Input.IInputType.html">IInputType</a>[]</dt>
-    <dd><p>The input types for this action.</p>
+    <dd><p>The input types to associate with this action.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Input_InputAction__ctor_" data-uid="ShapeEngine.Input.InputAction.#ctor*"></a>
+
+  <h3 id="ShapeEngine_Input_InputAction__ctor_System_UInt32_ShapeEngine_Input_InputActionSettings_" data-uid="ShapeEngine.Input.InputAction.#ctor(System.UInt32,ShapeEngine.Input.InputActionSettings)">
+  InputAction(uint, InputActionSettings)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L210"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new instance of <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> with the specified access tag and settings.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public InputAction(uint accessTag, InputActionSettings settings)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>accessTag</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
+    <dd><p>The access tag for this action.</p>
+</dd>
+    <dt><code>settings</code> <a class="xref" href="ShapeEngine.Input.InputActionSettings.html">InputActionSettings</a></dt>
+    <dd><p>The settings for this action.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Input_InputAction__ctor_" data-uid="ShapeEngine.Input.InputAction.#ctor*"></a>
+
+  <h3 id="ShapeEngine_Input_InputAction__ctor_System_UInt32_ShapeEngine_Input_InputActionSettings_ShapeEngine_Input_IInputType___" data-uid="ShapeEngine.Input.InputAction.#ctor(System.UInt32,ShapeEngine.Input.InputActionSettings,ShapeEngine.Input.IInputType[])">
+  InputAction(uint, InputActionSettings, params IInputType[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L249"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes a new instance of <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> with the specified access tag, settings, and input types.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public InputAction(uint accessTag, InputActionSettings settings, params IInputType[] inputTypes)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>accessTag</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
+    <dd><p>The access tag for this action.</p>
+</dd>
+    <dt><code>settings</code> <a class="xref" href="ShapeEngine.Input.InputActionSettings.html">InputActionSettings</a></dt>
+    <dd><p>The settings for this action.</p>
+</dd>
+    <dt><code>inputTypes</code> <a class="xref" href="ShapeEngine.Input.IInputType.html">IInputType</a>[]</dt>
+    <dd><p>The input types to associate with this action.</p>
 </dd>
   </dl>
 
@@ -363,79 +384,27 @@ Handles state, multi-tap, hold, and axis sensitivity/gravity.</p>
 
 
 
-  <h3 id="ShapeEngine_Input_InputAction_AllAccessTag" data-uid="ShapeEngine.Input.InputAction.AllAccessTag">
-  AllAccessTag
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L681"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Input_InputAction_BlocksInput" data-uid="ShapeEngine.Input.InputAction.BlocksInput">
+  BlocksInput
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L107"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>This access tag grants access regardless of the input system lock.</p>
+  <div class="markdown level1 summary"><p>Gets or sets whether this input action blocks input types after use.
+<a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> has to be part of an <a class="xref" href="ShapeEngine.Input.InputActionTree.html">InputActionTree</a> to participate in the blocking system.</p>
+<p>
+If set to <code>true</code>, input types used by this action will be added to the block list for the current frame,
+preventing other actions from using the same input types until the next frame.
+</p>
+<p>
+If <a class="xref" href="ShapeEngine.Input.InputAction.html#ShapeEngine_Input_InputAction_Active">Active</a> is set to <code>false</code>,
+or if <a class="xref" href="ShapeEngine.Input.InputAction.html#ShapeEngine_Input_InputAction_AccessTag">AccessTag</a> does not have access,
+this action will not block input types.
+</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static readonly uint AllAccessTag</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-  <h3 id="ShapeEngine_Input_InputAction_DefaultAccessTag" data-uid="ShapeEngine.Input.InputAction.DefaultAccessTag">
-  DefaultAccessTag
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L685"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The default access tag for actions.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static readonly uint DefaultAccessTag</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-  <h3 id="ShapeEngine_Input_InputAction_Enabled" data-uid="ShapeEngine.Input.InputAction.Enabled">
-  Enabled
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L18"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Indicates if this input action is enabled.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Enabled</code></pre>
+    <pre><code class="lang-csharp hljs">public bool BlocksInput</code></pre>
   </div>
 
 
@@ -451,6 +420,10 @@ Handles state, multi-tap, hold, and axis sensitivity/gravity.</p>
 
 
 
+  <h4 class="section" id="ShapeEngine_Input_InputAction_BlocksInput_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Only <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a>s with <code>BlocksInput</code> enabled participate in this blocking system.
+If set to <code>false</code>, this action neither blocks input types nor can it be blocked by others.</p>
+</div>
 
 
 
@@ -458,7 +431,7 @@ Handles state, multi-tap, hold, and axis sensitivity/gravity.</p>
 
   <h3 id="ShapeEngine_Input_InputAction_Gamepad" data-uid="ShapeEngine.Input.InputAction.Gamepad">
   Gamepad
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L149"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The associated gamepad device, if any.</p>
@@ -466,7 +439,7 @@ Handles state, multi-tap, hold, and axis sensitivity/gravity.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ShapeGamepadDevice? Gamepad</code></pre>
+    <pre><code class="lang-csharp hljs">public GamepadDevice? Gamepad</code></pre>
   </div>
 
 
@@ -474,7 +447,38 @@ Handles state, multi-tap, hold, and axis sensitivity/gravity.</p>
 
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="ShapeEngine.Input.ShapeGamepadDevice.html">ShapeGamepadDevice</a></dt>
+    <dt><a class="xref" href="ShapeEngine.Input.GamepadDevice.html">GamepadDevice</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="ShapeEngine_Input_InputAction_Settings" data-uid="ShapeEngine.Input.InputAction.Settings">
+  Settings
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L162"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The settings that define the behavior and configuration of this input action.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public readonly InputActionSettings Settings</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ShapeEngine.Input.InputActionSettings.html">InputActionSettings</a></dt>
     <dd></dd>
   </dl>
 
@@ -489,7 +493,7 @@ Handles state, multi-tap, hold, and axis sensitivity/gravity.</p>
 
   <h3 id="ShapeEngine_Input_InputAction_Title" data-uid="ShapeEngine.Input.InputAction.Title">
   Title
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L42"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L153"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The display title for this input action.</p>
@@ -517,6 +521,38 @@ Handles state, multi-tap, hold, and axis sensitivity/gravity.</p>
 
 
 
+
+  <h3 id="ShapeEngine_Input_InputAction_UsedInputs" data-uid="ShapeEngine.Input.InputAction.UsedInputs">
+  UsedInputs
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L177"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Stores the set of input types that were used to trigger this action in the current frame.
+Cleared and updated during each update cycle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public readonly HashSet&lt;IInputType&gt; UsedInputs</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1">HashSet</a>&lt;<a class="xref" href="ShapeEngine.Input.IInputType.html">IInputType</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
   <h2 class="section" id="properties">Properties
 </h2>
 
@@ -525,17 +561,13 @@ Handles state, multi-tap, hold, and axis sensitivity/gravity.</p>
 
   <h3 id="ShapeEngine_Input_InputAction_AccessTag" data-uid="ShapeEngine.Input.InputAction.AccessTag">
   AccessTag
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L144"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The access tag used for locking/unlocking this action.
-<remarks>
-Determines access of this action.
-Only used when input actions are locked.
-If this tag is contained in the lock blacklist while the lock is active, the action will not trigger.
-If this tag is contained in the lock whitelist while the lock is active, the action will trigger.
-If <a class="xref" href="ShapeEngine.Input.InputAction.html#ShapeEngine_Input_InputAction_AllAccessTag">AllAccessTag</a> is used the action will always trigger.
-</remarks></p>
+<remarks></remarks></p>
+<ul><li>Determines access of this action.</li><li>Only used when input actions are locked.</li><li>If this tag is contained in the lock blacklist while the lock is active, the <a class="xref" href="ShapeEngine.Input.InputState.html">InputState</a> of this <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> will not be available.</li><li>If this tag is contained in the lock whitelist while the lock is active, the <a class="xref" href="ShapeEngine.Input.InputState.html">InputState</a> of this <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> will always be available.</li><li>If <a class="xref" href="ShapeEngine.Input.ShapeInput.html#ShapeEngine_Input_ShapeInput_AllAccessTag">AllAccessTag</a> is used the <a class="xref" href="ShapeEngine.Input.InputState.html">InputState</a> of this <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> will always be available, regardless of the lock state.</li></ul>
+
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -560,150 +592,19 @@ If <a class="xref" href="ShapeEngine.Input.InputAction.html#ShapeEngine_Input_In
 
 
 
-  <a id="ShapeEngine_Input_InputAction_AxisGravity_" data-uid="ShapeEngine.Input.InputAction.AxisGravity*"></a>
+  <a id="ShapeEngine_Input_InputAction_Active_" data-uid="ShapeEngine.Input.InputAction.Active*"></a>
 
-  <h3 id="ShapeEngine_Input_InputAction_AxisGravity" data-uid="ShapeEngine.Input.InputAction.AxisGravity">
-  AxisGravity
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L93"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Input_InputAction_Active" data-uid="ShapeEngine.Input.InputAction.Active">
+  Active
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L75"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>How fast an axis moves towards 0 after no input is detected.
-Used for calculating InputState.Axis values.</p>
+  <div class="markdown level1 summary"><p>Indicates if this input action is active. If set to <code>false</code>, the action will not process input or update its state.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public float AxisGravity { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="ShapeEngine_Input_InputAction_AxisSensitivity_" data-uid="ShapeEngine.Input.InputAction.AxisSensitivity*"></a>
-
-  <h3 id="ShapeEngine_Input_InputAction_AxisSensitivity" data-uid="ShapeEngine.Input.InputAction.AxisSensitivity">
-  AxisSensitivity
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L84"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>How fast an axis moves towards the max value (1 / -1) in seconds.
-Used for calculating InputState.Axis values.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public float AxisSensitivity { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="ShapeEngine_Input_InputAction_HoldDuration_" data-uid="ShapeEngine.Input.InputAction.HoldDuration*"></a>
-
-  <h3 id="ShapeEngine_Input_InputAction_HoldDuration" data-uid="ShapeEngine.Input.InputAction.HoldDuration">
-  HoldDuration
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L63"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The duration required to trigger a hold action (in seconds).
-Default is 1 second.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public float HoldDuration { get; set; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="ShapeEngine_Input_InputAction_ID_" data-uid="ShapeEngine.Input.InputAction.ID*"></a>
-
-  <h3 id="ShapeEngine_Input_InputAction_ID" data-uid="ShapeEngine.Input.InputAction.ID">
-  ID
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L22"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>The unique identifier for this input action.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public uint ID { get; }</code></pre>
-  </div>
-
-
-
-
-
-  <h4 class="section">Property Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <a id="ShapeEngine_Input_InputAction_Locked_" data-uid="ShapeEngine.Input.InputAction.Locked*"></a>
-
-  <h3 id="ShapeEngine_Input_InputAction_Locked" data-uid="ShapeEngine.Input.InputAction.Locked">
-  Locked
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L689"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Indicates if the input system is currently locked.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool Locked { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public bool Active { get; set; }</code></pre>
   </div>
 
 
@@ -723,20 +624,19 @@ Default is 1 second.</p>
 
 
 
-  <a id="ShapeEngine_Input_InputAction_MultiTapDuration_" data-uid="ShapeEngine.Input.InputAction.MultiTapDuration*"></a>
+  <a id="ShapeEngine_Input_InputAction_CurrentDeviceType_" data-uid="ShapeEngine.Input.InputAction.CurrentDeviceType*"></a>
 
-  <h3 id="ShapeEngine_Input_InputAction_MultiTapDuration" data-uid="ShapeEngine.Input.InputAction.MultiTapDuration">
-  MultiTapDuration
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L72"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Input_InputAction_CurrentDeviceType" data-uid="ShapeEngine.Input.InputAction.CurrentDeviceType">
+  CurrentDeviceType
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L191"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The duration allowed between taps for a multi-tap action (in seconds).
-Default is 0.25 seconds.</p>
+  <div class="markdown level1 summary"><p>Gets the type of the input device that was last used to trigger this action.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public float MultiTapDuration { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public InputDeviceType CurrentDeviceType { get; }</code></pre>
   </div>
 
 
@@ -745,7 +645,7 @@ Default is 0.25 seconds.</p>
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dt><a class="xref" href="ShapeEngine.Input.InputDeviceType.html">InputDeviceType</a></dt>
     <dd></dd>
   </dl>
 
@@ -756,19 +656,23 @@ Default is 0.25 seconds.</p>
 
 
 
-  <a id="ShapeEngine_Input_InputAction_MultiTapTarget_" data-uid="ShapeEngine.Input.InputAction.MultiTapTarget*"></a>
+  <a id="ShapeEngine_Input_InputAction_ExecutionOrder_" data-uid="ShapeEngine.Input.InputAction.ExecutionOrder*"></a>
 
-  <h3 id="ShapeEngine_Input_InputAction_MultiTapTarget" data-uid="ShapeEngine.Input.InputAction.MultiTapTarget">
-  MultiTapTarget
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L54"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Input_InputAction_ExecutionOrder" data-uid="ShapeEngine.Input.InputAction.ExecutionOrder">
+  ExecutionOrder
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L125"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The number of taps required for a multi-tap action.</p>
+  <div class="markdown level1 summary"><p>Gets or sets the execution order for this <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a>.</p>
+<p>Input actions with a lower <a class="xref" href="ShapeEngine.Input.InputAction.html#ShapeEngine_Input_InputAction_ExecutionOrder">ExecutionOrder</a> value are processed first.</p>
+<p>This value is automatically assigned when the action is created, but can be set manually if needed.</p>
+<p>This only has an effect when used with <a class="xref" href="ShapeEngine.Input.InputActionTree.html">InputActionTree</a> or in other sorted collections
+that use <a class="xref" href="ShapeEngine.Input.InputAction.html#ShapeEngine_Input_InputAction_CompareTo_ShapeEngine_Input_InputAction_">CompareTo(InputAction?)</a> for determining order.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int MultiTapTarget { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public int ExecutionOrder { get; set; }</code></pre>
   </div>
 
 
@@ -784,23 +688,32 @@ Default is 0.25 seconds.</p>
 
 
 
+  <h4 class="section" id="ShapeEngine_Input_InputAction_ExecutionOrder_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>If two <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> have the same <a class="xref" href="ShapeEngine.Input.InputAction.html#ShapeEngine_Input_InputAction_ExecutionOrder">ExecutionOrder</a>,
+<a class="xref" href="ShapeEngine.Input.InputAction.html#ShapeEngine_Input_InputAction_Id">Id</a> is used to determine the order.
+A lower <a class="xref" href="ShapeEngine.Input.InputAction.html#ShapeEngine_Input_InputAction_Id">Id</a> value is processed first.</p>
+<p>
+This is especially useful when combined with <a class="xref" href="ShapeEngine.Input.InputAction.html#ShapeEngine_Input_InputAction_BlocksInput">BlocksInput</a>,
+as it allows precise control over which <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> instances can block others based on their execution order.
+</p>
+</div>
 
 
 
 
-  <a id="ShapeEngine_Input_InputAction_NextTag_" data-uid="ShapeEngine.Input.InputAction.NextTag*"></a>
+  <a id="ShapeEngine_Input_InputAction_Id_" data-uid="ShapeEngine.Input.InputAction.Id*"></a>
 
-  <h3 id="ShapeEngine_Input_InputAction_NextTag" data-uid="ShapeEngine.Input.InputAction.NextTag">
-  NextTag
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L696"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Input_InputAction_Id" data-uid="ShapeEngine.Input.InputAction.Id">
+  Id
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L131"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Gets the next available access tag.</p>
+  <div class="markdown level1 summary"><p>The unique identifier for this input action.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static uint NextTag { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public uint Id { get; }</code></pre>
   </div>
 
 
@@ -820,14 +733,80 @@ Default is 0.25 seconds.</p>
 
 
 
+  <a id="ShapeEngine_Input_InputAction_IsInTree_" data-uid="ShapeEngine.Input.InputAction.IsInTree*"></a>
+
+  <h3 id="ShapeEngine_Input_InputAction_IsInTree" data-uid="ShapeEngine.Input.InputAction.IsInTree">
+  IsInTree
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Indicates whether this action is currently part of an <a class="xref" href="ShapeEngine.Input.InputActionTree.html">InputActionTree</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsInTree { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Input_InputAction_Parent_" data-uid="ShapeEngine.Input.InputAction.Parent*"></a>
+
+  <h3 id="ShapeEngine_Input_InputAction_Parent" data-uid="ShapeEngine.Input.InputAction.Parent">
+  Parent
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the parent <a class="xref" href="ShapeEngine.Input.InputActionTree.html">InputActionTree</a> of this action, if any.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public InputActionTree? Parent { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ShapeEngine.Input.InputActionTree.html">InputActionTree</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="ShapeEngine_Input_InputAction_State_" data-uid="ShapeEngine.Input.InputAction.State*"></a>
 
   <h3 id="ShapeEngine_Input_InputAction_State" data-uid="ShapeEngine.Input.InputAction.State">
   State
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L103"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L169"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>The current state of this input action.</p>
+  <div class="markdown level1 summary"><p>Gets the current input state for this action.
+This property is updated each frame,
+reflecting the accumulated state from all associated input types.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -852,6 +831,38 @@ Default is 0.25 seconds.</p>
 
 
 
+  <a id="ShapeEngine_Input_InputAction_Toggle_" data-uid="ShapeEngine.Input.InputAction.Toggle*"></a>
+
+  <h3 id="ShapeEngine_Input_InputAction_Toggle" data-uid="ShapeEngine.Input.InputAction.Toggle">
+  Toggle
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L181"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Indicates whether the input action is toggled. Changes state on each press.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public InputAction.ToggleState Toggle { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a>.<a class="xref" href="ShapeEngine.Input.InputAction.ToggleState.html">ToggleState</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <h2 class="section" id="methods">Methods
 </h2>
 
@@ -860,7 +871,7 @@ Default is 0.25 seconds.</p>
 
   <h3 id="ShapeEngine_Input_InputAction_AddInput_ShapeEngine_Input_IInputType_" data-uid="ShapeEngine.Input.InputAction.AddInput(ShapeEngine.Input.IInputType)">
   AddInput(IInputType)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L493"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L686"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Adds a new input type to this action.</p>
@@ -893,7 +904,7 @@ Default is 0.25 seconds.</p>
 
   <h3 id="ShapeEngine_Input_InputAction_AddInputs_ShapeEngine_Input_IInputType___" data-uid="ShapeEngine.Input.InputAction.AddInputs(ShapeEngine.Input.IInputType[])">
   AddInputs(params IInputType[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L499"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L692"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Adds multiple input types to this action.</p>
@@ -926,7 +937,7 @@ Default is 0.25 seconds.</p>
 
   <h3 id="ShapeEngine_Input_InputAction_ClearInputs" data-uid="ShapeEngine.Input.InputAction.ClearInputs">
   ClearInputs()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L459"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L651"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Removes all input types from this action.</p>
@@ -953,7 +964,7 @@ Default is 0.25 seconds.</p>
 
   <h3 id="ShapeEngine_Input_InputAction_ClearState" data-uid="ShapeEngine.Input.InputAction.ClearState">
   ClearState()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L192"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L285"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Clears the current input state.</p>
@@ -976,21 +987,69 @@ Default is 0.25 seconds.</p>
 
 
 
-  <a id="ShapeEngine_Input_InputAction_Consume_" data-uid="ShapeEngine.Input.InputAction.Consume*"></a>
+  <a id="ShapeEngine_Input_InputAction_CompareTo_" data-uid="ShapeEngine.Input.InputAction.CompareTo*"></a>
 
-  <h3 id="ShapeEngine_Input_InputAction_Consume" data-uid="ShapeEngine.Input.InputAction.Consume">
-  Consume()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L201"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Input_InputAction_CompareTo_ShapeEngine_Input_InputAction_" data-uid="ShapeEngine.Input.InputAction.CompareTo(ShapeEngine.Input.InputAction)">
+  CompareTo(InputAction?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L922"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Consumes the current input state and marks it as consumed.</p>
+  <div class="markdown level1 summary"><p>Compares this <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> to another for sorting purposes.</p>
+<p>
+First compares <a class="xref" href="ShapeEngine.Input.InputAction.html#ShapeEngine_Input_InputAction_ExecutionOrder">ExecutionOrder</a>; if equal, compares <a class="xref" href="ShapeEngine.Input.InputAction.html#ShapeEngine_Input_InputAction_Id">Id</a>.
+</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public InputState Consume()</code></pre>
+    <pre><code class="lang-csharp hljs">public int CompareTo(InputAction? other)</code></pre>
   </div>
 
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>other</code> <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a></dt>
+    <dd><p>The other <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> to compare to.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>-1 if this instance precedes <code class="paramref">other</code>; 1 if it follows; 0 if equal.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Input_InputAction_Consume_" data-uid="ShapeEngine.Input.InputAction.Consume*"></a>
+
+  <h3 id="ShapeEngine_Input_InputAction_Consume_System_Boolean__" data-uid="ShapeEngine.Input.InputAction.Consume(System.Boolean@)">
+  Consume(out bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L314"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Consumes the current input <a class="xref" href="ShapeEngine.Input.InputAction.html#ShapeEngine_Input_InputAction_State">State</a> and marks it as consumed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public InputState Consume(out bool valid)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>valid</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the state was not already consumed; otherwise, false.</p>
+</dd>
+  </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
@@ -1005,6 +1064,11 @@ Default is 0.25 seconds.</p>
 
 
 
+  <h4 class="section" id="ShapeEngine_Input_InputAction_Consume_System_Boolean___remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Useful for <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> instances that may be referenced in multiple places, but should only be consumed once per frame.
+For example, a &quot;menu accept&quot; action might be used in several contexts, but should only trigger in the first context that processes it.
+If your system ensures single-use per frame by design, this method is unnecessary. <a class="xref" href="ShapeEngine.Input.InputActionTree.html">InputActionTree</a>s are helpful for isolating input actions, allowing only one tree to be active at a time.</p>
+</div>
 
 
 
@@ -1013,10 +1077,11 @@ Default is 0.25 seconds.</p>
 
   <h3 id="ShapeEngine_Input_InputAction_Copy" data-uid="ShapeEngine.Input.InputAction.Copy">
   Copy()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L337"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L522"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Copies this instance and all inputs contained. A new ID is generated for the copy.</p>
+  <div class="markdown level1 summary"><p>Creates a deep of copy of this <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a>, including deep copies of all associated <a class="xref" href="ShapeEngine.Input.IInputType.html">IInputType</a>s.
+A new ID is generated for the copy and the <a class="xref" href="ShapeEngine.Input.InputAction.html#ShapeEngine_Input_InputAction_Parent">Parent</a> is not set, as the copy should not be part of the same tree as the original.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -1042,11 +1107,90 @@ Default is 0.25 seconds.</p>
 
 
 
+  <a id="ShapeEngine_Input_InputAction_Equals_" data-uid="ShapeEngine.Input.InputAction.Equals*"></a>
+
+  <h3 id="ShapeEngine_Input_InputAction_Equals_ShapeEngine_Input_InputAction_" data-uid="ShapeEngine.Input.InputAction.Equals(ShapeEngine.Input.InputAction)">
+  Equals(InputAction?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L937"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Determines whether the specified <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> is equal to the current <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a>.
+Compares the <a class="xref" href="ShapeEngine.Input.InputAction.html#ShapeEngine_Input_InputAction_Settings">Settings</a> and the sequence of input types.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(InputAction? other)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>other</code> <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a></dt>
+    <dd><p>The <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> to compare with the current instance.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><code>true</code> if the specified <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> is equal to the current instance; otherwise, <code>false</code>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Input_InputAction_Equals_" data-uid="ShapeEngine.Input.InputAction.Equals*"></a>
+
+  <h3 id="ShapeEngine_Input_InputAction_Equals_System_Object_" data-uid="ShapeEngine.Input.InputAction.Equals(System.Object)">
+  Equals(object?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L951"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Determines whether the specified object is equal to the current <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object? obj)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>obj</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd><p>The object to compare with the current instance.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><code>true</code> if the specified object is equal to the current instance; otherwise, <code>false</code>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="ShapeEngine_Input_InputAction_GetActionDescriptions_" data-uid="ShapeEngine.Input.InputAction.GetActionDescriptions*"></a>
 
   <h3 id="ShapeEngine_Input_InputAction_GetActionDescriptions_ShapeEngine_Input_InputDeviceType_System_Boolean_System_Int32_ShapeEngine_Input_InputAction___" data-uid="ShapeEngine.Input.InputAction.GetActionDescriptions(ShapeEngine.Input.InputDeviceType,System.Boolean,System.Int32,ShapeEngine.Input.InputAction[])">
   GetActionDescriptions(InputDeviceType, bool, int, params InputAction[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L871"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L897"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets descriptions for a set of input actions.</p>
@@ -1094,7 +1238,7 @@ Default is 0.25 seconds.</p>
 
   <h3 id="ShapeEngine_Input_InputAction_GetActionDescriptions_ShapeEngine_Input_InputDeviceType_System_Boolean_System_Int32_System_Collections_Generic_List_ShapeEngine_Input_InputAction__" data-uid="ShapeEngine.Input.InputAction.GetActionDescriptions(ShapeEngine.Input.InputDeviceType,System.Boolean,System.Int32,System.Collections.Generic.List{ShapeEngine.Input.InputAction})">
   GetActionDescriptions(InputDeviceType, bool, int, List&lt;InputAction&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L851"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L876"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets descriptions for a list of input actions.</p>
@@ -1142,7 +1286,7 @@ Default is 0.25 seconds.</p>
 
   <h3 id="ShapeEngine_Input_InputAction_GetGamepadIndex" data-uid="ShapeEngine.Input.InputAction.GetGamepadIndex">
   GetGamepadIndex()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L187"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L280"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the index of the associated gamepad, or -1 if none.</p>
@@ -1171,11 +1315,45 @@ Default is 0.25 seconds.</p>
 
 
 
+  <a id="ShapeEngine_Input_InputAction_GetHashCode_" data-uid="ShapeEngine.Input.InputAction.GetHashCode*"></a>
+
+  <h3 id="ShapeEngine_Input_InputAction_GetHashCode" data-uid="ShapeEngine.Input.InputAction.GetHashCode">
+  GetHashCode()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L964"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Serves as the default hash function for <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a>.
+Combines the hash codes of the input types and settings.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>A hash code for the current object.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="ShapeEngine_Input_InputAction_GetInputTypeDescription_" data-uid="ShapeEngine.Input.InputAction.GetInputTypeDescription*"></a>
 
   <h3 id="ShapeEngine_Input_InputAction_GetInputTypeDescription_ShapeEngine_Input_InputDeviceType_System_Boolean_System_Int32_System_Boolean_System_Boolean_" data-uid="ShapeEngine.Input.InputAction.GetInputTypeDescription(ShapeEngine.Input.InputDeviceType,System.Boolean,System.Int32,System.Boolean,System.Boolean)">
   GetInputTypeDescription(InputDeviceType, bool, int, bool, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L533"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L725"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Generate a description for this action based on the parameters. Layout-&gt; &quot;Title: [type a][type b][type c] ...&quot;</p>
@@ -1226,7 +1404,7 @@ Default is 0.25 seconds.</p>
 
   <h3 id="ShapeEngine_Input_InputAction_GetInputTypeDescription_System_Boolean_System_Int32_System_Boolean_" data-uid="ShapeEngine.Input.InputAction.GetInputTypeDescription(System.Boolean,System.Int32,System.Boolean)">
   GetInputTypeDescription(bool, int, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L556"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L748"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Generate a description for this action based on the parameters. Layout-&gt; &quot;Title: [type a][type b][type c] ...&quot;</p>
@@ -1271,7 +1449,7 @@ Default is 0.25 seconds.</p>
 
   <h3 id="ShapeEngine_Input_InputAction_GetInputTypeDescriptionPerDevice_System_Boolean_System_Int32_System_Boolean_" data-uid="ShapeEngine.Input.InputAction.GetInputTypeDescriptionPerDevice(System.Boolean,System.Int32,System.Boolean)">
   GetInputTypeDescriptionPerDevice(bool, int, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L580"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L772"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Generate a description for this action based on the parameters. Layout-&gt; &quot;Title: [type a][type b][type c] ...&quot;</p>
@@ -1318,7 +1496,7 @@ If count is smaller or equal to 0 all input types are used.</p>
 
   <h3 id="ShapeEngine_Input_InputAction_GetInputTypeNames_ShapeEngine_Input_InputDeviceType_System_Boolean_System_Int32_" data-uid="ShapeEngine.Input.InputAction.GetInputTypeNames(ShapeEngine.Input.InputDeviceType,System.Boolean,System.Int32)">
   GetInputTypeNames(InputDeviceType, bool, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L606"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L798"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Get the names of all input types used in this input action.</p>
@@ -1363,7 +1541,7 @@ If count is smaller or equal to 0 all input types are used.</p>
 
   <h3 id="ShapeEngine_Input_InputAction_GetInputTypeNames_System_Boolean_" data-uid="ShapeEngine.Input.InputAction.GetInputTypeNames(System.Boolean)">
   GetInputTypeNames(bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L657"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L849"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Get a list of a input device and name for each input type used in this action.</p>
@@ -1402,7 +1580,7 @@ If count is smaller or equal to 0 all input types are used.</p>
 
   <h3 id="ShapeEngine_Input_InputAction_GetInputTypeNamesLimited_System_Boolean_System_Int32_" data-uid="ShapeEngine.Input.InputAction.GetInputTypeNamesLimited(System.Boolean,System.Int32)">
   GetInputTypeNamesLimited(bool, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L623"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L815"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Get the names of all input types used in this input action.</p>
@@ -1444,7 +1622,7 @@ If count is smaller or equal to 0 all input types are used.</p>
 
   <h3 id="ShapeEngine_Input_InputAction_GetInputTypeNamesLimitedPerDevice_System_Boolean_System_Int32_" data-uid="ShapeEngine.Input.InputAction.GetInputTypeNamesLimitedPerDevice(System.Boolean,System.Int32)">
   GetInputTypeNamesLimitedPerDevice(bool, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L639"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L831"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Get the names of all input types used in this input action.</p>
@@ -1486,7 +1664,7 @@ If count is smaller or equal to 0 all input types are used.</p>
 
   <h3 id="ShapeEngine_Input_InputAction_GetInputs" data-uid="ShapeEngine.Input.InputAction.GetInputs">
   GetInputs()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L367"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L545"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a list of all input types associated with this action.</p>
@@ -1519,7 +1697,7 @@ If count is smaller or equal to 0 all input types are used.</p>
 
   <h3 id="ShapeEngine_Input_InputAction_GetInputs_ShapeEngine_Input_InputDeviceType_" data-uid="ShapeEngine.Input.InputAction.GetInputs(ShapeEngine.Input.InputDeviceType)">
   GetInputs(InputDeviceType)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L393"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L585"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a list of input types filtered by device type.</p>
@@ -1558,7 +1736,7 @@ If count is smaller or equal to 0 all input types are used.</p>
 
   <h3 id="ShapeEngine_Input_InputAction_GetInputs_ShapeEngine_Input_InputDeviceType_System_Int32_" data-uid="ShapeEngine.Input.InputAction.GetInputs(ShapeEngine.Input.InputDeviceType,System.Int32)">
   GetInputs(InputDeviceType, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L443"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L635"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a list of input types filtered by device type and limited to a maximum count.</p>
@@ -1600,7 +1778,7 @@ If count is smaller or equal to 0 all input types are used.</p>
 
   <h3 id="ShapeEngine_Input_InputAction_GetInputs_System_Int32_" data-uid="ShapeEngine.Input.InputAction.GetInputs(System.Int32)">
   GetInputs(int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L427"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L619"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a list of input types, limited to a maximum count.</p>
@@ -1639,10 +1817,10 @@ If count is smaller or equal to 0 all input types are used.</p>
 
   <h3 id="ShapeEngine_Input_InputAction_GetInputsCopied" data-uid="ShapeEngine.Input.InputAction.GetInputsCopied">
   GetInputsCopied()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L378"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L556"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Gets a list of all input types associated with this action, as copies.</p>
+  <div class="markdown level1 summary"><p>Returns a new list containing deep copies of all input types associated with this action.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -1654,8 +1832,7 @@ If count is smaller or equal to 0 all input types are used.</p>
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="ShapeEngine.Input.IInputType.html">IInputType</a>&gt;</dt>
-    <dd><p>A list of copied input types.</p>
-</dd>
+    <dd></dd>
   </dl>
 
 
@@ -1672,10 +1849,10 @@ If count is smaller or equal to 0 all input types are used.</p>
 
   <h3 id="ShapeEngine_Input_InputAction_GetInputsCopied_ShapeEngine_Input_InputDeviceType_" data-uid="ShapeEngine.Input.InputAction.GetInputsCopied(ShapeEngine.Input.InputDeviceType)">
   GetInputsCopied(InputDeviceType)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L410"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L602"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Gets a list of copied input types filtered by device type.</p>
+  <div class="markdown level1 summary"><p>Returns a new list containing deep copies of all input types of the specified device type associated with this action.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -1693,7 +1870,7 @@ If count is smaller or equal to 0 all input types are used.</p>
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="ShapeEngine.Input.IInputType.html">IInputType</a>&gt;</dt>
-    <dd><p>A list of filtered, copied input types.</p>
+    <dd><p>A list of copied input types matching the specified device type.</p>
 </dd>
   </dl>
 
@@ -1707,443 +1884,26 @@ If count is smaller or equal to 0 all input types are used.</p>
 
 
 
-  <a id="ShapeEngine_Input_InputAction_GetState_" data-uid="ShapeEngine.Input.InputAction.GetState*"></a>
+  <a id="ShapeEngine_Input_InputAction_GetInputsCopiedArray_" data-uid="ShapeEngine.Input.InputAction.GetInputsCopiedArray*"></a>
 
-  <h3 id="ShapeEngine_Input_InputAction_GetState_ShapeEngine_Input_ShapeGamepadAxis_System_UInt32_System_Int32_System_Single_" data-uid="ShapeEngine.Input.InputAction.GetState(ShapeEngine.Input.ShapeGamepadAxis,System.UInt32,System.Int32,System.Single)">
-  GetState(ShapeGamepadAxis, uint, int, float)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L983"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Input_InputAction_GetInputsCopiedArray" data-uid="ShapeEngine.Input.InputAction.GetInputsCopiedArray">
+  GetInputsCopiedArray()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L569"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Gets the input state for a gamepad axis.</p>
+  <div class="markdown level1 summary"><p>Returns a new array containing deep copies of all input types associated with this action.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static InputState GetState(ShapeGamepadAxis axis, uint accessTag, int gamepadIndex, float deadzone = 0.2)</code></pre>
+    <pre><code class="lang-csharp hljs">public IInputType[] GetInputsCopiedArray()</code></pre>
   </div>
 
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>axis</code> <a class="xref" href="ShapeEngine.Input.ShapeGamepadAxis.html">ShapeGamepadAxis</a></dt>
-    <dd><p>The gamepad axis.</p>
-</dd>
-    <dt><code>accessTag</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
-    <dd><p>The access tag.</p>
-</dd>
-    <dt><code>gamepadIndex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd><p>The gamepad index.</p>
-</dd>
-    <dt><code>deadzone</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
-    <dd><p>The deadzone threshold.</p>
-</dd>
-  </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="ShapeEngine.Input.InputState.html">InputState</a></dt>
-    <dd><p>The input state.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="ShapeEngine_Input_InputAction_GetState_" data-uid="ShapeEngine.Input.InputAction.GetState*"></a>
-
-  <h3 id="ShapeEngine_Input_InputAction_GetState_ShapeEngine_Input_ShapeGamepadButton_ShapeEngine_Input_ShapeGamepadButton_System_UInt32_System_Int32_System_Single_" data-uid="ShapeEngine.Input.InputAction.GetState(ShapeEngine.Input.ShapeGamepadButton,ShapeEngine.Input.ShapeGamepadButton,System.UInt32,System.Int32,System.Single)">
-  GetState(ShapeGamepadButton, ShapeGamepadButton, uint, int, float)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L956"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Gets the input state for a gamepad button axis.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static InputState GetState(ShapeGamepadButton neg, ShapeGamepadButton pos, uint accessTag, int gamepadIndex, float deadzone = 0.2)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>neg</code> <a class="xref" href="ShapeEngine.Input.ShapeGamepadButton.html">ShapeGamepadButton</a></dt>
-    <dd><p>The negative direction button.</p>
-</dd>
-    <dt><code>pos</code> <a class="xref" href="ShapeEngine.Input.ShapeGamepadButton.html">ShapeGamepadButton</a></dt>
-    <dd><p>The positive direction button.</p>
-</dd>
-    <dt><code>accessTag</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
-    <dd><p>The access tag.</p>
-</dd>
-    <dt><code>gamepadIndex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd><p>The gamepad index.</p>
-</dd>
-    <dt><code>deadzone</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
-    <dd><p>The deadzone threshold.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="ShapeEngine.Input.InputState.html">InputState</a></dt>
-    <dd><p>The input state.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="ShapeEngine_Input_InputAction_GetState_" data-uid="ShapeEngine.Input.InputAction.GetState*"></a>
-
-  <h3 id="ShapeEngine_Input_InputAction_GetState_ShapeEngine_Input_ShapeGamepadButton_System_UInt32_System_Int32_System_Single_" data-uid="ShapeEngine.Input.InputAction.GetState(ShapeEngine.Input.ShapeGamepadButton,System.UInt32,System.Int32,System.Single)">
-  GetState(ShapeGamepadButton, uint, int, float)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L917"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Gets the input state for a gamepad button.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static InputState GetState(ShapeGamepadButton button, uint accessTag, int gamepadIndex, float deadzone = 0.2)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>button</code> <a class="xref" href="ShapeEngine.Input.ShapeGamepadButton.html">ShapeGamepadButton</a></dt>
-    <dd><p>The gamepad button.</p>
-</dd>
-    <dt><code>accessTag</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
-    <dd><p>The access tag.</p>
-</dd>
-    <dt><code>gamepadIndex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd><p>The gamepad index.</p>
-</dd>
-    <dt><code>deadzone</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
-    <dd><p>The deadzone threshold.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="ShapeEngine.Input.InputState.html">InputState</a></dt>
-    <dd><p>The input state.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="ShapeEngine_Input_InputAction_GetState_" data-uid="ShapeEngine.Input.InputAction.GetState*"></a>
-
-  <h3 id="ShapeEngine_Input_InputAction_GetState_ShapeEngine_Input_ShapeKeyboardButton_ShapeEngine_Input_ShapeKeyboardButton_System_UInt32_" data-uid="ShapeEngine.Input.InputAction.GetState(ShapeEngine.Input.ShapeKeyboardButton,ShapeEngine.Input.ShapeKeyboardButton,System.UInt32)">
-  GetState(ShapeKeyboardButton, ShapeKeyboardButton, uint)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L930"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Gets the input state for a keyboard button axis.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static InputState GetState(ShapeKeyboardButton neg, ShapeKeyboardButton pos, uint accessTag)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>neg</code> <a class="xref" href="ShapeEngine.Input.ShapeKeyboardButton.html">ShapeKeyboardButton</a></dt>
-    <dd><p>The negative direction button.</p>
-</dd>
-    <dt><code>pos</code> <a class="xref" href="ShapeEngine.Input.ShapeKeyboardButton.html">ShapeKeyboardButton</a></dt>
-    <dd><p>The positive direction button.</p>
-</dd>
-    <dt><code>accessTag</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
-    <dd><p>The access tag.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="ShapeEngine.Input.InputState.html">InputState</a></dt>
-    <dd><p>The input state.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="ShapeEngine_Input_InputAction_GetState_" data-uid="ShapeEngine.Input.InputAction.GetState*"></a>
-
-  <h3 id="ShapeEngine_Input_InputAction_GetState_ShapeEngine_Input_ShapeKeyboardButton_System_UInt32_" data-uid="ShapeEngine.Input.InputAction.GetState(ShapeEngine.Input.ShapeKeyboardButton,System.UInt32)">
-  GetState(ShapeKeyboardButton, uint)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L893"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Gets the input state for a keyboard button.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static InputState GetState(ShapeKeyboardButton button, uint accessTag)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>button</code> <a class="xref" href="ShapeEngine.Input.ShapeKeyboardButton.html">ShapeKeyboardButton</a></dt>
-    <dd><p>The keyboard button.</p>
-</dd>
-    <dt><code>accessTag</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
-    <dd><p>The access tag.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="ShapeEngine.Input.InputState.html">InputState</a></dt>
-    <dd><p>The input state.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="ShapeEngine_Input_InputAction_GetState_" data-uid="ShapeEngine.Input.InputAction.GetState*"></a>
-
-  <h3 id="ShapeEngine_Input_InputAction_GetState_ShapeEngine_Input_ShapeMouseButton_ShapeEngine_Input_ShapeMouseButton_System_UInt32_" data-uid="ShapeEngine.Input.InputAction.GetState(ShapeEngine.Input.ShapeMouseButton,ShapeEngine.Input.ShapeMouseButton,System.UInt32)">
-  GetState(ShapeMouseButton, ShapeMouseButton, uint)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L942"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Gets the input state for a mouse button axis.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static InputState GetState(ShapeMouseButton neg, ShapeMouseButton pos, uint accessTag)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>neg</code> <a class="xref" href="ShapeEngine.Input.ShapeMouseButton.html">ShapeMouseButton</a></dt>
-    <dd><p>The negative direction button.</p>
-</dd>
-    <dt><code>pos</code> <a class="xref" href="ShapeEngine.Input.ShapeMouseButton.html">ShapeMouseButton</a></dt>
-    <dd><p>The positive direction button.</p>
-</dd>
-    <dt><code>accessTag</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
-    <dd><p>The access tag.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="ShapeEngine.Input.InputState.html">InputState</a></dt>
-    <dd><p>The input state.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="ShapeEngine_Input_InputAction_GetState_" data-uid="ShapeEngine.Input.InputAction.GetState*"></a>
-
-  <h3 id="ShapeEngine_Input_InputAction_GetState_ShapeEngine_Input_ShapeMouseButton_System_UInt32_" data-uid="ShapeEngine.Input.InputAction.GetState(ShapeEngine.Input.ShapeMouseButton,System.UInt32)">
-  GetState(ShapeMouseButton, uint)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L904"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Gets the input state for a mouse button.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static InputState GetState(ShapeMouseButton button, uint accessTag)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>button</code> <a class="xref" href="ShapeEngine.Input.ShapeMouseButton.html">ShapeMouseButton</a></dt>
-    <dd><p>The mouse button.</p>
-</dd>
-    <dt><code>accessTag</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
-    <dd><p>The access tag.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="ShapeEngine.Input.InputState.html">InputState</a></dt>
-    <dd><p>The input state.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="ShapeEngine_Input_InputAction_GetState_" data-uid="ShapeEngine.Input.InputAction.GetState*"></a>
-
-  <h3 id="ShapeEngine_Input_InputAction_GetState_ShapeEngine_Input_ShapeMouseWheelAxis_System_UInt32_System_Single_" data-uid="ShapeEngine.Input.InputAction.GetState(ShapeEngine.Input.ShapeMouseWheelAxis,System.UInt32,System.Single)">
-  GetState(ShapeMouseWheelAxis, uint, float)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L970"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Gets the input state for a mouse wheel axis.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static InputState GetState(ShapeMouseWheelAxis axis, uint accessTag, float deadzone = 1)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>axis</code> <a class="xref" href="ShapeEngine.Input.ShapeMouseWheelAxis.html">ShapeMouseWheelAxis</a></dt>
-    <dd><p>The mouse wheel axis.</p>
-</dd>
-    <dt><code>accessTag</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
-    <dd><p>The access tag.</p>
-</dd>
-    <dt><code>deadzone</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
-    <dd><p>The deadzone threshold.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="ShapeEngine.Input.InputState.html">InputState</a></dt>
-    <dd><p>The input state.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="ShapeEngine_Input_InputAction_HasAccess_" data-uid="ShapeEngine.Input.InputAction.HasAccess*"></a>
-
-  <h3 id="ShapeEngine_Input_InputAction_HasAccess_ShapeEngine_Input_InputAction_" data-uid="ShapeEngine.Input.InputAction.HasAccess(ShapeEngine.Input.InputAction)">
-  HasAccess(InputAction)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L811"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Determines if the specified action has access.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool HasAccess(InputAction action)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>action</code> <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a></dt>
-    <dd><p>The input action to check.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p>True if access is granted; otherwise, false.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="ShapeEngine_Input_InputAction_HasAccess_" data-uid="ShapeEngine.Input.InputAction.HasAccess*"></a>
-
-  <h3 id="ShapeEngine_Input_InputAction_HasAccess_System_UInt32_" data-uid="ShapeEngine.Input.InputAction.HasAccess(System.UInt32)">
-  HasAccess(uint)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L785"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Determines if the specified access tag has access.
-<remarks>
-<a class="xref" href="ShapeEngine.Input.InputAction.html#ShapeEngine_Input_InputAction_AllAccessTag">AllAccessTag</a> always returns true (has access).</remarks></p>
-<ul><li>If <code>tag</code> is contained in the current blacklist, this function will return false (no access).</li><li>If <code>tag</code> is not contained in the current blacklist and <code>tag</code> is contained in the current whitelist,
-or the current whitelist is empty, this function will return true (has access).</li></ul>
-
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool HasAccess(uint tag)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>tag</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
-    <dd><p>The access tag to check.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p>True if access is granted; otherwise, false.</p>
-</dd>
+    <dt><a class="xref" href="ShapeEngine.Input.IInputType.html">IInputType</a>[]</dt>
+    <dd></dd>
   </dl>
 
 
@@ -2160,7 +1920,7 @@ or the current whitelist is empty, this function will return true (has access).<
 
   <h3 id="ShapeEngine_Input_InputAction_HasInput_ShapeEngine_Input_IInputType_" data-uid="ShapeEngine.Input.InputAction.HasInput(ShapeEngine.Input.IInputType)">
   HasInput(IInputType)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L506"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L699"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Checks if this action contains a specific input type.</p>
@@ -2199,7 +1959,7 @@ or the current whitelist is empty, this function will return true (has access).<
 
   <h3 id="ShapeEngine_Input_InputAction_HasInput_ShapeEngine_Input_InputDeviceType_" data-uid="ShapeEngine.Input.InputAction.HasInput(ShapeEngine.Input.InputDeviceType)">
   HasInput(InputDeviceType)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L513"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L706"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Checks if this action contains any input of the specified device type.</p>
@@ -2234,196 +1994,11 @@ or the current whitelist is empty, this function will return true (has access).<
 
 
 
-  <a id="ShapeEngine_Input_InputAction_IsInputAvailable_" data-uid="ShapeEngine.Input.InputAction.IsInputAvailable*"></a>
-
-  <h3 id="ShapeEngine_Input_InputAction_IsInputAvailable_System_UInt32_" data-uid="ShapeEngine.Input.InputAction.IsInputAvailable(System.UInt32)">
-  IsInputAvailable(uint)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L800"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Determines if input is available for the specified access tag.
-<remarks>
-Always returns true if <a class="xref" href="ShapeEngine.Input.InputAction.html#ShapeEngine_Input_InputAction_Locked">Locked</a> is false.
-Otherwise returns <a class="xref" href="ShapeEngine.Input.InputAction.html#ShapeEngine_Input_InputAction_HasAccess_System_UInt32_">HasAccess(uint)</a> with the <code>tag</code> parameter.
-</remarks></p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool IsInputAvailable(uint tag)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>tag</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
-    <dd><p>The access tag to check.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p>True if input is available; otherwise, false.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="ShapeEngine_Input_InputAction_Lock_" data-uid="ShapeEngine.Input.InputAction.Lock*"></a>
-
-  <h3 id="ShapeEngine_Input_InputAction_Lock" data-uid="ShapeEngine.Input.InputAction.Lock">
-  Lock()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L707"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Locks the input system, clearing all whitelists and blacklists.
-<remarks>
-Only <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> with <a class="xref" href="ShapeEngine.Input.InputAction.html#ShapeEngine_Input_InputAction_AllAccessTag">AllAccessTag</a> will be able to trigger.
-</remarks></p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void Lock()</code></pre>
-  </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <a id="ShapeEngine_Input_InputAction_Lock_" data-uid="ShapeEngine.Input.InputAction.Lock*"></a>
-
-  <h3 id="ShapeEngine_Input_InputAction_Lock_ShapeEngine_Core_Structs_BitFlag_ShapeEngine_Core_Structs_BitFlag_" data-uid="ShapeEngine.Input.InputAction.Lock(ShapeEngine.Core.Structs.BitFlag,ShapeEngine.Core.Structs.BitFlag)">
-  Lock(BitFlag, BitFlag)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L723"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Locks the input system with a specific whitelist and blacklist.
-<remarks>
-All <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> with a tag contained in the whitelist will be able to trigger.
-All <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> with a tag contained in the blacklist will not be able to trigger.
-</remarks></p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void Lock(BitFlag whitelist, BitFlag blacklist)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>whitelist</code> <a class="xref" href="ShapeEngine.Core.Structs.BitFlag.html">BitFlag</a></dt>
-    <dd><p>The whitelist of access tags.</p>
-</dd>
-    <dt><code>blacklist</code> <a class="xref" href="ShapeEngine.Core.Structs.BitFlag.html">BitFlag</a></dt>
-    <dd><p>The blacklist of access tags.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-
-  <a id="ShapeEngine_Input_InputAction_LockBlacklist_" data-uid="ShapeEngine.Input.InputAction.LockBlacklist*"></a>
-
-  <h3 id="ShapeEngine_Input_InputAction_LockBlacklist_ShapeEngine_Core_Structs_BitFlag_" data-uid="ShapeEngine.Input.InputAction.LockBlacklist(ShapeEngine.Core.Structs.BitFlag)">
-  LockBlacklist(BitFlag)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L757"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Locks the input system with a specific blacklist.
-<remarks>
-All <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> with a tag contained in the blacklist will not be able to trigger.
-</remarks></p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void LockBlacklist(BitFlag blacklist)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>blacklist</code> <a class="xref" href="ShapeEngine.Core.Structs.BitFlag.html">BitFlag</a></dt>
-    <dd><p>The blacklist of access tags.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-
-  <a id="ShapeEngine_Input_InputAction_LockWhitelist_" data-uid="ShapeEngine.Input.InputAction.LockWhitelist*"></a>
-
-  <h3 id="ShapeEngine_Input_InputAction_LockWhitelist_ShapeEngine_Core_Structs_BitFlag_" data-uid="ShapeEngine.Input.InputAction.LockWhitelist(ShapeEngine.Core.Structs.BitFlag)">
-  LockWhitelist(BitFlag)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L740"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Locks the input system with a specific whitelist.
-<remarks>
-All <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> with a tag contained in the whitelist will be able to trigger.
-</remarks></p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void LockWhitelist(BitFlag whitelist)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>whitelist</code> <a class="xref" href="ShapeEngine.Core.Structs.BitFlag.html">BitFlag</a></dt>
-    <dd><p>The whitelist of access tags.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-
   <a id="ShapeEngine_Input_InputAction_RemoveInput_" data-uid="ShapeEngine.Input.InputAction.RemoveInput*"></a>
 
   <h3 id="ShapeEngine_Input_InputAction_RemoveInput_ShapeEngine_Input_IInputType_" data-uid="ShapeEngine.Input.InputAction.RemoveInput(ShapeEngine.Input.IInputType)">
   RemoveInput(IInputType)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L466"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L658"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Removes a specific input type from this action.</p>
@@ -2462,7 +2037,7 @@ All <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> wi
 
   <h3 id="ShapeEngine_Input_InputAction_RemoveInputs_ShapeEngine_Input_InputDeviceType_" data-uid="ShapeEngine.Input.InputAction.RemoveInputs(ShapeEngine.Input.InputDeviceType)">
   RemoveInputs(InputDeviceType)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L473"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L665"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Removes all input types of a specific device type.</p>
@@ -2470,7 +2045,7 @@ All <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> wi
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public List&lt;IInputType&gt; RemoveInputs(InputDeviceType filter)</code></pre>
+    <pre><code class="lang-csharp hljs">public List&lt;IInputType&gt;? RemoveInputs(InputDeviceType filter)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -2497,19 +2072,47 @@ All <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> wi
 
 
 
-  <a id="ShapeEngine_Input_InputAction_Unlock_" data-uid="ShapeEngine.Input.InputAction.Unlock*"></a>
+  <a id="ShapeEngine_Input_InputAction_Reset_" data-uid="ShapeEngine.Input.InputAction.Reset*"></a>
 
-  <h3 id="ShapeEngine_Input_InputAction_Unlock" data-uid="ShapeEngine.Input.InputAction.Unlock">
-  Unlock()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L766"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Input_InputAction_Reset" data-uid="ShapeEngine.Input.InputAction.Reset">
+  Reset()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L296"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Unlocks the input system, clearing all whitelists and blacklists.</p>
+  <div class="markdown level1 summary"><p>Resets the input action to its initial state, clearing the current input state,
+hold timer, multi-tap timer, and multi-tap count.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void Unlock()</code></pre>
+    <pre><code class="lang-csharp hljs">public void Reset()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Input_InputAction_ResetToggle_" data-uid="ShapeEngine.Input.InputAction.ResetToggle*"></a>
+
+  <h3 id="ShapeEngine_Input_InputAction_ResetToggle" data-uid="ShapeEngine.Input.InputAction.ResetToggle">
+  ResetToggle()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L186"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Resets the toggle state to off.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ResetToggle()</code></pre>
   </div>
 
 
@@ -2526,23 +2129,35 @@ All <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> wi
 
   <a id="ShapeEngine_Input_InputAction_Update_" data-uid="ShapeEngine.Input.InputAction.Update*"></a>
 
-  <h3 id="ShapeEngine_Input_InputAction_Update_System_Single_" data-uid="ShapeEngine.Input.InputAction.Update(System.Single)">
-  Update(float)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L212"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Input_InputAction_Update_System_Single_ShapeEngine_Input_InputDeviceType__" data-uid="ShapeEngine.Input.InputAction.Update(System.Single,ShapeEngine.Input.InputDeviceType@)">
+  Update(float, out InputDeviceType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L337"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Updates the input action state based on the current input and time delta.</p>
+  <div class="markdown level1 summary"><p>Updates the input action state when it is not part of an <a class="xref" href="ShapeEngine.Input.InputActionTree.html">InputActionTree</a>.
+This method should only be used for standalone actions.
+If the action is in a tree, the update is skipped, because the <a class="xref" href="ShapeEngine.Input.InputActionTree.html">InputActionTree</a> will handle the update automatically.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Update(float dt)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool Update(float dt, out InputDeviceType inputDeviceType)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>dt</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
     <dd><p>The time delta in seconds.</p>
+</dd>
+    <dt><code>inputDeviceType</code> <a class="xref" href="ShapeEngine.Input.InputDeviceType.html">InputDeviceType</a></dt>
+    <dd><p>Outputs the detected input device type.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><code>true</code> if the action was updated; otherwise, <code>false</code>.</p>
 </dd>
   </dl>
 
@@ -2552,85 +2167,10 @@ All <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> wi
 
 
 
-
-
-
-
-
-  <a id="ShapeEngine_Input_InputAction_UpdateActions_" data-uid="ShapeEngine.Input.InputAction.UpdateActions*"></a>
-
-  <h3 id="ShapeEngine_Input_InputAction_UpdateActions_System_Single_ShapeEngine_Input_ShapeGamepadDevice_ShapeEngine_Input_InputAction___" data-uid="ShapeEngine.Input.InputAction.UpdateActions(System.Single,ShapeEngine.Input.ShapeGamepadDevice,ShapeEngine.Input.InputAction[])">
-  UpdateActions(float, ShapeGamepadDevice?, params InputAction[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L821"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Updates a set of input actions with the specified gamepad and time delta.</p>
+  <h4 class="section" id="ShapeEngine_Input_InputAction_Update_System_Single_ShapeEngine_Input_InputDeviceType___remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Because the <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> is not part of an <a class="xref" href="ShapeEngine.Input.InputActionTree.html">InputActionTree</a>,
+the <a class="xref" href="ShapeEngine.Input.IInputType.html">IInputType</a> Block system is not used.</p>
 </div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void UpdateActions(float dt, ShapeGamepadDevice? gamepad, params InputAction[] actions)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>dt</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
-    <dd><p>The time delta in seconds.</p>
-</dd>
-    <dt><code>gamepad</code> <a class="xref" href="ShapeEngine.Input.ShapeGamepadDevice.html">ShapeGamepadDevice</a></dt>
-    <dd><p>The gamepad device to use.</p>
-</dd>
-    <dt><code>actions</code> <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a>[]</dt>
-    <dd><p>The input actions to update.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-
-  <a id="ShapeEngine_Input_InputAction_UpdateActions_" data-uid="ShapeEngine.Input.InputAction.UpdateActions*"></a>
-
-  <h3 id="ShapeEngine_Input_InputAction_UpdateActions_System_Single_ShapeEngine_Input_ShapeGamepadDevice_System_Collections_Generic_List_ShapeEngine_Input_InputAction__" data-uid="ShapeEngine.Input.InputAction.UpdateActions(System.Single,ShapeEngine.Input.ShapeGamepadDevice,System.Collections.Generic.List{ShapeEngine.Input.InputAction})">
-  UpdateActions(float, ShapeGamepadDevice?, List&lt;InputAction&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L835"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Updates a list of input actions with the specified gamepad and time delta.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void UpdateActions(float dt, ShapeGamepadDevice? gamepad, List&lt;InputAction&gt; actions)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>dt</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
-    <dd><p>The time delta in seconds.</p>
-</dd>
-    <dt><code>gamepad</code> <a class="xref" href="ShapeEngine.Input.ShapeGamepadDevice.html">ShapeGamepadDevice</a></dt>
-    <dd><p>The gamepad device to use.</p>
-</dd>
-    <dt><code>actions</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a>&gt;</dt>
-    <dd><p>The input actions to update.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-
 
 
 
@@ -2639,7 +2179,7 @@ All <a class="xref" href="ShapeEngine.Input.InputAction.html">InputAction</a> wi
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L11" class="edit-link">Edit this page</a>
+          <a href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Input/InputAction.cs/#L14" class="edit-link">Edit this page</a>
         </div>
 
 

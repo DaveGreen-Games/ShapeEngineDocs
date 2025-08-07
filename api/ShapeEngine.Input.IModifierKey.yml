@@ -6,11 +6,8 @@ items:
   parent: ShapeEngine.Input
   children:
   - ShapeEngine.Input.IModifierKey.GetInputDevice
-  - ShapeEngine.Input.IModifierKey.GetModifierKeyNames(ShapeEngine.Input.IModifierKey[],ShapeEngine.Input.ModifierKeyOperator,System.Boolean)
-  - ShapeEngine.Input.IModifierKey.GetModifierKeyNames(System.Text.StringBuilder,ShapeEngine.Input.IModifierKey[],ShapeEngine.Input.ModifierKeyOperator,System.Boolean)
   - ShapeEngine.Input.IModifierKey.GetName(System.Boolean)
-  - ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.ModifierKeyOperator,ShapeEngine.Input.IModifierKey[],ShapeEngine.Input.ShapeGamepadDevice)
-  - ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.ShapeGamepadDevice)
+  - ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.GamepadDevice)
   langs:
   - csharp
   - vb
@@ -25,25 +22,28 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IModifierKey
     path: ../ShapeEngine/ShapeEngine/Input/IModifierKey.cs
-    startLine: 7
+    startLine: 8
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
   summary: Represents a modifier key (such as Shift, Ctrl, Alt) for input handling.
   example: []
   syntax:
-    content: public interface IModifierKey
-    content.vb: Public Interface IModifierKey
-- uid: ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.ShapeGamepadDevice)
-  commentId: M:ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.ShapeGamepadDevice)
-  id: IsActive(ShapeEngine.Input.ShapeGamepadDevice)
+    content: 'public interface IModifierKey : ICopyable<IModifierKey>, IEquatable<IModifierKey>'
+    content.vb: Public Interface IModifierKey Inherits ICopyable(Of IModifierKey), IEquatable(Of IModifierKey)
+  inheritedMembers:
+  - ShapeEngine.Core.ICopyable{ShapeEngine.Input.IModifierKey}.Copy
+  - System.IEquatable{ShapeEngine.Input.IModifierKey}.Equals(ShapeEngine.Input.IModifierKey)
+- uid: ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.GamepadDevice)
+  commentId: M:ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.GamepadDevice)
+  id: IsActive(ShapeEngine.Input.GamepadDevice)
   parent: ShapeEngine.Input.IModifierKey
   langs:
   - csharp
   - vb
-  name: IsActive(ShapeGamepadDevice?)
-  nameWithType: IModifierKey.IsActive(ShapeGamepadDevice?)
-  fullName: ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.ShapeGamepadDevice?)
+  name: IsActive(GamepadDevice?)
+  nameWithType: IModifierKey.IsActive(GamepadDevice?)
+  fullName: ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.GamepadDevice?)
   type: Method
   source:
     remote:
@@ -52,26 +52,26 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsActive
     path: ../ShapeEngine/ShapeEngine/Input/IModifierKey.cs
-    startLine: 14
+    startLine: 15
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
   summary: Determines if the modifier key is currently active.
   example: []
   syntax:
-    content: bool IsActive(ShapeGamepadDevice? gamepad = null)
+    content: bool IsActive(GamepadDevice? gamepad = null)
     parameters:
     - id: gamepad
-      type: ShapeEngine.Input.ShapeGamepadDevice
+      type: ShapeEngine.Input.GamepadDevice
       description: Optional gamepad device to check against.
     return:
       type: System.Boolean
       description: True if the modifier key is active; otherwise, false.
-    content.vb: Function IsActive(gamepad As ShapeGamepadDevice = Nothing) As Boolean
+    content.vb: Function IsActive(gamepad As GamepadDevice = Nothing) As Boolean
   overload: ShapeEngine.Input.IModifierKey.IsActive*
-  nameWithType.vb: IModifierKey.IsActive(ShapeGamepadDevice)
-  fullName.vb: ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.ShapeGamepadDevice)
-  name.vb: IsActive(ShapeGamepadDevice)
+  nameWithType.vb: IModifierKey.IsActive(GamepadDevice)
+  fullName.vb: ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.GamepadDevice)
+  name.vb: IsActive(GamepadDevice)
 - uid: ShapeEngine.Input.IModifierKey.GetName(System.Boolean)
   commentId: M:ShapeEngine.Input.IModifierKey.GetName(System.Boolean)
   id: GetName(System.Boolean)
@@ -90,7 +90,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetName
     path: ../ShapeEngine/ShapeEngine/Input/IModifierKey.cs
-    startLine: 21
+    startLine: 22
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -128,7 +128,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetInputDevice
     path: ../ShapeEngine/ShapeEngine/Input/IModifierKey.cs
-    startLine: 27
+    startLine: 28
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -141,138 +141,6 @@ items:
       description: The input device type.
     content.vb: Function GetInputDevice() As InputDeviceType
   overload: ShapeEngine.Input.IModifierKey.GetInputDevice*
-- uid: ShapeEngine.Input.IModifierKey.GetModifierKeyNames(ShapeEngine.Input.IModifierKey[],ShapeEngine.Input.ModifierKeyOperator,System.Boolean)
-  commentId: M:ShapeEngine.Input.IModifierKey.GetModifierKeyNames(ShapeEngine.Input.IModifierKey[],ShapeEngine.Input.ModifierKeyOperator,System.Boolean)
-  id: GetModifierKeyNames(ShapeEngine.Input.IModifierKey[],ShapeEngine.Input.ModifierKeyOperator,System.Boolean)
-  parent: ShapeEngine.Input.IModifierKey
-  langs:
-  - csharp
-  - vb
-  name: GetModifierKeyNames(IModifierKey[], ModifierKeyOperator, bool)
-  nameWithType: IModifierKey.GetModifierKeyNames(IModifierKey[], ModifierKeyOperator, bool)
-  fullName: ShapeEngine.Input.IModifierKey.GetModifierKeyNames(ShapeEngine.Input.IModifierKey[], ShapeEngine.Input.ModifierKeyOperator, bool)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Input/IModifierKey.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: GetModifierKeyNames
-    path: ../ShapeEngine/ShapeEngine/Input/IModifierKey.cs
-    startLine: 36
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: Gets a combined string of modifier key names using the specified operator.
-  example: []
-  syntax:
-    content: public static string GetModifierKeyNames(IModifierKey[] modifierKeys, ModifierKeyOperator modifierOperator, bool shorthand = true)
-    parameters:
-    - id: modifierKeys
-      type: ShapeEngine.Input.IModifierKey[]
-      description: Array of modifier keys.
-    - id: modifierOperator
-      type: ShapeEngine.Input.ModifierKeyOperator
-      description: Operator (And/Or) to combine names.
-    - id: shorthand
-      type: System.Boolean
-      description: If true, uses shorthand names.
-    return:
-      type: System.String
-      description: A combined string of modifier key names.
-    content.vb: Public Shared Function GetModifierKeyNames(modifierKeys As IModifierKey(), modifierOperator As ModifierKeyOperator, shorthand As Boolean = True) As String
-  overload: ShapeEngine.Input.IModifierKey.GetModifierKeyNames*
-  nameWithType.vb: IModifierKey.GetModifierKeyNames(IModifierKey(), ModifierKeyOperator, Boolean)
-  fullName.vb: ShapeEngine.Input.IModifierKey.GetModifierKeyNames(ShapeEngine.Input.IModifierKey(), ShapeEngine.Input.ModifierKeyOperator, Boolean)
-  name.vb: GetModifierKeyNames(IModifierKey(), ModifierKeyOperator, Boolean)
-- uid: ShapeEngine.Input.IModifierKey.GetModifierKeyNames(System.Text.StringBuilder,ShapeEngine.Input.IModifierKey[],ShapeEngine.Input.ModifierKeyOperator,System.Boolean)
-  commentId: M:ShapeEngine.Input.IModifierKey.GetModifierKeyNames(System.Text.StringBuilder,ShapeEngine.Input.IModifierKey[],ShapeEngine.Input.ModifierKeyOperator,System.Boolean)
-  id: GetModifierKeyNames(System.Text.StringBuilder,ShapeEngine.Input.IModifierKey[],ShapeEngine.Input.ModifierKeyOperator,System.Boolean)
-  parent: ShapeEngine.Input.IModifierKey
-  langs:
-  - csharp
-  - vb
-  name: GetModifierKeyNames(StringBuilder, IModifierKey[], ModifierKeyOperator, bool)
-  nameWithType: IModifierKey.GetModifierKeyNames(StringBuilder, IModifierKey[], ModifierKeyOperator, bool)
-  fullName: ShapeEngine.Input.IModifierKey.GetModifierKeyNames(System.Text.StringBuilder, ShapeEngine.Input.IModifierKey[], ShapeEngine.Input.ModifierKeyOperator, bool)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Input/IModifierKey.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: GetModifierKeyNames
-    path: ../ShapeEngine/ShapeEngine/Input/IModifierKey.cs
-    startLine: 68
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: Appends combined modifier key names to the provided StringBuilder.
-  example: []
-  syntax:
-    content: public static void GetModifierKeyNames(StringBuilder sb, IModifierKey[] modifierKeys, ModifierKeyOperator modifierOperator, bool shorthand = true)
-    parameters:
-    - id: sb
-      type: System.Text.StringBuilder
-      description: The StringBuilder to append to.
-    - id: modifierKeys
-      type: ShapeEngine.Input.IModifierKey[]
-      description: Array of modifier keys.
-    - id: modifierOperator
-      type: ShapeEngine.Input.ModifierKeyOperator
-      description: Operator (And/Or) to combine names.
-    - id: shorthand
-      type: System.Boolean
-      description: If true, uses shorthand names.
-    content.vb: Public Shared Sub GetModifierKeyNames(sb As StringBuilder, modifierKeys As IModifierKey(), modifierOperator As ModifierKeyOperator, shorthand As Boolean = True)
-  overload: ShapeEngine.Input.IModifierKey.GetModifierKeyNames*
-  nameWithType.vb: IModifierKey.GetModifierKeyNames(StringBuilder, IModifierKey(), ModifierKeyOperator, Boolean)
-  fullName.vb: ShapeEngine.Input.IModifierKey.GetModifierKeyNames(System.Text.StringBuilder, ShapeEngine.Input.IModifierKey(), ShapeEngine.Input.ModifierKeyOperator, Boolean)
-  name.vb: GetModifierKeyNames(StringBuilder, IModifierKey(), ModifierKeyOperator, Boolean)
-- uid: ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.ModifierKeyOperator,ShapeEngine.Input.IModifierKey[],ShapeEngine.Input.ShapeGamepadDevice)
-  commentId: M:ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.ModifierKeyOperator,ShapeEngine.Input.IModifierKey[],ShapeEngine.Input.ShapeGamepadDevice)
-  id: IsActive(ShapeEngine.Input.ModifierKeyOperator,ShapeEngine.Input.IModifierKey[],ShapeEngine.Input.ShapeGamepadDevice)
-  parent: ShapeEngine.Input.IModifierKey
-  langs:
-  - csharp
-  - vb
-  name: IsActive(ModifierKeyOperator, IModifierKey[], ShapeGamepadDevice?)
-  nameWithType: IModifierKey.IsActive(ModifierKeyOperator, IModifierKey[], ShapeGamepadDevice?)
-  fullName: ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.ModifierKeyOperator, ShapeEngine.Input.IModifierKey[], ShapeEngine.Input.ShapeGamepadDevice?)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Input/IModifierKey.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: IsActive
-    path: ../ShapeEngine/ShapeEngine/Input/IModifierKey.cs
-    startLine: 111
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: Determines if the specified modifier keys are active based on the operator.
-  example: []
-  syntax:
-    content: public static bool IsActive(ModifierKeyOperator modifierOperator, IModifierKey[] modifierKeys, ShapeGamepadDevice? gamepad = null)
-    parameters:
-    - id: modifierOperator
-      type: ShapeEngine.Input.ModifierKeyOperator
-      description: Operator (And/Or) to evaluate.
-    - id: modifierKeys
-      type: ShapeEngine.Input.IModifierKey[]
-      description: Array of modifier keys.
-    - id: gamepad
-      type: ShapeEngine.Input.ShapeGamepadDevice
-      description: Optional gamepad device to check against.
-    return:
-      type: System.Boolean
-      description: True if the modifier keys are active according to the operator; otherwise, false.
-    content.vb: Public Shared Function IsActive(modifierOperator As ModifierKeyOperator, modifierKeys As IModifierKey(), gamepad As ShapeGamepadDevice = Nothing) As Boolean
-  overload: ShapeEngine.Input.IModifierKey.IsActive*
-  nameWithType.vb: IModifierKey.IsActive(ModifierKeyOperator, IModifierKey(), ShapeGamepadDevice)
-  fullName.vb: ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.ModifierKeyOperator, ShapeEngine.Input.IModifierKey(), ShapeEngine.Input.ShapeGamepadDevice)
-  name.vb: IsActive(ModifierKeyOperator, IModifierKey(), ShapeGamepadDevice)
 references:
 - uid: ShapeEngine.Input
   commentId: N:ShapeEngine.Input
@@ -296,19 +164,262 @@ references:
   - uid: ShapeEngine.Input
     name: Input
     href: ShapeEngine.Input.html
+- uid: ShapeEngine.Core.ICopyable{ShapeEngine.Input.IModifierKey}.Copy
+  commentId: M:ShapeEngine.Core.ICopyable{ShapeEngine.Input.IModifierKey}.Copy
+  parent: ShapeEngine.Core.ICopyable{ShapeEngine.Input.IModifierKey}
+  definition: ShapeEngine.Core.ICopyable`1.Copy
+  href: ShapeEngine.Core.ICopyable-1.html#ShapeEngine_Core_ICopyable_1_Copy
+  name: Copy()
+  nameWithType: ICopyable<IModifierKey>.Copy()
+  fullName: ShapeEngine.Core.ICopyable<ShapeEngine.Input.IModifierKey>.Copy()
+  nameWithType.vb: ICopyable(Of IModifierKey).Copy()
+  fullName.vb: ShapeEngine.Core.ICopyable(Of ShapeEngine.Input.IModifierKey).Copy()
+  spec.csharp:
+  - uid: ShapeEngine.Core.ICopyable{ShapeEngine.Input.IModifierKey}.Copy
+    name: Copy
+    href: ShapeEngine.Core.ICopyable-1.html#ShapeEngine_Core_ICopyable_1_Copy
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.ICopyable{ShapeEngine.Input.IModifierKey}.Copy
+    name: Copy
+    href: ShapeEngine.Core.ICopyable-1.html#ShapeEngine_Core_ICopyable_1_Copy
+  - name: (
+  - name: )
+- uid: System.IEquatable{ShapeEngine.Input.IModifierKey}.Equals(ShapeEngine.Input.IModifierKey)
+  commentId: M:System.IEquatable{ShapeEngine.Input.IModifierKey}.Equals(ShapeEngine.Input.IModifierKey)
+  parent: System.IEquatable{ShapeEngine.Input.IModifierKey}
+  definition: System.IEquatable`1.Equals(`0)
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(IModifierKey)
+  nameWithType: IEquatable<IModifierKey>.Equals(IModifierKey)
+  fullName: System.IEquatable<ShapeEngine.Input.IModifierKey>.Equals(ShapeEngine.Input.IModifierKey)
+  nameWithType.vb: IEquatable(Of IModifierKey).Equals(IModifierKey)
+  fullName.vb: System.IEquatable(Of ShapeEngine.Input.IModifierKey).Equals(ShapeEngine.Input.IModifierKey)
+  spec.csharp:
+  - uid: System.IEquatable{ShapeEngine.Input.IModifierKey}.Equals(ShapeEngine.Input.IModifierKey)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - uid: ShapeEngine.Input.IModifierKey
+    name: IModifierKey
+    href: ShapeEngine.Input.IModifierKey.html
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable{ShapeEngine.Input.IModifierKey}.Equals(ShapeEngine.Input.IModifierKey)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - uid: ShapeEngine.Input.IModifierKey
+    name: IModifierKey
+    href: ShapeEngine.Input.IModifierKey.html
+  - name: )
+- uid: ShapeEngine.Core.ICopyable`1.Copy
+  commentId: M:ShapeEngine.Core.ICopyable`1.Copy
+  href: ShapeEngine.Core.ICopyable-1.html#ShapeEngine_Core_ICopyable_1_Copy
+  name: Copy()
+  nameWithType: ICopyable<T>.Copy()
+  fullName: ShapeEngine.Core.ICopyable<T>.Copy()
+  nameWithType.vb: ICopyable(Of T).Copy()
+  fullName.vb: ShapeEngine.Core.ICopyable(Of T).Copy()
+  spec.csharp:
+  - uid: ShapeEngine.Core.ICopyable`1.Copy
+    name: Copy
+    href: ShapeEngine.Core.ICopyable-1.html#ShapeEngine_Core_ICopyable_1_Copy
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.ICopyable`1.Copy
+    name: Copy
+    href: ShapeEngine.Core.ICopyable-1.html#ShapeEngine_Core_ICopyable_1_Copy
+  - name: (
+  - name: )
+- uid: ShapeEngine.Core.ICopyable{ShapeEngine.Input.IModifierKey}
+  commentId: T:ShapeEngine.Core.ICopyable{ShapeEngine.Input.IModifierKey}
+  parent: ShapeEngine.Core
+  definition: ShapeEngine.Core.ICopyable`1
+  href: ShapeEngine.Core.ICopyable-1.html
+  name: ICopyable<IModifierKey>
+  nameWithType: ICopyable<IModifierKey>
+  fullName: ShapeEngine.Core.ICopyable<ShapeEngine.Input.IModifierKey>
+  nameWithType.vb: ICopyable(Of IModifierKey)
+  fullName.vb: ShapeEngine.Core.ICopyable(Of ShapeEngine.Input.IModifierKey)
+  name.vb: ICopyable(Of IModifierKey)
+  spec.csharp:
+  - uid: ShapeEngine.Core.ICopyable`1
+    name: ICopyable
+    href: ShapeEngine.Core.ICopyable-1.html
+  - name: <
+  - uid: ShapeEngine.Input.IModifierKey
+    name: IModifierKey
+    href: ShapeEngine.Input.IModifierKey.html
+  - name: '>'
+  spec.vb:
+  - uid: ShapeEngine.Core.ICopyable`1
+    name: ICopyable
+    href: ShapeEngine.Core.ICopyable-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ShapeEngine.Input.IModifierKey
+    name: IModifierKey
+    href: ShapeEngine.Input.IModifierKey.html
+  - name: )
+- uid: System.IEquatable`1.Equals(`0)
+  commentId: M:System.IEquatable`1.Equals(`0)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(T)
+  nameWithType: IEquatable<T>.Equals(T)
+  fullName: System.IEquatable<T>.Equals(T)
+  nameWithType.vb: IEquatable(Of T).Equals(T)
+  fullName.vb: System.IEquatable(Of T).Equals(T)
+  spec.csharp:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+- uid: System.IEquatable{ShapeEngine.Input.IModifierKey}
+  commentId: T:System.IEquatable{ShapeEngine.Input.IModifierKey}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<IModifierKey>
+  nameWithType: IEquatable<IModifierKey>
+  fullName: System.IEquatable<ShapeEngine.Input.IModifierKey>
+  nameWithType.vb: IEquatable(Of IModifierKey)
+  fullName.vb: System.IEquatable(Of ShapeEngine.Input.IModifierKey)
+  name.vb: IEquatable(Of IModifierKey)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: ShapeEngine.Input.IModifierKey
+    name: IModifierKey
+    href: ShapeEngine.Input.IModifierKey.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ShapeEngine.Input.IModifierKey
+    name: IModifierKey
+    href: ShapeEngine.Input.IModifierKey.html
+  - name: )
+- uid: ShapeEngine.Core.ICopyable`1
+  commentId: T:ShapeEngine.Core.ICopyable`1
+  href: ShapeEngine.Core.ICopyable-1.html
+  name: ICopyable<T>
+  nameWithType: ICopyable<T>
+  fullName: ShapeEngine.Core.ICopyable<T>
+  nameWithType.vb: ICopyable(Of T)
+  fullName.vb: ShapeEngine.Core.ICopyable(Of T)
+  name.vb: ICopyable(Of T)
+  spec.csharp:
+  - uid: ShapeEngine.Core.ICopyable`1
+    name: ICopyable
+    href: ShapeEngine.Core.ICopyable-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: ShapeEngine.Core.ICopyable`1
+    name: ICopyable
+    href: ShapeEngine.Core.ICopyable-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: ShapeEngine.Core
+  commentId: N:ShapeEngine.Core
+  href: ShapeEngine.html
+  name: ShapeEngine.Core
+  nameWithType: ShapeEngine.Core
+  fullName: ShapeEngine.Core
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
 - uid: ShapeEngine.Input.IModifierKey.IsActive*
   commentId: Overload:ShapeEngine.Input.IModifierKey.IsActive
-  href: ShapeEngine.Input.IModifierKey.html#ShapeEngine_Input_IModifierKey_IsActive_ShapeEngine_Input_ShapeGamepadDevice_
+  href: ShapeEngine.Input.IModifierKey.html#ShapeEngine_Input_IModifierKey_IsActive_ShapeEngine_Input_GamepadDevice_
   name: IsActive
   nameWithType: IModifierKey.IsActive
   fullName: ShapeEngine.Input.IModifierKey.IsActive
-- uid: ShapeEngine.Input.ShapeGamepadDevice
-  commentId: T:ShapeEngine.Input.ShapeGamepadDevice
+- uid: ShapeEngine.Input.GamepadDevice
+  commentId: T:ShapeEngine.Input.GamepadDevice
   parent: ShapeEngine.Input
-  href: ShapeEngine.Input.ShapeGamepadDevice.html
-  name: ShapeGamepadDevice
-  nameWithType: ShapeGamepadDevice
-  fullName: ShapeEngine.Input.ShapeGamepadDevice
+  href: ShapeEngine.Input.GamepadDevice.html
+  name: GamepadDevice
+  nameWithType: GamepadDevice
+  fullName: ShapeEngine.Input.GamepadDevice
 - uid: System.Boolean
   commentId: T:System.Boolean
   parent: System
@@ -320,13 +431,6 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
-- uid: System
-  commentId: N:System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system
-  name: System
-  nameWithType: System
-  fullName: System
 - uid: ShapeEngine.Input.IModifierKey.GetName*
   commentId: Overload:ShapeEngine.Input.IModifierKey.GetName
   href: ShapeEngine.Input.IModifierKey.html#ShapeEngine_Input_IModifierKey_GetName_System_Boolean_
@@ -357,72 +461,3 @@ references:
   name: InputDeviceType
   nameWithType: InputDeviceType
   fullName: ShapeEngine.Input.InputDeviceType
-- uid: ShapeEngine.Input.IModifierKey.GetModifierKeyNames*
-  commentId: Overload:ShapeEngine.Input.IModifierKey.GetModifierKeyNames
-  href: ShapeEngine.Input.IModifierKey.html#ShapeEngine_Input_IModifierKey_GetModifierKeyNames_ShapeEngine_Input_IModifierKey___ShapeEngine_Input_ModifierKeyOperator_System_Boolean_
-  name: GetModifierKeyNames
-  nameWithType: IModifierKey.GetModifierKeyNames
-  fullName: ShapeEngine.Input.IModifierKey.GetModifierKeyNames
-- uid: ShapeEngine.Input.IModifierKey[]
-  isExternal: true
-  href: ShapeEngine.Input.IModifierKey.html
-  name: IModifierKey[]
-  nameWithType: IModifierKey[]
-  fullName: ShapeEngine.Input.IModifierKey[]
-  nameWithType.vb: IModifierKey()
-  fullName.vb: ShapeEngine.Input.IModifierKey()
-  name.vb: IModifierKey()
-  spec.csharp:
-  - uid: ShapeEngine.Input.IModifierKey
-    name: IModifierKey
-    href: ShapeEngine.Input.IModifierKey.html
-  - name: '['
-  - name: ']'
-  spec.vb:
-  - uid: ShapeEngine.Input.IModifierKey
-    name: IModifierKey
-    href: ShapeEngine.Input.IModifierKey.html
-  - name: (
-  - name: )
-- uid: ShapeEngine.Input.ModifierKeyOperator
-  commentId: T:ShapeEngine.Input.ModifierKeyOperator
-  parent: ShapeEngine.Input
-  href: ShapeEngine.Input.ModifierKeyOperator.html
-  name: ModifierKeyOperator
-  nameWithType: ModifierKeyOperator
-  fullName: ShapeEngine.Input.ModifierKeyOperator
-- uid: System.Text.StringBuilder
-  commentId: T:System.Text.StringBuilder
-  parent: System.Text
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.text.stringbuilder
-  name: StringBuilder
-  nameWithType: StringBuilder
-  fullName: System.Text.StringBuilder
-- uid: System.Text
-  commentId: N:System.Text
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system
-  name: System.Text
-  nameWithType: System.Text
-  fullName: System.Text
-  spec.csharp:
-  - uid: System
-    name: System
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system
-  - name: .
-  - uid: System.Text
-    name: Text
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.text
-  spec.vb:
-  - uid: System
-    name: System
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system
-  - name: .
-  - uid: System.Text
-    name: Text
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.text
