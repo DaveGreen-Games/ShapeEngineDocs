@@ -5,16 +5,13 @@ items:
   id: KeyboardDevice
   parent: ShapeEngine.Input
   children:
-  - ShapeEngine.Input.KeyboardDevice.Activate
   - ShapeEngine.Input.KeyboardDevice.AllKeyboardKeys
   - ShapeEngine.Input.KeyboardDevice.AllShapeKeyboardButtons
-  - ShapeEngine.Input.KeyboardDevice.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
   - ShapeEngine.Input.KeyboardDevice.ConsumeButtonState(ShapeEngine.Input.ShapeKeyboardButton,System.Boolean@)
   - ShapeEngine.Input.KeyboardDevice.CreateInputState(ShapeEngine.Input.ShapeKeyboardButton,ShapeEngine.Input.InputState,ShapeEngine.Input.ModifierKeySet)
   - ShapeEngine.Input.KeyboardDevice.CreateInputState(ShapeEngine.Input.ShapeKeyboardButton,ShapeEngine.Input.ModifierKeySet)
   - ShapeEngine.Input.KeyboardDevice.CreateInputState(ShapeEngine.Input.ShapeKeyboardButton,ShapeEngine.Input.ShapeKeyboardButton,ShapeEngine.Input.InputState,ShapeEngine.Input.ModifierKeySet)
   - ShapeEngine.Input.KeyboardDevice.CreateInputState(ShapeEngine.Input.ShapeKeyboardButton,ShapeEngine.Input.ShapeKeyboardButton,ShapeEngine.Input.ModifierKeySet)
-  - ShapeEngine.Input.KeyboardDevice.Deactivate
   - ShapeEngine.Input.KeyboardDevice.DeviceProcessPriority
   - ShapeEngine.Input.KeyboardDevice.GetButtonState(ShapeEngine.Input.ShapeKeyboardButton)
   - ShapeEngine.Input.KeyboardDevice.GetDeviceProcessPriority
@@ -26,7 +23,6 @@ items:
   - ShapeEngine.Input.KeyboardDevice.GetValue(ShapeEngine.Input.ShapeKeyboardButton,ShapeEngine.Input.ModifierKeySet)
   - ShapeEngine.Input.KeyboardDevice.GetValue(ShapeEngine.Input.ShapeKeyboardButton,ShapeEngine.Input.ShapeKeyboardButton,ShapeEngine.Input.ModifierKeySet)
   - ShapeEngine.Input.KeyboardDevice.HeldDownButtons
-  - ShapeEngine.Input.KeyboardDevice.IsActive
   - ShapeEngine.Input.KeyboardDevice.IsDown(ShapeEngine.Input.ShapeKeyboardButton,ShapeEngine.Input.ModifierKeySet)
   - ShapeEngine.Input.KeyboardDevice.IsDown(ShapeEngine.Input.ShapeKeyboardButton,ShapeEngine.Input.ShapeKeyboardButton,ShapeEngine.Input.ModifierKeySet)
   - ShapeEngine.Input.KeyboardDevice.IsLocked
@@ -35,9 +31,9 @@ items:
   - ShapeEngine.Input.KeyboardDevice.OnButtonReleased
   - ShapeEngine.Input.KeyboardDevice.PressedButtons
   - ShapeEngine.Input.KeyboardDevice.ReleasedButtons
+  - ShapeEngine.Input.KeyboardDevice.Settings
   - ShapeEngine.Input.KeyboardDevice.Unlock
   - ShapeEngine.Input.KeyboardDevice.Update(System.Single,System.Boolean)
-  - ShapeEngine.Input.KeyboardDevice.UsageDetectionSettings
   - ShapeEngine.Input.KeyboardDevice.UsedCharacters
   - ShapeEngine.Input.KeyboardDevice.WasUsed
   - ShapeEngine.Input.KeyboardDevice.WasUsedRaw
@@ -65,16 +61,15 @@ items:
     character input, and utility methods for keyboard input.
   example: []
   syntax:
-    content: 'public sealed class KeyboardDevice : InputDevice, IComparable<InputDeviceBase>'
-    content.vb: Public NotInheritable Class KeyboardDevice Inherits InputDevice Implements IComparable(Of InputDeviceBase)
+    content: 'public sealed class KeyboardDevice : InputDevice, IComparable<InputDevice>'
+    content.vb: Public NotInheritable Class KeyboardDevice Inherits InputDevice Implements IComparable(Of InputDevice)
   inheritance:
   - System.Object
-  - ShapeEngine.Input.InputDeviceBase
   - ShapeEngine.Input.InputDevice
   implements:
-  - System.IComparable{ShapeEngine.Input.InputDeviceBase}
+  - System.IComparable{ShapeEngine.Input.InputDevice}
   inheritedMembers:
-  - ShapeEngine.Input.InputDeviceBase.CompareTo(ShapeEngine.Input.InputDeviceBase)
+  - ShapeEngine.Input.InputDevice.CompareTo(ShapeEngine.Input.InputDevice)
   - System.Object.Equals(System.Object)
   - System.Object.Equals(System.Object,System.Object)
   - System.Object.GetHashCode
@@ -139,23 +134,23 @@ items:
     return:
       type: ShapeEngine.Input.ShapeKeyboardButton[]
     content.vb: Public Shared ReadOnly AllShapeKeyboardButtons As ShapeKeyboardButton()
-- uid: ShapeEngine.Input.KeyboardDevice.UsageDetectionSettings
-  commentId: P:ShapeEngine.Input.KeyboardDevice.UsageDetectionSettings
-  id: UsageDetectionSettings
+- uid: ShapeEngine.Input.KeyboardDevice.Settings
+  commentId: P:ShapeEngine.Input.KeyboardDevice.Settings
+  id: Settings
   parent: ShapeEngine.Input.KeyboardDevice
   langs:
   - csharp
   - vb
-  name: UsageDetectionSettings
-  nameWithType: KeyboardDevice.UsageDetectionSettings
-  fullName: ShapeEngine.Input.KeyboardDevice.UsageDetectionSettings
+  name: Settings
+  nameWithType: KeyboardDevice.Settings
+  fullName: ShapeEngine.Input.KeyboardDevice.Settings
   type: Property
   source:
     remote:
       path: ShapeEngine/Input/KeyboardDevice.cs
       branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: UsageDetectionSettings
+    id: Settings
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
     startLine: 23
   assemblies:
@@ -164,12 +159,12 @@ items:
   summary: Gets the usage detection settings for the keyboard input device.
   example: []
   syntax:
-    content: public InputDeviceUsageDetectionSettings.KeyboardSettings UsageDetectionSettings { get; }
+    content: public InputSettings.KeyboardSettings Settings { get; }
     parameters: []
     return:
-      type: ShapeEngine.Input.InputDeviceUsageDetectionSettings.KeyboardSettings
-    content.vb: Public Property UsageDetectionSettings As InputDeviceUsageDetectionSettings.KeyboardSettings
-  overload: ShapeEngine.Input.KeyboardDevice.UsageDetectionSettings*
+      type: ShapeEngine.Input.InputSettings.KeyboardSettings
+    content.vb: Public Property Settings As InputSettings.KeyboardSettings
+  overload: ShapeEngine.Input.KeyboardDevice.Settings*
 - uid: ShapeEngine.Input.KeyboardDevice.DeviceProcessPriority
   commentId: F:ShapeEngine.Input.KeyboardDevice.DeviceProcessPriority
   id: DeviceProcessPriority
@@ -201,7 +196,7 @@ items:
 
     <p>
 
-    Change this value to change the order in which this device is processed in <xref href="ShapeEngine.Input.ShapeInput" data-throw-if-not-resolved="false"></xref>.
+    Change this value to change the order in which this device is processed in <xref href="ShapeEngine.Input.InputSystem" data-throw-if-not-resolved="false"></xref>.
 
     Lower priorities are processed first.
 
@@ -231,7 +226,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: UsedCharacters
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 50
+    startLine: 59
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -260,7 +255,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PressedButtons
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 54
+    startLine: 63
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -289,7 +284,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ReleasedButtons
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 59
+    startLine: 68
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -318,7 +313,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HeldDownButtons
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 64
+    startLine: 73
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -347,7 +342,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnButtonPressed
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 71
+    startLine: 80
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -376,7 +371,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnButtonReleased
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 75
+    startLine: 84
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -405,17 +400,22 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetDeviceProcessPriority
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 89
+    startLine: 99
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: >-
+    Gets the priority of the input device.
+
+    Devices with lower priority values are processed before those with higher values.
   example: []
   syntax:
     content: public override uint GetDeviceProcessPriority()
     return:
       type: System.UInt32
+      description: The priority value of the device.
     content.vb: Public Overrides Function GetDeviceProcessPriority() As UInteger
-  overridden: ShapeEngine.Input.InputDeviceBase.GetDeviceProcessPriority
+  overridden: ShapeEngine.Input.InputDevice.GetDeviceProcessPriority
   overload: ShapeEngine.Input.KeyboardDevice.GetDeviceProcessPriority*
 - uid: ShapeEngine.Input.KeyboardDevice.GetDeviceType
   commentId: M:ShapeEngine.Input.KeyboardDevice.GetDeviceType
@@ -435,7 +435,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetDeviceType
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 94
+    startLine: 104
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -446,7 +446,7 @@ items:
     return:
       type: ShapeEngine.Input.InputDeviceType
     content.vb: Public Overrides Function GetDeviceType() As InputDeviceType
-  overridden: ShapeEngine.Input.InputDeviceBase.GetDeviceType
+  overridden: ShapeEngine.Input.InputDevice.GetDeviceType
   overload: ShapeEngine.Input.KeyboardDevice.GetDeviceType*
 - uid: ShapeEngine.Input.KeyboardDevice.IsLocked
   commentId: M:ShapeEngine.Input.KeyboardDevice.IsLocked
@@ -466,7 +466,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsLocked
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 101
+    startLine: 111
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -502,7 +502,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Lock
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 106
+    startLine: 116
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -531,7 +531,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Unlock
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 123
+    startLine: 127
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -542,37 +542,6 @@ items:
     content.vb: Public Overrides Sub Unlock()
   overridden: ShapeEngine.Input.InputDevice.Unlock
   overload: ShapeEngine.Input.KeyboardDevice.Unlock*
-- uid: ShapeEngine.Input.KeyboardDevice.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  commentId: M:ShapeEngine.Input.KeyboardDevice.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  id: ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  parent: ShapeEngine.Input.KeyboardDevice
-  langs:
-  - csharp
-  - vb
-  name: ApplyInputDeviceChangeSettings(InputDeviceUsageDetectionSettings)
-  nameWithType: KeyboardDevice.ApplyInputDeviceChangeSettings(InputDeviceUsageDetectionSettings)
-  fullName: ShapeEngine.Input.KeyboardDevice.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Input/KeyboardDevice.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: ApplyInputDeviceChangeSettings
-    path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 130
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  example: []
-  syntax:
-    content: public override void ApplyInputDeviceChangeSettings(InputDeviceUsageDetectionSettings settings)
-    parameters:
-    - id: settings
-      type: ShapeEngine.Input.InputDeviceUsageDetectionSettings
-    content.vb: Public Overrides Sub ApplyInputDeviceChangeSettings(settings As InputDeviceUsageDetectionSettings)
-  overridden: ShapeEngine.Input.InputDeviceBase.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  overload: ShapeEngine.Input.KeyboardDevice.ApplyInputDeviceChangeSettings*
 - uid: ShapeEngine.Input.KeyboardDevice.WasUsed
   commentId: M:ShapeEngine.Input.KeyboardDevice.WasUsed
   id: WasUsed
@@ -591,14 +560,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: WasUsed
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 133
+    startLine: 139
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
   summary: >-
     Indicates whether the device registered any input during the last update cycle,
 
-    taking into account any filters or settings applied to the device with <xref href="ShapeEngine.Input.InputDeviceUsageDetectionSettings" data-throw-if-not-resolved="false"></xref>.
+    taking into account any filters or settings applied to the device with <xref href="ShapeEngine.Input.InputSettings" data-throw-if-not-resolved="false"></xref>.
   example: []
   syntax:
     content: public override bool WasUsed()
@@ -626,14 +595,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: WasUsedRaw
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 136
+    startLine: 142
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
   summary: >-
     Determines if the device registered any input during the last update cycle,
 
-    ignoring any filters or settings specified by <xref href="ShapeEngine.Input.InputDeviceUsageDetectionSettings" data-throw-if-not-resolved="false"></xref>.
+    ignoring any filters or settings specified by <xref href="ShapeEngine.Input.InputSettings" data-throw-if-not-resolved="false"></xref>.
 
     Useful for detecting raw device activity.
   example: []
@@ -663,10 +632,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 139
+    startLine: 145
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: >-
+    Updates the device state.
+
+    Receives input if another device was used as well in this frame.
   example: []
   syntax:
     content: public override bool Update(float dt, bool wasOtherDeviceUsed)
@@ -677,104 +650,13 @@ items:
       type: System.Boolean
     return:
       type: System.Boolean
+      description: If this device was used this frame. Takes <xref href="ShapeEngine.Input.InputSettings" data-throw-if-not-resolved="false"></xref> into account.
     content.vb: Public Overrides Function Update(dt As Single, wasOtherDeviceUsed As Boolean) As Boolean
-  overridden: ShapeEngine.Input.InputDeviceBase.Update(System.Single,System.Boolean)
+  overridden: ShapeEngine.Input.InputDevice.Update(System.Single,System.Boolean)
   overload: ShapeEngine.Input.KeyboardDevice.Update*
   nameWithType.vb: KeyboardDevice.Update(Single, Boolean)
   fullName.vb: ShapeEngine.Input.KeyboardDevice.Update(Single, Boolean)
   name.vb: Update(Single, Boolean)
-- uid: ShapeEngine.Input.KeyboardDevice.IsActive
-  commentId: M:ShapeEngine.Input.KeyboardDevice.IsActive
-  id: IsActive
-  parent: ShapeEngine.Input.KeyboardDevice
-  langs:
-  - csharp
-  - vb
-  name: IsActive()
-  nameWithType: KeyboardDevice.IsActive()
-  fullName: ShapeEngine.Input.KeyboardDevice.IsActive()
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Input/KeyboardDevice.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: IsActive
-    path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 170
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: >-
-    Indicates whether the mouse device is currently active,
-
-    as in being used by the <xref href="ShapeEngine.Input.ShapeInput" data-throw-if-not-resolved="false"></xref> class to generate input.
-  example: []
-  syntax:
-    content: public override bool IsActive()
-    return:
-      type: System.Boolean
-    content.vb: Public Overrides Function IsActive() As Boolean
-  overridden: ShapeEngine.Input.InputDeviceBase.IsActive
-  overload: ShapeEngine.Input.KeyboardDevice.IsActive*
-- uid: ShapeEngine.Input.KeyboardDevice.Activate
-  commentId: M:ShapeEngine.Input.KeyboardDevice.Activate
-  id: Activate
-  parent: ShapeEngine.Input.KeyboardDevice
-  langs:
-  - csharp
-  - vb
-  name: Activate()
-  nameWithType: KeyboardDevice.Activate()
-  fullName: ShapeEngine.Input.KeyboardDevice.Activate()
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Input/KeyboardDevice.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: Activate
-    path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 175
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: Activates the mouse device, enabling input processing.
-  example: []
-  syntax:
-    content: public override void Activate()
-    content.vb: Public Overrides Sub Activate()
-  overridden: ShapeEngine.Input.InputDeviceBase.Activate
-  overload: ShapeEngine.Input.KeyboardDevice.Activate*
-- uid: ShapeEngine.Input.KeyboardDevice.Deactivate
-  commentId: M:ShapeEngine.Input.KeyboardDevice.Deactivate
-  id: Deactivate
-  parent: ShapeEngine.Input.KeyboardDevice
-  langs:
-  - csharp
-  - vb
-  name: Deactivate()
-  nameWithType: KeyboardDevice.Deactivate()
-  fullName: ShapeEngine.Input.KeyboardDevice.Deactivate()
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Input/KeyboardDevice.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: Deactivate
-    path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 184
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: Deactivates the mouse device, disabling input processing and resetting state.
-  example: []
-  syntax:
-    content: public override void Deactivate()
-    content.vb: Public Overrides Sub Deactivate()
-  overridden: ShapeEngine.Input.InputDeviceBase.Deactivate
-  overload: ShapeEngine.Input.KeyboardDevice.Deactivate*
 - uid: ShapeEngine.Input.KeyboardDevice.GetButtonState(ShapeEngine.Input.ShapeKeyboardButton)
   commentId: M:ShapeEngine.Input.KeyboardDevice.GetButtonState(ShapeEngine.Input.ShapeKeyboardButton)
   id: GetButtonState(ShapeEngine.Input.ShapeKeyboardButton)
@@ -793,7 +675,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetButtonState
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 204
+    startLine: 189
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -826,7 +708,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ConsumeButtonState
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 212
+    startLine: 197
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -869,7 +751,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetStreamChar
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 227
+    startLine: 212
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -900,7 +782,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetStream
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 236
+    startLine: 221
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -931,7 +813,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetStream
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 246
+    startLine: 231
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -969,7 +851,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetStream
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 260
+    startLine: 245
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1010,7 +892,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetValue
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 411
+    startLine: 415
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1054,7 +936,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsDown
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 425
+    startLine: 429
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1098,7 +980,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CreateInputState
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 437
+    startLine: 441
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1142,7 +1024,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CreateInputState
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 451
+    startLine: 455
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1189,7 +1071,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetValue
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 469
+    startLine: 473
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1240,7 +1122,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsDown
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 486
+    startLine: 490
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1287,7 +1169,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CreateInputState
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 499
+    startLine: 503
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1334,7 +1216,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CreateInputState
     path: ../ShapeEngine/ShapeEngine/Input/KeyboardDevice.cs
-    startLine: 515
+    startLine: 519
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1400,13 +1282,6 @@ references:
   nameWithType.vb: Object
   fullName.vb: Object
   name.vb: Object
-- uid: ShapeEngine.Input.InputDeviceBase
-  commentId: T:ShapeEngine.Input.InputDeviceBase
-  parent: ShapeEngine.Input
-  href: ShapeEngine.Input.InputDeviceBase.html
-  name: InputDeviceBase
-  nameWithType: InputDeviceBase
-  fullName: ShapeEngine.Input.InputDeviceBase
 - uid: ShapeEngine.Input.InputDevice
   commentId: T:ShapeEngine.Input.InputDevice
   parent: ShapeEngine.Input
@@ -1414,26 +1289,26 @@ references:
   name: InputDevice
   nameWithType: InputDevice
   fullName: ShapeEngine.Input.InputDevice
-- uid: System.IComparable{ShapeEngine.Input.InputDeviceBase}
-  commentId: T:System.IComparable{ShapeEngine.Input.InputDeviceBase}
+- uid: System.IComparable{ShapeEngine.Input.InputDevice}
+  commentId: T:System.IComparable{ShapeEngine.Input.InputDevice}
   parent: System
   definition: System.IComparable`1
   href: https://learn.microsoft.com/dotnet/api/system.icomparable-1
-  name: IComparable<InputDeviceBase>
-  nameWithType: IComparable<InputDeviceBase>
-  fullName: System.IComparable<ShapeEngine.Input.InputDeviceBase>
-  nameWithType.vb: IComparable(Of InputDeviceBase)
-  fullName.vb: System.IComparable(Of ShapeEngine.Input.InputDeviceBase)
-  name.vb: IComparable(Of InputDeviceBase)
+  name: IComparable<InputDevice>
+  nameWithType: IComparable<InputDevice>
+  fullName: System.IComparable<ShapeEngine.Input.InputDevice>
+  nameWithType.vb: IComparable(Of InputDevice)
+  fullName.vb: System.IComparable(Of ShapeEngine.Input.InputDevice)
+  name.vb: IComparable(Of InputDevice)
   spec.csharp:
   - uid: System.IComparable`1
     name: IComparable
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.icomparable-1
   - name: <
-  - uid: ShapeEngine.Input.InputDeviceBase
-    name: InputDeviceBase
-    href: ShapeEngine.Input.InputDeviceBase.html
+  - uid: ShapeEngine.Input.InputDevice
+    name: InputDevice
+    href: ShapeEngine.Input.InputDevice.html
   - name: '>'
   spec.vb:
   - uid: System.IComparable`1
@@ -1443,34 +1318,34 @@ references:
   - name: (
   - name: Of
   - name: " "
-  - uid: ShapeEngine.Input.InputDeviceBase
-    name: InputDeviceBase
-    href: ShapeEngine.Input.InputDeviceBase.html
+  - uid: ShapeEngine.Input.InputDevice
+    name: InputDevice
+    href: ShapeEngine.Input.InputDevice.html
   - name: )
-- uid: ShapeEngine.Input.InputDeviceBase.CompareTo(ShapeEngine.Input.InputDeviceBase)
-  commentId: M:ShapeEngine.Input.InputDeviceBase.CompareTo(ShapeEngine.Input.InputDeviceBase)
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_CompareTo_ShapeEngine_Input_InputDeviceBase_
-  name: CompareTo(InputDeviceBase)
-  nameWithType: InputDeviceBase.CompareTo(InputDeviceBase)
-  fullName: ShapeEngine.Input.InputDeviceBase.CompareTo(ShapeEngine.Input.InputDeviceBase)
+- uid: ShapeEngine.Input.InputDevice.CompareTo(ShapeEngine.Input.InputDevice)
+  commentId: M:ShapeEngine.Input.InputDevice.CompareTo(ShapeEngine.Input.InputDevice)
+  parent: ShapeEngine.Input.InputDevice
+  href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_CompareTo_ShapeEngine_Input_InputDevice_
+  name: CompareTo(InputDevice)
+  nameWithType: InputDevice.CompareTo(InputDevice)
+  fullName: ShapeEngine.Input.InputDevice.CompareTo(ShapeEngine.Input.InputDevice)
   spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.CompareTo(ShapeEngine.Input.InputDeviceBase)
+  - uid: ShapeEngine.Input.InputDevice.CompareTo(ShapeEngine.Input.InputDevice)
     name: CompareTo
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_CompareTo_ShapeEngine_Input_InputDeviceBase_
+    href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_CompareTo_ShapeEngine_Input_InputDevice_
   - name: (
-  - uid: ShapeEngine.Input.InputDeviceBase
-    name: InputDeviceBase
-    href: ShapeEngine.Input.InputDeviceBase.html
+  - uid: ShapeEngine.Input.InputDevice
+    name: InputDevice
+    href: ShapeEngine.Input.InputDevice.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.CompareTo(ShapeEngine.Input.InputDeviceBase)
+  - uid: ShapeEngine.Input.InputDevice.CompareTo(ShapeEngine.Input.InputDevice)
     name: CompareTo
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_CompareTo_ShapeEngine_Input_InputDeviceBase_
+    href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_CompareTo_ShapeEngine_Input_InputDevice_
   - name: (
-  - uid: ShapeEngine.Input.InputDeviceBase
-    name: InputDeviceBase
-    href: ShapeEngine.Input.InputDeviceBase.html
+  - uid: ShapeEngine.Input.InputDevice
+    name: InputDevice
+    href: ShapeEngine.Input.InputDevice.html
   - name: )
 - uid: System.Object.Equals(System.Object)
   commentId: M:System.Object.Equals(System.Object)
@@ -1743,42 +1618,42 @@ references:
     href: ShapeEngine.Input.ShapeKeyboardButton.html
   - name: (
   - name: )
-- uid: ShapeEngine.Input.KeyboardDevice.UsageDetectionSettings*
-  commentId: Overload:ShapeEngine.Input.KeyboardDevice.UsageDetectionSettings
-  href: ShapeEngine.Input.KeyboardDevice.html#ShapeEngine_Input_KeyboardDevice_UsageDetectionSettings
-  name: UsageDetectionSettings
-  nameWithType: KeyboardDevice.UsageDetectionSettings
-  fullName: ShapeEngine.Input.KeyboardDevice.UsageDetectionSettings
-- uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings.KeyboardSettings
-  commentId: T:ShapeEngine.Input.InputDeviceUsageDetectionSettings.KeyboardSettings
+- uid: ShapeEngine.Input.KeyboardDevice.Settings*
+  commentId: Overload:ShapeEngine.Input.KeyboardDevice.Settings
+  href: ShapeEngine.Input.KeyboardDevice.html#ShapeEngine_Input_KeyboardDevice_Settings
+  name: Settings
+  nameWithType: KeyboardDevice.Settings
+  fullName: ShapeEngine.Input.KeyboardDevice.Settings
+- uid: ShapeEngine.Input.InputSettings.KeyboardSettings
+  commentId: T:ShapeEngine.Input.InputSettings.KeyboardSettings
   parent: ShapeEngine.Input
-  href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.html
-  name: InputDeviceUsageDetectionSettings.KeyboardSettings
-  nameWithType: InputDeviceUsageDetectionSettings.KeyboardSettings
-  fullName: ShapeEngine.Input.InputDeviceUsageDetectionSettings.KeyboardSettings
+  href: ShapeEngine.Input.InputSettings.html
+  name: InputSettings.KeyboardSettings
+  nameWithType: InputSettings.KeyboardSettings
+  fullName: ShapeEngine.Input.InputSettings.KeyboardSettings
   spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings
-    name: InputDeviceUsageDetectionSettings
-    href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.html
+  - uid: ShapeEngine.Input.InputSettings
+    name: InputSettings
+    href: ShapeEngine.Input.InputSettings.html
   - name: .
-  - uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings.KeyboardSettings
+  - uid: ShapeEngine.Input.InputSettings.KeyboardSettings
     name: KeyboardSettings
-    href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.KeyboardSettings.html
+    href: ShapeEngine.Input.InputSettings.KeyboardSettings.html
   spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings
-    name: InputDeviceUsageDetectionSettings
-    href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.html
+  - uid: ShapeEngine.Input.InputSettings
+    name: InputSettings
+    href: ShapeEngine.Input.InputSettings.html
   - name: .
-  - uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings.KeyboardSettings
+  - uid: ShapeEngine.Input.InputSettings.KeyboardSettings
     name: KeyboardSettings
-    href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.KeyboardSettings.html
-- uid: ShapeEngine.Input.ShapeInput
-  commentId: T:ShapeEngine.Input.ShapeInput
+    href: ShapeEngine.Input.InputSettings.KeyboardSettings.html
+- uid: ShapeEngine.Input.InputSystem
+  commentId: T:ShapeEngine.Input.InputSystem
   parent: ShapeEngine.Input
-  href: ShapeEngine.Input.ShapeInput.html
-  name: ShapeInput
-  nameWithType: ShapeInput
-  fullName: ShapeEngine.Input.ShapeInput
+  href: ShapeEngine.Input.InputSystem.html
+  name: InputSystem
+  nameWithType: InputSystem
+  fullName: ShapeEngine.Input.InputSystem
 - uid: System.UInt32
   commentId: T:System.UInt32
   parent: System
@@ -1984,23 +1859,23 @@ references:
   - name: " "
   - name: T
   - name: )
-- uid: ShapeEngine.Input.InputDeviceBase.GetDeviceProcessPriority
-  commentId: M:ShapeEngine.Input.InputDeviceBase.GetDeviceProcessPriority
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_GetDeviceProcessPriority
+- uid: ShapeEngine.Input.InputDevice.GetDeviceProcessPriority
+  commentId: M:ShapeEngine.Input.InputDevice.GetDeviceProcessPriority
+  parent: ShapeEngine.Input.InputDevice
+  href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_GetDeviceProcessPriority
   name: GetDeviceProcessPriority()
-  nameWithType: InputDeviceBase.GetDeviceProcessPriority()
-  fullName: ShapeEngine.Input.InputDeviceBase.GetDeviceProcessPriority()
+  nameWithType: InputDevice.GetDeviceProcessPriority()
+  fullName: ShapeEngine.Input.InputDevice.GetDeviceProcessPriority()
   spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.GetDeviceProcessPriority
+  - uid: ShapeEngine.Input.InputDevice.GetDeviceProcessPriority
     name: GetDeviceProcessPriority
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_GetDeviceProcessPriority
+    href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_GetDeviceProcessPriority
   - name: (
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.GetDeviceProcessPriority
+  - uid: ShapeEngine.Input.InputDevice.GetDeviceProcessPriority
     name: GetDeviceProcessPriority
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_GetDeviceProcessPriority
+    href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_GetDeviceProcessPriority
   - name: (
   - name: )
 - uid: ShapeEngine.Input.KeyboardDevice.GetDeviceProcessPriority*
@@ -2015,23 +1890,23 @@ references:
   name: Keyboard
   nameWithType: InputDeviceType.Keyboard
   fullName: ShapeEngine.Input.InputDeviceType.Keyboard
-- uid: ShapeEngine.Input.InputDeviceBase.GetDeviceType
-  commentId: M:ShapeEngine.Input.InputDeviceBase.GetDeviceType
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_GetDeviceType
+- uid: ShapeEngine.Input.InputDevice.GetDeviceType
+  commentId: M:ShapeEngine.Input.InputDevice.GetDeviceType
+  parent: ShapeEngine.Input.InputDevice
+  href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_GetDeviceType
   name: GetDeviceType()
-  nameWithType: InputDeviceBase.GetDeviceType()
-  fullName: ShapeEngine.Input.InputDeviceBase.GetDeviceType()
+  nameWithType: InputDevice.GetDeviceType()
+  fullName: ShapeEngine.Input.InputDevice.GetDeviceType()
   spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.GetDeviceType
+  - uid: ShapeEngine.Input.InputDevice.GetDeviceType
     name: GetDeviceType
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_GetDeviceType
+    href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_GetDeviceType
   - name: (
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.GetDeviceType
+  - uid: ShapeEngine.Input.InputDevice.GetDeviceType
     name: GetDeviceType
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_GetDeviceType
+    href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_GetDeviceType
   - name: (
   - name: )
 - uid: ShapeEngine.Input.KeyboardDevice.GetDeviceType*
@@ -2133,44 +2008,13 @@ references:
   name: Unlock
   nameWithType: KeyboardDevice.Unlock
   fullName: ShapeEngine.Input.KeyboardDevice.Unlock
-- uid: ShapeEngine.Input.InputDeviceBase.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  commentId: M:ShapeEngine.Input.InputDeviceBase.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_ApplyInputDeviceChangeSettings_ShapeEngine_Input_InputDeviceUsageDetectionSettings_
-  name: ApplyInputDeviceChangeSettings(InputDeviceUsageDetectionSettings)
-  nameWithType: InputDeviceBase.ApplyInputDeviceChangeSettings(InputDeviceUsageDetectionSettings)
-  fullName: ShapeEngine.Input.InputDeviceBase.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-    name: ApplyInputDeviceChangeSettings
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_ApplyInputDeviceChangeSettings_ShapeEngine_Input_InputDeviceUsageDetectionSettings_
-  - name: (
-  - uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings
-    name: InputDeviceUsageDetectionSettings
-    href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-    name: ApplyInputDeviceChangeSettings
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_ApplyInputDeviceChangeSettings_ShapeEngine_Input_InputDeviceUsageDetectionSettings_
-  - name: (
-  - uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings
-    name: InputDeviceUsageDetectionSettings
-    href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.html
-  - name: )
-- uid: ShapeEngine.Input.KeyboardDevice.ApplyInputDeviceChangeSettings*
-  commentId: Overload:ShapeEngine.Input.KeyboardDevice.ApplyInputDeviceChangeSettings
-  href: ShapeEngine.Input.KeyboardDevice.html#ShapeEngine_Input_KeyboardDevice_ApplyInputDeviceChangeSettings_ShapeEngine_Input_InputDeviceUsageDetectionSettings_
-  name: ApplyInputDeviceChangeSettings
-  nameWithType: KeyboardDevice.ApplyInputDeviceChangeSettings
-  fullName: ShapeEngine.Input.KeyboardDevice.ApplyInputDeviceChangeSettings
-- uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings
-  commentId: T:ShapeEngine.Input.InputDeviceUsageDetectionSettings
+- uid: ShapeEngine.Input.InputSettings
+  commentId: T:ShapeEngine.Input.InputSettings
   parent: ShapeEngine.Input
-  href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.html
-  name: InputDeviceUsageDetectionSettings
-  nameWithType: InputDeviceUsageDetectionSettings
-  fullName: ShapeEngine.Input.InputDeviceUsageDetectionSettings
+  href: ShapeEngine.Input.InputSettings.html
+  name: InputSettings
+  nameWithType: InputSettings
+  fullName: ShapeEngine.Input.InputSettings
 - uid: ShapeEngine.Input.InputDevice.WasUsed
   commentId: M:ShapeEngine.Input.InputDevice.WasUsed
   parent: ShapeEngine.Input.InputDevice
@@ -2221,21 +2065,21 @@ references:
   name: WasUsedRaw
   nameWithType: KeyboardDevice.WasUsedRaw
   fullName: ShapeEngine.Input.KeyboardDevice.WasUsedRaw
-- uid: ShapeEngine.Input.InputDeviceBase.Update(System.Single,System.Boolean)
-  commentId: M:ShapeEngine.Input.InputDeviceBase.Update(System.Single,System.Boolean)
-  parent: ShapeEngine.Input.InputDeviceBase
+- uid: ShapeEngine.Input.InputDevice.Update(System.Single,System.Boolean)
+  commentId: M:ShapeEngine.Input.InputDevice.Update(System.Single,System.Boolean)
+  parent: ShapeEngine.Input.InputDevice
   isExternal: true
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Update_System_Single_System_Boolean_
+  href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_Update_System_Single_System_Boolean_
   name: Update(float, bool)
-  nameWithType: InputDeviceBase.Update(float, bool)
-  fullName: ShapeEngine.Input.InputDeviceBase.Update(float, bool)
-  nameWithType.vb: InputDeviceBase.Update(Single, Boolean)
-  fullName.vb: ShapeEngine.Input.InputDeviceBase.Update(Single, Boolean)
+  nameWithType: InputDevice.Update(float, bool)
+  fullName: ShapeEngine.Input.InputDevice.Update(float, bool)
+  nameWithType.vb: InputDevice.Update(Single, Boolean)
+  fullName.vb: ShapeEngine.Input.InputDevice.Update(Single, Boolean)
   name.vb: Update(Single, Boolean)
   spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.Update(System.Single,System.Boolean)
+  - uid: ShapeEngine.Input.InputDevice.Update(System.Single,System.Boolean)
     name: Update
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Update_System_Single_System_Boolean_
+    href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_Update_System_Single_System_Boolean_
   - name: (
   - uid: System.Single
     name: float
@@ -2249,9 +2093,9 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.Update(System.Single,System.Boolean)
+  - uid: ShapeEngine.Input.InputDevice.Update(System.Single,System.Boolean)
     name: Update
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Update_System_Single_System_Boolean_
+    href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_Update_System_Single_System_Boolean_
   - name: (
   - uid: System.Single
     name: Single
@@ -2281,81 +2125,6 @@ references:
   nameWithType.vb: Single
   fullName.vb: Single
   name.vb: Single
-- uid: ShapeEngine.Input.InputDeviceBase.IsActive
-  commentId: M:ShapeEngine.Input.InputDeviceBase.IsActive
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_IsActive
-  name: IsActive()
-  nameWithType: InputDeviceBase.IsActive()
-  fullName: ShapeEngine.Input.InputDeviceBase.IsActive()
-  spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.IsActive
-    name: IsActive
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_IsActive
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.IsActive
-    name: IsActive
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_IsActive
-  - name: (
-  - name: )
-- uid: ShapeEngine.Input.KeyboardDevice.IsActive*
-  commentId: Overload:ShapeEngine.Input.KeyboardDevice.IsActive
-  href: ShapeEngine.Input.KeyboardDevice.html#ShapeEngine_Input_KeyboardDevice_IsActive
-  name: IsActive
-  nameWithType: KeyboardDevice.IsActive
-  fullName: ShapeEngine.Input.KeyboardDevice.IsActive
-- uid: ShapeEngine.Input.InputDeviceBase.Activate
-  commentId: M:ShapeEngine.Input.InputDeviceBase.Activate
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Activate
-  name: Activate()
-  nameWithType: InputDeviceBase.Activate()
-  fullName: ShapeEngine.Input.InputDeviceBase.Activate()
-  spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.Activate
-    name: Activate
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Activate
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.Activate
-    name: Activate
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Activate
-  - name: (
-  - name: )
-- uid: ShapeEngine.Input.KeyboardDevice.Activate*
-  commentId: Overload:ShapeEngine.Input.KeyboardDevice.Activate
-  href: ShapeEngine.Input.KeyboardDevice.html#ShapeEngine_Input_KeyboardDevice_Activate
-  name: Activate
-  nameWithType: KeyboardDevice.Activate
-  fullName: ShapeEngine.Input.KeyboardDevice.Activate
-- uid: ShapeEngine.Input.InputDeviceBase.Deactivate
-  commentId: M:ShapeEngine.Input.InputDeviceBase.Deactivate
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Deactivate
-  name: Deactivate()
-  nameWithType: InputDeviceBase.Deactivate()
-  fullName: ShapeEngine.Input.InputDeviceBase.Deactivate()
-  spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.Deactivate
-    name: Deactivate
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Deactivate
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.Deactivate
-    name: Deactivate
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Deactivate
-  - name: (
-  - name: )
-- uid: ShapeEngine.Input.KeyboardDevice.Deactivate*
-  commentId: Overload:ShapeEngine.Input.KeyboardDevice.Deactivate
-  href: ShapeEngine.Input.KeyboardDevice.html#ShapeEngine_Input_KeyboardDevice_Deactivate
-  name: Deactivate
-  nameWithType: KeyboardDevice.Deactivate
-  fullName: ShapeEngine.Input.KeyboardDevice.Deactivate
 - uid: ShapeEngine.Input.KeyboardDevice.GetButtonState*
   commentId: Overload:ShapeEngine.Input.KeyboardDevice.GetButtonState
   href: ShapeEngine.Input.KeyboardDevice.html#ShapeEngine_Input_KeyboardDevice_GetButtonState_ShapeEngine_Input_ShapeKeyboardButton_

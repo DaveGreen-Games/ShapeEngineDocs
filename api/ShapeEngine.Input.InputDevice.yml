@@ -5,11 +5,16 @@ items:
   id: InputDevice
   parent: ShapeEngine.Input
   children:
+  - ShapeEngine.Input.InputDevice.CompareTo(ShapeEngine.Input.InputDevice)
+  - ShapeEngine.Input.InputDevice.GetDeviceProcessPriority
+  - ShapeEngine.Input.InputDevice.GetDeviceType
   - ShapeEngine.Input.InputDevice.IsLocked
   - ShapeEngine.Input.InputDevice.Lock
   - ShapeEngine.Input.InputDevice.Unlock
+  - ShapeEngine.Input.InputDevice.Update(System.Single,System.Boolean)
   - ShapeEngine.Input.InputDevice.WasUsed
   - ShapeEngine.Input.InputDevice.WasUsedRaw
+  - ShapeEngine.Input.InputDevice.processPriorityCounter
   langs:
   - csharp
   - vb
@@ -34,27 +39,17 @@ items:
     Provides methods for device usage tracking, locking, and calibration.
   example: []
   syntax:
-    content: 'public abstract class InputDevice : InputDeviceBase, IComparable<InputDeviceBase>'
-    content.vb: Public MustInherit Class InputDevice Inherits InputDeviceBase Implements IComparable(Of InputDeviceBase)
+    content: 'public abstract class InputDevice : IComparable<InputDevice>'
+    content.vb: Public MustInherit Class InputDevice Implements IComparable(Of InputDevice)
   inheritance:
   - System.Object
-  - ShapeEngine.Input.InputDeviceBase
   derivedClasses:
   - ShapeEngine.Input.GamepadDevice
   - ShapeEngine.Input.KeyboardDevice
   - ShapeEngine.Input.MouseDevice
   implements:
-  - System.IComparable{ShapeEngine.Input.InputDeviceBase}
+  - System.IComparable{ShapeEngine.Input.InputDevice}
   inheritedMembers:
-  - ShapeEngine.Input.InputDeviceBase.processPriorityCounter
-  - ShapeEngine.Input.InputDeviceBase.GetDeviceProcessPriority
-  - ShapeEngine.Input.InputDeviceBase.GetDeviceType
-  - ShapeEngine.Input.InputDeviceBase.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  - ShapeEngine.Input.InputDeviceBase.Update(System.Single,System.Boolean)
-  - ShapeEngine.Input.InputDeviceBase.IsActive
-  - ShapeEngine.Input.InputDeviceBase.Activate
-  - ShapeEngine.Input.InputDeviceBase.Deactivate
-  - ShapeEngine.Input.InputDeviceBase.CompareTo(ShapeEngine.Input.InputDeviceBase)
   - System.Object.Equals(System.Object)
   - System.Object.Equals(System.Object,System.Object)
   - System.Object.GetHashCode
@@ -62,6 +57,33 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
+- uid: ShapeEngine.Input.InputDevice.processPriorityCounter
+  commentId: F:ShapeEngine.Input.InputDevice.processPriorityCounter
+  id: processPriorityCounter
+  parent: ShapeEngine.Input.InputDevice
+  langs:
+  - csharp
+  - vb
+  name: processPriorityCounter
+  nameWithType: InputDevice.processPriorityCounter
+  fullName: ShapeEngine.Input.InputDevice.processPriorityCounter
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Input/InputDevice.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: processPriorityCounter
+    path: ../ShapeEngine/ShapeEngine/Input/InputDevice.cs
+    startLine: 8
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Input
+  syntax:
+    content: protected static uint processPriorityCounter
+    return:
+      type: System.UInt32
+    content.vb: Protected Shared processPriorityCounter As UInteger
 - uid: ShapeEngine.Input.InputDevice.WasUsed
   commentId: M:ShapeEngine.Input.InputDevice.WasUsed
   id: WasUsed
@@ -80,14 +102,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: WasUsed
     path: ../ShapeEngine/ShapeEngine/Input/InputDevice.cs
-    startLine: 13
+    startLine: 17
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
   summary: >-
     Indicates whether the device registered any input during the last update cycle,
 
-    taking into account any filters or settings applied to the device with <xref href="ShapeEngine.Input.InputDeviceUsageDetectionSettings" data-throw-if-not-resolved="false"></xref>.
+    taking into account any filters or settings applied to the device with <xref href="ShapeEngine.Input.InputSettings" data-throw-if-not-resolved="false"></xref>.
   example: []
   syntax:
     content: public abstract bool WasUsed()
@@ -114,14 +136,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: WasUsedRaw
     path: ../ShapeEngine/ShapeEngine/Input/InputDevice.cs
-    startLine: 21
+    startLine: 25
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
   summary: >-
     Determines if the device registered any input during the last update cycle,
 
-    ignoring any filters or settings specified by <xref href="ShapeEngine.Input.InputDeviceUsageDetectionSettings" data-throw-if-not-resolved="false"></xref>.
+    ignoring any filters or settings specified by <xref href="ShapeEngine.Input.InputSettings" data-throw-if-not-resolved="false"></xref>.
 
     Useful for detecting raw device activity.
   example: []
@@ -150,7 +172,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsLocked
     path: ../ShapeEngine/ShapeEngine/Input/InputDevice.cs
-    startLine: 27
+    startLine: 31
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -181,7 +203,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Lock
     path: ../ShapeEngine/ShapeEngine/Input/InputDevice.cs
-    startLine: 32
+    startLine: 36
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -209,7 +231,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Unlock
     path: ../ShapeEngine/ShapeEngine/Input/InputDevice.cs
-    startLine: 37
+    startLine: 41
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -219,6 +241,156 @@ items:
     content: public abstract void Unlock()
     content.vb: Public MustOverride Sub Unlock()
   overload: ShapeEngine.Input.InputDevice.Unlock*
+- uid: ShapeEngine.Input.InputDevice.GetDeviceProcessPriority
+  commentId: M:ShapeEngine.Input.InputDevice.GetDeviceProcessPriority
+  id: GetDeviceProcessPriority
+  parent: ShapeEngine.Input.InputDevice
+  langs:
+  - csharp
+  - vb
+  name: GetDeviceProcessPriority()
+  nameWithType: InputDevice.GetDeviceProcessPriority()
+  fullName: ShapeEngine.Input.InputDevice.GetDeviceProcessPriority()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Input/InputDevice.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetDeviceProcessPriority
+    path: ../ShapeEngine/ShapeEngine/Input/InputDevice.cs
+    startLine: 48
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Input
+  summary: >-
+    Gets the priority of the input device.
+
+    Devices with lower priority values are processed before those with higher values.
+  example: []
+  syntax:
+    content: public abstract uint GetDeviceProcessPriority()
+    return:
+      type: System.UInt32
+      description: The priority value of the device.
+    content.vb: Public MustOverride Function GetDeviceProcessPriority() As UInteger
+  overload: ShapeEngine.Input.InputDevice.GetDeviceProcessPriority*
+- uid: ShapeEngine.Input.InputDevice.GetDeviceType
+  commentId: M:ShapeEngine.Input.InputDevice.GetDeviceType
+  id: GetDeviceType
+  parent: ShapeEngine.Input.InputDevice
+  langs:
+  - csharp
+  - vb
+  name: GetDeviceType()
+  nameWithType: InputDevice.GetDeviceType()
+  fullName: ShapeEngine.Input.InputDevice.GetDeviceType()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Input/InputDevice.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetDeviceType
+    path: ../ShapeEngine/ShapeEngine/Input/InputDevice.cs
+    startLine: 54
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Input
+  summary: Gets the type of this input device.
+  example: []
+  syntax:
+    content: public abstract InputDeviceType GetDeviceType()
+    return:
+      type: ShapeEngine.Input.InputDeviceType
+      description: The <xref href="ShapeEngine.Input.InputDeviceType" data-throw-if-not-resolved="false"></xref> representing the device type.
+    content.vb: Public MustOverride Function GetDeviceType() As InputDeviceType
+  overload: ShapeEngine.Input.InputDevice.GetDeviceType*
+- uid: ShapeEngine.Input.InputDevice.Update(System.Single,System.Boolean)
+  commentId: M:ShapeEngine.Input.InputDevice.Update(System.Single,System.Boolean)
+  id: Update(System.Single,System.Boolean)
+  parent: ShapeEngine.Input.InputDevice
+  langs:
+  - csharp
+  - vb
+  name: Update(float, bool)
+  nameWithType: InputDevice.Update(float, bool)
+  fullName: ShapeEngine.Input.InputDevice.Update(float, bool)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Input/InputDevice.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Update
+    path: ../ShapeEngine/ShapeEngine/Input/InputDevice.cs
+    startLine: 70
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Input
+  summary: >-
+    Updates the device state.
+
+    Receives input if another device was used as well in this frame.
+  example: []
+  syntax:
+    content: public abstract bool Update(float dt, bool otherDeviceUsed)
+    parameters:
+    - id: dt
+      type: System.Single
+    - id: otherDeviceUsed
+      type: System.Boolean
+    return:
+      type: System.Boolean
+      description: If this device was used this frame. Takes <xref href="ShapeEngine.Input.InputSettings" data-throw-if-not-resolved="false"></xref> into account.
+    content.vb: Public MustOverride Function Update(dt As Single, otherDeviceUsed As Boolean) As Boolean
+  overload: ShapeEngine.Input.InputDevice.Update*
+  nameWithType.vb: InputDevice.Update(Single, Boolean)
+  fullName.vb: ShapeEngine.Input.InputDevice.Update(Single, Boolean)
+  name.vb: Update(Single, Boolean)
+- uid: ShapeEngine.Input.InputDevice.CompareTo(ShapeEngine.Input.InputDevice)
+  commentId: M:ShapeEngine.Input.InputDevice.CompareTo(ShapeEngine.Input.InputDevice)
+  id: CompareTo(ShapeEngine.Input.InputDevice)
+  parent: ShapeEngine.Input.InputDevice
+  langs:
+  - csharp
+  - vb
+  name: CompareTo(InputDevice?)
+  nameWithType: InputDevice.CompareTo(InputDevice?)
+  fullName: ShapeEngine.Input.InputDevice.CompareTo(ShapeEngine.Input.InputDevice?)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Input/InputDevice.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: CompareTo
+    path: ../ShapeEngine/ShapeEngine/Input/InputDevice.cs
+    startLine: 77
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Input
+  summary: >-
+    Compares this input device with another based on priority and unique ID.
+
+    Devices with lower priority values come first than  those with higher values.
+
+    If priorities are equal, comparison falls back to the unique device ID.
+  example: []
+  syntax:
+    content: public int CompareTo(InputDevice? other)
+    parameters:
+    - id: other
+      type: ShapeEngine.Input.InputDevice
+    return:
+      type: System.Int32
+    content.vb: Public Function CompareTo(other As InputDevice) As Integer
+  overload: ShapeEngine.Input.InputDevice.CompareTo*
+  implements:
+  - System.IComparable{ShapeEngine.Input.InputDevice}.CompareTo(ShapeEngine.Input.InputDevice)
+  nameWithType.vb: InputDevice.CompareTo(InputDevice)
+  fullName.vb: ShapeEngine.Input.InputDevice.CompareTo(ShapeEngine.Input.InputDevice)
+  name.vb: CompareTo(InputDevice)
 references:
 - uid: ShapeEngine.Input
   commentId: N:ShapeEngine.Input
@@ -253,33 +425,26 @@ references:
   nameWithType.vb: Object
   fullName.vb: Object
   name.vb: Object
-- uid: ShapeEngine.Input.InputDeviceBase
-  commentId: T:ShapeEngine.Input.InputDeviceBase
-  parent: ShapeEngine.Input
-  href: ShapeEngine.Input.InputDeviceBase.html
-  name: InputDeviceBase
-  nameWithType: InputDeviceBase
-  fullName: ShapeEngine.Input.InputDeviceBase
-- uid: System.IComparable{ShapeEngine.Input.InputDeviceBase}
-  commentId: T:System.IComparable{ShapeEngine.Input.InputDeviceBase}
+- uid: System.IComparable{ShapeEngine.Input.InputDevice}
+  commentId: T:System.IComparable{ShapeEngine.Input.InputDevice}
   parent: System
   definition: System.IComparable`1
   href: https://learn.microsoft.com/dotnet/api/system.icomparable-1
-  name: IComparable<InputDeviceBase>
-  nameWithType: IComparable<InputDeviceBase>
-  fullName: System.IComparable<ShapeEngine.Input.InputDeviceBase>
-  nameWithType.vb: IComparable(Of InputDeviceBase)
-  fullName.vb: System.IComparable(Of ShapeEngine.Input.InputDeviceBase)
-  name.vb: IComparable(Of InputDeviceBase)
+  name: IComparable<InputDevice>
+  nameWithType: IComparable<InputDevice>
+  fullName: System.IComparable<ShapeEngine.Input.InputDevice>
+  nameWithType.vb: IComparable(Of InputDevice)
+  fullName.vb: System.IComparable(Of ShapeEngine.Input.InputDevice)
+  name.vb: IComparable(Of InputDevice)
   spec.csharp:
   - uid: System.IComparable`1
     name: IComparable
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.icomparable-1
   - name: <
-  - uid: ShapeEngine.Input.InputDeviceBase
-    name: InputDeviceBase
-    href: ShapeEngine.Input.InputDeviceBase.html
+  - uid: ShapeEngine.Input.InputDevice
+    name: InputDevice
+    href: ShapeEngine.Input.InputDevice.html
   - name: '>'
   spec.vb:
   - uid: System.IComparable`1
@@ -289,204 +454,9 @@ references:
   - name: (
   - name: Of
   - name: " "
-  - uid: ShapeEngine.Input.InputDeviceBase
-    name: InputDeviceBase
-    href: ShapeEngine.Input.InputDeviceBase.html
-  - name: )
-- uid: ShapeEngine.Input.InputDeviceBase.processPriorityCounter
-  commentId: F:ShapeEngine.Input.InputDeviceBase.processPriorityCounter
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_processPriorityCounter
-  name: processPriorityCounter
-  nameWithType: InputDeviceBase.processPriorityCounter
-  fullName: ShapeEngine.Input.InputDeviceBase.processPriorityCounter
-- uid: ShapeEngine.Input.InputDeviceBase.GetDeviceProcessPriority
-  commentId: M:ShapeEngine.Input.InputDeviceBase.GetDeviceProcessPriority
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_GetDeviceProcessPriority
-  name: GetDeviceProcessPriority()
-  nameWithType: InputDeviceBase.GetDeviceProcessPriority()
-  fullName: ShapeEngine.Input.InputDeviceBase.GetDeviceProcessPriority()
-  spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.GetDeviceProcessPriority
-    name: GetDeviceProcessPriority
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_GetDeviceProcessPriority
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.GetDeviceProcessPriority
-    name: GetDeviceProcessPriority
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_GetDeviceProcessPriority
-  - name: (
-  - name: )
-- uid: ShapeEngine.Input.InputDeviceBase.GetDeviceType
-  commentId: M:ShapeEngine.Input.InputDeviceBase.GetDeviceType
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_GetDeviceType
-  name: GetDeviceType()
-  nameWithType: InputDeviceBase.GetDeviceType()
-  fullName: ShapeEngine.Input.InputDeviceBase.GetDeviceType()
-  spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.GetDeviceType
-    name: GetDeviceType
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_GetDeviceType
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.GetDeviceType
-    name: GetDeviceType
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_GetDeviceType
-  - name: (
-  - name: )
-- uid: ShapeEngine.Input.InputDeviceBase.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  commentId: M:ShapeEngine.Input.InputDeviceBase.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_ApplyInputDeviceChangeSettings_ShapeEngine_Input_InputDeviceUsageDetectionSettings_
-  name: ApplyInputDeviceChangeSettings(InputDeviceUsageDetectionSettings)
-  nameWithType: InputDeviceBase.ApplyInputDeviceChangeSettings(InputDeviceUsageDetectionSettings)
-  fullName: ShapeEngine.Input.InputDeviceBase.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-    name: ApplyInputDeviceChangeSettings
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_ApplyInputDeviceChangeSettings_ShapeEngine_Input_InputDeviceUsageDetectionSettings_
-  - name: (
-  - uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings
-    name: InputDeviceUsageDetectionSettings
-    href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-    name: ApplyInputDeviceChangeSettings
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_ApplyInputDeviceChangeSettings_ShapeEngine_Input_InputDeviceUsageDetectionSettings_
-  - name: (
-  - uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings
-    name: InputDeviceUsageDetectionSettings
-    href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.html
-  - name: )
-- uid: ShapeEngine.Input.InputDeviceBase.Update(System.Single,System.Boolean)
-  commentId: M:ShapeEngine.Input.InputDeviceBase.Update(System.Single,System.Boolean)
-  parent: ShapeEngine.Input.InputDeviceBase
-  isExternal: true
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Update_System_Single_System_Boolean_
-  name: Update(float, bool)
-  nameWithType: InputDeviceBase.Update(float, bool)
-  fullName: ShapeEngine.Input.InputDeviceBase.Update(float, bool)
-  nameWithType.vb: InputDeviceBase.Update(Single, Boolean)
-  fullName.vb: ShapeEngine.Input.InputDeviceBase.Update(Single, Boolean)
-  name.vb: Update(Single, Boolean)
-  spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.Update(System.Single,System.Boolean)
-    name: Update
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Update_System_Single_System_Boolean_
-  - name: (
-  - uid: System.Single
-    name: float
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.single
-  - name: ','
-  - name: " "
-  - uid: System.Boolean
-    name: bool
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.boolean
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.Update(System.Single,System.Boolean)
-    name: Update
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Update_System_Single_System_Boolean_
-  - name: (
-  - uid: System.Single
-    name: Single
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.single
-  - name: ','
-  - name: " "
-  - uid: System.Boolean
-    name: Boolean
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.boolean
-  - name: )
-- uid: ShapeEngine.Input.InputDeviceBase.IsActive
-  commentId: M:ShapeEngine.Input.InputDeviceBase.IsActive
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_IsActive
-  name: IsActive()
-  nameWithType: InputDeviceBase.IsActive()
-  fullName: ShapeEngine.Input.InputDeviceBase.IsActive()
-  spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.IsActive
-    name: IsActive
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_IsActive
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.IsActive
-    name: IsActive
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_IsActive
-  - name: (
-  - name: )
-- uid: ShapeEngine.Input.InputDeviceBase.Activate
-  commentId: M:ShapeEngine.Input.InputDeviceBase.Activate
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Activate
-  name: Activate()
-  nameWithType: InputDeviceBase.Activate()
-  fullName: ShapeEngine.Input.InputDeviceBase.Activate()
-  spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.Activate
-    name: Activate
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Activate
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.Activate
-    name: Activate
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Activate
-  - name: (
-  - name: )
-- uid: ShapeEngine.Input.InputDeviceBase.Deactivate
-  commentId: M:ShapeEngine.Input.InputDeviceBase.Deactivate
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Deactivate
-  name: Deactivate()
-  nameWithType: InputDeviceBase.Deactivate()
-  fullName: ShapeEngine.Input.InputDeviceBase.Deactivate()
-  spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.Deactivate
-    name: Deactivate
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Deactivate
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.Deactivate
-    name: Deactivate
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Deactivate
-  - name: (
-  - name: )
-- uid: ShapeEngine.Input.InputDeviceBase.CompareTo(ShapeEngine.Input.InputDeviceBase)
-  commentId: M:ShapeEngine.Input.InputDeviceBase.CompareTo(ShapeEngine.Input.InputDeviceBase)
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_CompareTo_ShapeEngine_Input_InputDeviceBase_
-  name: CompareTo(InputDeviceBase)
-  nameWithType: InputDeviceBase.CompareTo(InputDeviceBase)
-  fullName: ShapeEngine.Input.InputDeviceBase.CompareTo(ShapeEngine.Input.InputDeviceBase)
-  spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.CompareTo(ShapeEngine.Input.InputDeviceBase)
-    name: CompareTo
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_CompareTo_ShapeEngine_Input_InputDeviceBase_
-  - name: (
-  - uid: ShapeEngine.Input.InputDeviceBase
-    name: InputDeviceBase
-    href: ShapeEngine.Input.InputDeviceBase.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.CompareTo(ShapeEngine.Input.InputDeviceBase)
-    name: CompareTo
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_CompareTo_ShapeEngine_Input_InputDeviceBase_
-  - name: (
-  - uid: ShapeEngine.Input.InputDeviceBase
-    name: InputDeviceBase
-    href: ShapeEngine.Input.InputDeviceBase.html
+  - uid: ShapeEngine.Input.InputDevice
+    name: InputDevice
+    href: ShapeEngine.Input.InputDevice.html
   - name: )
 - uid: System.Object.Equals(System.Object)
   commentId: M:System.Object.Equals(System.Object)
@@ -742,13 +712,24 @@ references:
   - name: " "
   - name: T
   - name: )
-- uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings
-  commentId: T:ShapeEngine.Input.InputDeviceUsageDetectionSettings
+- uid: System.UInt32
+  commentId: T:System.UInt32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.uint32
+  name: uint
+  nameWithType: uint
+  fullName: uint
+  nameWithType.vb: UInteger
+  fullName.vb: UInteger
+  name.vb: UInteger
+- uid: ShapeEngine.Input.InputSettings
+  commentId: T:ShapeEngine.Input.InputSettings
   parent: ShapeEngine.Input
-  href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.html
-  name: InputDeviceUsageDetectionSettings
-  nameWithType: InputDeviceUsageDetectionSettings
-  fullName: ShapeEngine.Input.InputDeviceUsageDetectionSettings
+  href: ShapeEngine.Input.InputSettings.html
+  name: InputSettings
+  nameWithType: InputSettings
+  fullName: ShapeEngine.Input.InputSettings
 - uid: ShapeEngine.Input.InputDevice.WasUsed*
   commentId: Overload:ShapeEngine.Input.InputDevice.WasUsed
   href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_WasUsed
@@ -790,3 +771,118 @@ references:
   name: Unlock
   nameWithType: InputDevice.Unlock
   fullName: ShapeEngine.Input.InputDevice.Unlock
+- uid: ShapeEngine.Input.InputDevice.GetDeviceProcessPriority*
+  commentId: Overload:ShapeEngine.Input.InputDevice.GetDeviceProcessPriority
+  href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_GetDeviceProcessPriority
+  name: GetDeviceProcessPriority
+  nameWithType: InputDevice.GetDeviceProcessPriority
+  fullName: ShapeEngine.Input.InputDevice.GetDeviceProcessPriority
+- uid: ShapeEngine.Input.InputDeviceType
+  commentId: T:ShapeEngine.Input.InputDeviceType
+  parent: ShapeEngine.Input
+  href: ShapeEngine.Input.InputDeviceType.html
+  name: InputDeviceType
+  nameWithType: InputDeviceType
+  fullName: ShapeEngine.Input.InputDeviceType
+- uid: ShapeEngine.Input.InputDevice.GetDeviceType*
+  commentId: Overload:ShapeEngine.Input.InputDevice.GetDeviceType
+  href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_GetDeviceType
+  name: GetDeviceType
+  nameWithType: InputDevice.GetDeviceType
+  fullName: ShapeEngine.Input.InputDevice.GetDeviceType
+- uid: ShapeEngine.Input.InputDevice.Update*
+  commentId: Overload:ShapeEngine.Input.InputDevice.Update
+  href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_Update_System_Single_System_Boolean_
+  name: Update
+  nameWithType: InputDevice.Update
+  fullName: ShapeEngine.Input.InputDevice.Update
+- uid: System.Single
+  commentId: T:System.Single
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.single
+  name: float
+  nameWithType: float
+  fullName: float
+  nameWithType.vb: Single
+  fullName.vb: Single
+  name.vb: Single
+- uid: ShapeEngine.Input.InputDevice.CompareTo*
+  commentId: Overload:ShapeEngine.Input.InputDevice.CompareTo
+  href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_CompareTo_ShapeEngine_Input_InputDevice_
+  name: CompareTo
+  nameWithType: InputDevice.CompareTo
+  fullName: ShapeEngine.Input.InputDevice.CompareTo
+- uid: System.IComparable{ShapeEngine.Input.InputDevice}.CompareTo(ShapeEngine.Input.InputDevice)
+  commentId: M:System.IComparable{ShapeEngine.Input.InputDevice}.CompareTo(ShapeEngine.Input.InputDevice)
+  parent: System.IComparable{ShapeEngine.Input.InputDevice}
+  definition: System.IComparable`1.CompareTo(`0)
+  href: https://learn.microsoft.com/dotnet/api/system.icomparable-1.compareto
+  name: CompareTo(InputDevice)
+  nameWithType: IComparable<InputDevice>.CompareTo(InputDevice)
+  fullName: System.IComparable<ShapeEngine.Input.InputDevice>.CompareTo(ShapeEngine.Input.InputDevice)
+  nameWithType.vb: IComparable(Of InputDevice).CompareTo(InputDevice)
+  fullName.vb: System.IComparable(Of ShapeEngine.Input.InputDevice).CompareTo(ShapeEngine.Input.InputDevice)
+  spec.csharp:
+  - uid: System.IComparable{ShapeEngine.Input.InputDevice}.CompareTo(ShapeEngine.Input.InputDevice)
+    name: CompareTo
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.icomparable-1.compareto
+  - name: (
+  - uid: ShapeEngine.Input.InputDevice
+    name: InputDevice
+    href: ShapeEngine.Input.InputDevice.html
+  - name: )
+  spec.vb:
+  - uid: System.IComparable{ShapeEngine.Input.InputDevice}.CompareTo(ShapeEngine.Input.InputDevice)
+    name: CompareTo
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.icomparable-1.compareto
+  - name: (
+  - uid: ShapeEngine.Input.InputDevice
+    name: InputDevice
+    href: ShapeEngine.Input.InputDevice.html
+  - name: )
+- uid: ShapeEngine.Input.InputDevice
+  commentId: T:ShapeEngine.Input.InputDevice
+  parent: ShapeEngine.Input
+  href: ShapeEngine.Input.InputDevice.html
+  name: InputDevice
+  nameWithType: InputDevice
+  fullName: ShapeEngine.Input.InputDevice
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: System.IComparable`1.CompareTo(`0)
+  commentId: M:System.IComparable`1.CompareTo(`0)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.icomparable-1.compareto
+  name: CompareTo(T)
+  nameWithType: IComparable<T>.CompareTo(T)
+  fullName: System.IComparable<T>.CompareTo(T)
+  nameWithType.vb: IComparable(Of T).CompareTo(T)
+  fullName.vb: System.IComparable(Of T).CompareTo(T)
+  spec.csharp:
+  - uid: System.IComparable`1.CompareTo(`0)
+    name: CompareTo
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.icomparable-1.compareto
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: System.IComparable`1.CompareTo(`0)
+    name: CompareTo
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.icomparable-1.compareto
+  - name: (
+  - name: T
+  - name: )

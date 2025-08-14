@@ -5,14 +5,11 @@ items:
   id: GamepadDevice
   parent: ShapeEngine.Input
   children:
-  - ShapeEngine.Input.GamepadDevice.#ctor(System.Int32,System.Boolean)
-  - ShapeEngine.Input.GamepadDevice.Activate
   - ShapeEngine.Input.GamepadDevice.AllGamepadAxis
   - ShapeEngine.Input.GamepadDevice.AllGamepadButtons
   - ShapeEngine.Input.GamepadDevice.AllShapeGamepadButtons
   - ShapeEngine.Input.GamepadDevice.AllShapeGamepadJoyAxis
   - ShapeEngine.Input.GamepadDevice.AllShapeGamepadTriggerAxis
-  - ShapeEngine.Input.GamepadDevice.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
   - ShapeEngine.Input.GamepadDevice.Available
   - ShapeEngine.Input.GamepadDevice.AxisCount
   - ShapeEngine.Input.GamepadDevice.Claim
@@ -29,7 +26,6 @@ items:
   - ShapeEngine.Input.GamepadDevice.CreateInputState(ShapeEngine.Input.ShapeGamepadJoyAxis,System.Single,System.Boolean,ShapeEngine.Input.ModifierKeySet)
   - ShapeEngine.Input.GamepadDevice.CreateInputState(ShapeEngine.Input.ShapeGamepadTriggerAxis,ShapeEngine.Input.InputState,System.Single,System.Boolean,ShapeEngine.Input.ModifierKeySet)
   - ShapeEngine.Input.GamepadDevice.CreateInputState(ShapeEngine.Input.ShapeGamepadTriggerAxis,System.Single,System.Boolean,ShapeEngine.Input.ModifierKeySet)
-  - ShapeEngine.Input.GamepadDevice.Deactivate
   - ShapeEngine.Input.GamepadDevice.DeviceProcessPriority
   - ShapeEngine.Input.GamepadDevice.Disconnect
   - ShapeEngine.Input.GamepadDevice.Free
@@ -48,7 +44,6 @@ items:
   - ShapeEngine.Input.GamepadDevice.HeldJoyAxis
   - ShapeEngine.Input.GamepadDevice.HeldTriggerAxis
   - ShapeEngine.Input.GamepadDevice.Index
-  - ShapeEngine.Input.GamepadDevice.IsActive
   - ShapeEngine.Input.GamepadDevice.IsDown(ShapeEngine.Input.ShapeGamepadButton,ShapeEngine.Input.ShapeGamepadButton,System.Single,System.Single,ShapeEngine.Input.ModifierKeySet)
   - ShapeEngine.Input.GamepadDevice.IsDown(ShapeEngine.Input.ShapeGamepadButton,System.Single,System.Single,ShapeEngine.Input.ModifierKeySet)
   - ShapeEngine.Input.GamepadDevice.IsDown(ShapeEngine.Input.ShapeGamepadJoyAxis,System.Single,System.Boolean,ShapeEngine.Input.ModifierKeySet)
@@ -56,20 +51,21 @@ items:
   - ShapeEngine.Input.GamepadDevice.IsLocked
   - ShapeEngine.Input.GamepadDevice.Lock
   - ShapeEngine.Input.GamepadDevice.Name
-  - ShapeEngine.Input.GamepadDevice.OnAvailabilityChanged
   - ShapeEngine.Input.GamepadDevice.OnButtonPressed
   - ShapeEngine.Input.GamepadDevice.OnButtonReleased
+  - ShapeEngine.Input.GamepadDevice.OnClaimed
   - ShapeEngine.Input.GamepadDevice.OnConnectionChanged
+  - ShapeEngine.Input.GamepadDevice.OnFreed
   - ShapeEngine.Input.GamepadDevice.PressedButtons
   - ShapeEngine.Input.GamepadDevice.PressedJoyAxis
   - ShapeEngine.Input.GamepadDevice.PressedTriggerAxis
   - ShapeEngine.Input.GamepadDevice.ReleasedButtons
   - ShapeEngine.Input.GamepadDevice.ReleasedJoyAxis
   - ShapeEngine.Input.GamepadDevice.ReleasedTriggerAxis
+  - ShapeEngine.Input.GamepadDevice.Settings
   - ShapeEngine.Input.GamepadDevice.ToShapeGamepadAxis(ShapeEngine.Input.ShapeGamepadButton)
   - ShapeEngine.Input.GamepadDevice.Unlock
   - ShapeEngine.Input.GamepadDevice.Update(System.Single,System.Boolean)
-  - ShapeEngine.Input.GamepadDevice.UsageDetectionSettings
   - ShapeEngine.Input.GamepadDevice.WasUsed
   - ShapeEngine.Input.GamepadDevice.WasUsedRaw
   langs:
@@ -106,16 +102,15 @@ items:
     This depends on the gamepad and its configuration!
   example: []
   syntax:
-    content: 'public sealed class GamepadDevice : InputDevice, IComparable<InputDeviceBase>'
-    content.vb: Public NotInheritable Class GamepadDevice Inherits InputDevice Implements IComparable(Of InputDeviceBase)
+    content: 'public sealed class GamepadDevice : InputDevice, IComparable<InputDevice>'
+    content.vb: Public NotInheritable Class GamepadDevice Inherits InputDevice Implements IComparable(Of InputDevice)
   inheritance:
   - System.Object
-  - ShapeEngine.Input.InputDeviceBase
   - ShapeEngine.Input.InputDevice
   implements:
-  - System.IComparable{ShapeEngine.Input.InputDeviceBase}
+  - System.IComparable{ShapeEngine.Input.InputDevice}
   inheritedMembers:
-  - ShapeEngine.Input.InputDeviceBase.CompareTo(ShapeEngine.Input.InputDeviceBase)
+  - ShapeEngine.Input.InputDevice.CompareTo(ShapeEngine.Input.InputDevice)
   - System.Object.Equals(System.Object)
   - System.Object.Equals(System.Object,System.Object)
   - System.Object.GetHashCode
@@ -478,23 +473,23 @@ items:
       type: System.Int32
     content.vb: Public Property AxisCount As Integer
   overload: ShapeEngine.Input.GamepadDevice.AxisCount*
-- uid: ShapeEngine.Input.GamepadDevice.UsageDetectionSettings
-  commentId: P:ShapeEngine.Input.GamepadDevice.UsageDetectionSettings
-  id: UsageDetectionSettings
+- uid: ShapeEngine.Input.GamepadDevice.Settings
+  commentId: P:ShapeEngine.Input.GamepadDevice.Settings
+  id: Settings
   parent: ShapeEngine.Input.GamepadDevice
   langs:
   - csharp
   - vb
-  name: UsageDetectionSettings
-  nameWithType: GamepadDevice.UsageDetectionSettings
-  fullName: ShapeEngine.Input.GamepadDevice.UsageDetectionSettings
+  name: Settings
+  nameWithType: GamepadDevice.Settings
+  fullName: ShapeEngine.Input.GamepadDevice.Settings
   type: Property
   source:
     remote:
       path: ShapeEngine/Input/GamepadDevice.cs
       branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: UsageDetectionSettings
+    id: Settings
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
     startLine: 86
   assemblies:
@@ -503,12 +498,12 @@ items:
   summary: Gets the usage detection settings for the gamepad input device.
   example: []
   syntax:
-    content: public InputDeviceUsageDetectionSettings.GamepadSettings UsageDetectionSettings { get; }
+    content: public InputSettings.GamepadSettings Settings { get; }
     parameters: []
     return:
-      type: ShapeEngine.Input.InputDeviceUsageDetectionSettings.GamepadSettings
-    content.vb: Public Property UsageDetectionSettings As InputDeviceUsageDetectionSettings.GamepadSettings
-  overload: ShapeEngine.Input.GamepadDevice.UsageDetectionSettings*
+      type: ShapeEngine.Input.InputSettings.GamepadSettings
+    content.vb: Public Property Settings As InputSettings.GamepadSettings
+  overload: ShapeEngine.Input.GamepadDevice.Settings*
 - uid: ShapeEngine.Input.GamepadDevice.DeviceProcessPriority
   commentId: F:ShapeEngine.Input.GamepadDevice.DeviceProcessPriority
   id: DeviceProcessPriority
@@ -540,7 +535,7 @@ items:
 
     <p>
 
-    Change this value to change the order in which this device is processed in <xref href="ShapeEngine.Input.ShapeInput" data-throw-if-not-resolved="false"></xref>.
+    Change this value to change the order in which this device is processed in <xref href="ShapeEngine.Input.InputSystem" data-throw-if-not-resolved="false"></xref>.
 
     Lower priorities are processed first.
 
@@ -570,7 +565,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PressedButtons
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 113
+    startLine: 120
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -599,7 +594,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ReleasedButtons
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 117
+    startLine: 124
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -628,7 +623,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HeldDownButtons
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 121
+    startLine: 128
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -657,7 +652,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PressedJoyAxis
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 127
+    startLine: 134
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -686,7 +681,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ReleasedJoyAxis
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 132
+    startLine: 139
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -715,7 +710,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HeldJoyAxis
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 137
+    startLine: 144
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -744,7 +739,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PressedTriggerAxis
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 143
+    startLine: 150
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -773,7 +768,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ReleasedTriggerAxis
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 148
+    startLine: 155
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -802,7 +797,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HeldTriggerAxis
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 153
+    startLine: 160
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -831,84 +826,75 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnConnectionChanged
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 158
+    startLine: 165
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
   summary: Event triggered when the connection state changes.
   example: []
   syntax:
-    content: public event Action? OnConnectionChanged
+    content: public event Action<GamepadDevice, bool>? OnConnectionChanged
     return:
-      type: System.Action
-    content.vb: Public Event OnConnectionChanged As Action
-- uid: ShapeEngine.Input.GamepadDevice.OnAvailabilityChanged
-  commentId: E:ShapeEngine.Input.GamepadDevice.OnAvailabilityChanged
-  id: OnAvailabilityChanged
+      type: System.Action{ShapeEngine.Input.GamepadDevice,System.Boolean}
+    content.vb: Public Event OnConnectionChanged As Action(Of GamepadDevice, Boolean)
+- uid: ShapeEngine.Input.GamepadDevice.OnClaimed
+  commentId: E:ShapeEngine.Input.GamepadDevice.OnClaimed
+  id: OnClaimed
   parent: ShapeEngine.Input.GamepadDevice
   langs:
   - csharp
   - vb
-  name: OnAvailabilityChanged
-  nameWithType: GamepadDevice.OnAvailabilityChanged
-  fullName: ShapeEngine.Input.GamepadDevice.OnAvailabilityChanged
+  name: OnClaimed
+  nameWithType: GamepadDevice.OnClaimed
+  fullName: ShapeEngine.Input.GamepadDevice.OnClaimed
   type: Event
   source:
     remote:
       path: ShapeEngine/Input/GamepadDevice.cs
       branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: OnAvailabilityChanged
+    id: OnClaimed
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 162
+    startLine: 170
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
-  summary: Event triggered when the availability state changes.
+  summary: Event triggered when the gamepad is claimed for use.
   example: []
   syntax:
-    content: public event Action? OnAvailabilityChanged
+    content: public event Action<GamepadDevice>? OnClaimed
     return:
-      type: System.Action
-    content.vb: Public Event OnAvailabilityChanged As Action
-- uid: ShapeEngine.Input.GamepadDevice.#ctor(System.Int32,System.Boolean)
-  commentId: M:ShapeEngine.Input.GamepadDevice.#ctor(System.Int32,System.Boolean)
-  id: '#ctor(System.Int32,System.Boolean)'
+      type: System.Action{ShapeEngine.Input.GamepadDevice}
+    content.vb: Public Event OnClaimed As Action(Of GamepadDevice)
+- uid: ShapeEngine.Input.GamepadDevice.OnFreed
+  commentId: E:ShapeEngine.Input.GamepadDevice.OnFreed
+  id: OnFreed
   parent: ShapeEngine.Input.GamepadDevice
   langs:
   - csharp
   - vb
-  name: GamepadDevice(int, bool)
-  nameWithType: GamepadDevice.GamepadDevice(int, bool)
-  fullName: ShapeEngine.Input.GamepadDevice.GamepadDevice(int, bool)
-  type: Constructor
+  name: OnFreed
+  nameWithType: GamepadDevice.OnFreed
+  fullName: ShapeEngine.Input.GamepadDevice.OnFreed
+  type: Event
   source:
     remote:
       path: ShapeEngine/Input/GamepadDevice.cs
       branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: .ctor
+    id: OnFreed
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 173
+    startLine: 175
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
-  summary: Initializes a new instance of the <xref href="ShapeEngine.Input.GamepadDevice" data-throw-if-not-resolved="false"></xref> class.
+  summary: Event triggered when the gamepad is freed and becomes available.
   example: []
   syntax:
-    content: public GamepadDevice(int index, bool connected)
-    parameters:
-    - id: index
-      type: System.Int32
-      description: The gamepad index.
-    - id: connected
-      type: System.Boolean
-      description: Whether the gamepad is initially connected.
-    content.vb: Public Sub New(index As Integer, connected As Boolean)
-  overload: ShapeEngine.Input.GamepadDevice.#ctor*
-  nameWithType.vb: GamepadDevice.New(Integer, Boolean)
-  fullName.vb: ShapeEngine.Input.GamepadDevice.New(Integer, Boolean)
-  name.vb: New(Integer, Boolean)
+    content: public event Action<GamepadDevice>? OnFreed
+    return:
+      type: System.Action{ShapeEngine.Input.GamepadDevice}
+    content.vb: Public Event OnFreed As Action(Of GamepadDevice)
 - uid: ShapeEngine.Input.GamepadDevice.GetDeviceProcessPriority
   commentId: M:ShapeEngine.Input.GamepadDevice.GetDeviceProcessPriority
   id: GetDeviceProcessPriority
@@ -927,17 +913,22 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetDeviceProcessPriority
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 205
+    startLine: 212
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: >-
+    Gets the priority of the input device.
+
+    Devices with lower priority values are processed before those with higher values.
   example: []
   syntax:
     content: public override uint GetDeviceProcessPriority()
     return:
       type: System.UInt32
+      description: The priority value of the device.
     content.vb: Public Overrides Function GetDeviceProcessPriority() As UInteger
-  overridden: ShapeEngine.Input.InputDeviceBase.GetDeviceProcessPriority
+  overridden: ShapeEngine.Input.InputDevice.GetDeviceProcessPriority
   overload: ShapeEngine.Input.GamepadDevice.GetDeviceProcessPriority*
 - uid: ShapeEngine.Input.GamepadDevice.GetDeviceType
   commentId: M:ShapeEngine.Input.GamepadDevice.GetDeviceType
@@ -957,7 +948,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetDeviceType
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 210
+    startLine: 217
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -968,7 +959,7 @@ items:
     return:
       type: ShapeEngine.Input.InputDeviceType
     content.vb: Public Overrides Function GetDeviceType() As InputDeviceType
-  overridden: ShapeEngine.Input.InputDeviceBase.GetDeviceType
+  overridden: ShapeEngine.Input.InputDevice.GetDeviceType
   overload: ShapeEngine.Input.GamepadDevice.GetDeviceType*
 - uid: ShapeEngine.Input.GamepadDevice.GetButtonState(ShapeEngine.Input.ShapeGamepadButton)
   commentId: M:ShapeEngine.Input.GamepadDevice.GetButtonState(ShapeEngine.Input.ShapeGamepadButton)
@@ -988,7 +979,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetButtonState
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 215
+    startLine: 222
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1021,7 +1012,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetAxisState
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 219
+    startLine: 226
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1054,7 +1045,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetAxisState
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 225
+    startLine: 232
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1089,7 +1080,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ConsumeButtonState
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 234
+    startLine: 241
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1135,7 +1126,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ConsumeAxisState
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 252
+    startLine: 259
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1181,7 +1172,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ConsumeAxisState
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 270
+    startLine: 277
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1227,7 +1218,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToShapeGamepadAxis
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 289
+    startLine: 296
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1250,44 +1241,6 @@ items:
         If the button does not map to an axis, both values are null.
     content.vb: Public Shared Function ToShapeGamepadAxis(button As ShapeGamepadButton) As (joyAxis As ShapeGamepadJoyAxis?, triggerAxis As ShapeGamepadTriggerAxis?)
   overload: ShapeEngine.Input.GamepadDevice.ToShapeGamepadAxis*
-- uid: ShapeEngine.Input.GamepadDevice.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  commentId: M:ShapeEngine.Input.GamepadDevice.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  id: ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  parent: ShapeEngine.Input.GamepadDevice
-  langs:
-  - csharp
-  - vb
-  name: ApplyInputDeviceChangeSettings(InputDeviceUsageDetectionSettings)
-  nameWithType: GamepadDevice.ApplyInputDeviceChangeSettings(InputDeviceUsageDetectionSettings)
-  fullName: ShapeEngine.Input.GamepadDevice.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Input/GamepadDevice.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: ApplyInputDeviceChangeSettings
-    path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 313
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: >-
-    Applies the specified change settings to this gamepad device,
-
-    modifying how device usage is detected and processed.
-
-    Also propagates the settings to all other <xref href="ShapeEngine.Input.GamepadDevice" data-throw-if-not-resolved="false"></xref> instances and the <xref href="ShapeEngine.Input.GamepadDeviceManager" data-throw-if-not-resolved="false"></xref>.
-  example: []
-  syntax:
-    content: public override void ApplyInputDeviceChangeSettings(InputDeviceUsageDetectionSettings settings)
-    parameters:
-    - id: settings
-      type: ShapeEngine.Input.InputDeviceUsageDetectionSettings
-      description: The change settings to apply to the input device.
-    content.vb: Public Overrides Sub ApplyInputDeviceChangeSettings(settings As InputDeviceUsageDetectionSettings)
-  overridden: ShapeEngine.Input.InputDeviceBase.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  overload: ShapeEngine.Input.GamepadDevice.ApplyInputDeviceChangeSettings*
 - uid: ShapeEngine.Input.GamepadDevice.GetAxisRange(ShapeEngine.Input.ShapeGamepadJoyAxis)
   commentId: M:ShapeEngine.Input.GamepadDevice.GetAxisRange(ShapeEngine.Input.ShapeGamepadJoyAxis)
   id: GetAxisRange(ShapeEngine.Input.ShapeGamepadJoyAxis)
@@ -1306,7 +1259,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetAxisRange
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 331
+    startLine: 338
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1346,7 +1299,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetAxisRange
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 341
+    startLine: 348
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1386,14 +1339,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: WasUsed
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 344
+    startLine: 351
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
   summary: >-
     Indicates whether the device registered any input during the last update cycle,
 
-    taking into account any filters or settings applied to the device with <xref href="ShapeEngine.Input.InputDeviceUsageDetectionSettings" data-throw-if-not-resolved="false"></xref>.
+    taking into account any filters or settings applied to the device with <xref href="ShapeEngine.Input.InputSettings" data-throw-if-not-resolved="false"></xref>.
   example: []
   syntax:
     content: public override bool WasUsed()
@@ -1421,14 +1374,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: WasUsedRaw
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 347
+    startLine: 354
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
   summary: >-
     Determines if the device registered any input during the last update cycle,
 
-    ignoring any filters or settings specified by <xref href="ShapeEngine.Input.InputDeviceUsageDetectionSettings" data-throw-if-not-resolved="false"></xref>.
+    ignoring any filters or settings specified by <xref href="ShapeEngine.Input.InputSettings" data-throw-if-not-resolved="false"></xref>.
 
     Useful for detecting raw device activity.
   example: []
@@ -1458,7 +1411,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsLocked
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 354
+    startLine: 361
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1494,7 +1447,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Lock
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 359
+    startLine: 366
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1523,7 +1476,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Unlock
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 382
+    startLine: 377
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1534,95 +1487,6 @@ items:
     content.vb: Public Overrides Sub Unlock()
   overridden: ShapeEngine.Input.InputDevice.Unlock
   overload: ShapeEngine.Input.GamepadDevice.Unlock*
-- uid: ShapeEngine.Input.GamepadDevice.IsActive
-  commentId: M:ShapeEngine.Input.GamepadDevice.IsActive
-  id: IsActive
-  parent: ShapeEngine.Input.GamepadDevice
-  langs:
-  - csharp
-  - vb
-  name: IsActive()
-  nameWithType: GamepadDevice.IsActive()
-  fullName: ShapeEngine.Input.GamepadDevice.IsActive()
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Input/GamepadDevice.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: IsActive
-    path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 391
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: Indicates whether the mouse device is currently active, as in being used by the <xref href="ShapeEngine.Input.ShapeInput" data-throw-if-not-resolved="false"></xref> class to generate input.
-  example: []
-  syntax:
-    content: public override bool IsActive()
-    return:
-      type: System.Boolean
-    content.vb: Public Overrides Function IsActive() As Boolean
-  overridden: ShapeEngine.Input.InputDeviceBase.IsActive
-  overload: ShapeEngine.Input.GamepadDevice.IsActive*
-- uid: ShapeEngine.Input.GamepadDevice.Activate
-  commentId: M:ShapeEngine.Input.GamepadDevice.Activate
-  id: Activate
-  parent: ShapeEngine.Input.GamepadDevice
-  langs:
-  - csharp
-  - vb
-  name: Activate()
-  nameWithType: GamepadDevice.Activate()
-  fullName: ShapeEngine.Input.GamepadDevice.Activate()
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Input/GamepadDevice.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: Activate
-    path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 396
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: Activates the mouse device, enabling input processing.
-  example: []
-  syntax:
-    content: public override void Activate()
-    content.vb: Public Overrides Sub Activate()
-  overridden: ShapeEngine.Input.InputDeviceBase.Activate
-  overload: ShapeEngine.Input.GamepadDevice.Activate*
-- uid: ShapeEngine.Input.GamepadDevice.Deactivate
-  commentId: M:ShapeEngine.Input.GamepadDevice.Deactivate
-  id: Deactivate
-  parent: ShapeEngine.Input.GamepadDevice
-  langs:
-  - csharp
-  - vb
-  name: Deactivate()
-  nameWithType: GamepadDevice.Deactivate()
-  fullName: ShapeEngine.Input.GamepadDevice.Deactivate()
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Input/GamepadDevice.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: Deactivate
-    path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 405
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: Deactivates the mouse device, disabling input processing and resetting state.
-  example: []
-  syntax:
-    content: public override void Deactivate()
-    content.vb: Public Overrides Sub Deactivate()
-  overridden: ShapeEngine.Input.InputDeviceBase.Deactivate
-  overload: ShapeEngine.Input.GamepadDevice.Deactivate*
 - uid: ShapeEngine.Input.GamepadDevice.Update(System.Single,System.Boolean)
   commentId: M:ShapeEngine.Input.GamepadDevice.Update(System.Single,System.Boolean)
   id: Update(System.Single,System.Boolean)
@@ -1641,10 +1505,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 429
+    startLine: 405
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: >-
+    Updates the device state.
+
+    Receives input if another device was used as well in this frame.
   example: []
   syntax:
     content: public override bool Update(float dt, bool wasOtherDeviceUsed)
@@ -1655,8 +1523,9 @@ items:
       type: System.Boolean
     return:
       type: System.Boolean
+      description: If this device was used this frame. Takes <xref href="ShapeEngine.Input.InputSettings" data-throw-if-not-resolved="false"></xref> into account.
     content.vb: Public Overrides Function Update(dt As Single, wasOtherDeviceUsed As Boolean) As Boolean
-  overridden: ShapeEngine.Input.InputDeviceBase.Update(System.Single,System.Boolean)
+  overridden: ShapeEngine.Input.InputDevice.Update(System.Single,System.Boolean)
   overload: ShapeEngine.Input.GamepadDevice.Update*
   nameWithType.vb: GamepadDevice.Update(Single, Boolean)
   fullName.vb: ShapeEngine.Input.GamepadDevice.Update(Single, Boolean)
@@ -1679,7 +1548,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Connect
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 554
+    startLine: 558
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1707,7 +1576,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Disconnect
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 573
+    startLine: 570
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1735,7 +1604,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Claim
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 597
+    startLine: 582
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1766,7 +1635,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Free
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 608
+    startLine: 593
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1797,7 +1666,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetValue
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 689
+    startLine: 674
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1847,7 +1716,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsDown
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 740
+    startLine: 725
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1894,7 +1763,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CreateInputState
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 757
+    startLine: 742
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1944,7 +1813,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CreateInputState
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 775
+    startLine: 760
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1997,7 +1866,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetValue
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 795
+    startLine: 780
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -2047,7 +1916,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsDown
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 816
+    startLine: 801
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -2097,7 +1966,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CreateInputState
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 831
+    startLine: 816
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -2147,7 +2016,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CreateInputState
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 849
+    startLine: 834
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -2200,7 +2069,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetValue
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 887
+    startLine: 872
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -2254,7 +2123,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsDown
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 911
+    startLine: 896
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -2306,7 +2175,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CreateInputState
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 928
+    startLine: 913
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -2358,7 +2227,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CreateInputState
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 946
+    startLine: 931
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -2413,7 +2282,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetValue
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 979
+    startLine: 964
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -2470,7 +2339,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsDown
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 1001
+    startLine: 986
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -2525,7 +2394,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CreateInputState
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 1019
+    startLine: 1004
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -2580,7 +2449,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CreateInputState
     path: ../ShapeEngine/ShapeEngine/Input/GamepadDevice.cs
-    startLine: 1039
+    startLine: 1024
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -2652,13 +2521,6 @@ references:
   nameWithType.vb: Object
   fullName.vb: Object
   name.vb: Object
-- uid: ShapeEngine.Input.InputDeviceBase
-  commentId: T:ShapeEngine.Input.InputDeviceBase
-  parent: ShapeEngine.Input
-  href: ShapeEngine.Input.InputDeviceBase.html
-  name: InputDeviceBase
-  nameWithType: InputDeviceBase
-  fullName: ShapeEngine.Input.InputDeviceBase
 - uid: ShapeEngine.Input.InputDevice
   commentId: T:ShapeEngine.Input.InputDevice
   parent: ShapeEngine.Input
@@ -2666,26 +2528,26 @@ references:
   name: InputDevice
   nameWithType: InputDevice
   fullName: ShapeEngine.Input.InputDevice
-- uid: System.IComparable{ShapeEngine.Input.InputDeviceBase}
-  commentId: T:System.IComparable{ShapeEngine.Input.InputDeviceBase}
+- uid: System.IComparable{ShapeEngine.Input.InputDevice}
+  commentId: T:System.IComparable{ShapeEngine.Input.InputDevice}
   parent: System
   definition: System.IComparable`1
   href: https://learn.microsoft.com/dotnet/api/system.icomparable-1
-  name: IComparable<InputDeviceBase>
-  nameWithType: IComparable<InputDeviceBase>
-  fullName: System.IComparable<ShapeEngine.Input.InputDeviceBase>
-  nameWithType.vb: IComparable(Of InputDeviceBase)
-  fullName.vb: System.IComparable(Of ShapeEngine.Input.InputDeviceBase)
-  name.vb: IComparable(Of InputDeviceBase)
+  name: IComparable<InputDevice>
+  nameWithType: IComparable<InputDevice>
+  fullName: System.IComparable<ShapeEngine.Input.InputDevice>
+  nameWithType.vb: IComparable(Of InputDevice)
+  fullName.vb: System.IComparable(Of ShapeEngine.Input.InputDevice)
+  name.vb: IComparable(Of InputDevice)
   spec.csharp:
   - uid: System.IComparable`1
     name: IComparable
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.icomparable-1
   - name: <
-  - uid: ShapeEngine.Input.InputDeviceBase
-    name: InputDeviceBase
-    href: ShapeEngine.Input.InputDeviceBase.html
+  - uid: ShapeEngine.Input.InputDevice
+    name: InputDevice
+    href: ShapeEngine.Input.InputDevice.html
   - name: '>'
   spec.vb:
   - uid: System.IComparable`1
@@ -2695,34 +2557,34 @@ references:
   - name: (
   - name: Of
   - name: " "
-  - uid: ShapeEngine.Input.InputDeviceBase
-    name: InputDeviceBase
-    href: ShapeEngine.Input.InputDeviceBase.html
+  - uid: ShapeEngine.Input.InputDevice
+    name: InputDevice
+    href: ShapeEngine.Input.InputDevice.html
   - name: )
-- uid: ShapeEngine.Input.InputDeviceBase.CompareTo(ShapeEngine.Input.InputDeviceBase)
-  commentId: M:ShapeEngine.Input.InputDeviceBase.CompareTo(ShapeEngine.Input.InputDeviceBase)
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_CompareTo_ShapeEngine_Input_InputDeviceBase_
-  name: CompareTo(InputDeviceBase)
-  nameWithType: InputDeviceBase.CompareTo(InputDeviceBase)
-  fullName: ShapeEngine.Input.InputDeviceBase.CompareTo(ShapeEngine.Input.InputDeviceBase)
+- uid: ShapeEngine.Input.InputDevice.CompareTo(ShapeEngine.Input.InputDevice)
+  commentId: M:ShapeEngine.Input.InputDevice.CompareTo(ShapeEngine.Input.InputDevice)
+  parent: ShapeEngine.Input.InputDevice
+  href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_CompareTo_ShapeEngine_Input_InputDevice_
+  name: CompareTo(InputDevice)
+  nameWithType: InputDevice.CompareTo(InputDevice)
+  fullName: ShapeEngine.Input.InputDevice.CompareTo(ShapeEngine.Input.InputDevice)
   spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.CompareTo(ShapeEngine.Input.InputDeviceBase)
+  - uid: ShapeEngine.Input.InputDevice.CompareTo(ShapeEngine.Input.InputDevice)
     name: CompareTo
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_CompareTo_ShapeEngine_Input_InputDeviceBase_
+    href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_CompareTo_ShapeEngine_Input_InputDevice_
   - name: (
-  - uid: ShapeEngine.Input.InputDeviceBase
-    name: InputDeviceBase
-    href: ShapeEngine.Input.InputDeviceBase.html
+  - uid: ShapeEngine.Input.InputDevice
+    name: InputDevice
+    href: ShapeEngine.Input.InputDevice.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.CompareTo(ShapeEngine.Input.InputDeviceBase)
+  - uid: ShapeEngine.Input.InputDevice.CompareTo(ShapeEngine.Input.InputDevice)
     name: CompareTo
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_CompareTo_ShapeEngine_Input_InputDeviceBase_
+    href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_CompareTo_ShapeEngine_Input_InputDevice_
   - name: (
-  - uid: ShapeEngine.Input.InputDeviceBase
-    name: InputDeviceBase
-    href: ShapeEngine.Input.InputDeviceBase.html
+  - uid: ShapeEngine.Input.InputDevice
+    name: InputDevice
+    href: ShapeEngine.Input.InputDevice.html
   - name: )
 - uid: System.Object.Equals(System.Object)
   commentId: M:System.Object.Equals(System.Object)
@@ -3191,42 +3053,42 @@ references:
   name: AxisCount
   nameWithType: GamepadDevice.AxisCount
   fullName: ShapeEngine.Input.GamepadDevice.AxisCount
-- uid: ShapeEngine.Input.GamepadDevice.UsageDetectionSettings*
-  commentId: Overload:ShapeEngine.Input.GamepadDevice.UsageDetectionSettings
-  href: ShapeEngine.Input.GamepadDevice.html#ShapeEngine_Input_GamepadDevice_UsageDetectionSettings
-  name: UsageDetectionSettings
-  nameWithType: GamepadDevice.UsageDetectionSettings
-  fullName: ShapeEngine.Input.GamepadDevice.UsageDetectionSettings
-- uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings.GamepadSettings
-  commentId: T:ShapeEngine.Input.InputDeviceUsageDetectionSettings.GamepadSettings
+- uid: ShapeEngine.Input.GamepadDevice.Settings*
+  commentId: Overload:ShapeEngine.Input.GamepadDevice.Settings
+  href: ShapeEngine.Input.GamepadDevice.html#ShapeEngine_Input_GamepadDevice_Settings
+  name: Settings
+  nameWithType: GamepadDevice.Settings
+  fullName: ShapeEngine.Input.GamepadDevice.Settings
+- uid: ShapeEngine.Input.InputSettings.GamepadSettings
+  commentId: T:ShapeEngine.Input.InputSettings.GamepadSettings
   parent: ShapeEngine.Input
-  href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.html
-  name: InputDeviceUsageDetectionSettings.GamepadSettings
-  nameWithType: InputDeviceUsageDetectionSettings.GamepadSettings
-  fullName: ShapeEngine.Input.InputDeviceUsageDetectionSettings.GamepadSettings
+  href: ShapeEngine.Input.InputSettings.html
+  name: InputSettings.GamepadSettings
+  nameWithType: InputSettings.GamepadSettings
+  fullName: ShapeEngine.Input.InputSettings.GamepadSettings
   spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings
-    name: InputDeviceUsageDetectionSettings
-    href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.html
+  - uid: ShapeEngine.Input.InputSettings
+    name: InputSettings
+    href: ShapeEngine.Input.InputSettings.html
   - name: .
-  - uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings.GamepadSettings
+  - uid: ShapeEngine.Input.InputSettings.GamepadSettings
     name: GamepadSettings
-    href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.GamepadSettings.html
+    href: ShapeEngine.Input.InputSettings.GamepadSettings.html
   spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings
-    name: InputDeviceUsageDetectionSettings
-    href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.html
+  - uid: ShapeEngine.Input.InputSettings
+    name: InputSettings
+    href: ShapeEngine.Input.InputSettings.html
   - name: .
-  - uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings.GamepadSettings
+  - uid: ShapeEngine.Input.InputSettings.GamepadSettings
     name: GamepadSettings
-    href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.GamepadSettings.html
-- uid: ShapeEngine.Input.ShapeInput
-  commentId: T:ShapeEngine.Input.ShapeInput
+    href: ShapeEngine.Input.InputSettings.GamepadSettings.html
+- uid: ShapeEngine.Input.InputSystem
+  commentId: T:ShapeEngine.Input.InputSystem
   parent: ShapeEngine.Input
-  href: ShapeEngine.Input.ShapeInput.html
-  name: ShapeInput
-  nameWithType: ShapeInput
-  fullName: ShapeEngine.Input.ShapeInput
+  href: ShapeEngine.Input.InputSystem.html
+  name: InputSystem
+  nameWithType: InputSystem
+  fullName: ShapeEngine.Input.InputSystem
 - uid: System.UInt32
   commentId: T:System.UInt32
   parent: System
@@ -3402,47 +3264,129 @@ references:
     name: ShapeGamepadTriggerAxis
     href: ShapeEngine.Input.ShapeGamepadTriggerAxis.html
   - name: )
-- uid: System.Action
-  commentId: T:System.Action
+- uid: System.Action{ShapeEngine.Input.GamepadDevice,System.Boolean}
+  commentId: T:System.Action{ShapeEngine.Input.GamepadDevice,System.Boolean}
   parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.action
-  name: Action
-  nameWithType: Action
-  fullName: System.Action
-- uid: ShapeEngine.Input.GamepadDevice
-  commentId: T:ShapeEngine.Input.GamepadDevice
-  parent: ShapeEngine.Input
-  href: ShapeEngine.Input.GamepadDevice.html
-  name: GamepadDevice
-  nameWithType: GamepadDevice
-  fullName: ShapeEngine.Input.GamepadDevice
-- uid: ShapeEngine.Input.GamepadDevice.#ctor*
-  commentId: Overload:ShapeEngine.Input.GamepadDevice.#ctor
-  href: ShapeEngine.Input.GamepadDevice.html#ShapeEngine_Input_GamepadDevice__ctor_System_Int32_System_Boolean_
-  name: GamepadDevice
-  nameWithType: GamepadDevice.GamepadDevice
-  fullName: ShapeEngine.Input.GamepadDevice.GamepadDevice
-  nameWithType.vb: GamepadDevice.New
-  fullName.vb: ShapeEngine.Input.GamepadDevice.New
-  name.vb: New
-- uid: ShapeEngine.Input.InputDeviceBase.GetDeviceProcessPriority
-  commentId: M:ShapeEngine.Input.InputDeviceBase.GetDeviceProcessPriority
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_GetDeviceProcessPriority
-  name: GetDeviceProcessPriority()
-  nameWithType: InputDeviceBase.GetDeviceProcessPriority()
-  fullName: ShapeEngine.Input.InputDeviceBase.GetDeviceProcessPriority()
+  definition: System.Action`2
+  href: https://learn.microsoft.com/dotnet/api/system.action-2
+  name: Action<GamepadDevice, bool>
+  nameWithType: Action<GamepadDevice, bool>
+  fullName: System.Action<ShapeEngine.Input.GamepadDevice, bool>
+  nameWithType.vb: Action(Of GamepadDevice, Boolean)
+  fullName.vb: System.Action(Of ShapeEngine.Input.GamepadDevice, Boolean)
+  name.vb: Action(Of GamepadDevice, Boolean)
   spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.GetDeviceProcessPriority
+  - uid: System.Action`2
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-2
+  - name: <
+  - uid: ShapeEngine.Input.GamepadDevice
+    name: GamepadDevice
+    href: ShapeEngine.Input.GamepadDevice.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`2
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ShapeEngine.Input.GamepadDevice
+    name: GamepadDevice
+    href: ShapeEngine.Input.GamepadDevice.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: System.Action{ShapeEngine.Input.GamepadDevice}
+  commentId: T:System.Action{ShapeEngine.Input.GamepadDevice}
+  parent: System
+  definition: System.Action`1
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<GamepadDevice>
+  nameWithType: Action<GamepadDevice>
+  fullName: System.Action<ShapeEngine.Input.GamepadDevice>
+  nameWithType.vb: Action(Of GamepadDevice)
+  fullName.vb: System.Action(Of ShapeEngine.Input.GamepadDevice)
+  name.vb: Action(Of GamepadDevice)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - uid: ShapeEngine.Input.GamepadDevice
+    name: GamepadDevice
+    href: ShapeEngine.Input.GamepadDevice.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ShapeEngine.Input.GamepadDevice
+    name: GamepadDevice
+    href: ShapeEngine.Input.GamepadDevice.html
+  - name: )
+- uid: System.Action`1
+  commentId: T:System.Action`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: ShapeEngine.Input.InputDevice.GetDeviceProcessPriority
+  commentId: M:ShapeEngine.Input.InputDevice.GetDeviceProcessPriority
+  parent: ShapeEngine.Input.InputDevice
+  href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_GetDeviceProcessPriority
+  name: GetDeviceProcessPriority()
+  nameWithType: InputDevice.GetDeviceProcessPriority()
+  fullName: ShapeEngine.Input.InputDevice.GetDeviceProcessPriority()
+  spec.csharp:
+  - uid: ShapeEngine.Input.InputDevice.GetDeviceProcessPriority
     name: GetDeviceProcessPriority
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_GetDeviceProcessPriority
+    href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_GetDeviceProcessPriority
   - name: (
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.GetDeviceProcessPriority
+  - uid: ShapeEngine.Input.InputDevice.GetDeviceProcessPriority
     name: GetDeviceProcessPriority
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_GetDeviceProcessPriority
+    href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_GetDeviceProcessPriority
   - name: (
   - name: )
 - uid: ShapeEngine.Input.GamepadDevice.GetDeviceProcessPriority*
@@ -3457,23 +3401,23 @@ references:
   name: Gamepad
   nameWithType: InputDeviceType.Gamepad
   fullName: ShapeEngine.Input.InputDeviceType.Gamepad
-- uid: ShapeEngine.Input.InputDeviceBase.GetDeviceType
-  commentId: M:ShapeEngine.Input.InputDeviceBase.GetDeviceType
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_GetDeviceType
+- uid: ShapeEngine.Input.InputDevice.GetDeviceType
+  commentId: M:ShapeEngine.Input.InputDevice.GetDeviceType
+  parent: ShapeEngine.Input.InputDevice
+  href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_GetDeviceType
   name: GetDeviceType()
-  nameWithType: InputDeviceBase.GetDeviceType()
-  fullName: ShapeEngine.Input.InputDeviceBase.GetDeviceType()
+  nameWithType: InputDevice.GetDeviceType()
+  fullName: ShapeEngine.Input.InputDevice.GetDeviceType()
   spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.GetDeviceType
+  - uid: ShapeEngine.Input.InputDevice.GetDeviceType
     name: GetDeviceType
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_GetDeviceType
+    href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_GetDeviceType
   - name: (
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.GetDeviceType
+  - uid: ShapeEngine.Input.InputDevice.GetDeviceType
     name: GetDeviceType
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_GetDeviceType
+    href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_GetDeviceType
   - name: (
   - name: )
 - uid: ShapeEngine.Input.GamepadDevice.GetDeviceType*
@@ -3623,51 +3567,6 @@ references:
   - name: " "
   - name: T2
   - name: )
-- uid: ShapeEngine.Input.GamepadDeviceManager
-  commentId: T:ShapeEngine.Input.GamepadDeviceManager
-  parent: ShapeEngine.Input
-  href: ShapeEngine.Input.GamepadDeviceManager.html
-  name: GamepadDeviceManager
-  nameWithType: GamepadDeviceManager
-  fullName: ShapeEngine.Input.GamepadDeviceManager
-- uid: ShapeEngine.Input.InputDeviceBase.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  commentId: M:ShapeEngine.Input.InputDeviceBase.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_ApplyInputDeviceChangeSettings_ShapeEngine_Input_InputDeviceUsageDetectionSettings_
-  name: ApplyInputDeviceChangeSettings(InputDeviceUsageDetectionSettings)
-  nameWithType: InputDeviceBase.ApplyInputDeviceChangeSettings(InputDeviceUsageDetectionSettings)
-  fullName: ShapeEngine.Input.InputDeviceBase.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-    name: ApplyInputDeviceChangeSettings
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_ApplyInputDeviceChangeSettings_ShapeEngine_Input_InputDeviceUsageDetectionSettings_
-  - name: (
-  - uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings
-    name: InputDeviceUsageDetectionSettings
-    href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-    name: ApplyInputDeviceChangeSettings
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_ApplyInputDeviceChangeSettings_ShapeEngine_Input_InputDeviceUsageDetectionSettings_
-  - name: (
-  - uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings
-    name: InputDeviceUsageDetectionSettings
-    href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.html
-  - name: )
-- uid: ShapeEngine.Input.GamepadDevice.ApplyInputDeviceChangeSettings*
-  commentId: Overload:ShapeEngine.Input.GamepadDevice.ApplyInputDeviceChangeSettings
-  href: ShapeEngine.Input.GamepadDevice.html#ShapeEngine_Input_GamepadDevice_ApplyInputDeviceChangeSettings_ShapeEngine_Input_InputDeviceUsageDetectionSettings_
-  name: ApplyInputDeviceChangeSettings
-  nameWithType: GamepadDevice.ApplyInputDeviceChangeSettings
-  fullName: ShapeEngine.Input.GamepadDevice.ApplyInputDeviceChangeSettings
-- uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings
-  commentId: T:ShapeEngine.Input.InputDeviceUsageDetectionSettings
-  parent: ShapeEngine.Input
-  href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.html
-  name: InputDeviceUsageDetectionSettings
-  nameWithType: InputDeviceUsageDetectionSettings
-  fullName: ShapeEngine.Input.InputDeviceUsageDetectionSettings
 - uid: ShapeEngine.Input.GamepadDevice.GetAxisRange*
   commentId: Overload:ShapeEngine.Input.GamepadDevice.GetAxisRange
   href: ShapeEngine.Input.GamepadDevice.html#ShapeEngine_Input_GamepadDevice_GetAxisRange_ShapeEngine_Input_ShapeGamepadJoyAxis_
@@ -3720,6 +3619,13 @@ references:
   - name: " "
   - name: T
   - name: )
+- uid: ShapeEngine.Input.InputSettings
+  commentId: T:ShapeEngine.Input.InputSettings
+  parent: ShapeEngine.Input
+  href: ShapeEngine.Input.InputSettings.html
+  name: InputSettings
+  nameWithType: InputSettings
+  fullName: ShapeEngine.Input.InputSettings
 - uid: ShapeEngine.Input.InputDevice.WasUsed
   commentId: M:ShapeEngine.Input.InputDevice.WasUsed
   parent: ShapeEngine.Input.InputDevice
@@ -3845,96 +3751,21 @@ references:
   name: Unlock
   nameWithType: GamepadDevice.Unlock
   fullName: ShapeEngine.Input.GamepadDevice.Unlock
-- uid: ShapeEngine.Input.InputDeviceBase.IsActive
-  commentId: M:ShapeEngine.Input.InputDeviceBase.IsActive
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_IsActive
-  name: IsActive()
-  nameWithType: InputDeviceBase.IsActive()
-  fullName: ShapeEngine.Input.InputDeviceBase.IsActive()
-  spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.IsActive
-    name: IsActive
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_IsActive
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.IsActive
-    name: IsActive
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_IsActive
-  - name: (
-  - name: )
-- uid: ShapeEngine.Input.GamepadDevice.IsActive*
-  commentId: Overload:ShapeEngine.Input.GamepadDevice.IsActive
-  href: ShapeEngine.Input.GamepadDevice.html#ShapeEngine_Input_GamepadDevice_IsActive
-  name: IsActive
-  nameWithType: GamepadDevice.IsActive
-  fullName: ShapeEngine.Input.GamepadDevice.IsActive
-- uid: ShapeEngine.Input.InputDeviceBase.Activate
-  commentId: M:ShapeEngine.Input.InputDeviceBase.Activate
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Activate
-  name: Activate()
-  nameWithType: InputDeviceBase.Activate()
-  fullName: ShapeEngine.Input.InputDeviceBase.Activate()
-  spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.Activate
-    name: Activate
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Activate
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.Activate
-    name: Activate
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Activate
-  - name: (
-  - name: )
-- uid: ShapeEngine.Input.GamepadDevice.Activate*
-  commentId: Overload:ShapeEngine.Input.GamepadDevice.Activate
-  href: ShapeEngine.Input.GamepadDevice.html#ShapeEngine_Input_GamepadDevice_Activate
-  name: Activate
-  nameWithType: GamepadDevice.Activate
-  fullName: ShapeEngine.Input.GamepadDevice.Activate
-- uid: ShapeEngine.Input.InputDeviceBase.Deactivate
-  commentId: M:ShapeEngine.Input.InputDeviceBase.Deactivate
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Deactivate
-  name: Deactivate()
-  nameWithType: InputDeviceBase.Deactivate()
-  fullName: ShapeEngine.Input.InputDeviceBase.Deactivate()
-  spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.Deactivate
-    name: Deactivate
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Deactivate
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.Deactivate
-    name: Deactivate
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Deactivate
-  - name: (
-  - name: )
-- uid: ShapeEngine.Input.GamepadDevice.Deactivate*
-  commentId: Overload:ShapeEngine.Input.GamepadDevice.Deactivate
-  href: ShapeEngine.Input.GamepadDevice.html#ShapeEngine_Input_GamepadDevice_Deactivate
-  name: Deactivate
-  nameWithType: GamepadDevice.Deactivate
-  fullName: ShapeEngine.Input.GamepadDevice.Deactivate
-- uid: ShapeEngine.Input.InputDeviceBase.Update(System.Single,System.Boolean)
-  commentId: M:ShapeEngine.Input.InputDeviceBase.Update(System.Single,System.Boolean)
-  parent: ShapeEngine.Input.InputDeviceBase
+- uid: ShapeEngine.Input.InputDevice.Update(System.Single,System.Boolean)
+  commentId: M:ShapeEngine.Input.InputDevice.Update(System.Single,System.Boolean)
+  parent: ShapeEngine.Input.InputDevice
   isExternal: true
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Update_System_Single_System_Boolean_
+  href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_Update_System_Single_System_Boolean_
   name: Update(float, bool)
-  nameWithType: InputDeviceBase.Update(float, bool)
-  fullName: ShapeEngine.Input.InputDeviceBase.Update(float, bool)
-  nameWithType.vb: InputDeviceBase.Update(Single, Boolean)
-  fullName.vb: ShapeEngine.Input.InputDeviceBase.Update(Single, Boolean)
+  nameWithType: InputDevice.Update(float, bool)
+  fullName: ShapeEngine.Input.InputDevice.Update(float, bool)
+  nameWithType.vb: InputDevice.Update(Single, Boolean)
+  fullName.vb: ShapeEngine.Input.InputDevice.Update(Single, Boolean)
   name.vb: Update(Single, Boolean)
   spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.Update(System.Single,System.Boolean)
+  - uid: ShapeEngine.Input.InputDevice.Update(System.Single,System.Boolean)
     name: Update
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Update_System_Single_System_Boolean_
+    href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_Update_System_Single_System_Boolean_
   - name: (
   - uid: System.Single
     name: float
@@ -3948,9 +3779,9 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.Update(System.Single,System.Boolean)
+  - uid: ShapeEngine.Input.InputDevice.Update(System.Single,System.Boolean)
     name: Update
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Update_System_Single_System_Boolean_
+    href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_Update_System_Single_System_Boolean_
   - name: (
   - uid: System.Single
     name: Single

@@ -5,7 +5,7 @@ items:
   id: Game
   parent: ShapeEngine.Core.GameDef
   children:
-  - ShapeEngine.Core.GameDef.Game.#ctor(ShapeEngine.Core.Structs.GameSettings,ShapeEngine.Core.Structs.WindowSettings)
+  - ShapeEngine.Core.GameDef.Game.#ctor(ShapeEngine.Core.Structs.GameSettings,ShapeEngine.Core.Structs.WindowSettings,ShapeEngine.Input.InputSettings)
   - ShapeEngine.Core.GameDef.Game.AddCustomEvent(ShapeEngine.Core.GameDef.Game.CustomEvent)
   - ShapeEngine.Core.GameDef.Game.AddScreenTexture(ShapeEngine.Screen.ScreenTexture)
   - ShapeEngine.Core.GameDef.Game.AudioDevice
@@ -20,7 +20,6 @@ items:
   - ShapeEngine.Core.GameDef.Game.ClearFlashes
   - ShapeEngine.Core.GameDef.Game.ClearScreenTextures
   - ShapeEngine.Core.GameDef.Game.CurScene
-  - ShapeEngine.Core.GameDef.Game.CurrentGameInstance
   - ShapeEngine.Core.GameDef.Game.DebugMode
   - ShapeEngine.Core.GameDef.Game.DrawCursorGame(ShapeEngine.Core.Structs.ScreenInfo)
   - ShapeEngine.Core.GameDef.Game.DrawCursorGameUi(ShapeEngine.Core.Structs.ScreenInfo)
@@ -40,10 +39,13 @@ items:
   - ShapeEngine.Core.GameDef.Game.GameUiScreenInfo
   - ShapeEngine.Core.GameDef.Game.GetGameTexture
   - ShapeEngine.Core.GameDef.Game.GetHashCode``1(System.Collections.Generic.IEnumerable{``0})
+  - ShapeEngine.Core.GameDef.Game.GetInstanceAs``1
   - ShapeEngine.Core.GameDef.Game.GetItem``1(System.Collections.Generic.List{``0},System.Int32)
   - ShapeEngine.Core.GameDef.Game.GoToScene(ShapeEngine.Core.Scene)
   - ShapeEngine.Core.GameDef.Game.HasCustomEvent(ShapeEngine.Core.GameDef.Game.CustomEvent)
   - ShapeEngine.Core.GameDef.Game.HasScreenTexture(ShapeEngine.Screen.ScreenTexture)
+  - ShapeEngine.Core.GameDef.Game.Input
+  - ShapeEngine.Core.GameDef.Game.Instance
   - ShapeEngine.Core.GameDef.Game.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Single)
   - ShapeEngine.Core.GameDef.Game.IsEqual``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{``0})
   - ShapeEngine.Core.GameDef.Game.IsLinux
@@ -56,8 +58,10 @@ items:
   - ShapeEngine.Core.GameDef.Game.OnButtonPressed(ShapeEngine.Input.InputEvent)
   - ShapeEngine.Core.GameDef.Game.OnButtonReleased(ShapeEngine.Input.InputEvent)
   - ShapeEngine.Core.GameDef.Game.OnGameTextureResized(System.Int32,System.Int32)
+  - ShapeEngine.Core.GameDef.Game.OnGamepadClaimed(ShapeEngine.Input.GamepadDevice)
   - ShapeEngine.Core.GameDef.Game.OnGamepadConnected(ShapeEngine.Input.GamepadDevice)
   - ShapeEngine.Core.GameDef.Game.OnGamepadDisconnected(ShapeEngine.Input.GamepadDevice)
+  - ShapeEngine.Core.GameDef.Game.OnGamepadFreed(ShapeEngine.Input.GamepadDevice)
   - ShapeEngine.Core.GameDef.Game.OnInputDeviceChanged(ShapeEngine.Input.InputDeviceType,ShapeEngine.Input.InputDeviceType)
   - ShapeEngine.Core.GameDef.Game.OnMonitorChanged(ShapeEngine.Screen.MonitorInfo)
   - ShapeEngine.Core.GameDef.Game.OnMouseEnabledChanged(System.Boolean)
@@ -113,7 +117,11 @@ items:
   summary: >-
     The core game class.
 
-    Inherit this class, create a new instance of this class and call Run() to start the game.
+    Inherit this class, create a new instance of this class and call <xref href="ShapeEngine.Core.GameDef.Game.Run(System.String%5b%5d)" data-throw-if-not-resolved="false"></xref> to start the game.
+
+    Only one instance of the game should be created per application.
+
+    A singleton <xref href="ShapeEngine.Core.GameDef.Game.Instance" data-throw-if-not-resolved="false"></xref> property will be set to the newly created game instance and will only allow one instance of the game to be created per application.
   remarks: >-
     Main Game loop call order:
 
@@ -154,7 +162,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LaunchParams
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 49
+    startLine: 52
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -189,7 +197,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FixedPhysicsEnabled
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 73
+    startLine: 76
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -230,7 +238,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FixedPhysicsFramerate
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 82
+    startLine: 85
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -265,7 +273,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FixedPhysicsTimestep
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 91
+    startLine: 94
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -300,7 +308,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Time
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 100
+    startLine: 103
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -335,7 +343,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FixedTime
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 109
+    startLine: 112
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -370,7 +378,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BackgroundColorRgba
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 117
+    startLine: 120
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -400,7 +408,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ScreenEffectIntensity
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 126
+    startLine: 129
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -433,7 +441,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ScreenShaders
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 135
+    startLine: 138
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -468,7 +476,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Camera
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 144
+    startLine: 147
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -503,7 +511,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GameScreenInfo
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 165
+    startLine: 168
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -538,7 +546,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GameUiScreenInfo
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 174
+    startLine: 177
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -573,7 +581,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: UIScreenInfo
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 183
+    startLine: 186
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -608,7 +616,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Paused
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 193
+    startLine: 196
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -643,7 +651,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Window
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 213
+    startLine: 216
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -678,7 +686,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AudioDevice
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 222
+    startLine: 225
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -711,7 +719,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CurScene
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 231
+    startLine: 234
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -746,7 +754,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GameTexture
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 240
+    startLine: 243
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -781,7 +789,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetGameTexture
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 246
+    startLine: 249
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -794,16 +802,127 @@ items:
       description: The current ScreenTexture instance used by the game.
     content.vb: Public Function GetGameTexture() As ScreenTexture
   overload: ShapeEngine.Core.GameDef.Game.GetGameTexture*
-- uid: ShapeEngine.Core.GameDef.Game.#ctor(ShapeEngine.Core.Structs.GameSettings,ShapeEngine.Core.Structs.WindowSettings)
-  commentId: M:ShapeEngine.Core.GameDef.Game.#ctor(ShapeEngine.Core.Structs.GameSettings,ShapeEngine.Core.Structs.WindowSettings)
-  id: '#ctor(ShapeEngine.Core.Structs.GameSettings,ShapeEngine.Core.Structs.WindowSettings)'
+- uid: ShapeEngine.Core.GameDef.Game.Input
+  commentId: F:ShapeEngine.Core.GameDef.Game.Input
+  id: Input
   parent: ShapeEngine.Core.GameDef.Game
   langs:
   - csharp
   - vb
-  name: Game(GameSettings, WindowSettings)
-  nameWithType: Game.Game(GameSettings, WindowSettings)
-  fullName: ShapeEngine.Core.GameDef.Game.Game(ShapeEngine.Core.Structs.GameSettings, ShapeEngine.Core.Structs.WindowSettings)
+  name: Input
+  nameWithType: Game.Input
+  fullName: ShapeEngine.Core.GameDef.Game.Input
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/Game.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Input
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
+    startLine: 254
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Gets the input manager for handling keyboard, mouse, and gamepad input.
+  example: []
+  syntax:
+    content: public readonly InputSystem Input
+    return:
+      type: ShapeEngine.Input.InputSystem
+    content.vb: Public ReadOnly Input As InputSystem
+- uid: ShapeEngine.Core.GameDef.Game.Instance
+  commentId: P:ShapeEngine.Core.GameDef.Game.Instance
+  id: Instance
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: Instance
+  nameWithType: Game.Instance
+  fullName: ShapeEngine.Core.GameDef.Game.Instance
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/Game.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Instance
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
+    startLine: 288
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Gets the singleton instance of the current game.
+  remarks: >-
+    This property is initialized automatically in the constructor.
+
+    You need to create a game instance before accessing this property.
+
+    If it is accessed before being set, a NullReferenceException will be thrown.
+
+    You should only ever create one game instance per application,
+
+    but in case you create multiple, this property will always point to the last created game instance.
+  example: []
+  syntax:
+    content: public static Game Instance { get; }
+    parameters: []
+    return:
+      type: ShapeEngine.Core.GameDef.Game
+    content.vb: Public Shared ReadOnly Property Instance As Game
+  overload: ShapeEngine.Core.GameDef.Game.Instance*
+- uid: ShapeEngine.Core.GameDef.Game.GetInstanceAs``1
+  commentId: M:ShapeEngine.Core.GameDef.Game.GetInstanceAs``1
+  id: GetInstanceAs``1
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: GetInstanceAs<T>()
+  nameWithType: Game.GetInstanceAs<T>()
+  fullName: ShapeEngine.Core.GameDef.Game.GetInstanceAs<T>()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/Game.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetInstanceAs
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
+    startLine: 298
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Gets the current <xref href="ShapeEngine.Core.GameDef.Game.Instance" data-throw-if-not-resolved="false"></xref> cast to the specified type <code class="typeparamref">T</code>.
+  example: []
+  syntax:
+    content: 'public static T GetInstanceAs<T>() where T : Game'
+    typeParameters:
+    - id: T
+      description: The type to cast the game instance to. Must inherit from <xref href="ShapeEngine.Core.GameDef.Game" data-throw-if-not-resolved="false"></xref>.
+    return:
+      type: '{T}'
+      description: The game instance as type <code class="typeparamref">T</code>.
+    content.vb: Public Shared Function GetInstanceAs(Of T As Game)() As T
+  overload: ShapeEngine.Core.GameDef.Game.GetInstanceAs*
+  exceptions:
+  - type: System.InvalidCastException
+    commentId: T:System.InvalidCastException
+    description: Thrown if the game instance is not of type <code class="typeparamref">T</code>.
+  nameWithType.vb: Game.GetInstanceAs(Of T)()
+  fullName.vb: ShapeEngine.Core.GameDef.Game.GetInstanceAs(Of T)()
+  name.vb: GetInstanceAs(Of T)()
+- uid: ShapeEngine.Core.GameDef.Game.#ctor(ShapeEngine.Core.Structs.GameSettings,ShapeEngine.Core.Structs.WindowSettings,ShapeEngine.Input.InputSettings)
+  commentId: M:ShapeEngine.Core.GameDef.Game.#ctor(ShapeEngine.Core.Structs.GameSettings,ShapeEngine.Core.Structs.WindowSettings,ShapeEngine.Input.InputSettings)
+  id: '#ctor(ShapeEngine.Core.Structs.GameSettings,ShapeEngine.Core.Structs.WindowSettings,ShapeEngine.Input.InputSettings)'
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: Game(GameSettings, WindowSettings, InputSettings)
+  nameWithType: Game.Game(GameSettings, WindowSettings, InputSettings)
+  fullName: ShapeEngine.Core.GameDef.Game.Game(ShapeEngine.Core.Structs.GameSettings, ShapeEngine.Core.Structs.WindowSettings, ShapeEngine.Input.InputSettings)
   type: Constructor
   source:
     remote:
@@ -812,18 +931,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 277
+    startLine: 317
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
   summary: Initializes a new instance of the Game class with the specified game settings and window settings.
   remarks: >-
-    Creating a new instance of the game class will set <xref href="ShapeEngine.Core.GameDef.Game.CurrentGameInstance" data-throw-if-not-resolved="false"></xref> to the newly created class!
+    Only one instance of the game class should be created per application.
 
-    You should never create more than one instance of the game class per application!
+    <xref href="ShapeEngine.Core.GameDef.Game.Instance" data-throw-if-not-resolved="false"></xref> will be set to the created instance.
   example: []
   syntax:
-    content: public Game(GameSettings gameSettings, WindowSettings windowSettings)
+    content: public Game(GameSettings gameSettings, WindowSettings windowSettings, InputSettings inputSettings)
     parameters:
     - id: gameSettings
       type: ShapeEngine.Core.Structs.GameSettings
@@ -831,11 +950,14 @@ items:
     - id: windowSettings
       type: ShapeEngine.Core.Structs.WindowSettings
       description: The settings for the window, including size, position, and display properties.
-    content.vb: Public Sub New(gameSettings As GameSettings, windowSettings As WindowSettings)
+    - id: inputSettings
+      type: ShapeEngine.Input.InputSettings
+      description: The settings for input devices, including keyboard, mouse, and gamepad configurations.
+    content.vb: Public Sub New(gameSettings As GameSettings, windowSettings As WindowSettings, inputSettings As InputSettings)
   overload: ShapeEngine.Core.GameDef.Game.#ctor*
-  nameWithType.vb: Game.New(GameSettings, WindowSettings)
-  fullName.vb: ShapeEngine.Core.GameDef.Game.New(ShapeEngine.Core.Structs.GameSettings, ShapeEngine.Core.Structs.WindowSettings)
-  name.vb: New(GameSettings, WindowSettings)
+  nameWithType.vb: Game.New(GameSettings, WindowSettings, InputSettings)
+  fullName.vb: ShapeEngine.Core.GameDef.Game.New(ShapeEngine.Core.Structs.GameSettings, ShapeEngine.Core.Structs.WindowSettings, ShapeEngine.Input.InputSettings)
+  name.vb: New(GameSettings, WindowSettings, InputSettings)
 - uid: ShapeEngine.Core.GameDef.Game.AddScreenTexture(ShapeEngine.Screen.ScreenTexture)
   commentId: M:ShapeEngine.Core.GameDef.Game.AddScreenTexture(ShapeEngine.Screen.ScreenTexture)
   id: AddScreenTexture(ShapeEngine.Screen.ScreenTexture)
@@ -854,7 +976,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddScreenTexture
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 381
+    startLine: 427
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -892,7 +1014,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HasScreenTexture
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 404
+    startLine: 450
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -930,7 +1052,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveScreenTexture
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 414
+    startLine: 460
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -968,7 +1090,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ClearScreenTextures
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 427
+    startLine: 473
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1002,7 +1124,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: UpdateCursor
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 448
+    startLine: 494
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1049,7 +1171,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawCursorGame
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 460
+    startLine: 506
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1085,7 +1207,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawCursorGameUi
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 473
+    startLine: 519
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1121,7 +1243,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawCursorUi
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 486
+    startLine: 532
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1157,7 +1279,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Restart
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 498
+    startLine: 544
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1185,7 +1307,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Quit
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 507
+    startLine: 553
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1213,7 +1335,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GoToScene
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 517
+    startLine: 563
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1245,7 +1367,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CallDeferred
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 536
+    startLine: 582
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1285,7 +1407,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Flash
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 559
+    startLine: 605
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1326,7 +1448,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ClearFlashes
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 577
+    startLine: 623
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1354,7 +1476,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ResetCamera
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 582
+    startLine: 628
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1382,7 +1504,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ChangeGameTexture
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 590
+    startLine: 636
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1419,7 +1541,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Run
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 614
+    startLine: 660
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1707,47 +1829,6 @@ items:
   nameWithType.vb: Game.TryParseEnum(Of TEnum)(String, TEnum)
   fullName.vb: ShapeEngine.Core.GameDef.Game.TryParseEnum(Of TEnum)(String, TEnum)
   name.vb: TryParseEnum(Of TEnum)(String, TEnum)
-- uid: ShapeEngine.Core.GameDef.Game.CurrentGameInstance
-  commentId: P:ShapeEngine.Core.GameDef.Game.CurrentGameInstance
-  id: CurrentGameInstance
-  parent: ShapeEngine.Core.GameDef.Game
-  langs:
-  - csharp
-  - vb
-  name: CurrentGameInstance
-  nameWithType: Game.CurrentGameInstance
-  fullName: ShapeEngine.Core.GameDef.Game.CurrentGameInstance
-  type: Property
-  source:
-    remote:
-      path: ShapeEngine/Core/GameDef/GameStatic.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: CurrentGameInstance
-    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameStatic.cs
-    startLine: 17
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core.GameDef
-  summary: Gets the singleton instance of the current game.
-  remarks: >-
-    This property is initialized automatically in the constructor.
-
-    You need to create a game instance before accessing this property.
-
-    If it is accessed before being set, a NullReferenceException will be thrown.
-
-    You should only ever create one game instance per application,
-
-    but in case you create multiple, this property will always point to the last created game instance.
-  example: []
-  syntax:
-    content: public static Game CurrentGameInstance { get; }
-    parameters: []
-    return:
-      type: ShapeEngine.Core.GameDef.Game
-    content.vb: Public Shared Property CurrentGameInstance As Game
-  overload: ShapeEngine.Core.GameDef.Game.CurrentGameInstance*
 - uid: ShapeEngine.Core.GameDef.Game.CURRENT_DIRECTORY
   commentId: F:ShapeEngine.Core.GameDef.Game.CURRENT_DIRECTORY
   id: CURRENT_DIRECTORY
@@ -1766,7 +1847,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CURRENT_DIRECTORY
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameStatic.cs
-    startLine: 26
+    startLine: 14
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1799,7 +1880,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OS_PLATFORM
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameStatic.cs
-    startLine: 40
+    startLine: 28
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1834,7 +1915,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DebugMode
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameStatic.cs
-    startLine: 49
+    startLine: 37
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1865,7 +1946,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ReleaseMode
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameStatic.cs
-    startLine: 54
+    startLine: 42
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1896,7 +1977,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsWindows
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameStatic.cs
-    startLine: 60
+    startLine: 48
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1927,7 +2008,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsLinux
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameStatic.cs
-    startLine: 66
+    startLine: 54
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1958,7 +2039,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsOSX
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameStatic.cs
-    startLine: 72
+    startLine: 60
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1989,7 +2070,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OSXIsRunningInAppBundle
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameStatic.cs
-    startLine: 81
+    startLine: 69
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -2023,7 +2104,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsEqual
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameStatic.cs
-    startLine: 99
+    startLine: 87
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -2070,7 +2151,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetHashCode
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameStatic.cs
-    startLine: 117
+    startLine: 105
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -2111,7 +2192,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetItem
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameStatic.cs
-    startLine: 135
+    startLine: 123
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -2756,6 +2837,70 @@ items:
       description: The gamepad device that was disconnected.
     content.vb: Protected Overridable Sub OnGamepadDisconnected(gamepad As GamepadDevice)
   overload: ShapeEngine.Core.GameDef.Game.OnGamepadDisconnected*
+- uid: ShapeEngine.Core.GameDef.Game.OnGamepadClaimed(ShapeEngine.Input.GamepadDevice)
+  commentId: M:ShapeEngine.Core.GameDef.Game.OnGamepadClaimed(ShapeEngine.Input.GamepadDevice)
+  id: OnGamepadClaimed(ShapeEngine.Input.GamepadDevice)
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: OnGamepadClaimed(GamepadDevice)
+  nameWithType: Game.OnGamepadClaimed(GamepadDevice)
+  fullName: ShapeEngine.Core.GameDef.Game.OnGamepadClaimed(ShapeEngine.Input.GamepadDevice)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameVirtual.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnGamepadClaimed
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
+    startLine: 167
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Called when a gamepad is claimed (assigned for exclusive use) by the game.
+  example: []
+  syntax:
+    content: protected virtual void OnGamepadClaimed(GamepadDevice gamepad)
+    parameters:
+    - id: gamepad
+      type: ShapeEngine.Input.GamepadDevice
+      description: The gamepad device that was claimed.
+    content.vb: Protected Overridable Sub OnGamepadClaimed(gamepad As GamepadDevice)
+  overload: ShapeEngine.Core.GameDef.Game.OnGamepadClaimed*
+- uid: ShapeEngine.Core.GameDef.Game.OnGamepadFreed(ShapeEngine.Input.GamepadDevice)
+  commentId: M:ShapeEngine.Core.GameDef.Game.OnGamepadFreed(ShapeEngine.Input.GamepadDevice)
+  id: OnGamepadFreed(ShapeEngine.Input.GamepadDevice)
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: OnGamepadFreed(GamepadDevice)
+  nameWithType: Game.OnGamepadFreed(GamepadDevice)
+  fullName: ShapeEngine.Core.GameDef.Game.OnGamepadFreed(ShapeEngine.Input.GamepadDevice)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameVirtual.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnGamepadFreed
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
+    startLine: 173
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Called when a gamepad is freed (released from exclusive use) by the game.
+  example: []
+  syntax:
+    content: protected virtual void OnGamepadFreed(GamepadDevice gamepad)
+    parameters:
+    - id: gamepad
+      type: ShapeEngine.Input.GamepadDevice
+      description: The gamepad device that was freed.
+    content.vb: Protected Overridable Sub OnGamepadFreed(gamepad As GamepadDevice)
+  overload: ShapeEngine.Core.GameDef.Game.OnGamepadFreed*
 - uid: ShapeEngine.Core.GameDef.Game.OnMouseEnteredScreen
   commentId: M:ShapeEngine.Core.GameDef.Game.OnMouseEnteredScreen
   id: OnMouseEnteredScreen
@@ -2774,7 +2919,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMouseEnteredScreen
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 168
+    startLine: 177
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -2802,7 +2947,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMouseLeftScreen
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 175
+    startLine: 184
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -2830,7 +2975,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMouseVisibilityChanged
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 183
+    startLine: 192
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -2865,7 +3010,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMouseEnabledChanged
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 191
+    startLine: 200
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -2900,7 +3045,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowFocusChanged
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 199
+    startLine: 208
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -2935,7 +3080,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowFullscreenChanged
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 207
+    startLine: 216
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -2970,7 +3115,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowMaximizeChanged
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 215
+    startLine: 224
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -3005,7 +3150,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowMinimizedChanged
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 223
+    startLine: 232
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -3040,7 +3185,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowHiddenChanged
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 231
+    startLine: 240
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -3075,7 +3220,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowTopmostChanged
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 239
+    startLine: 248
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -3110,7 +3255,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ChangeMousePos
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 250
+    startLine: 259
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -3154,7 +3299,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnButtonPressed
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 256
+    startLine: 265
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -3186,7 +3331,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnButtonReleased
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 264
+    startLine: 273
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -3201,6 +3346,50 @@ items:
     content.vb: Protected Overridable Sub OnButtonReleased(e As InputEvent)
   overload: ShapeEngine.Core.GameDef.Game.OnButtonReleased*
 references:
+- uid: ShapeEngine.Core.GameDef.Game.Run(System.String[])
+  commentId: M:ShapeEngine.Core.GameDef.Game.Run(System.String[])
+  isExternal: true
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_Run_System_String___
+  name: Run(params string[])
+  nameWithType: Game.Run(params string[])
+  fullName: ShapeEngine.Core.GameDef.Game.Run(params string[])
+  nameWithType.vb: Game.Run(ParamArray String())
+  fullName.vb: ShapeEngine.Core.GameDef.Game.Run(ParamArray String())
+  name.vb: Run(ParamArray String())
+  spec.csharp:
+  - uid: ShapeEngine.Core.GameDef.Game.Run(System.String[])
+    name: Run
+    href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_Run_System_String___
+  - name: (
+  - name: params
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '['
+  - name: ']'
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.GameDef.Game.Run(System.String[])
+    name: Run
+    href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_Run_System_String___
+  - name: (
+  - name: ParamArray
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: (
+  - name: )
+  - name: )
+- uid: ShapeEngine.Core.GameDef.Game.Instance
+  commentId: P:ShapeEngine.Core.GameDef.Game.Instance
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_Instance
+  name: Instance
+  nameWithType: Game.Instance
+  fullName: ShapeEngine.Core.GameDef.Game.Instance
 - uid: ShapeEngine.Core.GameDef.Game.LoadContent
   commentId: M:ShapeEngine.Core.GameDef.Game.LoadContent
   href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_LoadContent
@@ -4123,15 +4312,74 @@ references:
   name: GetGameTexture
   nameWithType: Game.GetGameTexture
   fullName: ShapeEngine.Core.GameDef.Game.GetGameTexture
-- uid: ShapeEngine.Core.GameDef.Game.CurrentGameInstance
-  commentId: P:ShapeEngine.Core.GameDef.Game.CurrentGameInstance
-  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_CurrentGameInstance
-  name: CurrentGameInstance
-  nameWithType: Game.CurrentGameInstance
-  fullName: ShapeEngine.Core.GameDef.Game.CurrentGameInstance
+- uid: ShapeEngine.Input.InputSystem
+  commentId: T:ShapeEngine.Input.InputSystem
+  parent: ShapeEngine.Input
+  href: ShapeEngine.Input.InputSystem.html
+  name: InputSystem
+  nameWithType: InputSystem
+  fullName: ShapeEngine.Input.InputSystem
+- uid: ShapeEngine.Input
+  commentId: N:ShapeEngine.Input
+  href: ShapeEngine.html
+  name: ShapeEngine.Input
+  nameWithType: ShapeEngine.Input
+  fullName: ShapeEngine.Input
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Input
+    name: Input
+    href: ShapeEngine.Input.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Input
+    name: Input
+    href: ShapeEngine.Input.html
+- uid: ShapeEngine.Core.GameDef.Game.Instance*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.Instance
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_Instance
+  name: Instance
+  nameWithType: Game.Instance
+  fullName: ShapeEngine.Core.GameDef.Game.Instance
+- uid: ShapeEngine.Core.GameDef.Game
+  commentId: T:ShapeEngine.Core.GameDef.Game
+  parent: ShapeEngine.Core.GameDef
+  href: ShapeEngine.Core.GameDef.Game.html
+  name: Game
+  nameWithType: Game
+  fullName: ShapeEngine.Core.GameDef.Game
+- uid: System.InvalidCastException
+  commentId: T:System.InvalidCastException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.invalidcastexception
+  name: InvalidCastException
+  nameWithType: InvalidCastException
+  fullName: System.InvalidCastException
+- uid: ShapeEngine.Core.GameDef.Game.GetInstanceAs*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.GetInstanceAs
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_GetInstanceAs__1
+  name: GetInstanceAs
+  nameWithType: Game.GetInstanceAs
+  fullName: ShapeEngine.Core.GameDef.Game.GetInstanceAs
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T
 - uid: ShapeEngine.Core.GameDef.Game.#ctor*
   commentId: Overload:ShapeEngine.Core.GameDef.Game.#ctor
-  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game__ctor_ShapeEngine_Core_Structs_GameSettings_ShapeEngine_Core_Structs_WindowSettings_
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game__ctor_ShapeEngine_Core_Structs_GameSettings_ShapeEngine_Core_Structs_WindowSettings_ShapeEngine_Input_InputSettings_
   name: Game
   nameWithType: Game.Game
   fullName: ShapeEngine.Core.GameDef.Game.Game
@@ -4152,6 +4400,13 @@ references:
   name: WindowSettings
   nameWithType: WindowSettings
   fullName: ShapeEngine.Core.Structs.WindowSettings
+- uid: ShapeEngine.Input.InputSettings
+  commentId: T:ShapeEngine.Input.InputSettings
+  parent: ShapeEngine.Input
+  href: ShapeEngine.Input.InputSettings.html
+  name: InputSettings
+  nameWithType: InputSettings
+  fullName: ShapeEngine.Input.InputSettings
 - uid: ShapeEngine.Core.GameDef.Game.AddScreenTexture*
   commentId: Overload:ShapeEngine.Core.GameDef.Game.AddScreenTexture
   href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_AddScreenTexture_ShapeEngine_Screen_ScreenTexture_
@@ -4461,19 +4716,6 @@ references:
   name: TEnum
   nameWithType: TEnum
   fullName: TEnum
-- uid: ShapeEngine.Core.GameDef.Game.CurrentGameInstance*
-  commentId: Overload:ShapeEngine.Core.GameDef.Game.CurrentGameInstance
-  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_CurrentGameInstance
-  name: CurrentGameInstance
-  nameWithType: Game.CurrentGameInstance
-  fullName: ShapeEngine.Core.GameDef.Game.CurrentGameInstance
-- uid: ShapeEngine.Core.GameDef.Game
-  commentId: T:ShapeEngine.Core.GameDef.Game
-  parent: ShapeEngine.Core.GameDef
-  href: ShapeEngine.Core.GameDef.Game.html
-  name: Game
-  nameWithType: Game
-  fullName: ShapeEngine.Core.GameDef.Game
 - uid: System.IO.Directory.GetCurrentDirectory
   commentId: M:System.IO.Directory.GetCurrentDirectory
   isExternal: true
@@ -4751,16 +4993,6 @@ references:
   name: GetItem
   nameWithType: Game.GetItem
   fullName: ShapeEngine.Core.GameDef.Game.GetItem
-- uid: '{T}'
-  commentId: '!:T'
-  definition: T
-  name: T
-  nameWithType: T
-  fullName: T
-- uid: T
-  name: T
-  nameWithType: T
-  fullName: T
 - uid: ShapeEngine.Core.GameDef.Game.LoadContent*
   commentId: Overload:ShapeEngine.Core.GameDef.Game.LoadContent
   href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_LoadContent
@@ -4913,28 +5145,6 @@ references:
   name: InputDeviceType
   nameWithType: InputDeviceType
   fullName: ShapeEngine.Input.InputDeviceType
-- uid: ShapeEngine.Input
-  commentId: N:ShapeEngine.Input
-  href: ShapeEngine.html
-  name: ShapeEngine.Input
-  nameWithType: ShapeEngine.Input
-  fullName: ShapeEngine.Input
-  spec.csharp:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Input
-    name: Input
-    href: ShapeEngine.Input.html
-  spec.vb:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Input
-    name: Input
-    href: ShapeEngine.Input.html
 - uid: ShapeEngine.Core.GameDef.Game.OnGamepadConnected*
   commentId: Overload:ShapeEngine.Core.GameDef.Game.OnGamepadConnected
   href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_OnGamepadConnected_ShapeEngine_Input_GamepadDevice_
@@ -4954,6 +5164,18 @@ references:
   name: OnGamepadDisconnected
   nameWithType: Game.OnGamepadDisconnected
   fullName: ShapeEngine.Core.GameDef.Game.OnGamepadDisconnected
+- uid: ShapeEngine.Core.GameDef.Game.OnGamepadClaimed*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.OnGamepadClaimed
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_OnGamepadClaimed_ShapeEngine_Input_GamepadDevice_
+  name: OnGamepadClaimed
+  nameWithType: Game.OnGamepadClaimed
+  fullName: ShapeEngine.Core.GameDef.Game.OnGamepadClaimed
+- uid: ShapeEngine.Core.GameDef.Game.OnGamepadFreed*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.OnGamepadFreed
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_OnGamepadFreed_ShapeEngine_Input_GamepadDevice_
+  name: OnGamepadFreed
+  nameWithType: Game.OnGamepadFreed
+  fullName: ShapeEngine.Core.GameDef.Game.OnGamepadFreed
 - uid: ShapeEngine.Core.GameDef.Game.OnMouseEnteredScreen*
   commentId: Overload:ShapeEngine.Core.GameDef.Game.OnMouseEnteredScreen
   href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_OnMouseEnteredScreen

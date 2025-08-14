@@ -8,7 +8,6 @@ items:
   - ShapeEngine.Core.Scene.Active
   - ShapeEngine.Core.Scene.Close
   - ShapeEngine.Core.Scene.CollisionHandler
-  - ShapeEngine.Core.Scene.Game
   - ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Geometry.CollisionSystem.CollisionHandler)
   - ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Geometry.RectDef.Rect,System.Int32,System.Int32)
   - ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Geometry.RectDef.Rect,System.Int32,System.Int32)
@@ -16,6 +15,7 @@ items:
   - ShapeEngine.Core.Scene.InitSpawnArea(ShapeEngine.Core.SpawnArea)
   - ShapeEngine.Core.Scene.InitSpawnArea(ShapeEngine.Geometry.RectDef.Rect)
   - ShapeEngine.Core.Scene.InitSpawnArea(System.Single,System.Single,System.Single,System.Single)
+  - ShapeEngine.Core.Scene.Input
   - ShapeEngine.Core.Scene.OnActivate(ShapeEngine.Core.Scene)
   - ShapeEngine.Core.Scene.OnButtonPressed(ShapeEngine.Input.InputEvent)
   - ShapeEngine.Core.Scene.OnButtonReleased(ShapeEngine.Input.InputEvent)
@@ -26,8 +26,10 @@ items:
   - ShapeEngine.Core.Scene.OnDrawUI(ShapeEngine.Core.Structs.ScreenInfo)
   - ShapeEngine.Core.Scene.OnFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
   - ShapeEngine.Core.Scene.OnGameTextureResized(System.Int32,System.Int32)
+  - ShapeEngine.Core.Scene.OnGamepadClaimed(ShapeEngine.Input.GamepadDevice)
   - ShapeEngine.Core.Scene.OnGamepadConnected(ShapeEngine.Input.GamepadDevice)
   - ShapeEngine.Core.Scene.OnGamepadDisconnected(ShapeEngine.Input.GamepadDevice)
+  - ShapeEngine.Core.Scene.OnGamepadFreed(ShapeEngine.Input.GamepadDevice)
   - ShapeEngine.Core.Scene.OnInputDeviceChanged(ShapeEngine.Input.InputDeviceType,ShapeEngine.Input.InputDeviceType)
   - ShapeEngine.Core.Scene.OnInterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Single)
   - ShapeEngine.Core.Scene.OnMonitorChanged(ShapeEngine.Screen.MonitorInfo)
@@ -47,6 +49,7 @@ items:
   - ShapeEngine.Core.Scene.OnWindowPositionChanged(System.Numerics.Vector2,System.Numerics.Vector2)
   - ShapeEngine.Core.Scene.OnWindowSizeChanged(ShapeEngine.Core.Structs.DimensionConversionFactors)
   - ShapeEngine.Core.Scene.OnWindowTopmostChanged(System.Boolean)
+  - ShapeEngine.Core.Scene.Parent
   - ShapeEngine.Core.Scene.Pathfinder
   - ShapeEngine.Core.Scene.ResolveOnButtonPressed(ShapeEngine.Input.InputEvent)
   - ShapeEngine.Core.Scene.ResolveOnButtonReleased(ShapeEngine.Input.InputEvent)
@@ -65,7 +68,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Scene
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 17
+    startLine: 18
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -113,7 +116,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Active
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 27
+    startLine: 28
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -131,37 +134,68 @@ items:
       type: System.Boolean
     content.vb: Public Property Active As Boolean
   overload: ShapeEngine.Core.Scene.Active*
-- uid: ShapeEngine.Core.Scene.Game
-  commentId: P:ShapeEngine.Core.Scene.Game
-  id: Game
+- uid: ShapeEngine.Core.Scene.Parent
+  commentId: P:ShapeEngine.Core.Scene.Parent
+  id: Parent
   parent: ShapeEngine.Core.Scene
   langs:
   - csharp
   - vb
-  name: Game
-  nameWithType: Scene.Game
-  fullName: ShapeEngine.Core.Scene.Game
+  name: Parent
+  nameWithType: Scene.Parent
+  fullName: ShapeEngine.Core.Scene.Parent
   type: Property
   source:
     remote:
       path: ShapeEngine/Core/Scene.cs
       branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: Game
+    id: Parent
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 31
+    startLine: 32
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: If the scene is Active Game will be set.
+  summary: Is set to the current game instance.
   example: []
   syntax:
-    content: public Game? Game { get; }
+    content: public Game Parent { get; }
     parameters: []
     return:
       type: ShapeEngine.Core.GameDef.Game
-    content.vb: Public Property Game As Game
-  overload: ShapeEngine.Core.Scene.Game*
+    content.vb: Public ReadOnly Property Parent As Game
+  overload: ShapeEngine.Core.Scene.Parent*
+- uid: ShapeEngine.Core.Scene.Input
+  commentId: P:ShapeEngine.Core.Scene.Input
+  id: Input
+  parent: ShapeEngine.Core.Scene
+  langs:
+  - csharp
+  - vb
+  name: Input
+  nameWithType: Scene.Input
+  fullName: ShapeEngine.Core.Scene.Input
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/Scene.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Input
+    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
+    startLine: 37
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Provides access to the <xref href="ShapeEngine.Input.InputSystem" data-throw-if-not-resolved="false"></xref> instance from the parent <xref href="ShapeEngine.Core.GameDef.Game" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public InputSystem Input { get; }
+    parameters: []
+    return:
+      type: ShapeEngine.Input.InputSystem
+    content.vb: Public ReadOnly Property Input As InputSystem
+  overload: ShapeEngine.Core.Scene.Input*
 - uid: ShapeEngine.Core.Scene.SpawnArea
   commentId: P:ShapeEngine.Core.Scene.SpawnArea
   id: SpawnArea
@@ -180,7 +214,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SpawnArea
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 39
+    startLine: 45
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -218,7 +252,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CollisionHandler
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 46
+    startLine: 52
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -256,7 +290,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Pathfinder
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 53
+    startLine: 59
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -294,7 +328,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InitSpawnArea
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 64
+    startLine: 70
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -332,7 +366,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InitSpawnArea
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 82
+    startLine: 88
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -382,7 +416,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InitSpawnArea
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 97
+    startLine: 103
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -420,7 +454,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InitCollisionHandler
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 127
+    startLine: 133
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -467,7 +501,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InitCollisionHandler
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 141
+    startLine: 147
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -505,7 +539,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InitPathfinder
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 165
+    startLine: 171
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -552,7 +586,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InitPathfinder
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 179
+    startLine: 185
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -590,7 +624,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Close
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 213
+    startLine: 219
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -618,7 +652,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ResolveOnButtonPressed
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 344
+    startLine: 358
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -655,7 +689,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ResolveOnButtonReleased
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 354
+    startLine: 368
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -692,7 +726,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnActivate
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 366
+    startLine: 380
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -724,7 +758,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnDeactivate
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 371
+    startLine: 385
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -752,7 +786,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnClose
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 376
+    startLine: 390
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -780,7 +814,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnGameTextureResized
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 386
+    startLine: 400
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -818,7 +852,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnUpdate
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 395
+    startLine: 409
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -859,7 +893,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnFixedUpdate
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 405
+    startLine: 419
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -900,7 +934,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnInterpolateFixedUpdate
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 415
+    startLine: 429
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -947,7 +981,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnPreDrawGame
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 420
+    startLine: 434
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -979,7 +1013,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnDrawGame
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 425
+    startLine: 439
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1011,7 +1045,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnPreDrawGameUI
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 431
+    startLine: 445
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1043,7 +1077,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnDrawGameUI
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 436
+    startLine: 450
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1075,7 +1109,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnDrawUI
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 441
+    startLine: 455
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1106,7 +1140,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowSizeChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 446
+    startLine: 460
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1138,7 +1172,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowPositionChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 453
+    startLine: 467
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1173,7 +1207,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMonitorChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 459
+    startLine: 473
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1205,7 +1239,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnGamepadConnected
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 465
+    startLine: 479
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1237,7 +1271,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnGamepadDisconnected
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 471
+    startLine: 485
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1251,6 +1285,70 @@ items:
       description: The gamepad that was disconnected.
     content.vb: Protected Overridable Sub OnGamepadDisconnected(gamepad As GamepadDevice)
   overload: ShapeEngine.Core.Scene.OnGamepadDisconnected*
+- uid: ShapeEngine.Core.Scene.OnGamepadClaimed(ShapeEngine.Input.GamepadDevice)
+  commentId: M:ShapeEngine.Core.Scene.OnGamepadClaimed(ShapeEngine.Input.GamepadDevice)
+  id: OnGamepadClaimed(ShapeEngine.Input.GamepadDevice)
+  parent: ShapeEngine.Core.Scene
+  langs:
+  - csharp
+  - vb
+  name: OnGamepadClaimed(GamepadDevice)
+  nameWithType: Scene.OnGamepadClaimed(GamepadDevice)
+  fullName: ShapeEngine.Core.Scene.OnGamepadClaimed(ShapeEngine.Input.GamepadDevice)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Scene.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnGamepadClaimed
+    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
+    startLine: 490
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Called when a gamepad is claimed by the scene (e.g., assigned to a player or reserved for use).
+  example: []
+  syntax:
+    content: protected virtual void OnGamepadClaimed(GamepadDevice gamepad)
+    parameters:
+    - id: gamepad
+      type: ShapeEngine.Input.GamepadDevice
+      description: The gamepad that was claimed.
+    content.vb: Protected Overridable Sub OnGamepadClaimed(gamepad As GamepadDevice)
+  overload: ShapeEngine.Core.Scene.OnGamepadClaimed*
+- uid: ShapeEngine.Core.Scene.OnGamepadFreed(ShapeEngine.Input.GamepadDevice)
+  commentId: M:ShapeEngine.Core.Scene.OnGamepadFreed(ShapeEngine.Input.GamepadDevice)
+  id: OnGamepadFreed(ShapeEngine.Input.GamepadDevice)
+  parent: ShapeEngine.Core.Scene
+  langs:
+  - csharp
+  - vb
+  name: OnGamepadFreed(GamepadDevice)
+  nameWithType: Scene.OnGamepadFreed(GamepadDevice)
+  fullName: ShapeEngine.Core.Scene.OnGamepadFreed(ShapeEngine.Input.GamepadDevice)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Scene.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnGamepadFreed
+    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
+    startLine: 496
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Called when a gamepad is freed by the scene (e.g., unassigned from a player or released for general use).
+  example: []
+  syntax:
+    content: protected virtual void OnGamepadFreed(GamepadDevice gamepad)
+    parameters:
+    - id: gamepad
+      type: ShapeEngine.Input.GamepadDevice
+      description: The gamepad that was freed.
+    content.vb: Protected Overridable Sub OnGamepadFreed(gamepad As GamepadDevice)
+  overload: ShapeEngine.Core.Scene.OnGamepadFreed*
 - uid: ShapeEngine.Core.Scene.OnInputDeviceChanged(ShapeEngine.Input.InputDeviceType,ShapeEngine.Input.InputDeviceType)
   commentId: M:ShapeEngine.Core.Scene.OnInputDeviceChanged(ShapeEngine.Input.InputDeviceType,ShapeEngine.Input.InputDeviceType)
   id: OnInputDeviceChanged(ShapeEngine.Input.InputDeviceType,ShapeEngine.Input.InputDeviceType)
@@ -1269,7 +1367,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnInputDeviceChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 478
+    startLine: 503
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1304,7 +1402,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnPausedChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 484
+    startLine: 509
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1339,7 +1437,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMouseEnteredScreen
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 488
+    startLine: 513
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1367,7 +1465,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMouseLeftScreen
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 493
+    startLine: 518
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1395,7 +1493,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMouseVisibilityChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 499
+    startLine: 524
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1430,7 +1528,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMouseEnabledChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 505
+    startLine: 530
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1465,7 +1563,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowFocusChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 511
+    startLine: 536
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1500,7 +1598,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowFullscreenChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 517
+    startLine: 542
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1535,7 +1633,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowMaximizeChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 522
+    startLine: 547
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1570,7 +1668,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowMinimizedChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 528
+    startLine: 553
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1605,7 +1703,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowHiddenChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 534
+    startLine: 559
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1640,7 +1738,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowTopmostChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 540
+    startLine: 565
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1675,7 +1773,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnButtonPressed
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 546
+    startLine: 571
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1707,7 +1805,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnButtonReleased
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 552
+    startLine: 577
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1998,12 +2096,12 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
-- uid: ShapeEngine.Core.Scene.Game*
-  commentId: Overload:ShapeEngine.Core.Scene.Game
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_Game
-  name: Game
-  nameWithType: Scene.Game
-  fullName: ShapeEngine.Core.Scene.Game
+- uid: ShapeEngine.Core.Scene.Parent*
+  commentId: Overload:ShapeEngine.Core.Scene.Parent
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_Parent
+  name: Parent
+  nameWithType: Scene.Parent
+  fullName: ShapeEngine.Core.Scene.Parent
 - uid: ShapeEngine.Core.GameDef.Game
   commentId: T:ShapeEngine.Core.GameDef.Game
   parent: ShapeEngine.Core.GameDef
@@ -2041,6 +2139,41 @@ references:
   - uid: ShapeEngine.Core.GameDef
     name: GameDef
     href: ShapeEngine.Core.GameDef.html
+- uid: ShapeEngine.Input.InputSystem
+  commentId: T:ShapeEngine.Input.InputSystem
+  parent: ShapeEngine.Input
+  href: ShapeEngine.Input.InputSystem.html
+  name: InputSystem
+  nameWithType: InputSystem
+  fullName: ShapeEngine.Input.InputSystem
+- uid: ShapeEngine.Core.Scene.Input*
+  commentId: Overload:ShapeEngine.Core.Scene.Input
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_Input
+  name: Input
+  nameWithType: Scene.Input
+  fullName: ShapeEngine.Core.Scene.Input
+- uid: ShapeEngine.Input
+  commentId: N:ShapeEngine.Input
+  href: ShapeEngine.html
+  name: ShapeEngine.Input
+  nameWithType: ShapeEngine.Input
+  fullName: ShapeEngine.Input
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Input
+    name: Input
+    href: ShapeEngine.Input.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Input
+    name: Input
+    href: ShapeEngine.Input.html
 - uid: ShapeEngine.Core.Scene.SpawnArea*
   commentId: Overload:ShapeEngine.Core.Scene.SpawnArea
   href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_SpawnArea
@@ -2228,28 +2361,6 @@ references:
   name: InputEvent
   nameWithType: InputEvent
   fullName: ShapeEngine.Input.InputEvent
-- uid: ShapeEngine.Input
-  commentId: N:ShapeEngine.Input
-  href: ShapeEngine.html
-  name: ShapeEngine.Input
-  nameWithType: ShapeEngine.Input
-  fullName: ShapeEngine.Input
-  spec.csharp:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Input
-    name: Input
-    href: ShapeEngine.Input.html
-  spec.vb:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Input
-    name: Input
-    href: ShapeEngine.Input.html
 - uid: ShapeEngine.Core.Scene.ResolveOnButtonReleased*
   commentId: Overload:ShapeEngine.Core.Scene.ResolveOnButtonReleased
   href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_ResolveOnButtonReleased_ShapeEngine_Input_InputEvent_
@@ -2487,6 +2598,18 @@ references:
   name: OnGamepadDisconnected
   nameWithType: Scene.OnGamepadDisconnected
   fullName: ShapeEngine.Core.Scene.OnGamepadDisconnected
+- uid: ShapeEngine.Core.Scene.OnGamepadClaimed*
+  commentId: Overload:ShapeEngine.Core.Scene.OnGamepadClaimed
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnGamepadClaimed_ShapeEngine_Input_GamepadDevice_
+  name: OnGamepadClaimed
+  nameWithType: Scene.OnGamepadClaimed
+  fullName: ShapeEngine.Core.Scene.OnGamepadClaimed
+- uid: ShapeEngine.Core.Scene.OnGamepadFreed*
+  commentId: Overload:ShapeEngine.Core.Scene.OnGamepadFreed
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnGamepadFreed_ShapeEngine_Input_GamepadDevice_
+  name: OnGamepadFreed
+  nameWithType: Scene.OnGamepadFreed
+  fullName: ShapeEngine.Core.Scene.OnGamepadFreed
 - uid: ShapeEngine.Core.Scene.OnInputDeviceChanged*
   commentId: Overload:ShapeEngine.Core.Scene.OnInputDeviceChanged
   href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnInputDeviceChanged_ShapeEngine_Input_InputDeviceType_ShapeEngine_Input_InputDeviceType_

@@ -5,10 +5,8 @@ items:
   id: MouseDevice
   parent: ShapeEngine.Input
   children:
-  - ShapeEngine.Input.MouseDevice.Activate
   - ShapeEngine.Input.MouseDevice.AllMouseButtons
   - ShapeEngine.Input.MouseDevice.AllShapeMouseButtons
-  - ShapeEngine.Input.MouseDevice.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
   - ShapeEngine.Input.MouseDevice.ConsumeAxisState(ShapeEngine.Input.ShapeMouseAxis,System.Boolean@)
   - ShapeEngine.Input.MouseDevice.ConsumeButtonState(ShapeEngine.Input.ShapeMouseButton,System.Boolean@)
   - ShapeEngine.Input.MouseDevice.ConsumeWheelAxisState(ShapeEngine.Input.ShapeMouseWheelAxis,System.Boolean@)
@@ -22,7 +20,6 @@ items:
   - ShapeEngine.Input.MouseDevice.CreateInputState(ShapeEngine.Input.ShapeMouseButton,System.Single,System.Single,ShapeEngine.Input.ModifierKeySet)
   - ShapeEngine.Input.MouseDevice.CreateInputState(ShapeEngine.Input.ShapeMouseWheelAxis,ShapeEngine.Input.InputState,System.Single,ShapeEngine.Input.ModifierKeySet)
   - ShapeEngine.Input.MouseDevice.CreateInputState(ShapeEngine.Input.ShapeMouseWheelAxis,System.Single,ShapeEngine.Input.ModifierKeySet)
-  - ShapeEngine.Input.MouseDevice.Deactivate
   - ShapeEngine.Input.MouseDevice.DeviceProcessPriority
   - ShapeEngine.Input.MouseDevice.GetAxisState(ShapeEngine.Input.ShapeMouseAxis)
   - ShapeEngine.Input.MouseDevice.GetButtonState(ShapeEngine.Input.ShapeMouseButton)
@@ -35,7 +32,6 @@ items:
   - ShapeEngine.Input.MouseDevice.GetValue(ShapeEngine.Input.ShapeMouseWheelAxis,System.Single,ShapeEngine.Input.ModifierKeySet)
   - ShapeEngine.Input.MouseDevice.GetWheelAxisState(ShapeEngine.Input.ShapeMouseWheelAxis)
   - ShapeEngine.Input.MouseDevice.HeldDownButtons
-  - ShapeEngine.Input.MouseDevice.IsActive
   - ShapeEngine.Input.MouseDevice.IsDown(ShapeEngine.Input.ShapeMouseAxis,System.Numerics.Vector2,System.Single,ShapeEngine.Input.ModifierKeySet)
   - ShapeEngine.Input.MouseDevice.IsDown(ShapeEngine.Input.ShapeMouseAxis,System.Single,ShapeEngine.Input.ModifierKeySet)
   - ShapeEngine.Input.MouseDevice.IsDown(ShapeEngine.Input.ShapeMouseButton,ShapeEngine.Input.ShapeMouseButton,System.Single,System.Single,ShapeEngine.Input.ModifierKeySet)
@@ -50,11 +46,11 @@ items:
   - ShapeEngine.Input.MouseDevice.OnButtonReleased
   - ShapeEngine.Input.MouseDevice.PressedButtons
   - ShapeEngine.Input.MouseDevice.ReleasedButtons
+  - ShapeEngine.Input.MouseDevice.Settings
   - ShapeEngine.Input.MouseDevice.SmoothedMouseDelta
   - ShapeEngine.Input.MouseDevice.SmoothedMouseWheelV
   - ShapeEngine.Input.MouseDevice.Unlock
   - ShapeEngine.Input.MouseDevice.Update(System.Single,System.Boolean)
-  - ShapeEngine.Input.MouseDevice.UsageDetectionSettings
   - ShapeEngine.Input.MouseDevice.WasUsed
   - ShapeEngine.Input.MouseDevice.WasUsedRaw
   langs:
@@ -81,16 +77,15 @@ items:
     as well as state tracking and utility methods for mouse input.
   example: []
   syntax:
-    content: 'public sealed class MouseDevice : InputDevice, IComparable<InputDeviceBase>'
-    content.vb: Public NotInheritable Class MouseDevice Inherits InputDevice Implements IComparable(Of InputDeviceBase)
+    content: 'public sealed class MouseDevice : InputDevice, IComparable<InputDevice>'
+    content.vb: Public NotInheritable Class MouseDevice Inherits InputDevice Implements IComparable(Of InputDevice)
   inheritance:
   - System.Object
-  - ShapeEngine.Input.InputDeviceBase
   - ShapeEngine.Input.InputDevice
   implements:
-  - System.IComparable{ShapeEngine.Input.InputDeviceBase}
+  - System.IComparable{ShapeEngine.Input.InputDevice}
   inheritedMembers:
-  - ShapeEngine.Input.InputDeviceBase.CompareTo(ShapeEngine.Input.InputDeviceBase)
+  - ShapeEngine.Input.InputDevice.CompareTo(ShapeEngine.Input.InputDevice)
   - System.Object.Equals(System.Object)
   - System.Object.Equals(System.Object,System.Object)
   - System.Object.GetHashCode
@@ -155,23 +150,23 @@ items:
     return:
       type: ShapeEngine.Input.ShapeMouseButton[]
     content.vb: Public Shared ReadOnly AllShapeMouseButtons As ShapeMouseButton()
-- uid: ShapeEngine.Input.MouseDevice.UsageDetectionSettings
-  commentId: P:ShapeEngine.Input.MouseDevice.UsageDetectionSettings
-  id: UsageDetectionSettings
+- uid: ShapeEngine.Input.MouseDevice.Settings
+  commentId: P:ShapeEngine.Input.MouseDevice.Settings
+  id: Settings
   parent: ShapeEngine.Input.MouseDevice
   langs:
   - csharp
   - vb
-  name: UsageDetectionSettings
-  nameWithType: MouseDevice.UsageDetectionSettings
-  fullName: ShapeEngine.Input.MouseDevice.UsageDetectionSettings
+  name: Settings
+  nameWithType: MouseDevice.Settings
+  fullName: ShapeEngine.Input.MouseDevice.Settings
   type: Property
   source:
     remote:
       path: ShapeEngine/Input/MouseDevice.cs
       branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: UsageDetectionSettings
+    id: Settings
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
     startLine: 26
   assemblies:
@@ -180,12 +175,12 @@ items:
   summary: Gets the usage detection settings for the mouse input device.
   example: []
   syntax:
-    content: public InputDeviceUsageDetectionSettings.MouseSettings UsageDetectionSettings { get; }
+    content: public InputSettings.MouseSettings Settings { get; }
     parameters: []
     return:
-      type: ShapeEngine.Input.InputDeviceUsageDetectionSettings.MouseSettings
-    content.vb: Public Property UsageDetectionSettings As InputDeviceUsageDetectionSettings.MouseSettings
-  overload: ShapeEngine.Input.MouseDevice.UsageDetectionSettings*
+      type: ShapeEngine.Input.InputSettings.MouseSettings
+    content.vb: Public Property Settings As InputSettings.MouseSettings
+  overload: ShapeEngine.Input.MouseDevice.Settings*
 - uid: ShapeEngine.Input.MouseDevice.DeviceProcessPriority
   commentId: F:ShapeEngine.Input.MouseDevice.DeviceProcessPriority
   id: DeviceProcessPriority
@@ -217,7 +212,7 @@ items:
 
     <p>
 
-    Change this value to change the order in which this device is processed in <xref href="ShapeEngine.Input.ShapeInput" data-throw-if-not-resolved="false"></xref>.
+    Change this value to change the order in which this device is processed in <xref href="ShapeEngine.Input.InputSystem" data-throw-if-not-resolved="false"></xref>.
 
     Lower priorities are processed first.
 
@@ -247,7 +242,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MousePosition
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 54
+    startLine: 60
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -278,7 +273,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MouseWheelV
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 58
+    startLine: 64
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -309,7 +304,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SmoothedMouseWheelV
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 63
+    startLine: 69
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -340,7 +335,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MouseDelta
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 68
+    startLine: 74
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -371,11 +366,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SmoothedMouseDelta
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 73
+    startLine: 79
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
-  summary: Gets the mouse movement delta with the move threshold from <xref href="ShapeEngine.Input.MouseDevice.UsageDetectionSettings" data-throw-if-not-resolved="false"></xref> applied.
+  summary: Gets the mouse movement delta with the move threshold from <xref href="ShapeEngine.Input.MouseDevice.Settings" data-throw-if-not-resolved="false"></xref> applied.
   example: []
   syntax:
     content: public Vector2 SmoothedMouseDelta { get; }
@@ -402,7 +397,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PressedButtons
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 82
+    startLine: 88
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -431,7 +426,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ReleasedButtons
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 89
+    startLine: 95
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -460,7 +455,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HeldDownButtons
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 95
+    startLine: 101
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -489,7 +484,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnButtonPressed
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 100
+    startLine: 106
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -518,7 +513,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnButtonReleased
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 104
+    startLine: 110
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -547,17 +542,22 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetDeviceProcessPriority
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 126
+    startLine: 134
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: >-
+    Gets the priority of the input device.
+
+    Devices with lower priority values are processed before those with higher values.
   example: []
   syntax:
     content: public override uint GetDeviceProcessPriority()
     return:
       type: System.UInt32
+      description: The priority value of the device.
     content.vb: Public Overrides Function GetDeviceProcessPriority() As UInteger
-  overridden: ShapeEngine.Input.InputDeviceBase.GetDeviceProcessPriority
+  overridden: ShapeEngine.Input.InputDevice.GetDeviceProcessPriority
   overload: ShapeEngine.Input.MouseDevice.GetDeviceProcessPriority*
 - uid: ShapeEngine.Input.MouseDevice.GetDeviceType
   commentId: M:ShapeEngine.Input.MouseDevice.GetDeviceType
@@ -577,7 +577,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetDeviceType
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 131
+    startLine: 139
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -588,7 +588,7 @@ items:
     return:
       type: ShapeEngine.Input.InputDeviceType
     content.vb: Public Overrides Function GetDeviceType() As InputDeviceType
-  overridden: ShapeEngine.Input.InputDeviceBase.GetDeviceType
+  overridden: ShapeEngine.Input.InputDevice.GetDeviceType
   overload: ShapeEngine.Input.MouseDevice.GetDeviceType*
 - uid: ShapeEngine.Input.MouseDevice.GetButtonState(ShapeEngine.Input.ShapeMouseButton)
   commentId: M:ShapeEngine.Input.MouseDevice.GetButtonState(ShapeEngine.Input.ShapeMouseButton)
@@ -608,7 +608,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetButtonState
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 136
+    startLine: 144
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -641,7 +641,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetAxisState
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 140
+    startLine: 148
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -674,7 +674,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetWheelAxisState
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 144
+    startLine: 152
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -707,7 +707,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ConsumeButtonState
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 154
+    startLine: 162
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -753,7 +753,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ConsumeAxisState
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 173
+    startLine: 181
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -799,7 +799,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ConsumeWheelAxisState
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 192
+    startLine: 200
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -827,37 +827,6 @@ items:
   nameWithType.vb: MouseDevice.ConsumeWheelAxisState(ShapeMouseWheelAxis, Boolean)
   fullName.vb: ShapeEngine.Input.MouseDevice.ConsumeWheelAxisState(ShapeEngine.Input.ShapeMouseWheelAxis, Boolean)
   name.vb: ConsumeWheelAxisState(ShapeMouseWheelAxis, Boolean)
-- uid: ShapeEngine.Input.MouseDevice.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  commentId: M:ShapeEngine.Input.MouseDevice.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  id: ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  parent: ShapeEngine.Input.MouseDevice
-  langs:
-  - csharp
-  - vb
-  name: ApplyInputDeviceChangeSettings(InputDeviceUsageDetectionSettings)
-  nameWithType: MouseDevice.ApplyInputDeviceChangeSettings(InputDeviceUsageDetectionSettings)
-  fullName: ShapeEngine.Input.MouseDevice.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Input/MouseDevice.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: ApplyInputDeviceChangeSettings
-    path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 204
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  example: []
-  syntax:
-    content: public override void ApplyInputDeviceChangeSettings(InputDeviceUsageDetectionSettings settings)
-    parameters:
-    - id: settings
-      type: ShapeEngine.Input.InputDeviceUsageDetectionSettings
-    content.vb: Public Overrides Sub ApplyInputDeviceChangeSettings(settings As InputDeviceUsageDetectionSettings)
-  overridden: ShapeEngine.Input.InputDeviceBase.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  overload: ShapeEngine.Input.MouseDevice.ApplyInputDeviceChangeSettings*
 - uid: ShapeEngine.Input.MouseDevice.WasUsed
   commentId: M:ShapeEngine.Input.MouseDevice.WasUsed
   id: WasUsed
@@ -876,14 +845,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: WasUsed
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 207
+    startLine: 218
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
   summary: >-
     Indicates whether the device registered any input during the last update cycle,
 
-    taking into account any filters or settings applied to the device with <xref href="ShapeEngine.Input.InputDeviceUsageDetectionSettings" data-throw-if-not-resolved="false"></xref>.
+    taking into account any filters or settings applied to the device with <xref href="ShapeEngine.Input.InputSettings" data-throw-if-not-resolved="false"></xref>.
   example: []
   syntax:
     content: public override bool WasUsed()
@@ -911,14 +880,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: WasUsedRaw
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 210
+    startLine: 221
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
   summary: >-
     Determines if the device registered any input during the last update cycle,
 
-    ignoring any filters or settings specified by <xref href="ShapeEngine.Input.InputDeviceUsageDetectionSettings" data-throw-if-not-resolved="false"></xref>.
+    ignoring any filters or settings specified by <xref href="ShapeEngine.Input.InputSettings" data-throw-if-not-resolved="false"></xref>.
 
     Useful for detecting raw device activity.
   example: []
@@ -948,7 +917,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsLocked
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 217
+    startLine: 228
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -984,7 +953,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Lock
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 222
+    startLine: 233
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1013,7 +982,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Unlock
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 238
+    startLine: 244
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1042,10 +1011,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 245
+    startLine: 252
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: >-
+    Updates the device state.
+
+    Receives input if another device was used as well in this frame.
   example: []
   syntax:
     content: public override bool Update(float dt, bool wasOtherDeviceUsed)
@@ -1056,101 +1029,13 @@ items:
       type: System.Boolean
     return:
       type: System.Boolean
+      description: If this device was used this frame. Takes <xref href="ShapeEngine.Input.InputSettings" data-throw-if-not-resolved="false"></xref> into account.
     content.vb: Public Overrides Function Update(dt As Single, wasOtherDeviceUsed As Boolean) As Boolean
-  overridden: ShapeEngine.Input.InputDeviceBase.Update(System.Single,System.Boolean)
+  overridden: ShapeEngine.Input.InputDevice.Update(System.Single,System.Boolean)
   overload: ShapeEngine.Input.MouseDevice.Update*
   nameWithType.vb: MouseDevice.Update(Single, Boolean)
   fullName.vb: ShapeEngine.Input.MouseDevice.Update(Single, Boolean)
   name.vb: Update(Single, Boolean)
-- uid: ShapeEngine.Input.MouseDevice.IsActive
-  commentId: M:ShapeEngine.Input.MouseDevice.IsActive
-  id: IsActive
-  parent: ShapeEngine.Input.MouseDevice
-  langs:
-  - csharp
-  - vb
-  name: IsActive()
-  nameWithType: MouseDevice.IsActive()
-  fullName: ShapeEngine.Input.MouseDevice.IsActive()
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Input/MouseDevice.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: IsActive
-    path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 281
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: Indicates whether the mouse device is currently active, as in being used by the <xref href="ShapeEngine.Input.ShapeInput" data-throw-if-not-resolved="false"></xref> class to generate input.
-  example: []
-  syntax:
-    content: public override bool IsActive()
-    return:
-      type: System.Boolean
-    content.vb: Public Overrides Function IsActive() As Boolean
-  overridden: ShapeEngine.Input.InputDeviceBase.IsActive
-  overload: ShapeEngine.Input.MouseDevice.IsActive*
-- uid: ShapeEngine.Input.MouseDevice.Activate
-  commentId: M:ShapeEngine.Input.MouseDevice.Activate
-  id: Activate
-  parent: ShapeEngine.Input.MouseDevice
-  langs:
-  - csharp
-  - vb
-  name: Activate()
-  nameWithType: MouseDevice.Activate()
-  fullName: ShapeEngine.Input.MouseDevice.Activate()
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Input/MouseDevice.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: Activate
-    path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 286
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: Activates the mouse device, enabling input processing.
-  example: []
-  syntax:
-    content: public override void Activate()
-    content.vb: Public Overrides Sub Activate()
-  overridden: ShapeEngine.Input.InputDeviceBase.Activate
-  overload: ShapeEngine.Input.MouseDevice.Activate*
-- uid: ShapeEngine.Input.MouseDevice.Deactivate
-  commentId: M:ShapeEngine.Input.MouseDevice.Deactivate
-  id: Deactivate
-  parent: ShapeEngine.Input.MouseDevice
-  langs:
-  - csharp
-  - vb
-  name: Deactivate()
-  nameWithType: MouseDevice.Deactivate()
-  fullName: ShapeEngine.Input.MouseDevice.Deactivate()
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Input/MouseDevice.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: Deactivate
-    path: ../ShapeEngine/ShapeEngine/Input/MouseDevice.cs
-    startLine: 295
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: Deactivates the mouse device, disabling input processing and resetting state.
-  example: []
-  syntax:
-    content: public override void Deactivate()
-    content.vb: Public Overrides Sub Deactivate()
-  overridden: ShapeEngine.Input.InputDeviceBase.Deactivate
-  overload: ShapeEngine.Input.MouseDevice.Deactivate*
 - uid: ShapeEngine.Input.MouseDevice.GetValue(ShapeEngine.Input.ShapeMouseAxis,System.Single,ShapeEngine.Input.ModifierKeySet)
   commentId: M:ShapeEngine.Input.MouseDevice.GetValue(ShapeEngine.Input.ShapeMouseAxis,System.Single,ShapeEngine.Input.ModifierKeySet)
   id: GetValue(ShapeEngine.Input.ShapeMouseAxis,System.Single,ShapeEngine.Input.ModifierKeySet)
@@ -2242,13 +2127,6 @@ references:
   nameWithType.vb: Object
   fullName.vb: Object
   name.vb: Object
-- uid: ShapeEngine.Input.InputDeviceBase
-  commentId: T:ShapeEngine.Input.InputDeviceBase
-  parent: ShapeEngine.Input
-  href: ShapeEngine.Input.InputDeviceBase.html
-  name: InputDeviceBase
-  nameWithType: InputDeviceBase
-  fullName: ShapeEngine.Input.InputDeviceBase
 - uid: ShapeEngine.Input.InputDevice
   commentId: T:ShapeEngine.Input.InputDevice
   parent: ShapeEngine.Input
@@ -2256,26 +2134,26 @@ references:
   name: InputDevice
   nameWithType: InputDevice
   fullName: ShapeEngine.Input.InputDevice
-- uid: System.IComparable{ShapeEngine.Input.InputDeviceBase}
-  commentId: T:System.IComparable{ShapeEngine.Input.InputDeviceBase}
+- uid: System.IComparable{ShapeEngine.Input.InputDevice}
+  commentId: T:System.IComparable{ShapeEngine.Input.InputDevice}
   parent: System
   definition: System.IComparable`1
   href: https://learn.microsoft.com/dotnet/api/system.icomparable-1
-  name: IComparable<InputDeviceBase>
-  nameWithType: IComparable<InputDeviceBase>
-  fullName: System.IComparable<ShapeEngine.Input.InputDeviceBase>
-  nameWithType.vb: IComparable(Of InputDeviceBase)
-  fullName.vb: System.IComparable(Of ShapeEngine.Input.InputDeviceBase)
-  name.vb: IComparable(Of InputDeviceBase)
+  name: IComparable<InputDevice>
+  nameWithType: IComparable<InputDevice>
+  fullName: System.IComparable<ShapeEngine.Input.InputDevice>
+  nameWithType.vb: IComparable(Of InputDevice)
+  fullName.vb: System.IComparable(Of ShapeEngine.Input.InputDevice)
+  name.vb: IComparable(Of InputDevice)
   spec.csharp:
   - uid: System.IComparable`1
     name: IComparable
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.icomparable-1
   - name: <
-  - uid: ShapeEngine.Input.InputDeviceBase
-    name: InputDeviceBase
-    href: ShapeEngine.Input.InputDeviceBase.html
+  - uid: ShapeEngine.Input.InputDevice
+    name: InputDevice
+    href: ShapeEngine.Input.InputDevice.html
   - name: '>'
   spec.vb:
   - uid: System.IComparable`1
@@ -2285,34 +2163,34 @@ references:
   - name: (
   - name: Of
   - name: " "
-  - uid: ShapeEngine.Input.InputDeviceBase
-    name: InputDeviceBase
-    href: ShapeEngine.Input.InputDeviceBase.html
+  - uid: ShapeEngine.Input.InputDevice
+    name: InputDevice
+    href: ShapeEngine.Input.InputDevice.html
   - name: )
-- uid: ShapeEngine.Input.InputDeviceBase.CompareTo(ShapeEngine.Input.InputDeviceBase)
-  commentId: M:ShapeEngine.Input.InputDeviceBase.CompareTo(ShapeEngine.Input.InputDeviceBase)
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_CompareTo_ShapeEngine_Input_InputDeviceBase_
-  name: CompareTo(InputDeviceBase)
-  nameWithType: InputDeviceBase.CompareTo(InputDeviceBase)
-  fullName: ShapeEngine.Input.InputDeviceBase.CompareTo(ShapeEngine.Input.InputDeviceBase)
+- uid: ShapeEngine.Input.InputDevice.CompareTo(ShapeEngine.Input.InputDevice)
+  commentId: M:ShapeEngine.Input.InputDevice.CompareTo(ShapeEngine.Input.InputDevice)
+  parent: ShapeEngine.Input.InputDevice
+  href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_CompareTo_ShapeEngine_Input_InputDevice_
+  name: CompareTo(InputDevice)
+  nameWithType: InputDevice.CompareTo(InputDevice)
+  fullName: ShapeEngine.Input.InputDevice.CompareTo(ShapeEngine.Input.InputDevice)
   spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.CompareTo(ShapeEngine.Input.InputDeviceBase)
+  - uid: ShapeEngine.Input.InputDevice.CompareTo(ShapeEngine.Input.InputDevice)
     name: CompareTo
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_CompareTo_ShapeEngine_Input_InputDeviceBase_
+    href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_CompareTo_ShapeEngine_Input_InputDevice_
   - name: (
-  - uid: ShapeEngine.Input.InputDeviceBase
-    name: InputDeviceBase
-    href: ShapeEngine.Input.InputDeviceBase.html
+  - uid: ShapeEngine.Input.InputDevice
+    name: InputDevice
+    href: ShapeEngine.Input.InputDevice.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.CompareTo(ShapeEngine.Input.InputDeviceBase)
+  - uid: ShapeEngine.Input.InputDevice.CompareTo(ShapeEngine.Input.InputDevice)
     name: CompareTo
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_CompareTo_ShapeEngine_Input_InputDeviceBase_
+    href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_CompareTo_ShapeEngine_Input_InputDevice_
   - name: (
-  - uid: ShapeEngine.Input.InputDeviceBase
-    name: InputDeviceBase
-    href: ShapeEngine.Input.InputDeviceBase.html
+  - uid: ShapeEngine.Input.InputDevice
+    name: InputDevice
+    href: ShapeEngine.Input.InputDevice.html
   - name: )
 - uid: System.Object.Equals(System.Object)
   commentId: M:System.Object.Equals(System.Object)
@@ -2585,42 +2463,42 @@ references:
     href: ShapeEngine.Input.ShapeMouseButton.html
   - name: (
   - name: )
-- uid: ShapeEngine.Input.MouseDevice.UsageDetectionSettings*
-  commentId: Overload:ShapeEngine.Input.MouseDevice.UsageDetectionSettings
-  href: ShapeEngine.Input.MouseDevice.html#ShapeEngine_Input_MouseDevice_UsageDetectionSettings
-  name: UsageDetectionSettings
-  nameWithType: MouseDevice.UsageDetectionSettings
-  fullName: ShapeEngine.Input.MouseDevice.UsageDetectionSettings
-- uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings.MouseSettings
-  commentId: T:ShapeEngine.Input.InputDeviceUsageDetectionSettings.MouseSettings
+- uid: ShapeEngine.Input.MouseDevice.Settings*
+  commentId: Overload:ShapeEngine.Input.MouseDevice.Settings
+  href: ShapeEngine.Input.MouseDevice.html#ShapeEngine_Input_MouseDevice_Settings
+  name: Settings
+  nameWithType: MouseDevice.Settings
+  fullName: ShapeEngine.Input.MouseDevice.Settings
+- uid: ShapeEngine.Input.InputSettings.MouseSettings
+  commentId: T:ShapeEngine.Input.InputSettings.MouseSettings
   parent: ShapeEngine.Input
-  href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.html
-  name: InputDeviceUsageDetectionSettings.MouseSettings
-  nameWithType: InputDeviceUsageDetectionSettings.MouseSettings
-  fullName: ShapeEngine.Input.InputDeviceUsageDetectionSettings.MouseSettings
+  href: ShapeEngine.Input.InputSettings.html
+  name: InputSettings.MouseSettings
+  nameWithType: InputSettings.MouseSettings
+  fullName: ShapeEngine.Input.InputSettings.MouseSettings
   spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings
-    name: InputDeviceUsageDetectionSettings
-    href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.html
+  - uid: ShapeEngine.Input.InputSettings
+    name: InputSettings
+    href: ShapeEngine.Input.InputSettings.html
   - name: .
-  - uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings.MouseSettings
+  - uid: ShapeEngine.Input.InputSettings.MouseSettings
     name: MouseSettings
-    href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.MouseSettings.html
+    href: ShapeEngine.Input.InputSettings.MouseSettings.html
   spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings
-    name: InputDeviceUsageDetectionSettings
-    href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.html
+  - uid: ShapeEngine.Input.InputSettings
+    name: InputSettings
+    href: ShapeEngine.Input.InputSettings.html
   - name: .
-  - uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings.MouseSettings
+  - uid: ShapeEngine.Input.InputSettings.MouseSettings
     name: MouseSettings
-    href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.MouseSettings.html
-- uid: ShapeEngine.Input.ShapeInput
-  commentId: T:ShapeEngine.Input.ShapeInput
+    href: ShapeEngine.Input.InputSettings.MouseSettings.html
+- uid: ShapeEngine.Input.InputSystem
+  commentId: T:ShapeEngine.Input.InputSystem
   parent: ShapeEngine.Input
-  href: ShapeEngine.Input.ShapeInput.html
-  name: ShapeInput
-  nameWithType: ShapeInput
-  fullName: ShapeEngine.Input.ShapeInput
+  href: ShapeEngine.Input.InputSystem.html
+  name: InputSystem
+  nameWithType: InputSystem
+  fullName: ShapeEngine.Input.InputSystem
 - uid: System.UInt32
   commentId: T:System.UInt32
   parent: System
@@ -2691,12 +2569,12 @@ references:
   name: MouseDelta
   nameWithType: MouseDevice.MouseDelta
   fullName: ShapeEngine.Input.MouseDevice.MouseDelta
-- uid: ShapeEngine.Input.MouseDevice.UsageDetectionSettings
-  commentId: P:ShapeEngine.Input.MouseDevice.UsageDetectionSettings
-  href: ShapeEngine.Input.MouseDevice.html#ShapeEngine_Input_MouseDevice_UsageDetectionSettings
-  name: UsageDetectionSettings
-  nameWithType: MouseDevice.UsageDetectionSettings
-  fullName: ShapeEngine.Input.MouseDevice.UsageDetectionSettings
+- uid: ShapeEngine.Input.MouseDevice.Settings
+  commentId: P:ShapeEngine.Input.MouseDevice.Settings
+  href: ShapeEngine.Input.MouseDevice.html#ShapeEngine_Input_MouseDevice_Settings
+  name: Settings
+  nameWithType: MouseDevice.Settings
+  fullName: ShapeEngine.Input.MouseDevice.Settings
 - uid: ShapeEngine.Input.MouseDevice.SmoothedMouseDelta*
   commentId: Overload:ShapeEngine.Input.MouseDevice.SmoothedMouseDelta
   href: ShapeEngine.Input.MouseDevice.html#ShapeEngine_Input_MouseDevice_SmoothedMouseDelta
@@ -2862,23 +2740,23 @@ references:
   - name: " "
   - name: T
   - name: )
-- uid: ShapeEngine.Input.InputDeviceBase.GetDeviceProcessPriority
-  commentId: M:ShapeEngine.Input.InputDeviceBase.GetDeviceProcessPriority
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_GetDeviceProcessPriority
+- uid: ShapeEngine.Input.InputDevice.GetDeviceProcessPriority
+  commentId: M:ShapeEngine.Input.InputDevice.GetDeviceProcessPriority
+  parent: ShapeEngine.Input.InputDevice
+  href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_GetDeviceProcessPriority
   name: GetDeviceProcessPriority()
-  nameWithType: InputDeviceBase.GetDeviceProcessPriority()
-  fullName: ShapeEngine.Input.InputDeviceBase.GetDeviceProcessPriority()
+  nameWithType: InputDevice.GetDeviceProcessPriority()
+  fullName: ShapeEngine.Input.InputDevice.GetDeviceProcessPriority()
   spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.GetDeviceProcessPriority
+  - uid: ShapeEngine.Input.InputDevice.GetDeviceProcessPriority
     name: GetDeviceProcessPriority
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_GetDeviceProcessPriority
+    href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_GetDeviceProcessPriority
   - name: (
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.GetDeviceProcessPriority
+  - uid: ShapeEngine.Input.InputDevice.GetDeviceProcessPriority
     name: GetDeviceProcessPriority
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_GetDeviceProcessPriority
+    href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_GetDeviceProcessPriority
   - name: (
   - name: )
 - uid: ShapeEngine.Input.MouseDevice.GetDeviceProcessPriority*
@@ -2893,23 +2771,23 @@ references:
   name: Mouse
   nameWithType: InputDeviceType.Mouse
   fullName: ShapeEngine.Input.InputDeviceType.Mouse
-- uid: ShapeEngine.Input.InputDeviceBase.GetDeviceType
-  commentId: M:ShapeEngine.Input.InputDeviceBase.GetDeviceType
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_GetDeviceType
+- uid: ShapeEngine.Input.InputDevice.GetDeviceType
+  commentId: M:ShapeEngine.Input.InputDevice.GetDeviceType
+  parent: ShapeEngine.Input.InputDevice
+  href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_GetDeviceType
   name: GetDeviceType()
-  nameWithType: InputDeviceBase.GetDeviceType()
-  fullName: ShapeEngine.Input.InputDeviceBase.GetDeviceType()
+  nameWithType: InputDevice.GetDeviceType()
+  fullName: ShapeEngine.Input.InputDevice.GetDeviceType()
   spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.GetDeviceType
+  - uid: ShapeEngine.Input.InputDevice.GetDeviceType
     name: GetDeviceType
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_GetDeviceType
+    href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_GetDeviceType
   - name: (
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.GetDeviceType
+  - uid: ShapeEngine.Input.InputDevice.GetDeviceType
     name: GetDeviceType
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_GetDeviceType
+    href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_GetDeviceType
   - name: (
   - name: )
 - uid: ShapeEngine.Input.MouseDevice.GetDeviceType*
@@ -3000,44 +2878,13 @@ references:
   name: ConsumeWheelAxisState
   nameWithType: MouseDevice.ConsumeWheelAxisState
   fullName: ShapeEngine.Input.MouseDevice.ConsumeWheelAxisState
-- uid: ShapeEngine.Input.InputDeviceBase.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  commentId: M:ShapeEngine.Input.InputDeviceBase.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_ApplyInputDeviceChangeSettings_ShapeEngine_Input_InputDeviceUsageDetectionSettings_
-  name: ApplyInputDeviceChangeSettings(InputDeviceUsageDetectionSettings)
-  nameWithType: InputDeviceBase.ApplyInputDeviceChangeSettings(InputDeviceUsageDetectionSettings)
-  fullName: ShapeEngine.Input.InputDeviceBase.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-  spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-    name: ApplyInputDeviceChangeSettings
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_ApplyInputDeviceChangeSettings_ShapeEngine_Input_InputDeviceUsageDetectionSettings_
-  - name: (
-  - uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings
-    name: InputDeviceUsageDetectionSettings
-    href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.ApplyInputDeviceChangeSettings(ShapeEngine.Input.InputDeviceUsageDetectionSettings)
-    name: ApplyInputDeviceChangeSettings
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_ApplyInputDeviceChangeSettings_ShapeEngine_Input_InputDeviceUsageDetectionSettings_
-  - name: (
-  - uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings
-    name: InputDeviceUsageDetectionSettings
-    href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.html
-  - name: )
-- uid: ShapeEngine.Input.MouseDevice.ApplyInputDeviceChangeSettings*
-  commentId: Overload:ShapeEngine.Input.MouseDevice.ApplyInputDeviceChangeSettings
-  href: ShapeEngine.Input.MouseDevice.html#ShapeEngine_Input_MouseDevice_ApplyInputDeviceChangeSettings_ShapeEngine_Input_InputDeviceUsageDetectionSettings_
-  name: ApplyInputDeviceChangeSettings
-  nameWithType: MouseDevice.ApplyInputDeviceChangeSettings
-  fullName: ShapeEngine.Input.MouseDevice.ApplyInputDeviceChangeSettings
-- uid: ShapeEngine.Input.InputDeviceUsageDetectionSettings
-  commentId: T:ShapeEngine.Input.InputDeviceUsageDetectionSettings
+- uid: ShapeEngine.Input.InputSettings
+  commentId: T:ShapeEngine.Input.InputSettings
   parent: ShapeEngine.Input
-  href: ShapeEngine.Input.InputDeviceUsageDetectionSettings.html
-  name: InputDeviceUsageDetectionSettings
-  nameWithType: InputDeviceUsageDetectionSettings
-  fullName: ShapeEngine.Input.InputDeviceUsageDetectionSettings
+  href: ShapeEngine.Input.InputSettings.html
+  name: InputSettings
+  nameWithType: InputSettings
+  fullName: ShapeEngine.Input.InputSettings
 - uid: ShapeEngine.Input.InputDevice.WasUsed
   commentId: M:ShapeEngine.Input.InputDevice.WasUsed
   parent: ShapeEngine.Input.InputDevice
@@ -3163,21 +3010,21 @@ references:
   name: Unlock
   nameWithType: MouseDevice.Unlock
   fullName: ShapeEngine.Input.MouseDevice.Unlock
-- uid: ShapeEngine.Input.InputDeviceBase.Update(System.Single,System.Boolean)
-  commentId: M:ShapeEngine.Input.InputDeviceBase.Update(System.Single,System.Boolean)
-  parent: ShapeEngine.Input.InputDeviceBase
+- uid: ShapeEngine.Input.InputDevice.Update(System.Single,System.Boolean)
+  commentId: M:ShapeEngine.Input.InputDevice.Update(System.Single,System.Boolean)
+  parent: ShapeEngine.Input.InputDevice
   isExternal: true
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Update_System_Single_System_Boolean_
+  href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_Update_System_Single_System_Boolean_
   name: Update(float, bool)
-  nameWithType: InputDeviceBase.Update(float, bool)
-  fullName: ShapeEngine.Input.InputDeviceBase.Update(float, bool)
-  nameWithType.vb: InputDeviceBase.Update(Single, Boolean)
-  fullName.vb: ShapeEngine.Input.InputDeviceBase.Update(Single, Boolean)
+  nameWithType: InputDevice.Update(float, bool)
+  fullName: ShapeEngine.Input.InputDevice.Update(float, bool)
+  nameWithType.vb: InputDevice.Update(Single, Boolean)
+  fullName.vb: ShapeEngine.Input.InputDevice.Update(Single, Boolean)
   name.vb: Update(Single, Boolean)
   spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.Update(System.Single,System.Boolean)
+  - uid: ShapeEngine.Input.InputDevice.Update(System.Single,System.Boolean)
     name: Update
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Update_System_Single_System_Boolean_
+    href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_Update_System_Single_System_Boolean_
   - name: (
   - uid: System.Single
     name: float
@@ -3191,9 +3038,9 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.Update(System.Single,System.Boolean)
+  - uid: ShapeEngine.Input.InputDevice.Update(System.Single,System.Boolean)
     name: Update
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Update_System_Single_System_Boolean_
+    href: ShapeEngine.Input.InputDevice.html#ShapeEngine_Input_InputDevice_Update_System_Single_System_Boolean_
   - name: (
   - uid: System.Single
     name: Single
@@ -3223,81 +3070,6 @@ references:
   nameWithType.vb: Single
   fullName.vb: Single
   name.vb: Single
-- uid: ShapeEngine.Input.InputDeviceBase.IsActive
-  commentId: M:ShapeEngine.Input.InputDeviceBase.IsActive
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_IsActive
-  name: IsActive()
-  nameWithType: InputDeviceBase.IsActive()
-  fullName: ShapeEngine.Input.InputDeviceBase.IsActive()
-  spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.IsActive
-    name: IsActive
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_IsActive
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.IsActive
-    name: IsActive
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_IsActive
-  - name: (
-  - name: )
-- uid: ShapeEngine.Input.MouseDevice.IsActive*
-  commentId: Overload:ShapeEngine.Input.MouseDevice.IsActive
-  href: ShapeEngine.Input.MouseDevice.html#ShapeEngine_Input_MouseDevice_IsActive
-  name: IsActive
-  nameWithType: MouseDevice.IsActive
-  fullName: ShapeEngine.Input.MouseDevice.IsActive
-- uid: ShapeEngine.Input.InputDeviceBase.Activate
-  commentId: M:ShapeEngine.Input.InputDeviceBase.Activate
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Activate
-  name: Activate()
-  nameWithType: InputDeviceBase.Activate()
-  fullName: ShapeEngine.Input.InputDeviceBase.Activate()
-  spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.Activate
-    name: Activate
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Activate
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.Activate
-    name: Activate
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Activate
-  - name: (
-  - name: )
-- uid: ShapeEngine.Input.MouseDevice.Activate*
-  commentId: Overload:ShapeEngine.Input.MouseDevice.Activate
-  href: ShapeEngine.Input.MouseDevice.html#ShapeEngine_Input_MouseDevice_Activate
-  name: Activate
-  nameWithType: MouseDevice.Activate
-  fullName: ShapeEngine.Input.MouseDevice.Activate
-- uid: ShapeEngine.Input.InputDeviceBase.Deactivate
-  commentId: M:ShapeEngine.Input.InputDeviceBase.Deactivate
-  parent: ShapeEngine.Input.InputDeviceBase
-  href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Deactivate
-  name: Deactivate()
-  nameWithType: InputDeviceBase.Deactivate()
-  fullName: ShapeEngine.Input.InputDeviceBase.Deactivate()
-  spec.csharp:
-  - uid: ShapeEngine.Input.InputDeviceBase.Deactivate
-    name: Deactivate
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Deactivate
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Input.InputDeviceBase.Deactivate
-    name: Deactivate
-    href: ShapeEngine.Input.InputDeviceBase.html#ShapeEngine_Input_InputDeviceBase_Deactivate
-  - name: (
-  - name: )
-- uid: ShapeEngine.Input.MouseDevice.Deactivate*
-  commentId: Overload:ShapeEngine.Input.MouseDevice.Deactivate
-  href: ShapeEngine.Input.MouseDevice.html#ShapeEngine_Input_MouseDevice_Deactivate
-  name: Deactivate
-  nameWithType: MouseDevice.Deactivate
-  fullName: ShapeEngine.Input.MouseDevice.Deactivate
 - uid: ShapeEngine.Input.MouseDevice.GetValue*
   commentId: Overload:ShapeEngine.Input.MouseDevice.GetValue
   href: ShapeEngine.Input.MouseDevice.html#ShapeEngine_Input_MouseDevice_GetValue_ShapeEngine_Input_ShapeMouseAxis_System_Single_ShapeEngine_Input_ModifierKeySet_
