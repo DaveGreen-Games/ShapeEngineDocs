@@ -6,11 +6,11 @@ items:
   parent: ShapeEngine.Input
   children:
   - ShapeEngine.Input.InputState.#ctor
+  - ShapeEngine.Input.InputState.#ctor(ShapeEngine.Input.InputState,ShapeEngine.Input.InputGesture.Result)
   - ShapeEngine.Input.InputState.#ctor(ShapeEngine.Input.InputState,ShapeEngine.Input.InputState)
   - ShapeEngine.Input.InputState.#ctor(ShapeEngine.Input.InputState,ShapeEngine.Input.InputState,ShapeEngine.Input.InputDeviceType)
-  - ShapeEngine.Input.InputState.#ctor(ShapeEngine.Input.InputState,System.Single,System.Single)
+  - ShapeEngine.Input.InputState.#ctor(System.Boolean,System.Boolean,System.Single,System.Int32,ShapeEngine.Input.InputDeviceType,ShapeEngine.Input.InputGesture.Result,System.Boolean)
   - ShapeEngine.Input.InputState.#ctor(System.Boolean,System.Boolean,System.Single,System.Int32,ShapeEngine.Input.InputDeviceType,System.Boolean)
-  - ShapeEngine.Input.InputState.Accumulate(ShapeEngine.Input.InputState)
   - ShapeEngine.Input.InputState.AdjustAxis(System.Single)
   - ShapeEngine.Input.InputState.Axis
   - ShapeEngine.Input.InputState.AxisRaw
@@ -18,13 +18,9 @@ items:
   - ShapeEngine.Input.InputState.Consumed
   - ShapeEngine.Input.InputState.Down
   - ShapeEngine.Input.InputState.Gamepad
-  - ShapeEngine.Input.InputState.GetPressedType
-  - ShapeEngine.Input.InputState.HoldF
-  - ShapeEngine.Input.InputState.HoldState
+  - ShapeEngine.Input.InputState.GestureResult
   - ShapeEngine.Input.InputState.InputDeviceType
   - ShapeEngine.Input.InputState.Inverted
-  - ShapeEngine.Input.InputState.MultiTapF
-  - ShapeEngine.Input.InputState.MultiTapState
   - ShapeEngine.Input.InputState.Pressed
   - ShapeEngine.Input.InputState.Released
   - ShapeEngine.Input.InputState.Up
@@ -42,11 +38,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InputState
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 7
+    startLine: 8
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
-  summary: Represents the state of an input, including button states, axis values, device type, and multi-tap/hold information.
+  summary: Represents the state of an input, including button presses, axis values, device type, and input gesture details.
   example: []
   syntax:
     content: public readonly struct InputState
@@ -76,7 +72,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Down
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 12
+    startLine: 13
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -105,7 +101,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Up
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 16
+    startLine: 17
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -134,7 +130,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Released
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 20
+    startLine: 21
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -163,7 +159,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Pressed
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 24
+    startLine: 25
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -192,7 +188,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Inverted
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 29
+    startLine: 30
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -203,6 +199,35 @@ items:
     return:
       type: System.Boolean
     content.vb: Public ReadOnly Inverted As Boolean
+- uid: ShapeEngine.Input.InputState.GestureResult
+  commentId: F:ShapeEngine.Input.InputState.GestureResult
+  id: GestureResult
+  parent: ShapeEngine.Input.InputState
+  langs:
+  - csharp
+  - vb
+  name: GestureResult
+  nameWithType: InputState.GestureResult
+  fullName: ShapeEngine.Input.InputState.GestureResult
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Input/InputState.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GestureResult
+    path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
+    startLine: 34
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Input
+  summary: The result of the input action gesture, containing details about how the input was triggered (e.g., multi-tap, hold, etc.)
+  example: []
+  syntax:
+    content: public readonly InputGesture.Result GestureResult
+    return:
+      type: ShapeEngine.Input.InputGesture.Result
+    content.vb: Public ReadOnly GestureResult As InputGesture.Result
 - uid: ShapeEngine.Input.InputState.Axis
   commentId: F:ShapeEngine.Input.InputState.Axis
   id: Axis
@@ -221,7 +246,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Axis
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 37
+    startLine: 42
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -257,7 +282,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AxisRaw
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 45
+    startLine: 50
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -295,7 +320,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Gamepad
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 49
+    startLine: 54
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -324,7 +349,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InputDeviceType
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 53
+    startLine: 58
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -353,7 +378,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Consumed
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 58
+    startLine: 63
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -364,153 +389,6 @@ items:
     return:
       type: System.Boolean
     content.vb: Public ReadOnly Consumed As Boolean
-- uid: ShapeEngine.Input.InputState.HoldF
-  commentId: F:ShapeEngine.Input.InputState.HoldF
-  id: HoldF
-  parent: ShapeEngine.Input.InputState
-  langs:
-  - csharp
-  - vb
-  name: HoldF
-  nameWithType: InputState.HoldF
-  fullName: ShapeEngine.Input.InputState.HoldF
-  type: Field
-  source:
-    remote:
-      path: ShapeEngine/Input/InputState.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: HoldF
-    path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 63
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: The normalized hold progress (0 to 1).
-  example: []
-  syntax:
-    content: public readonly float HoldF
-    return:
-      type: System.Single
-    content.vb: Public ReadOnly HoldF As Single
-- uid: ShapeEngine.Input.InputState.HoldState
-  commentId: F:ShapeEngine.Input.InputState.HoldState
-  id: HoldState
-  parent: ShapeEngine.Input.InputState
-  langs:
-  - csharp
-  - vb
-  name: HoldState
-  nameWithType: InputState.HoldState
-  fullName: ShapeEngine.Input.InputState.HoldState
-  type: Field
-  source:
-    remote:
-      path: ShapeEngine/Input/InputState.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: HoldState
-    path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 67
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: The current state of the hold action (None, InProgress, Completed, Failed).
-  example: []
-  syntax:
-    content: public readonly MultiTapState HoldState
-    return:
-      type: ShapeEngine.Input.MultiTapState
-    content.vb: Public ReadOnly HoldState As MultiTapState
-- uid: ShapeEngine.Input.InputState.MultiTapF
-  commentId: F:ShapeEngine.Input.InputState.MultiTapF
-  id: MultiTapF
-  parent: ShapeEngine.Input.InputState
-  langs:
-  - csharp
-  - vb
-  name: MultiTapF
-  nameWithType: InputState.MultiTapF
-  fullName: ShapeEngine.Input.InputState.MultiTapF
-  type: Field
-  source:
-    remote:
-      path: ShapeEngine/Input/InputState.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: MultiTapF
-    path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 71
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: The normalized multi-tap progress (0 to 1).
-  example: []
-  syntax:
-    content: public readonly float MultiTapF
-    return:
-      type: System.Single
-    content.vb: Public ReadOnly MultiTapF As Single
-- uid: ShapeEngine.Input.InputState.MultiTapState
-  commentId: F:ShapeEngine.Input.InputState.MultiTapState
-  id: MultiTapState
-  parent: ShapeEngine.Input.InputState
-  langs:
-  - csharp
-  - vb
-  name: MultiTapState
-  nameWithType: InputState.MultiTapState
-  fullName: ShapeEngine.Input.InputState.MultiTapState
-  type: Field
-  source:
-    remote:
-      path: ShapeEngine/Input/InputState.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: MultiTapState
-    path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 75
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: The current state of the multi-tap action (None, InProgress, Completed, Failed).
-  example: []
-  syntax:
-    content: public readonly MultiTapState MultiTapState
-    return:
-      type: ShapeEngine.Input.MultiTapState
-    content.vb: Public ReadOnly MultiTapState As MultiTapState
-- uid: ShapeEngine.Input.InputState.GetPressedType
-  commentId: M:ShapeEngine.Input.InputState.GetPressedType
-  id: GetPressedType
-  parent: ShapeEngine.Input.InputState
-  langs:
-  - csharp
-  - vb
-  name: GetPressedType()
-  nameWithType: InputState.GetPressedType()
-  fullName: ShapeEngine.Input.InputState.GetPressedType()
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Input/InputState.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: GetPressedType
-    path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 81
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: Determines the type of press (Hold, MultiTap, SingleTap, or None) based on the current state.
-  example: []
-  syntax:
-    content: public PressedType GetPressedType()
-    return:
-      type: ShapeEngine.Input.PressedType
-      description: The detected <xref href="ShapeEngine.Input.PressedType" data-throw-if-not-resolved="false"></xref>.
-    content.vb: Public Function GetPressedType() As PressedType
-  overload: ShapeEngine.Input.InputState.GetPressedType*
 - uid: ShapeEngine.Input.InputState.#ctor
   commentId: M:ShapeEngine.Input.InputState.#ctor
   id: '#ctor'
@@ -529,42 +407,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 112
+    startLine: 68
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
-  summary: >-
-    Initializes a new default instance of <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref> with all values set to their defaults.
-
-    <remarks>
-
-    Down = false;
-
-    Up = true;
-
-    Released = false;
-
-    Pressed = false;
-
-    AxisRaw = 0f;
-
-    Axis = 0f;
-
-    Gamepad = -1;
-
-    Consumed = false;
-
-    InputDeviceType = InputDeviceType.Keyboard;
-
-    HoldF = 0f;
-
-    HoldState = MultiTapState.None;
-
-    MultiTapF = 0f;
-
-    MultiTapState = MultiTapState.None;
-
-    </remarks>
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref> struct with default values.
   example: []
   syntax:
     content: public InputState()
@@ -591,50 +438,48 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 138
+    startLine: 91
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
-  summary: Initializes a new instance of <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref> with specified button and axis values.
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref> struct with specified values.
   example: []
   syntax:
     content: public InputState(bool down, bool up, float axisRaw, int gamepad, InputDeviceType inputDeviceType, bool inverted = false)
     parameters:
     - id: down
       type: System.Boolean
-      description: Whether the input is down.
+      description: Indicates if the input is currently held down.
     - id: up
       type: System.Boolean
-      description: Whether the input is up.
+      description: Indicates if the input is currently up (not pressed).
     - id: axisRaw
       type: System.Single
-      description: The raw axis value.
+      description: The raw axis value, unprocessed.
     - id: gamepad
       type: System.Int32
-      description: The gamepad index.
+      description: The index of the gamepad associated with this input, or -1 if not applicable.
     - id: inputDeviceType
       type: ShapeEngine.Input.InputDeviceType
-      description: The input device type.
+      description: The type of input device (keyboard, mouse, gamepad, etc.).
     - id: inverted
       type: System.Boolean
-      description: >-
-        Indicates if the axis value is inverted.
-           (Only used by <xref href="ShapeEngine.Input.GamepadDevice" data-throw-if-not-resolved="false"></xref> for <xref href="ShapeEngine.Input.ShapeGamepadJoyAxis" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Input.ShapeGamepadTriggerAxis" data-throw-if-not-resolved="false"></xref>.
+      description: Indicates if the input axis is inverted.
     content.vb: Public Sub New(down As Boolean, up As Boolean, axisRaw As Single, gamepad As Integer, inputDeviceType As InputDeviceType, inverted As Boolean = False)
   overload: ShapeEngine.Input.InputState.#ctor*
   nameWithType.vb: InputState.New(Boolean, Boolean, Single, Integer, InputDeviceType, Boolean)
   fullName.vb: ShapeEngine.Input.InputState.New(Boolean, Boolean, Single, Integer, ShapeEngine.Input.InputDeviceType, Boolean)
   name.vb: New(Boolean, Boolean, Single, Integer, InputDeviceType, Boolean)
-- uid: ShapeEngine.Input.InputState.#ctor(ShapeEngine.Input.InputState,System.Single,System.Single)
-  commentId: M:ShapeEngine.Input.InputState.#ctor(ShapeEngine.Input.InputState,System.Single,System.Single)
-  id: '#ctor(ShapeEngine.Input.InputState,System.Single,System.Single)'
+- uid: ShapeEngine.Input.InputState.#ctor(System.Boolean,System.Boolean,System.Single,System.Int32,ShapeEngine.Input.InputDeviceType,ShapeEngine.Input.InputGesture.Result,System.Boolean)
+  commentId: M:ShapeEngine.Input.InputState.#ctor(System.Boolean,System.Boolean,System.Single,System.Int32,ShapeEngine.Input.InputDeviceType,ShapeEngine.Input.InputGesture.Result,System.Boolean)
+  id: '#ctor(System.Boolean,System.Boolean,System.Single,System.Int32,ShapeEngine.Input.InputDeviceType,ShapeEngine.Input.InputGesture.Result,System.Boolean)'
   parent: ShapeEngine.Input.InputState
   langs:
   - csharp
   - vb
-  name: InputState(InputState, float, float)
-  nameWithType: InputState.InputState(InputState, float, float)
-  fullName: ShapeEngine.Input.InputState.InputState(ShapeEngine.Input.InputState, float, float)
+  name: InputState(bool, bool, float, int, InputDeviceType, Result, bool)
+  nameWithType: InputState.InputState(bool, bool, float, int, InputDeviceType, InputGesture.Result, bool)
+  fullName: ShapeEngine.Input.InputState.InputState(bool, bool, float, int, ShapeEngine.Input.InputDeviceType, ShapeEngine.Input.InputGesture.Result, bool)
   type: Constructor
   source:
     remote:
@@ -643,29 +488,82 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 162
+    startLine: 115
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
-  summary: Initializes a new instance of <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref> based on another state and hold/multitap progress.
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref> struct with specified values, including input gesture result.
   example: []
   syntax:
-    content: public InputState(InputState state, float holdF, float multiTapF)
+    content: public InputState(bool down, bool up, float axisRaw, int gamepad, InputDeviceType inputDeviceType, InputGesture.Result gestureResult, bool inverted = false)
+    parameters:
+    - id: down
+      type: System.Boolean
+      description: Indicates if the input is currently held down.
+    - id: up
+      type: System.Boolean
+      description: Indicates if the input is currently up (not pressed).
+    - id: axisRaw
+      type: System.Single
+      description: The raw axis value, unprocessed.
+    - id: gamepad
+      type: System.Int32
+      description: The index of the gamepad associated with this input, or -1 if not applicable.
+    - id: inputDeviceType
+      type: ShapeEngine.Input.InputDeviceType
+      description: The type of input device (keyboard, mouse, gamepad, etc.).
+    - id: gestureResult
+      type: ShapeEngine.Input.InputGesture.Result
+      description: The result of the input action gesture.
+    - id: inverted
+      type: System.Boolean
+      description: Indicates if the input axis is inverted.
+    content.vb: Public Sub New(down As Boolean, up As Boolean, axisRaw As Single, gamepad As Integer, inputDeviceType As InputDeviceType, gestureResult As InputGesture.Result, inverted As Boolean = False)
+  overload: ShapeEngine.Input.InputState.#ctor*
+  nameWithType.vb: InputState.New(Boolean, Boolean, Single, Integer, InputDeviceType, InputGesture.Result, Boolean)
+  fullName.vb: ShapeEngine.Input.InputState.New(Boolean, Boolean, Single, Integer, ShapeEngine.Input.InputDeviceType, ShapeEngine.Input.InputGesture.Result, Boolean)
+  name.vb: New(Boolean, Boolean, Single, Integer, InputDeviceType, Result, Boolean)
+- uid: ShapeEngine.Input.InputState.#ctor(ShapeEngine.Input.InputState,ShapeEngine.Input.InputGesture.Result)
+  commentId: M:ShapeEngine.Input.InputState.#ctor(ShapeEngine.Input.InputState,ShapeEngine.Input.InputGesture.Result)
+  id: '#ctor(ShapeEngine.Input.InputState,ShapeEngine.Input.InputGesture.Result)'
+  parent: ShapeEngine.Input.InputState
+  langs:
+  - csharp
+  - vb
+  name: InputState(InputState, Result)
+  nameWithType: InputState.InputState(InputState, InputGesture.Result)
+  fullName: ShapeEngine.Input.InputState.InputState(ShapeEngine.Input.InputState, ShapeEngine.Input.InputGesture.Result)
+  type: Constructor
+  source:
+    remote:
+      path: ShapeEngine/Input/InputState.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: .ctor
+    path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
+    startLine: 136
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Input
+  summary: >-
+    Creates a new <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref> by copying all values from an existing state,
+
+    but replacing the <xref href="ShapeEngine.Input.InputState.GestureResult" data-throw-if-not-resolved="false"></xref> with the specified value.
+  example: []
+  syntax:
+    content: public InputState(InputState state, InputGesture.Result gestureResult)
     parameters:
     - id: state
       type: ShapeEngine.Input.InputState
-      description: The base input state.
-    - id: holdF
-      type: System.Single
-      description: The hold progress.
-    - id: multiTapF
-      type: System.Single
-      description: The multitap progress.
-    content.vb: Public Sub New(state As InputState, holdF As Single, multiTapF As Single)
+      description: The source <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref> to copy values from.
+    - id: gestureResult
+      type: ShapeEngine.Input.InputGesture.Result
+      description: The new input gesture result to use.
+    content.vb: Public Sub New(state As InputState, gestureResult As InputGesture.Result)
   overload: ShapeEngine.Input.InputState.#ctor*
-  nameWithType.vb: InputState.New(InputState, Single, Single)
-  fullName.vb: ShapeEngine.Input.InputState.New(ShapeEngine.Input.InputState, Single, Single)
-  name.vb: New(InputState, Single, Single)
+  nameWithType.vb: InputState.New(InputState, InputGesture.Result)
+  fullName.vb: ShapeEngine.Input.InputState.New(ShapeEngine.Input.InputState, ShapeEngine.Input.InputGesture.Result)
+  name.vb: New(InputState, Result)
 - uid: ShapeEngine.Input.InputState.#ctor(ShapeEngine.Input.InputState,ShapeEngine.Input.InputState)
   commentId: M:ShapeEngine.Input.InputState.#ctor(ShapeEngine.Input.InputState,ShapeEngine.Input.InputState)
   id: '#ctor(ShapeEngine.Input.InputState,ShapeEngine.Input.InputState)'
@@ -684,11 +582,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 188
+    startLine: 158
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
-  summary: Initializes a new instance of <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref> based on previous and current states.
+  summary: >-
+    Initializes a new instance of the <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref> struct by comparing the previous and current input states.
+
+    Calculates <xref href="ShapeEngine.Input.InputState.Pressed" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Input.InputState.Released" data-throw-if-not-resolved="false"></xref> based on transitions between <code class="paramref">prev</code> and <code class="paramref">cur</code>.
   example: []
   syntax:
     content: public InputState(InputState prev, InputState cur)
@@ -722,11 +623,16 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 225
+    startLine: 182
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
-  summary: Initializes a new instance of <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref> based on previous and current states and a specific device type.
+  summary: >-
+    Initializes a new instance of the <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref> struct by comparing the previous and current input states,
+
+    and allows overriding the input device type.
+
+    Calculates <xref href="ShapeEngine.Input.InputState.Pressed" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Input.InputState.Released" data-throw-if-not-resolved="false"></xref> based on transitions between <code class="paramref">prev</code> and <code class="paramref">cur</code>.
   example: []
   syntax:
     content: public InputState(InputState prev, InputState cur, InputDeviceType inputDeviceType)
@@ -739,47 +645,12 @@ items:
       description: The current input state.
     - id: inputDeviceType
       type: ShapeEngine.Input.InputDeviceType
-      description: The input device type.
+      description: The input device type to use for this state.
     content.vb: Public Sub New(prev As InputState, cur As InputState, inputDeviceType As InputDeviceType)
   overload: ShapeEngine.Input.InputState.#ctor*
   nameWithType.vb: InputState.New(InputState, InputState, InputDeviceType)
   fullName.vb: ShapeEngine.Input.InputState.New(ShapeEngine.Input.InputState, ShapeEngine.Input.InputState, ShapeEngine.Input.InputDeviceType)
   name.vb: New(InputState, InputState, InputDeviceType)
-- uid: ShapeEngine.Input.InputState.Accumulate(ShapeEngine.Input.InputState)
-  commentId: M:ShapeEngine.Input.InputState.Accumulate(ShapeEngine.Input.InputState)
-  id: Accumulate(ShapeEngine.Input.InputState)
-  parent: ShapeEngine.Input.InputState
-  langs:
-  - csharp
-  - vb
-  name: Accumulate(InputState)
-  nameWithType: InputState.Accumulate(InputState)
-  fullName: ShapeEngine.Input.InputState.Accumulate(ShapeEngine.Input.InputState)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Input/InputState.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: Accumulate
-    path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 308
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: Accumulates another <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref> into this one, combining their values.
-  example: []
-  syntax:
-    content: public InputState Accumulate(InputState other)
-    parameters:
-    - id: other
-      type: ShapeEngine.Input.InputState
-      description: The other input state to accumulate.
-    return:
-      type: ShapeEngine.Input.InputState
-      description: A new accumulated <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref>.
-    content.vb: Public Function Accumulate(other As InputState) As InputState
-  overload: ShapeEngine.Input.InputState.Accumulate*
 - uid: ShapeEngine.Input.InputState.AdjustAxis(System.Single)
   commentId: M:ShapeEngine.Input.InputState.AdjustAxis(System.Single)
   id: AdjustAxis(System.Single)
@@ -798,7 +669,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AdjustAxis
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 328
+    startLine: 268
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -836,7 +707,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Consume
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 334
+    startLine: 274
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -1100,6 +971,29 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
+- uid: ShapeEngine.Input.InputGesture.Result
+  commentId: T:ShapeEngine.Input.InputGesture.Result
+  parent: ShapeEngine.Input
+  href: ShapeEngine.Input.InputGesture.html
+  name: InputGesture.Result
+  nameWithType: InputGesture.Result
+  fullName: ShapeEngine.Input.InputGesture.Result
+  spec.csharp:
+  - uid: ShapeEngine.Input.InputGesture
+    name: InputGesture
+    href: ShapeEngine.Input.InputGesture.html
+  - name: .
+  - uid: ShapeEngine.Input.InputGesture.Result
+    name: Result
+    href: ShapeEngine.Input.InputGesture.Result.html
+  spec.vb:
+  - uid: ShapeEngine.Input.InputGesture
+    name: InputGesture
+    href: ShapeEngine.Input.InputGesture.html
+  - name: .
+  - uid: ShapeEngine.Input.InputGesture.Result
+    name: Result
+    href: ShapeEngine.Input.InputGesture.Result.html
 - uid: ShapeEngine.Input.InputState.AxisRaw
   commentId: F:ShapeEngine.Input.InputState.AxisRaw
   href: ShapeEngine.Input.InputState.html#ShapeEngine_Input_InputState_AxisRaw
@@ -1141,26 +1035,6 @@ references:
   name: InputDeviceType
   nameWithType: InputDeviceType
   fullName: ShapeEngine.Input.InputDeviceType
-- uid: ShapeEngine.Input.MultiTapState
-  commentId: T:ShapeEngine.Input.MultiTapState
-  parent: ShapeEngine.Input
-  href: ShapeEngine.Input.MultiTapState.html
-  name: MultiTapState
-  nameWithType: MultiTapState
-  fullName: ShapeEngine.Input.MultiTapState
-- uid: ShapeEngine.Input.PressedType
-  commentId: T:ShapeEngine.Input.PressedType
-  parent: ShapeEngine.Input
-  href: ShapeEngine.Input.PressedType.html
-  name: PressedType
-  nameWithType: PressedType
-  fullName: ShapeEngine.Input.PressedType
-- uid: ShapeEngine.Input.InputState.GetPressedType*
-  commentId: Overload:ShapeEngine.Input.InputState.GetPressedType
-  href: ShapeEngine.Input.InputState.html#ShapeEngine_Input_InputState_GetPressedType
-  name: GetPressedType
-  nameWithType: InputState.GetPressedType
-  fullName: ShapeEngine.Input.InputState.GetPressedType
 - uid: ShapeEngine.Input.InputState
   commentId: T:ShapeEngine.Input.InputState
   parent: ShapeEngine.Input
@@ -1177,33 +1051,24 @@ references:
   nameWithType.vb: InputState.New
   fullName.vb: ShapeEngine.Input.InputState.New
   name.vb: New
-- uid: ShapeEngine.Input.GamepadDevice
-  commentId: T:ShapeEngine.Input.GamepadDevice
-  parent: ShapeEngine.Input
-  href: ShapeEngine.Input.GamepadDevice.html
-  name: GamepadDevice
-  nameWithType: GamepadDevice
-  fullName: ShapeEngine.Input.GamepadDevice
-- uid: ShapeEngine.Input.ShapeGamepadJoyAxis
-  commentId: T:ShapeEngine.Input.ShapeGamepadJoyAxis
-  parent: ShapeEngine.Input
-  href: ShapeEngine.Input.ShapeGamepadJoyAxis.html
-  name: ShapeGamepadJoyAxis
-  nameWithType: ShapeGamepadJoyAxis
-  fullName: ShapeEngine.Input.ShapeGamepadJoyAxis
-- uid: ShapeEngine.Input.ShapeGamepadTriggerAxis
-  commentId: T:ShapeEngine.Input.ShapeGamepadTriggerAxis
-  parent: ShapeEngine.Input
-  href: ShapeEngine.Input.ShapeGamepadTriggerAxis.html
-  name: ShapeGamepadTriggerAxis
-  nameWithType: ShapeGamepadTriggerAxis
-  fullName: ShapeEngine.Input.ShapeGamepadTriggerAxis
-- uid: ShapeEngine.Input.InputState.Accumulate*
-  commentId: Overload:ShapeEngine.Input.InputState.Accumulate
-  href: ShapeEngine.Input.InputState.html#ShapeEngine_Input_InputState_Accumulate_ShapeEngine_Input_InputState_
-  name: Accumulate
-  nameWithType: InputState.Accumulate
-  fullName: ShapeEngine.Input.InputState.Accumulate
+- uid: ShapeEngine.Input.InputState.GestureResult
+  commentId: F:ShapeEngine.Input.InputState.GestureResult
+  href: ShapeEngine.Input.InputState.html#ShapeEngine_Input_InputState_GestureResult
+  name: GestureResult
+  nameWithType: InputState.GestureResult
+  fullName: ShapeEngine.Input.InputState.GestureResult
+- uid: ShapeEngine.Input.InputState.Pressed
+  commentId: F:ShapeEngine.Input.InputState.Pressed
+  href: ShapeEngine.Input.InputState.html#ShapeEngine_Input_InputState_Pressed
+  name: Pressed
+  nameWithType: InputState.Pressed
+  fullName: ShapeEngine.Input.InputState.Pressed
+- uid: ShapeEngine.Input.InputState.Released
+  commentId: F:ShapeEngine.Input.InputState.Released
+  href: ShapeEngine.Input.InputState.html#ShapeEngine_Input_InputState_Released
+  name: Released
+  nameWithType: InputState.Released
+  fullName: ShapeEngine.Input.InputState.Released
 - uid: ShapeEngine.Input.InputState.AdjustAxis*
   commentId: Overload:ShapeEngine.Input.InputState.AdjustAxis
   href: ShapeEngine.Input.InputState.html#ShapeEngine_Input_InputState_AdjustAxis_System_Single_

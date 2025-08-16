@@ -6,20 +6,15 @@ items:
   parent: ShapeEngine.Input
   children:
   - ShapeEngine.Input.InputActionSettings.#ctor
-  - ShapeEngine.Input.InputActionSettings.#ctor(System.Single,System.Single,System.Int32,System.Single,System.Single)
-  - ShapeEngine.Input.InputActionSettings.AxisGravitiy
+  - ShapeEngine.Input.InputActionSettings.#ctor(System.Single,System.Single)
+  - ShapeEngine.Input.InputActionSettings.Axis(System.Single,System.Single)
+  - ShapeEngine.Input.InputActionSettings.AxisGravity
   - ShapeEngine.Input.InputActionSettings.AxisSensitivity
-  - ShapeEngine.Input.InputActionSettings.CreateAxis(System.Single,System.Single)
-  - ShapeEngine.Input.InputActionSettings.CreateDefault
-  - ShapeEngine.Input.InputActionSettings.CreateHold(System.Single)
-  - ShapeEngine.Input.InputActionSettings.CreateHoldAndMultiTap(System.Single,System.Single,System.Int32)
-  - ShapeEngine.Input.InputActionSettings.CreateMultiTap(System.Single,System.Int32)
   - ShapeEngine.Input.InputActionSettings.Equals(ShapeEngine.Input.InputActionSettings)
   - ShapeEngine.Input.InputActionSettings.Equals(System.Object)
   - ShapeEngine.Input.InputActionSettings.GetHashCode
-  - ShapeEngine.Input.InputActionSettings.HoldDuration
-  - ShapeEngine.Input.InputActionSettings.MultiTapDuration
-  - ShapeEngine.Input.InputActionSettings.MultiTapTarget
+  - ShapeEngine.Input.InputActionSettings.op_Equality(ShapeEngine.Input.InputActionSettings,ShapeEngine.Input.InputActionSettings)
+  - ShapeEngine.Input.InputActionSettings.op_Inequality(ShapeEngine.Input.InputActionSettings,ShapeEngine.Input.InputActionSettings)
   langs:
   - csharp
   - vb
@@ -34,11 +29,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InputActionSettings
     path: ../ShapeEngine/ShapeEngine/Input/InputActionSettings.cs
-    startLine: 7
+    startLine: 6
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
-  summary: Represents the settings for an input action, including hold duration, multi-tap duration, and multi-tap target.
+  summary: >-
+    Represents settings for input actions, including axis sensitivity and gravity.
+
+    Implements <xref href="System.IEquatable%601" data-throw-if-not-resolved="false"></xref> for value equality.
   example: []
   syntax:
     content: 'public readonly struct InputActionSettings : IEquatable<InputActionSettings>'
@@ -50,99 +48,6 @@ items:
   - System.Object.Equals(System.Object,System.Object)
   - System.Object.GetType
   - System.Object.ReferenceEquals(System.Object,System.Object)
-- uid: ShapeEngine.Input.InputActionSettings.HoldDuration
-  commentId: F:ShapeEngine.Input.InputActionSettings.HoldDuration
-  id: HoldDuration
-  parent: ShapeEngine.Input.InputActionSettings
-  langs:
-  - csharp
-  - vb
-  name: HoldDuration
-  nameWithType: InputActionSettings.HoldDuration
-  fullName: ShapeEngine.Input.InputActionSettings.HoldDuration
-  type: Field
-  source:
-    remote:
-      path: ShapeEngine/Input/InputActionSettings.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: HoldDuration
-    path: ../ShapeEngine/ShapeEngine/Input/InputActionSettings.cs
-    startLine: 13
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: >-
-    The duration required to trigger a hold action (in seconds).
-
-    Default is 1 second.
-  example: []
-  syntax:
-    content: public readonly float HoldDuration
-    return:
-      type: System.Single
-    content.vb: Public ReadOnly HoldDuration As Single
-- uid: ShapeEngine.Input.InputActionSettings.MultiTapDuration
-  commentId: F:ShapeEngine.Input.InputActionSettings.MultiTapDuration
-  id: MultiTapDuration
-  parent: ShapeEngine.Input.InputActionSettings
-  langs:
-  - csharp
-  - vb
-  name: MultiTapDuration
-  nameWithType: InputActionSettings.MultiTapDuration
-  fullName: ShapeEngine.Input.InputActionSettings.MultiTapDuration
-  type: Field
-  source:
-    remote:
-      path: ShapeEngine/Input/InputActionSettings.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: MultiTapDuration
-    path: ../ShapeEngine/ShapeEngine/Input/InputActionSettings.cs
-    startLine: 18
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: >-
-    The duration allowed between taps for a multi-tap action (in seconds).
-
-    Default is 0.25 seconds.
-  example: []
-  syntax:
-    content: public readonly float MultiTapDuration
-    return:
-      type: System.Single
-    content.vb: Public ReadOnly MultiTapDuration As Single
-- uid: ShapeEngine.Input.InputActionSettings.MultiTapTarget
-  commentId: F:ShapeEngine.Input.InputActionSettings.MultiTapTarget
-  id: MultiTapTarget
-  parent: ShapeEngine.Input.InputActionSettings
-  langs:
-  - csharp
-  - vb
-  name: MultiTapTarget
-  nameWithType: InputActionSettings.MultiTapTarget
-  fullName: ShapeEngine.Input.InputActionSettings.MultiTapTarget
-  type: Field
-  source:
-    remote:
-      path: ShapeEngine/Input/InputActionSettings.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: MultiTapTarget
-    path: ../ShapeEngine/ShapeEngine/Input/InputActionSettings.cs
-    startLine: 22
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: The number of taps required for a multi-tap action.
-  example: []
-  syntax:
-    content: public readonly int MultiTapTarget
-    return:
-      type: System.Int32
-    content.vb: Public ReadOnly MultiTapTarget As Integer
 - uid: ShapeEngine.Input.InputActionSettings.AxisSensitivity
   commentId: F:ShapeEngine.Input.InputActionSettings.AxisSensitivity
   id: AxisSensitivity
@@ -161,7 +66,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AxisSensitivity
     path: ../ShapeEngine/ShapeEngine/Input/InputActionSettings.cs
-    startLine: 28
+    startLine: 12
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -175,25 +80,25 @@ items:
     return:
       type: System.Single
     content.vb: Public ReadOnly AxisSensitivity As Single
-- uid: ShapeEngine.Input.InputActionSettings.AxisGravitiy
-  commentId: F:ShapeEngine.Input.InputActionSettings.AxisGravitiy
-  id: AxisGravitiy
+- uid: ShapeEngine.Input.InputActionSettings.AxisGravity
+  commentId: F:ShapeEngine.Input.InputActionSettings.AxisGravity
+  id: AxisGravity
   parent: ShapeEngine.Input.InputActionSettings
   langs:
   - csharp
   - vb
-  name: AxisGravitiy
-  nameWithType: InputActionSettings.AxisGravitiy
-  fullName: ShapeEngine.Input.InputActionSettings.AxisGravitiy
+  name: AxisGravity
+  nameWithType: InputActionSettings.AxisGravity
+  fullName: ShapeEngine.Input.InputActionSettings.AxisGravity
   type: Field
   source:
     remote:
       path: ShapeEngine/Input/InputActionSettings.cs
       branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: AxisGravitiy
+    id: AxisGravity
     path: ../ShapeEngine/ShapeEngine/Input/InputActionSettings.cs
-    startLine: 34
+    startLine: 18
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
@@ -203,10 +108,10 @@ items:
     Used for calculating InputState.Axis values.
   example: []
   syntax:
-    content: public readonly float AxisGravitiy
+    content: public readonly float AxisGravity
     return:
       type: System.Single
-    content.vb: Public ReadOnly AxisGravitiy As Single
+    content.vb: Public ReadOnly AxisGravity As Single
 - uid: ShapeEngine.Input.InputActionSettings.#ctor
   commentId: M:ShapeEngine.Input.InputActionSettings.#ctor
   id: '#ctor'
@@ -225,14 +130,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Input/InputActionSettings.cs
-    startLine: 40
+    startLine: 24
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
   summary: >-
-    Initializes a new instance of <xref href="ShapeEngine.Input.InputActionSettings" data-throw-if-not-resolved="false"></xref> with default values.
+    Initializes a new instance of <code>InputActionSettings</code> with default values.
 
-    HoldDuration is set to 1 second, MultiTapDuration to 0.25 seconds, MultiTapTarget to 0, AxisGravity to 1, and AxisSensitivity to 1.
+    <xref href="ShapeEngine.Input.InputActionSettings.AxisGravity" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Input.InputActionSettings.AxisSensitivity" data-throw-if-not-resolved="false"></xref> are both set to 1.
   example: []
   syntax:
     content: public InputActionSettings()
@@ -241,206 +146,16 @@ items:
   nameWithType.vb: InputActionSettings.New()
   fullName.vb: ShapeEngine.Input.InputActionSettings.New()
   name.vb: New()
-- uid: ShapeEngine.Input.InputActionSettings.CreateDefault
-  commentId: M:ShapeEngine.Input.InputActionSettings.CreateDefault
-  id: CreateDefault
+- uid: ShapeEngine.Input.InputActionSettings.#ctor(System.Single,System.Single)
+  commentId: M:ShapeEngine.Input.InputActionSettings.#ctor(System.Single,System.Single)
+  id: '#ctor(System.Single,System.Single)'
   parent: ShapeEngine.Input.InputActionSettings
   langs:
   - csharp
   - vb
-  name: CreateDefault()
-  nameWithType: InputActionSettings.CreateDefault()
-  fullName: ShapeEngine.Input.InputActionSettings.CreateDefault()
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Input/InputActionSettings.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: CreateDefault
-    path: ../ShapeEngine/ShapeEngine/Input/InputActionSettings.cs
-    startLine: 52
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: Creates an <xref href="ShapeEngine.Input.InputActionSettings" data-throw-if-not-resolved="false"></xref> instance with default values.
-  example: []
-  syntax:
-    content: public static InputActionSettings CreateDefault()
-    return:
-      type: ShapeEngine.Input.InputActionSettings
-    content.vb: Public Shared Function CreateDefault() As InputActionSettings
-  overload: ShapeEngine.Input.InputActionSettings.CreateDefault*
-- uid: ShapeEngine.Input.InputActionSettings.CreateHold(System.Single)
-  commentId: M:ShapeEngine.Input.InputActionSettings.CreateHold(System.Single)
-  id: CreateHold(System.Single)
-  parent: ShapeEngine.Input.InputActionSettings
-  langs:
-  - csharp
-  - vb
-  name: CreateHold(float)
-  nameWithType: InputActionSettings.CreateHold(float)
-  fullName: ShapeEngine.Input.InputActionSettings.CreateHold(float)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Input/InputActionSettings.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: CreateHold
-    path: ../ShapeEngine/ShapeEngine/Input/InputActionSettings.cs
-    startLine: 58
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: Creates an <xref href="ShapeEngine.Input.InputActionSettings" data-throw-if-not-resolved="false"></xref> instance configured for hold actions.
-  example: []
-  syntax:
-    content: public static InputActionSettings CreateHold(float holdDuration)
-    parameters:
-    - id: holdDuration
-      type: System.Single
-      description: The duration required to trigger a hold action (in seconds).
-    return:
-      type: ShapeEngine.Input.InputActionSettings
-    content.vb: Public Shared Function CreateHold(holdDuration As Single) As InputActionSettings
-  overload: ShapeEngine.Input.InputActionSettings.CreateHold*
-  nameWithType.vb: InputActionSettings.CreateHold(Single)
-  fullName.vb: ShapeEngine.Input.InputActionSettings.CreateHold(Single)
-  name.vb: CreateHold(Single)
-- uid: ShapeEngine.Input.InputActionSettings.CreateMultiTap(System.Single,System.Int32)
-  commentId: M:ShapeEngine.Input.InputActionSettings.CreateMultiTap(System.Single,System.Int32)
-  id: CreateMultiTap(System.Single,System.Int32)
-  parent: ShapeEngine.Input.InputActionSettings
-  langs:
-  - csharp
-  - vb
-  name: CreateMultiTap(float, int)
-  nameWithType: InputActionSettings.CreateMultiTap(float, int)
-  fullName: ShapeEngine.Input.InputActionSettings.CreateMultiTap(float, int)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Input/InputActionSettings.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: CreateMultiTap
-    path: ../ShapeEngine/ShapeEngine/Input/InputActionSettings.cs
-    startLine: 65
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: Creates an <xref href="ShapeEngine.Input.InputActionSettings" data-throw-if-not-resolved="false"></xref> instance configured for multi-tap actions.
-  example: []
-  syntax:
-    content: public static InputActionSettings CreateMultiTap(float tapDuration, int multiTapTarget)
-    parameters:
-    - id: tapDuration
-      type: System.Single
-      description: The duration allowed between taps (in seconds).
-    - id: multiTapTarget
-      type: System.Int32
-      description: The number of taps required for a multi-tap action.
-    return:
-      type: ShapeEngine.Input.InputActionSettings
-    content.vb: Public Shared Function CreateMultiTap(tapDuration As Single, multiTapTarget As Integer) As InputActionSettings
-  overload: ShapeEngine.Input.InputActionSettings.CreateMultiTap*
-  nameWithType.vb: InputActionSettings.CreateMultiTap(Single, Integer)
-  fullName.vb: ShapeEngine.Input.InputActionSettings.CreateMultiTap(Single, Integer)
-  name.vb: CreateMultiTap(Single, Integer)
-- uid: ShapeEngine.Input.InputActionSettings.CreateAxis(System.Single,System.Single)
-  commentId: M:ShapeEngine.Input.InputActionSettings.CreateAxis(System.Single,System.Single)
-  id: CreateAxis(System.Single,System.Single)
-  parent: ShapeEngine.Input.InputActionSettings
-  langs:
-  - csharp
-  - vb
-  name: CreateAxis(float, float)
-  nameWithType: InputActionSettings.CreateAxis(float, float)
-  fullName: ShapeEngine.Input.InputActionSettings.CreateAxis(float, float)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Input/InputActionSettings.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: CreateAxis
-    path: ../ShapeEngine/ShapeEngine/Input/InputActionSettings.cs
-    startLine: 72
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: Creates an <xref href="ShapeEngine.Input.InputActionSettings" data-throw-if-not-resolved="false"></xref> instance configured for axis input.
-  example: []
-  syntax:
-    content: public static InputActionSettings CreateAxis(float axisSensitivity, float axisGravitiy)
-    parameters:
-    - id: axisSensitivity
-      type: System.Single
-      description: How fast an axis moves towards the max value (in seconds).
-    - id: axisGravitiy
-      type: System.Single
-      description: How fast an axis moves towards 0 after no input is detected (in seconds).
-    return:
-      type: ShapeEngine.Input.InputActionSettings
-    content.vb: Public Shared Function CreateAxis(axisSensitivity As Single, axisGravitiy As Single) As InputActionSettings
-  overload: ShapeEngine.Input.InputActionSettings.CreateAxis*
-  nameWithType.vb: InputActionSettings.CreateAxis(Single, Single)
-  fullName.vb: ShapeEngine.Input.InputActionSettings.CreateAxis(Single, Single)
-  name.vb: CreateAxis(Single, Single)
-- uid: ShapeEngine.Input.InputActionSettings.CreateHoldAndMultiTap(System.Single,System.Single,System.Int32)
-  commentId: M:ShapeEngine.Input.InputActionSettings.CreateHoldAndMultiTap(System.Single,System.Single,System.Int32)
-  id: CreateHoldAndMultiTap(System.Single,System.Single,System.Int32)
-  parent: ShapeEngine.Input.InputActionSettings
-  langs:
-  - csharp
-  - vb
-  name: CreateHoldAndMultiTap(float, float, int)
-  nameWithType: InputActionSettings.CreateHoldAndMultiTap(float, float, int)
-  fullName: ShapeEngine.Input.InputActionSettings.CreateHoldAndMultiTap(float, float, int)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Input/InputActionSettings.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: CreateHoldAndMultiTap
-    path: ../ShapeEngine/ShapeEngine/Input/InputActionSettings.cs
-    startLine: 80
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  summary: Creates an <xref href="ShapeEngine.Input.InputActionSettings" data-throw-if-not-resolved="false"></xref> instance configured for both hold and multi-tap actions.
-  example: []
-  syntax:
-    content: public static InputActionSettings CreateHoldAndMultiTap(float holdDuration, float tapDuration, int multiTapTarget)
-    parameters:
-    - id: holdDuration
-      type: System.Single
-      description: The duration required to trigger a hold action (in seconds).
-    - id: tapDuration
-      type: System.Single
-      description: The duration allowed between taps (in seconds).
-    - id: multiTapTarget
-      type: System.Int32
-      description: The number of taps required for a multi-tap action.
-    return:
-      type: ShapeEngine.Input.InputActionSettings
-    content.vb: Public Shared Function CreateHoldAndMultiTap(holdDuration As Single, tapDuration As Single, multiTapTarget As Integer) As InputActionSettings
-  overload: ShapeEngine.Input.InputActionSettings.CreateHoldAndMultiTap*
-  nameWithType.vb: InputActionSettings.CreateHoldAndMultiTap(Single, Single, Integer)
-  fullName.vb: ShapeEngine.Input.InputActionSettings.CreateHoldAndMultiTap(Single, Single, Integer)
-  name.vb: CreateHoldAndMultiTap(Single, Single, Integer)
-- uid: ShapeEngine.Input.InputActionSettings.#ctor(System.Single,System.Single,System.Int32,System.Single,System.Single)
-  commentId: M:ShapeEngine.Input.InputActionSettings.#ctor(System.Single,System.Single,System.Int32,System.Single,System.Single)
-  id: '#ctor(System.Single,System.Single,System.Int32,System.Single,System.Single)'
-  parent: ShapeEngine.Input.InputActionSettings
-  langs:
-  - csharp
-  - vb
-  name: InputActionSettings(float, float, int, float, float)
-  nameWithType: InputActionSettings.InputActionSettings(float, float, int, float, float)
-  fullName: ShapeEngine.Input.InputActionSettings.InputActionSettings(float, float, int, float, float)
+  name: InputActionSettings(float, float)
+  nameWithType: InputActionSettings.InputActionSettings(float, float)
+  fullName: ShapeEngine.Input.InputActionSettings.InputActionSettings(float, float)
   type: Constructor
   source:
     remote:
@@ -449,35 +164,70 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Input/InputActionSettings.cs
-    startLine: 90
+    startLine: 36
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
-  summary: Initializes a new instance of <xref href="ShapeEngine.Input.InputActionSettings" data-throw-if-not-resolved="false"></xref> with custom values.
+  summary: >-
+    Initializes a new instance of <code>InputActionSettings</code> with specified sensitivity and gravity.
+
+    Values are clamped to a minimum of 0.
   example: []
   syntax:
-    content: public InputActionSettings(float holdDuration, float tapDuration, int multiTapTarget, float axisSensitivity, float axisGravitiy)
+    content: public InputActionSettings(float axisSensitivity, float axisGravity)
     parameters:
-    - id: holdDuration
-      type: System.Single
-      description: The duration required to trigger a hold action (in seconds).
-    - id: tapDuration
-      type: System.Single
-      description: The duration allowed between taps for a multi-tap action (in seconds).
-    - id: multiTapTarget
-      type: System.Int32
-      description: The number of taps required for a multi-tap action.
     - id: axisSensitivity
       type: System.Single
-      description: How fast an axis moves towards the max value (in seconds).
-    - id: axisGravitiy
+      description: How fast the axis moves towards the max value (1 / -1) in seconds.
+    - id: axisGravity
       type: System.Single
-      description: How fast an axis moves towards 0 after no input is detected (in seconds).
-    content.vb: Public Sub New(holdDuration As Single, tapDuration As Single, multiTapTarget As Integer, axisSensitivity As Single, axisGravitiy As Single)
+      description: How fast the axis moves towards 0 after no input is detected (in seconds).
+    content.vb: Public Sub New(axisSensitivity As Single, axisGravity As Single)
   overload: ShapeEngine.Input.InputActionSettings.#ctor*
-  nameWithType.vb: InputActionSettings.New(Single, Single, Integer, Single, Single)
-  fullName.vb: ShapeEngine.Input.InputActionSettings.New(Single, Single, Integer, Single, Single)
-  name.vb: New(Single, Single, Integer, Single, Single)
+  nameWithType.vb: InputActionSettings.New(Single, Single)
+  fullName.vb: ShapeEngine.Input.InputActionSettings.New(Single, Single)
+  name.vb: New(Single, Single)
+- uid: ShapeEngine.Input.InputActionSettings.Axis(System.Single,System.Single)
+  commentId: M:ShapeEngine.Input.InputActionSettings.Axis(System.Single,System.Single)
+  id: Axis(System.Single,System.Single)
+  parent: ShapeEngine.Input.InputActionSettings
+  langs:
+  - csharp
+  - vb
+  name: Axis(float, float)
+  nameWithType: InputActionSettings.Axis(float, float)
+  fullName: ShapeEngine.Input.InputActionSettings.Axis(float, float)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Input/InputActionSettings.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Axis
+    path: ../ShapeEngine/ShapeEngine/Input/InputActionSettings.cs
+    startLine: 48
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Input
+  summary: Creates a new <code>InputActionSettings</code> instance with the specified axis sensitivity and gravity.
+  example: []
+  syntax:
+    content: public static InputActionSettings Axis(float axisSensitivity, float axisGravity)
+    parameters:
+    - id: axisSensitivity
+      type: System.Single
+      description: How fast the axis moves towards the max value (1 / -1) in seconds.
+    - id: axisGravity
+      type: System.Single
+      description: How fast the axis moves towards 0 after no input is detected (in seconds).
+    return:
+      type: ShapeEngine.Input.InputActionSettings
+      description: A new <code>InputActionSettings</code> instance.
+    content.vb: Public Shared Function Axis(axisSensitivity As Single, axisGravity As Single) As InputActionSettings
+  overload: ShapeEngine.Input.InputActionSettings.Axis*
+  nameWithType.vb: InputActionSettings.Axis(Single, Single)
+  fullName.vb: ShapeEngine.Input.InputActionSettings.Axis(Single, Single)
+  name.vb: Axis(Single, Single)
 - uid: ShapeEngine.Input.InputActionSettings.Equals(ShapeEngine.Input.InputActionSettings)
   commentId: M:ShapeEngine.Input.InputActionSettings.Equals(ShapeEngine.Input.InputActionSettings)
   id: Equals(ShapeEngine.Input.InputActionSettings)
@@ -496,21 +246,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Equals
     path: ../ShapeEngine/ShapeEngine/Input/InputActionSettings.cs
-    startLine: 122
+    startLine: 56
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
-  summary: Determines whether the specified <xref href="ShapeEngine.Input.InputActionSettings" data-throw-if-not-resolved="false"></xref> is equal to the current instance.
+  summary: Determines whether the specified <code>InputActionSettings</code> is equal to the current instance.
   example: []
   syntax:
     content: public bool Equals(InputActionSettings other)
     parameters:
     - id: other
       type: ShapeEngine.Input.InputActionSettings
-      description: The <xref href="ShapeEngine.Input.InputActionSettings" data-throw-if-not-resolved="false"></xref> to compare with the current instance.
+      description: The <code>InputActionSettings</code> to compare with the current instance.
     return:
       type: System.Boolean
-      description: <code>true</code> if the specified object is equal to the current instance; otherwise, <code>false</code>.
+      description: <code>true</code> if the specified instance is equal; otherwise, <code>false</code>.
     content.vb: Public Function Equals(other As InputActionSettings) As Boolean
   overload: ShapeEngine.Input.InputActionSettings.Equals*
   implements:
@@ -533,11 +283,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Equals
     path: ../ShapeEngine/ShapeEngine/Input/InputActionSettings.cs
-    startLine: 137
+    startLine: 68
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
-  summary: Determines whether the specified object is equal to the current <xref href="ShapeEngine.Input.InputActionSettings" data-throw-if-not-resolved="false"></xref> instance.
+  summary: Determines whether the specified object is equal to the current <code>InputActionSettings</code> instance.
   example: []
   syntax:
     content: public override bool Equals(object? obj)
@@ -547,7 +297,7 @@ items:
       description: The object to compare with the current instance.
     return:
       type: System.Boolean
-      description: <code>true</code> if the specified object is equal to the current instance; otherwise, <code>false</code>.
+      description: <code>true</code> if the specified object is equal; otherwise, <code>false</code>.
     content.vb: Public Overrides Function Equals(obj As Object) As Boolean
   overridden: System.ValueType.Equals(System.Object)
   overload: ShapeEngine.Input.InputActionSettings.Equals*
@@ -572,21 +322,131 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetHashCode
     path: ../ShapeEngine/ShapeEngine/Input/InputActionSettings.cs
-    startLine: 146
+    startLine: 77
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
-  summary: Returns a hash code for the current <xref href="ShapeEngine.Input.InputActionSettings" data-throw-if-not-resolved="false"></xref>.
+  summary: Returns a hash code for the current <code>InputActionSettings</code> instance.
   example: []
   syntax:
     content: public override int GetHashCode()
     return:
       type: System.Int32
-      description: A hash code for the current object.
+      description: A hash code for the current instance.
     content.vb: Public Overrides Function GetHashCode() As Integer
   overridden: System.ValueType.GetHashCode
   overload: ShapeEngine.Input.InputActionSettings.GetHashCode*
+- uid: ShapeEngine.Input.InputActionSettings.op_Equality(ShapeEngine.Input.InputActionSettings,ShapeEngine.Input.InputActionSettings)
+  commentId: M:ShapeEngine.Input.InputActionSettings.op_Equality(ShapeEngine.Input.InputActionSettings,ShapeEngine.Input.InputActionSettings)
+  id: op_Equality(ShapeEngine.Input.InputActionSettings,ShapeEngine.Input.InputActionSettings)
+  parent: ShapeEngine.Input.InputActionSettings
+  langs:
+  - csharp
+  - vb
+  name: operator ==(InputActionSettings, InputActionSettings)
+  nameWithType: InputActionSettings.operator ==(InputActionSettings, InputActionSettings)
+  fullName: ShapeEngine.Input.InputActionSettings.operator ==(ShapeEngine.Input.InputActionSettings, ShapeEngine.Input.InputActionSettings)
+  type: Operator
+  source:
+    remote:
+      path: ShapeEngine/Input/InputActionSettings.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: op_Equality
+    path: ../ShapeEngine/ShapeEngine/Input/InputActionSettings.cs
+    startLine: 88
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Input
+  summary: Determines whether two <code>InputActionSettings</code> instances are equal.
+  example: []
+  syntax:
+    content: public static bool operator ==(InputActionSettings left, InputActionSettings right)
+    parameters:
+    - id: left
+      type: ShapeEngine.Input.InputActionSettings
+      description: The first instance to compare.
+    - id: right
+      type: ShapeEngine.Input.InputActionSettings
+      description: The second instance to compare.
+    return:
+      type: System.Boolean
+      description: <code>true</code> if both instances are equal; otherwise, <code>false</code>.
+    content.vb: Public Shared Operator =(left As InputActionSettings, right As InputActionSettings) As Boolean
+  overload: ShapeEngine.Input.InputActionSettings.op_Equality*
+  nameWithType.vb: InputActionSettings.=(InputActionSettings, InputActionSettings)
+  fullName.vb: ShapeEngine.Input.InputActionSettings.=(ShapeEngine.Input.InputActionSettings, ShapeEngine.Input.InputActionSettings)
+  name.vb: =(InputActionSettings, InputActionSettings)
+- uid: ShapeEngine.Input.InputActionSettings.op_Inequality(ShapeEngine.Input.InputActionSettings,ShapeEngine.Input.InputActionSettings)
+  commentId: M:ShapeEngine.Input.InputActionSettings.op_Inequality(ShapeEngine.Input.InputActionSettings,ShapeEngine.Input.InputActionSettings)
+  id: op_Inequality(ShapeEngine.Input.InputActionSettings,ShapeEngine.Input.InputActionSettings)
+  parent: ShapeEngine.Input.InputActionSettings
+  langs:
+  - csharp
+  - vb
+  name: operator !=(InputActionSettings, InputActionSettings)
+  nameWithType: InputActionSettings.operator !=(InputActionSettings, InputActionSettings)
+  fullName: ShapeEngine.Input.InputActionSettings.operator !=(ShapeEngine.Input.InputActionSettings, ShapeEngine.Input.InputActionSettings)
+  type: Operator
+  source:
+    remote:
+      path: ShapeEngine/Input/InputActionSettings.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: op_Inequality
+    path: ../ShapeEngine/ShapeEngine/Input/InputActionSettings.cs
+    startLine: 99
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Input
+  summary: Determines whether two <code>InputActionSettings</code> instances are not equal.
+  example: []
+  syntax:
+    content: public static bool operator !=(InputActionSettings left, InputActionSettings right)
+    parameters:
+    - id: left
+      type: ShapeEngine.Input.InputActionSettings
+      description: The first instance to compare.
+    - id: right
+      type: ShapeEngine.Input.InputActionSettings
+      description: The second instance to compare.
+    return:
+      type: System.Boolean
+      description: <code>true</code> if both instances are not equal; otherwise, <code>false</code>.
+    content.vb: Public Shared Operator <>(left As InputActionSettings, right As InputActionSettings) As Boolean
+  overload: ShapeEngine.Input.InputActionSettings.op_Inequality*
+  nameWithType.vb: InputActionSettings.<>(InputActionSettings, InputActionSettings)
+  fullName.vb: ShapeEngine.Input.InputActionSettings.<>(ShapeEngine.Input.InputActionSettings, ShapeEngine.Input.InputActionSettings)
+  name.vb: <>(InputActionSettings, InputActionSettings)
 references:
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
 - uid: ShapeEngine.Input
   commentId: N:ShapeEngine.Input
   href: ShapeEngine.html
@@ -778,34 +638,6 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-- uid: System.IEquatable`1
-  commentId: T:System.IEquatable`1
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
-  name: IEquatable<T>
-  nameWithType: IEquatable<T>
-  fullName: System.IEquatable<T>
-  nameWithType.vb: IEquatable(Of T)
-  fullName.vb: System.IEquatable(Of T)
-  name.vb: IEquatable(Of T)
-  spec.csharp:
-  - uid: System.IEquatable`1
-    name: IEquatable
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
-  - name: <
-  - name: T
-  - name: '>'
-  spec.vb:
-  - uid: System.IEquatable`1
-    name: IEquatable
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
-  - name: (
-  - name: Of
-  - name: " "
-  - name: T
-  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -843,24 +675,18 @@ references:
   nameWithType.vb: Single
   fullName.vb: Single
   name.vb: Single
-- uid: System.Int32
-  commentId: T:System.Int32
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.int32
-  name: int
-  nameWithType: int
-  fullName: int
-  nameWithType.vb: Integer
-  fullName.vb: Integer
-  name.vb: Integer
-- uid: ShapeEngine.Input.InputActionSettings
-  commentId: T:ShapeEngine.Input.InputActionSettings
-  parent: ShapeEngine.Input
-  href: ShapeEngine.Input.InputActionSettings.html
-  name: InputActionSettings
-  nameWithType: InputActionSettings
-  fullName: ShapeEngine.Input.InputActionSettings
+- uid: ShapeEngine.Input.InputActionSettings.AxisGravity
+  commentId: F:ShapeEngine.Input.InputActionSettings.AxisGravity
+  href: ShapeEngine.Input.InputActionSettings.html#ShapeEngine_Input_InputActionSettings_AxisGravity
+  name: AxisGravity
+  nameWithType: InputActionSettings.AxisGravity
+  fullName: ShapeEngine.Input.InputActionSettings.AxisGravity
+- uid: ShapeEngine.Input.InputActionSettings.AxisSensitivity
+  commentId: F:ShapeEngine.Input.InputActionSettings.AxisSensitivity
+  href: ShapeEngine.Input.InputActionSettings.html#ShapeEngine_Input_InputActionSettings_AxisSensitivity
+  name: AxisSensitivity
+  nameWithType: InputActionSettings.AxisSensitivity
+  fullName: ShapeEngine.Input.InputActionSettings.AxisSensitivity
 - uid: ShapeEngine.Input.InputActionSettings.#ctor*
   commentId: Overload:ShapeEngine.Input.InputActionSettings.#ctor
   href: ShapeEngine.Input.InputActionSettings.html#ShapeEngine_Input_InputActionSettings__ctor
@@ -870,36 +696,19 @@ references:
   nameWithType.vb: InputActionSettings.New
   fullName.vb: ShapeEngine.Input.InputActionSettings.New
   name.vb: New
-- uid: ShapeEngine.Input.InputActionSettings.CreateDefault*
-  commentId: Overload:ShapeEngine.Input.InputActionSettings.CreateDefault
-  href: ShapeEngine.Input.InputActionSettings.html#ShapeEngine_Input_InputActionSettings_CreateDefault
-  name: CreateDefault
-  nameWithType: InputActionSettings.CreateDefault
-  fullName: ShapeEngine.Input.InputActionSettings.CreateDefault
-- uid: ShapeEngine.Input.InputActionSettings.CreateHold*
-  commentId: Overload:ShapeEngine.Input.InputActionSettings.CreateHold
-  href: ShapeEngine.Input.InputActionSettings.html#ShapeEngine_Input_InputActionSettings_CreateHold_System_Single_
-  name: CreateHold
-  nameWithType: InputActionSettings.CreateHold
-  fullName: ShapeEngine.Input.InputActionSettings.CreateHold
-- uid: ShapeEngine.Input.InputActionSettings.CreateMultiTap*
-  commentId: Overload:ShapeEngine.Input.InputActionSettings.CreateMultiTap
-  href: ShapeEngine.Input.InputActionSettings.html#ShapeEngine_Input_InputActionSettings_CreateMultiTap_System_Single_System_Int32_
-  name: CreateMultiTap
-  nameWithType: InputActionSettings.CreateMultiTap
-  fullName: ShapeEngine.Input.InputActionSettings.CreateMultiTap
-- uid: ShapeEngine.Input.InputActionSettings.CreateAxis*
-  commentId: Overload:ShapeEngine.Input.InputActionSettings.CreateAxis
-  href: ShapeEngine.Input.InputActionSettings.html#ShapeEngine_Input_InputActionSettings_CreateAxis_System_Single_System_Single_
-  name: CreateAxis
-  nameWithType: InputActionSettings.CreateAxis
-  fullName: ShapeEngine.Input.InputActionSettings.CreateAxis
-- uid: ShapeEngine.Input.InputActionSettings.CreateHoldAndMultiTap*
-  commentId: Overload:ShapeEngine.Input.InputActionSettings.CreateHoldAndMultiTap
-  href: ShapeEngine.Input.InputActionSettings.html#ShapeEngine_Input_InputActionSettings_CreateHoldAndMultiTap_System_Single_System_Single_System_Int32_
-  name: CreateHoldAndMultiTap
-  nameWithType: InputActionSettings.CreateHoldAndMultiTap
-  fullName: ShapeEngine.Input.InputActionSettings.CreateHoldAndMultiTap
+- uid: ShapeEngine.Input.InputActionSettings.Axis*
+  commentId: Overload:ShapeEngine.Input.InputActionSettings.Axis
+  href: ShapeEngine.Input.InputActionSettings.html#ShapeEngine_Input_InputActionSettings_Axis_System_Single_System_Single_
+  name: Axis
+  nameWithType: InputActionSettings.Axis
+  fullName: ShapeEngine.Input.InputActionSettings.Axis
+- uid: ShapeEngine.Input.InputActionSettings
+  commentId: T:ShapeEngine.Input.InputActionSettings
+  parent: ShapeEngine.Input
+  href: ShapeEngine.Input.InputActionSettings.html
+  name: InputActionSettings
+  nameWithType: InputActionSettings
+  fullName: ShapeEngine.Input.InputActionSettings
 - uid: ShapeEngine.Input.InputActionSettings.Equals*
   commentId: Overload:ShapeEngine.Input.InputActionSettings.Equals
   href: ShapeEngine.Input.InputActionSettings.html#ShapeEngine_Input_InputActionSettings_Equals_ShapeEngine_Input_InputActionSettings_
@@ -1033,3 +842,44 @@ references:
   name: GetHashCode
   nameWithType: InputActionSettings.GetHashCode
   fullName: ShapeEngine.Input.InputActionSettings.GetHashCode
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: ShapeEngine.Input.InputActionSettings.op_Equality*
+  commentId: Overload:ShapeEngine.Input.InputActionSettings.op_Equality
+  href: ShapeEngine.Input.InputActionSettings.html#ShapeEngine_Input_InputActionSettings_op_Equality_ShapeEngine_Input_InputActionSettings_ShapeEngine_Input_InputActionSettings_
+  name: operator ==
+  nameWithType: InputActionSettings.operator ==
+  fullName: ShapeEngine.Input.InputActionSettings.operator ==
+  nameWithType.vb: InputActionSettings.=
+  fullName.vb: ShapeEngine.Input.InputActionSettings.=
+  name.vb: =
+  spec.csharp:
+  - name: operator
+  - name: " "
+  - uid: ShapeEngine.Input.InputActionSettings.op_Equality*
+    name: ==
+    href: ShapeEngine.Input.InputActionSettings.html#ShapeEngine_Input_InputActionSettings_op_Equality_ShapeEngine_Input_InputActionSettings_ShapeEngine_Input_InputActionSettings_
+- uid: ShapeEngine.Input.InputActionSettings.op_Inequality*
+  commentId: Overload:ShapeEngine.Input.InputActionSettings.op_Inequality
+  href: ShapeEngine.Input.InputActionSettings.html#ShapeEngine_Input_InputActionSettings_op_Inequality_ShapeEngine_Input_InputActionSettings_ShapeEngine_Input_InputActionSettings_
+  name: operator !=
+  nameWithType: InputActionSettings.operator !=
+  fullName: ShapeEngine.Input.InputActionSettings.operator !=
+  nameWithType.vb: InputActionSettings.<>
+  fullName.vb: ShapeEngine.Input.InputActionSettings.<>
+  name.vb: <>
+  spec.csharp:
+  - name: operator
+  - name: " "
+  - uid: ShapeEngine.Input.InputActionSettings.op_Inequality*
+    name: '!='
+    href: ShapeEngine.Input.InputActionSettings.html#ShapeEngine_Input_InputActionSettings_op_Inequality_ShapeEngine_Input_InputActionSettings_ShapeEngine_Input_InputActionSettings_
