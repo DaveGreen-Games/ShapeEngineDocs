@@ -25,6 +25,7 @@ items:
   - ShapeEngine.Geometry.TriangulationDef.Triangulation.ContainsPoint(System.Numerics.Vector2)
   - ShapeEngine.Geometry.TriangulationDef.Triangulation.ContainsPoint(System.Numerics.Vector2,System.Int32@)
   - ShapeEngine.Geometry.TriangulationDef.Triangulation.ContainsShape(ShapeEngine.Geometry.CircleDef.Circle,System.Int32@)
+  - ShapeEngine.Geometry.TriangulationDef.Triangulation.ContainsShape(ShapeEngine.Geometry.IShape,System.Int32@)
   - ShapeEngine.Geometry.TriangulationDef.Triangulation.ContainsShape(ShapeEngine.Geometry.PointsDef.Points,System.Int32@)
   - ShapeEngine.Geometry.TriangulationDef.Triangulation.ContainsShape(ShapeEngine.Geometry.PolygonDef.Polygon,System.Int32@)
   - ShapeEngine.Geometry.TriangulationDef.Triangulation.ContainsShape(ShapeEngine.Geometry.PolylineDef.Polyline,System.Int32@)
@@ -38,6 +39,7 @@ items:
   - ShapeEngine.Geometry.TriangulationDef.Triangulation.GetClosestPoint(ShapeEngine.Geometry.CircleDef.Circle,System.Int32@)
   - ShapeEngine.Geometry.TriangulationDef.Triangulation.GetClosestPoint(ShapeEngine.Geometry.CollisionSystem.Collider,System.Int32@)
   - ShapeEngine.Geometry.TriangulationDef.Triangulation.GetClosestPoint(ShapeEngine.Geometry.CollisionSystem.CollisionObject,System.Int32@)
+  - ShapeEngine.Geometry.TriangulationDef.Triangulation.GetClosestPoint(ShapeEngine.Geometry.IShape,System.Int32@)
   - ShapeEngine.Geometry.TriangulationDef.Triangulation.GetClosestPoint(ShapeEngine.Geometry.LineDef.Line,System.Int32@)
   - ShapeEngine.Geometry.TriangulationDef.Triangulation.GetClosestPoint(ShapeEngine.Geometry.PolygonDef.Polygon,System.Int32@)
   - ShapeEngine.Geometry.TriangulationDef.Triangulation.GetClosestPoint(ShapeEngine.Geometry.PolylineDef.Polyline,System.Int32@)
@@ -63,6 +65,7 @@ items:
   - ShapeEngine.Geometry.TriangulationDef.Triangulation.Intersect(ShapeEngine.Geometry.CollisionSystem.Collider)
   - ShapeEngine.Geometry.TriangulationDef.Triangulation.Intersect(ShapeEngine.Geometry.CollisionSystem.CollisionObject)
   - ShapeEngine.Geometry.TriangulationDef.Triangulation.IntersectShape(ShapeEngine.Geometry.CircleDef.Circle)
+  - ShapeEngine.Geometry.TriangulationDef.Triangulation.IntersectShape(ShapeEngine.Geometry.IShape)
   - ShapeEngine.Geometry.TriangulationDef.Triangulation.IntersectShape(ShapeEngine.Geometry.LineDef.Line)
   - ShapeEngine.Geometry.TriangulationDef.Triangulation.IntersectShape(ShapeEngine.Geometry.PolygonDef.Polygon)
   - ShapeEngine.Geometry.TriangulationDef.Triangulation.IntersectShape(ShapeEngine.Geometry.PolylineDef.Polyline)
@@ -77,6 +80,7 @@ items:
   - ShapeEngine.Geometry.TriangulationDef.Triangulation.Overlap(ShapeEngine.Geometry.CollisionSystem.CollisionObject)
   - ShapeEngine.Geometry.TriangulationDef.Triangulation.OverlapShape(ShapeEngine.Geometry.CircleDef.Circle)
   - ShapeEngine.Geometry.TriangulationDef.Triangulation.OverlapShape(ShapeEngine.Geometry.CircleDef.Circle,System.Collections.Generic.List{System.Int32}@)
+  - ShapeEngine.Geometry.TriangulationDef.Triangulation.OverlapShape(ShapeEngine.Geometry.IShape)
   - ShapeEngine.Geometry.TriangulationDef.Triangulation.OverlapShape(ShapeEngine.Geometry.LineDef.Line)
   - ShapeEngine.Geometry.TriangulationDef.Triangulation.OverlapShape(ShapeEngine.Geometry.LineDef.Line,System.Collections.Generic.List{System.Int32}@)
   - ShapeEngine.Geometry.TriangulationDef.Triangulation.OverlapShape(ShapeEngine.Geometry.PolygonDef.Polygon)
@@ -1541,6 +1545,47 @@ items:
   nameWithType.vb: Triangulation.GetClosestSegment(Vector2, Single, Integer)
   fullName.vb: ShapeEngine.Geometry.TriangulationDef.Triangulation.GetClosestSegment(System.Numerics.Vector2, Single, Integer)
   name.vb: GetClosestSegment(Vector2, Single, Integer)
+- uid: ShapeEngine.Geometry.TriangulationDef.Triangulation.GetClosestPoint(ShapeEngine.Geometry.IShape,System.Int32@)
+  commentId: M:ShapeEngine.Geometry.TriangulationDef.Triangulation.GetClosestPoint(ShapeEngine.Geometry.IShape,System.Int32@)
+  id: GetClosestPoint(ShapeEngine.Geometry.IShape,System.Int32@)
+  parent: ShapeEngine.Geometry.TriangulationDef.Triangulation
+  langs:
+  - csharp
+  - vb
+  name: GetClosestPoint(IShape, out int)
+  nameWithType: Triangulation.GetClosestPoint(IShape, out int)
+  fullName: ShapeEngine.Geometry.TriangulationDef.Triangulation.GetClosestPoint(ShapeEngine.Geometry.IShape, out int)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/TriangulationDef/TriangulationClosestPoint.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetClosestPoint
+    path: ../ShapeEngine/ShapeEngine/Geometry/TriangulationDef/TriangulationClosestPoint.cs
+    startLine: 630
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.TriangulationDef
+  summary: Finds the closest point in the triangulation to the specified shape.
+  example: []
+  syntax:
+    content: public ClosestPointResult GetClosestPoint(IShape shape, out int triangleIndex)
+    parameters:
+    - id: shape
+      type: ShapeEngine.Geometry.IShape
+      description: The shape to find the closest point to.
+    - id: triangleIndex
+      type: System.Int32
+      description: The index of the triangle in the triangulation that is closest to the shape.
+    return:
+      type: ShapeEngine.Geometry.CollisionSystem.ClosestPointResult
+      description: A <xref href="ShapeEngine.Geometry.CollisionSystem.ClosestPointResult" data-throw-if-not-resolved="false"></xref> containing the closest point information for the shape.
+    content.vb: Public Function GetClosestPoint(shape As IShape, triangleIndex As Integer) As ClosestPointResult
+  overload: ShapeEngine.Geometry.TriangulationDef.Triangulation.GetClosestPoint*
+  nameWithType.vb: Triangulation.GetClosestPoint(IShape, Integer)
+  fullName.vb: ShapeEngine.Geometry.TriangulationDef.Triangulation.GetClosestPoint(ShapeEngine.Geometry.IShape, Integer)
+  name.vb: GetClosestPoint(IShape, Integer)
 - uid: ShapeEngine.Geometry.TriangulationDef.Triangulation.ContainsPoint(System.Numerics.Vector2)
   commentId: M:ShapeEngine.Geometry.TriangulationDef.Triangulation.ContainsPoint(System.Numerics.Vector2)
   id: ContainsPoint(System.Numerics.Vector2)
@@ -2039,6 +2084,47 @@ items:
   nameWithType.vb: Triangulation.ContainsShape(Points, Integer)
   fullName.vb: ShapeEngine.Geometry.TriangulationDef.Triangulation.ContainsShape(ShapeEngine.Geometry.PointsDef.Points, Integer)
   name.vb: ContainsShape(Points, Integer)
+- uid: ShapeEngine.Geometry.TriangulationDef.Triangulation.ContainsShape(ShapeEngine.Geometry.IShape,System.Int32@)
+  commentId: M:ShapeEngine.Geometry.TriangulationDef.Triangulation.ContainsShape(ShapeEngine.Geometry.IShape,System.Int32@)
+  id: ContainsShape(ShapeEngine.Geometry.IShape,System.Int32@)
+  parent: ShapeEngine.Geometry.TriangulationDef.Triangulation
+  langs:
+  - csharp
+  - vb
+  name: ContainsShape(IShape, out int)
+  nameWithType: Triangulation.ContainsShape(IShape, out int)
+  fullName: ShapeEngine.Geometry.TriangulationDef.Triangulation.ContainsShape(ShapeEngine.Geometry.IShape, out int)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/TriangulationDef/TriangulationContainsPoint.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: ContainsShape
+    path: ../ShapeEngine/ShapeEngine/Geometry/TriangulationDef/TriangulationContainsPoint.cs
+    startLine: 295
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.TriangulationDef
+  summary: Determines whether the specified shape is contained within any triangle of this triangulation.
+  example: []
+  syntax:
+    content: public bool ContainsShape(IShape shape, out int triangleIndex)
+    parameters:
+    - id: shape
+      type: ShapeEngine.Geometry.IShape
+      description: The shape to check for containment.
+    - id: triangleIndex
+      type: System.Int32
+      description: The index of the triangle that contains the shape, or -1 if not found.
+    return:
+      type: System.Boolean
+      description: True if the shape is contained in a triangle, false otherwise.
+    content.vb: Public Function ContainsShape(shape As IShape, triangleIndex As Integer) As Boolean
+  overload: ShapeEngine.Geometry.TriangulationDef.Triangulation.ContainsShape*
+  nameWithType.vb: Triangulation.ContainsShape(IShape, Integer)
+  fullName.vb: ShapeEngine.Geometry.TriangulationDef.Triangulation.ContainsShape(ShapeEngine.Geometry.IShape, Integer)
+  name.vb: ContainsShape(IShape, Integer)
 - uid: ShapeEngine.Geometry.TriangulationDef.Triangulation.Intersect(ShapeEngine.Geometry.CollisionSystem.CollisionObject)
   commentId: M:ShapeEngine.Geometry.TriangulationDef.Triangulation.Intersect(ShapeEngine.Geometry.CollisionSystem.CollisionObject)
   id: Intersect(ShapeEngine.Geometry.CollisionSystem.CollisionObject)
@@ -2455,7 +2541,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectShape
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangulationDef/TriangulationIntersectShape.cs
-    startLine: 276
+    startLine: 277
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangulationDef
@@ -2472,6 +2558,44 @@ items:
       type: System.Collections.Generic.Dictionary{System.Int32,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints}
       description: A dictionary mapping the index of each intersecting triangle to the resulting <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoints" data-throw-if-not-resolved="false"></xref>. Returns <code>null</code> if no intersections are found.
     content.vb: Public Function IntersectShape(shape As Segments) As Dictionary(Of Integer, IntersectionPoints)
+  overload: ShapeEngine.Geometry.TriangulationDef.Triangulation.IntersectShape*
+- uid: ShapeEngine.Geometry.TriangulationDef.Triangulation.IntersectShape(ShapeEngine.Geometry.IShape)
+  commentId: M:ShapeEngine.Geometry.TriangulationDef.Triangulation.IntersectShape(ShapeEngine.Geometry.IShape)
+  id: IntersectShape(ShapeEngine.Geometry.IShape)
+  parent: ShapeEngine.Geometry.TriangulationDef.Triangulation
+  langs:
+  - csharp
+  - vb
+  name: IntersectShape(IShape)
+  nameWithType: Triangulation.IntersectShape(IShape)
+  fullName: ShapeEngine.Geometry.TriangulationDef.Triangulation.IntersectShape(ShapeEngine.Geometry.IShape)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/TriangulationDef/TriangulationIntersectShape.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: IntersectShape
+    path: ../ShapeEngine/ShapeEngine/Geometry/TriangulationDef/TriangulationIntersectShape.cs
+    startLine: 302
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.TriangulationDef
+  summary: Checks for intersections between the triangles in this triangulation and the specified shape implementing <xref href="ShapeEngine.Geometry.IShape" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public Dictionary<int, IntersectionPoints>? IntersectShape(IShape shape)
+    parameters:
+    - id: shape
+      type: ShapeEngine.Geometry.IShape
+      description: The shape to check for intersections.
+    return:
+      type: System.Collections.Generic.Dictionary{System.Int32,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints}
+      description: >-
+        A dictionary mapping the index of each intersecting triangle to the resulting <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoints" data-throw-if-not-resolved="false"></xref>.
+
+        Returns <code>null</code> if no intersections are found or the shape type is not supported.
+    content.vb: Public Function IntersectShape(shape As IShape) As Dictionary(Of Integer, IntersectionPoints)
   overload: ShapeEngine.Geometry.TriangulationDef.Triangulation.IntersectShape*
 - uid: ShapeEngine.Geometry.TriangulationDef.Triangulation.GetArea
   commentId: M:ShapeEngine.Geometry.TriangulationDef.Triangulation.GetArea
@@ -4131,7 +4255,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangulationDef/TriangulationOverlap.cs
-    startLine: 203
+    startLine: 204
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangulationDef
@@ -4167,7 +4291,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Overlap
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangulationDef/TriangulationOverlap.cs
-    startLine: 220
+    startLine: 221
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangulationDef
@@ -4208,7 +4332,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangulationDef/TriangulationOverlap.cs
-    startLine: 240
+    startLine: 241
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangulationDef
@@ -4249,7 +4373,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangulationDef/TriangulationOverlap.cs
-    startLine: 260
+    startLine: 261
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangulationDef
@@ -4290,7 +4414,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangulationDef/TriangulationOverlap.cs
-    startLine: 280
+    startLine: 281
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangulationDef
@@ -4331,7 +4455,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangulationDef/TriangulationOverlap.cs
-    startLine: 300
+    startLine: 301
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangulationDef
@@ -4372,7 +4496,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangulationDef/TriangulationOverlap.cs
-    startLine: 320
+    startLine: 321
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangulationDef
@@ -4413,7 +4537,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangulationDef/TriangulationOverlap.cs
-    startLine: 340
+    startLine: 341
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangulationDef
@@ -4454,7 +4578,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangulationDef/TriangulationOverlap.cs
-    startLine: 360
+    startLine: 361
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangulationDef
@@ -4495,7 +4619,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangulationDef/TriangulationOverlap.cs
-    startLine: 380
+    startLine: 381
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangulationDef
@@ -4536,7 +4660,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangulationDef/TriangulationOverlap.cs
-    startLine: 400
+    startLine: 401
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangulationDef
@@ -4577,7 +4701,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangulationDef/TriangulationOverlap.cs
-    startLine: 420
+    startLine: 421
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangulationDef
@@ -4600,6 +4724,43 @@ items:
   nameWithType.vb: Triangulation.OverlapShape(Segments, List(Of Integer))
   fullName.vb: ShapeEngine.Geometry.TriangulationDef.Triangulation.OverlapShape(ShapeEngine.Geometry.SegmentsDef.Segments, System.Collections.Generic.List(Of Integer))
   name.vb: OverlapShape(Segments, List(Of Integer))
+- uid: ShapeEngine.Geometry.TriangulationDef.Triangulation.OverlapShape(ShapeEngine.Geometry.IShape)
+  commentId: M:ShapeEngine.Geometry.TriangulationDef.Triangulation.OverlapShape(ShapeEngine.Geometry.IShape)
+  id: OverlapShape(ShapeEngine.Geometry.IShape)
+  parent: ShapeEngine.Geometry.TriangulationDef.Triangulation
+  langs:
+  - csharp
+  - vb
+  name: OverlapShape(IShape)
+  nameWithType: Triangulation.OverlapShape(IShape)
+  fullName: ShapeEngine.Geometry.TriangulationDef.Triangulation.OverlapShape(ShapeEngine.Geometry.IShape)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/TriangulationDef/TriangulationOverlap.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OverlapShape
+    path: ../ShapeEngine/ShapeEngine/Geometry/TriangulationDef/TriangulationOverlap.cs
+    startLine: 441
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.TriangulationDef
+  summary: Determines whether this shape overlaps with the specified <xref href="ShapeEngine.Geometry.IShape" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public bool OverlapShape(IShape shape)
+    parameters:
+    - id: shape
+      type: ShapeEngine.Geometry.IShape
+      description: >-
+        The shape to test for overlap with this shape.
+            The shape can be any supported type such as circle, segment, ray, line, triangle, rectangle, quad, polygon, or polyline.
+    return:
+      type: System.Boolean
+      description: <code>true</code> if this shape overlaps with the specified shape; otherwise, <code>false</code>.
+    content.vb: Public Function OverlapShape(shape As IShape) As Boolean
+  overload: ShapeEngine.Geometry.TriangulationDef.Triangulation.OverlapShape*
 references:
 - uid: ShapeEngine.Geometry.TriangulationDef
   commentId: N:ShapeEngine.Geometry.TriangulationDef
@@ -10947,6 +11108,13 @@ references:
     name: IntersectionPoint
     href: ShapeEngine.Geometry.CollisionSystem.IntersectionPoint.html
   - name: )
+- uid: ShapeEngine.Geometry.IShape
+  commentId: T:ShapeEngine.Geometry.IShape
+  parent: ShapeEngine.Geometry
+  href: ShapeEngine.Geometry.IShape.html
+  name: IShape
+  nameWithType: IShape
+  fullName: ShapeEngine.Geometry.IShape
 - uid: ShapeEngine.Geometry.TriangulationDef.Triangulation.ContainsPoint*
   commentId: Overload:ShapeEngine.Geometry.TriangulationDef.Triangulation.ContainsPoint
   href: ShapeEngine.Geometry.TriangulationDef.Triangulation.html#ShapeEngine_Geometry_TriangulationDef_Triangulation_ContainsPoint_System_Numerics_Vector2_

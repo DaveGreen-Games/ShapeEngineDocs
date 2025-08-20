@@ -26,6 +26,7 @@ items:
   - ShapeEngine.Geometry.PolylineDef.Polyline.GetCentroidMean
   - ShapeEngine.Geometry.PolylineDef.Polyline.GetCentroidOnLine
   - ShapeEngine.Geometry.PolylineDef.Polyline.GetClosestPoint(ShapeEngine.Geometry.CircleDef.Circle)
+  - ShapeEngine.Geometry.PolylineDef.Polyline.GetClosestPoint(ShapeEngine.Geometry.IShape)
   - ShapeEngine.Geometry.PolylineDef.Polyline.GetClosestPoint(ShapeEngine.Geometry.LineDef.Line)
   - ShapeEngine.Geometry.PolylineDef.Polyline.GetClosestPoint(ShapeEngine.Geometry.PolygonDef.Polygon)
   - ShapeEngine.Geometry.PolylineDef.Polyline.GetClosestPoint(ShapeEngine.Geometry.PolylineDef.Polyline)
@@ -58,6 +59,8 @@ items:
   - ShapeEngine.Geometry.PolylineDef.Polyline.Intersect(ShapeEngine.Geometry.CollisionSystem.CollisionObject)
   - ShapeEngine.Geometry.PolylineDef.Polyline.IntersectShape(ShapeEngine.Geometry.CircleDef.Circle)
   - ShapeEngine.Geometry.PolylineDef.Polyline.IntersectShape(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
+  - ShapeEngine.Geometry.PolylineDef.Polyline.IntersectShape(ShapeEngine.Geometry.IShape)
+  - ShapeEngine.Geometry.PolylineDef.Polyline.IntersectShape(ShapeEngine.Geometry.IShape,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
   - ShapeEngine.Geometry.PolylineDef.Polyline.IntersectShape(ShapeEngine.Geometry.LineDef.Line)
   - ShapeEngine.Geometry.PolylineDef.Polyline.IntersectShape(ShapeEngine.Geometry.LineDef.Line,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
   - ShapeEngine.Geometry.PolylineDef.Polyline.IntersectShape(ShapeEngine.Geometry.PolygonDef.Polygon)
@@ -99,6 +102,7 @@ items:
   - ShapeEngine.Geometry.PolylineDef.Polyline.OverlapSegment(System.Numerics.Vector2,System.Numerics.Vector2)
   - ShapeEngine.Geometry.PolylineDef.Polyline.OverlapSegments(System.Collections.Generic.List{ShapeEngine.Geometry.SegmentDef.Segment})
   - ShapeEngine.Geometry.PolylineDef.Polyline.OverlapShape(ShapeEngine.Geometry.CircleDef.Circle)
+  - ShapeEngine.Geometry.PolylineDef.Polyline.OverlapShape(ShapeEngine.Geometry.IShape)
   - ShapeEngine.Geometry.PolylineDef.Polyline.OverlapShape(ShapeEngine.Geometry.LineDef.Line)
   - ShapeEngine.Geometry.PolylineDef.Polyline.OverlapShape(ShapeEngine.Geometry.PolygonDef.Polygon)
   - ShapeEngine.Geometry.PolylineDef.Polyline.OverlapShape(ShapeEngine.Geometry.PolylineDef.Polyline)
@@ -181,6 +185,7 @@ items:
   - ShapeEngine.Geometry.PointsDef.Points.GetRandomPoints(System.Int32)
   - ShapeEngine.Geometry.PointsDef.Points.Copy
   - ShapeEngine.Geometry.PointsDef.Points.ToPolygon
+  - ShapeEngine.Geometry.PointsDef.Points.ToPolygon(ShapeEngine.Geometry.PolygonDef.Polygon@)
   - ShapeEngine.Geometry.PointsDef.Points.ToPolyline
   - ShapeEngine.Geometry.PointsDef.Points.ToRelative(System.Numerics.Vector2)
   - ShapeEngine.Geometry.PointsDef.Points.GetRelativeVector2List(System.Numerics.Vector2)
@@ -1750,6 +1755,41 @@ items:
   nameWithType.vb: Polyline.GetClosestSegment(Vector2, Single)
   fullName.vb: ShapeEngine.Geometry.PolylineDef.Polyline.GetClosestSegment(System.Numerics.Vector2, Single)
   name.vb: GetClosestSegment(Vector2, Single)
+- uid: ShapeEngine.Geometry.PolylineDef.Polyline.GetClosestPoint(ShapeEngine.Geometry.IShape)
+  commentId: M:ShapeEngine.Geometry.PolylineDef.Polyline.GetClosestPoint(ShapeEngine.Geometry.IShape)
+  id: GetClosestPoint(ShapeEngine.Geometry.IShape)
+  parent: ShapeEngine.Geometry.PolylineDef.Polyline
+  langs:
+  - csharp
+  - vb
+  name: GetClosestPoint(IShape)
+  nameWithType: Polyline.GetClosestPoint(IShape)
+  fullName: ShapeEngine.Geometry.PolylineDef.Polyline.GetClosestPoint(ShapeEngine.Geometry.IShape)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/PolylineDef/PolylineClosestPoint.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetClosestPoint
+    path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineClosestPoint.cs
+    startLine: 809
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.PolylineDef
+  summary: Finds the closest point on this shapes perimeter to the given <xref href="ShapeEngine.Geometry.IShape" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public ClosestPointResult GetClosestPoint(IShape shape)
+    parameters:
+    - id: shape
+      type: ShapeEngine.Geometry.IShape
+      description: The shape to compare against.
+    return:
+      type: ShapeEngine.Geometry.CollisionSystem.ClosestPointResult
+      description: A <xref href="ShapeEngine.Geometry.CollisionSystem.ClosestPointResult" data-throw-if-not-resolved="false"></xref> containing the closest point information for the shape.
+    content.vb: Public Function GetClosestPoint(shape As IShape) As ClosestPointResult
+  overload: ShapeEngine.Geometry.PolylineDef.Polyline.GetClosestPoint*
 - uid: ShapeEngine.Geometry.PolylineDef.Polyline.Intersect(ShapeEngine.Geometry.CollisionSystem.CollisionObject)
   commentId: M:ShapeEngine.Geometry.PolylineDef.Polyline.Intersect(ShapeEngine.Geometry.CollisionSystem.CollisionObject)
   id: Intersect(ShapeEngine.Geometry.CollisionSystem.CollisionObject)
@@ -1806,7 +1846,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Intersect
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineIntersectShape.cs
-    startLine: 49
+    startLine: 50
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -1845,7 +1885,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineIntersectShape.cs
-    startLine: 98
+    startLine: 99
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -1884,7 +1924,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineIntersectShape.cs
-    startLine: 127
+    startLine: 128
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -1923,7 +1963,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineIntersectShape.cs
-    startLine: 154
+    startLine: 155
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -1961,7 +2001,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineIntersectShape.cs
-    startLine: 181
+    startLine: 182
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -1999,7 +2039,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineIntersectShape.cs
-    startLine: 210
+    startLine: 211
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -2037,7 +2077,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineIntersectShape.cs
-    startLine: 253
+    startLine: 254
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -2075,7 +2115,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineIntersectShape.cs
-    startLine: 307
+    startLine: 308
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -2113,7 +2153,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineIntersectShape.cs
-    startLine: 357
+    startLine: 358
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -2151,7 +2191,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineIntersectShape.cs
-    startLine: 386
+    startLine: 387
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -2189,7 +2229,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineIntersectShape.cs
-    startLine: 415
+    startLine: 416
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -2208,6 +2248,41 @@ items:
         A <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoints" data-throw-if-not-resolved="false"></xref> object containing intersection points,
             or <code>null</code> if there are no intersections.
     content.vb: Public Function IntersectShape(segments As Segments) As IntersectionPoints
+  overload: ShapeEngine.Geometry.PolylineDef.Polyline.IntersectShape*
+- uid: ShapeEngine.Geometry.PolylineDef.Polyline.IntersectShape(ShapeEngine.Geometry.IShape)
+  commentId: M:ShapeEngine.Geometry.PolylineDef.Polyline.IntersectShape(ShapeEngine.Geometry.IShape)
+  id: IntersectShape(ShapeEngine.Geometry.IShape)
+  parent: ShapeEngine.Geometry.PolylineDef.Polyline
+  langs:
+  - csharp
+  - vb
+  name: IntersectShape(IShape)
+  nameWithType: Polyline.IntersectShape(IShape)
+  fullName: ShapeEngine.Geometry.PolylineDef.Polyline.IntersectShape(ShapeEngine.Geometry.IShape)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/PolylineDef/PolylineIntersectShape.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: IntersectShape
+    path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineIntersectShape.cs
+    startLine: 443
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.PolylineDef
+  summary: Computes intersection points between this shape and a shape implementing <xref href="ShapeEngine.Geometry.IShape" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public IntersectionPoints? IntersectShape(IShape shape)
+    parameters:
+    - id: shape
+      type: ShapeEngine.Geometry.IShape
+      description: The shape to test against.
+    return:
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoints
+      description: A <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoints" data-throw-if-not-resolved="false"></xref> collection of intersection points, or null if none.
+    content.vb: Public Function IntersectShape(shape As IShape) As IntersectionPoints
   overload: ShapeEngine.Geometry.PolylineDef.Polyline.IntersectShape*
 - uid: ShapeEngine.Geometry.PolylineDef.Polyline.Intersect(ShapeEngine.Geometry.CollisionSystem.Collider,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
   commentId: M:ShapeEngine.Geometry.PolylineDef.Polyline.Intersect(ShapeEngine.Geometry.CollisionSystem.Collider,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
@@ -2794,6 +2869,50 @@ items:
   nameWithType.vb: Polyline.IntersectShape(Segments, IntersectionPoints, Boolean)
   fullName.vb: ShapeEngine.Geometry.PolylineDef.Polyline.IntersectShape(ShapeEngine.Geometry.SegmentsDef.Segments, ShapeEngine.Geometry.CollisionSystem.IntersectionPoints, Boolean)
   name.vb: IntersectShape(Segments, IntersectionPoints, Boolean)
+- uid: ShapeEngine.Geometry.PolylineDef.Polyline.IntersectShape(ShapeEngine.Geometry.IShape,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.PolylineDef.Polyline.IntersectShape(ShapeEngine.Geometry.IShape,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
+  id: IntersectShape(ShapeEngine.Geometry.IShape,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
+  parent: ShapeEngine.Geometry.PolylineDef.Polyline
+  langs:
+  - csharp
+  - vb
+  name: IntersectShape(IShape, ref IntersectionPoints, bool)
+  nameWithType: Polyline.IntersectShape(IShape, ref IntersectionPoints, bool)
+  fullName: ShapeEngine.Geometry.PolylineDef.Polyline.IntersectShape(ShapeEngine.Geometry.IShape, ref ShapeEngine.Geometry.CollisionSystem.IntersectionPoints, bool)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/PolylineDef/PolylineIntersectShape2.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: IntersectShape
+    path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineIntersectShape2.cs
+    startLine: 479
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.PolylineDef
+  summary: Computes the number of intersection points between this shape and a shape implementing <xref href="ShapeEngine.Geometry.IShape" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public int IntersectShape(IShape shape, ref IntersectionPoints points, bool returnAfterFirstValid = false)
+    parameters:
+    - id: shape
+      type: ShapeEngine.Geometry.IShape
+      description: The shape to test against.
+    - id: points
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoints
+      description: A reference to an <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoints" data-throw-if-not-resolved="false"></xref> collection to store intersection points.
+    - id: returnAfterFirstValid
+      type: System.Boolean
+      description: If true, the method returns after finding the first valid intersection point; otherwise, it finds all intersections.
+    return:
+      type: System.Int32
+      description: The number of valid intersection points found.
+    content.vb: Public Function IntersectShape(shape As IShape, points As IntersectionPoints, returnAfterFirstValid As Boolean = False) As Integer
+  overload: ShapeEngine.Geometry.PolylineDef.Polyline.IntersectShape*
+  nameWithType.vb: Polyline.IntersectShape(IShape, IntersectionPoints, Boolean)
+  fullName.vb: ShapeEngine.Geometry.PolylineDef.Polyline.IntersectShape(ShapeEngine.Geometry.IShape, ShapeEngine.Geometry.CollisionSystem.IntersectionPoints, Boolean)
+  name.vb: IntersectShape(IShape, IntersectionPoints, Boolean)
 - uid: ShapeEngine.Geometry.PolylineDef.Polyline.GetProjectedShapePoints(System.Numerics.Vector2)
   commentId: M:ShapeEngine.Geometry.PolylineDef.Polyline.GetProjectedShapePoints(System.Numerics.Vector2)
   id: GetProjectedShapePoints(System.Numerics.Vector2)
@@ -4227,7 +4346,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapPolyline
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineOverlap.cs
-    startLine: 105
+    startLine: 109
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -4265,7 +4384,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapSegments
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineOverlap.cs
-    startLine: 112
+    startLine: 116
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -4303,7 +4422,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineOverlap.cs
-    startLine: 119
+    startLine: 123
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -4338,7 +4457,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineOverlap.cs
-    startLine: 126
+    startLine: 130
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -4373,7 +4492,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Overlap
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineOverlap.cs
-    startLine: 133
+    startLine: 137
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -4408,7 +4527,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Overlap
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineOverlap.cs
-    startLine: 148
+    startLine: 152
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -4443,7 +4562,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineOverlap.cs
-    startLine: 191
+    startLine: 195
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -4478,7 +4597,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineOverlap.cs
-    startLine: 214
+    startLine: 218
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -4513,7 +4632,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineOverlap.cs
-    startLine: 221
+    startLine: 225
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -4548,7 +4667,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineOverlap.cs
-    startLine: 228
+    startLine: 232
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -4583,7 +4702,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineOverlap.cs
-    startLine: 235
+    startLine: 239
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -4618,7 +4737,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineOverlap.cs
-    startLine: 242
+    startLine: 246
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -4653,7 +4772,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineOverlap.cs
-    startLine: 249
+    startLine: 253
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -4688,7 +4807,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineOverlap.cs
-    startLine: 256
+    startLine: 260
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -4704,6 +4823,43 @@ items:
       type: System.Boolean
       description: <code>true</code> if the polylines overlap; otherwise, <code>false</code>.
     content.vb: Public Function OverlapShape(b As Polyline) As Boolean
+  overload: ShapeEngine.Geometry.PolylineDef.Polyline.OverlapShape*
+- uid: ShapeEngine.Geometry.PolylineDef.Polyline.OverlapShape(ShapeEngine.Geometry.IShape)
+  commentId: M:ShapeEngine.Geometry.PolylineDef.Polyline.OverlapShape(ShapeEngine.Geometry.IShape)
+  id: OverlapShape(ShapeEngine.Geometry.IShape)
+  parent: ShapeEngine.Geometry.PolylineDef.Polyline
+  langs:
+  - csharp
+  - vb
+  name: OverlapShape(IShape)
+  nameWithType: Polyline.OverlapShape(IShape)
+  fullName: ShapeEngine.Geometry.PolylineDef.Polyline.OverlapShape(ShapeEngine.Geometry.IShape)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/PolylineDef/PolylineOverlap.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OverlapShape
+    path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineOverlap.cs
+    startLine: 287
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.PolylineDef
+  summary: Determines whether this shape overlaps with the specified <xref href="ShapeEngine.Geometry.IShape" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public bool OverlapShape(IShape shape)
+    parameters:
+    - id: shape
+      type: ShapeEngine.Geometry.IShape
+      description: >-
+        The shape to test for overlap with this shape.
+            The shape can be any supported type such as circle, segment, ray, line, triangle, rectangle, quad, polygon, or polyline.
+    return:
+      type: System.Boolean
+      description: <code>true</code> if this shape overlaps with the specified shape; otherwise, <code>false</code>.
+    content.vb: Public Function OverlapShape(shape As IShape) As Boolean
   overload: ShapeEngine.Geometry.PolylineDef.Polyline.OverlapShape*
 - uid: ShapeEngine.Geometry.PolylineDef.Polyline.OverlapPolylineSegment(System.Collections.Generic.List{System.Numerics.Vector2},System.Numerics.Vector2,System.Numerics.Vector2)
   commentId: M:ShapeEngine.Geometry.PolylineDef.Polyline.OverlapPolylineSegment(System.Collections.Generic.List{System.Numerics.Vector2},System.Numerics.Vector2,System.Numerics.Vector2)
@@ -5098,7 +5254,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapPolylinePolyline
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineOverlapStatic.cs
-    startLine: 147
+    startLine: 148
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -5140,7 +5296,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapPolylineSegments
     path: ../ShapeEngine/ShapeEngine/Geometry/PolylineDef/PolylineOverlapStatic.cs
-    startLine: 177
+    startLine: 178
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolylineDef
@@ -5782,6 +5938,36 @@ references:
     name: ToPolygon
     href: ShapeEngine.Geometry.PointsDef.Points.html#ShapeEngine_Geometry_PointsDef_Points_ToPolygon
   - name: (
+  - name: )
+- uid: ShapeEngine.Geometry.PointsDef.Points.ToPolygon(ShapeEngine.Geometry.PolygonDef.Polygon@)
+  commentId: M:ShapeEngine.Geometry.PointsDef.Points.ToPolygon(ShapeEngine.Geometry.PolygonDef.Polygon@)
+  parent: ShapeEngine.Geometry.PointsDef.Points
+  href: ShapeEngine.Geometry.PointsDef.Points.html#ShapeEngine_Geometry_PointsDef_Points_ToPolygon_ShapeEngine_Geometry_PolygonDef_Polygon__
+  name: ToPolygon(ref Polygon)
+  nameWithType: Points.ToPolygon(ref Polygon)
+  fullName: ShapeEngine.Geometry.PointsDef.Points.ToPolygon(ref ShapeEngine.Geometry.PolygonDef.Polygon)
+  nameWithType.vb: Points.ToPolygon(Polygon)
+  fullName.vb: ShapeEngine.Geometry.PointsDef.Points.ToPolygon(ShapeEngine.Geometry.PolygonDef.Polygon)
+  name.vb: ToPolygon(Polygon)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.PointsDef.Points.ToPolygon(ShapeEngine.Geometry.PolygonDef.Polygon@)
+    name: ToPolygon
+    href: ShapeEngine.Geometry.PointsDef.Points.html#ShapeEngine_Geometry_PointsDef_Points_ToPolygon_ShapeEngine_Geometry_PolygonDef_Polygon__
+  - name: (
+  - name: ref
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.PointsDef.Points.ToPolygon(ShapeEngine.Geometry.PolygonDef.Polygon@)
+    name: ToPolygon
+    href: ShapeEngine.Geometry.PointsDef.Points.html#ShapeEngine_Geometry_PointsDef_Points_ToPolygon_ShapeEngine_Geometry_PolygonDef_Polygon__
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
   - name: )
 - uid: ShapeEngine.Geometry.PointsDef.Points.ToPolyline
   commentId: M:ShapeEngine.Geometry.PointsDef.Points.ToPolyline
@@ -20550,6 +20736,13 @@ references:
   - name: " "
   - name: T2
   - name: )
+- uid: ShapeEngine.Geometry.IShape
+  commentId: T:ShapeEngine.Geometry.IShape
+  parent: ShapeEngine.Geometry
+  href: ShapeEngine.Geometry.IShape.html
+  name: IShape
+  nameWithType: IShape
+  fullName: ShapeEngine.Geometry.IShape
 - uid: ShapeEngine.Geometry.CollisionSystem.CollisionObject
   commentId: T:ShapeEngine.Geometry.CollisionSystem.CollisionObject
   parent: ShapeEngine.Geometry.CollisionSystem

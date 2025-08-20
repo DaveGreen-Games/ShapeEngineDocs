@@ -33,6 +33,7 @@ items:
   - ShapeEngine.Geometry.SegmentDef.Segment.GetClosestPoint(ShapeEngine.Geometry.CircleDef.Circle)
   - ShapeEngine.Geometry.SegmentDef.Segment.GetClosestPoint(ShapeEngine.Geometry.CollisionSystem.Collider)
   - ShapeEngine.Geometry.SegmentDef.Segment.GetClosestPoint(ShapeEngine.Geometry.CollisionSystem.CollisionObject)
+  - ShapeEngine.Geometry.SegmentDef.Segment.GetClosestPoint(ShapeEngine.Geometry.IShape)
   - ShapeEngine.Geometry.SegmentDef.Segment.GetClosestPoint(ShapeEngine.Geometry.LineDef.Line)
   - ShapeEngine.Geometry.SegmentDef.Segment.GetClosestPoint(ShapeEngine.Geometry.PolygonDef.Polygon)
   - ShapeEngine.Geometry.SegmentDef.Segment.GetClosestPoint(ShapeEngine.Geometry.PolylineDef.Polyline)
@@ -102,6 +103,8 @@ items:
   - ShapeEngine.Geometry.SegmentDef.Segment.IntersectSegments(System.Collections.Generic.List{ShapeEngine.Geometry.SegmentDef.Segment},System.Int32)
   - ShapeEngine.Geometry.SegmentDef.Segment.IntersectShape(ShapeEngine.Geometry.CircleDef.Circle)
   - ShapeEngine.Geometry.SegmentDef.Segment.IntersectShape(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
+  - ShapeEngine.Geometry.SegmentDef.Segment.IntersectShape(ShapeEngine.Geometry.IShape)
+  - ShapeEngine.Geometry.SegmentDef.Segment.IntersectShape(ShapeEngine.Geometry.IShape,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
   - ShapeEngine.Geometry.SegmentDef.Segment.IntersectShape(ShapeEngine.Geometry.LineDef.Line)
   - ShapeEngine.Geometry.SegmentDef.Segment.IntersectShape(ShapeEngine.Geometry.LineDef.Line,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@)
   - ShapeEngine.Geometry.SegmentDef.Segment.IntersectShape(ShapeEngine.Geometry.PolygonDef.Polygon)
@@ -150,6 +153,7 @@ items:
   - ShapeEngine.Geometry.SegmentDef.Segment.OverlapSegmentTriangle(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2)
   - ShapeEngine.Geometry.SegmentDef.Segment.OverlapSegments(System.Collections.Generic.List{ShapeEngine.Geometry.SegmentDef.Segment})
   - ShapeEngine.Geometry.SegmentDef.Segment.OverlapShape(ShapeEngine.Geometry.CircleDef.Circle)
+  - ShapeEngine.Geometry.SegmentDef.Segment.OverlapShape(ShapeEngine.Geometry.IShape)
   - ShapeEngine.Geometry.SegmentDef.Segment.OverlapShape(ShapeEngine.Geometry.LineDef.Line)
   - ShapeEngine.Geometry.SegmentDef.Segment.OverlapShape(ShapeEngine.Geometry.PolygonDef.Polygon)
   - ShapeEngine.Geometry.SegmentDef.Segment.OverlapShape(ShapeEngine.Geometry.PolylineDef.Polyline)
@@ -2559,6 +2563,41 @@ items:
   nameWithType.vb: Segment.GetFurthestVertex(Vector2, Single)
   fullName.vb: ShapeEngine.Geometry.SegmentDef.Segment.GetFurthestVertex(System.Numerics.Vector2, Single)
   name.vb: GetFurthestVertex(Vector2, Single)
+- uid: ShapeEngine.Geometry.SegmentDef.Segment.GetClosestPoint(ShapeEngine.Geometry.IShape)
+  commentId: M:ShapeEngine.Geometry.SegmentDef.Segment.GetClosestPoint(ShapeEngine.Geometry.IShape)
+  id: GetClosestPoint(ShapeEngine.Geometry.IShape)
+  parent: ShapeEngine.Geometry.SegmentDef.Segment
+  langs:
+  - csharp
+  - vb
+  name: GetClosestPoint(IShape)
+  nameWithType: Segment.GetClosestPoint(IShape)
+  fullName: ShapeEngine.Geometry.SegmentDef.Segment.GetClosestPoint(ShapeEngine.Geometry.IShape)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/SegmentDef/SegmentClosestPoint.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetClosestPoint
+    path: ../ShapeEngine/ShapeEngine/Geometry/SegmentDef/SegmentClosestPoint.cs
+    startLine: 551
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.SegmentDef
+  summary: Finds the closest point on this shapes perimeter to the given <xref href="ShapeEngine.Geometry.IShape" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public ClosestPointResult GetClosestPoint(IShape shape)
+    parameters:
+    - id: shape
+      type: ShapeEngine.Geometry.IShape
+      description: The shape to compare against.
+    return:
+      type: ShapeEngine.Geometry.CollisionSystem.ClosestPointResult
+      description: A <xref href="ShapeEngine.Geometry.CollisionSystem.ClosestPointResult" data-throw-if-not-resolved="false"></xref> containing the closest point information for the shape.
+    content.vb: Public Function GetClosestPoint(shape As IShape) As ClosestPointResult
+  overload: ShapeEngine.Geometry.SegmentDef.Segment.GetClosestPoint*
 - uid: ShapeEngine.Geometry.SegmentDef.Segment.GetClosestPointSegmentPoint(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Single@)
   commentId: M:ShapeEngine.Geometry.SegmentDef.Segment.GetClosestPointSegmentPoint(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Single@)
   id: GetClosestPointSegmentPoint(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Single@)
@@ -5386,6 +5425,85 @@ items:
   nameWithType.vb: Segment.IntersectShape(Segments, IntersectionPoints, Boolean)
   fullName.vb: ShapeEngine.Geometry.SegmentDef.Segment.IntersectShape(ShapeEngine.Geometry.SegmentsDef.Segments, ShapeEngine.Geometry.CollisionSystem.IntersectionPoints, Boolean)
   name.vb: IntersectShape(Segments, IntersectionPoints, Boolean)
+- uid: ShapeEngine.Geometry.SegmentDef.Segment.IntersectShape(ShapeEngine.Geometry.IShape)
+  commentId: M:ShapeEngine.Geometry.SegmentDef.Segment.IntersectShape(ShapeEngine.Geometry.IShape)
+  id: IntersectShape(ShapeEngine.Geometry.IShape)
+  parent: ShapeEngine.Geometry.SegmentDef.Segment
+  langs:
+  - csharp
+  - vb
+  name: IntersectShape(IShape)
+  nameWithType: Segment.IntersectShape(IShape)
+  fullName: ShapeEngine.Geometry.SegmentDef.Segment.IntersectShape(ShapeEngine.Geometry.IShape)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/SegmentDef/SegmentIntersectShape.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: IntersectShape
+    path: ../ShapeEngine/ShapeEngine/Geometry/SegmentDef/SegmentIntersectShape.cs
+    startLine: 781
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.SegmentDef
+  summary: Computes intersection points between this shape and a shape implementing <xref href="ShapeEngine.Geometry.IShape" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public IntersectionPoints? IntersectShape(IShape shape)
+    parameters:
+    - id: shape
+      type: ShapeEngine.Geometry.IShape
+      description: The shape to test against.
+    return:
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoints
+      description: A <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoints" data-throw-if-not-resolved="false"></xref> collection of intersection points, or null if none.
+    content.vb: Public Function IntersectShape(shape As IShape) As IntersectionPoints
+  overload: ShapeEngine.Geometry.SegmentDef.Segment.IntersectShape*
+- uid: ShapeEngine.Geometry.SegmentDef.Segment.IntersectShape(ShapeEngine.Geometry.IShape,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.SegmentDef.Segment.IntersectShape(ShapeEngine.Geometry.IShape,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
+  id: IntersectShape(ShapeEngine.Geometry.IShape,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
+  parent: ShapeEngine.Geometry.SegmentDef.Segment
+  langs:
+  - csharp
+  - vb
+  name: IntersectShape(IShape, ref IntersectionPoints, bool)
+  nameWithType: Segment.IntersectShape(IShape, ref IntersectionPoints, bool)
+  fullName: ShapeEngine.Geometry.SegmentDef.Segment.IntersectShape(ShapeEngine.Geometry.IShape, ref ShapeEngine.Geometry.CollisionSystem.IntersectionPoints, bool)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/SegmentDef/SegmentIntersectShape.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: IntersectShape
+    path: ../ShapeEngine/ShapeEngine/Geometry/SegmentDef/SegmentIntersectShape.cs
+    startLine: 807
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.SegmentDef
+  summary: Computes the number of intersection points between this shape and a shape implementing <xref href="ShapeEngine.Geometry.IShape" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public int IntersectShape(IShape shape, ref IntersectionPoints points, bool returnAfterFirstValid = false)
+    parameters:
+    - id: shape
+      type: ShapeEngine.Geometry.IShape
+      description: The shape to test against.
+    - id: points
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoints
+      description: A reference to an <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoints" data-throw-if-not-resolved="false"></xref> collection to store intersection points.
+    - id: returnAfterFirstValid
+      type: System.Boolean
+      description: If true, the method returns after finding the first valid intersection point; otherwise, it finds all intersections.
+    return:
+      type: System.Int32
+      description: The number of valid intersection points found.
+    content.vb: Public Function IntersectShape(shape As IShape, points As IntersectionPoints, returnAfterFirstValid As Boolean = False) As Integer
+  overload: ShapeEngine.Geometry.SegmentDef.Segment.IntersectShape*
+  nameWithType.vb: Segment.IntersectShape(IShape, IntersectionPoints, Boolean)
+  fullName.vb: ShapeEngine.Geometry.SegmentDef.Segment.IntersectShape(ShapeEngine.Geometry.IShape, ShapeEngine.Geometry.CollisionSystem.IntersectionPoints, Boolean)
+  name.vb: IntersectShape(IShape, IntersectionPoints, Boolean)
 - uid: ShapeEngine.Geometry.SegmentDef.Segment.Floor
   commentId: M:ShapeEngine.Geometry.SegmentDef.Segment.Floor
   id: Floor
@@ -7350,6 +7468,43 @@ items:
       description: True if the segment overlaps the polyline; otherwise, false.
     content.vb: Public Function OverlapShape(pl As Polyline) As Boolean
   overload: ShapeEngine.Geometry.SegmentDef.Segment.OverlapShape*
+- uid: ShapeEngine.Geometry.SegmentDef.Segment.OverlapShape(ShapeEngine.Geometry.IShape)
+  commentId: M:ShapeEngine.Geometry.SegmentDef.Segment.OverlapShape(ShapeEngine.Geometry.IShape)
+  id: OverlapShape(ShapeEngine.Geometry.IShape)
+  parent: ShapeEngine.Geometry.SegmentDef.Segment
+  langs:
+  - csharp
+  - vb
+  name: OverlapShape(IShape)
+  nameWithType: Segment.OverlapShape(IShape)
+  fullName: ShapeEngine.Geometry.SegmentDef.Segment.OverlapShape(ShapeEngine.Geometry.IShape)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/SegmentDef/SegmentOverlap.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OverlapShape
+    path: ../ShapeEngine/ShapeEngine/Geometry/SegmentDef/SegmentOverlap.cs
+    startLine: 326
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.SegmentDef
+  summary: Determines whether this shape overlaps with the specified <xref href="ShapeEngine.Geometry.IShape" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public bool OverlapShape(IShape shape)
+    parameters:
+    - id: shape
+      type: ShapeEngine.Geometry.IShape
+      description: >-
+        The shape to test for overlap with this shape.
+            The shape can be any supported type such as circle, segment, ray, line, triangle, rectangle, quad, polygon, or polyline.
+    return:
+      type: System.Boolean
+      description: <code>true</code> if this shape overlaps with the specified shape; otherwise, <code>false</code>.
+    content.vb: Public Function OverlapShape(shape As IShape) As Boolean
+  overload: ShapeEngine.Geometry.SegmentDef.Segment.OverlapShape*
 - uid: ShapeEngine.Geometry.SegmentDef.Segment.OverlapSegmentSegment(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2)
   commentId: M:ShapeEngine.Geometry.SegmentDef.Segment.OverlapSegmentSegment(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2)
   id: OverlapSegmentSegment(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2)
@@ -7742,7 +7897,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapSegmentPolyline
     path: ../ShapeEngine/ShapeEngine/Geometry/SegmentDef/SegmentOverlapStatic.cs
-    startLine: 214
+    startLine: 213
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.SegmentDef
@@ -7787,7 +7942,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapSegmentSegments
     path: ../ShapeEngine/ShapeEngine/Geometry/SegmentDef/SegmentOverlapStatic.cs
-    startLine: 232
+    startLine: 231
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.SegmentDef
@@ -10539,6 +10694,13 @@ references:
   name: GetFurthestVertex
   nameWithType: Segment.GetFurthestVertex
   fullName: ShapeEngine.Geometry.SegmentDef.Segment.GetFurthestVertex
+- uid: ShapeEngine.Geometry.IShape
+  commentId: T:ShapeEngine.Geometry.IShape
+  parent: ShapeEngine.Geometry
+  href: ShapeEngine.Geometry.IShape.html
+  name: IShape
+  nameWithType: IShape
+  fullName: ShapeEngine.Geometry.IShape
 - uid: ShapeEngine.Geometry.SegmentDef.Segment.GetClosestPointSegmentPoint*
   commentId: Overload:ShapeEngine.Geometry.SegmentDef.Segment.GetClosestPointSegmentPoint
   href: ShapeEngine.Geometry.SegmentDef.Segment.html#ShapeEngine_Geometry_SegmentDef_Segment_GetClosestPointSegmentPoint_System_Numerics_Vector2_System_Numerics_Vector2_System_Numerics_Vector2_System_Single__

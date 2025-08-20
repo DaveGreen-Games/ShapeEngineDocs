@@ -19,6 +19,7 @@ items:
   - ShapeEngine.Geometry.RayDef.Ray.GetClosestPoint(ShapeEngine.Geometry.CircleDef.Circle)
   - ShapeEngine.Geometry.RayDef.Ray.GetClosestPoint(ShapeEngine.Geometry.CollisionSystem.Collider)
   - ShapeEngine.Geometry.RayDef.Ray.GetClosestPoint(ShapeEngine.Geometry.CollisionSystem.CollisionObject)
+  - ShapeEngine.Geometry.RayDef.Ray.GetClosestPoint(ShapeEngine.Geometry.IShape)
   - ShapeEngine.Geometry.RayDef.Ray.GetClosestPoint(ShapeEngine.Geometry.LineDef.Line)
   - ShapeEngine.Geometry.RayDef.Ray.GetClosestPoint(ShapeEngine.Geometry.PolygonDef.Polygon)
   - ShapeEngine.Geometry.RayDef.Ray.GetClosestPoint(ShapeEngine.Geometry.PolylineDef.Polyline)
@@ -78,6 +79,8 @@ items:
   - ShapeEngine.Geometry.RayDef.Ray.IntersectSegments(System.Collections.Generic.List{ShapeEngine.Geometry.SegmentDef.Segment},System.Int32)
   - ShapeEngine.Geometry.RayDef.Ray.IntersectShape(ShapeEngine.Geometry.CircleDef.Circle)
   - ShapeEngine.Geometry.RayDef.Ray.IntersectShape(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
+  - ShapeEngine.Geometry.RayDef.Ray.IntersectShape(ShapeEngine.Geometry.IShape)
+  - ShapeEngine.Geometry.RayDef.Ray.IntersectShape(ShapeEngine.Geometry.IShape,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
   - ShapeEngine.Geometry.RayDef.Ray.IntersectShape(ShapeEngine.Geometry.LineDef.Line)
   - ShapeEngine.Geometry.RayDef.Ray.IntersectShape(ShapeEngine.Geometry.LineDef.Line,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@)
   - ShapeEngine.Geometry.RayDef.Ray.IntersectShape(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
@@ -126,6 +129,7 @@ items:
   - ShapeEngine.Geometry.RayDef.Ray.OverlapSegment(System.Numerics.Vector2,System.Numerics.Vector2)
   - ShapeEngine.Geometry.RayDef.Ray.OverlapSegments(System.Collections.Generic.List{ShapeEngine.Geometry.SegmentDef.Segment})
   - ShapeEngine.Geometry.RayDef.Ray.OverlapShape(ShapeEngine.Geometry.CircleDef.Circle)
+  - ShapeEngine.Geometry.RayDef.Ray.OverlapShape(ShapeEngine.Geometry.IShape)
   - ShapeEngine.Geometry.RayDef.Ray.OverlapShape(ShapeEngine.Geometry.LineDef.Line)
   - ShapeEngine.Geometry.RayDef.Ray.OverlapShape(ShapeEngine.Geometry.PolygonDef.Polygon)
   - ShapeEngine.Geometry.RayDef.Ray.OverlapShape(ShapeEngine.Geometry.PolylineDef.Polyline)
@@ -1593,6 +1597,41 @@ items:
         A <xref href="ShapeEngine.Geometry.CollisionSystem.ClosestPointResult" data-throw-if-not-resolved="false"></xref> containing the closest points and their normals.
             The <code>otherIndex</code> is the index of the segment.
     content.vb: Public Function GetClosestPoint(segments As Segments) As ClosestPointResult
+  overload: ShapeEngine.Geometry.RayDef.Ray.GetClosestPoint*
+- uid: ShapeEngine.Geometry.RayDef.Ray.GetClosestPoint(ShapeEngine.Geometry.IShape)
+  commentId: M:ShapeEngine.Geometry.RayDef.Ray.GetClosestPoint(ShapeEngine.Geometry.IShape)
+  id: GetClosestPoint(ShapeEngine.Geometry.IShape)
+  parent: ShapeEngine.Geometry.RayDef.Ray
+  langs:
+  - csharp
+  - vb
+  name: GetClosestPoint(IShape)
+  nameWithType: Ray.GetClosestPoint(IShape)
+  fullName: ShapeEngine.Geometry.RayDef.Ray.GetClosestPoint(ShapeEngine.Geometry.IShape)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/RayDef/RayClosestPoint.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetClosestPoint
+    path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayClosestPoint.cs
+    startLine: 511
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.RayDef
+  summary: Finds the closest point on this shapes perimeter to the given <xref href="ShapeEngine.Geometry.IShape" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public ClosestPointResult GetClosestPoint(IShape shape)
+    parameters:
+    - id: shape
+      type: ShapeEngine.Geometry.IShape
+      description: The shape to compare against.
+    return:
+      type: ShapeEngine.Geometry.CollisionSystem.ClosestPointResult
+      description: A <xref href="ShapeEngine.Geometry.CollisionSystem.ClosestPointResult" data-throw-if-not-resolved="false"></xref> containing the closest point information for the shape.
+    content.vb: Public Function GetClosestPoint(shape As IShape) As ClosestPointResult
   overload: ShapeEngine.Geometry.RayDef.Ray.GetClosestPoint*
 - uid: ShapeEngine.Geometry.RayDef.Ray.GetClosestPointRayPoint(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Single@)
   commentId: M:ShapeEngine.Geometry.RayDef.Ray.GetClosestPointRayPoint(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Single@)
@@ -3989,7 +4028,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectShape
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayIntersectShape.cs
-    startLine: 279
+    startLine: 283
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -4031,7 +4070,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectShape
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayIntersectShape.cs
-    startLine: 290
+    startLine: 297
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -4073,7 +4112,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Intersect
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayIntersectShape.cs
-    startLine: 303
+    startLine: 310
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -4118,7 +4157,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectShape
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayIntersectShape.cs
-    startLine: 349
+    startLine: 356
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -4160,7 +4199,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectShape
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayIntersectShape.cs
-    startLine: 369
+    startLine: 376
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -4202,7 +4241,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectShape
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayIntersectShape.cs
-    startLine: 389
+    startLine: 396
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -4244,7 +4283,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectShape
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayIntersectShape.cs
-    startLine: 410
+    startLine: 417
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -4289,7 +4328,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectShape
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayIntersectShape.cs
-    startLine: 451
+    startLine: 458
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -4334,7 +4373,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectShape
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayIntersectShape.cs
-    startLine: 492
+    startLine: 499
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -4379,7 +4418,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectShape
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayIntersectShape.cs
-    startLine: 544
+    startLine: 551
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -4424,7 +4463,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectShape
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayIntersectShape.cs
-    startLine: 601
+    startLine: 608
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -4469,7 +4508,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectShape
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayIntersectShape.cs
-    startLine: 628
+    startLine: 635
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -4514,7 +4553,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectShape
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayIntersectShape.cs
-    startLine: 655
+    startLine: 662
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -4541,6 +4580,85 @@ items:
   nameWithType.vb: Ray.IntersectShape(Segments, IntersectionPoints, Boolean)
   fullName.vb: ShapeEngine.Geometry.RayDef.Ray.IntersectShape(ShapeEngine.Geometry.SegmentsDef.Segments, ShapeEngine.Geometry.CollisionSystem.IntersectionPoints, Boolean)
   name.vb: IntersectShape(Segments, IntersectionPoints, Boolean)
+- uid: ShapeEngine.Geometry.RayDef.Ray.IntersectShape(ShapeEngine.Geometry.IShape)
+  commentId: M:ShapeEngine.Geometry.RayDef.Ray.IntersectShape(ShapeEngine.Geometry.IShape)
+  id: IntersectShape(ShapeEngine.Geometry.IShape)
+  parent: ShapeEngine.Geometry.RayDef.Ray
+  langs:
+  - csharp
+  - vb
+  name: IntersectShape(IShape)
+  nameWithType: Ray.IntersectShape(IShape)
+  fullName: ShapeEngine.Geometry.RayDef.Ray.IntersectShape(ShapeEngine.Geometry.IShape)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/RayDef/RayIntersectShape.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: IntersectShape
+    path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayIntersectShape.cs
+    startLine: 688
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.RayDef
+  summary: Computes intersection points between this shape and a shape implementing <xref href="ShapeEngine.Geometry.IShape" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public IntersectionPoints? IntersectShape(IShape shape)
+    parameters:
+    - id: shape
+      type: ShapeEngine.Geometry.IShape
+      description: The shape to test against.
+    return:
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoints
+      description: A <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoints" data-throw-if-not-resolved="false"></xref> collection of intersection points, or null if none.
+    content.vb: Public Function IntersectShape(shape As IShape) As IntersectionPoints
+  overload: ShapeEngine.Geometry.RayDef.Ray.IntersectShape*
+- uid: ShapeEngine.Geometry.RayDef.Ray.IntersectShape(ShapeEngine.Geometry.IShape,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.RayDef.Ray.IntersectShape(ShapeEngine.Geometry.IShape,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
+  id: IntersectShape(ShapeEngine.Geometry.IShape,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
+  parent: ShapeEngine.Geometry.RayDef.Ray
+  langs:
+  - csharp
+  - vb
+  name: IntersectShape(IShape, ref IntersectionPoints, bool)
+  nameWithType: Ray.IntersectShape(IShape, ref IntersectionPoints, bool)
+  fullName: ShapeEngine.Geometry.RayDef.Ray.IntersectShape(ShapeEngine.Geometry.IShape, ref ShapeEngine.Geometry.CollisionSystem.IntersectionPoints, bool)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/RayDef/RayIntersectShape.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: IntersectShape
+    path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayIntersectShape.cs
+    startLine: 714
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.RayDef
+  summary: Computes the number of intersection points between this shape and a shape implementing <xref href="ShapeEngine.Geometry.IShape" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public int IntersectShape(IShape shape, ref IntersectionPoints points, bool returnAfterFirstValid = false)
+    parameters:
+    - id: shape
+      type: ShapeEngine.Geometry.IShape
+      description: The shape to test against.
+    - id: points
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoints
+      description: A reference to an <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoints" data-throw-if-not-resolved="false"></xref> collection to store intersection points.
+    - id: returnAfterFirstValid
+      type: System.Boolean
+      description: If true, the method returns after finding the first valid intersection point; otherwise, it finds all intersections.
+    return:
+      type: System.Int32
+      description: The number of valid intersection points found.
+    content.vb: Public Function IntersectShape(shape As IShape, points As IntersectionPoints, returnAfterFirstValid As Boolean = False) As Integer
+  overload: ShapeEngine.Geometry.RayDef.Ray.IntersectShape*
+  nameWithType.vb: Ray.IntersectShape(IShape, IntersectionPoints, Boolean)
+  fullName.vb: ShapeEngine.Geometry.RayDef.Ray.IntersectShape(ShapeEngine.Geometry.IShape, ShapeEngine.Geometry.CollisionSystem.IntersectionPoints, Boolean)
+  name.vb: IntersectShape(IShape, IntersectionPoints, Boolean)
 - uid: ShapeEngine.Geometry.RayDef.Ray.OverlapPoint(System.Numerics.Vector2)
   commentId: M:ShapeEngine.Geometry.RayDef.Ray.OverlapPoint(System.Numerics.Vector2)
   id: OverlapPoint(System.Numerics.Vector2)
@@ -4916,7 +5034,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapPolyline
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayOverlap.cs
-    startLine: 88
+    startLine: 91
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -4954,7 +5072,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapSegments
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayOverlap.cs
-    startLine: 94
+    startLine: 100
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -4992,7 +5110,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Overlap
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayOverlap.cs
-    startLine: 101
+    startLine: 107
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -5027,7 +5145,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Overlap
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayOverlap.cs
-    startLine: 119
+    startLine: 125
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -5063,7 +5181,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayOverlap.cs
-    startLine: 161
+    startLine: 167
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -5098,7 +5216,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayOverlap.cs
-    startLine: 167
+    startLine: 173
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -5133,7 +5251,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayOverlap.cs
-    startLine: 173
+    startLine: 179
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -5168,7 +5286,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayOverlap.cs
-    startLine: 179
+    startLine: 185
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -5203,7 +5321,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayOverlap.cs
-    startLine: 185
+    startLine: 191
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -5238,7 +5356,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayOverlap.cs
-    startLine: 191
+    startLine: 197
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -5273,7 +5391,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayOverlap.cs
-    startLine: 197
+    startLine: 203
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -5308,7 +5426,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayOverlap.cs
-    startLine: 203
+    startLine: 209
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -5343,7 +5461,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayOverlap.cs
-    startLine: 209
+    startLine: 215
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -5378,7 +5496,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayOverlap.cs
-    startLine: 215
+    startLine: 221
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.RayDef
@@ -5394,6 +5512,43 @@ items:
       type: System.Boolean
       description: True if the ray overlaps any of the segments; otherwise, false.
     content.vb: Public Function OverlapShape(segments As Segments) As Boolean
+  overload: ShapeEngine.Geometry.RayDef.Ray.OverlapShape*
+- uid: ShapeEngine.Geometry.RayDef.Ray.OverlapShape(ShapeEngine.Geometry.IShape)
+  commentId: M:ShapeEngine.Geometry.RayDef.Ray.OverlapShape(ShapeEngine.Geometry.IShape)
+  id: OverlapShape(ShapeEngine.Geometry.IShape)
+  parent: ShapeEngine.Geometry.RayDef.Ray
+  langs:
+  - csharp
+  - vb
+  name: OverlapShape(IShape)
+  nameWithType: Ray.OverlapShape(IShape)
+  fullName: ShapeEngine.Geometry.RayDef.Ray.OverlapShape(ShapeEngine.Geometry.IShape)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/RayDef/RayOverlap.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OverlapShape
+    path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/RayOverlap.cs
+    startLine: 229
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.RayDef
+  summary: Determines whether this shape overlaps with the specified <xref href="ShapeEngine.Geometry.IShape" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public bool OverlapShape(IShape shape)
+    parameters:
+    - id: shape
+      type: ShapeEngine.Geometry.IShape
+      description: >-
+        The shape to test for overlap with this shape.
+            The shape can be any supported type such as circle, segment, ray, line, triangle, rectangle, quad, polygon, or polyline.
+    return:
+      type: System.Boolean
+      description: <code>true</code> if this shape overlaps with the specified shape; otherwise, <code>false</code>.
+    content.vb: Public Function OverlapShape(shape As IShape) As Boolean
   overload: ShapeEngine.Geometry.RayDef.Ray.OverlapShape*
 - uid: ShapeEngine.Geometry.RayDef.Ray.OverlapRaySegment(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2)
   commentId: M:ShapeEngine.Geometry.RayDef.Ray.OverlapRaySegment(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2)
@@ -6803,6 +6958,35 @@ references:
   - uid: ShapeEngine.Geometry.SegmentsDef
     name: SegmentsDef
     href: ShapeEngine.Geometry.SegmentsDef.html
+- uid: ShapeEngine.Geometry.IShape
+  commentId: T:ShapeEngine.Geometry.IShape
+  parent: ShapeEngine.Geometry
+  href: ShapeEngine.Geometry.IShape.html
+  name: IShape
+  nameWithType: IShape
+  fullName: ShapeEngine.Geometry.IShape
+- uid: ShapeEngine.Geometry
+  commentId: N:ShapeEngine.Geometry
+  href: ShapeEngine.html
+  name: ShapeEngine.Geometry
+  nameWithType: ShapeEngine.Geometry
+  fullName: ShapeEngine.Geometry
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
 - uid: ShapeEngine.Geometry.RayDef.Ray.GetClosestPointRayPoint*
   commentId: Overload:ShapeEngine.Geometry.RayDef.Ray.GetClosestPointRayPoint
   href: ShapeEngine.Geometry.RayDef.Ray.html#ShapeEngine_Geometry_RayDef_Ray_GetClosestPointRayPoint_System_Numerics_Vector2_System_Numerics_Vector2_System_Numerics_Vector2_System_Single__

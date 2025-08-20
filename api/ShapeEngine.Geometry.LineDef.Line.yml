@@ -19,6 +19,7 @@ items:
   - ShapeEngine.Geometry.LineDef.Line.GetClosestPoint(ShapeEngine.Geometry.CircleDef.Circle)
   - ShapeEngine.Geometry.LineDef.Line.GetClosestPoint(ShapeEngine.Geometry.CollisionSystem.Collider)
   - ShapeEngine.Geometry.LineDef.Line.GetClosestPoint(ShapeEngine.Geometry.CollisionSystem.CollisionObject)
+  - ShapeEngine.Geometry.LineDef.Line.GetClosestPoint(ShapeEngine.Geometry.IShape)
   - ShapeEngine.Geometry.LineDef.Line.GetClosestPoint(ShapeEngine.Geometry.LineDef.Line)
   - ShapeEngine.Geometry.LineDef.Line.GetClosestPoint(ShapeEngine.Geometry.PolygonDef.Polygon)
   - ShapeEngine.Geometry.LineDef.Line.GetClosestPoint(ShapeEngine.Geometry.PolylineDef.Polyline)
@@ -78,6 +79,8 @@ items:
   - ShapeEngine.Geometry.LineDef.Line.IntersectSegments(System.Collections.Generic.List{ShapeEngine.Geometry.SegmentDef.Segment},System.Int32)
   - ShapeEngine.Geometry.LineDef.Line.IntersectShape(ShapeEngine.Geometry.CircleDef.Circle)
   - ShapeEngine.Geometry.LineDef.Line.IntersectShape(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
+  - ShapeEngine.Geometry.LineDef.Line.IntersectShape(ShapeEngine.Geometry.IShape)
+  - ShapeEngine.Geometry.LineDef.Line.IntersectShape(ShapeEngine.Geometry.IShape,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
   - ShapeEngine.Geometry.LineDef.Line.IntersectShape(ShapeEngine.Geometry.LineDef.Line)
   - ShapeEngine.Geometry.LineDef.Line.IntersectShape(ShapeEngine.Geometry.LineDef.Line,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@)
   - ShapeEngine.Geometry.LineDef.Line.IntersectShape(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
@@ -126,6 +129,7 @@ items:
   - ShapeEngine.Geometry.LineDef.Line.OverlapSegment(System.Numerics.Vector2,System.Numerics.Vector2)
   - ShapeEngine.Geometry.LineDef.Line.OverlapSegments(System.Collections.Generic.List{ShapeEngine.Geometry.SegmentDef.Segment})
   - ShapeEngine.Geometry.LineDef.Line.OverlapShape(ShapeEngine.Geometry.CircleDef.Circle)
+  - ShapeEngine.Geometry.LineDef.Line.OverlapShape(ShapeEngine.Geometry.IShape)
   - ShapeEngine.Geometry.LineDef.Line.OverlapShape(ShapeEngine.Geometry.LineDef.Line)
   - ShapeEngine.Geometry.LineDef.Line.OverlapShape(ShapeEngine.Geometry.PolygonDef.Polygon)
   - ShapeEngine.Geometry.LineDef.Line.OverlapShape(ShapeEngine.Geometry.PolylineDef.Polyline)
@@ -1604,6 +1608,41 @@ items:
       description: A <xref href="ShapeEngine.Geometry.CollisionSystem.ClosestPointResult" data-throw-if-not-resolved="false"></xref> containing the closest points on the line and the closest segment, their normals, the squared distance, and the index of the closest segment.
     content.vb: Public Function GetClosestPoint(segments As Segments) As ClosestPointResult
   overload: ShapeEngine.Geometry.LineDef.Line.GetClosestPoint*
+- uid: ShapeEngine.Geometry.LineDef.Line.GetClosestPoint(ShapeEngine.Geometry.IShape)
+  commentId: M:ShapeEngine.Geometry.LineDef.Line.GetClosestPoint(ShapeEngine.Geometry.IShape)
+  id: GetClosestPoint(ShapeEngine.Geometry.IShape)
+  parent: ShapeEngine.Geometry.LineDef.Line
+  langs:
+  - csharp
+  - vb
+  name: GetClosestPoint(IShape)
+  nameWithType: Line.GetClosestPoint(IShape)
+  fullName: ShapeEngine.Geometry.LineDef.Line.GetClosestPoint(ShapeEngine.Geometry.IShape)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/LineDef/LineClosestPoint.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetClosestPoint
+    path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/LineClosestPoint.cs
+    startLine: 521
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.LineDef
+  summary: Finds the closest point on this shapes perimeter to the given <xref href="ShapeEngine.Geometry.IShape" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public ClosestPointResult GetClosestPoint(IShape shape)
+    parameters:
+    - id: shape
+      type: ShapeEngine.Geometry.IShape
+      description: The shape to compare against.
+    return:
+      type: ShapeEngine.Geometry.CollisionSystem.ClosestPointResult
+      description: A <xref href="ShapeEngine.Geometry.CollisionSystem.ClosestPointResult" data-throw-if-not-resolved="false"></xref> containing the closest point information for the shape.
+    content.vb: Public Function GetClosestPoint(shape As IShape) As ClosestPointResult
+  overload: ShapeEngine.Geometry.LineDef.Line.GetClosestPoint*
 - uid: ShapeEngine.Geometry.LineDef.Line.GetClosestPointLinePoint(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Single@)
   commentId: M:ShapeEngine.Geometry.LineDef.Line.GetClosestPointLinePoint(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Single@)
   id: GetClosestPointLinePoint(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Single@)
@@ -2470,7 +2509,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectPolygon
     path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/LineIntersection.cs
-    startLine: 194
+    startLine: 197
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.LineDef
@@ -2511,7 +2550,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectPolyline
     path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/LineIntersection.cs
-    startLine: 207
+    startLine: 213
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.LineDef
@@ -2552,7 +2591,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectPolyline
     path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/LineIntersection.cs
-    startLine: 220
+    startLine: 229
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.LineDef
@@ -2593,7 +2632,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectSegments
     path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/LineIntersection.cs
-    startLine: 234
+    startLine: 246
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.LineDef
@@ -2635,7 +2674,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectSegments
     path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/LineIntersection.cs
-    startLine: 248
+    startLine: 260
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.LineDef
@@ -4636,6 +4675,85 @@ items:
   nameWithType.vb: Line.IntersectShape(Segments, IntersectionPoints, Boolean)
   fullName.vb: ShapeEngine.Geometry.LineDef.Line.IntersectShape(ShapeEngine.Geometry.SegmentsDef.Segments, ShapeEngine.Geometry.CollisionSystem.IntersectionPoints, Boolean)
   name.vb: IntersectShape(Segments, IntersectionPoints, Boolean)
+- uid: ShapeEngine.Geometry.LineDef.Line.IntersectShape(ShapeEngine.Geometry.IShape)
+  commentId: M:ShapeEngine.Geometry.LineDef.Line.IntersectShape(ShapeEngine.Geometry.IShape)
+  id: IntersectShape(ShapeEngine.Geometry.IShape)
+  parent: ShapeEngine.Geometry.LineDef.Line
+  langs:
+  - csharp
+  - vb
+  name: IntersectShape(IShape)
+  nameWithType: Line.IntersectShape(IShape)
+  fullName: ShapeEngine.Geometry.LineDef.Line.IntersectShape(ShapeEngine.Geometry.IShape)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/LineDef/LineIntersectShape.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: IntersectShape
+    path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/LineIntersectShape.cs
+    startLine: 775
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.LineDef
+  summary: Computes intersection points between this shape and a shape implementing <xref href="ShapeEngine.Geometry.IShape" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public IntersectionPoints? IntersectShape(IShape shape)
+    parameters:
+    - id: shape
+      type: ShapeEngine.Geometry.IShape
+      description: The shape to test against.
+    return:
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoints
+      description: A <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoints" data-throw-if-not-resolved="false"></xref> collection of intersection points, or null if none.
+    content.vb: Public Function IntersectShape(shape As IShape) As IntersectionPoints
+  overload: ShapeEngine.Geometry.LineDef.Line.IntersectShape*
+- uid: ShapeEngine.Geometry.LineDef.Line.IntersectShape(ShapeEngine.Geometry.IShape,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.LineDef.Line.IntersectShape(ShapeEngine.Geometry.IShape,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
+  id: IntersectShape(ShapeEngine.Geometry.IShape,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
+  parent: ShapeEngine.Geometry.LineDef.Line
+  langs:
+  - csharp
+  - vb
+  name: IntersectShape(IShape, ref IntersectionPoints, bool)
+  nameWithType: Line.IntersectShape(IShape, ref IntersectionPoints, bool)
+  fullName: ShapeEngine.Geometry.LineDef.Line.IntersectShape(ShapeEngine.Geometry.IShape, ref ShapeEngine.Geometry.CollisionSystem.IntersectionPoints, bool)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/LineDef/LineIntersectShape.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: IntersectShape
+    path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/LineIntersectShape.cs
+    startLine: 801
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.LineDef
+  summary: Computes the number of intersection points between this shape and a shape implementing <xref href="ShapeEngine.Geometry.IShape" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public int IntersectShape(IShape shape, ref IntersectionPoints points, bool returnAfterFirstValid = false)
+    parameters:
+    - id: shape
+      type: ShapeEngine.Geometry.IShape
+      description: The shape to test against.
+    - id: points
+      type: ShapeEngine.Geometry.CollisionSystem.IntersectionPoints
+      description: A reference to an <xref href="ShapeEngine.Geometry.CollisionSystem.IntersectionPoints" data-throw-if-not-resolved="false"></xref> collection to store intersection points.
+    - id: returnAfterFirstValid
+      type: System.Boolean
+      description: If true, the method returns after finding the first valid intersection point; otherwise, it finds all intersections.
+    return:
+      type: System.Int32
+      description: The number of valid intersection points found.
+    content.vb: Public Function IntersectShape(shape As IShape, points As IntersectionPoints, returnAfterFirstValid As Boolean = False) As Integer
+  overload: ShapeEngine.Geometry.LineDef.Line.IntersectShape*
+  nameWithType.vb: Line.IntersectShape(IShape, IntersectionPoints, Boolean)
+  fullName.vb: ShapeEngine.Geometry.LineDef.Line.IntersectShape(ShapeEngine.Geometry.IShape, ShapeEngine.Geometry.CollisionSystem.IntersectionPoints, Boolean)
+  name.vb: IntersectShape(IShape, IntersectionPoints, Boolean)
 - uid: ShapeEngine.Geometry.LineDef.Line.OverlapPoint(System.Numerics.Vector2)
   commentId: M:ShapeEngine.Geometry.LineDef.Line.OverlapPoint(System.Numerics.Vector2)
   id: OverlapPoint(System.Numerics.Vector2)
@@ -5011,7 +5129,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapPolyline
     path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/LineOverlap.cs
-    startLine: 96
+    startLine: 100
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.LineDef
@@ -5049,7 +5167,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapSegments
     path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/LineOverlap.cs
-    startLine: 103
+    startLine: 111
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.LineDef
@@ -5087,7 +5205,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Overlap
     path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/LineOverlap.cs
-    startLine: 110
+    startLine: 118
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.LineDef
@@ -5122,7 +5240,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Overlap
     path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/LineOverlap.cs
-    startLine: 126
+    startLine: 134
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.LineDef
@@ -5157,7 +5275,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/LineOverlap.cs
-    startLine: 169
+    startLine: 177
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.LineDef
@@ -5192,7 +5310,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/LineOverlap.cs
-    startLine: 176
+    startLine: 184
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.LineDef
@@ -5227,7 +5345,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/LineOverlap.cs
-    startLine: 183
+    startLine: 191
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.LineDef
@@ -5262,7 +5380,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/LineOverlap.cs
-    startLine: 190
+    startLine: 198
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.LineDef
@@ -5297,7 +5415,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/LineOverlap.cs
-    startLine: 197
+    startLine: 205
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.LineDef
@@ -5332,7 +5450,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/LineOverlap.cs
-    startLine: 204
+    startLine: 212
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.LineDef
@@ -5367,7 +5485,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/LineOverlap.cs
-    startLine: 211
+    startLine: 219
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.LineDef
@@ -5402,7 +5520,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/LineOverlap.cs
-    startLine: 218
+    startLine: 226
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.LineDef
@@ -5437,7 +5555,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/LineOverlap.cs
-    startLine: 225
+    startLine: 233
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.LineDef
@@ -5472,7 +5590,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapShape
     path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/LineOverlap.cs
-    startLine: 232
+    startLine: 240
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.LineDef
@@ -5488,6 +5606,43 @@ items:
       type: System.Boolean
       description: True if the line overlaps with any segment in the collection; otherwise, false.
     content.vb: Public Function OverlapShape(segments As Segments) As Boolean
+  overload: ShapeEngine.Geometry.LineDef.Line.OverlapShape*
+- uid: ShapeEngine.Geometry.LineDef.Line.OverlapShape(ShapeEngine.Geometry.IShape)
+  commentId: M:ShapeEngine.Geometry.LineDef.Line.OverlapShape(ShapeEngine.Geometry.IShape)
+  id: OverlapShape(ShapeEngine.Geometry.IShape)
+  parent: ShapeEngine.Geometry.LineDef.Line
+  langs:
+  - csharp
+  - vb
+  name: OverlapShape(IShape)
+  nameWithType: Line.OverlapShape(IShape)
+  fullName: ShapeEngine.Geometry.LineDef.Line.OverlapShape(ShapeEngine.Geometry.IShape)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/LineDef/LineOverlap.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OverlapShape
+    path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/LineOverlap.cs
+    startLine: 248
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.LineDef
+  summary: Determines whether this shape overlaps with the specified <xref href="ShapeEngine.Geometry.IShape" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public bool OverlapShape(IShape shape)
+    parameters:
+    - id: shape
+      type: ShapeEngine.Geometry.IShape
+      description: >-
+        The shape to test for overlap with this shape.
+            The shape can be any supported type such as circle, segment, ray, line, triangle, rectangle, quad, polygon, or polyline.
+    return:
+      type: System.Boolean
+      description: <code>true</code> if this shape overlaps with the specified shape; otherwise, <code>false</code>.
+    content.vb: Public Function OverlapShape(shape As IShape) As Boolean
   overload: ShapeEngine.Geometry.LineDef.Line.OverlapShape*
 - uid: ShapeEngine.Geometry.LineDef.Line.OverlapLineSegment(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2)
   commentId: M:ShapeEngine.Geometry.LineDef.Line.OverlapLineSegment(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2)
@@ -6896,6 +7051,35 @@ references:
   - uid: ShapeEngine.Geometry.SegmentsDef
     name: SegmentsDef
     href: ShapeEngine.Geometry.SegmentsDef.html
+- uid: ShapeEngine.Geometry.IShape
+  commentId: T:ShapeEngine.Geometry.IShape
+  parent: ShapeEngine.Geometry
+  href: ShapeEngine.Geometry.IShape.html
+  name: IShape
+  nameWithType: IShape
+  fullName: ShapeEngine.Geometry.IShape
+- uid: ShapeEngine.Geometry
+  commentId: N:ShapeEngine.Geometry
+  href: ShapeEngine.html
+  name: ShapeEngine.Geometry
+  nameWithType: ShapeEngine.Geometry
+  fullName: ShapeEngine.Geometry
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
 - uid: ShapeEngine.Geometry.LineDef.Line.GetClosestPointLinePoint*
   commentId: Overload:ShapeEngine.Geometry.LineDef.Line.GetClosestPointLinePoint
   href: ShapeEngine.Geometry.LineDef.Line.html#ShapeEngine_Geometry_LineDef_Line_GetClosestPointLinePoint_System_Numerics_Vector2_System_Numerics_Vector2_System_Numerics_Vector2_System_Single__
