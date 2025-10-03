@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Class ContentManager | ShapeEngine ">
       
-      <meta name="description" content="Provides a simple class to load content and automatically unload all loaded content when close is called.">
+      <meta name="description" content="Manages loading, caching, and unloading of various content types (textures, shaders, fonts, sounds, etc.) from disk and content packs for the game. Provides methods to retrieve and manage content efficiently.">
       <link rel="icon" href="../media/shape-engine.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -89,7 +89,7 @@
 
 
   <h1 id="ShapeEngine_Content_ContentManager" data-uid="ShapeEngine.Content.ContentManager" class="text-break">
-Class ContentManager  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L8"><i class="bi bi-code-slash"></i></a>
+Class ContentManager  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L12"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -97,12 +97,14 @@ Class ContentManager  <a class="header-action link-secondary" title="View source
   <dl><dt>Assembly</dt><dd>ShapeEngine.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Provides a simple class to load content and automatically unload all loaded content when close is called.</p>
+  <div class="markdown summary"><p>Manages loading, caching, and unloading of various content types (textures, shaders, fonts, sounds, etc.)
+from disk and content packs for the game.
+Provides methods to retrieve and manage content efficiently.</p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class ContentManager : IContentManager</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class ContentManager</code></pre>
   </div>
 
 
@@ -116,12 +118,6 @@ Class ContentManager  <a class="header-action link-secondary" title="View source
     </dd>
   </dl>
 
-  <dl class="typelist implements">
-    <dt>Implements</dt>
-    <dd>
-      <div><a class="xref" href="ShapeEngine.Content.IContentManager.html">IContentManager</a></div>
-    </dd>
-  </dl>
 
 
   <dl class="typelist inheritedMembers">
@@ -147,6 +143,19 @@ Class ContentManager  <a class="header-action link-secondary" title="View source
     </div>
   </dd></dl>
 
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_">ShapeLogger.Log(object, string, LogLevel)</a>
+  </div>
+  <div>
+      <a class="xref" href="ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_">ShapeLogger.LogConsole(object, string, LogLevel)</a>
+  </div>
+  <div>
+      <a class="xref" href="ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_">ShapeLogger.LogFile(object, string, LogLevel)</a>
+  </div>
+  </dd></dl>
 
 
 
@@ -158,22 +167,72 @@ Class ContentManager  <a class="header-action link-secondary" title="View source
 
   <a id="ShapeEngine_Content_ContentManager__ctor_" data-uid="ShapeEngine.Content.ContentManager.#ctor*"></a>
 
-  <h3 id="ShapeEngine_Content_ContentManager__ctor" data-uid="ShapeEngine.Content.ContentManager.#ctor">
-  ContentManager()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Content_ContentManager__ctor_System_String_" data-uid="ShapeEngine.Content.ContentManager.#ctor(System.String)">
+  ContentManager(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L95"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Creates a new content manager.</p>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="ShapeEngine.Content.ContentManager.html">ContentManager</a> class with the specified root directory.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ContentManager()</code></pre>
+    <pre><code class="lang-csharp hljs">public ContentManager(string rootDirectory)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>rootDirectory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The root directory for all content managed by this ContentManager.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Content_ContentManager__ctor_System_String__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>The <code class="paramref">rootDirectory</code> parameter specifies the base directory from which all content paths are resolved.
+It acts as the root for loading, caching, and managing content files.
+All relative file paths used by the ContentManager are interpreted with respect to this directory.
+If a relative path used for loading a resource contains the <a class="xref" href="ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_RootDirectory">RootDirectory</a>,
+the <a class="xref" href="ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_RootDirectory">RootDirectory</a> will be stripped from the path before further processing.
+If no content pack is found for a given relative path, the ContentManager will attempt to load the resource
+directly from the file system using the combined path of <a class="xref" href="ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_RootDirectory">RootDirectory</a> and the relative path.</p>
+</div>
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="ShapeEngine_Content_ContentManager_RootDirectory" data-uid="ShapeEngine.Content.ContentManager.RootDirectory">
+  RootDirectory
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The root directory for all content managed by this ContentManager.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public readonly string RootDirectory</code></pre>
   </div>
 
 
 
 
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
 
 
 
@@ -187,14 +246,57 @@ Class ContentManager  <a class="header-action link-secondary" title="View source
 </h2>
 
 
+  <a id="ShapeEngine_Content_ContentManager_AddContentPack_" data-uid="ShapeEngine.Content.ContentManager.AddContentPack*"></a>
+
+  <h3 id="ShapeEngine_Content_ContentManager_AddContentPack_ShapeEngine_Content_ContentPack_System_String_" data-uid="ShapeEngine.Content.ContentManager.AddContentPack(ShapeEngine.Content.ContentPack,System.String)">
+  AddContentPack(ContentPack, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L109"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a content pack to the manager with the specified root path.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool AddContentPack(ContentPack pack, string root)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>pack</code> <a class="xref" href="ShapeEngine.Content.ContentPack.html">ContentPack</a></dt>
+    <dd><p>The content pack to add.</p>
+</dd>
+    <dt><code>root</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The root path under which the content pack will be accessible.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the content pack was added successfully; false if the root is empty or already exists.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="ShapeEngine_Content_ContentManager_Close_" data-uid="ShapeEngine.Content.ContentManager.Close*"></a>
 
   <h3 id="ShapeEngine_Content_ContentManager_Close" data-uid="ShapeEngine.Content.ContentManager.Close">
   Close()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L780"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Unloads all loaded content.</p>
+  <div class="markdown level1 summary"><p>Closes the ContentManager by unloading and removing all content packs and unloading all cached content.
+Logs the start and finish of the closing process.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -214,35 +316,302 @@ Class ContentManager  <a class="header-action link-secondary" title="View source
 
 
 
-  <a id="ShapeEngine_Content_ContentManager_LoadFont_" data-uid="ShapeEngine.Content.ContentManager.LoadFont*"></a>
+  <a id="ShapeEngine_Content_ContentManager_GetAllContentPacks_" data-uid="ShapeEngine.Content.ContentManager.GetAllContentPacks*"></a>
 
-  <h3 id="ShapeEngine_Content_ContentManager_LoadFont_System_String_System_Int32_" data-uid="ShapeEngine.Content.ContentManager.LoadFont(System.String,System.Int32)">
-  LoadFont(string, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L89"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Content_ContentManager_GetAllContentPacks" data-uid="ShapeEngine.Content.ContentManager.GetAllContentPacks">
+  GetAllContentPacks()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L168"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Loads a font from the given file path.</p>
+  <div class="markdown level1 summary"><p>Gets a list of all content packs managed by this ContentManager.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Font LoadFont(string filePath, int fontSize = 100)</code></pre>
+    <pre><code class="lang-csharp hljs">public List&lt;ContentPack&gt; GetAllContentPacks()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="ShapeEngine.Content.ContentPack.html">ContentPack</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Content_ContentManager_GetAllLoadedContentPacks_" data-uid="ShapeEngine.Content.ContentManager.GetAllLoadedContentPacks*"></a>
+
+  <h3 id="ShapeEngine_Content_ContentManager_GetAllLoadedContentPacks" data-uid="ShapeEngine.Content.ContentManager.GetAllLoadedContentPacks">
+  GetAllLoadedContentPacks()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L176"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets a list of all loaded content packs managed by this ContentManager.
+Only content packs with <code>IsLoaded</code> set to true are included.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;ContentPack&gt; GetAllLoadedContentPacks()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="ShapeEngine.Content.ContentPack.html">ContentPack</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Content_ContentManager_HasContentPack_" data-uid="ShapeEngine.Content.ContentManager.HasContentPack*"></a>
+
+  <h3 id="ShapeEngine_Content_ContentManager_HasContentPack_System_String_" data-uid="ShapeEngine.Content.ContentManager.HasContentPack(System.String)">
+  HasContentPack(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L185"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Checks if a content pack with the specified root path exists in the manager.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool HasContentPack(string root)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>root</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The root path of the content pack to check for existence.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the content pack exists; otherwise, false.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Content_ContentManager_RemoveAllContentPacks_" data-uid="ShapeEngine.Content.ContentManager.RemoveAllContentPacks*"></a>
+
+  <h3 id="ShapeEngine_Content_ContentManager_RemoveAllContentPacks_System_Boolean_" data-uid="ShapeEngine.Content.ContentManager.RemoveAllContentPacks(System.Boolean)">
+  RemoveAllContentPacks(bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L160"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes all content packs from the manager.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveAllContentPacks(bool clear = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>clear</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>If true, clears each content pack before removal.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Content_ContentManager_RemoveContentPack_" data-uid="ShapeEngine.Content.ContentManager.RemoveContentPack*"></a>
+
+  <h3 id="ShapeEngine_Content_ContentManager_RemoveContentPack_ShapeEngine_Content_ContentPack_System_Boolean_" data-uid="ShapeEngine.Content.ContentManager.RemoveContentPack(ShapeEngine.Content.ContentPack,System.Boolean)">
+  RemoveContentPack(ContentPack, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L144"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes a content pack from the manager by its instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool RemoveContentPack(ContentPack pack, bool clear = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>pack</code> <a class="xref" href="ShapeEngine.Content.ContentPack.html">ContentPack</a></dt>
+    <dd><p>The content pack instance to remove.</p>
+</dd>
+    <dt><code>clear</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>If true, clears the content pack before removal.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the content pack was removed; false if not found.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Content_ContentManager_RemoveContentPack_" data-uid="ShapeEngine.Content.ContentManager.RemoveContentPack*"></a>
+
+  <h3 id="ShapeEngine_Content_ContentManager_RemoveContentPack_System_String_System_Boolean_" data-uid="ShapeEngine.Content.ContentManager.RemoveContentPack(System.String,System.Boolean)">
+  RemoveContentPack(string, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L127"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes a content pack from the manager by its root path.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool RemoveContentPack(string root, bool clear = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>root</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The root path of the content pack to remove.</p>
+</dd>
+    <dt><code>clear</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>If true, clears the content pack before removal.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the content pack was removed; false if not found.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Content_ContentManager_TryGetContentPack_" data-uid="ShapeEngine.Content.ContentManager.TryGetContentPack*"></a>
+
+  <h3 id="ShapeEngine_Content_ContentManager_TryGetContentPack_System_String_ShapeEngine_Content_ContentPack__" data-uid="ShapeEngine.Content.ContentManager.TryGetContentPack(System.String,ShapeEngine.Content.ContentPack@)">
+  TryGetContentPack(string, out ContentPack?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L196"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Tries to get a content pack by its root path.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetContentPack(string root, out ContentPack? pack)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>root</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The root path of the content pack.</p>
+</dd>
+    <dt><code>pack</code> <a class="xref" href="ShapeEngine.Content.ContentPack.html">ContentPack</a></dt>
+    <dd><p>The found content pack, or null if not found.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the content pack exists; otherwise, false.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Content_ContentManager_TryLoadFont_" data-uid="ShapeEngine.Content.ContentManager.TryLoadFont*"></a>
+
+  <h3 id="ShapeEngine_Content_ContentManager_TryLoadFont_System_String_Raylib_cs_Font__System_Int32_" data-uid="ShapeEngine.Content.ContentManager.TryLoadFont(System.String,Raylib_cs.Font@,System.Int32)">
+  TryLoadFont(string, out Font, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L425"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Attempts to load a font from the specified file path with the given font size.
+Checks the cache, content packs, and file system in order.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryLoadFont(string filePath, out Font font, int fontSize = 100)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>filePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The path to the font file.</p>
+    <dd><p>The file path to the font to load.</p>
+</dd>
+    <dt><code>font</code> <span class="xref">Font</span></dt>
+    <dd><p>The loaded <span class="xref">Raylib_cs.Font</span> if successful; otherwise, default.</p>
 </dd>
     <dt><code>fontSize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd><p>The size of the font.</p>
+    <dd><p>The size of the font to load. Defaults to 100.</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><span class="xref">Font</span></dt>
-    <dd><p>The loaded font.</p>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the font was loaded successfully; otherwise, false.</p>
 </dd>
   </dl>
 
@@ -256,128 +625,36 @@ Class ContentManager  <a class="header-action link-secondary" title="View source
 
 
 
-  <a id="ShapeEngine_Content_ContentManager_LoadFontsFromDirectory_" data-uid="ShapeEngine.Content.ContentManager.LoadFontsFromDirectory*"></a>
+  <a id="ShapeEngine_Content_ContentManager_TryLoadFragmentShader_" data-uid="ShapeEngine.Content.ContentManager.TryLoadFragmentShader*"></a>
 
-  <h3 id="ShapeEngine_Content_ContentManager_LoadFontsFromDirectory_System_String_System_Int32_System_Boolean_" data-uid="ShapeEngine.Content.ContentManager.LoadFontsFromDirectory(System.String,System.Int32,System.Boolean)">
-  LoadFontsFromDirectory(string, int, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L205"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Content_ContentManager_TryLoadFragmentShader_System_String_Raylib_cs_Shader__" data-uid="ShapeEngine.Content.ContentManager.TryLoadFragmentShader(System.String,Raylib_cs.Shader@)">
+  TryLoadFragmentShader(string, out Shader)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L266"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Loads all fonts from the specified directory.</p>
+  <div class="markdown level1 summary"><p>Attempts to load a fragment shader from the specified file path.
+Checks the cache, content packs, and file system in order.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public List&lt;Font&gt; LoadFontsFromDirectory(string directoryPath, int fontSize = 100, bool recursive = false)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>directoryPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The path to the directory containing font files.</p>
-</dd>
-    <dt><code>fontSize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd><p>The size of the fonts to load. Default is 100.</p>
-</dd>
-    <dt><code>recursive</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p>Whether to search subdirectories recursively. Default is false.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">Font</span>&gt;</dt>
-    <dd><p>A list of loaded <span class="xref">Raylib_cs.Font</span> objects.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-  <h4 class="section" id="ShapeEngine_Content_ContentManager_LoadFontsFromDirectory_System_String_System_Int32_System_Boolean__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Only loads files with valid font extensions: .ttf, .otf</p>
-</div>
-
-
-
-
-  <a id="ShapeEngine_Content_ContentManager_LoadFontsWithFilenameFromDirectory_" data-uid="ShapeEngine.Content.ContentManager.LoadFontsWithFilenameFromDirectory*"></a>
-
-  <h3 id="ShapeEngine_Content_ContentManager_LoadFontsWithFilenameFromDirectory_System_String_System_Int32_System_Boolean_" data-uid="ShapeEngine.Content.ContentManager.LoadFontsWithFilenameFromDirectory(System.String,System.Int32,System.Boolean)">
-  LoadFontsWithFilenameFromDirectory(string, int, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L333"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Loads all fonts from a directory and returns a dictionary mapping file names (without extension) to Font objects.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Dictionary&lt;string, Font&gt; LoadFontsWithFilenameFromDirectory(string directoryPath, int fontSize = 100, bool recursive = false)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>directoryPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The directory path containing font files.</p>
-</dd>
-    <dt><code>fontSize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd><p>The size of the fonts to load. Default is 100.</p>
-</dd>
-    <dt><code>recursive</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p>Whether to search recursively in subdirectories. Default is false.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <span class="xref">Font</span>&gt;</dt>
-    <dd><p>A dictionary mapping file names to loaded Font objects.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-  <h4 class="section" id="ShapeEngine_Content_ContentManager_LoadFontsWithFilenameFromDirectory_System_String_System_Int32_System_Boolean__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Only loads files with valid font extensions: .ttf, .otf</p>
-</div>
-
-
-
-
-  <a id="ShapeEngine_Content_ContentManager_LoadFragmentShader_" data-uid="ShapeEngine.Content.ContentManager.LoadFragmentShader*"></a>
-
-  <h3 id="ShapeEngine_Content_ContentManager_LoadFragmentShader_System_String_" data-uid="ShapeEngine.Content.ContentManager.LoadFragmentShader(System.String)">
-  LoadFragmentShader(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L134"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Loads a fragment shader from the given file path.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Shader LoadFragmentShader(string filePath)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool TryLoadFragmentShader(string filePath, out Shader shader)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>filePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The path to the fragment shader file.</p>
+    <dd><p>The file path to the fragment shader to load.</p>
+</dd>
+    <dt><code>shader</code> <span class="xref">Shader</span></dt>
+    <dd><p>The loaded <span class="xref">Raylib_cs.Shader</span> if successful; otherwise, default.</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><span class="xref">Shader</span></dt>
-    <dd><p>The loaded shader.</p>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the fragment shader was loaded successfully; otherwise, false.</p>
 </dd>
   </dl>
 
@@ -391,122 +668,36 @@ Class ContentManager  <a class="header-action link-secondary" title="View source
 
 
 
-  <a id="ShapeEngine_Content_ContentManager_LoadFragmentShadersFromDirectory_" data-uid="ShapeEngine.Content.ContentManager.LoadFragmentShadersFromDirectory*"></a>
+  <a id="ShapeEngine_Content_ContentManager_TryLoadImage_" data-uid="ShapeEngine.Content.ContentManager.TryLoadImage*"></a>
 
-  <h3 id="ShapeEngine_Content_ContentManager_LoadFragmentShadersFromDirectory_System_String_System_Boolean_" data-uid="ShapeEngine.Content.ContentManager.LoadFragmentShadersFromDirectory(System.String,System.Boolean)">
-  LoadFragmentShadersFromDirectory(string, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L265"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Content_ContentManager_TryLoadImage_System_String_Raylib_cs_Image__" data-uid="ShapeEngine.Content.ContentManager.TryLoadImage(System.String,Raylib_cs.Image@)">
+  TryLoadImage(string, out Image)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L371"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Loads all fragment shaders from the specified directory.</p>
+  <div class="markdown level1 summary"><p>Attempts to load an image from the specified file path.
+Checks the cache, content packs, and file system in order.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public List&lt;Shader&gt; LoadFragmentShadersFromDirectory(string directoryPath, bool recursive = false)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>directoryPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The path to the directory containing fragment shader files.</p>
-</dd>
-    <dt><code>recursive</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p>Whether to search subdirectories recursively. Default is false.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">Shader</span>&gt;</dt>
-    <dd><p>A list of loaded <span class="xref">Raylib_cs.Shader</span> objects.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-  <h4 class="section" id="ShapeEngine_Content_ContentManager_LoadFragmentShadersFromDirectory_System_String_System_Boolean__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Only loads files with valid fragment shader extensions: .fs, .glsl, .frag</p>
-</div>
-
-
-
-
-  <a id="ShapeEngine_Content_ContentManager_LoadFragmentShadersWithFilenameFromDirectory_" data-uid="ShapeEngine.Content.ContentManager.LoadFragmentShadersWithFilenameFromDirectory*"></a>
-
-  <h3 id="ShapeEngine_Content_ContentManager_LoadFragmentShadersWithFilenameFromDirectory_System_String_System_Boolean_" data-uid="ShapeEngine.Content.ContentManager.LoadFragmentShadersWithFilenameFromDirectory(System.String,System.Boolean)">
-  LoadFragmentShadersWithFilenameFromDirectory(string, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L397"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Loads all fragment shaders from a directory and returns a dictionary mapping file names (without extension) to Shader objects.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Dictionary&lt;string, Shader&gt; LoadFragmentShadersWithFilenameFromDirectory(string directoryPath, bool recursive = false)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>directoryPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The directory path containing fragment shader files.</p>
-</dd>
-    <dt><code>recursive</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p>Whether to search recursively in subdirectories. Default is false.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <span class="xref">Shader</span>&gt;</dt>
-    <dd><p>A dictionary mapping file names to loaded Shader objects.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-  <h4 class="section" id="ShapeEngine_Content_ContentManager_LoadFragmentShadersWithFilenameFromDirectory_System_String_System_Boolean__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Only loads files with valid fragment shader extensions: .fs, .glsl, .frag</p>
-</div>
-
-
-
-
-  <a id="ShapeEngine_Content_ContentManager_LoadImage_" data-uid="ShapeEngine.Content.ContentManager.LoadImage*"></a>
-
-  <h3 id="ShapeEngine_Content_ContentManager_LoadImage_System_String_" data-uid="ShapeEngine.Content.ContentManager.LoadImage(System.String)">
-  LoadImage(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L77"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Loads an image from the given file path.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Image LoadImage(string filePath)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool TryLoadImage(string filePath, out Image image)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>filePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The path to the image file.</p>
+    <dd><p>The file path to the image to load.</p>
+</dd>
+    <dt><code>image</code> <span class="xref">Image</span></dt>
+    <dd><p>The loaded <span class="xref">Raylib_cs.Image</span> if successful; otherwise, default.</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><span class="xref">Image</span></dt>
-    <dd><p>The loaded image.</p>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the image was loaded successfully; otherwise, false.</p>
 </dd>
   </dl>
 
@@ -520,122 +711,36 @@ Class ContentManager  <a class="header-action link-secondary" title="View source
 
 
 
-  <a id="ShapeEngine_Content_ContentManager_LoadImagesFromDirectory_" data-uid="ShapeEngine.Content.ContentManager.LoadImagesFromDirectory*"></a>
+  <a id="ShapeEngine_Content_ContentManager_TryLoadMusic_" data-uid="ShapeEngine.Content.ContentManager.TryLoadMusic*"></a>
 
-  <h3 id="ShapeEngine_Content_ContentManager_LoadImagesFromDirectory_System_String_System_Boolean_" data-uid="ShapeEngine.Content.ContentManager.LoadImagesFromDirectory(System.String,System.Boolean)">
-  LoadImagesFromDirectory(string, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L189"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Content_ContentManager_TryLoadMusic_System_String_Raylib_cs_Music__" data-uid="ShapeEngine.Content.ContentManager.TryLoadMusic(System.String,Raylib_cs.Music@)">
+  TryLoadMusic(string, out Music)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L539"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Loads all images from the specified directory.</p>
+  <div class="markdown level1 summary"><p>Attempts to load a music stream from the specified file path.
+Checks the cache, content packs, and file system in order.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public List&lt;Image&gt; LoadImagesFromDirectory(string directoryPath, bool recursive = false)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>directoryPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The path to the directory containing image files.</p>
-</dd>
-    <dt><code>recursive</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p>Whether to search subdirectories recursively.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">Image</span>&gt;</dt>
-    <dd><p>A list of loaded <span class="xref">Raylib_cs.Image</span> objects.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-  <h4 class="section" id="ShapeEngine_Content_ContentManager_LoadImagesFromDirectory_System_String_System_Boolean__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Only loads files with valid image extensions: .png, .bmp, .tga, .jpg, .jpeg, .gif, .psd, .pkm, .ktx, .pvr, .dds, .hdr</p>
-</div>
-
-
-
-
-  <a id="ShapeEngine_Content_ContentManager_LoadImagesWithFilenameFromDirectory_" data-uid="ShapeEngine.Content.ContentManager.LoadImagesWithFilenameFromDirectory*"></a>
-
-  <h3 id="ShapeEngine_Content_ContentManager_LoadImagesWithFilenameFromDirectory_System_String_System_Boolean_" data-uid="ShapeEngine.Content.ContentManager.LoadImagesWithFilenameFromDirectory(System.String,System.Boolean)">
-  LoadImagesWithFilenameFromDirectory(string, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L316"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Loads all images from a directory and returns a dictionary mapping file names (without extension) to Image objects.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Dictionary&lt;string, Image&gt; LoadImagesWithFilenameFromDirectory(string directoryPath, bool recursive = false)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>directoryPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The directory path containing image files.</p>
-</dd>
-    <dt><code>recursive</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p>Whether to search recursively in subdirectories. Default is false.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <span class="xref">Image</span>&gt;</dt>
-    <dd><p>A dictionary mapping file names to loaded Image objects.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-  <h4 class="section" id="ShapeEngine_Content_ContentManager_LoadImagesWithFilenameFromDirectory_System_String_System_Boolean__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Only loads files with valid image extensions: .png, .bmp, .tga, .jpg, .jpeg, .gif, .psd, .pkm, .ktx, .pvr, .dds, .hdr</p>
-</div>
-
-
-
-
-  <a id="ShapeEngine_Content_ContentManager_LoadMusic_" data-uid="ShapeEngine.Content.ContentManager.LoadMusic*"></a>
-
-  <h3 id="ShapeEngine_Content_ContentManager_LoadMusic_System_String_" data-uid="ShapeEngine.Content.ContentManager.LoadMusic(System.String)">
-  LoadMusic(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L123"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Loads music from the given file path.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Music LoadMusic(string filePath)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool TryLoadMusic(string filePath, out Music music)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>filePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The path to the music file.</p>
+    <dd><p>The file path to the music stream to load.</p>
+</dd>
+    <dt><code>music</code> <span class="xref">Music</span></dt>
+    <dd><p>The loaded <span class="xref">Raylib_cs.Music</span> if successful; otherwise, default.</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><span class="xref">Music</span></dt>
-    <dd><p>The loaded music.</p>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the music stream was loaded successfully; otherwise, false.</p>
 </dd>
   </dl>
 
@@ -649,122 +754,36 @@ Class ContentManager  <a class="header-action link-secondary" title="View source
 
 
 
-  <a id="ShapeEngine_Content_ContentManager_LoadMusicStreamsFromDirectory_" data-uid="ShapeEngine.Content.ContentManager.LoadMusicStreamsFromDirectory*"></a>
+  <a id="ShapeEngine_Content_ContentManager_TryLoadSound_" data-uid="ShapeEngine.Content.ContentManager.TryLoadSound*"></a>
 
-  <h3 id="ShapeEngine_Content_ContentManager_LoadMusicStreamsFromDirectory_System_String_System_Boolean_" data-uid="ShapeEngine.Content.ContentManager.LoadMusicStreamsFromDirectory(System.String,System.Boolean)">
-  LoadMusicStreamsFromDirectory(string, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L235"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Content_ContentManager_TryLoadSound_System_String_Raylib_cs_Sound__" data-uid="ShapeEngine.Content.ContentManager.TryLoadSound(System.String,Raylib_cs.Sound@)">
+  TryLoadSound(string, out Sound)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L486"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Loads all music streams from the specified directory.</p>
+  <div class="markdown level1 summary"><p>Attempts to load a sound from the specified file path.
+Checks the cache, content packs, and file system in order.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public List&lt;Music&gt; LoadMusicStreamsFromDirectory(string directoryPath, bool recursive = false)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>directoryPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The path to the directory containing music files.</p>
-</dd>
-    <dt><code>recursive</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p>Whether to search subdirectories recursively.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">Music</span>&gt;</dt>
-    <dd><p>A list of loaded <span class="xref">Raylib_cs.Music</span> objects.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-  <h4 class="section" id="ShapeEngine_Content_ContentManager_LoadMusicStreamsFromDirectory_System_String_System_Boolean__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Only loads files with valid music extensions: .mp3, .ogg, .flac, .mod, .xm</p>
-</div>
-
-
-
-
-  <a id="ShapeEngine_Content_ContentManager_LoadMusicStreamsWithFilenameFromDirectory_" data-uid="ShapeEngine.Content.ContentManager.LoadMusicStreamsWithFilenameFromDirectory*"></a>
-
-  <h3 id="ShapeEngine_Content_ContentManager_LoadMusicStreamsWithFilenameFromDirectory_System_String_System_Boolean_" data-uid="ShapeEngine.Content.ContentManager.LoadMusicStreamsWithFilenameFromDirectory(System.String,System.Boolean)">
-  LoadMusicStreamsWithFilenameFromDirectory(string, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L365"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Loads all music streams from a directory and returns a dictionary mapping file names (without extension) to Music objects.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Dictionary&lt;string, Music&gt; LoadMusicStreamsWithFilenameFromDirectory(string directoryPath, bool recursive = false)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>directoryPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The directory path containing music files.</p>
-</dd>
-    <dt><code>recursive</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p>Whether to search recursively in subdirectories. Default is false.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <span class="xref">Music</span>&gt;</dt>
-    <dd><p>A dictionary mapping file names to loaded Music objects.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-  <h4 class="section" id="ShapeEngine_Content_ContentManager_LoadMusicStreamsWithFilenameFromDirectory_System_String_System_Boolean__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Only loads files with valid music extensions: .mp3, .ogg, .flac, .mod, .xm</p>
-</div>
-
-
-
-
-  <a id="ShapeEngine_Content_ContentManager_LoadSound_" data-uid="ShapeEngine.Content.ContentManager.LoadSound*"></a>
-
-  <h3 id="ShapeEngine_Content_ContentManager_LoadSound_System_String_" data-uid="ShapeEngine.Content.ContentManager.LoadSound(System.String)">
-  LoadSound(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L111"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Loads a sound from the given file path.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Sound LoadSound(string filePath)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool TryLoadSound(string filePath, out Sound sound)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>filePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The path to the sound file.</p>
+    <dd><p>The file path to the sound to load.</p>
+</dd>
+    <dt><code>sound</code> <span class="xref">Sound</span></dt>
+    <dd><p>The loaded <span class="xref">Raylib_cs.Sound</span> if successful; otherwise, default.</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><span class="xref">Sound</span></dt>
-    <dd><p>The loaded sound.</p>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the sound was loaded successfully; otherwise, false.</p>
 </dd>
   </dl>
 
@@ -778,122 +797,36 @@ Class ContentManager  <a class="header-action link-secondary" title="View source
 
 
 
-  <a id="ShapeEngine_Content_ContentManager_LoadSoundsFromDirectory_" data-uid="ShapeEngine.Content.ContentManager.LoadSoundsFromDirectory*"></a>
+  <a id="ShapeEngine_Content_ContentManager_TryLoadText_" data-uid="ShapeEngine.Content.ContentManager.TryLoadText*"></a>
 
-  <h3 id="ShapeEngine_Content_ContentManager_LoadSoundsFromDirectory_System_String_System_Boolean_" data-uid="ShapeEngine.Content.ContentManager.LoadSoundsFromDirectory(System.String,System.Boolean)">
-  LoadSoundsFromDirectory(string, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L220"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Content_ContentManager_TryLoadText_System_String_System_String__" data-uid="ShapeEngine.Content.ContentManager.TryLoadText(System.String,System.String@)">
+  TryLoadText(string, out string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L645"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Loads all sounds from the specified directory.</p>
+  <div class="markdown level1 summary"><p>Attempts to load a text file from the specified file path.
+Checks the cache, content packs, and file system in order.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public List&lt;Sound&gt; LoadSoundsFromDirectory(string directoryPath, bool recursive = false)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>directoryPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The path to the directory containing sound files.</p>
-</dd>
-    <dt><code>recursive</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p>Whether to search subdirectories recursively.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">Sound</span>&gt;</dt>
-    <dd><p>A list of loaded <span class="xref">Raylib_cs.Sound</span> objects.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-  <h4 class="section" id="ShapeEngine_Content_ContentManager_LoadSoundsFromDirectory_System_String_System_Boolean__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Only loads files with valid sound extensions: .wav, .mp3, .ogg, .flac</p>
-</div>
-
-
-
-
-  <a id="ShapeEngine_Content_ContentManager_LoadSoundsWithFilenameFromDirectory_" data-uid="ShapeEngine.Content.ContentManager.LoadSoundsWithFilenameFromDirectory*"></a>
-
-  <h3 id="ShapeEngine_Content_ContentManager_LoadSoundsWithFilenameFromDirectory_System_String_System_Boolean_" data-uid="ShapeEngine.Content.ContentManager.LoadSoundsWithFilenameFromDirectory(System.String,System.Boolean)">
-  LoadSoundsWithFilenameFromDirectory(string, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L349"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Loads all sound files from a directory and returns a dictionary mapping file names (without extension) to Sound objects.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Dictionary&lt;string, Sound&gt; LoadSoundsWithFilenameFromDirectory(string directoryPath, bool recursive = false)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>directoryPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The directory path containing sound files.</p>
-</dd>
-    <dt><code>recursive</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p>Whether to search recursively in subdirectories. Default is false.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <span class="xref">Sound</span>&gt;</dt>
-    <dd><p>A dictionary mapping file names to loaded Sound objects.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-  <h4 class="section" id="ShapeEngine_Content_ContentManager_LoadSoundsWithFilenameFromDirectory_System_String_System_Boolean__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Only loads files with valid sound extensions: .wav, .mp3, .ogg, .flac</p>
-</div>
-
-
-
-
-  <a id="ShapeEngine_Content_ContentManager_LoadText_" data-uid="ShapeEngine.Content.ContentManager.LoadText*"></a>
-
-  <h3 id="ShapeEngine_Content_ContentManager_LoadText_System_String_" data-uid="ShapeEngine.Content.ContentManager.LoadText(System.String)">
-  LoadText(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L156"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Loads a text string from the given file path.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string LoadText(string filePath)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool TryLoadText(string filePath, out string text)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>filePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The path to the text file.</p>
+    <dd><p>The file path to the text file to load.</p>
+</dd>
+    <dt><code>text</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The loaded text if successful; otherwise, an empty string.</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The loaded text string.</p>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the text was loaded successfully; otherwise, false.</p>
 </dd>
   </dl>
 
@@ -907,32 +840,36 @@ Class ContentManager  <a class="header-action link-secondary" title="View source
 
 
 
-  <a id="ShapeEngine_Content_ContentManager_LoadTexture_" data-uid="ShapeEngine.Content.ContentManager.LoadTexture*"></a>
+  <a id="ShapeEngine_Content_ContentManager_TryLoadTexture_" data-uid="ShapeEngine.Content.ContentManager.TryLoadTexture*"></a>
 
-  <h3 id="ShapeEngine_Content_ContentManager_LoadTexture_System_String_" data-uid="ShapeEngine.Content.ContentManager.LoadTexture(System.String)">
-  LoadTexture(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L66"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Content_ContentManager_TryLoadTexture_System_String_Raylib_cs_Texture2D__" data-uid="ShapeEngine.Content.ContentManager.TryLoadTexture(System.String,Raylib_cs.Texture2D@)">
+  TryLoadTexture(string, out Texture2D)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L210"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Loads a texture from the given file path.</p>
+  <div class="markdown level1 summary"><p>Attempts to load a texture from the specified file path.
+Checks the cache, content packs, and file system in order.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Texture2D LoadTexture(string filePath)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool TryLoadTexture(string filePath, out Texture2D texture)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>filePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The path to the texture file.</p>
+    <dd><p>The file path to the texture to load.</p>
+</dd>
+    <dt><code>texture</code> <span class="xref">Texture2D</span></dt>
+    <dd><p>The loaded <span class="xref">Raylib_cs.Texture2D</span> if successful; otherwise, default.</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><span class="xref">Texture2D</span></dt>
-    <dd><p>The loaded texture.</p>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the texture was loaded successfully; otherwise, false.</p>
 </dd>
   </dl>
 
@@ -946,122 +883,36 @@ Class ContentManager  <a class="header-action link-secondary" title="View source
 
 
 
-  <a id="ShapeEngine_Content_ContentManager_LoadTexturesFromDirectory_" data-uid="ShapeEngine.Content.ContentManager.LoadTexturesFromDirectory*"></a>
+  <a id="ShapeEngine_Content_ContentManager_TryLoadVertexShader_" data-uid="ShapeEngine.Content.ContentManager.TryLoadVertexShader*"></a>
 
-  <h3 id="ShapeEngine_Content_ContentManager_LoadTexturesFromDirectory_System_String_System_Boolean_" data-uid="ShapeEngine.Content.ContentManager.LoadTexturesFromDirectory(System.String,System.Boolean)">
-  LoadTexturesFromDirectory(string, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L174"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Content_ContentManager_TryLoadVertexShader_System_String_Raylib_cs_Shader__" data-uid="ShapeEngine.Content.ContentManager.TryLoadVertexShader(System.String,Raylib_cs.Shader@)">
+  TryLoadVertexShader(string, out Shader)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L319"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Loads all textures from the specified directory.</p>
+  <div class="markdown level1 summary"><p>Attempts to load a vertex shader from the specified file path.
+Checks the cache, content packs, and file system in order.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public List&lt;Texture2D&gt; LoadTexturesFromDirectory(string directoryPath, bool recursive = false)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>directoryPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The path to the directory containing texture files.</p>
-</dd>
-    <dt><code>recursive</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p>Whether to search subdirectories recursively.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">Texture2D</span>&gt;</dt>
-    <dd><p>A list of loaded <span class="xref">Raylib_cs.Texture2D</span> objects.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-  <h4 class="section" id="ShapeEngine_Content_ContentManager_LoadTexturesFromDirectory_System_String_System_Boolean__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Only loads files with valid texture extensions: .png, .bmp, .tga, .jpg, .jpeg, .gif, .psd, .pkm, .ktx, .pvr, .dds, .hdr</p>
-</div>
-
-
-
-
-  <a id="ShapeEngine_Content_ContentManager_LoadTexturesWithFilenameFromDirectory_" data-uid="ShapeEngine.Content.ContentManager.LoadTexturesWithFilenameFromDirectory*"></a>
-
-  <h3 id="ShapeEngine_Content_ContentManager_LoadTexturesWithFilenameFromDirectory_System_String_System_Boolean_" data-uid="ShapeEngine.Content.ContentManager.LoadTexturesWithFilenameFromDirectory(System.String,System.Boolean)">
-  LoadTexturesWithFilenameFromDirectory(string, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L300"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Loads all textures from a directory and returns a dictionary mapping file names (without extension) to Texture2D objects.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Dictionary&lt;string, Texture2D&gt; LoadTexturesWithFilenameFromDirectory(string directoryPath, bool recursive = false)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>directoryPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The directory path containing texture files.</p>
-</dd>
-    <dt><code>recursive</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p>Whether to search recursively in subdirectories. Default is false.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <span class="xref">Texture2D</span>&gt;</dt>
-    <dd><p>A dictionary mapping file names to loaded Texture2D objects.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-  <h4 class="section" id="ShapeEngine_Content_ContentManager_LoadTexturesWithFilenameFromDirectory_System_String_System_Boolean__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Only loads files with valid texture extensions: .png, .bmp, .tga, .jpg, .jpeg, .gif, .psd, .pkm, .ktx, .pvr, .dds, .hdr</p>
-</div>
-
-
-
-
-  <a id="ShapeEngine_Content_ContentManager_LoadVertexShader_" data-uid="ShapeEngine.Content.ContentManager.LoadVertexShader*"></a>
-
-  <h3 id="ShapeEngine_Content_ContentManager_LoadVertexShader_System_String_" data-uid="ShapeEngine.Content.ContentManager.LoadVertexShader(System.String)">
-  LoadVertexShader(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L145"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Loads a vertex shader from the given file path.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Shader LoadVertexShader(string filePath)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool TryLoadVertexShader(string filePath, out Shader shader)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>filePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The path to the vertex shader file.</p>
+    <dd><p>The file path to the vertex shader to load.</p>
+</dd>
+    <dt><code>shader</code> <span class="xref">Shader</span></dt>
+    <dd><p>The loaded <span class="xref">Raylib_cs.Shader</span> if successful; otherwise, default.</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><span class="xref">Shader</span></dt>
-    <dd><p>The loaded shader.</p>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the vertex shader was loaded successfully; otherwise, false.</p>
 </dd>
   </dl>
 
@@ -1075,122 +926,36 @@ Class ContentManager  <a class="header-action link-secondary" title="View source
 
 
 
-  <a id="ShapeEngine_Content_ContentManager_LoadVertexShadersFromDirectory_" data-uid="ShapeEngine.Content.ContentManager.LoadVertexShadersFromDirectory*"></a>
+  <a id="ShapeEngine_Content_ContentManager_TryLoadWave_" data-uid="ShapeEngine.Content.ContentManager.TryLoadWave*"></a>
 
-  <h3 id="ShapeEngine_Content_ContentManager_LoadVertexShadersFromDirectory_System_String_System_Boolean_" data-uid="ShapeEngine.Content.ContentManager.LoadVertexShadersFromDirectory(System.String,System.Boolean)">
-  LoadVertexShadersFromDirectory(string, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L280"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Content_ContentManager_TryLoadWave_System_String_Raylib_cs_Wave__" data-uid="ShapeEngine.Content.ContentManager.TryLoadWave(System.String,Raylib_cs.Wave@)">
+  TryLoadWave(string, out Wave)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L592"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Loads all vertex shaders from the specified directory.</p>
+  <div class="markdown level1 summary"><p>Attempts to load a wave from the specified file path.
+Checks the cache, content packs, and file system in order.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public List&lt;Shader&gt; LoadVertexShadersFromDirectory(string directoryPath, bool recursive = false)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>directoryPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The path to the directory containing vertex shader files.</p>
-</dd>
-    <dt><code>recursive</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p>Whether to search subdirectories recursively. Default is false.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">Shader</span>&gt;</dt>
-    <dd><p>A list of loaded <span class="xref">Raylib_cs.Shader</span> objects.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-  <h4 class="section" id="ShapeEngine_Content_ContentManager_LoadVertexShadersFromDirectory_System_String_System_Boolean__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Only loads files with valid vertex shader extensions: .vs, .glsl, .vert</p>
-</div>
-
-
-
-
-  <a id="ShapeEngine_Content_ContentManager_LoadVertexShadersWithFilenameFromDirectory_" data-uid="ShapeEngine.Content.ContentManager.LoadVertexShadersWithFilenameFromDirectory*"></a>
-
-  <h3 id="ShapeEngine_Content_ContentManager_LoadVertexShadersWithFilenameFromDirectory_System_String_System_Boolean_" data-uid="ShapeEngine.Content.ContentManager.LoadVertexShadersWithFilenameFromDirectory(System.String,System.Boolean)">
-  LoadVertexShadersWithFilenameFromDirectory(string, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L413"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Loads all vertex shaders from a directory and returns a dictionary mapping file names (without extension) to Shader objects.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Dictionary&lt;string, Shader&gt; LoadVertexShadersWithFilenameFromDirectory(string directoryPath, bool recursive = false)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>directoryPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The directory path containing vertex shader files.</p>
-</dd>
-    <dt><code>recursive</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p>Whether to search recursively in subdirectories. Default is false.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <span class="xref">Shader</span>&gt;</dt>
-    <dd><p>A dictionary mapping file names to loaded Shader objects.</p>
-</dd>
-  </dl>
-
-
-
-
-
-
-
-  <h4 class="section" id="ShapeEngine_Content_ContentManager_LoadVertexShadersWithFilenameFromDirectory_System_String_System_Boolean__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Only loads files with valid vertex shader extensions: .vs, .glsl, .vert</p>
-</div>
-
-
-
-
-  <a id="ShapeEngine_Content_ContentManager_LoadWave_" data-uid="ShapeEngine.Content.ContentManager.LoadWave*"></a>
-
-  <h3 id="ShapeEngine_Content_ContentManager_LoadWave_System_String_" data-uid="ShapeEngine.Content.ContentManager.LoadWave(System.String)">
-  LoadWave(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L100"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"><p>Loads a wave from the given file path.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Wave LoadWave(string filePath)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool TryLoadWave(string filePath, out Wave wave)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>filePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The path to the wave file.</p>
+    <dd><p>The file path to the wave to load.</p>
+</dd>
+    <dt><code>wave</code> <span class="xref">Wave</span></dt>
+    <dd><p>The loaded <span class="xref">Raylib_cs.Wave</span> if successful; otherwise, default.</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><span class="xref">Wave</span></dt>
-    <dd><p>The loaded wave.</p>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the wave was loaded successfully; otherwise, false.</p>
 </dd>
   </dl>
 
@@ -1204,37 +969,22 @@ Class ContentManager  <a class="header-action link-secondary" title="View source
 
 
 
-  <a id="ShapeEngine_Content_ContentManager_LoadWavesFromDirectory_" data-uid="ShapeEngine.Content.ContentManager.LoadWavesFromDirectory*"></a>
+  <a id="ShapeEngine_Content_ContentManager_UnloadAllContentPacks_" data-uid="ShapeEngine.Content.ContentManager.UnloadAllContentPacks*"></a>
 
-  <h3 id="ShapeEngine_Content_ContentManager_LoadWavesFromDirectory_System_String_System_Boolean_" data-uid="ShapeEngine.Content.ContentManager.LoadWavesFromDirectory(System.String,System.Boolean)">
-  LoadWavesFromDirectory(string, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L250"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Content_ContentManager_UnloadAllContentPacks" data-uid="ShapeEngine.Content.ContentManager.UnloadAllContentPacks">
+  UnloadAllContentPacks()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L700"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Loads all wave files from the specified directory.</p>
+  <div class="markdown level1 summary"><p>Unloads all content packs by calling <code>Clear()</code> on each loaded <a class="xref" href="ShapeEngine.Content.ContentPack.html">ContentPack</a>.
+Does not remove the content packs from the manager; use <a class="xref" href="ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_RemoveAllContentPacks_System_Boolean_">RemoveAllContentPacks(bool)</a> to remove them.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public List&lt;Wave&gt; LoadWavesFromDirectory(string directoryPath, bool recursive = false)</code></pre>
+    <pre><code class="lang-csharp hljs">public void UnloadAllContentPacks()</code></pre>
   </div>
 
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>directoryPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The path to the directory containing wave files.</p>
-</dd>
-    <dt><code>recursive</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p>Whether to search subdirectories recursively. Default is false.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">Wave</span>&gt;</dt>
-    <dd><p>A list of loaded <span class="xref">Raylib_cs.Wave</span> objects.</p>
-</dd>
-  </dl>
 
 
 
@@ -1242,44 +992,27 @@ Class ContentManager  <a class="header-action link-secondary" title="View source
 
 
 
-  <h4 class="section" id="ShapeEngine_Content_ContentManager_LoadWavesFromDirectory_System_String_System_Boolean__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Only loads files with valid wave extensions: .wav, .mp3, .ogg, .flac</p>
-</div>
 
 
 
 
-  <a id="ShapeEngine_Content_ContentManager_LoadWavesWithFilenameFromDirectory_" data-uid="ShapeEngine.Content.ContentManager.LoadWavesWithFilenameFromDirectory*"></a>
 
-  <h3 id="ShapeEngine_Content_ContentManager_LoadWavesWithFilenameFromDirectory_System_String_System_Boolean_" data-uid="ShapeEngine.Content.ContentManager.LoadWavesWithFilenameFromDirectory(System.String,System.Boolean)">
-  LoadWavesWithFilenameFromDirectory(string, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L381"><i class="bi bi-code-slash"></i></a>
+  <a id="ShapeEngine_Content_ContentManager_UnloadContent_" data-uid="ShapeEngine.Content.ContentManager.UnloadContent*"></a>
+
+  <h3 id="ShapeEngine_Content_ContentManager_UnloadContent" data-uid="ShapeEngine.Content.ContentManager.UnloadContent">
+  UnloadContent()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L715"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Loads all wave sounds from a directory and returns a dictionary mapping file names (without extension) to Wave objects.</p>
+  <div class="markdown level1 summary"><p>Unloads all cached content (shaders, textures, images, fonts, waves, sounds, music streams, and texts)
+from the ContentManager, releasing their resources. Logs each unload operation.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Dictionary&lt;string, Wave&gt; LoadWavesWithFilenameFromDirectory(string directoryPath, bool recursive = false)</code></pre>
+    <pre><code class="lang-csharp hljs">public void UnloadContent()</code></pre>
   </div>
 
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>directoryPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>The directory path containing wave sound files.</p>
-</dd>
-    <dt><code>recursive</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p>Whether to search recursively in subdirectories. Default is false.</p>
-</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <span class="xref">Wave</span>&gt;</dt>
-    <dd><p>A dictionary mapping file names to loaded Wave objects.</p>
-</dd>
-  </dl>
 
 
 
@@ -1287,9 +1020,7 @@ Class ContentManager  <a class="header-action link-secondary" title="View source
 
 
 
-  <h4 class="section" id="ShapeEngine_Content_ContentManager_LoadWavesWithFilenameFromDirectory_System_String_System_Boolean__remarks">Remarks</h4>
-  <div class="markdown level1 remarks"><p>Only loads files with valid wave extensions: .wav, .mp3, .ogg, .flac</p>
-</div>
+
 
 
 
@@ -1298,7 +1029,7 @@ Class ContentManager  <a class="header-action link-secondary" title="View source
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L8" class="edit-link">Edit this page</a>
+          <a href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Content/ContentManager.cs/#L12" class="edit-link">Edit this page</a>
         </div>
 
 

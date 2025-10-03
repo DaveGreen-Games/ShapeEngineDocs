@@ -5,33 +5,28 @@ items:
   id: ContentManager
   parent: ShapeEngine.Content
   children:
-  - ShapeEngine.Content.ContentManager.#ctor
+  - ShapeEngine.Content.ContentManager.#ctor(System.String)
+  - ShapeEngine.Content.ContentManager.AddContentPack(ShapeEngine.Content.ContentPack,System.String)
   - ShapeEngine.Content.ContentManager.Close
-  - ShapeEngine.Content.ContentManager.LoadFont(System.String,System.Int32)
-  - ShapeEngine.Content.ContentManager.LoadFontsFromDirectory(System.String,System.Int32,System.Boolean)
-  - ShapeEngine.Content.ContentManager.LoadFontsWithFilenameFromDirectory(System.String,System.Int32,System.Boolean)
-  - ShapeEngine.Content.ContentManager.LoadFragmentShader(System.String)
-  - ShapeEngine.Content.ContentManager.LoadFragmentShadersFromDirectory(System.String,System.Boolean)
-  - ShapeEngine.Content.ContentManager.LoadFragmentShadersWithFilenameFromDirectory(System.String,System.Boolean)
-  - ShapeEngine.Content.ContentManager.LoadImage(System.String)
-  - ShapeEngine.Content.ContentManager.LoadImagesFromDirectory(System.String,System.Boolean)
-  - ShapeEngine.Content.ContentManager.LoadImagesWithFilenameFromDirectory(System.String,System.Boolean)
-  - ShapeEngine.Content.ContentManager.LoadMusic(System.String)
-  - ShapeEngine.Content.ContentManager.LoadMusicStreamsFromDirectory(System.String,System.Boolean)
-  - ShapeEngine.Content.ContentManager.LoadMusicStreamsWithFilenameFromDirectory(System.String,System.Boolean)
-  - ShapeEngine.Content.ContentManager.LoadSound(System.String)
-  - ShapeEngine.Content.ContentManager.LoadSoundsFromDirectory(System.String,System.Boolean)
-  - ShapeEngine.Content.ContentManager.LoadSoundsWithFilenameFromDirectory(System.String,System.Boolean)
-  - ShapeEngine.Content.ContentManager.LoadText(System.String)
-  - ShapeEngine.Content.ContentManager.LoadTexture(System.String)
-  - ShapeEngine.Content.ContentManager.LoadTexturesFromDirectory(System.String,System.Boolean)
-  - ShapeEngine.Content.ContentManager.LoadTexturesWithFilenameFromDirectory(System.String,System.Boolean)
-  - ShapeEngine.Content.ContentManager.LoadVertexShader(System.String)
-  - ShapeEngine.Content.ContentManager.LoadVertexShadersFromDirectory(System.String,System.Boolean)
-  - ShapeEngine.Content.ContentManager.LoadVertexShadersWithFilenameFromDirectory(System.String,System.Boolean)
-  - ShapeEngine.Content.ContentManager.LoadWave(System.String)
-  - ShapeEngine.Content.ContentManager.LoadWavesFromDirectory(System.String,System.Boolean)
-  - ShapeEngine.Content.ContentManager.LoadWavesWithFilenameFromDirectory(System.String,System.Boolean)
+  - ShapeEngine.Content.ContentManager.GetAllContentPacks
+  - ShapeEngine.Content.ContentManager.GetAllLoadedContentPacks
+  - ShapeEngine.Content.ContentManager.HasContentPack(System.String)
+  - ShapeEngine.Content.ContentManager.RemoveAllContentPacks(System.Boolean)
+  - ShapeEngine.Content.ContentManager.RemoveContentPack(ShapeEngine.Content.ContentPack,System.Boolean)
+  - ShapeEngine.Content.ContentManager.RemoveContentPack(System.String,System.Boolean)
+  - ShapeEngine.Content.ContentManager.RootDirectory
+  - ShapeEngine.Content.ContentManager.TryGetContentPack(System.String,ShapeEngine.Content.ContentPack@)
+  - ShapeEngine.Content.ContentManager.TryLoadFont(System.String,Raylib_cs.Font@,System.Int32)
+  - ShapeEngine.Content.ContentManager.TryLoadFragmentShader(System.String,Raylib_cs.Shader@)
+  - ShapeEngine.Content.ContentManager.TryLoadImage(System.String,Raylib_cs.Image@)
+  - ShapeEngine.Content.ContentManager.TryLoadMusic(System.String,Raylib_cs.Music@)
+  - ShapeEngine.Content.ContentManager.TryLoadSound(System.String,Raylib_cs.Sound@)
+  - ShapeEngine.Content.ContentManager.TryLoadText(System.String,System.String@)
+  - ShapeEngine.Content.ContentManager.TryLoadTexture(System.String,Raylib_cs.Texture2D@)
+  - ShapeEngine.Content.ContentManager.TryLoadVertexShader(System.String,Raylib_cs.Shader@)
+  - ShapeEngine.Content.ContentManager.TryLoadWave(System.String,Raylib_cs.Wave@)
+  - ShapeEngine.Content.ContentManager.UnloadAllContentPacks
+  - ShapeEngine.Content.ContentManager.UnloadContent
   langs:
   - csharp
   - vb
@@ -46,19 +41,22 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ContentManager
     path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 7
+    startLine: 11
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
-  summary: Provides a simple class to load content and automatically unload all loaded content when close is called.
+  summary: >-
+    Manages loading, caching, and unloading of various content types (textures, shaders, fonts, sounds, etc.)
+
+    from disk and content packs for the game.
+
+    Provides methods to retrieve and manage content efficiently.
   example: []
   syntax:
-    content: 'public sealed class ContentManager : IContentManager'
-    content.vb: Public NotInheritable Class ContentManager Implements IContentManager
+    content: public sealed class ContentManager
+    content.vb: Public NotInheritable Class ContentManager
   inheritance:
   - System.Object
-  implements:
-  - ShapeEngine.Content.IContentManager
   inheritedMembers:
   - System.Object.Equals(System.Object)
   - System.Object.Equals(System.Object,System.Object)
@@ -66,16 +64,49 @@ items:
   - System.Object.GetType
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
-- uid: ShapeEngine.Content.ContentManager.#ctor
-  commentId: M:ShapeEngine.Content.ContentManager.#ctor
-  id: '#ctor'
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+- uid: ShapeEngine.Content.ContentManager.RootDirectory
+  commentId: F:ShapeEngine.Content.ContentManager.RootDirectory
+  id: RootDirectory
   parent: ShapeEngine.Content.ContentManager
   langs:
   - csharp
   - vb
-  name: ContentManager()
-  nameWithType: ContentManager.ContentManager()
-  fullName: ShapeEngine.Content.ContentManager.ContentManager()
+  name: RootDirectory
+  nameWithType: ContentManager.RootDirectory
+  fullName: ShapeEngine.Content.ContentManager.RootDirectory
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Content/ContentManager.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: RootDirectory
+    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
+    startLine: 17
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Content
+  summary: The root directory for all content managed by this ContentManager.
+  example: []
+  syntax:
+    content: public readonly string RootDirectory
+    return:
+      type: System.String
+    content.vb: Public ReadOnly RootDirectory As String
+- uid: ShapeEngine.Content.ContentManager.#ctor(System.String)
+  commentId: M:ShapeEngine.Content.ContentManager.#ctor(System.String)
+  id: '#ctor(System.String)'
+  parent: ShapeEngine.Content.ContentManager
+  langs:
+  - csharp
+  - vb
+  name: ContentManager(string)
+  nameWithType: ContentManager.ContentManager(string)
+  fullName: ShapeEngine.Content.ContentManager.ContentManager(string)
   type: Constructor
   source:
     remote:
@@ -84,19 +115,798 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 20
+    startLine: 94
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
-  summary: Creates a new content manager.
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Content.ContentManager" data-throw-if-not-resolved="false"></xref> class with the specified root directory.
+  remarks: >-
+    The <code class="paramref">rootDirectory</code> parameter specifies the base directory from which all content paths are resolved.
+
+    It acts as the root for loading, caching, and managing content files.
+
+    All relative file paths used by the ContentManager are interpreted with respect to this directory.
+
+    If a relative path used for loading a resource contains the <xref href="ShapeEngine.Content.ContentManager.RootDirectory" data-throw-if-not-resolved="false"></xref>,
+
+    the <xref href="ShapeEngine.Content.ContentManager.RootDirectory" data-throw-if-not-resolved="false"></xref> will be stripped from the path before further processing.
+
+    If no content pack is found for a given relative path, the ContentManager will attempt to load the resource
+
+    directly from the file system using the combined path of <xref href="ShapeEngine.Content.ContentManager.RootDirectory" data-throw-if-not-resolved="false"></xref> and the relative path.
   example: []
   syntax:
-    content: public ContentManager()
-    content.vb: Public Sub New()
+    content: public ContentManager(string rootDirectory)
+    parameters:
+    - id: rootDirectory
+      type: System.String
+      description: The root directory for all content managed by this ContentManager.
+    content.vb: Public Sub New(rootDirectory As String)
   overload: ShapeEngine.Content.ContentManager.#ctor*
-  nameWithType.vb: ContentManager.New()
-  fullName.vb: ShapeEngine.Content.ContentManager.New()
-  name.vb: New()
+  nameWithType.vb: ContentManager.New(String)
+  fullName.vb: ShapeEngine.Content.ContentManager.New(String)
+  name.vb: New(String)
+- uid: ShapeEngine.Content.ContentManager.AddContentPack(ShapeEngine.Content.ContentPack,System.String)
+  commentId: M:ShapeEngine.Content.ContentManager.AddContentPack(ShapeEngine.Content.ContentPack,System.String)
+  id: AddContentPack(ShapeEngine.Content.ContentPack,System.String)
+  parent: ShapeEngine.Content.ContentManager
+  langs:
+  - csharp
+  - vb
+  name: AddContentPack(ContentPack, string)
+  nameWithType: ContentManager.AddContentPack(ContentPack, string)
+  fullName: ShapeEngine.Content.ContentManager.AddContentPack(ShapeEngine.Content.ContentPack, string)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Content/ContentManager.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: AddContentPack
+    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
+    startLine: 108
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Content
+  summary: Adds a content pack to the manager with the specified root path.
+  example: []
+  syntax:
+    content: public bool AddContentPack(ContentPack pack, string root)
+    parameters:
+    - id: pack
+      type: ShapeEngine.Content.ContentPack
+      description: The content pack to add.
+    - id: root
+      type: System.String
+      description: The root path under which the content pack will be accessible.
+    return:
+      type: System.Boolean
+      description: True if the content pack was added successfully; false if the root is empty or already exists.
+    content.vb: Public Function AddContentPack(pack As ContentPack, root As String) As Boolean
+  overload: ShapeEngine.Content.ContentManager.AddContentPack*
+  nameWithType.vb: ContentManager.AddContentPack(ContentPack, String)
+  fullName.vb: ShapeEngine.Content.ContentManager.AddContentPack(ShapeEngine.Content.ContentPack, String)
+  name.vb: AddContentPack(ContentPack, String)
+- uid: ShapeEngine.Content.ContentManager.RemoveContentPack(System.String,System.Boolean)
+  commentId: M:ShapeEngine.Content.ContentManager.RemoveContentPack(System.String,System.Boolean)
+  id: RemoveContentPack(System.String,System.Boolean)
+  parent: ShapeEngine.Content.ContentManager
+  langs:
+  - csharp
+  - vb
+  name: RemoveContentPack(string, bool)
+  nameWithType: ContentManager.RemoveContentPack(string, bool)
+  fullName: ShapeEngine.Content.ContentManager.RemoveContentPack(string, bool)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Content/ContentManager.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: RemoveContentPack
+    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
+    startLine: 126
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Content
+  summary: Removes a content pack from the manager by its root path.
+  example: []
+  syntax:
+    content: public bool RemoveContentPack(string root, bool clear = true)
+    parameters:
+    - id: root
+      type: System.String
+      description: The root path of the content pack to remove.
+    - id: clear
+      type: System.Boolean
+      description: If true, clears the content pack before removal.
+    return:
+      type: System.Boolean
+      description: True if the content pack was removed; false if not found.
+    content.vb: Public Function RemoveContentPack(root As String, clear As Boolean = True) As Boolean
+  overload: ShapeEngine.Content.ContentManager.RemoveContentPack*
+  nameWithType.vb: ContentManager.RemoveContentPack(String, Boolean)
+  fullName.vb: ShapeEngine.Content.ContentManager.RemoveContentPack(String, Boolean)
+  name.vb: RemoveContentPack(String, Boolean)
+- uid: ShapeEngine.Content.ContentManager.RemoveContentPack(ShapeEngine.Content.ContentPack,System.Boolean)
+  commentId: M:ShapeEngine.Content.ContentManager.RemoveContentPack(ShapeEngine.Content.ContentPack,System.Boolean)
+  id: RemoveContentPack(ShapeEngine.Content.ContentPack,System.Boolean)
+  parent: ShapeEngine.Content.ContentManager
+  langs:
+  - csharp
+  - vb
+  name: RemoveContentPack(ContentPack, bool)
+  nameWithType: ContentManager.RemoveContentPack(ContentPack, bool)
+  fullName: ShapeEngine.Content.ContentManager.RemoveContentPack(ShapeEngine.Content.ContentPack, bool)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Content/ContentManager.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: RemoveContentPack
+    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
+    startLine: 143
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Content
+  summary: Removes a content pack from the manager by its instance.
+  example: []
+  syntax:
+    content: public bool RemoveContentPack(ContentPack pack, bool clear = true)
+    parameters:
+    - id: pack
+      type: ShapeEngine.Content.ContentPack
+      description: The content pack instance to remove.
+    - id: clear
+      type: System.Boolean
+      description: If true, clears the content pack before removal.
+    return:
+      type: System.Boolean
+      description: True if the content pack was removed; false if not found.
+    content.vb: Public Function RemoveContentPack(pack As ContentPack, clear As Boolean = True) As Boolean
+  overload: ShapeEngine.Content.ContentManager.RemoveContentPack*
+  nameWithType.vb: ContentManager.RemoveContentPack(ContentPack, Boolean)
+  fullName.vb: ShapeEngine.Content.ContentManager.RemoveContentPack(ShapeEngine.Content.ContentPack, Boolean)
+  name.vb: RemoveContentPack(ContentPack, Boolean)
+- uid: ShapeEngine.Content.ContentManager.RemoveAllContentPacks(System.Boolean)
+  commentId: M:ShapeEngine.Content.ContentManager.RemoveAllContentPacks(System.Boolean)
+  id: RemoveAllContentPacks(System.Boolean)
+  parent: ShapeEngine.Content.ContentManager
+  langs:
+  - csharp
+  - vb
+  name: RemoveAllContentPacks(bool)
+  nameWithType: ContentManager.RemoveAllContentPacks(bool)
+  fullName: ShapeEngine.Content.ContentManager.RemoveAllContentPacks(bool)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Content/ContentManager.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: RemoveAllContentPacks
+    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
+    startLine: 159
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Content
+  summary: Removes all content packs from the manager.
+  example: []
+  syntax:
+    content: public void RemoveAllContentPacks(bool clear = true)
+    parameters:
+    - id: clear
+      type: System.Boolean
+      description: If true, clears each content pack before removal.
+    content.vb: Public Sub RemoveAllContentPacks(clear As Boolean = True)
+  overload: ShapeEngine.Content.ContentManager.RemoveAllContentPacks*
+  nameWithType.vb: ContentManager.RemoveAllContentPacks(Boolean)
+  fullName.vb: ShapeEngine.Content.ContentManager.RemoveAllContentPacks(Boolean)
+  name.vb: RemoveAllContentPacks(Boolean)
+- uid: ShapeEngine.Content.ContentManager.GetAllContentPacks
+  commentId: M:ShapeEngine.Content.ContentManager.GetAllContentPacks
+  id: GetAllContentPacks
+  parent: ShapeEngine.Content.ContentManager
+  langs:
+  - csharp
+  - vb
+  name: GetAllContentPacks()
+  nameWithType: ContentManager.GetAllContentPacks()
+  fullName: ShapeEngine.Content.ContentManager.GetAllContentPacks()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Content/ContentManager.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetAllContentPacks
+    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
+    startLine: 167
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Content
+  summary: Gets a list of all content packs managed by this ContentManager.
+  example: []
+  syntax:
+    content: public List<ContentPack> GetAllContentPacks()
+    return:
+      type: System.Collections.Generic.List{ShapeEngine.Content.ContentPack}
+    content.vb: Public Function GetAllContentPacks() As List(Of ContentPack)
+  overload: ShapeEngine.Content.ContentManager.GetAllContentPacks*
+- uid: ShapeEngine.Content.ContentManager.GetAllLoadedContentPacks
+  commentId: M:ShapeEngine.Content.ContentManager.GetAllLoadedContentPacks
+  id: GetAllLoadedContentPacks
+  parent: ShapeEngine.Content.ContentManager
+  langs:
+  - csharp
+  - vb
+  name: GetAllLoadedContentPacks()
+  nameWithType: ContentManager.GetAllLoadedContentPacks()
+  fullName: ShapeEngine.Content.ContentManager.GetAllLoadedContentPacks()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Content/ContentManager.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetAllLoadedContentPacks
+    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
+    startLine: 175
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Content
+  summary: >-
+    Gets a list of all loaded content packs managed by this ContentManager.
+
+    Only content packs with <code>IsLoaded</code> set to true are included.
+  example: []
+  syntax:
+    content: public List<ContentPack> GetAllLoadedContentPacks()
+    return:
+      type: System.Collections.Generic.List{ShapeEngine.Content.ContentPack}
+    content.vb: Public Function GetAllLoadedContentPacks() As List(Of ContentPack)
+  overload: ShapeEngine.Content.ContentManager.GetAllLoadedContentPacks*
+- uid: ShapeEngine.Content.ContentManager.HasContentPack(System.String)
+  commentId: M:ShapeEngine.Content.ContentManager.HasContentPack(System.String)
+  id: HasContentPack(System.String)
+  parent: ShapeEngine.Content.ContentManager
+  langs:
+  - csharp
+  - vb
+  name: HasContentPack(string)
+  nameWithType: ContentManager.HasContentPack(string)
+  fullName: ShapeEngine.Content.ContentManager.HasContentPack(string)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Content/ContentManager.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: HasContentPack
+    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
+    startLine: 184
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Content
+  summary: Checks if a content pack with the specified root path exists in the manager.
+  example: []
+  syntax:
+    content: public bool HasContentPack(string root)
+    parameters:
+    - id: root
+      type: System.String
+      description: The root path of the content pack to check for existence.
+    return:
+      type: System.Boolean
+      description: True if the content pack exists; otherwise, false.
+    content.vb: Public Function HasContentPack(root As String) As Boolean
+  overload: ShapeEngine.Content.ContentManager.HasContentPack*
+  nameWithType.vb: ContentManager.HasContentPack(String)
+  fullName.vb: ShapeEngine.Content.ContentManager.HasContentPack(String)
+  name.vb: HasContentPack(String)
+- uid: ShapeEngine.Content.ContentManager.TryGetContentPack(System.String,ShapeEngine.Content.ContentPack@)
+  commentId: M:ShapeEngine.Content.ContentManager.TryGetContentPack(System.String,ShapeEngine.Content.ContentPack@)
+  id: TryGetContentPack(System.String,ShapeEngine.Content.ContentPack@)
+  parent: ShapeEngine.Content.ContentManager
+  langs:
+  - csharp
+  - vb
+  name: TryGetContentPack(string, out ContentPack?)
+  nameWithType: ContentManager.TryGetContentPack(string, out ContentPack?)
+  fullName: ShapeEngine.Content.ContentManager.TryGetContentPack(string, out ShapeEngine.Content.ContentPack?)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Content/ContentManager.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: TryGetContentPack
+    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
+    startLine: 195
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Content
+  summary: Tries to get a content pack by its root path.
+  example: []
+  syntax:
+    content: public bool TryGetContentPack(string root, out ContentPack? pack)
+    parameters:
+    - id: root
+      type: System.String
+      description: The root path of the content pack.
+    - id: pack
+      type: ShapeEngine.Content.ContentPack
+      description: The found content pack, or null if not found.
+    return:
+      type: System.Boolean
+      description: True if the content pack exists; otherwise, false.
+    content.vb: Public Function TryGetContentPack(root As String, pack As ContentPack) As Boolean
+  overload: ShapeEngine.Content.ContentManager.TryGetContentPack*
+  nameWithType.vb: ContentManager.TryGetContentPack(String, ContentPack)
+  fullName.vb: ShapeEngine.Content.ContentManager.TryGetContentPack(String, ShapeEngine.Content.ContentPack)
+  name.vb: TryGetContentPack(String, ContentPack)
+- uid: ShapeEngine.Content.ContentManager.TryLoadTexture(System.String,Raylib_cs.Texture2D@)
+  commentId: M:ShapeEngine.Content.ContentManager.TryLoadTexture(System.String,Raylib_cs.Texture2D@)
+  id: TryLoadTexture(System.String,Raylib_cs.Texture2D@)
+  parent: ShapeEngine.Content.ContentManager
+  langs:
+  - csharp
+  - vb
+  name: TryLoadTexture(string, out Texture2D)
+  nameWithType: ContentManager.TryLoadTexture(string, out Texture2D)
+  fullName: ShapeEngine.Content.ContentManager.TryLoadTexture(string, out Raylib_cs.Texture2D)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Content/ContentManager.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: TryLoadTexture
+    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
+    startLine: 209
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Content
+  summary: >-
+    Attempts to load a texture from the specified file path.
+
+    Checks the cache, content packs, and file system in order.
+  example: []
+  syntax:
+    content: public bool TryLoadTexture(string filePath, out Texture2D texture)
+    parameters:
+    - id: filePath
+      type: System.String
+      description: The file path to the texture to load.
+    - id: texture
+      type: Raylib_cs.Texture2D
+      description: The loaded <xref href="Raylib_cs.Texture2D" data-throw-if-not-resolved="false"></xref> if successful; otherwise, default.
+    return:
+      type: System.Boolean
+      description: True if the texture was loaded successfully; otherwise, false.
+    content.vb: Public Function TryLoadTexture(filePath As String, texture As Texture2D) As Boolean
+  overload: ShapeEngine.Content.ContentManager.TryLoadTexture*
+  nameWithType.vb: ContentManager.TryLoadTexture(String, Texture2D)
+  fullName.vb: ShapeEngine.Content.ContentManager.TryLoadTexture(String, Raylib_cs.Texture2D)
+  name.vb: TryLoadTexture(String, Texture2D)
+- uid: ShapeEngine.Content.ContentManager.TryLoadFragmentShader(System.String,Raylib_cs.Shader@)
+  commentId: M:ShapeEngine.Content.ContentManager.TryLoadFragmentShader(System.String,Raylib_cs.Shader@)
+  id: TryLoadFragmentShader(System.String,Raylib_cs.Shader@)
+  parent: ShapeEngine.Content.ContentManager
+  langs:
+  - csharp
+  - vb
+  name: TryLoadFragmentShader(string, out Shader)
+  nameWithType: ContentManager.TryLoadFragmentShader(string, out Shader)
+  fullName: ShapeEngine.Content.ContentManager.TryLoadFragmentShader(string, out Raylib_cs.Shader)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Content/ContentManager.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: TryLoadFragmentShader
+    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
+    startLine: 265
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Content
+  summary: >-
+    Attempts to load a fragment shader from the specified file path.
+
+    Checks the cache, content packs, and file system in order.
+  example: []
+  syntax:
+    content: public bool TryLoadFragmentShader(string filePath, out Shader shader)
+    parameters:
+    - id: filePath
+      type: System.String
+      description: The file path to the fragment shader to load.
+    - id: shader
+      type: Raylib_cs.Shader
+      description: The loaded <xref href="Raylib_cs.Shader" data-throw-if-not-resolved="false"></xref> if successful; otherwise, default.
+    return:
+      type: System.Boolean
+      description: True if the fragment shader was loaded successfully; otherwise, false.
+    content.vb: Public Function TryLoadFragmentShader(filePath As String, shader As Shader) As Boolean
+  overload: ShapeEngine.Content.ContentManager.TryLoadFragmentShader*
+  nameWithType.vb: ContentManager.TryLoadFragmentShader(String, Shader)
+  fullName.vb: ShapeEngine.Content.ContentManager.TryLoadFragmentShader(String, Raylib_cs.Shader)
+  name.vb: TryLoadFragmentShader(String, Shader)
+- uid: ShapeEngine.Content.ContentManager.TryLoadVertexShader(System.String,Raylib_cs.Shader@)
+  commentId: M:ShapeEngine.Content.ContentManager.TryLoadVertexShader(System.String,Raylib_cs.Shader@)
+  id: TryLoadVertexShader(System.String,Raylib_cs.Shader@)
+  parent: ShapeEngine.Content.ContentManager
+  langs:
+  - csharp
+  - vb
+  name: TryLoadVertexShader(string, out Shader)
+  nameWithType: ContentManager.TryLoadVertexShader(string, out Shader)
+  fullName: ShapeEngine.Content.ContentManager.TryLoadVertexShader(string, out Raylib_cs.Shader)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Content/ContentManager.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: TryLoadVertexShader
+    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
+    startLine: 318
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Content
+  summary: >-
+    Attempts to load a vertex shader from the specified file path.
+
+    Checks the cache, content packs, and file system in order.
+  example: []
+  syntax:
+    content: public bool TryLoadVertexShader(string filePath, out Shader shader)
+    parameters:
+    - id: filePath
+      type: System.String
+      description: The file path to the vertex shader to load.
+    - id: shader
+      type: Raylib_cs.Shader
+      description: The loaded <xref href="Raylib_cs.Shader" data-throw-if-not-resolved="false"></xref> if successful; otherwise, default.
+    return:
+      type: System.Boolean
+      description: True if the vertex shader was loaded successfully; otherwise, false.
+    content.vb: Public Function TryLoadVertexShader(filePath As String, shader As Shader) As Boolean
+  overload: ShapeEngine.Content.ContentManager.TryLoadVertexShader*
+  nameWithType.vb: ContentManager.TryLoadVertexShader(String, Shader)
+  fullName.vb: ShapeEngine.Content.ContentManager.TryLoadVertexShader(String, Raylib_cs.Shader)
+  name.vb: TryLoadVertexShader(String, Shader)
+- uid: ShapeEngine.Content.ContentManager.TryLoadImage(System.String,Raylib_cs.Image@)
+  commentId: M:ShapeEngine.Content.ContentManager.TryLoadImage(System.String,Raylib_cs.Image@)
+  id: TryLoadImage(System.String,Raylib_cs.Image@)
+  parent: ShapeEngine.Content.ContentManager
+  langs:
+  - csharp
+  - vb
+  name: TryLoadImage(string, out Image)
+  nameWithType: ContentManager.TryLoadImage(string, out Image)
+  fullName: ShapeEngine.Content.ContentManager.TryLoadImage(string, out Raylib_cs.Image)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Content/ContentManager.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: TryLoadImage
+    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
+    startLine: 370
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Content
+  summary: >-
+    Attempts to load an image from the specified file path.
+
+    Checks the cache, content packs, and file system in order.
+  example: []
+  syntax:
+    content: public bool TryLoadImage(string filePath, out Image image)
+    parameters:
+    - id: filePath
+      type: System.String
+      description: The file path to the image to load.
+    - id: image
+      type: Raylib_cs.Image
+      description: The loaded <xref href="Raylib_cs.Image" data-throw-if-not-resolved="false"></xref> if successful; otherwise, default.
+    return:
+      type: System.Boolean
+      description: True if the image was loaded successfully; otherwise, false.
+    content.vb: Public Function TryLoadImage(filePath As String, image As Image) As Boolean
+  overload: ShapeEngine.Content.ContentManager.TryLoadImage*
+  nameWithType.vb: ContentManager.TryLoadImage(String, Image)
+  fullName.vb: ShapeEngine.Content.ContentManager.TryLoadImage(String, Raylib_cs.Image)
+  name.vb: TryLoadImage(String, Image)
+- uid: ShapeEngine.Content.ContentManager.TryLoadFont(System.String,Raylib_cs.Font@,System.Int32)
+  commentId: M:ShapeEngine.Content.ContentManager.TryLoadFont(System.String,Raylib_cs.Font@,System.Int32)
+  id: TryLoadFont(System.String,Raylib_cs.Font@,System.Int32)
+  parent: ShapeEngine.Content.ContentManager
+  langs:
+  - csharp
+  - vb
+  name: TryLoadFont(string, out Font, int)
+  nameWithType: ContentManager.TryLoadFont(string, out Font, int)
+  fullName: ShapeEngine.Content.ContentManager.TryLoadFont(string, out Raylib_cs.Font, int)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Content/ContentManager.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: TryLoadFont
+    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
+    startLine: 424
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Content
+  summary: >-
+    Attempts to load a font from the specified file path with the given font size.
+
+    Checks the cache, content packs, and file system in order.
+  example: []
+  syntax:
+    content: public bool TryLoadFont(string filePath, out Font font, int fontSize = 100)
+    parameters:
+    - id: filePath
+      type: System.String
+      description: The file path to the font to load.
+    - id: font
+      type: Raylib_cs.Font
+      description: The loaded <xref href="Raylib_cs.Font" data-throw-if-not-resolved="false"></xref> if successful; otherwise, default.
+    - id: fontSize
+      type: System.Int32
+      description: The size of the font to load. Defaults to 100.
+    return:
+      type: System.Boolean
+      description: True if the font was loaded successfully; otherwise, false.
+    content.vb: Public Function TryLoadFont(filePath As String, font As Font, fontSize As Integer = 100) As Boolean
+  overload: ShapeEngine.Content.ContentManager.TryLoadFont*
+  nameWithType.vb: ContentManager.TryLoadFont(String, Font, Integer)
+  fullName.vb: ShapeEngine.Content.ContentManager.TryLoadFont(String, Raylib_cs.Font, Integer)
+  name.vb: TryLoadFont(String, Font, Integer)
+- uid: ShapeEngine.Content.ContentManager.TryLoadSound(System.String,Raylib_cs.Sound@)
+  commentId: M:ShapeEngine.Content.ContentManager.TryLoadSound(System.String,Raylib_cs.Sound@)
+  id: TryLoadSound(System.String,Raylib_cs.Sound@)
+  parent: ShapeEngine.Content.ContentManager
+  langs:
+  - csharp
+  - vb
+  name: TryLoadSound(string, out Sound)
+  nameWithType: ContentManager.TryLoadSound(string, out Sound)
+  fullName: ShapeEngine.Content.ContentManager.TryLoadSound(string, out Raylib_cs.Sound)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Content/ContentManager.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: TryLoadSound
+    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
+    startLine: 485
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Content
+  summary: >-
+    Attempts to load a sound from the specified file path.
+
+    Checks the cache, content packs, and file system in order.
+  example: []
+  syntax:
+    content: public bool TryLoadSound(string filePath, out Sound sound)
+    parameters:
+    - id: filePath
+      type: System.String
+      description: The file path to the sound to load.
+    - id: sound
+      type: Raylib_cs.Sound
+      description: The loaded <xref href="Raylib_cs.Sound" data-throw-if-not-resolved="false"></xref> if successful; otherwise, default.
+    return:
+      type: System.Boolean
+      description: True if the sound was loaded successfully; otherwise, false.
+    content.vb: Public Function TryLoadSound(filePath As String, sound As Sound) As Boolean
+  overload: ShapeEngine.Content.ContentManager.TryLoadSound*
+  nameWithType.vb: ContentManager.TryLoadSound(String, Sound)
+  fullName.vb: ShapeEngine.Content.ContentManager.TryLoadSound(String, Raylib_cs.Sound)
+  name.vb: TryLoadSound(String, Sound)
+- uid: ShapeEngine.Content.ContentManager.TryLoadMusic(System.String,Raylib_cs.Music@)
+  commentId: M:ShapeEngine.Content.ContentManager.TryLoadMusic(System.String,Raylib_cs.Music@)
+  id: TryLoadMusic(System.String,Raylib_cs.Music@)
+  parent: ShapeEngine.Content.ContentManager
+  langs:
+  - csharp
+  - vb
+  name: TryLoadMusic(string, out Music)
+  nameWithType: ContentManager.TryLoadMusic(string, out Music)
+  fullName: ShapeEngine.Content.ContentManager.TryLoadMusic(string, out Raylib_cs.Music)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Content/ContentManager.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: TryLoadMusic
+    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
+    startLine: 538
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Content
+  summary: >-
+    Attempts to load a music stream from the specified file path.
+
+    Checks the cache, content packs, and file system in order.
+  example: []
+  syntax:
+    content: public bool TryLoadMusic(string filePath, out Music music)
+    parameters:
+    - id: filePath
+      type: System.String
+      description: The file path to the music stream to load.
+    - id: music
+      type: Raylib_cs.Music
+      description: The loaded <xref href="Raylib_cs.Music" data-throw-if-not-resolved="false"></xref> if successful; otherwise, default.
+    return:
+      type: System.Boolean
+      description: True if the music stream was loaded successfully; otherwise, false.
+    content.vb: Public Function TryLoadMusic(filePath As String, music As Music) As Boolean
+  overload: ShapeEngine.Content.ContentManager.TryLoadMusic*
+  nameWithType.vb: ContentManager.TryLoadMusic(String, Music)
+  fullName.vb: ShapeEngine.Content.ContentManager.TryLoadMusic(String, Raylib_cs.Music)
+  name.vb: TryLoadMusic(String, Music)
+- uid: ShapeEngine.Content.ContentManager.TryLoadWave(System.String,Raylib_cs.Wave@)
+  commentId: M:ShapeEngine.Content.ContentManager.TryLoadWave(System.String,Raylib_cs.Wave@)
+  id: TryLoadWave(System.String,Raylib_cs.Wave@)
+  parent: ShapeEngine.Content.ContentManager
+  langs:
+  - csharp
+  - vb
+  name: TryLoadWave(string, out Wave)
+  nameWithType: ContentManager.TryLoadWave(string, out Wave)
+  fullName: ShapeEngine.Content.ContentManager.TryLoadWave(string, out Raylib_cs.Wave)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Content/ContentManager.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: TryLoadWave
+    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
+    startLine: 591
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Content
+  summary: >-
+    Attempts to load a wave from the specified file path.
+
+    Checks the cache, content packs, and file system in order.
+  example: []
+  syntax:
+    content: public bool TryLoadWave(string filePath, out Wave wave)
+    parameters:
+    - id: filePath
+      type: System.String
+      description: The file path to the wave to load.
+    - id: wave
+      type: Raylib_cs.Wave
+      description: The loaded <xref href="Raylib_cs.Wave" data-throw-if-not-resolved="false"></xref> if successful; otherwise, default.
+    return:
+      type: System.Boolean
+      description: True if the wave was loaded successfully; otherwise, false.
+    content.vb: Public Function TryLoadWave(filePath As String, wave As Wave) As Boolean
+  overload: ShapeEngine.Content.ContentManager.TryLoadWave*
+  nameWithType.vb: ContentManager.TryLoadWave(String, Wave)
+  fullName.vb: ShapeEngine.Content.ContentManager.TryLoadWave(String, Raylib_cs.Wave)
+  name.vb: TryLoadWave(String, Wave)
+- uid: ShapeEngine.Content.ContentManager.TryLoadText(System.String,System.String@)
+  commentId: M:ShapeEngine.Content.ContentManager.TryLoadText(System.String,System.String@)
+  id: TryLoadText(System.String,System.String@)
+  parent: ShapeEngine.Content.ContentManager
+  langs:
+  - csharp
+  - vb
+  name: TryLoadText(string, out string)
+  nameWithType: ContentManager.TryLoadText(string, out string)
+  fullName: ShapeEngine.Content.ContentManager.TryLoadText(string, out string)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Content/ContentManager.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: TryLoadText
+    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
+    startLine: 644
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Content
+  summary: >-
+    Attempts to load a text file from the specified file path.
+
+    Checks the cache, content packs, and file system in order.
+  example: []
+  syntax:
+    content: public bool TryLoadText(string filePath, out string text)
+    parameters:
+    - id: filePath
+      type: System.String
+      description: The file path to the text file to load.
+    - id: text
+      type: System.String
+      description: The loaded text if successful; otherwise, an empty string.
+    return:
+      type: System.Boolean
+      description: True if the text was loaded successfully; otherwise, false.
+    content.vb: Public Function TryLoadText(filePath As String, text As String) As Boolean
+  overload: ShapeEngine.Content.ContentManager.TryLoadText*
+  nameWithType.vb: ContentManager.TryLoadText(String, String)
+  fullName.vb: ShapeEngine.Content.ContentManager.TryLoadText(String, String)
+  name.vb: TryLoadText(String, String)
+- uid: ShapeEngine.Content.ContentManager.UnloadAllContentPacks
+  commentId: M:ShapeEngine.Content.ContentManager.UnloadAllContentPacks
+  id: UnloadAllContentPacks
+  parent: ShapeEngine.Content.ContentManager
+  langs:
+  - csharp
+  - vb
+  name: UnloadAllContentPacks()
+  nameWithType: ContentManager.UnloadAllContentPacks()
+  fullName: ShapeEngine.Content.ContentManager.UnloadAllContentPacks()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Content/ContentManager.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: UnloadAllContentPacks
+    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
+    startLine: 699
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Content
+  summary: >-
+    Unloads all content packs by calling <code>Clear()</code> on each loaded <xref href="ShapeEngine.Content.ContentPack" data-throw-if-not-resolved="false"></xref>.
+
+    Does not remove the content packs from the manager; use <xref href="ShapeEngine.Content.ContentManager.RemoveAllContentPacks(System.Boolean)" data-throw-if-not-resolved="false"></xref> to remove them.
+  example: []
+  syntax:
+    content: public void UnloadAllContentPacks()
+    content.vb: Public Sub UnloadAllContentPacks()
+  overload: ShapeEngine.Content.ContentManager.UnloadAllContentPacks*
+- uid: ShapeEngine.Content.ContentManager.UnloadContent
+  commentId: M:ShapeEngine.Content.ContentManager.UnloadContent
+  id: UnloadContent
+  parent: ShapeEngine.Content.ContentManager
+  langs:
+  - csharp
+  - vb
+  name: UnloadContent()
+  nameWithType: ContentManager.UnloadContent()
+  fullName: ShapeEngine.Content.ContentManager.UnloadContent()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Content/ContentManager.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: UnloadContent
+    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
+    startLine: 714
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Content
+  summary: >-
+    Unloads all cached content (shaders, textures, images, fonts, waves, sounds, music streams, and texts)
+
+    from the ContentManager, releasing their resources. Logs each unload operation.
+  example: []
+  syntax:
+    content: public void UnloadContent()
+    content.vb: Public Sub UnloadContent()
+  overload: ShapeEngine.Content.ContentManager.UnloadContent*
 - uid: ShapeEngine.Content.ContentManager.Close
   commentId: M:ShapeEngine.Content.ContentManager.Close
   id: Close
@@ -115,1059 +925,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Close
     path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 25
+    startLine: 779
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
-  summary: Unloads all loaded content.
+  summary: >-
+    Closes the ContentManager by unloading and removing all content packs and unloading all cached content.
+
+    Logs the start and finish of the closing process.
   example: []
   syntax:
     content: public void Close()
     content.vb: Public Sub Close()
   overload: ShapeEngine.Content.ContentManager.Close*
-  implements:
-  - ShapeEngine.Content.IContentManager.Close
-- uid: ShapeEngine.Content.ContentManager.LoadTexture(System.String)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadTexture(System.String)
-  id: LoadTexture(System.String)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadTexture(string)
-  nameWithType: ContentManager.LoadTexture(string)
-  fullName: ShapeEngine.Content.ContentManager.LoadTexture(string)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadTexture
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 65
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads a texture from the given file path.
-  example: []
-  syntax:
-    content: public Texture2D LoadTexture(string filePath)
-    parameters:
-    - id: filePath
-      type: System.String
-      description: The path to the texture file.
-    return:
-      type: Raylib_cs.Texture2D
-      description: The loaded texture.
-    content.vb: Public Function LoadTexture(filePath As String) As Texture2D
-  overload: ShapeEngine.Content.ContentManager.LoadTexture*
-  implements:
-  - ShapeEngine.Content.IContentManager.LoadTexture(System.String)
-  nameWithType.vb: ContentManager.LoadTexture(String)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadTexture(String)
-  name.vb: LoadTexture(String)
-- uid: ShapeEngine.Content.ContentManager.LoadImage(System.String)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadImage(System.String)
-  id: LoadImage(System.String)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadImage(string)
-  nameWithType: ContentManager.LoadImage(string)
-  fullName: ShapeEngine.Content.ContentManager.LoadImage(string)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadImage
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 76
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads an image from the given file path.
-  example: []
-  syntax:
-    content: public Image LoadImage(string filePath)
-    parameters:
-    - id: filePath
-      type: System.String
-      description: The path to the image file.
-    return:
-      type: Raylib_cs.Image
-      description: The loaded image.
-    content.vb: Public Function LoadImage(filePath As String) As Image
-  overload: ShapeEngine.Content.ContentManager.LoadImage*
-  implements:
-  - ShapeEngine.Content.IContentManager.LoadImage(System.String)
-  nameWithType.vb: ContentManager.LoadImage(String)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadImage(String)
-  name.vb: LoadImage(String)
-- uid: ShapeEngine.Content.ContentManager.LoadFont(System.String,System.Int32)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadFont(System.String,System.Int32)
-  id: LoadFont(System.String,System.Int32)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadFont(string, int)
-  nameWithType: ContentManager.LoadFont(string, int)
-  fullName: ShapeEngine.Content.ContentManager.LoadFont(string, int)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadFont
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 88
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads a font from the given file path.
-  example: []
-  syntax:
-    content: public Font LoadFont(string filePath, int fontSize = 100)
-    parameters:
-    - id: filePath
-      type: System.String
-      description: The path to the font file.
-    - id: fontSize
-      type: System.Int32
-      description: The size of the font.
-    return:
-      type: Raylib_cs.Font
-      description: The loaded font.
-    content.vb: Public Function LoadFont(filePath As String, fontSize As Integer = 100) As Font
-  overload: ShapeEngine.Content.ContentManager.LoadFont*
-  implements:
-  - ShapeEngine.Content.IContentManager.LoadFont(System.String,System.Int32)
-  nameWithType.vb: ContentManager.LoadFont(String, Integer)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadFont(String, Integer)
-  name.vb: LoadFont(String, Integer)
-- uid: ShapeEngine.Content.ContentManager.LoadWave(System.String)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadWave(System.String)
-  id: LoadWave(System.String)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadWave(string)
-  nameWithType: ContentManager.LoadWave(string)
-  fullName: ShapeEngine.Content.ContentManager.LoadWave(string)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadWave
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 99
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads a wave from the given file path.
-  example: []
-  syntax:
-    content: public Wave LoadWave(string filePath)
-    parameters:
-    - id: filePath
-      type: System.String
-      description: The path to the wave file.
-    return:
-      type: Raylib_cs.Wave
-      description: The loaded wave.
-    content.vb: Public Function LoadWave(filePath As String) As Wave
-  overload: ShapeEngine.Content.ContentManager.LoadWave*
-  implements:
-  - ShapeEngine.Content.IContentManager.LoadWave(System.String)
-  nameWithType.vb: ContentManager.LoadWave(String)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadWave(String)
-  name.vb: LoadWave(String)
-- uid: ShapeEngine.Content.ContentManager.LoadSound(System.String)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadSound(System.String)
-  id: LoadSound(System.String)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadSound(string)
-  nameWithType: ContentManager.LoadSound(string)
-  fullName: ShapeEngine.Content.ContentManager.LoadSound(string)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadSound
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 110
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads a sound from the given file path.
-  example: []
-  syntax:
-    content: public Sound LoadSound(string filePath)
-    parameters:
-    - id: filePath
-      type: System.String
-      description: The path to the sound file.
-    return:
-      type: Raylib_cs.Sound
-      description: The loaded sound.
-    content.vb: Public Function LoadSound(filePath As String) As Sound
-  overload: ShapeEngine.Content.ContentManager.LoadSound*
-  implements:
-  - ShapeEngine.Content.IContentManager.LoadSound(System.String)
-  nameWithType.vb: ContentManager.LoadSound(String)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadSound(String)
-  name.vb: LoadSound(String)
-- uid: ShapeEngine.Content.ContentManager.LoadMusic(System.String)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadMusic(System.String)
-  id: LoadMusic(System.String)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadMusic(string)
-  nameWithType: ContentManager.LoadMusic(string)
-  fullName: ShapeEngine.Content.ContentManager.LoadMusic(string)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadMusic
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 122
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads music from the given file path.
-  example: []
-  syntax:
-    content: public Music LoadMusic(string filePath)
-    parameters:
-    - id: filePath
-      type: System.String
-      description: The path to the music file.
-    return:
-      type: Raylib_cs.Music
-      description: The loaded music.
-    content.vb: Public Function LoadMusic(filePath As String) As Music
-  overload: ShapeEngine.Content.ContentManager.LoadMusic*
-  implements:
-  - ShapeEngine.Content.IContentManager.LoadMusic(System.String)
-  nameWithType.vb: ContentManager.LoadMusic(String)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadMusic(String)
-  name.vb: LoadMusic(String)
-- uid: ShapeEngine.Content.ContentManager.LoadFragmentShader(System.String)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadFragmentShader(System.String)
-  id: LoadFragmentShader(System.String)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadFragmentShader(string)
-  nameWithType: ContentManager.LoadFragmentShader(string)
-  fullName: ShapeEngine.Content.ContentManager.LoadFragmentShader(string)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadFragmentShader
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 133
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads a fragment shader from the given file path.
-  example: []
-  syntax:
-    content: public Shader LoadFragmentShader(string filePath)
-    parameters:
-    - id: filePath
-      type: System.String
-      description: The path to the fragment shader file.
-    return:
-      type: Raylib_cs.Shader
-      description: The loaded shader.
-    content.vb: Public Function LoadFragmentShader(filePath As String) As Shader
-  overload: ShapeEngine.Content.ContentManager.LoadFragmentShader*
-  implements:
-  - ShapeEngine.Content.IContentManager.LoadFragmentShader(System.String)
-  nameWithType.vb: ContentManager.LoadFragmentShader(String)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadFragmentShader(String)
-  name.vb: LoadFragmentShader(String)
-- uid: ShapeEngine.Content.ContentManager.LoadVertexShader(System.String)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadVertexShader(System.String)
-  id: LoadVertexShader(System.String)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadVertexShader(string)
-  nameWithType: ContentManager.LoadVertexShader(string)
-  fullName: ShapeEngine.Content.ContentManager.LoadVertexShader(string)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadVertexShader
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 144
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads a vertex shader from the given file path.
-  example: []
-  syntax:
-    content: public Shader LoadVertexShader(string filePath)
-    parameters:
-    - id: filePath
-      type: System.String
-      description: The path to the vertex shader file.
-    return:
-      type: Raylib_cs.Shader
-      description: The loaded shader.
-    content.vb: Public Function LoadVertexShader(filePath As String) As Shader
-  overload: ShapeEngine.Content.ContentManager.LoadVertexShader*
-  implements:
-  - ShapeEngine.Content.IContentManager.LoadVertexShader(System.String)
-  nameWithType.vb: ContentManager.LoadVertexShader(String)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadVertexShader(String)
-  name.vb: LoadVertexShader(String)
-- uid: ShapeEngine.Content.ContentManager.LoadText(System.String)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadText(System.String)
-  id: LoadText(System.String)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadText(string)
-  nameWithType: ContentManager.LoadText(string)
-  fullName: ShapeEngine.Content.ContentManager.LoadText(string)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadText
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 155
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads a text string from the given file path.
-  example: []
-  syntax:
-    content: public string LoadText(string filePath)
-    parameters:
-    - id: filePath
-      type: System.String
-      description: The path to the text file.
-    return:
-      type: System.String
-      description: The loaded text string.
-    content.vb: Public Function LoadText(filePath As String) As String
-  overload: ShapeEngine.Content.ContentManager.LoadText*
-  implements:
-  - ShapeEngine.Content.IContentManager.LoadText(System.String)
-  nameWithType.vb: ContentManager.LoadText(String)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadText(String)
-  name.vb: LoadText(String)
-- uid: ShapeEngine.Content.ContentManager.LoadTexturesFromDirectory(System.String,System.Boolean)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadTexturesFromDirectory(System.String,System.Boolean)
-  id: LoadTexturesFromDirectory(System.String,System.Boolean)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadTexturesFromDirectory(string, bool)
-  nameWithType: ContentManager.LoadTexturesFromDirectory(string, bool)
-  fullName: ShapeEngine.Content.ContentManager.LoadTexturesFromDirectory(string, bool)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadTexturesFromDirectory
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 173
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads all textures from the specified directory.
-  remarks: 'Only loads files with valid texture extensions: .png, .bmp, .tga, .jpg, .jpeg, .gif, .psd, .pkm, .ktx, .pvr, .dds, .hdr'
-  example: []
-  syntax:
-    content: public List<Texture2D> LoadTexturesFromDirectory(string directoryPath, bool recursive = false)
-    parameters:
-    - id: directoryPath
-      type: System.String
-      description: The path to the directory containing texture files.
-    - id: recursive
-      type: System.Boolean
-      description: Whether to search subdirectories recursively.
-    return:
-      type: System.Collections.Generic.List{Raylib_cs.Texture2D}
-      description: A list of loaded <xref href="Raylib_cs.Texture2D" data-throw-if-not-resolved="false"></xref> objects.
-    content.vb: Public Function LoadTexturesFromDirectory(directoryPath As String, recursive As Boolean = False) As List(Of Texture2D)
-  overload: ShapeEngine.Content.ContentManager.LoadTexturesFromDirectory*
-  nameWithType.vb: ContentManager.LoadTexturesFromDirectory(String, Boolean)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadTexturesFromDirectory(String, Boolean)
-  name.vb: LoadTexturesFromDirectory(String, Boolean)
-- uid: ShapeEngine.Content.ContentManager.LoadImagesFromDirectory(System.String,System.Boolean)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadImagesFromDirectory(System.String,System.Boolean)
-  id: LoadImagesFromDirectory(System.String,System.Boolean)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadImagesFromDirectory(string, bool)
-  nameWithType: ContentManager.LoadImagesFromDirectory(string, bool)
-  fullName: ShapeEngine.Content.ContentManager.LoadImagesFromDirectory(string, bool)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadImagesFromDirectory
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 188
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads all images from the specified directory.
-  remarks: 'Only loads files with valid image extensions: .png, .bmp, .tga, .jpg, .jpeg, .gif, .psd, .pkm, .ktx, .pvr, .dds, .hdr'
-  example: []
-  syntax:
-    content: public List<Image> LoadImagesFromDirectory(string directoryPath, bool recursive = false)
-    parameters:
-    - id: directoryPath
-      type: System.String
-      description: The path to the directory containing image files.
-    - id: recursive
-      type: System.Boolean
-      description: Whether to search subdirectories recursively.
-    return:
-      type: System.Collections.Generic.List{Raylib_cs.Image}
-      description: A list of loaded <xref href="Raylib_cs.Image" data-throw-if-not-resolved="false"></xref> objects.
-    content.vb: Public Function LoadImagesFromDirectory(directoryPath As String, recursive As Boolean = False) As List(Of Image)
-  overload: ShapeEngine.Content.ContentManager.LoadImagesFromDirectory*
-  nameWithType.vb: ContentManager.LoadImagesFromDirectory(String, Boolean)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadImagesFromDirectory(String, Boolean)
-  name.vb: LoadImagesFromDirectory(String, Boolean)
-- uid: ShapeEngine.Content.ContentManager.LoadFontsFromDirectory(System.String,System.Int32,System.Boolean)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadFontsFromDirectory(System.String,System.Int32,System.Boolean)
-  id: LoadFontsFromDirectory(System.String,System.Int32,System.Boolean)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadFontsFromDirectory(string, int, bool)
-  nameWithType: ContentManager.LoadFontsFromDirectory(string, int, bool)
-  fullName: ShapeEngine.Content.ContentManager.LoadFontsFromDirectory(string, int, bool)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadFontsFromDirectory
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 204
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads all fonts from the specified directory.
-  remarks: 'Only loads files with valid font extensions: .ttf, .otf'
-  example: []
-  syntax:
-    content: public List<Font> LoadFontsFromDirectory(string directoryPath, int fontSize = 100, bool recursive = false)
-    parameters:
-    - id: directoryPath
-      type: System.String
-      description: The path to the directory containing font files.
-    - id: fontSize
-      type: System.Int32
-      description: The size of the fonts to load. Default is 100.
-    - id: recursive
-      type: System.Boolean
-      description: Whether to search subdirectories recursively. Default is false.
-    return:
-      type: System.Collections.Generic.List{Raylib_cs.Font}
-      description: A list of loaded <xref href="Raylib_cs.Font" data-throw-if-not-resolved="false"></xref> objects.
-    content.vb: Public Function LoadFontsFromDirectory(directoryPath As String, fontSize As Integer = 100, recursive As Boolean = False) As List(Of Font)
-  overload: ShapeEngine.Content.ContentManager.LoadFontsFromDirectory*
-  nameWithType.vb: ContentManager.LoadFontsFromDirectory(String, Integer, Boolean)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadFontsFromDirectory(String, Integer, Boolean)
-  name.vb: LoadFontsFromDirectory(String, Integer, Boolean)
-- uid: ShapeEngine.Content.ContentManager.LoadSoundsFromDirectory(System.String,System.Boolean)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadSoundsFromDirectory(System.String,System.Boolean)
-  id: LoadSoundsFromDirectory(System.String,System.Boolean)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadSoundsFromDirectory(string, bool)
-  nameWithType: ContentManager.LoadSoundsFromDirectory(string, bool)
-  fullName: ShapeEngine.Content.ContentManager.LoadSoundsFromDirectory(string, bool)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadSoundsFromDirectory
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 219
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads all sounds from the specified directory.
-  remarks: 'Only loads files with valid sound extensions: .wav, .mp3, .ogg, .flac'
-  example: []
-  syntax:
-    content: public List<Sound> LoadSoundsFromDirectory(string directoryPath, bool recursive = false)
-    parameters:
-    - id: directoryPath
-      type: System.String
-      description: The path to the directory containing sound files.
-    - id: recursive
-      type: System.Boolean
-      description: Whether to search subdirectories recursively.
-    return:
-      type: System.Collections.Generic.List{Raylib_cs.Sound}
-      description: A list of loaded <xref href="Raylib_cs.Sound" data-throw-if-not-resolved="false"></xref> objects.
-    content.vb: Public Function LoadSoundsFromDirectory(directoryPath As String, recursive As Boolean = False) As List(Of Sound)
-  overload: ShapeEngine.Content.ContentManager.LoadSoundsFromDirectory*
-  nameWithType.vb: ContentManager.LoadSoundsFromDirectory(String, Boolean)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadSoundsFromDirectory(String, Boolean)
-  name.vb: LoadSoundsFromDirectory(String, Boolean)
-- uid: ShapeEngine.Content.ContentManager.LoadMusicStreamsFromDirectory(System.String,System.Boolean)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadMusicStreamsFromDirectory(System.String,System.Boolean)
-  id: LoadMusicStreamsFromDirectory(System.String,System.Boolean)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadMusicStreamsFromDirectory(string, bool)
-  nameWithType: ContentManager.LoadMusicStreamsFromDirectory(string, bool)
-  fullName: ShapeEngine.Content.ContentManager.LoadMusicStreamsFromDirectory(string, bool)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadMusicStreamsFromDirectory
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 234
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads all music streams from the specified directory.
-  remarks: 'Only loads files with valid music extensions: .mp3, .ogg, .flac, .mod, .xm'
-  example: []
-  syntax:
-    content: public List<Music> LoadMusicStreamsFromDirectory(string directoryPath, bool recursive = false)
-    parameters:
-    - id: directoryPath
-      type: System.String
-      description: The path to the directory containing music files.
-    - id: recursive
-      type: System.Boolean
-      description: Whether to search subdirectories recursively.
-    return:
-      type: System.Collections.Generic.List{Raylib_cs.Music}
-      description: A list of loaded <xref href="Raylib_cs.Music" data-throw-if-not-resolved="false"></xref> objects.
-    content.vb: Public Function LoadMusicStreamsFromDirectory(directoryPath As String, recursive As Boolean = False) As List(Of Music)
-  overload: ShapeEngine.Content.ContentManager.LoadMusicStreamsFromDirectory*
-  nameWithType.vb: ContentManager.LoadMusicStreamsFromDirectory(String, Boolean)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadMusicStreamsFromDirectory(String, Boolean)
-  name.vb: LoadMusicStreamsFromDirectory(String, Boolean)
-- uid: ShapeEngine.Content.ContentManager.LoadWavesFromDirectory(System.String,System.Boolean)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadWavesFromDirectory(System.String,System.Boolean)
-  id: LoadWavesFromDirectory(System.String,System.Boolean)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadWavesFromDirectory(string, bool)
-  nameWithType: ContentManager.LoadWavesFromDirectory(string, bool)
-  fullName: ShapeEngine.Content.ContentManager.LoadWavesFromDirectory(string, bool)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadWavesFromDirectory
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 249
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads all wave files from the specified directory.
-  remarks: 'Only loads files with valid wave extensions: .wav, .mp3, .ogg, .flac'
-  example: []
-  syntax:
-    content: public List<Wave> LoadWavesFromDirectory(string directoryPath, bool recursive = false)
-    parameters:
-    - id: directoryPath
-      type: System.String
-      description: The path to the directory containing wave files.
-    - id: recursive
-      type: System.Boolean
-      description: Whether to search subdirectories recursively. Default is false.
-    return:
-      type: System.Collections.Generic.List{Raylib_cs.Wave}
-      description: A list of loaded <xref href="Raylib_cs.Wave" data-throw-if-not-resolved="false"></xref> objects.
-    content.vb: Public Function LoadWavesFromDirectory(directoryPath As String, recursive As Boolean = False) As List(Of Wave)
-  overload: ShapeEngine.Content.ContentManager.LoadWavesFromDirectory*
-  nameWithType.vb: ContentManager.LoadWavesFromDirectory(String, Boolean)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadWavesFromDirectory(String, Boolean)
-  name.vb: LoadWavesFromDirectory(String, Boolean)
-- uid: ShapeEngine.Content.ContentManager.LoadFragmentShadersFromDirectory(System.String,System.Boolean)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadFragmentShadersFromDirectory(System.String,System.Boolean)
-  id: LoadFragmentShadersFromDirectory(System.String,System.Boolean)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadFragmentShadersFromDirectory(string, bool)
-  nameWithType: ContentManager.LoadFragmentShadersFromDirectory(string, bool)
-  fullName: ShapeEngine.Content.ContentManager.LoadFragmentShadersFromDirectory(string, bool)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadFragmentShadersFromDirectory
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 264
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads all fragment shaders from the specified directory.
-  remarks: 'Only loads files with valid fragment shader extensions: .fs, .glsl, .frag'
-  example: []
-  syntax:
-    content: public List<Shader> LoadFragmentShadersFromDirectory(string directoryPath, bool recursive = false)
-    parameters:
-    - id: directoryPath
-      type: System.String
-      description: The path to the directory containing fragment shader files.
-    - id: recursive
-      type: System.Boolean
-      description: Whether to search subdirectories recursively. Default is false.
-    return:
-      type: System.Collections.Generic.List{Raylib_cs.Shader}
-      description: A list of loaded <xref href="Raylib_cs.Shader" data-throw-if-not-resolved="false"></xref> objects.
-    content.vb: Public Function LoadFragmentShadersFromDirectory(directoryPath As String, recursive As Boolean = False) As List(Of Shader)
-  overload: ShapeEngine.Content.ContentManager.LoadFragmentShadersFromDirectory*
-  nameWithType.vb: ContentManager.LoadFragmentShadersFromDirectory(String, Boolean)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadFragmentShadersFromDirectory(String, Boolean)
-  name.vb: LoadFragmentShadersFromDirectory(String, Boolean)
-- uid: ShapeEngine.Content.ContentManager.LoadVertexShadersFromDirectory(System.String,System.Boolean)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadVertexShadersFromDirectory(System.String,System.Boolean)
-  id: LoadVertexShadersFromDirectory(System.String,System.Boolean)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadVertexShadersFromDirectory(string, bool)
-  nameWithType: ContentManager.LoadVertexShadersFromDirectory(string, bool)
-  fullName: ShapeEngine.Content.ContentManager.LoadVertexShadersFromDirectory(string, bool)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadVertexShadersFromDirectory
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 279
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads all vertex shaders from the specified directory.
-  remarks: 'Only loads files with valid vertex shader extensions: .vs, .glsl, .vert'
-  example: []
-  syntax:
-    content: public List<Shader> LoadVertexShadersFromDirectory(string directoryPath, bool recursive = false)
-    parameters:
-    - id: directoryPath
-      type: System.String
-      description: The path to the directory containing vertex shader files.
-    - id: recursive
-      type: System.Boolean
-      description: Whether to search subdirectories recursively. Default is false.
-    return:
-      type: System.Collections.Generic.List{Raylib_cs.Shader}
-      description: A list of loaded <xref href="Raylib_cs.Shader" data-throw-if-not-resolved="false"></xref> objects.
-    content.vb: Public Function LoadVertexShadersFromDirectory(directoryPath As String, recursive As Boolean = False) As List(Of Shader)
-  overload: ShapeEngine.Content.ContentManager.LoadVertexShadersFromDirectory*
-  nameWithType.vb: ContentManager.LoadVertexShadersFromDirectory(String, Boolean)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadVertexShadersFromDirectory(String, Boolean)
-  name.vb: LoadVertexShadersFromDirectory(String, Boolean)
-- uid: ShapeEngine.Content.ContentManager.LoadTexturesWithFilenameFromDirectory(System.String,System.Boolean)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadTexturesWithFilenameFromDirectory(System.String,System.Boolean)
-  id: LoadTexturesWithFilenameFromDirectory(System.String,System.Boolean)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadTexturesWithFilenameFromDirectory(string, bool)
-  nameWithType: ContentManager.LoadTexturesWithFilenameFromDirectory(string, bool)
-  fullName: ShapeEngine.Content.ContentManager.LoadTexturesWithFilenameFromDirectory(string, bool)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadTexturesWithFilenameFromDirectory
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 299
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads all textures from a directory and returns a dictionary mapping file names (without extension) to Texture2D objects.
-  remarks: 'Only loads files with valid texture extensions: .png, .bmp, .tga, .jpg, .jpeg, .gif, .psd, .pkm, .ktx, .pvr, .dds, .hdr'
-  example: []
-  syntax:
-    content: public Dictionary<string, Texture2D> LoadTexturesWithFilenameFromDirectory(string directoryPath, bool recursive = false)
-    parameters:
-    - id: directoryPath
-      type: System.String
-      description: The directory path containing texture files.
-    - id: recursive
-      type: System.Boolean
-      description: Whether to search recursively in subdirectories. Default is false.
-    return:
-      type: System.Collections.Generic.Dictionary{System.String,Raylib_cs.Texture2D}
-      description: A dictionary mapping file names to loaded Texture2D objects.
-    content.vb: Public Function LoadTexturesWithFilenameFromDirectory(directoryPath As String, recursive As Boolean = False) As Dictionary(Of String, Texture2D)
-  overload: ShapeEngine.Content.ContentManager.LoadTexturesWithFilenameFromDirectory*
-  nameWithType.vb: ContentManager.LoadTexturesWithFilenameFromDirectory(String, Boolean)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadTexturesWithFilenameFromDirectory(String, Boolean)
-  name.vb: LoadTexturesWithFilenameFromDirectory(String, Boolean)
-- uid: ShapeEngine.Content.ContentManager.LoadImagesWithFilenameFromDirectory(System.String,System.Boolean)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadImagesWithFilenameFromDirectory(System.String,System.Boolean)
-  id: LoadImagesWithFilenameFromDirectory(System.String,System.Boolean)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadImagesWithFilenameFromDirectory(string, bool)
-  nameWithType: ContentManager.LoadImagesWithFilenameFromDirectory(string, bool)
-  fullName: ShapeEngine.Content.ContentManager.LoadImagesWithFilenameFromDirectory(string, bool)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadImagesWithFilenameFromDirectory
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 315
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads all images from a directory and returns a dictionary mapping file names (without extension) to Image objects.
-  remarks: 'Only loads files with valid image extensions: .png, .bmp, .tga, .jpg, .jpeg, .gif, .psd, .pkm, .ktx, .pvr, .dds, .hdr'
-  example: []
-  syntax:
-    content: public Dictionary<string, Image> LoadImagesWithFilenameFromDirectory(string directoryPath, bool recursive = false)
-    parameters:
-    - id: directoryPath
-      type: System.String
-      description: The directory path containing image files.
-    - id: recursive
-      type: System.Boolean
-      description: Whether to search recursively in subdirectories. Default is false.
-    return:
-      type: System.Collections.Generic.Dictionary{System.String,Raylib_cs.Image}
-      description: A dictionary mapping file names to loaded Image objects.
-    content.vb: Public Function LoadImagesWithFilenameFromDirectory(directoryPath As String, recursive As Boolean = False) As Dictionary(Of String, Image)
-  overload: ShapeEngine.Content.ContentManager.LoadImagesWithFilenameFromDirectory*
-  nameWithType.vb: ContentManager.LoadImagesWithFilenameFromDirectory(String, Boolean)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadImagesWithFilenameFromDirectory(String, Boolean)
-  name.vb: LoadImagesWithFilenameFromDirectory(String, Boolean)
-- uid: ShapeEngine.Content.ContentManager.LoadFontsWithFilenameFromDirectory(System.String,System.Int32,System.Boolean)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadFontsWithFilenameFromDirectory(System.String,System.Int32,System.Boolean)
-  id: LoadFontsWithFilenameFromDirectory(System.String,System.Int32,System.Boolean)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadFontsWithFilenameFromDirectory(string, int, bool)
-  nameWithType: ContentManager.LoadFontsWithFilenameFromDirectory(string, int, bool)
-  fullName: ShapeEngine.Content.ContentManager.LoadFontsWithFilenameFromDirectory(string, int, bool)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadFontsWithFilenameFromDirectory
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 332
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads all fonts from a directory and returns a dictionary mapping file names (without extension) to Font objects.
-  remarks: 'Only loads files with valid font extensions: .ttf, .otf'
-  example: []
-  syntax:
-    content: public Dictionary<string, Font> LoadFontsWithFilenameFromDirectory(string directoryPath, int fontSize = 100, bool recursive = false)
-    parameters:
-    - id: directoryPath
-      type: System.String
-      description: The directory path containing font files.
-    - id: fontSize
-      type: System.Int32
-      description: The size of the fonts to load. Default is 100.
-    - id: recursive
-      type: System.Boolean
-      description: Whether to search recursively in subdirectories. Default is false.
-    return:
-      type: System.Collections.Generic.Dictionary{System.String,Raylib_cs.Font}
-      description: A dictionary mapping file names to loaded Font objects.
-    content.vb: Public Function LoadFontsWithFilenameFromDirectory(directoryPath As String, fontSize As Integer = 100, recursive As Boolean = False) As Dictionary(Of String, Font)
-  overload: ShapeEngine.Content.ContentManager.LoadFontsWithFilenameFromDirectory*
-  nameWithType.vb: ContentManager.LoadFontsWithFilenameFromDirectory(String, Integer, Boolean)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadFontsWithFilenameFromDirectory(String, Integer, Boolean)
-  name.vb: LoadFontsWithFilenameFromDirectory(String, Integer, Boolean)
-- uid: ShapeEngine.Content.ContentManager.LoadSoundsWithFilenameFromDirectory(System.String,System.Boolean)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadSoundsWithFilenameFromDirectory(System.String,System.Boolean)
-  id: LoadSoundsWithFilenameFromDirectory(System.String,System.Boolean)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadSoundsWithFilenameFromDirectory(string, bool)
-  nameWithType: ContentManager.LoadSoundsWithFilenameFromDirectory(string, bool)
-  fullName: ShapeEngine.Content.ContentManager.LoadSoundsWithFilenameFromDirectory(string, bool)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadSoundsWithFilenameFromDirectory
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 348
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads all sound files from a directory and returns a dictionary mapping file names (without extension) to Sound objects.
-  remarks: 'Only loads files with valid sound extensions: .wav, .mp3, .ogg, .flac'
-  example: []
-  syntax:
-    content: public Dictionary<string, Sound> LoadSoundsWithFilenameFromDirectory(string directoryPath, bool recursive = false)
-    parameters:
-    - id: directoryPath
-      type: System.String
-      description: The directory path containing sound files.
-    - id: recursive
-      type: System.Boolean
-      description: Whether to search recursively in subdirectories. Default is false.
-    return:
-      type: System.Collections.Generic.Dictionary{System.String,Raylib_cs.Sound}
-      description: A dictionary mapping file names to loaded Sound objects.
-    content.vb: Public Function LoadSoundsWithFilenameFromDirectory(directoryPath As String, recursive As Boolean = False) As Dictionary(Of String, Sound)
-  overload: ShapeEngine.Content.ContentManager.LoadSoundsWithFilenameFromDirectory*
-  nameWithType.vb: ContentManager.LoadSoundsWithFilenameFromDirectory(String, Boolean)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadSoundsWithFilenameFromDirectory(String, Boolean)
-  name.vb: LoadSoundsWithFilenameFromDirectory(String, Boolean)
-- uid: ShapeEngine.Content.ContentManager.LoadMusicStreamsWithFilenameFromDirectory(System.String,System.Boolean)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadMusicStreamsWithFilenameFromDirectory(System.String,System.Boolean)
-  id: LoadMusicStreamsWithFilenameFromDirectory(System.String,System.Boolean)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadMusicStreamsWithFilenameFromDirectory(string, bool)
-  nameWithType: ContentManager.LoadMusicStreamsWithFilenameFromDirectory(string, bool)
-  fullName: ShapeEngine.Content.ContentManager.LoadMusicStreamsWithFilenameFromDirectory(string, bool)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadMusicStreamsWithFilenameFromDirectory
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 364
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads all music streams from a directory and returns a dictionary mapping file names (without extension) to Music objects.
-  remarks: 'Only loads files with valid music extensions: .mp3, .ogg, .flac, .mod, .xm'
-  example: []
-  syntax:
-    content: public Dictionary<string, Music> LoadMusicStreamsWithFilenameFromDirectory(string directoryPath, bool recursive = false)
-    parameters:
-    - id: directoryPath
-      type: System.String
-      description: The directory path containing music files.
-    - id: recursive
-      type: System.Boolean
-      description: Whether to search recursively in subdirectories. Default is false.
-    return:
-      type: System.Collections.Generic.Dictionary{System.String,Raylib_cs.Music}
-      description: A dictionary mapping file names to loaded Music objects.
-    content.vb: Public Function LoadMusicStreamsWithFilenameFromDirectory(directoryPath As String, recursive As Boolean = False) As Dictionary(Of String, Music)
-  overload: ShapeEngine.Content.ContentManager.LoadMusicStreamsWithFilenameFromDirectory*
-  nameWithType.vb: ContentManager.LoadMusicStreamsWithFilenameFromDirectory(String, Boolean)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadMusicStreamsWithFilenameFromDirectory(String, Boolean)
-  name.vb: LoadMusicStreamsWithFilenameFromDirectory(String, Boolean)
-- uid: ShapeEngine.Content.ContentManager.LoadWavesWithFilenameFromDirectory(System.String,System.Boolean)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadWavesWithFilenameFromDirectory(System.String,System.Boolean)
-  id: LoadWavesWithFilenameFromDirectory(System.String,System.Boolean)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadWavesWithFilenameFromDirectory(string, bool)
-  nameWithType: ContentManager.LoadWavesWithFilenameFromDirectory(string, bool)
-  fullName: ShapeEngine.Content.ContentManager.LoadWavesWithFilenameFromDirectory(string, bool)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadWavesWithFilenameFromDirectory
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 380
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads all wave sounds from a directory and returns a dictionary mapping file names (without extension) to Wave objects.
-  remarks: 'Only loads files with valid wave extensions: .wav, .mp3, .ogg, .flac'
-  example: []
-  syntax:
-    content: public Dictionary<string, Wave> LoadWavesWithFilenameFromDirectory(string directoryPath, bool recursive = false)
-    parameters:
-    - id: directoryPath
-      type: System.String
-      description: The directory path containing wave sound files.
-    - id: recursive
-      type: System.Boolean
-      description: Whether to search recursively in subdirectories. Default is false.
-    return:
-      type: System.Collections.Generic.Dictionary{System.String,Raylib_cs.Wave}
-      description: A dictionary mapping file names to loaded Wave objects.
-    content.vb: Public Function LoadWavesWithFilenameFromDirectory(directoryPath As String, recursive As Boolean = False) As Dictionary(Of String, Wave)
-  overload: ShapeEngine.Content.ContentManager.LoadWavesWithFilenameFromDirectory*
-  nameWithType.vb: ContentManager.LoadWavesWithFilenameFromDirectory(String, Boolean)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadWavesWithFilenameFromDirectory(String, Boolean)
-  name.vb: LoadWavesWithFilenameFromDirectory(String, Boolean)
-- uid: ShapeEngine.Content.ContentManager.LoadFragmentShadersWithFilenameFromDirectory(System.String,System.Boolean)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadFragmentShadersWithFilenameFromDirectory(System.String,System.Boolean)
-  id: LoadFragmentShadersWithFilenameFromDirectory(System.String,System.Boolean)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadFragmentShadersWithFilenameFromDirectory(string, bool)
-  nameWithType: ContentManager.LoadFragmentShadersWithFilenameFromDirectory(string, bool)
-  fullName: ShapeEngine.Content.ContentManager.LoadFragmentShadersWithFilenameFromDirectory(string, bool)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadFragmentShadersWithFilenameFromDirectory
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 396
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads all fragment shaders from a directory and returns a dictionary mapping file names (without extension) to Shader objects.
-  remarks: 'Only loads files with valid fragment shader extensions: .fs, .glsl, .frag'
-  example: []
-  syntax:
-    content: public Dictionary<string, Shader> LoadFragmentShadersWithFilenameFromDirectory(string directoryPath, bool recursive = false)
-    parameters:
-    - id: directoryPath
-      type: System.String
-      description: The directory path containing fragment shader files.
-    - id: recursive
-      type: System.Boolean
-      description: Whether to search recursively in subdirectories. Default is false.
-    return:
-      type: System.Collections.Generic.Dictionary{System.String,Raylib_cs.Shader}
-      description: A dictionary mapping file names to loaded Shader objects.
-    content.vb: Public Function LoadFragmentShadersWithFilenameFromDirectory(directoryPath As String, recursive As Boolean = False) As Dictionary(Of String, Shader)
-  overload: ShapeEngine.Content.ContentManager.LoadFragmentShadersWithFilenameFromDirectory*
-  nameWithType.vb: ContentManager.LoadFragmentShadersWithFilenameFromDirectory(String, Boolean)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadFragmentShadersWithFilenameFromDirectory(String, Boolean)
-  name.vb: LoadFragmentShadersWithFilenameFromDirectory(String, Boolean)
-- uid: ShapeEngine.Content.ContentManager.LoadVertexShadersWithFilenameFromDirectory(System.String,System.Boolean)
-  commentId: M:ShapeEngine.Content.ContentManager.LoadVertexShadersWithFilenameFromDirectory(System.String,System.Boolean)
-  id: LoadVertexShadersWithFilenameFromDirectory(System.String,System.Boolean)
-  parent: ShapeEngine.Content.ContentManager
-  langs:
-  - csharp
-  - vb
-  name: LoadVertexShadersWithFilenameFromDirectory(string, bool)
-  nameWithType: ContentManager.LoadVertexShadersWithFilenameFromDirectory(string, bool)
-  fullName: ShapeEngine.Content.ContentManager.LoadVertexShadersWithFilenameFromDirectory(string, bool)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Content/ContentManager.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: LoadVertexShadersWithFilenameFromDirectory
-    path: ../ShapeEngine/ShapeEngine/Content/ContentManager.cs
-    startLine: 412
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Content
-  summary: Loads all vertex shaders from a directory and returns a dictionary mapping file names (without extension) to Shader objects.
-  remarks: 'Only loads files with valid vertex shader extensions: .vs, .glsl, .vert'
-  example: []
-  syntax:
-    content: public Dictionary<string, Shader> LoadVertexShadersWithFilenameFromDirectory(string directoryPath, bool recursive = false)
-    parameters:
-    - id: directoryPath
-      type: System.String
-      description: The directory path containing vertex shader files.
-    - id: recursive
-      type: System.Boolean
-      description: Whether to search recursively in subdirectories. Default is false.
-    return:
-      type: System.Collections.Generic.Dictionary{System.String,Raylib_cs.Shader}
-      description: A dictionary mapping file names to loaded Shader objects.
-    content.vb: Public Function LoadVertexShadersWithFilenameFromDirectory(directoryPath As String, recursive As Boolean = False) As Dictionary(Of String, Shader)
-  overload: ShapeEngine.Content.ContentManager.LoadVertexShadersWithFilenameFromDirectory*
-  nameWithType.vb: ContentManager.LoadVertexShadersWithFilenameFromDirectory(String, Boolean)
-  fullName.vb: ShapeEngine.Content.ContentManager.LoadVertexShadersWithFilenameFromDirectory(String, Boolean)
-  name.vb: LoadVertexShadersWithFilenameFromDirectory(String, Boolean)
 references:
 - uid: ShapeEngine.Content
   commentId: N:ShapeEngine.Content
@@ -1202,13 +972,6 @@ references:
   nameWithType.vb: Object
   fullName.vb: Object
   name.vb: Object
-- uid: ShapeEngine.Content.IContentManager
-  commentId: T:ShapeEngine.Content.IContentManager
-  parent: ShapeEngine.Content
-  href: ShapeEngine.Content.IContentManager.html
-  name: IContentManager
-  nameWithType: IContentManager
-  fullName: ShapeEngine.Content.IContentManager
 - uid: System.Object.Equals(System.Object)
   commentId: M:System.Object.Equals(System.Object)
   parent: System.Object
@@ -1404,6 +1167,165 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -1411,77 +1333,191 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: ShapeEngine.Content.ContentManager.#ctor*
-  commentId: Overload:ShapeEngine.Content.ContentManager.#ctor
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager__ctor
-  name: ContentManager
-  nameWithType: ContentManager.ContentManager
-  fullName: ShapeEngine.Content.ContentManager.ContentManager
-  nameWithType.vb: ContentManager.New
-  fullName.vb: ShapeEngine.Content.ContentManager.New
-  name.vb: New
-- uid: ShapeEngine.Content.ContentManager.Close*
-  commentId: Overload:ShapeEngine.Content.ContentManager.Close
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_Close
-  name: Close
-  nameWithType: ContentManager.Close
-  fullName: ShapeEngine.Content.ContentManager.Close
-- uid: ShapeEngine.Content.IContentManager.Close
-  commentId: M:ShapeEngine.Content.IContentManager.Close
-  parent: ShapeEngine.Content.IContentManager
-  href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_Close
-  name: Close()
-  nameWithType: IContentManager.Close()
-  fullName: ShapeEngine.Content.IContentManager.Close()
-  spec.csharp:
-  - uid: ShapeEngine.Content.IContentManager.Close
-    name: Close
-    href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_Close
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Content.IContentManager.Close
-    name: Close
-    href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_Close
-  - name: (
-  - name: )
-- uid: ShapeEngine.Content.ContentManager.LoadTexture*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadTexture
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadTexture_System_String_
-  name: LoadTexture
-  nameWithType: ContentManager.LoadTexture
-  fullName: ShapeEngine.Content.ContentManager.LoadTexture
-- uid: ShapeEngine.Content.IContentManager.LoadTexture(System.String)
-  commentId: M:ShapeEngine.Content.IContentManager.LoadTexture(System.String)
-  parent: ShapeEngine.Content.IContentManager
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
   isExternal: true
-  href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadTexture_System_String_
-  name: LoadTexture(string)
-  nameWithType: IContentManager.LoadTexture(string)
-  fullName: ShapeEngine.Content.IContentManager.LoadTexture(string)
-  nameWithType.vb: IContentManager.LoadTexture(String)
-  fullName.vb: ShapeEngine.Content.IContentManager.LoadTexture(String)
-  name.vb: LoadTexture(String)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
   spec.csharp:
-  - uid: ShapeEngine.Content.IContentManager.LoadTexture(System.String)
-    name: LoadTexture
-    href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadTexture_System_String_
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
   - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.String
     name: string
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Content.IContentManager.LoadTexture(System.String)
-    name: LoadTexture
-    href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadTexture_System_String_
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
   - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
   - uid: System.String
     name: String
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
   - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
+  href: ShapeEngine.html
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
 - uid: System.String
   commentId: T:System.String
   parent: System
@@ -1493,386 +1529,40 @@ references:
   nameWithType.vb: String
   fullName.vb: String
   name.vb: String
-- uid: Raylib_cs.Texture2D
-  commentId: T:Raylib_cs.Texture2D
-  parent: Raylib_cs
-  isExternal: true
-  name: Texture2D
-  nameWithType: Texture2D
-  fullName: Raylib_cs.Texture2D
-- uid: Raylib_cs
-  commentId: N:Raylib_cs
-  isExternal: true
-  name: Raylib_cs
-  nameWithType: Raylib_cs
-  fullName: Raylib_cs
-- uid: ShapeEngine.Content.ContentManager.LoadImage*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadImage
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadImage_System_String_
-  name: LoadImage
-  nameWithType: ContentManager.LoadImage
-  fullName: ShapeEngine.Content.ContentManager.LoadImage
-- uid: ShapeEngine.Content.IContentManager.LoadImage(System.String)
-  commentId: M:ShapeEngine.Content.IContentManager.LoadImage(System.String)
-  parent: ShapeEngine.Content.IContentManager
-  isExternal: true
-  href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadImage_System_String_
-  name: LoadImage(string)
-  nameWithType: IContentManager.LoadImage(string)
-  fullName: ShapeEngine.Content.IContentManager.LoadImage(string)
-  nameWithType.vb: IContentManager.LoadImage(String)
-  fullName.vb: ShapeEngine.Content.IContentManager.LoadImage(String)
-  name.vb: LoadImage(String)
-  spec.csharp:
-  - uid: ShapeEngine.Content.IContentManager.LoadImage(System.String)
-    name: LoadImage
-    href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadImage_System_String_
-  - name: (
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Content.IContentManager.LoadImage(System.String)
-    name: LoadImage
-    href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadImage_System_String_
-  - name: (
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: )
-- uid: Raylib_cs.Image
-  commentId: T:Raylib_cs.Image
-  parent: Raylib_cs
-  isExternal: true
-  name: Image
-  nameWithType: Image
-  fullName: Raylib_cs.Image
-- uid: ShapeEngine.Content.ContentManager.LoadFont*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadFont
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadFont_System_String_System_Int32_
-  name: LoadFont
-  nameWithType: ContentManager.LoadFont
-  fullName: ShapeEngine.Content.ContentManager.LoadFont
-- uid: ShapeEngine.Content.IContentManager.LoadFont(System.String,System.Int32)
-  commentId: M:ShapeEngine.Content.IContentManager.LoadFont(System.String,System.Int32)
-  parent: ShapeEngine.Content.IContentManager
-  isExternal: true
-  href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadFont_System_String_System_Int32_
-  name: LoadFont(string, int)
-  nameWithType: IContentManager.LoadFont(string, int)
-  fullName: ShapeEngine.Content.IContentManager.LoadFont(string, int)
-  nameWithType.vb: IContentManager.LoadFont(String, Integer)
-  fullName.vb: ShapeEngine.Content.IContentManager.LoadFont(String, Integer)
-  name.vb: LoadFont(String, Integer)
-  spec.csharp:
-  - uid: ShapeEngine.Content.IContentManager.LoadFont(System.String,System.Int32)
-    name: LoadFont
-    href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadFont_System_String_System_Int32_
-  - name: (
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: System.Int32
-    name: int
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.int32
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Content.IContentManager.LoadFont(System.String,System.Int32)
-    name: LoadFont
-    href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadFont_System_String_System_Int32_
-  - name: (
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: System.Int32
-    name: Integer
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.int32
-  - name: )
-- uid: System.Int32
-  commentId: T:System.Int32
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.int32
-  name: int
-  nameWithType: int
-  fullName: int
-  nameWithType.vb: Integer
-  fullName.vb: Integer
-  name.vb: Integer
-- uid: Raylib_cs.Font
-  commentId: T:Raylib_cs.Font
-  parent: Raylib_cs
-  isExternal: true
-  name: Font
-  nameWithType: Font
-  fullName: Raylib_cs.Font
-- uid: ShapeEngine.Content.ContentManager.LoadWave*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadWave
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadWave_System_String_
-  name: LoadWave
-  nameWithType: ContentManager.LoadWave
-  fullName: ShapeEngine.Content.ContentManager.LoadWave
-- uid: ShapeEngine.Content.IContentManager.LoadWave(System.String)
-  commentId: M:ShapeEngine.Content.IContentManager.LoadWave(System.String)
-  parent: ShapeEngine.Content.IContentManager
-  isExternal: true
-  href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadWave_System_String_
-  name: LoadWave(string)
-  nameWithType: IContentManager.LoadWave(string)
-  fullName: ShapeEngine.Content.IContentManager.LoadWave(string)
-  nameWithType.vb: IContentManager.LoadWave(String)
-  fullName.vb: ShapeEngine.Content.IContentManager.LoadWave(String)
-  name.vb: LoadWave(String)
-  spec.csharp:
-  - uid: ShapeEngine.Content.IContentManager.LoadWave(System.String)
-    name: LoadWave
-    href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadWave_System_String_
-  - name: (
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Content.IContentManager.LoadWave(System.String)
-    name: LoadWave
-    href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadWave_System_String_
-  - name: (
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: )
-- uid: Raylib_cs.Wave
-  commentId: T:Raylib_cs.Wave
-  parent: Raylib_cs
-  isExternal: true
-  name: Wave
-  nameWithType: Wave
-  fullName: Raylib_cs.Wave
-- uid: ShapeEngine.Content.ContentManager.LoadSound*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadSound
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadSound_System_String_
-  name: LoadSound
-  nameWithType: ContentManager.LoadSound
-  fullName: ShapeEngine.Content.ContentManager.LoadSound
-- uid: ShapeEngine.Content.IContentManager.LoadSound(System.String)
-  commentId: M:ShapeEngine.Content.IContentManager.LoadSound(System.String)
-  parent: ShapeEngine.Content.IContentManager
-  isExternal: true
-  href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadSound_System_String_
-  name: LoadSound(string)
-  nameWithType: IContentManager.LoadSound(string)
-  fullName: ShapeEngine.Content.IContentManager.LoadSound(string)
-  nameWithType.vb: IContentManager.LoadSound(String)
-  fullName.vb: ShapeEngine.Content.IContentManager.LoadSound(String)
-  name.vb: LoadSound(String)
-  spec.csharp:
-  - uid: ShapeEngine.Content.IContentManager.LoadSound(System.String)
-    name: LoadSound
-    href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadSound_System_String_
-  - name: (
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Content.IContentManager.LoadSound(System.String)
-    name: LoadSound
-    href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadSound_System_String_
-  - name: (
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: )
-- uid: Raylib_cs.Sound
-  commentId: T:Raylib_cs.Sound
-  parent: Raylib_cs
-  isExternal: true
-  name: Sound
-  nameWithType: Sound
-  fullName: Raylib_cs.Sound
-- uid: ShapeEngine.Content.ContentManager.LoadMusic*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadMusic
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadMusic_System_String_
-  name: LoadMusic
-  nameWithType: ContentManager.LoadMusic
-  fullName: ShapeEngine.Content.ContentManager.LoadMusic
-- uid: ShapeEngine.Content.IContentManager.LoadMusic(System.String)
-  commentId: M:ShapeEngine.Content.IContentManager.LoadMusic(System.String)
-  parent: ShapeEngine.Content.IContentManager
-  isExternal: true
-  href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadMusic_System_String_
-  name: LoadMusic(string)
-  nameWithType: IContentManager.LoadMusic(string)
-  fullName: ShapeEngine.Content.IContentManager.LoadMusic(string)
-  nameWithType.vb: IContentManager.LoadMusic(String)
-  fullName.vb: ShapeEngine.Content.IContentManager.LoadMusic(String)
-  name.vb: LoadMusic(String)
-  spec.csharp:
-  - uid: ShapeEngine.Content.IContentManager.LoadMusic(System.String)
-    name: LoadMusic
-    href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadMusic_System_String_
-  - name: (
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Content.IContentManager.LoadMusic(System.String)
-    name: LoadMusic
-    href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadMusic_System_String_
-  - name: (
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: )
-- uid: Raylib_cs.Music
-  commentId: T:Raylib_cs.Music
-  parent: Raylib_cs
-  isExternal: true
-  name: Music
-  nameWithType: Music
-  fullName: Raylib_cs.Music
-- uid: ShapeEngine.Content.ContentManager.LoadFragmentShader*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadFragmentShader
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadFragmentShader_System_String_
-  name: LoadFragmentShader
-  nameWithType: ContentManager.LoadFragmentShader
-  fullName: ShapeEngine.Content.ContentManager.LoadFragmentShader
-- uid: ShapeEngine.Content.IContentManager.LoadFragmentShader(System.String)
-  commentId: M:ShapeEngine.Content.IContentManager.LoadFragmentShader(System.String)
-  parent: ShapeEngine.Content.IContentManager
-  isExternal: true
-  href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadFragmentShader_System_String_
-  name: LoadFragmentShader(string)
-  nameWithType: IContentManager.LoadFragmentShader(string)
-  fullName: ShapeEngine.Content.IContentManager.LoadFragmentShader(string)
-  nameWithType.vb: IContentManager.LoadFragmentShader(String)
-  fullName.vb: ShapeEngine.Content.IContentManager.LoadFragmentShader(String)
-  name.vb: LoadFragmentShader(String)
-  spec.csharp:
-  - uid: ShapeEngine.Content.IContentManager.LoadFragmentShader(System.String)
-    name: LoadFragmentShader
-    href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadFragmentShader_System_String_
-  - name: (
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Content.IContentManager.LoadFragmentShader(System.String)
-    name: LoadFragmentShader
-    href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadFragmentShader_System_String_
-  - name: (
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: )
-- uid: Raylib_cs.Shader
-  commentId: T:Raylib_cs.Shader
-  parent: Raylib_cs
-  isExternal: true
-  name: Shader
-  nameWithType: Shader
-  fullName: Raylib_cs.Shader
-- uid: ShapeEngine.Content.ContentManager.LoadVertexShader*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadVertexShader
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadVertexShader_System_String_
-  name: LoadVertexShader
-  nameWithType: ContentManager.LoadVertexShader
-  fullName: ShapeEngine.Content.ContentManager.LoadVertexShader
-- uid: ShapeEngine.Content.IContentManager.LoadVertexShader(System.String)
-  commentId: M:ShapeEngine.Content.IContentManager.LoadVertexShader(System.String)
-  parent: ShapeEngine.Content.IContentManager
-  isExternal: true
-  href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadVertexShader_System_String_
-  name: LoadVertexShader(string)
-  nameWithType: IContentManager.LoadVertexShader(string)
-  fullName: ShapeEngine.Content.IContentManager.LoadVertexShader(string)
-  nameWithType.vb: IContentManager.LoadVertexShader(String)
-  fullName.vb: ShapeEngine.Content.IContentManager.LoadVertexShader(String)
-  name.vb: LoadVertexShader(String)
-  spec.csharp:
-  - uid: ShapeEngine.Content.IContentManager.LoadVertexShader(System.String)
-    name: LoadVertexShader
-    href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadVertexShader_System_String_
-  - name: (
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Content.IContentManager.LoadVertexShader(System.String)
-    name: LoadVertexShader
-    href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadVertexShader_System_String_
-  - name: (
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: )
-- uid: ShapeEngine.Content.ContentManager.LoadText*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadText
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadText_System_String_
-  name: LoadText
-  nameWithType: ContentManager.LoadText
-  fullName: ShapeEngine.Content.ContentManager.LoadText
-- uid: ShapeEngine.Content.IContentManager.LoadText(System.String)
-  commentId: M:ShapeEngine.Content.IContentManager.LoadText(System.String)
-  parent: ShapeEngine.Content.IContentManager
-  isExternal: true
-  href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadText_System_String_
-  name: LoadText(string)
-  nameWithType: IContentManager.LoadText(string)
-  fullName: ShapeEngine.Content.IContentManager.LoadText(string)
-  nameWithType.vb: IContentManager.LoadText(String)
-  fullName.vb: ShapeEngine.Content.IContentManager.LoadText(String)
-  name.vb: LoadText(String)
-  spec.csharp:
-  - uid: ShapeEngine.Content.IContentManager.LoadText(System.String)
-    name: LoadText
-    href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadText_System_String_
-  - name: (
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Content.IContentManager.LoadText(System.String)
-    name: LoadText
-    href: ShapeEngine.Content.IContentManager.html#ShapeEngine_Content_IContentManager_LoadText_System_String_
-  - name: (
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: )
-- uid: ShapeEngine.Content.ContentManager.LoadTexturesFromDirectory*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadTexturesFromDirectory
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadTexturesFromDirectory_System_String_System_Boolean_
-  name: LoadTexturesFromDirectory
-  nameWithType: ContentManager.LoadTexturesFromDirectory
-  fullName: ShapeEngine.Content.ContentManager.LoadTexturesFromDirectory
+- uid: ShapeEngine.Content.ContentManager
+  commentId: T:ShapeEngine.Content.ContentManager
+  href: ShapeEngine.Content.ContentManager.html
+  name: ContentManager
+  nameWithType: ContentManager
+  fullName: ShapeEngine.Content.ContentManager
+- uid: ShapeEngine.Content.ContentManager.RootDirectory
+  commentId: F:ShapeEngine.Content.ContentManager.RootDirectory
+  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_RootDirectory
+  name: RootDirectory
+  nameWithType: ContentManager.RootDirectory
+  fullName: ShapeEngine.Content.ContentManager.RootDirectory
+- uid: ShapeEngine.Content.ContentManager.#ctor*
+  commentId: Overload:ShapeEngine.Content.ContentManager.#ctor
+  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager__ctor_System_String_
+  name: ContentManager
+  nameWithType: ContentManager.ContentManager
+  fullName: ShapeEngine.Content.ContentManager.ContentManager
+  nameWithType.vb: ContentManager.New
+  fullName.vb: ShapeEngine.Content.ContentManager.New
+  name.vb: New
+- uid: ShapeEngine.Content.ContentManager.AddContentPack*
+  commentId: Overload:ShapeEngine.Content.ContentManager.AddContentPack
+  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_AddContentPack_ShapeEngine_Content_ContentPack_System_String_
+  name: AddContentPack
+  nameWithType: ContentManager.AddContentPack
+  fullName: ShapeEngine.Content.ContentManager.AddContentPack
+- uid: ShapeEngine.Content.ContentPack
+  commentId: T:ShapeEngine.Content.ContentPack
+  parent: ShapeEngine.Content
+  href: ShapeEngine.Content.ContentPack.html
+  name: ContentPack
+  nameWithType: ContentPack
+  fullName: ShapeEngine.Content.ContentPack
 - uid: System.Boolean
   commentId: T:System.Boolean
   parent: System
@@ -1884,26 +1574,44 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
-- uid: System.Collections.Generic.List{Raylib_cs.Texture2D}
-  commentId: T:System.Collections.Generic.List{Raylib_cs.Texture2D}
+- uid: ShapeEngine.Content.ContentManager.RemoveContentPack*
+  commentId: Overload:ShapeEngine.Content.ContentManager.RemoveContentPack
+  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_RemoveContentPack_System_String_System_Boolean_
+  name: RemoveContentPack
+  nameWithType: ContentManager.RemoveContentPack
+  fullName: ShapeEngine.Content.ContentManager.RemoveContentPack
+- uid: ShapeEngine.Content.ContentManager.RemoveAllContentPacks*
+  commentId: Overload:ShapeEngine.Content.ContentManager.RemoveAllContentPacks
+  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_RemoveAllContentPacks_System_Boolean_
+  name: RemoveAllContentPacks
+  nameWithType: ContentManager.RemoveAllContentPacks
+  fullName: ShapeEngine.Content.ContentManager.RemoveAllContentPacks
+- uid: ShapeEngine.Content.ContentManager.GetAllContentPacks*
+  commentId: Overload:ShapeEngine.Content.ContentManager.GetAllContentPacks
+  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_GetAllContentPacks
+  name: GetAllContentPacks
+  nameWithType: ContentManager.GetAllContentPacks
+  fullName: ShapeEngine.Content.ContentManager.GetAllContentPacks
+- uid: System.Collections.Generic.List{ShapeEngine.Content.ContentPack}
+  commentId: T:System.Collections.Generic.List{ShapeEngine.Content.ContentPack}
   parent: System.Collections.Generic
   definition: System.Collections.Generic.List`1
   href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  name: List<Texture2D>
-  nameWithType: List<Texture2D>
-  fullName: System.Collections.Generic.List<Raylib_cs.Texture2D>
-  nameWithType.vb: List(Of Texture2D)
-  fullName.vb: System.Collections.Generic.List(Of Raylib_cs.Texture2D)
-  name.vb: List(Of Texture2D)
+  name: List<ContentPack>
+  nameWithType: List<ContentPack>
+  fullName: System.Collections.Generic.List<ShapeEngine.Content.ContentPack>
+  nameWithType.vb: List(Of ContentPack)
+  fullName.vb: System.Collections.Generic.List(Of ShapeEngine.Content.ContentPack)
+  name.vb: List(Of ContentPack)
   spec.csharp:
   - uid: System.Collections.Generic.List`1
     name: List
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
   - name: <
-  - uid: Raylib_cs.Texture2D
-    name: Texture2D
-    isExternal: true
+  - uid: ShapeEngine.Content.ContentPack
+    name: ContentPack
+    href: ShapeEngine.Content.ContentPack.html
   - name: '>'
   spec.vb:
   - uid: System.Collections.Generic.List`1
@@ -1913,9 +1621,9 @@ references:
   - name: (
   - name: Of
   - name: " "
-  - uid: Raylib_cs.Texture2D
-    name: Texture2D
-    isExternal: true
+  - uid: ShapeEngine.Content.ContentPack
+    name: ContentPack
+    href: ShapeEngine.Content.ContentPack.html
   - name: )
 - uid: System.Collections.Generic.List`1
   commentId: T:System.Collections.Generic.List`1
@@ -1982,640 +1690,189 @@ references:
     name: Generic
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.collections.generic
-- uid: ShapeEngine.Content.ContentManager.LoadImagesFromDirectory*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadImagesFromDirectory
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadImagesFromDirectory_System_String_System_Boolean_
-  name: LoadImagesFromDirectory
-  nameWithType: ContentManager.LoadImagesFromDirectory
-  fullName: ShapeEngine.Content.ContentManager.LoadImagesFromDirectory
-- uid: System.Collections.Generic.List{Raylib_cs.Image}
-  commentId: T:System.Collections.Generic.List{Raylib_cs.Image}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.List`1
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  name: List<Image>
-  nameWithType: List<Image>
-  fullName: System.Collections.Generic.List<Raylib_cs.Image>
-  nameWithType.vb: List(Of Image)
-  fullName.vb: System.Collections.Generic.List(Of Raylib_cs.Image)
-  name.vb: List(Of Image)
-  spec.csharp:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  - name: <
-  - uid: Raylib_cs.Image
-    name: Image
-    isExternal: true
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: Raylib_cs.Image
-    name: Image
-    isExternal: true
-  - name: )
-- uid: ShapeEngine.Content.ContentManager.LoadFontsFromDirectory*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadFontsFromDirectory
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadFontsFromDirectory_System_String_System_Int32_System_Boolean_
-  name: LoadFontsFromDirectory
-  nameWithType: ContentManager.LoadFontsFromDirectory
-  fullName: ShapeEngine.Content.ContentManager.LoadFontsFromDirectory
-- uid: System.Collections.Generic.List{Raylib_cs.Font}
-  commentId: T:System.Collections.Generic.List{Raylib_cs.Font}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.List`1
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  name: List<Font>
-  nameWithType: List<Font>
-  fullName: System.Collections.Generic.List<Raylib_cs.Font>
-  nameWithType.vb: List(Of Font)
-  fullName.vb: System.Collections.Generic.List(Of Raylib_cs.Font)
-  name.vb: List(Of Font)
-  spec.csharp:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  - name: <
-  - uid: Raylib_cs.Font
-    name: Font
-    isExternal: true
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: Raylib_cs.Font
-    name: Font
-    isExternal: true
-  - name: )
-- uid: ShapeEngine.Content.ContentManager.LoadSoundsFromDirectory*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadSoundsFromDirectory
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadSoundsFromDirectory_System_String_System_Boolean_
-  name: LoadSoundsFromDirectory
-  nameWithType: ContentManager.LoadSoundsFromDirectory
-  fullName: ShapeEngine.Content.ContentManager.LoadSoundsFromDirectory
-- uid: System.Collections.Generic.List{Raylib_cs.Sound}
-  commentId: T:System.Collections.Generic.List{Raylib_cs.Sound}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.List`1
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  name: List<Sound>
-  nameWithType: List<Sound>
-  fullName: System.Collections.Generic.List<Raylib_cs.Sound>
-  nameWithType.vb: List(Of Sound)
-  fullName.vb: System.Collections.Generic.List(Of Raylib_cs.Sound)
-  name.vb: List(Of Sound)
-  spec.csharp:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  - name: <
-  - uid: Raylib_cs.Sound
-    name: Sound
-    isExternal: true
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: Raylib_cs.Sound
-    name: Sound
-    isExternal: true
-  - name: )
-- uid: ShapeEngine.Content.ContentManager.LoadMusicStreamsFromDirectory*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadMusicStreamsFromDirectory
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadMusicStreamsFromDirectory_System_String_System_Boolean_
-  name: LoadMusicStreamsFromDirectory
-  nameWithType: ContentManager.LoadMusicStreamsFromDirectory
-  fullName: ShapeEngine.Content.ContentManager.LoadMusicStreamsFromDirectory
-- uid: System.Collections.Generic.List{Raylib_cs.Music}
-  commentId: T:System.Collections.Generic.List{Raylib_cs.Music}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.List`1
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  name: List<Music>
-  nameWithType: List<Music>
-  fullName: System.Collections.Generic.List<Raylib_cs.Music>
-  nameWithType.vb: List(Of Music)
-  fullName.vb: System.Collections.Generic.List(Of Raylib_cs.Music)
-  name.vb: List(Of Music)
-  spec.csharp:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  - name: <
-  - uid: Raylib_cs.Music
-    name: Music
-    isExternal: true
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: Raylib_cs.Music
-    name: Music
-    isExternal: true
-  - name: )
-- uid: ShapeEngine.Content.ContentManager.LoadWavesFromDirectory*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadWavesFromDirectory
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadWavesFromDirectory_System_String_System_Boolean_
-  name: LoadWavesFromDirectory
-  nameWithType: ContentManager.LoadWavesFromDirectory
-  fullName: ShapeEngine.Content.ContentManager.LoadWavesFromDirectory
-- uid: System.Collections.Generic.List{Raylib_cs.Wave}
-  commentId: T:System.Collections.Generic.List{Raylib_cs.Wave}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.List`1
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  name: List<Wave>
-  nameWithType: List<Wave>
-  fullName: System.Collections.Generic.List<Raylib_cs.Wave>
-  nameWithType.vb: List(Of Wave)
-  fullName.vb: System.Collections.Generic.List(Of Raylib_cs.Wave)
-  name.vb: List(Of Wave)
-  spec.csharp:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  - name: <
-  - uid: Raylib_cs.Wave
-    name: Wave
-    isExternal: true
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: Raylib_cs.Wave
-    name: Wave
-    isExternal: true
-  - name: )
-- uid: ShapeEngine.Content.ContentManager.LoadFragmentShadersFromDirectory*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadFragmentShadersFromDirectory
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadFragmentShadersFromDirectory_System_String_System_Boolean_
-  name: LoadFragmentShadersFromDirectory
-  nameWithType: ContentManager.LoadFragmentShadersFromDirectory
-  fullName: ShapeEngine.Content.ContentManager.LoadFragmentShadersFromDirectory
-- uid: System.Collections.Generic.List{Raylib_cs.Shader}
-  commentId: T:System.Collections.Generic.List{Raylib_cs.Shader}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.List`1
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  name: List<Shader>
-  nameWithType: List<Shader>
-  fullName: System.Collections.Generic.List<Raylib_cs.Shader>
-  nameWithType.vb: List(Of Shader)
-  fullName.vb: System.Collections.Generic.List(Of Raylib_cs.Shader)
-  name.vb: List(Of Shader)
-  spec.csharp:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  - name: <
-  - uid: Raylib_cs.Shader
-    name: Shader
-    isExternal: true
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: Raylib_cs.Shader
-    name: Shader
-    isExternal: true
-  - name: )
-- uid: ShapeEngine.Content.ContentManager.LoadVertexShadersFromDirectory*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadVertexShadersFromDirectory
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadVertexShadersFromDirectory_System_String_System_Boolean_
-  name: LoadVertexShadersFromDirectory
-  nameWithType: ContentManager.LoadVertexShadersFromDirectory
-  fullName: ShapeEngine.Content.ContentManager.LoadVertexShadersFromDirectory
-- uid: ShapeEngine.Content.ContentManager.LoadTexturesWithFilenameFromDirectory*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadTexturesWithFilenameFromDirectory
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadTexturesWithFilenameFromDirectory_System_String_System_Boolean_
-  name: LoadTexturesWithFilenameFromDirectory
-  nameWithType: ContentManager.LoadTexturesWithFilenameFromDirectory
-  fullName: ShapeEngine.Content.ContentManager.LoadTexturesWithFilenameFromDirectory
-- uid: System.Collections.Generic.Dictionary{System.String,Raylib_cs.Texture2D}
-  commentId: T:System.Collections.Generic.Dictionary{System.String,Raylib_cs.Texture2D}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.Dictionary`2
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  name: Dictionary<string, Texture2D>
-  nameWithType: Dictionary<string, Texture2D>
-  fullName: System.Collections.Generic.Dictionary<string, Raylib_cs.Texture2D>
-  nameWithType.vb: Dictionary(Of String, Texture2D)
-  fullName.vb: System.Collections.Generic.Dictionary(Of String, Raylib_cs.Texture2D)
-  name.vb: Dictionary(Of String, Texture2D)
-  spec.csharp:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  - name: <
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: Raylib_cs.Texture2D
-    name: Texture2D
-    isExternal: true
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: Raylib_cs.Texture2D
-    name: Texture2D
-    isExternal: true
-  - name: )
-- uid: System.Collections.Generic.Dictionary`2
-  commentId: T:System.Collections.Generic.Dictionary`2
+- uid: ShapeEngine.Content.ContentManager.GetAllLoadedContentPacks*
+  commentId: Overload:ShapeEngine.Content.ContentManager.GetAllLoadedContentPacks
+  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_GetAllLoadedContentPacks
+  name: GetAllLoadedContentPacks
+  nameWithType: ContentManager.GetAllLoadedContentPacks
+  fullName: ShapeEngine.Content.ContentManager.GetAllLoadedContentPacks
+- uid: ShapeEngine.Content.ContentManager.HasContentPack*
+  commentId: Overload:ShapeEngine.Content.ContentManager.HasContentPack
+  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_HasContentPack_System_String_
+  name: HasContentPack
+  nameWithType: ContentManager.HasContentPack
+  fullName: ShapeEngine.Content.ContentManager.HasContentPack
+- uid: ShapeEngine.Content.ContentManager.TryGetContentPack*
+  commentId: Overload:ShapeEngine.Content.ContentManager.TryGetContentPack
+  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_TryGetContentPack_System_String_ShapeEngine_Content_ContentPack__
+  name: TryGetContentPack
+  nameWithType: ContentManager.TryGetContentPack
+  fullName: ShapeEngine.Content.ContentManager.TryGetContentPack
+- uid: Raylib_cs.Texture2D
+  commentId: T:Raylib_cs.Texture2D
+  parent: Raylib_cs
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  name: Dictionary<TKey, TValue>
-  nameWithType: Dictionary<TKey, TValue>
-  fullName: System.Collections.Generic.Dictionary<TKey, TValue>
-  nameWithType.vb: Dictionary(Of TKey, TValue)
-  fullName.vb: System.Collections.Generic.Dictionary(Of TKey, TValue)
-  name.vb: Dictionary(Of TKey, TValue)
+  name: Texture2D
+  nameWithType: Texture2D
+  fullName: Raylib_cs.Texture2D
+- uid: ShapeEngine.Content.ContentManager.TryLoadTexture*
+  commentId: Overload:ShapeEngine.Content.ContentManager.TryLoadTexture
+  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_TryLoadTexture_System_String_Raylib_cs_Texture2D__
+  name: TryLoadTexture
+  nameWithType: ContentManager.TryLoadTexture
+  fullName: ShapeEngine.Content.ContentManager.TryLoadTexture
+- uid: Raylib_cs
+  commentId: N:Raylib_cs
+  isExternal: true
+  name: Raylib_cs
+  nameWithType: Raylib_cs
+  fullName: Raylib_cs
+- uid: Raylib_cs.Shader
+  commentId: T:Raylib_cs.Shader
+  parent: Raylib_cs
+  isExternal: true
+  name: Shader
+  nameWithType: Shader
+  fullName: Raylib_cs.Shader
+- uid: ShapeEngine.Content.ContentManager.TryLoadFragmentShader*
+  commentId: Overload:ShapeEngine.Content.ContentManager.TryLoadFragmentShader
+  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_TryLoadFragmentShader_System_String_Raylib_cs_Shader__
+  name: TryLoadFragmentShader
+  nameWithType: ContentManager.TryLoadFragmentShader
+  fullName: ShapeEngine.Content.ContentManager.TryLoadFragmentShader
+- uid: ShapeEngine.Content.ContentManager.TryLoadVertexShader*
+  commentId: Overload:ShapeEngine.Content.ContentManager.TryLoadVertexShader
+  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_TryLoadVertexShader_System_String_Raylib_cs_Shader__
+  name: TryLoadVertexShader
+  nameWithType: ContentManager.TryLoadVertexShader
+  fullName: ShapeEngine.Content.ContentManager.TryLoadVertexShader
+- uid: Raylib_cs.Image
+  commentId: T:Raylib_cs.Image
+  parent: Raylib_cs
+  isExternal: true
+  name: Image
+  nameWithType: Image
+  fullName: Raylib_cs.Image
+- uid: ShapeEngine.Content.ContentManager.TryLoadImage*
+  commentId: Overload:ShapeEngine.Content.ContentManager.TryLoadImage
+  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_TryLoadImage_System_String_Raylib_cs_Image__
+  name: TryLoadImage
+  nameWithType: ContentManager.TryLoadImage
+  fullName: ShapeEngine.Content.ContentManager.TryLoadImage
+- uid: Raylib_cs.Font
+  commentId: T:Raylib_cs.Font
+  parent: Raylib_cs
+  isExternal: true
+  name: Font
+  nameWithType: Font
+  fullName: Raylib_cs.Font
+- uid: ShapeEngine.Content.ContentManager.TryLoadFont*
+  commentId: Overload:ShapeEngine.Content.ContentManager.TryLoadFont
+  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_TryLoadFont_System_String_Raylib_cs_Font__System_Int32_
+  name: TryLoadFont
+  nameWithType: ContentManager.TryLoadFont
+  fullName: ShapeEngine.Content.ContentManager.TryLoadFont
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Raylib_cs.Sound
+  commentId: T:Raylib_cs.Sound
+  parent: Raylib_cs
+  isExternal: true
+  name: Sound
+  nameWithType: Sound
+  fullName: Raylib_cs.Sound
+- uid: ShapeEngine.Content.ContentManager.TryLoadSound*
+  commentId: Overload:ShapeEngine.Content.ContentManager.TryLoadSound
+  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_TryLoadSound_System_String_Raylib_cs_Sound__
+  name: TryLoadSound
+  nameWithType: ContentManager.TryLoadSound
+  fullName: ShapeEngine.Content.ContentManager.TryLoadSound
+- uid: Raylib_cs.Music
+  commentId: T:Raylib_cs.Music
+  parent: Raylib_cs
+  isExternal: true
+  name: Music
+  nameWithType: Music
+  fullName: Raylib_cs.Music
+- uid: ShapeEngine.Content.ContentManager.TryLoadMusic*
+  commentId: Overload:ShapeEngine.Content.ContentManager.TryLoadMusic
+  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_TryLoadMusic_System_String_Raylib_cs_Music__
+  name: TryLoadMusic
+  nameWithType: ContentManager.TryLoadMusic
+  fullName: ShapeEngine.Content.ContentManager.TryLoadMusic
+- uid: Raylib_cs.Wave
+  commentId: T:Raylib_cs.Wave
+  parent: Raylib_cs
+  isExternal: true
+  name: Wave
+  nameWithType: Wave
+  fullName: Raylib_cs.Wave
+- uid: ShapeEngine.Content.ContentManager.TryLoadWave*
+  commentId: Overload:ShapeEngine.Content.ContentManager.TryLoadWave
+  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_TryLoadWave_System_String_Raylib_cs_Wave__
+  name: TryLoadWave
+  nameWithType: ContentManager.TryLoadWave
+  fullName: ShapeEngine.Content.ContentManager.TryLoadWave
+- uid: ShapeEngine.Content.ContentManager.TryLoadText*
+  commentId: Overload:ShapeEngine.Content.ContentManager.TryLoadText
+  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_TryLoadText_System_String_System_String__
+  name: TryLoadText
+  nameWithType: ContentManager.TryLoadText
+  fullName: ShapeEngine.Content.ContentManager.TryLoadText
+- uid: ShapeEngine.Content.ContentManager.RemoveAllContentPacks(System.Boolean)
+  commentId: M:ShapeEngine.Content.ContentManager.RemoveAllContentPacks(System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_RemoveAllContentPacks_System_Boolean_
+  name: RemoveAllContentPacks(bool)
+  nameWithType: ContentManager.RemoveAllContentPacks(bool)
+  fullName: ShapeEngine.Content.ContentManager.RemoveAllContentPacks(bool)
+  nameWithType.vb: ContentManager.RemoveAllContentPacks(Boolean)
+  fullName.vb: ShapeEngine.Content.ContentManager.RemoveAllContentPacks(Boolean)
+  name.vb: RemoveAllContentPacks(Boolean)
   spec.csharp:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  - name: <
-  - name: TKey
-  - name: ','
-  - name: " "
-  - name: TValue
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - uid: ShapeEngine.Content.ContentManager.RemoveAllContentPacks(System.Boolean)
+    name: RemoveAllContentPacks
+    href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_RemoveAllContentPacks_System_Boolean_
   - name: (
-  - name: Of
-  - name: " "
-  - name: TKey
-  - name: ','
-  - name: " "
-  - name: TValue
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: )
-- uid: ShapeEngine.Content.ContentManager.LoadImagesWithFilenameFromDirectory*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadImagesWithFilenameFromDirectory
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadImagesWithFilenameFromDirectory_System_String_System_Boolean_
-  name: LoadImagesWithFilenameFromDirectory
-  nameWithType: ContentManager.LoadImagesWithFilenameFromDirectory
-  fullName: ShapeEngine.Content.ContentManager.LoadImagesWithFilenameFromDirectory
-- uid: System.Collections.Generic.Dictionary{System.String,Raylib_cs.Image}
-  commentId: T:System.Collections.Generic.Dictionary{System.String,Raylib_cs.Image}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.Dictionary`2
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  name: Dictionary<string, Image>
-  nameWithType: Dictionary<string, Image>
-  fullName: System.Collections.Generic.Dictionary<string, Raylib_cs.Image>
-  nameWithType.vb: Dictionary(Of String, Image)
-  fullName.vb: System.Collections.Generic.Dictionary(Of String, Raylib_cs.Image)
-  name.vb: Dictionary(Of String, Image)
-  spec.csharp:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  - name: <
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: Raylib_cs.Image
-    name: Image
-    isExternal: true
-  - name: '>'
   spec.vb:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - uid: ShapeEngine.Content.ContentManager.RemoveAllContentPacks(System.Boolean)
+    name: RemoveAllContentPacks
+    href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_RemoveAllContentPacks_System_Boolean_
   - name: (
-  - name: Of
-  - name: " "
-  - uid: System.String
-    name: String
+  - uid: System.Boolean
+    name: Boolean
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: Raylib_cs.Image
-    name: Image
-    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: )
-- uid: ShapeEngine.Content.ContentManager.LoadFontsWithFilenameFromDirectory*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadFontsWithFilenameFromDirectory
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadFontsWithFilenameFromDirectory_System_String_System_Int32_System_Boolean_
-  name: LoadFontsWithFilenameFromDirectory
-  nameWithType: ContentManager.LoadFontsWithFilenameFromDirectory
-  fullName: ShapeEngine.Content.ContentManager.LoadFontsWithFilenameFromDirectory
-- uid: System.Collections.Generic.Dictionary{System.String,Raylib_cs.Font}
-  commentId: T:System.Collections.Generic.Dictionary{System.String,Raylib_cs.Font}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.Dictionary`2
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  name: Dictionary<string, Font>
-  nameWithType: Dictionary<string, Font>
-  fullName: System.Collections.Generic.Dictionary<string, Raylib_cs.Font>
-  nameWithType.vb: Dictionary(Of String, Font)
-  fullName.vb: System.Collections.Generic.Dictionary(Of String, Raylib_cs.Font)
-  name.vb: Dictionary(Of String, Font)
-  spec.csharp:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  - name: <
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: Raylib_cs.Font
-    name: Font
-    isExternal: true
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: Raylib_cs.Font
-    name: Font
-    isExternal: true
-  - name: )
-- uid: ShapeEngine.Content.ContentManager.LoadSoundsWithFilenameFromDirectory*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadSoundsWithFilenameFromDirectory
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadSoundsWithFilenameFromDirectory_System_String_System_Boolean_
-  name: LoadSoundsWithFilenameFromDirectory
-  nameWithType: ContentManager.LoadSoundsWithFilenameFromDirectory
-  fullName: ShapeEngine.Content.ContentManager.LoadSoundsWithFilenameFromDirectory
-- uid: System.Collections.Generic.Dictionary{System.String,Raylib_cs.Sound}
-  commentId: T:System.Collections.Generic.Dictionary{System.String,Raylib_cs.Sound}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.Dictionary`2
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  name: Dictionary<string, Sound>
-  nameWithType: Dictionary<string, Sound>
-  fullName: System.Collections.Generic.Dictionary<string, Raylib_cs.Sound>
-  nameWithType.vb: Dictionary(Of String, Sound)
-  fullName.vb: System.Collections.Generic.Dictionary(Of String, Raylib_cs.Sound)
-  name.vb: Dictionary(Of String, Sound)
-  spec.csharp:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  - name: <
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: Raylib_cs.Sound
-    name: Sound
-    isExternal: true
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: Raylib_cs.Sound
-    name: Sound
-    isExternal: true
-  - name: )
-- uid: ShapeEngine.Content.ContentManager.LoadMusicStreamsWithFilenameFromDirectory*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadMusicStreamsWithFilenameFromDirectory
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadMusicStreamsWithFilenameFromDirectory_System_String_System_Boolean_
-  name: LoadMusicStreamsWithFilenameFromDirectory
-  nameWithType: ContentManager.LoadMusicStreamsWithFilenameFromDirectory
-  fullName: ShapeEngine.Content.ContentManager.LoadMusicStreamsWithFilenameFromDirectory
-- uid: System.Collections.Generic.Dictionary{System.String,Raylib_cs.Music}
-  commentId: T:System.Collections.Generic.Dictionary{System.String,Raylib_cs.Music}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.Dictionary`2
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  name: Dictionary<string, Music>
-  nameWithType: Dictionary<string, Music>
-  fullName: System.Collections.Generic.Dictionary<string, Raylib_cs.Music>
-  nameWithType.vb: Dictionary(Of String, Music)
-  fullName.vb: System.Collections.Generic.Dictionary(Of String, Raylib_cs.Music)
-  name.vb: Dictionary(Of String, Music)
-  spec.csharp:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  - name: <
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: Raylib_cs.Music
-    name: Music
-    isExternal: true
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: Raylib_cs.Music
-    name: Music
-    isExternal: true
-  - name: )
-- uid: ShapeEngine.Content.ContentManager.LoadWavesWithFilenameFromDirectory*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadWavesWithFilenameFromDirectory
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadWavesWithFilenameFromDirectory_System_String_System_Boolean_
-  name: LoadWavesWithFilenameFromDirectory
-  nameWithType: ContentManager.LoadWavesWithFilenameFromDirectory
-  fullName: ShapeEngine.Content.ContentManager.LoadWavesWithFilenameFromDirectory
-- uid: System.Collections.Generic.Dictionary{System.String,Raylib_cs.Wave}
-  commentId: T:System.Collections.Generic.Dictionary{System.String,Raylib_cs.Wave}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.Dictionary`2
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  name: Dictionary<string, Wave>
-  nameWithType: Dictionary<string, Wave>
-  fullName: System.Collections.Generic.Dictionary<string, Raylib_cs.Wave>
-  nameWithType.vb: Dictionary(Of String, Wave)
-  fullName.vb: System.Collections.Generic.Dictionary(Of String, Raylib_cs.Wave)
-  name.vb: Dictionary(Of String, Wave)
-  spec.csharp:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  - name: <
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: Raylib_cs.Wave
-    name: Wave
-    isExternal: true
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: Raylib_cs.Wave
-    name: Wave
-    isExternal: true
-  - name: )
-- uid: ShapeEngine.Content.ContentManager.LoadFragmentShadersWithFilenameFromDirectory*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadFragmentShadersWithFilenameFromDirectory
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadFragmentShadersWithFilenameFromDirectory_System_String_System_Boolean_
-  name: LoadFragmentShadersWithFilenameFromDirectory
-  nameWithType: ContentManager.LoadFragmentShadersWithFilenameFromDirectory
-  fullName: ShapeEngine.Content.ContentManager.LoadFragmentShadersWithFilenameFromDirectory
-- uid: System.Collections.Generic.Dictionary{System.String,Raylib_cs.Shader}
-  commentId: T:System.Collections.Generic.Dictionary{System.String,Raylib_cs.Shader}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.Dictionary`2
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  name: Dictionary<string, Shader>
-  nameWithType: Dictionary<string, Shader>
-  fullName: System.Collections.Generic.Dictionary<string, Raylib_cs.Shader>
-  nameWithType.vb: Dictionary(Of String, Shader)
-  fullName.vb: System.Collections.Generic.Dictionary(Of String, Raylib_cs.Shader)
-  name.vb: Dictionary(Of String, Shader)
-  spec.csharp:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  - name: <
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: Raylib_cs.Shader
-    name: Shader
-    isExternal: true
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.Dictionary`2
-    name: Dictionary
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: Raylib_cs.Shader
-    name: Shader
-    isExternal: true
-  - name: )
-- uid: ShapeEngine.Content.ContentManager.LoadVertexShadersWithFilenameFromDirectory*
-  commentId: Overload:ShapeEngine.Content.ContentManager.LoadVertexShadersWithFilenameFromDirectory
-  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_LoadVertexShadersWithFilenameFromDirectory_System_String_System_Boolean_
-  name: LoadVertexShadersWithFilenameFromDirectory
-  nameWithType: ContentManager.LoadVertexShadersWithFilenameFromDirectory
-  fullName: ShapeEngine.Content.ContentManager.LoadVertexShadersWithFilenameFromDirectory
+- uid: ShapeEngine.Content.ContentManager.UnloadAllContentPacks*
+  commentId: Overload:ShapeEngine.Content.ContentManager.UnloadAllContentPacks
+  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_UnloadAllContentPacks
+  name: UnloadAllContentPacks
+  nameWithType: ContentManager.UnloadAllContentPacks
+  fullName: ShapeEngine.Content.ContentManager.UnloadAllContentPacks
+- uid: ShapeEngine.Content.ContentManager.UnloadContent*
+  commentId: Overload:ShapeEngine.Content.ContentManager.UnloadContent
+  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_UnloadContent
+  name: UnloadContent
+  nameWithType: ContentManager.UnloadContent
+  fullName: ShapeEngine.Content.ContentManager.UnloadContent
+- uid: ShapeEngine.Content.ContentManager.Close*
+  commentId: Overload:ShapeEngine.Content.ContentManager.Close
+  href: ShapeEngine.Content.ContentManager.html#ShapeEngine_Content_ContentManager_Close
+  name: Close
+  nameWithType: ContentManager.Close
+  fullName: ShapeEngine.Content.ContentManager.Close

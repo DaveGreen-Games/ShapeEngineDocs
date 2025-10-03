@@ -5,11 +5,11 @@ items:
   id: Logger
   parent: ShapeEngine.Core.Logging
   children:
-  - ShapeEngine.Core.Logging.Logger.#ctor
-  - ShapeEngine.Core.Logging.Logger.#ctor(ShapeEngine.Core.Logging.LogLevel)
-  - ShapeEngine.Core.Logging.Logger.#ctor(System.String,ShapeEngine.Core.Logging.LogLevel,System.Boolean)
+  - ShapeEngine.Core.Logging.Logger.#ctor(ShapeEngine.Core.Logging.LoggerSettings)
+  - ShapeEngine.Core.Logging.Logger.Copy
   - ShapeEngine.Core.Logging.Logger.Enabled
   - ShapeEngine.Core.Logging.Logger.EndLogBlock
+  - ShapeEngine.Core.Logging.Logger.GetSettings
   - ShapeEngine.Core.Logging.Logger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
   - ShapeEngine.Core.Logging.Logger.LogAlert(System.String)
   - ShapeEngine.Core.Logging.Logger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
@@ -79,6 +79,10 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
 - uid: ShapeEngine.Core.Logging.Logger.Enabled
   commentId: P:ShapeEngine.Core.Logging.Logger.Enabled
   id: Enabled
@@ -298,16 +302,16 @@ items:
     content: public void EndLogBlock()
     content.vb: Public Sub EndLogBlock()
   overload: ShapeEngine.Core.Logging.Logger.EndLogBlock*
-- uid: ShapeEngine.Core.Logging.Logger.#ctor
-  commentId: M:ShapeEngine.Core.Logging.Logger.#ctor
-  id: '#ctor'
+- uid: ShapeEngine.Core.Logging.Logger.#ctor(ShapeEngine.Core.Logging.LoggerSettings)
+  commentId: M:ShapeEngine.Core.Logging.Logger.#ctor(ShapeEngine.Core.Logging.LoggerSettings)
+  id: '#ctor(ShapeEngine.Core.Logging.LoggerSettings)'
   parent: ShapeEngine.Core.Logging.Logger
   langs:
   - csharp
   - vb
-  name: Logger()
-  nameWithType: Logger.Logger()
-  fullName: ShapeEngine.Core.Logging.Logger.Logger()
+  name: Logger(LoggerSettings)
+  nameWithType: Logger.Logger(LoggerSettings)
+  fullName: ShapeEngine.Core.Logging.Logger.Logger(ShapeEngine.Core.Logging.LoggerSettings)
   type: Constructor
   source:
     remote:
@@ -316,103 +320,80 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 91
+    startLine: 86
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
-  summary: >-
-    Initializes a new instance of the <xref href="ShapeEngine.Core.Logging.Logger" data-throw-if-not-resolved="false"></xref> class with default settings.
-
-    Logging is enabled, minimum level is set to Info, and output is set to console.
-  example: []
   syntax:
-    content: public Logger()
-    content.vb: Public Sub New()
+    content: public Logger(LoggerSettings settings)
+    parameters:
+    - id: settings
+      type: ShapeEngine.Core.Logging.LoggerSettings
+    content.vb: Public Sub New(settings As LoggerSettings)
   overload: ShapeEngine.Core.Logging.Logger.#ctor*
-  nameWithType.vb: Logger.New()
-  fullName.vb: ShapeEngine.Core.Logging.Logger.New()
-  name.vb: New()
-- uid: ShapeEngine.Core.Logging.Logger.#ctor(ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.Core.Logging.Logger.#ctor(ShapeEngine.Core.Logging.LogLevel)
-  id: '#ctor(ShapeEngine.Core.Logging.LogLevel)'
+  nameWithType.vb: Logger.New(LoggerSettings)
+  fullName.vb: ShapeEngine.Core.Logging.Logger.New(ShapeEngine.Core.Logging.LoggerSettings)
+  name.vb: New(LoggerSettings)
+- uid: ShapeEngine.Core.Logging.Logger.GetSettings
+  commentId: M:ShapeEngine.Core.Logging.Logger.GetSettings
+  id: GetSettings
   parent: ShapeEngine.Core.Logging.Logger
   langs:
   - csharp
   - vb
-  name: Logger(LogLevel)
-  nameWithType: Logger.Logger(LogLevel)
-  fullName: ShapeEngine.Core.Logging.Logger.Logger(ShapeEngine.Core.Logging.LogLevel)
-  type: Constructor
+  name: GetSettings()
+  nameWithType: Logger.GetSettings()
+  fullName: ShapeEngine.Core.Logging.Logger.GetSettings()
+  type: Method
   source:
     remote:
       path: ShapeEngine/Core/Logging/Logger.cs
       branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: .ctor
+    id: GetSettings
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
     startLine: 105
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
-  summary: >-
-    Initializes a new instance of the <xref href="ShapeEngine.Core.Logging.Logger" data-throw-if-not-resolved="false"></xref> class with a specified minimum log level.
-
-    Logging is enabled, output is set to console, and log file path is empty.
+  summary: Gets the current logger settings as a <xref href="ShapeEngine.Core.Logging.LoggerSettings" data-throw-if-not-resolved="false"></xref> object.
   example: []
   syntax:
-    content: public Logger(LogLevel minimumLevel)
-    parameters:
-    - id: minimumLevel
-      type: ShapeEngine.Core.Logging.LogLevel
-      description: The minimum log level required for messages to be logged.
-    content.vb: Public Sub New(minimumLevel As LogLevel)
-  overload: ShapeEngine.Core.Logging.Logger.#ctor*
-  nameWithType.vb: Logger.New(LogLevel)
-  fullName.vb: ShapeEngine.Core.Logging.Logger.New(ShapeEngine.Core.Logging.LogLevel)
-  name.vb: New(LogLevel)
-- uid: ShapeEngine.Core.Logging.Logger.#ctor(System.String,ShapeEngine.Core.Logging.LogLevel,System.Boolean)
-  commentId: M:ShapeEngine.Core.Logging.Logger.#ctor(System.String,ShapeEngine.Core.Logging.LogLevel,System.Boolean)
-  id: '#ctor(System.String,ShapeEngine.Core.Logging.LogLevel,System.Boolean)'
+    content: public LoggerSettings GetSettings()
+    return:
+      type: ShapeEngine.Core.Logging.LoggerSettings
+    content.vb: Public Function GetSettings() As LoggerSettings
+  overload: ShapeEngine.Core.Logging.Logger.GetSettings*
+- uid: ShapeEngine.Core.Logging.Logger.Copy
+  commentId: M:ShapeEngine.Core.Logging.Logger.Copy
+  id: Copy
   parent: ShapeEngine.Core.Logging.Logger
   langs:
   - csharp
   - vb
-  name: Logger(string, LogLevel, bool)
-  nameWithType: Logger.Logger(string, LogLevel, bool)
-  fullName: ShapeEngine.Core.Logging.Logger.Logger(string, ShapeEngine.Core.Logging.LogLevel, bool)
-  type: Constructor
+  name: Copy()
+  nameWithType: Logger.Copy()
+  fullName: ShapeEngine.Core.Logging.Logger.Copy()
+  type: Method
   source:
     remote:
       path: ShapeEngine/Core/Logging/Logger.cs
       branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: .ctor
+    id: Copy
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 121
+    startLine: 112
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
-  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.Logging.Logger" data-throw-if-not-resolved="false"></xref> class with a specified log file path, minimum log level, and an option to also log to the console.
+  summary: Creates a copy of the current <xref href="ShapeEngine.Core.Logging.Logger" data-throw-if-not-resolved="false"></xref> instance with the same settings.
   example: []
   syntax:
-    content: public Logger(string logFilePath, LogLevel minimumLevel, bool logToConsole = false)
-    parameters:
-    - id: logFilePath
-      type: System.String
-      description: The file path to write log messages to.
-    - id: minimumLevel
-      type: ShapeEngine.Core.Logging.LogLevel
-      description: The minimum log level required for messages to be logged.
-    - id: logToConsole
-      type: System.Boolean
-      description: >-
-        If true, log messages will be written to both the console and the log file
-            and  <xref href="ShapeEngine.Core.Logging.Logger.OutputType" data-throw-if-not-resolved="false"></xref> will be set to Both.
-    content.vb: Public Sub New(logFilePath As String, minimumLevel As LogLevel, logToConsole As Boolean = False)
-  overload: ShapeEngine.Core.Logging.Logger.#ctor*
-  nameWithType.vb: Logger.New(String, LogLevel, Boolean)
-  fullName.vb: ShapeEngine.Core.Logging.Logger.New(String, ShapeEngine.Core.Logging.LogLevel, Boolean)
-  name.vb: New(String, LogLevel, Boolean)
+    content: public Logger Copy()
+    return:
+      type: ShapeEngine.Core.Logging.Logger
+    content.vb: Public Function Copy() As Logger
+  overload: ShapeEngine.Core.Logging.Logger.Copy*
 - uid: ShapeEngine.Core.Logging.Logger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
   commentId: M:ShapeEngine.Core.Logging.Logger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
   id: Log(System.String,ShapeEngine.Core.Logging.LogLevel)
@@ -431,7 +412,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Log
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 154
+    startLine: 126
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -474,7 +455,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogDebug
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 186
+    startLine: 158
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -509,7 +490,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogInfo
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 194
+    startLine: 166
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -544,7 +525,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogWarning
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 202
+    startLine: 174
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -579,7 +560,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogError
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 210
+    startLine: 182
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -614,7 +595,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogFatal
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 218
+    startLine: 190
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -649,7 +630,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogTrace
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 226
+    startLine: 198
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -684,7 +665,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogNotice
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 234
+    startLine: 206
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -719,7 +700,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogAlert
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 242
+    startLine: 214
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -754,7 +735,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogEmergency
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 250
+    startLine: 222
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -789,7 +770,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogConsole
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 262
+    startLine: 234
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -830,7 +811,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogConsoleDebug
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 276
+    startLine: 248
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -865,7 +846,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogConsoleInfo
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 284
+    startLine: 256
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -900,7 +881,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogConsoleWarning
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 292
+    startLine: 264
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -935,7 +916,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogConsoleError
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 300
+    startLine: 272
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -970,7 +951,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogConsoleFatal
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 308
+    startLine: 280
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -1005,7 +986,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogConsoleTrace
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 316
+    startLine: 288
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -1040,7 +1021,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogConsoleNotice
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 324
+    startLine: 296
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -1075,7 +1056,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogConsoleAlert
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 332
+    startLine: 304
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -1110,7 +1091,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogConsoleEmergency
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 340
+    startLine: 312
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -1145,7 +1126,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogFile
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 352
+    startLine: 324
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -1186,7 +1167,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogFile
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 374
+    startLine: 346
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -1230,7 +1211,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogFileDebug
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 397
+    startLine: 369
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -1265,7 +1246,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogFileInfo
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 405
+    startLine: 377
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -1300,7 +1281,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogFileWarning
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 413
+    startLine: 385
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -1335,7 +1316,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogFileError
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 421
+    startLine: 393
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -1370,7 +1351,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogFileFatal
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 429
+    startLine: 401
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -1405,7 +1386,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogFileTrace
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 437
+    startLine: 409
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -1440,7 +1421,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogFileNotice
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 445
+    startLine: 417
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -1475,7 +1456,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogFileAlert
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 453
+    startLine: 425
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -1510,7 +1491,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LogFileEmergency
     path: ../ShapeEngine/ShapeEngine/Core/Logging/Logger.cs
-    startLine: 461
+    startLine: 433
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Logging
@@ -1788,6 +1769,165 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -1795,6 +1935,191 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
+  href: ShapeEngine.html
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
 - uid: ShapeEngine.Core.Logging.Logger.EndLogBlock
   commentId: M:ShapeEngine.Core.Logging.Logger.EndLogBlock
   href: ShapeEngine.Core.Logging.Logger.html#ShapeEngine_Core_Logging_Logger_EndLogBlock
@@ -1873,21 +2198,41 @@ references:
   name: EndLogBlock
   nameWithType: Logger.EndLogBlock
   fullName: ShapeEngine.Core.Logging.Logger.EndLogBlock
-- uid: ShapeEngine.Core.Logging.Logger
-  commentId: T:ShapeEngine.Core.Logging.Logger
-  href: ShapeEngine.Core.Logging.Logger.html
-  name: Logger
-  nameWithType: Logger
-  fullName: ShapeEngine.Core.Logging.Logger
 - uid: ShapeEngine.Core.Logging.Logger.#ctor*
   commentId: Overload:ShapeEngine.Core.Logging.Logger.#ctor
-  href: ShapeEngine.Core.Logging.Logger.html#ShapeEngine_Core_Logging_Logger__ctor
+  href: ShapeEngine.Core.Logging.Logger.html#ShapeEngine_Core_Logging_Logger__ctor_ShapeEngine_Core_Logging_LoggerSettings_
   name: Logger
   nameWithType: Logger.Logger
   fullName: ShapeEngine.Core.Logging.Logger.Logger
   nameWithType.vb: Logger.New
   fullName.vb: ShapeEngine.Core.Logging.Logger.New
   name.vb: New
+- uid: ShapeEngine.Core.Logging.LoggerSettings
+  commentId: T:ShapeEngine.Core.Logging.LoggerSettings
+  parent: ShapeEngine.Core.Logging
+  href: ShapeEngine.Core.Logging.LoggerSettings.html
+  name: LoggerSettings
+  nameWithType: LoggerSettings
+  fullName: ShapeEngine.Core.Logging.LoggerSettings
+- uid: ShapeEngine.Core.Logging.Logger.GetSettings*
+  commentId: Overload:ShapeEngine.Core.Logging.Logger.GetSettings
+  href: ShapeEngine.Core.Logging.Logger.html#ShapeEngine_Core_Logging_Logger_GetSettings
+  name: GetSettings
+  nameWithType: Logger.GetSettings
+  fullName: ShapeEngine.Core.Logging.Logger.GetSettings
+- uid: ShapeEngine.Core.Logging.Logger
+  commentId: T:ShapeEngine.Core.Logging.Logger
+  parent: ShapeEngine.Core.Logging
+  href: ShapeEngine.Core.Logging.Logger.html
+  name: Logger
+  nameWithType: Logger
+  fullName: ShapeEngine.Core.Logging.Logger
+- uid: ShapeEngine.Core.Logging.Logger.Copy*
+  commentId: Overload:ShapeEngine.Core.Logging.Logger.Copy
+  href: ShapeEngine.Core.Logging.Logger.html#ShapeEngine_Core_Logging_Logger_Copy
+  name: Copy
+  nameWithType: Logger.Copy
+  fullName: ShapeEngine.Core.Logging.Logger.Copy
 - uid: ShapeEngine.Core.Logging.Logger.OutputType
   commentId: F:ShapeEngine.Core.Logging.Logger.OutputType
   href: ShapeEngine.Core.Logging.Logger.html#ShapeEngine_Core_Logging_Logger_OutputType
