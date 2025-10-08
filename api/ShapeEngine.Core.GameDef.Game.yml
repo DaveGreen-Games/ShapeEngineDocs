@@ -9,6 +9,8 @@ items:
   - ShapeEngine.Core.GameDef.Game.AddCustomEvent(ShapeEngine.Core.GameDef.Game.CustomEvent)
   - ShapeEngine.Core.GameDef.Game.AddScreenTexture(ShapeEngine.Screen.ScreenTexture)
   - ShapeEngine.Core.GameDef.Game.ApplicationName
+  - ShapeEngine.Core.GameDef.Game.ApplyBackup(System.Int32)
+  - ShapeEngine.Core.GameDef.Game.ApplyBackup(System.Int32,System.Int32,System.Int32)
   - ShapeEngine.Core.GameDef.Game.AudioDevice
   - ShapeEngine.Core.GameDef.Game.BackgroundColorRgba
   - ShapeEngine.Core.GameDef.Game.BeginRun
@@ -20,6 +22,8 @@ items:
   - ShapeEngine.Core.GameDef.Game.ClearCustomEvents
   - ShapeEngine.Core.GameDef.Game.ClearFlashes
   - ShapeEngine.Core.GameDef.Game.ClearScreenTextures
+  - ShapeEngine.Core.GameDef.Game.CreateBackup(System.Int32)
+  - ShapeEngine.Core.GameDef.Game.CreateBackup(System.Int32,System.Int32,System.Int32)
   - ShapeEngine.Core.GameDef.Game.CurScene
   - ShapeEngine.Core.GameDef.Game.DebugMode
   - ShapeEngine.Core.GameDef.Game.DrawCursorGame(ShapeEngine.Core.Structs.ScreenInfo)
@@ -38,13 +42,18 @@ items:
   - ShapeEngine.Core.GameDef.Game.GameScreenInfo
   - ShapeEngine.Core.GameDef.Game.GameTexture
   - ShapeEngine.Core.GameDef.Game.GameUiScreenInfo
+  - ShapeEngine.Core.GameDef.Game.GetBackupPath(System.Int32)
   - ShapeEngine.Core.GameDef.Game.GetGameTexture
   - ShapeEngine.Core.GameDef.Game.GetHashCode``1(System.Collections.Generic.IEnumerable{``0})
   - ShapeEngine.Core.GameDef.Game.GetInstanceAs``1
   - ShapeEngine.Core.GameDef.Game.GetItem``1(System.Collections.Generic.List{``0},System.Int32)
+  - ShapeEngine.Core.GameDef.Game.GetPreviousBackup(System.Int32,System.Int32)
+  - ShapeEngine.Core.GameDef.Game.GetSlotPath(System.Int32)
+  - ShapeEngine.Core.GameDef.Game.GetSlotPath(System.String,System.Int32)
   - ShapeEngine.Core.GameDef.Game.GoToScene(ShapeEngine.Core.Scene)
   - ShapeEngine.Core.GameDef.Game.HasCustomEvent(ShapeEngine.Core.GameDef.Game.CustomEvent)
   - ShapeEngine.Core.GameDef.Game.HasScreenTexture(ShapeEngine.Screen.ScreenTexture)
+  - ShapeEngine.Core.GameDef.Game.IncrementBackup(System.Int32,System.Int32)
   - ShapeEngine.Core.GameDef.Game.Input
   - ShapeEngine.Core.GameDef.Game.Instance
   - ShapeEngine.Core.GameDef.Game.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Single)
@@ -52,9 +61,15 @@ items:
   - ShapeEngine.Core.GameDef.Game.IsLinux
   - ShapeEngine.Core.GameDef.Game.IsOSX
   - ShapeEngine.Core.GameDef.Game.IsSaveDirectoryValid
+  - ShapeEngine.Core.GameDef.Game.IsSavegameBackupDirectoryValid
+  - ShapeEngine.Core.GameDef.Game.IsSavegameDirectoryValid
   - ShapeEngine.Core.GameDef.Game.IsWindows
   - ShapeEngine.Core.GameDef.Game.LaunchParams
+  - ShapeEngine.Core.GameDef.Game.Load(System.String,System.String@)
+  - ShapeEngine.Core.GameDef.Game.LoadBackupInformation(System.Int32@,System.Int32@,System.Int32@)
   - ShapeEngine.Core.GameDef.Game.LoadContent
+  - ShapeEngine.Core.GameDef.Game.LoadFromSlot(System.String,System.Int32,System.String@)
+  - ShapeEngine.Core.GameDef.Game.LoadSavegameSlotInformation(System.Int32@,System.Int32@,System.Int32@)
   - ShapeEngine.Core.GameDef.Game.Logger
   - ShapeEngine.Core.GameDef.Game.OSXIsRunningInAppBundle
   - ShapeEngine.Core.GameDef.Game.OS_PLATFORM
@@ -88,8 +103,16 @@ items:
   - ShapeEngine.Core.GameDef.Game.ResetCamera
   - ShapeEngine.Core.GameDef.Game.Restart
   - ShapeEngine.Core.GameDef.Game.Run(System.String[])
+  - ShapeEngine.Core.GameDef.Game.Save(System.String,System.String)
+  - ShapeEngine.Core.GameDef.Game.SaveBackupInformation(System.Int32,System.Int32,System.Int32)
   - ShapeEngine.Core.GameDef.Game.SaveDirectory
   - ShapeEngine.Core.GameDef.Game.SaveDirectoryPath
+  - ShapeEngine.Core.GameDef.Game.SaveSavegameSlotInformation(System.Int32,System.Int32,System.Int32)
+  - ShapeEngine.Core.GameDef.Game.SaveToSlot(System.String,System.String,System.Int32)
+  - ShapeEngine.Core.GameDef.Game.SavegameBackupDirectory
+  - ShapeEngine.Core.GameDef.Game.SavegameBackupDirectoryPath
+  - ShapeEngine.Core.GameDef.Game.SavegameDirectory
+  - ShapeEngine.Core.GameDef.Game.SavegameDirectoryPath
   - ShapeEngine.Core.GameDef.Game.ScreenEffectIntensity
   - ShapeEngine.Core.GameDef.Game.ScreenShaders
   - ShapeEngine.Core.GameDef.Game.Time
@@ -216,102 +239,6 @@ items:
     return:
       type: System.String
     content.vb: Public ReadOnly ApplicationName As String
-- uid: ShapeEngine.Core.GameDef.Game.SaveDirectory
-  commentId: F:ShapeEngine.Core.GameDef.Game.SaveDirectory
-  id: SaveDirectory
-  parent: ShapeEngine.Core.GameDef.Game
-  langs:
-  - csharp
-  - vb
-  name: SaveDirectory
-  nameWithType: Game.SaveDirectory
-  fullName: ShapeEngine.Core.GameDef.Game.SaveDirectory
-  type: Field
-  source:
-    remote:
-      path: ShapeEngine/Core/GameDef/Game.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: SaveDirectory
-    path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 68
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core.GameDef
-  summary: >-
-    The directory where game data is saved.
-
-    Points to <xref href="ShapeEngine.Core.Structs.GameSettings.SaveDirectory" data-throw-if-not-resolved="false"></xref>/<xref href="ShapeEngine.Core.Structs.GameSettings.ApplicationName" data-throw-if-not-resolved="false"></xref>.
-
-    Will be empty if no save directory is set in <xref href="ShapeEngine.Core.Structs.GameSettings" data-throw-if-not-resolved="false"></xref>.
-  example: []
-  syntax:
-    content: public readonly DirectoryInfo SaveDirectory
-    return:
-      type: System.IO.DirectoryInfo
-    content.vb: Public ReadOnly SaveDirectory As DirectoryInfo
-- uid: ShapeEngine.Core.GameDef.Game.SaveDirectoryPath
-  commentId: P:ShapeEngine.Core.GameDef.Game.SaveDirectoryPath
-  id: SaveDirectoryPath
-  parent: ShapeEngine.Core.GameDef.Game
-  langs:
-  - csharp
-  - vb
-  name: SaveDirectoryPath
-  nameWithType: Game.SaveDirectoryPath
-  fullName: ShapeEngine.Core.GameDef.Game.SaveDirectoryPath
-  type: Property
-  source:
-    remote:
-      path: ShapeEngine/Core/GameDef/Game.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: SaveDirectoryPath
-    path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 72
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core.GameDef
-  summary: Gets the full path of the save directory as a string.
-  example: []
-  syntax:
-    content: public string SaveDirectoryPath { get; }
-    parameters: []
-    return:
-      type: System.String
-    content.vb: Public ReadOnly Property SaveDirectoryPath As String
-  overload: ShapeEngine.Core.GameDef.Game.SaveDirectoryPath*
-- uid: ShapeEngine.Core.GameDef.Game.IsSaveDirectoryValid
-  commentId: P:ShapeEngine.Core.GameDef.Game.IsSaveDirectoryValid
-  id: IsSaveDirectoryValid
-  parent: ShapeEngine.Core.GameDef.Game
-  langs:
-  - csharp
-  - vb
-  name: IsSaveDirectoryValid
-  nameWithType: Game.IsSaveDirectoryValid
-  fullName: ShapeEngine.Core.GameDef.Game.IsSaveDirectoryValid
-  type: Property
-  source:
-    remote:
-      path: ShapeEngine/Core/GameDef/Game.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: IsSaveDirectoryValid
-    path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 77
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core.GameDef
-  summary: Indicates whether the save directory is valid (exists and has a non-empty path).
-  example: []
-  syntax:
-    content: public bool IsSaveDirectoryValid { get; }
-    parameters: []
-    return:
-      type: System.Boolean
-    content.vb: Public ReadOnly Property IsSaveDirectoryValid As Boolean
-  overload: ShapeEngine.Core.GameDef.Game.IsSaveDirectoryValid*
 - uid: ShapeEngine.Core.GameDef.Game.LaunchParams
   commentId: P:ShapeEngine.Core.GameDef.Game.LaunchParams
   id: LaunchParams
@@ -330,7 +257,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LaunchParams
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 86
+    startLine: 71
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -365,7 +292,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FixedPhysicsEnabled
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 110
+    startLine: 95
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -406,7 +333,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FixedPhysicsFramerate
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 119
+    startLine: 104
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -441,7 +368,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FixedPhysicsTimestep
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 128
+    startLine: 113
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -476,7 +403,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Time
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 137
+    startLine: 122
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -511,7 +438,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FixedTime
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 146
+    startLine: 131
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -546,7 +473,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BackgroundColorRgba
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 154
+    startLine: 139
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -576,7 +503,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ScreenEffectIntensity
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 163
+    startLine: 148
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -609,7 +536,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ScreenShaders
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 172
+    startLine: 157
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -644,7 +571,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Camera
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 181
+    startLine: 166
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -679,7 +606,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GameScreenInfo
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 202
+    startLine: 187
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -714,7 +641,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GameUiScreenInfo
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 211
+    startLine: 196
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -749,7 +676,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: UIScreenInfo
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 220
+    startLine: 205
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -784,7 +711,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Paused
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 230
+    startLine: 215
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -819,7 +746,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Window
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 250
+    startLine: 235
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -854,7 +781,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AudioDevice
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 259
+    startLine: 244
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -887,7 +814,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CurScene
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 268
+    startLine: 253
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -922,7 +849,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GameTexture
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 277
+    startLine: 262
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -957,7 +884,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetGameTexture
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 283
+    startLine: 268
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -988,7 +915,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Input
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 288
+    startLine: 273
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1017,7 +944,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Instance
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 319
+    startLine: 304
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1058,7 +985,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetInstanceAs
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 329
+    startLine: 314
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1099,7 +1026,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 348
+    startLine: 333
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1144,7 +1071,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddScreenTexture
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 577
+    startLine: 596
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1182,7 +1109,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HasScreenTexture
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 600
+    startLine: 619
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1220,7 +1147,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveScreenTexture
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 610
+    startLine: 629
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1258,7 +1185,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ClearScreenTextures
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 623
+    startLine: 642
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1292,7 +1219,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: UpdateCursor
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 644
+    startLine: 663
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1339,7 +1266,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawCursorGame
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 656
+    startLine: 675
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1375,7 +1302,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawCursorGameUi
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 669
+    startLine: 688
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1411,7 +1338,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawCursorUi
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 682
+    startLine: 701
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1447,7 +1374,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Restart
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 694
+    startLine: 713
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1475,7 +1402,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Quit
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 703
+    startLine: 722
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1503,7 +1430,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GoToScene
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 713
+    startLine: 732
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1535,7 +1462,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CallDeferred
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 732
+    startLine: 751
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1575,7 +1502,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Flash
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 755
+    startLine: 774
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1616,7 +1543,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ClearFlashes
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 773
+    startLine: 792
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1644,7 +1571,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ResetCamera
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 778
+    startLine: 797
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1672,7 +1599,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ChangeGameTexture
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 786
+    startLine: 805
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1709,7 +1636,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Run
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 810
+    startLine: 829
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1863,6 +1790,1220 @@ items:
     content: public void ClearCustomEvents()
     content.vb: Public Sub ClearCustomEvents()
   overload: ShapeEngine.Core.GameDef.Game.ClearCustomEvents*
+- uid: ShapeEngine.Core.GameDef.Game.SaveDirectory
+  commentId: F:ShapeEngine.Core.GameDef.Game.SaveDirectory
+  id: SaveDirectory
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: SaveDirectory
+  nameWithType: Game.SaveDirectory
+  fullName: ShapeEngine.Core.GameDef.Game.SaveDirectory
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: SaveDirectory
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 14
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: >-
+    The directory where game data is saved.
+
+    Points to <xref href="ShapeEngine.Core.Structs.GameSettings.SaveDirectory" data-throw-if-not-resolved="false"></xref>/<xref href="ShapeEngine.Core.Structs.GameSettings.ApplicationName" data-throw-if-not-resolved="false"></xref>.
+
+    Will be empty if no save directory is set in <xref href="ShapeEngine.Core.Structs.GameSettings" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public readonly DirectoryInfo SaveDirectory
+    return:
+      type: System.IO.DirectoryInfo
+    content.vb: Public ReadOnly SaveDirectory As DirectoryInfo
+- uid: ShapeEngine.Core.GameDef.Game.SaveDirectoryPath
+  commentId: P:ShapeEngine.Core.GameDef.Game.SaveDirectoryPath
+  id: SaveDirectoryPath
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: SaveDirectoryPath
+  nameWithType: Game.SaveDirectoryPath
+  fullName: ShapeEngine.Core.GameDef.Game.SaveDirectoryPath
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: SaveDirectoryPath
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 19
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Gets the full path of the save directory as a string.
+  example: []
+  syntax:
+    content: public string SaveDirectoryPath { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property SaveDirectoryPath As String
+  overload: ShapeEngine.Core.GameDef.Game.SaveDirectoryPath*
+- uid: ShapeEngine.Core.GameDef.Game.IsSaveDirectoryValid
+  commentId: P:ShapeEngine.Core.GameDef.Game.IsSaveDirectoryValid
+  id: IsSaveDirectoryValid
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: IsSaveDirectoryValid
+  nameWithType: Game.IsSaveDirectoryValid
+  fullName: ShapeEngine.Core.GameDef.Game.IsSaveDirectoryValid
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: IsSaveDirectoryValid
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 24
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Indicates whether the save directory is valid (exists and has a non-empty path).
+  example: []
+  syntax:
+    content: public bool IsSaveDirectoryValid { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property IsSaveDirectoryValid As Boolean
+  overload: ShapeEngine.Core.GameDef.Game.IsSaveDirectoryValid*
+- uid: ShapeEngine.Core.GameDef.Game.SavegameBackupDirectory
+  commentId: F:ShapeEngine.Core.GameDef.Game.SavegameBackupDirectory
+  id: SavegameBackupDirectory
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: SavegameBackupDirectory
+  nameWithType: Game.SavegameBackupDirectory
+  fullName: ShapeEngine.Core.GameDef.Game.SavegameBackupDirectory
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: SavegameBackupDirectory
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 31
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: >-
+    The directory where backup copies of savegame data are stored.
+
+    Resolves to "<xref href="ShapeEngine.Core.GameDef.Game.SaveDirectoryPath" data-throw-if-not-resolved="false"></xref>/Backups".
+
+    Will be empty if the backup directory could not be created.
+  example: []
+  syntax:
+    content: public readonly DirectoryInfo SavegameBackupDirectory
+    return:
+      type: System.IO.DirectoryInfo
+    content.vb: Public ReadOnly SavegameBackupDirectory As DirectoryInfo
+- uid: ShapeEngine.Core.GameDef.Game.SavegameBackupDirectoryPath
+  commentId: P:ShapeEngine.Core.GameDef.Game.SavegameBackupDirectoryPath
+  id: SavegameBackupDirectoryPath
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: SavegameBackupDirectoryPath
+  nameWithType: Game.SavegameBackupDirectoryPath
+  fullName: ShapeEngine.Core.GameDef.Game.SavegameBackupDirectoryPath
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: SavegameBackupDirectoryPath
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 36
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Gets the full path of the save backup directory as a string.
+  example: []
+  syntax:
+    content: public string SavegameBackupDirectoryPath { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property SavegameBackupDirectoryPath As String
+  overload: ShapeEngine.Core.GameDef.Game.SavegameBackupDirectoryPath*
+- uid: ShapeEngine.Core.GameDef.Game.IsSavegameBackupDirectoryValid
+  commentId: P:ShapeEngine.Core.GameDef.Game.IsSavegameBackupDirectoryValid
+  id: IsSavegameBackupDirectoryValid
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: IsSavegameBackupDirectoryValid
+  nameWithType: Game.IsSavegameBackupDirectoryValid
+  fullName: ShapeEngine.Core.GameDef.Game.IsSavegameBackupDirectoryValid
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: IsSavegameBackupDirectoryValid
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 41
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Indicates whether the save backup directory is valid (exists and has a non-empty path).
+  example: []
+  syntax:
+    content: public bool IsSavegameBackupDirectoryValid { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property IsSavegameBackupDirectoryValid As Boolean
+  overload: ShapeEngine.Core.GameDef.Game.IsSavegameBackupDirectoryValid*
+- uid: ShapeEngine.Core.GameDef.Game.SavegameDirectory
+  commentId: F:ShapeEngine.Core.GameDef.Game.SavegameDirectory
+  id: SavegameDirectory
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: SavegameDirectory
+  nameWithType: Game.SavegameDirectory
+  fullName: ShapeEngine.Core.GameDef.Game.SavegameDirectory
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: SavegameDirectory
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 47
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: >-
+    The directory where savegame files are stored.
+
+    This points to "<xref href="ShapeEngine.Core.GameDef.Game.SaveDirectoryPath" data-throw-if-not-resolved="false"></xref>/Savegames".
+  example: []
+  syntax:
+    content: public readonly DirectoryInfo SavegameDirectory
+    return:
+      type: System.IO.DirectoryInfo
+    content.vb: Public ReadOnly SavegameDirectory As DirectoryInfo
+- uid: ShapeEngine.Core.GameDef.Game.SavegameDirectoryPath
+  commentId: P:ShapeEngine.Core.GameDef.Game.SavegameDirectoryPath
+  id: SavegameDirectoryPath
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: SavegameDirectoryPath
+  nameWithType: Game.SavegameDirectoryPath
+  fullName: ShapeEngine.Core.GameDef.Game.SavegameDirectoryPath
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: SavegameDirectoryPath
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 52
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Gets the full path of the savegame directory as a string.
+  example: []
+  syntax:
+    content: public string SavegameDirectoryPath { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public ReadOnly Property SavegameDirectoryPath As String
+  overload: ShapeEngine.Core.GameDef.Game.SavegameDirectoryPath*
+- uid: ShapeEngine.Core.GameDef.Game.IsSavegameDirectoryValid
+  commentId: P:ShapeEngine.Core.GameDef.Game.IsSavegameDirectoryValid
+  id: IsSavegameDirectoryValid
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: IsSavegameDirectoryValid
+  nameWithType: Game.IsSavegameDirectoryValid
+  fullName: ShapeEngine.Core.GameDef.Game.IsSavegameDirectoryValid
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: IsSavegameDirectoryValid
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 57
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Indicates whether the savegame directory is valid (exists and has a non-empty path).
+  example: []
+  syntax:
+    content: public bool IsSavegameDirectoryValid { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property IsSavegameDirectoryValid As Boolean
+  overload: ShapeEngine.Core.GameDef.Game.IsSavegameDirectoryValid*
+- uid: ShapeEngine.Core.GameDef.Game.SaveSavegameSlotInformation(System.Int32,System.Int32,System.Int32)
+  commentId: M:ShapeEngine.Core.GameDef.Game.SaveSavegameSlotInformation(System.Int32,System.Int32,System.Int32)
+  id: SaveSavegameSlotInformation(System.Int32,System.Int32,System.Int32)
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: SaveSavegameSlotInformation(int, int, int)
+  nameWithType: Game.SaveSavegameSlotInformation(int, int, int)
+  fullName: ShapeEngine.Core.GameDef.Game.SaveSavegameSlotInformation(int, int, int)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: SaveSavegameSlotInformation
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 78
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: >-
+    Saves information about the current savegame slot,
+
+    including the active slot, number of used slots, and maximum slots.
+  remarks: >-
+    Saves the information to a file named "CurrentSavegameSlot.txt" in the <xref href="ShapeEngine.Core.GameDef.Game.SavegameDirectoryPath" data-throw-if-not-resolved="false"></xref>.
+
+    Requires <xref href="ShapeEngine.Core.GameDef.Game.IsSavegameDirectoryValid" data-throw-if-not-resolved="false"></xref> to be true.
+
+    When constructing the <xref href="ShapeEngine.Core.GameDef.Game" data-throw-if-not-resolved="false"></xref> object,
+
+    ensure that <xref href="ShapeEngine.Core.Structs.GameSettings.SaveDirectory" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Core.Structs.GameSettings.ApplicationName" data-throw-if-not-resolved="false"></xref> are set
+
+    in <xref href="ShapeEngine.Core.Structs.GameSettings" data-throw-if-not-resolved="false"></xref> to create a valid savegame backup directory.
+  example: []
+  syntax:
+    content: public bool SaveSavegameSlotInformation(int currentActiveSlot, int usedSlots, int maxSlots)
+    parameters:
+    - id: currentActiveSlot
+      type: System.Int32
+      description: The index of the currently active savegame slot.
+    - id: usedSlots
+      type: System.Int32
+      description: The number of savegame slots currently in use.
+    - id: maxSlots
+      type: System.Int32
+      description: The maximum number of savegame slots available.
+    return:
+      type: System.Boolean
+      description: True if the information was successfully saved; otherwise, false.
+    content.vb: Public Function SaveSavegameSlotInformation(currentActiveSlot As Integer, usedSlots As Integer, maxSlots As Integer) As Boolean
+  overload: ShapeEngine.Core.GameDef.Game.SaveSavegameSlotInformation*
+  nameWithType.vb: Game.SaveSavegameSlotInformation(Integer, Integer, Integer)
+  fullName.vb: ShapeEngine.Core.GameDef.Game.SaveSavegameSlotInformation(Integer, Integer, Integer)
+  name.vb: SaveSavegameSlotInformation(Integer, Integer, Integer)
+- uid: ShapeEngine.Core.GameDef.Game.LoadSavegameSlotInformation(System.Int32@,System.Int32@,System.Int32@)
+  commentId: M:ShapeEngine.Core.GameDef.Game.LoadSavegameSlotInformation(System.Int32@,System.Int32@,System.Int32@)
+  id: LoadSavegameSlotInformation(System.Int32@,System.Int32@,System.Int32@)
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: LoadSavegameSlotInformation(out int, out int, out int)
+  nameWithType: Game.LoadSavegameSlotInformation(out int, out int, out int)
+  fullName: ShapeEngine.Core.GameDef.Game.LoadSavegameSlotInformation(out int, out int, out int)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: LoadSavegameSlotInformation
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 103
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: >-
+    Loads information about the current savegame slot,
+
+    including the active slot, number of used slots, and maximum slots.
+  remarks: >-
+    Loads the information from a file named "CurrentSavegameSlot.txt" in the <xref href="ShapeEngine.Core.GameDef.Game.SavegameDirectoryPath" data-throw-if-not-resolved="false"></xref>.
+
+    Requires <xref href="ShapeEngine.Core.GameDef.Game.IsSavegameDirectoryValid" data-throw-if-not-resolved="false"></xref> to be true.
+
+    When constructing the <xref href="ShapeEngine.Core.GameDef.Game" data-throw-if-not-resolved="false"></xref> object,
+
+    ensure that <xref href="ShapeEngine.Core.Structs.GameSettings.SaveDirectory" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Core.Structs.GameSettings.ApplicationName" data-throw-if-not-resolved="false"></xref> are set
+
+    in <xref href="ShapeEngine.Core.Structs.GameSettings" data-throw-if-not-resolved="false"></xref> to create a valid savegame backup directory.
+  example: []
+  syntax:
+    content: public bool LoadSavegameSlotInformation(out int activeSlot, out int usedSlots, out int maxSlots)
+    parameters:
+    - id: activeSlot
+      type: System.Int32
+      description: Outputs the index of the currently active savegame slot.
+    - id: usedSlots
+      type: System.Int32
+      description: Outputs the number of savegame slots currently in use.
+    - id: maxSlots
+      type: System.Int32
+      description: Outputs the maximum number of savegame slots available.
+    return:
+      type: System.Boolean
+      description: True if the information was successfully loaded; otherwise, false.
+    content.vb: Public Function LoadSavegameSlotInformation(activeSlot As Integer, usedSlots As Integer, maxSlots As Integer) As Boolean
+  overload: ShapeEngine.Core.GameDef.Game.LoadSavegameSlotInformation*
+  nameWithType.vb: Game.LoadSavegameSlotInformation(Integer, Integer, Integer)
+  fullName.vb: ShapeEngine.Core.GameDef.Game.LoadSavegameSlotInformation(Integer, Integer, Integer)
+  name.vb: LoadSavegameSlotInformation(Integer, Integer, Integer)
+- uid: ShapeEngine.Core.GameDef.Game.Save(System.String,System.String)
+  commentId: M:ShapeEngine.Core.GameDef.Game.Save(System.String,System.String)
+  id: Save(System.String,System.String)
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: Save(string, string)
+  nameWithType: Game.Save(string, string)
+  fullName: ShapeEngine.Core.GameDef.Game.Save(string, string)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Save
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 142
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: >-
+    Saves the specified content to a file at the given relative path within the <xref href="ShapeEngine.Core.GameDef.Game.SavegameDirectory" data-throw-if-not-resolved="false"></xref>
+
+    Requires <xref href="ShapeEngine.Core.GameDef.Game.IsSavegameDirectoryValid" data-throw-if-not-resolved="false"></xref> to be true.
+  remarks: >-
+    Saves to "<xref href="ShapeEngine.Core.GameDef.Game.SavegameDirectoryPath" data-throw-if-not-resolved="false"></xref>/<code class="paramref">relativeFilePath</code>".
+
+    Requires <xref href="ShapeEngine.Core.GameDef.Game.IsSavegameDirectoryValid" data-throw-if-not-resolved="false"></xref> to be true.
+
+    When constructing the <xref href="ShapeEngine.Core.GameDef.Game" data-throw-if-not-resolved="false"></xref> object,
+
+    ensure that <xref href="ShapeEngine.Core.Structs.GameSettings.SaveDirectory" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Core.Structs.GameSettings.ApplicationName" data-throw-if-not-resolved="false"></xref> are set
+
+    in <xref href="ShapeEngine.Core.Structs.GameSettings" data-throw-if-not-resolved="false"></xref> to create a valid savegame backup directory.
+  example: []
+  syntax:
+    content: public bool Save(string relativeFilePath, string content)
+    parameters:
+    - id: relativeFilePath
+      type: System.String
+      description: The relative file path (including extension) within the <xref href="ShapeEngine.Core.GameDef.Game.SavegameDirectory" data-throw-if-not-resolved="false"></xref>.
+    - id: content
+      type: System.String
+      description: The content to save to the file.
+    return:
+      type: System.Boolean
+      description: True if the content was successfully saved; otherwise, false.
+    content.vb: Public Function Save(relativeFilePath As String, content As String) As Boolean
+  overload: ShapeEngine.Core.GameDef.Game.Save*
+  nameWithType.vb: Game.Save(String, String)
+  fullName.vb: ShapeEngine.Core.GameDef.Game.Save(String, String)
+  name.vb: Save(String, String)
+- uid: ShapeEngine.Core.GameDef.Game.Load(System.String,System.String@)
+  commentId: M:ShapeEngine.Core.GameDef.Game.Load(System.String,System.String@)
+  id: Load(System.String,System.String@)
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: Load(string, out string)
+  nameWithType: Game.Load(string, out string)
+  fullName: ShapeEngine.Core.GameDef.Game.Load(string, out string)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Load
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 164
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Loads the content of a file at the given relative path within the <xref href="ShapeEngine.Core.GameDef.Game.SavegameDirectory" data-throw-if-not-resolved="false"></xref>
+  remarks: >-
+    Loads from "<xref href="ShapeEngine.Core.GameDef.Game.SavegameDirectoryPath" data-throw-if-not-resolved="false"></xref>/<code class="paramref">relativeFilePath</code>".
+
+    Requires <xref href="ShapeEngine.Core.GameDef.Game.IsSavegameDirectoryValid" data-throw-if-not-resolved="false"></xref> to be true.
+
+    When constructing the <xref href="ShapeEngine.Core.GameDef.Game" data-throw-if-not-resolved="false"></xref> object,
+
+    ensure that <xref href="ShapeEngine.Core.Structs.GameSettings.SaveDirectory" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Core.Structs.GameSettings.ApplicationName" data-throw-if-not-resolved="false"></xref> are set
+
+    in <xref href="ShapeEngine.Core.Structs.GameSettings" data-throw-if-not-resolved="false"></xref> to create a valid savegame backup directory.
+  example: []
+  syntax:
+    content: public bool Load(string relativeFilePath, out string content)
+    parameters:
+    - id: relativeFilePath
+      type: System.String
+      description: The relative file path (including extension) within the <xref href="ShapeEngine.Core.GameDef.Game.SavegameDirectory" data-throw-if-not-resolved="false"></xref>.
+    - id: content
+      type: System.String
+      description: Outputs the content loaded from the file.
+    return:
+      type: System.Boolean
+      description: True if the content was successfully loaded; otherwise, false.
+    content.vb: Public Function Load(relativeFilePath As String, content As String) As Boolean
+  overload: ShapeEngine.Core.GameDef.Game.Load*
+  nameWithType.vb: Game.Load(String, String)
+  fullName.vb: ShapeEngine.Core.GameDef.Game.Load(String, String)
+  name.vb: Load(String, String)
+- uid: ShapeEngine.Core.GameDef.Game.SaveToSlot(System.String,System.String,System.Int32)
+  commentId: M:ShapeEngine.Core.GameDef.Game.SaveToSlot(System.String,System.String,System.Int32)
+  id: SaveToSlot(System.String,System.String,System.Int32)
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: SaveToSlot(string, string, int)
+  nameWithType: Game.SaveToSlot(string, string, int)
+  fullName: ShapeEngine.Core.GameDef.Game.SaveToSlot(string, string, int)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: SaveToSlot
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 191
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Saves the specified content to a file within a specific savegame slot directory.
+  remarks: >-
+    Saves to "<xref href="ShapeEngine.Core.GameDef.Game.SavegameDirectoryPath" data-throw-if-not-resolved="false"></xref>/Slot-XX/<code class="paramref">relativeFilePath</code>".
+
+    Requires <xref href="ShapeEngine.Core.GameDef.Game.IsSavegameDirectoryValid" data-throw-if-not-resolved="false"></xref> to be true.
+
+    When constructing the <xref href="ShapeEngine.Core.GameDef.Game" data-throw-if-not-resolved="false"></xref> object,
+
+    ensure that <xref href="ShapeEngine.Core.Structs.GameSettings.SaveDirectory" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Core.Structs.GameSettings.ApplicationName" data-throw-if-not-resolved="false"></xref> are set
+
+    in <xref href="ShapeEngine.Core.Structs.GameSettings" data-throw-if-not-resolved="false"></xref> to create a valid savegame backup directory.
+  example: []
+  syntax:
+    content: public bool SaveToSlot(string relativeFilePath, string content, int slotNumber)
+    parameters:
+    - id: relativeFilePath
+      type: System.String
+      description: The relative file path (including extension) within the slot directory.
+    - id: content
+      type: System.String
+      description: The content to save to the file.
+    - id: slotNumber
+      type: System.Int32
+      description: The slot number to save the file in.
+    return:
+      type: System.Boolean
+      description: True if the content was successfully saved; otherwise, false.
+    content.vb: Public Function SaveToSlot(relativeFilePath As String, content As String, slotNumber As Integer) As Boolean
+  overload: ShapeEngine.Core.GameDef.Game.SaveToSlot*
+  nameWithType.vb: Game.SaveToSlot(String, String, Integer)
+  fullName.vb: ShapeEngine.Core.GameDef.Game.SaveToSlot(String, String, Integer)
+  name.vb: SaveToSlot(String, String, Integer)
+- uid: ShapeEngine.Core.GameDef.Game.LoadFromSlot(System.String,System.Int32,System.String@)
+  commentId: M:ShapeEngine.Core.GameDef.Game.LoadFromSlot(System.String,System.Int32,System.String@)
+  id: LoadFromSlot(System.String,System.Int32,System.String@)
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: LoadFromSlot(string, int, out string)
+  nameWithType: Game.LoadFromSlot(string, int, out string)
+  fullName: ShapeEngine.Core.GameDef.Game.LoadFromSlot(string, int, out string)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: LoadFromSlot
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 210
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Loads the content of a file from a specific savegame slot directory.
+  remarks: >-
+    Loads from "<xref href="ShapeEngine.Core.GameDef.Game.SavegameDirectoryPath" data-throw-if-not-resolved="false"></xref>/Slot-XX/<code class="paramref">relativeFilePath</code>".
+
+    Requires <xref href="ShapeEngine.Core.GameDef.Game.IsSavegameDirectoryValid" data-throw-if-not-resolved="false"></xref> to be true.
+
+    When constructing the <xref href="ShapeEngine.Core.GameDef.Game" data-throw-if-not-resolved="false"></xref> object,
+
+    ensure that <xref href="ShapeEngine.Core.Structs.GameSettings.SaveDirectory" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Core.Structs.GameSettings.ApplicationName" data-throw-if-not-resolved="false"></xref> are set
+
+    in <xref href="ShapeEngine.Core.Structs.GameSettings" data-throw-if-not-resolved="false"></xref> to create a valid savegame backup directory.
+  example: []
+  syntax:
+    content: public bool LoadFromSlot(string relativeFilePath, int slotNumber, out string content)
+    parameters:
+    - id: relativeFilePath
+      type: System.String
+      description: The relative file path (including extension) within the slot directory.
+    - id: slotNumber
+      type: System.Int32
+      description: The slot number to load the file from.
+    - id: content
+      type: System.String
+      description: Outputs the content loaded from the file.
+    return:
+      type: System.Boolean
+      description: True if the content was successfully loaded; otherwise, false.
+    content.vb: Public Function LoadFromSlot(relativeFilePath As String, slotNumber As Integer, content As String) As Boolean
+  overload: ShapeEngine.Core.GameDef.Game.LoadFromSlot*
+  nameWithType.vb: Game.LoadFromSlot(String, Integer, String)
+  fullName.vb: ShapeEngine.Core.GameDef.Game.LoadFromSlot(String, Integer, String)
+  name.vb: LoadFromSlot(String, Integer, String)
+- uid: ShapeEngine.Core.GameDef.Game.GetSlotPath(System.Int32)
+  commentId: M:ShapeEngine.Core.GameDef.Game.GetSlotPath(System.Int32)
+  id: GetSlotPath(System.Int32)
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: GetSlotPath(int)
+  nameWithType: Game.GetSlotPath(int)
+  fullName: ShapeEngine.Core.GameDef.Game.GetSlotPath(int)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetSlotPath
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 230
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: >-
+    Gets the full path to the specified savegame slot directory.
+
+    Returns an empty string if the savegame directory is not valid.
+  remarks: >-
+    Requires <xref href="ShapeEngine.Core.GameDef.Game.IsSavegameDirectoryValid" data-throw-if-not-resolved="false"></xref> to be true.
+
+    When constructing the <xref href="ShapeEngine.Core.GameDef.Game" data-throw-if-not-resolved="false"></xref> object,
+
+    ensure that <xref href="ShapeEngine.Core.Structs.GameSettings.SaveDirectory" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Core.Structs.GameSettings.ApplicationName" data-throw-if-not-resolved="false"></xref> are set
+
+    in <xref href="ShapeEngine.Core.Structs.GameSettings" data-throw-if-not-resolved="false"></xref> to create a valid savegame backup directory.
+  example: []
+  syntax:
+    content: public string GetSlotPath(int slotNumber)
+    parameters:
+    - id: slotNumber
+      type: System.Int32
+      description: The slot number for which to get the directory path.
+    return:
+      type: System.String
+      description: >-
+        The full path to the slot directory, or an empty string if invalid
+            ("<xref href="ShapeEngine.Core.GameDef.Game.SavegameDirectoryPath" data-throw-if-not-resolved="false"></xref>/Slot-XX/").
+    content.vb: Public Function GetSlotPath(slotNumber As Integer) As String
+  overload: ShapeEngine.Core.GameDef.Game.GetSlotPath*
+  nameWithType.vb: Game.GetSlotPath(Integer)
+  fullName.vb: ShapeEngine.Core.GameDef.Game.GetSlotPath(Integer)
+  name.vb: GetSlotPath(Integer)
+- uid: ShapeEngine.Core.GameDef.Game.GetSlotPath(System.String,System.Int32)
+  commentId: M:ShapeEngine.Core.GameDef.Game.GetSlotPath(System.String,System.Int32)
+  id: GetSlotPath(System.String,System.Int32)
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: GetSlotPath(string, int)
+  nameWithType: Game.GetSlotPath(string, int)
+  fullName: ShapeEngine.Core.GameDef.Game.GetSlotPath(string, int)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetSlotPath
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 250
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: >-
+    Gets the full path to a file within a specific savegame slot directory.
+
+    Returns an empty string if the relative file path is empty, does not have an extension,
+
+    or if the savegame directory is not valid.
+  remarks: >-
+    Requires <xref href="ShapeEngine.Core.GameDef.Game.IsSavegameDirectoryValid" data-throw-if-not-resolved="false"></xref> to be true.
+
+    When constructing the <xref href="ShapeEngine.Core.GameDef.Game" data-throw-if-not-resolved="false"></xref> object,
+
+    ensure that <xref href="ShapeEngine.Core.Structs.GameSettings.SaveDirectory" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Core.Structs.GameSettings.ApplicationName" data-throw-if-not-resolved="false"></xref> are set
+
+    in <xref href="ShapeEngine.Core.Structs.GameSettings" data-throw-if-not-resolved="false"></xref> to create a valid savegame backup directory.
+  example: []
+  syntax:
+    content: public string GetSlotPath(string relativeFilePath, int slotNumber)
+    parameters:
+    - id: relativeFilePath
+      type: System.String
+      description: The relative file path (including extension) within the slot directory.
+    - id: slotNumber
+      type: System.Int32
+      description: The slot number for which to get the file path.
+    return:
+      type: System.String
+      description: >-
+        The full path to the file in the slot directory, or an empty string if invalid
+            ("<xref href="ShapeEngine.Core.GameDef.Game.SavegameDirectoryPath" data-throw-if-not-resolved="false"></xref>/Slot-XX/<code class="paramref">relativeFilePath</code>").
+    content.vb: Public Function GetSlotPath(relativeFilePath As String, slotNumber As Integer) As String
+  overload: ShapeEngine.Core.GameDef.Game.GetSlotPath*
+  nameWithType.vb: Game.GetSlotPath(String, Integer)
+  fullName.vb: ShapeEngine.Core.GameDef.Game.GetSlotPath(String, Integer)
+  name.vb: GetSlotPath(String, Integer)
+- uid: ShapeEngine.Core.GameDef.Game.SaveBackupInformation(System.Int32,System.Int32,System.Int32)
+  commentId: M:ShapeEngine.Core.GameDef.Game.SaveBackupInformation(System.Int32,System.Int32,System.Int32)
+  id: SaveBackupInformation(System.Int32,System.Int32,System.Int32)
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: SaveBackupInformation(int, int, int)
+  nameWithType: Game.SaveBackupInformation(int, int, int)
+  fullName: ShapeEngine.Core.GameDef.Game.SaveBackupInformation(int, int, int)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: SaveBackupInformation
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 276
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: >-
+    Saves backup information including the current backup number,
+
+    the number of created backups, and the maximum number of backups.
+
+    Writes this information to a file named "BackupInfo.txt" in the <xref href="ShapeEngine.Core.GameDef.Game.SavegameBackupDirectory" data-throw-if-not-resolved="false"></xref>.
+  remarks: >-
+    Requires <xref href="ShapeEngine.Core.GameDef.Game.IsSavegameBackupDirectoryValid" data-throw-if-not-resolved="false"></xref> to be true.
+
+    When constructing the <xref href="ShapeEngine.Core.GameDef.Game" data-throw-if-not-resolved="false"></xref> object,
+
+    ensure that <xref href="ShapeEngine.Core.Structs.GameSettings.SaveDirectory" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Core.Structs.GameSettings.ApplicationName" data-throw-if-not-resolved="false"></xref> are set
+
+    in <xref href="ShapeEngine.Core.Structs.GameSettings" data-throw-if-not-resolved="false"></xref> to create a valid savegame backup directory.
+  example: []
+  syntax:
+    content: public bool SaveBackupInformation(int currentBackupNumber, int createdBackups, int maxBackups)
+    parameters:
+    - id: currentBackupNumber
+      type: System.Int32
+      description: The current backup number.
+    - id: createdBackups
+      type: System.Int32
+      description: The total number of backups created.
+    - id: maxBackups
+      type: System.Int32
+      description: The maximum number of backups allowed.
+    return:
+      type: System.Boolean
+      description: True if the information was successfully saved; otherwise, false.
+    content.vb: Public Function SaveBackupInformation(currentBackupNumber As Integer, createdBackups As Integer, maxBackups As Integer) As Boolean
+  overload: ShapeEngine.Core.GameDef.Game.SaveBackupInformation*
+  nameWithType.vb: Game.SaveBackupInformation(Integer, Integer, Integer)
+  fullName.vb: ShapeEngine.Core.GameDef.Game.SaveBackupInformation(Integer, Integer, Integer)
+  name.vb: SaveBackupInformation(Integer, Integer, Integer)
+- uid: ShapeEngine.Core.GameDef.Game.LoadBackupInformation(System.Int32@,System.Int32@,System.Int32@)
+  commentId: M:ShapeEngine.Core.GameDef.Game.LoadBackupInformation(System.Int32@,System.Int32@,System.Int32@)
+  id: LoadBackupInformation(System.Int32@,System.Int32@,System.Int32@)
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: LoadBackupInformation(out int, out int, out int)
+  nameWithType: Game.LoadBackupInformation(out int, out int, out int)
+  fullName: ShapeEngine.Core.GameDef.Game.LoadBackupInformation(out int, out int, out int)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: LoadBackupInformation
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 299
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: >-
+    Loads backup information including the current backup number,
+
+    the number of created backups, and the maximum number of backups.
+
+    Reads this information from a file named "BackupInfo.txt" in the <xref href="ShapeEngine.Core.GameDef.Game.SavegameBackupDirectory" data-throw-if-not-resolved="false"></xref>.
+  remarks: >-
+    Requires <xref href="ShapeEngine.Core.GameDef.Game.IsSavegameBackupDirectoryValid" data-throw-if-not-resolved="false"></xref> to be true.
+
+    When constructing the <xref href="ShapeEngine.Core.GameDef.Game" data-throw-if-not-resolved="false"></xref> object,
+
+    ensure that <xref href="ShapeEngine.Core.Structs.GameSettings.SaveDirectory" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Core.Structs.GameSettings.ApplicationName" data-throw-if-not-resolved="false"></xref> are set
+
+    in <xref href="ShapeEngine.Core.Structs.GameSettings" data-throw-if-not-resolved="false"></xref> to create a valid savegame backup directory.
+  example: []
+  syntax:
+    content: public bool LoadBackupInformation(out int currentBackupNumber, out int createdBackups, out int maxBackups)
+    parameters:
+    - id: currentBackupNumber
+      type: System.Int32
+      description: Outputs the current backup number.
+    - id: createdBackups
+      type: System.Int32
+      description: Outputs the total number of backups created.
+    - id: maxBackups
+      type: System.Int32
+      description: Outputs the maximum number of backups allowed.
+    return:
+      type: System.Boolean
+      description: true if the information was successfully loaded; otherwise, false.
+    content.vb: Public Function LoadBackupInformation(currentBackupNumber As Integer, createdBackups As Integer, maxBackups As Integer) As Boolean
+  overload: ShapeEngine.Core.GameDef.Game.LoadBackupInformation*
+  nameWithType.vb: Game.LoadBackupInformation(Integer, Integer, Integer)
+  fullName.vb: ShapeEngine.Core.GameDef.Game.LoadBackupInformation(Integer, Integer, Integer)
+  name.vb: LoadBackupInformation(Integer, Integer, Integer)
+- uid: ShapeEngine.Core.GameDef.Game.CreateBackup(System.Int32,System.Int32,System.Int32)
+  commentId: M:ShapeEngine.Core.GameDef.Game.CreateBackup(System.Int32,System.Int32,System.Int32)
+  id: CreateBackup(System.Int32,System.Int32,System.Int32)
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: CreateBackup(int, int, int)
+  nameWithType: Game.CreateBackup(int, int, int)
+  fullName: ShapeEngine.Core.GameDef.Game.CreateBackup(int, int, int)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: CreateBackup
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 345
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: >-
+    Creates a new backup of the current savegame directory.
+
+    Increments the backup number, copies the savegame directory to a new backup directory,
+
+    and returns the result along with the new backup number and updated count of created backups.
+  remarks: >-
+    Backups are stored in "<xref href="ShapeEngine.Core.GameDef.Game.SavegameBackupDirectoryPath" data-throw-if-not-resolved="false"></xref>/Backup-XX" based on the backup number.
+
+    Requires <xref href="ShapeEngine.Core.GameDef.Game.IsSavegameBackupDirectoryValid" data-throw-if-not-resolved="false"></xref> to be true.
+
+    When constructing the <xref href="ShapeEngine.Core.GameDef.Game" data-throw-if-not-resolved="false"></xref> object,
+
+    ensure that <xref href="ShapeEngine.Core.Structs.GameSettings.SaveDirectory" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Core.Structs.GameSettings.ApplicationName" data-throw-if-not-resolved="false"></xref> are set
+
+    in <xref href="ShapeEngine.Core.Structs.GameSettings" data-throw-if-not-resolved="false"></xref> to create a valid savegame backup directory.
+  example: []
+  syntax:
+    content: public (bool success, int newBackupNumber, int createdBackups) CreateBackup(int currentBackupNumber, int createdBackups, int maxBackups)
+    parameters:
+    - id: currentBackupNumber
+      type: System.Int32
+      description: The current backup number.
+    - id: createdBackups
+      type: System.Int32
+      description: The total number of backups created so far.
+    - id: maxBackups
+      type: System.Int32
+      description: The maximum number of backups allowed. If less than or equal to 0, unlimited backups are allowed.
+    return:
+      type: System.ValueTuple{System.Boolean,System.Int32,System.Int32}
+      description: >-
+        A tuple containing:
+
+        - success: True if the backup was created successfully; otherwise, false.
+
+        - newBackupNumber: The new backup number after incrementing.
+
+        - createdBackups: The updated total number of backups created.
+    content.vb: Public Function CreateBackup(currentBackupNumber As Integer, createdBackups As Integer, maxBackups As Integer) As (success As Boolean, newBackupNumber As Integer, createdBackups As Integer)
+  overload: ShapeEngine.Core.GameDef.Game.CreateBackup*
+  nameWithType.vb: Game.CreateBackup(Integer, Integer, Integer)
+  fullName.vb: ShapeEngine.Core.GameDef.Game.CreateBackup(Integer, Integer, Integer)
+  name.vb: CreateBackup(Integer, Integer, Integer)
+- uid: ShapeEngine.Core.GameDef.Game.CreateBackup(System.Int32)
+  commentId: M:ShapeEngine.Core.GameDef.Game.CreateBackup(System.Int32)
+  id: CreateBackup(System.Int32)
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: CreateBackup(int)
+  nameWithType: Game.CreateBackup(int)
+  fullName: ShapeEngine.Core.GameDef.Game.CreateBackup(int)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: CreateBackup
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 383
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: >-
+    Creates a backup of the current savegame directory at the specified backup number.
+
+    Copies the contents of the savegame directory to a backup directory named "Backup-XX" in the savegame backup directory.
+
+    Returns true if the backup was created successfully; otherwise, false.
+  remarks: >-
+    Requires <xref href="ShapeEngine.Core.GameDef.Game.IsSavegameBackupDirectoryValid" data-throw-if-not-resolved="false"></xref> to be true.
+
+    When constructing the <xref href="ShapeEngine.Core.GameDef.Game" data-throw-if-not-resolved="false"></xref> object,
+
+    ensure that <xref href="ShapeEngine.Core.Structs.GameSettings.SaveDirectory" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Core.Structs.GameSettings.ApplicationName" data-throw-if-not-resolved="false"></xref> are set
+
+    in <xref href="ShapeEngine.Core.Structs.GameSettings" data-throw-if-not-resolved="false"></xref> to create a valid savegame backup directory.
+  example: []
+  syntax:
+    content: public bool CreateBackup(int backupNumber)
+    parameters:
+    - id: backupNumber
+      type: System.Int32
+      description: The backup number to use for the backup directory.
+    return:
+      type: System.Boolean
+      description: True if the backup was created successfully; otherwise, false.
+    content.vb: Public Function CreateBackup(backupNumber As Integer) As Boolean
+  overload: ShapeEngine.Core.GameDef.Game.CreateBackup*
+  nameWithType.vb: Game.CreateBackup(Integer)
+  fullName.vb: ShapeEngine.Core.GameDef.Game.CreateBackup(Integer)
+  name.vb: CreateBackup(Integer)
+- uid: ShapeEngine.Core.GameDef.Game.ApplyBackup(System.Int32,System.Int32,System.Int32)
+  commentId: M:ShapeEngine.Core.GameDef.Game.ApplyBackup(System.Int32,System.Int32,System.Int32)
+  id: ApplyBackup(System.Int32,System.Int32,System.Int32)
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: ApplyBackup(int, int, int)
+  nameWithType: Game.ApplyBackup(int, int, int)
+  fullName: ShapeEngine.Core.GameDef.Game.ApplyBackup(int, int, int)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: ApplyBackup
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 419
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: >-
+    Applies the previous backup based on the current backup number,
+
+    total created backups, and maximum allowed backups.
+
+    If <code class="paramref">maxBackups</code> is less than or equal to 0, the previous backup will be applied or the backup 0 if the current is 0. I
+
+    f <code class="paramref">maxBackups</code> is greater than 0, than <xref href="ShapeEngine.Core.GameDef.Game.GetPreviousBackup(System.Int32%2cSystem.Int32)" data-throw-if-not-resolved="false"></xref> is used to determine the previous backup to apply.
+
+    Otherwise, calculates the previous backup using <xref href="ShapeEngine.Core.GameDef.Game.GetPreviousBackup(System.Int32%2cSystem.Int32)" data-throw-if-not-resolved="false"></xref> and applies it.
+  remarks: >-
+    If successful, this function will overwrite the current savegame directory with the contents of the selected backup.
+
+    Requires <xref href="ShapeEngine.Core.GameDef.Game.IsSavegameBackupDirectoryValid" data-throw-if-not-resolved="false"></xref> to be true.
+
+    When constructing the <xref href="ShapeEngine.Core.GameDef.Game" data-throw-if-not-resolved="false"></xref> object,
+
+    ensure that <xref href="ShapeEngine.Core.Structs.GameSettings.SaveDirectory" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Core.Structs.GameSettings.ApplicationName" data-throw-if-not-resolved="false"></xref> are set
+
+    in <xref href="ShapeEngine.Core.Structs.GameSettings" data-throw-if-not-resolved="false"></xref> to create a valid savegame backup directory.
+  example: []
+  syntax:
+    content: public bool ApplyBackup(int currentBackupNumber, int createdBackups, int maxBackups)
+    parameters:
+    - id: currentBackupNumber
+      type: System.Int32
+      description: The current backup number.
+    - id: createdBackups
+      type: System.Int32
+      description: The total number of backups created.
+    - id: maxBackups
+      type: System.Int32
+      description: >-
+        The maximum number of backups allowed.
+            If less than or equal to 0, unlimited backups are allowed.
+    return:
+      type: System.Boolean
+      description: True if the backup was applied successfully; otherwise, false.
+    content.vb: Public Function ApplyBackup(currentBackupNumber As Integer, createdBackups As Integer, maxBackups As Integer) As Boolean
+  overload: ShapeEngine.Core.GameDef.Game.ApplyBackup*
+  nameWithType.vb: Game.ApplyBackup(Integer, Integer, Integer)
+  fullName.vb: ShapeEngine.Core.GameDef.Game.ApplyBackup(Integer, Integer, Integer)
+  name.vb: ApplyBackup(Integer, Integer, Integer)
+- uid: ShapeEngine.Core.GameDef.Game.ApplyBackup(System.Int32)
+  commentId: M:ShapeEngine.Core.GameDef.Game.ApplyBackup(System.Int32)
+  id: ApplyBackup(System.Int32)
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: ApplyBackup(int)
+  nameWithType: Game.ApplyBackup(int)
+  fullName: ShapeEngine.Core.GameDef.Game.ApplyBackup(int)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: ApplyBackup
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 443
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: >-
+    Applies a backup by copying the contents of <xref href="ShapeEngine.Core.GameDef.Game.SavegameBackupDirectoryPath" data-throw-if-not-resolved="false"></xref>/(Backup-XX)
+
+    to the current savegame directory, overwriting its contents.
+  remarks: >-
+    Requires <xref href="ShapeEngine.Core.GameDef.Game.IsSavegameBackupDirectoryValid" data-throw-if-not-resolved="false"></xref> to be true.
+
+    When constructing the <xref href="ShapeEngine.Core.GameDef.Game" data-throw-if-not-resolved="false"></xref> object,
+
+    ensure that <xref href="ShapeEngine.Core.Structs.GameSettings.SaveDirectory" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Core.Structs.GameSettings.ApplicationName" data-throw-if-not-resolved="false"></xref> are set
+
+    in <xref href="ShapeEngine.Core.Structs.GameSettings" data-throw-if-not-resolved="false"></xref> to create a valid savegame backup directory.
+  example: []
+  syntax:
+    content: public bool ApplyBackup(int backupNumber)
+    parameters:
+    - id: backupNumber
+      type: System.Int32
+      description: The backup number to apply.
+    return:
+      type: System.Boolean
+      description: True if the backup was applied successfully; otherwise, false.
+    content.vb: Public Function ApplyBackup(backupNumber As Integer) As Boolean
+  overload: ShapeEngine.Core.GameDef.Game.ApplyBackup*
+  nameWithType.vb: Game.ApplyBackup(Integer)
+  fullName.vb: ShapeEngine.Core.GameDef.Game.ApplyBackup(Integer)
+  name.vb: ApplyBackup(Integer)
+- uid: ShapeEngine.Core.GameDef.Game.GetBackupPath(System.Int32)
+  commentId: M:ShapeEngine.Core.GameDef.Game.GetBackupPath(System.Int32)
+  id: GetBackupPath(System.Int32)
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: GetBackupPath(int)
+  nameWithType: Game.GetBackupPath(int)
+  fullName: ShapeEngine.Core.GameDef.Game.GetBackupPath(int)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetBackupPath
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 474
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: >-
+    Gets the full path to a backup directory for the specified backup number.
+
+    Returns an empty string if the savegame backup directory is not valid.
+  remarks: >-
+    Requires <xref href="ShapeEngine.Core.GameDef.Game.IsSavegameBackupDirectoryValid" data-throw-if-not-resolved="false"></xref> to be true.
+
+    When constructing the <xref href="ShapeEngine.Core.GameDef.Game" data-throw-if-not-resolved="false"></xref> object,
+
+    ensure that <xref href="ShapeEngine.Core.Structs.GameSettings.SaveDirectory" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Core.Structs.GameSettings.ApplicationName" data-throw-if-not-resolved="false"></xref> are set
+
+    in <xref href="ShapeEngine.Core.Structs.GameSettings" data-throw-if-not-resolved="false"></xref> to create a valid savegame backup directory.
+  example: []
+  syntax:
+    content: public string GetBackupPath(int backupNumber)
+    parameters:
+    - id: backupNumber
+      type: System.Int32
+      description: The backup number for which to get the directory path.
+    return:
+      type: System.String
+      description: >-
+        The full path to the backup directory, or an empty string if invalid
+            ("<xref href="ShapeEngine.Core.GameDef.Game.SavegameBackupDirectoryPath" data-throw-if-not-resolved="false"></xref>/Backup-XX").
+    content.vb: Public Function GetBackupPath(backupNumber As Integer) As String
+  overload: ShapeEngine.Core.GameDef.Game.GetBackupPath*
+  nameWithType.vb: Game.GetBackupPath(Integer)
+  fullName.vb: ShapeEngine.Core.GameDef.Game.GetBackupPath(Integer)
+  name.vb: GetBackupPath(Integer)
+- uid: ShapeEngine.Core.GameDef.Game.IncrementBackup(System.Int32,System.Int32)
+  commentId: M:ShapeEngine.Core.GameDef.Game.IncrementBackup(System.Int32,System.Int32)
+  id: IncrementBackup(System.Int32,System.Int32)
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: IncrementBackup(int, int)
+  nameWithType: Game.IncrementBackup(int, int)
+  fullName: ShapeEngine.Core.GameDef.Game.IncrementBackup(int, int)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: IncrementBackup
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 491
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Increments the backup number, wrapping around to 0 if it reaches the maximum number of backups.
+  remarks: >-
+    Requires <xref href="ShapeEngine.Core.GameDef.Game.IsSavegameBackupDirectoryValid" data-throw-if-not-resolved="false"></xref> to be true.
+
+    When constructing the <xref href="ShapeEngine.Core.GameDef.Game" data-throw-if-not-resolved="false"></xref> object,
+
+    ensure that <xref href="ShapeEngine.Core.Structs.GameSettings.SaveDirectory" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Core.Structs.GameSettings.ApplicationName" data-throw-if-not-resolved="false"></xref> are set
+
+    in <xref href="ShapeEngine.Core.Structs.GameSettings" data-throw-if-not-resolved="false"></xref> to create a valid savegame backup directory.
+  example: []
+  syntax:
+    content: public int IncrementBackup(int currentBackup, int maxBackups)
+    parameters:
+    - id: currentBackup
+      type: System.Int32
+      description: The current backup number.
+    - id: maxBackups
+      type: System.Int32
+      description: The maximum number of backups allowed.
+    return:
+      type: System.Int32
+      description: The next backup number, wrapped to 0 if it exceeds or equals <code class="paramref">maxBackups</code>.
+    content.vb: Public Function IncrementBackup(currentBackup As Integer, maxBackups As Integer) As Integer
+  overload: ShapeEngine.Core.GameDef.Game.IncrementBackup*
+  nameWithType.vb: Game.IncrementBackup(Integer, Integer)
+  fullName.vb: ShapeEngine.Core.GameDef.Game.IncrementBackup(Integer, Integer)
+  name.vb: IncrementBackup(Integer, Integer)
+- uid: ShapeEngine.Core.GameDef.Game.GetPreviousBackup(System.Int32,System.Int32)
+  commentId: M:ShapeEngine.Core.GameDef.Game.GetPreviousBackup(System.Int32,System.Int32)
+  id: GetPreviousBackup(System.Int32,System.Int32)
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: GetPreviousBackup(int, int)
+  nameWithType: Game.GetPreviousBackup(int, int)
+  fullName: ShapeEngine.Core.GameDef.Game.GetPreviousBackup(int, int)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetPreviousBackup
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameSavegameSystem.cs
+    startLine: 510
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Gets the previous backup number, wrapping around to the last backup if the current is 0.
+  remarks: >-
+    Requires <xref href="ShapeEngine.Core.GameDef.Game.IsSavegameBackupDirectoryValid" data-throw-if-not-resolved="false"></xref> to be true.
+
+    When constructing the <xref href="ShapeEngine.Core.GameDef.Game" data-throw-if-not-resolved="false"></xref> object,
+
+    ensure that <xref href="ShapeEngine.Core.Structs.GameSettings.SaveDirectory" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Core.Structs.GameSettings.ApplicationName" data-throw-if-not-resolved="false"></xref> are set
+
+    in <xref href="ShapeEngine.Core.Structs.GameSettings" data-throw-if-not-resolved="false"></xref> to create a valid savegame backup directory.
+  example: []
+  syntax:
+    content: public int GetPreviousBackup(int currentBackup, int maxBackups)
+    parameters:
+    - id: currentBackup
+      type: System.Int32
+      description: The current backup number.
+    - id: maxBackups
+      type: System.Int32
+      description: The maximum number of backups allowed.
+    return:
+      type: System.Int32
+      description: The previous backup number, or the last backup if the current is 0.
+    content.vb: Public Function GetPreviousBackup(currentBackup As Integer, maxBackups As Integer) As Integer
+  overload: ShapeEngine.Core.GameDef.Game.GetPreviousBackup*
+  nameWithType.vb: Game.GetPreviousBackup(Integer, Integer)
+  fullName.vb: ShapeEngine.Core.GameDef.Game.GetPreviousBackup(Integer, Integer)
+  name.vb: GetPreviousBackup(Integer, Integer)
 - uid: ShapeEngine.Core.GameDef.Game.CURRENT_DIRECTORY
   commentId: F:ShapeEngine.Core.GameDef.Game.CURRENT_DIRECTORY
   id: CURRENT_DIRECTORY
@@ -4457,113 +5598,6 @@ references:
   nameWithType.vb: String
   fullName.vb: String
   name.vb: String
-- uid: ShapeEngine.Core.Structs.GameSettings.SaveDirectory
-  commentId: F:ShapeEngine.Core.Structs.GameSettings.SaveDirectory
-  href: ShapeEngine.Core.Structs.GameSettings.html#ShapeEngine_Core_Structs_GameSettings_SaveDirectory
-  name: SaveDirectory
-  nameWithType: GameSettings.SaveDirectory
-  fullName: ShapeEngine.Core.Structs.GameSettings.SaveDirectory
-- uid: ShapeEngine.Core.Structs.GameSettings.ApplicationName
-  commentId: F:ShapeEngine.Core.Structs.GameSettings.ApplicationName
-  href: ShapeEngine.Core.Structs.GameSettings.html#ShapeEngine_Core_Structs_GameSettings_ApplicationName
-  name: ApplicationName
-  nameWithType: GameSettings.ApplicationName
-  fullName: ShapeEngine.Core.Structs.GameSettings.ApplicationName
-- uid: ShapeEngine.Core.Structs.GameSettings
-  commentId: T:ShapeEngine.Core.Structs.GameSettings
-  parent: ShapeEngine.Core.Structs
-  href: ShapeEngine.Core.Structs.GameSettings.html
-  name: GameSettings
-  nameWithType: GameSettings
-  fullName: ShapeEngine.Core.Structs.GameSettings
-- uid: System.IO.DirectoryInfo
-  commentId: T:System.IO.DirectoryInfo
-  parent: System.IO
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.io.directoryinfo
-  name: DirectoryInfo
-  nameWithType: DirectoryInfo
-  fullName: System.IO.DirectoryInfo
-- uid: ShapeEngine.Core.Structs
-  commentId: N:ShapeEngine.Core.Structs
-  href: ShapeEngine.html
-  name: ShapeEngine.Core.Structs
-  nameWithType: ShapeEngine.Core.Structs
-  fullName: ShapeEngine.Core.Structs
-  spec.csharp:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Core
-    name: Core
-    href: ShapeEngine.Core.html
-  - name: .
-  - uid: ShapeEngine.Core.Structs
-    name: Structs
-    href: ShapeEngine.Core.Structs.html
-  spec.vb:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Core
-    name: Core
-    href: ShapeEngine.Core.html
-  - name: .
-  - uid: ShapeEngine.Core.Structs
-    name: Structs
-    href: ShapeEngine.Core.Structs.html
-- uid: System.IO
-  commentId: N:System.IO
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system
-  name: System.IO
-  nameWithType: System.IO
-  fullName: System.IO
-  spec.csharp:
-  - uid: System
-    name: System
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system
-  - name: .
-  - uid: System.IO
-    name: IO
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.io
-  spec.vb:
-  - uid: System
-    name: System
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system
-  - name: .
-  - uid: System.IO
-    name: IO
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.io
-- uid: ShapeEngine.Core.GameDef.Game.SaveDirectoryPath*
-  commentId: Overload:ShapeEngine.Core.GameDef.Game.SaveDirectoryPath
-  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_SaveDirectoryPath
-  name: SaveDirectoryPath
-  nameWithType: Game.SaveDirectoryPath
-  fullName: ShapeEngine.Core.GameDef.Game.SaveDirectoryPath
-- uid: ShapeEngine.Core.GameDef.Game.IsSaveDirectoryValid*
-  commentId: Overload:ShapeEngine.Core.GameDef.Game.IsSaveDirectoryValid
-  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_IsSaveDirectoryValid
-  name: IsSaveDirectoryValid
-  nameWithType: Game.IsSaveDirectoryValid
-  fullName: ShapeEngine.Core.GameDef.Game.IsSaveDirectoryValid
-- uid: System.Boolean
-  commentId: T:System.Boolean
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.boolean
-  name: bool
-  nameWithType: bool
-  fullName: bool
-  nameWithType.vb: Boolean
-  fullName.vb: Boolean
-  name.vb: Boolean
 - uid: ShapeEngine.Core.GameDef.Game.LaunchParams*
   commentId: Overload:ShapeEngine.Core.GameDef.Game.LaunchParams
   href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_LaunchParams
@@ -4599,6 +5633,17 @@ references:
   name: FixedPhysicsEnabled
   nameWithType: Game.FixedPhysicsEnabled
   fullName: ShapeEngine.Core.GameDef.Game.FixedPhysicsEnabled
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
 - uid: ShapeEngine.Core.GameDef.Game.FixedPhysicsFramerate*
   commentId: Overload:ShapeEngine.Core.GameDef.Game.FixedPhysicsFramerate
   href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_FixedPhysicsFramerate
@@ -4646,6 +5691,36 @@ references:
   name: GameTime
   nameWithType: GameTime
   fullName: ShapeEngine.Core.Structs.GameTime
+- uid: ShapeEngine.Core.Structs
+  commentId: N:ShapeEngine.Core.Structs
+  href: ShapeEngine.html
+  name: ShapeEngine.Core.Structs
+  nameWithType: ShapeEngine.Core.Structs
+  fullName: ShapeEngine.Core.Structs
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+  - name: .
+  - uid: ShapeEngine.Core.Structs
+    name: Structs
+    href: ShapeEngine.Core.Structs.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+  - name: .
+  - uid: ShapeEngine.Core.Structs
+    name: Structs
+    href: ShapeEngine.Core.Structs.html
 - uid: ShapeEngine.Core.GameDef.Game.FixedTime*
   commentId: Overload:ShapeEngine.Core.GameDef.Game.FixedTime
   href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_FixedTime
@@ -4930,6 +6005,13 @@ references:
   nameWithType.vb: Game.New
   fullName.vb: ShapeEngine.Core.GameDef.Game.New
   name.vb: New
+- uid: ShapeEngine.Core.Structs.GameSettings
+  commentId: T:ShapeEngine.Core.Structs.GameSettings
+  parent: ShapeEngine.Core.Structs
+  href: ShapeEngine.Core.Structs.GameSettings.html
+  name: GameSettings
+  nameWithType: GameSettings
+  fullName: ShapeEngine.Core.Structs.GameSettings
 - uid: ShapeEngine.Core.Structs.WindowSettings
   commentId: T:ShapeEngine.Core.Structs.WindowSettings
   parent: ShapeEngine.Core.Structs
@@ -5108,6 +6190,361 @@ references:
   name: ClearCustomEvents
   nameWithType: Game.ClearCustomEvents
   fullName: ShapeEngine.Core.GameDef.Game.ClearCustomEvents
+- uid: ShapeEngine.Core.Structs.GameSettings.SaveDirectory
+  commentId: F:ShapeEngine.Core.Structs.GameSettings.SaveDirectory
+  href: ShapeEngine.Core.Structs.GameSettings.html#ShapeEngine_Core_Structs_GameSettings_SaveDirectory
+  name: SaveDirectory
+  nameWithType: GameSettings.SaveDirectory
+  fullName: ShapeEngine.Core.Structs.GameSettings.SaveDirectory
+- uid: ShapeEngine.Core.Structs.GameSettings.ApplicationName
+  commentId: F:ShapeEngine.Core.Structs.GameSettings.ApplicationName
+  href: ShapeEngine.Core.Structs.GameSettings.html#ShapeEngine_Core_Structs_GameSettings_ApplicationName
+  name: ApplicationName
+  nameWithType: GameSettings.ApplicationName
+  fullName: ShapeEngine.Core.Structs.GameSettings.ApplicationName
+- uid: System.IO.DirectoryInfo
+  commentId: T:System.IO.DirectoryInfo
+  parent: System.IO
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.io.directoryinfo
+  name: DirectoryInfo
+  nameWithType: DirectoryInfo
+  fullName: System.IO.DirectoryInfo
+- uid: System.IO
+  commentId: N:System.IO
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.IO
+  nameWithType: System.IO
+  fullName: System.IO
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.IO
+    name: IO
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.IO
+    name: IO
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.io
+- uid: ShapeEngine.Core.GameDef.Game.SaveDirectoryPath*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.SaveDirectoryPath
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_SaveDirectoryPath
+  name: SaveDirectoryPath
+  nameWithType: Game.SaveDirectoryPath
+  fullName: ShapeEngine.Core.GameDef.Game.SaveDirectoryPath
+- uid: ShapeEngine.Core.GameDef.Game.IsSaveDirectoryValid*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.IsSaveDirectoryValid
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_IsSaveDirectoryValid
+  name: IsSaveDirectoryValid
+  nameWithType: Game.IsSaveDirectoryValid
+  fullName: ShapeEngine.Core.GameDef.Game.IsSaveDirectoryValid
+- uid: ShapeEngine.Core.GameDef.Game.SaveDirectoryPath
+  commentId: P:ShapeEngine.Core.GameDef.Game.SaveDirectoryPath
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_SaveDirectoryPath
+  name: SaveDirectoryPath
+  nameWithType: Game.SaveDirectoryPath
+  fullName: ShapeEngine.Core.GameDef.Game.SaveDirectoryPath
+- uid: ShapeEngine.Core.GameDef.Game.SavegameBackupDirectoryPath*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.SavegameBackupDirectoryPath
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_SavegameBackupDirectoryPath
+  name: SavegameBackupDirectoryPath
+  nameWithType: Game.SavegameBackupDirectoryPath
+  fullName: ShapeEngine.Core.GameDef.Game.SavegameBackupDirectoryPath
+- uid: ShapeEngine.Core.GameDef.Game.IsSavegameBackupDirectoryValid*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.IsSavegameBackupDirectoryValid
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_IsSavegameBackupDirectoryValid
+  name: IsSavegameBackupDirectoryValid
+  nameWithType: Game.IsSavegameBackupDirectoryValid
+  fullName: ShapeEngine.Core.GameDef.Game.IsSavegameBackupDirectoryValid
+- uid: ShapeEngine.Core.GameDef.Game.SavegameDirectoryPath*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.SavegameDirectoryPath
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_SavegameDirectoryPath
+  name: SavegameDirectoryPath
+  nameWithType: Game.SavegameDirectoryPath
+  fullName: ShapeEngine.Core.GameDef.Game.SavegameDirectoryPath
+- uid: ShapeEngine.Core.GameDef.Game.IsSavegameDirectoryValid*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.IsSavegameDirectoryValid
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_IsSavegameDirectoryValid
+  name: IsSavegameDirectoryValid
+  nameWithType: Game.IsSavegameDirectoryValid
+  fullName: ShapeEngine.Core.GameDef.Game.IsSavegameDirectoryValid
+- uid: ShapeEngine.Core.GameDef.Game.SavegameDirectoryPath
+  commentId: P:ShapeEngine.Core.GameDef.Game.SavegameDirectoryPath
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_SavegameDirectoryPath
+  name: SavegameDirectoryPath
+  nameWithType: Game.SavegameDirectoryPath
+  fullName: ShapeEngine.Core.GameDef.Game.SavegameDirectoryPath
+- uid: ShapeEngine.Core.GameDef.Game.IsSavegameDirectoryValid
+  commentId: P:ShapeEngine.Core.GameDef.Game.IsSavegameDirectoryValid
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_IsSavegameDirectoryValid
+  name: IsSavegameDirectoryValid
+  nameWithType: Game.IsSavegameDirectoryValid
+  fullName: ShapeEngine.Core.GameDef.Game.IsSavegameDirectoryValid
+- uid: ShapeEngine.Core.GameDef.Game.SaveSavegameSlotInformation*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.SaveSavegameSlotInformation
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_SaveSavegameSlotInformation_System_Int32_System_Int32_System_Int32_
+  name: SaveSavegameSlotInformation
+  nameWithType: Game.SaveSavegameSlotInformation
+  fullName: ShapeEngine.Core.GameDef.Game.SaveSavegameSlotInformation
+- uid: ShapeEngine.Core.GameDef.Game.LoadSavegameSlotInformation*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.LoadSavegameSlotInformation
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_LoadSavegameSlotInformation_System_Int32__System_Int32__System_Int32__
+  name: LoadSavegameSlotInformation
+  nameWithType: Game.LoadSavegameSlotInformation
+  fullName: ShapeEngine.Core.GameDef.Game.LoadSavegameSlotInformation
+- uid: ShapeEngine.Core.GameDef.Game.SavegameDirectory
+  commentId: F:ShapeEngine.Core.GameDef.Game.SavegameDirectory
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_SavegameDirectory
+  name: SavegameDirectory
+  nameWithType: Game.SavegameDirectory
+  fullName: ShapeEngine.Core.GameDef.Game.SavegameDirectory
+- uid: ShapeEngine.Core.GameDef.Game.Save*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.Save
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_Save_System_String_System_String_
+  name: Save
+  nameWithType: Game.Save
+  fullName: ShapeEngine.Core.GameDef.Game.Save
+- uid: ShapeEngine.Core.GameDef.Game.Load*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.Load
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_Load_System_String_System_String__
+  name: Load
+  nameWithType: Game.Load
+  fullName: ShapeEngine.Core.GameDef.Game.Load
+- uid: ShapeEngine.Core.GameDef.Game.SaveToSlot*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.SaveToSlot
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_SaveToSlot_System_String_System_String_System_Int32_
+  name: SaveToSlot
+  nameWithType: Game.SaveToSlot
+  fullName: ShapeEngine.Core.GameDef.Game.SaveToSlot
+- uid: ShapeEngine.Core.GameDef.Game.LoadFromSlot*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.LoadFromSlot
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_LoadFromSlot_System_String_System_Int32_System_String__
+  name: LoadFromSlot
+  nameWithType: Game.LoadFromSlot
+  fullName: ShapeEngine.Core.GameDef.Game.LoadFromSlot
+- uid: ShapeEngine.Core.GameDef.Game.GetSlotPath*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.GetSlotPath
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_GetSlotPath_System_Int32_
+  name: GetSlotPath
+  nameWithType: Game.GetSlotPath
+  fullName: ShapeEngine.Core.GameDef.Game.GetSlotPath
+- uid: ShapeEngine.Core.GameDef.Game.SavegameBackupDirectory
+  commentId: F:ShapeEngine.Core.GameDef.Game.SavegameBackupDirectory
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_SavegameBackupDirectory
+  name: SavegameBackupDirectory
+  nameWithType: Game.SavegameBackupDirectory
+  fullName: ShapeEngine.Core.GameDef.Game.SavegameBackupDirectory
+- uid: ShapeEngine.Core.GameDef.Game.IsSavegameBackupDirectoryValid
+  commentId: P:ShapeEngine.Core.GameDef.Game.IsSavegameBackupDirectoryValid
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_IsSavegameBackupDirectoryValid
+  name: IsSavegameBackupDirectoryValid
+  nameWithType: Game.IsSavegameBackupDirectoryValid
+  fullName: ShapeEngine.Core.GameDef.Game.IsSavegameBackupDirectoryValid
+- uid: ShapeEngine.Core.GameDef.Game.SaveBackupInformation*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.SaveBackupInformation
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_SaveBackupInformation_System_Int32_System_Int32_System_Int32_
+  name: SaveBackupInformation
+  nameWithType: Game.SaveBackupInformation
+  fullName: ShapeEngine.Core.GameDef.Game.SaveBackupInformation
+- uid: ShapeEngine.Core.GameDef.Game.LoadBackupInformation*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.LoadBackupInformation
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_LoadBackupInformation_System_Int32__System_Int32__System_Int32__
+  name: LoadBackupInformation
+  nameWithType: Game.LoadBackupInformation
+  fullName: ShapeEngine.Core.GameDef.Game.LoadBackupInformation
+- uid: ShapeEngine.Core.GameDef.Game.SavegameBackupDirectoryPath
+  commentId: P:ShapeEngine.Core.GameDef.Game.SavegameBackupDirectoryPath
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_SavegameBackupDirectoryPath
+  name: SavegameBackupDirectoryPath
+  nameWithType: Game.SavegameBackupDirectoryPath
+  fullName: ShapeEngine.Core.GameDef.Game.SavegameBackupDirectoryPath
+- uid: ShapeEngine.Core.GameDef.Game.CreateBackup*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.CreateBackup
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_CreateBackup_System_Int32_System_Int32_System_Int32_
+  name: CreateBackup
+  nameWithType: Game.CreateBackup
+  fullName: ShapeEngine.Core.GameDef.Game.CreateBackup
+- uid: System.ValueTuple{System.Boolean,System.Int32,System.Int32}
+  commentId: T:System.ValueTuple{System.Boolean,System.Int32,System.Int32}
+  parent: System
+  definition: System.ValueTuple`3
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: (bool success, int newBackupNumber, int createdBackups)
+  nameWithType: (bool success, int newBackupNumber, int createdBackups)
+  fullName: (bool success, int newBackupNumber, int createdBackups)
+  nameWithType.vb: (success As Boolean, newBackupNumber As Integer, createdBackups As Integer)
+  fullName.vb: (success As Boolean, newBackupNumber As Integer, createdBackups As Integer)
+  name.vb: (success As Boolean, newBackupNumber As Integer, createdBackups As Integer)
+  spec.csharp:
+  - name: (
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: " "
+  - uid: System.ValueTuple{System.Boolean,System.Int32,System.Int32}.success
+    name: success
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-system.boolean,system.int32,system.int32-.success
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: " "
+  - uid: System.ValueTuple{System.Boolean,System.Int32,System.Int32}.newBackupNumber
+    name: newBackupNumber
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-system.boolean,system.int32,system.int32-.newbackupnumber
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: " "
+  - uid: System.ValueTuple{System.Boolean,System.Int32,System.Int32}.createdBackups
+    name: createdBackups
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-system.boolean,system.int32,system.int32-.createdbackups
+  - name: )
+  spec.vb:
+  - name: (
+  - uid: System.ValueTuple{System.Boolean,System.Int32,System.Int32}.success
+    name: success
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-system.boolean,system.int32,system.int32-.success
+  - name: " "
+  - name: As
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: ','
+  - name: " "
+  - uid: System.ValueTuple{System.Boolean,System.Int32,System.Int32}.newBackupNumber
+    name: newBackupNumber
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-system.boolean,system.int32,system.int32-.newbackupnumber
+  - name: " "
+  - name: As
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.ValueTuple{System.Boolean,System.Int32,System.Int32}.createdBackups
+    name: createdBackups
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-system.boolean,system.int32,system.int32-.createdbackups
+  - name: " "
+  - name: As
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: System.ValueTuple`3
+  commentId: T:System.ValueTuple`3
+  name: (T1, T2, T3)
+  nameWithType: (T1, T2, T3)
+  fullName: (T1, T2, T3)
+  spec.csharp:
+  - name: (
+  - name: T1
+  - name: ','
+  - name: " "
+  - name: T2
+  - name: ','
+  - name: " "
+  - name: T3
+  - name: )
+  spec.vb:
+  - name: (
+  - name: T1
+  - name: ','
+  - name: " "
+  - name: T2
+  - name: ','
+  - name: " "
+  - name: T3
+  - name: )
+- uid: ShapeEngine.Core.GameDef.Game.GetPreviousBackup(System.Int32,System.Int32)
+  commentId: M:ShapeEngine.Core.GameDef.Game.GetPreviousBackup(System.Int32,System.Int32)
+  isExternal: true
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_GetPreviousBackup_System_Int32_System_Int32_
+  name: GetPreviousBackup(int, int)
+  nameWithType: Game.GetPreviousBackup(int, int)
+  fullName: ShapeEngine.Core.GameDef.Game.GetPreviousBackup(int, int)
+  nameWithType.vb: Game.GetPreviousBackup(Integer, Integer)
+  fullName.vb: ShapeEngine.Core.GameDef.Game.GetPreviousBackup(Integer, Integer)
+  name.vb: GetPreviousBackup(Integer, Integer)
+  spec.csharp:
+  - uid: ShapeEngine.Core.GameDef.Game.GetPreviousBackup(System.Int32,System.Int32)
+    name: GetPreviousBackup
+    href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_GetPreviousBackup_System_Int32_System_Int32_
+  - name: (
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.GameDef.Game.GetPreviousBackup(System.Int32,System.Int32)
+    name: GetPreviousBackup
+    href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_GetPreviousBackup_System_Int32_System_Int32_
+  - name: (
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: ShapeEngine.Core.GameDef.Game.ApplyBackup*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.ApplyBackup
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_ApplyBackup_System_Int32_System_Int32_System_Int32_
+  name: ApplyBackup
+  nameWithType: Game.ApplyBackup
+  fullName: ShapeEngine.Core.GameDef.Game.ApplyBackup
+- uid: ShapeEngine.Core.GameDef.Game.GetBackupPath*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.GetBackupPath
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_GetBackupPath_System_Int32_
+  name: GetBackupPath
+  nameWithType: Game.GetBackupPath
+  fullName: ShapeEngine.Core.GameDef.Game.GetBackupPath
+- uid: ShapeEngine.Core.GameDef.Game.IncrementBackup*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.IncrementBackup
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_IncrementBackup_System_Int32_System_Int32_
+  name: IncrementBackup
+  nameWithType: Game.IncrementBackup
+  fullName: ShapeEngine.Core.GameDef.Game.IncrementBackup
+- uid: ShapeEngine.Core.GameDef.Game.GetPreviousBackup*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.GetPreviousBackup
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_GetPreviousBackup_System_Int32_System_Int32_
+  name: GetPreviousBackup
+  nameWithType: Game.GetPreviousBackup
+  fullName: ShapeEngine.Core.GameDef.Game.GetPreviousBackup
 - uid: System.IO.Directory.GetCurrentDirectory
   commentId: M:System.IO.Directory.GetCurrentDirectory
   isExternal: true
@@ -5131,6 +6568,7 @@ references:
   - name: )
 - uid: ShapeEngine.StaticLib.ShapeFileManager
   commentId: T:ShapeEngine.StaticLib.ShapeFileManager
+  parent: ShapeEngine.StaticLib
   href: ShapeEngine.StaticLib.ShapeFileManager.html
   name: ShapeFileManager
   nameWithType: ShapeFileManager
