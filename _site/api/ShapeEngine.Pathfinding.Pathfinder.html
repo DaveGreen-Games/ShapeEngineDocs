@@ -168,9 +168,9 @@ Class Pathfinder  <a class="header-action link-secondary" title="View source" hr
 
   <a id="ShapeEngine_Pathfinding_Pathfinder__ctor_" data-uid="ShapeEngine.Pathfinding.Pathfinder.#ctor*"></a>
 
-  <h3 id="ShapeEngine_Pathfinding_Pathfinder__ctor_ShapeEngine_Geometry_RectDef_Rect_System_Int32_System_Int32_" data-uid="ShapeEngine.Pathfinding.Pathfinder.#ctor(ShapeEngine.Geometry.RectDef.Rect,System.Int32,System.Int32)">
-  Pathfinder(Rect, int, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L88"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder__ctor_ShapeEngine_Geometry_RectDef_Rect_System_Int32_System_Int32_System_Int32_System_Boolean_System_Int32_System_Int32_System_Int32_System_Int32_" data-uid="ShapeEngine.Pathfinding.Pathfinder.#ctor(ShapeEngine.Geometry.RectDef.Rect,System.Int32,System.Int32,System.Int32,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32)">
+  Pathfinder(Rect, int, int, int, bool, int, int, int, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L131"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a new pathfinder.</p>
@@ -178,7 +178,7 @@ Class Pathfinder  <a class="header-action link-secondary" title="View source" hr
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Pathfinder(Rect bounds, int cols, int rows)</code></pre>
+    <pre><code class="lang-csharp hljs">public Pathfinder(Rect bounds, int cols, int rows, int requestsPerFrame = 24, bool parallelProcessing = false, int initialHelperCapacity = 1024, int initialAgentCapacity = 1024, int initialPathRequestCapacity = 256, int initialAStarCapacity = 1024)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -191,6 +191,26 @@ Class Pathfinder  <a class="header-action link-secondary" title="View source" hr
 </dd>
     <dt><code>rows</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd><p>The amount of rows in the grid.</p>
+</dd>
+    <dt><code>requestsPerFrame</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The maximum number of path requests that are handled per frame.
+Set to 0 or a negative number to handle all incoming path requests.</p>
+</dd>
+    <dt><code>parallelProcessing</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>If set to true all path request that are handled this frame will be processed in parallel.</p>
+</dd>
+    <dt><code>initialHelperCapacity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>Sets the initial capacity of all internal helper Collections.</p>
+</dd>
+    <dt><code>initialAgentCapacity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>Sets the initial capacity of all the agent collection.
+Set this to a number representing the max number of agents that will be added to this pathfinder.</p>
+</dd>
+    <dt><code>initialPathRequestCapacity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>Sets the initial capacity of the collection storing path requests.</p>
+</dd>
+    <dt><code>initialAStarCapacity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>Sets the initial capacity for the used AStar class.</p>
 </dd>
   </dl>
 
@@ -210,9 +230,167 @@ Class Pathfinder  <a class="header-action link-secondary" title="View source" hr
 
 
 
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_DefaultAStarCapacity" data-uid="ShapeEngine.Pathfinding.Pathfinder.DefaultAStarCapacity">
+  DefaultAStarCapacity
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L70"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Default initial capacity passed to the AStar allocator to reserve node structures.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int DefaultAStarCapacity = 1024</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_DefaultAgentCapacity" data-uid="ShapeEngine.Pathfinding.Pathfinder.DefaultAgentCapacity">
+  DefaultAgentCapacity
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L62"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Default initial capacity for the internal agent collection.
+Use this to size the agents dictionary to avoid re-allocations when many agents are added.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int DefaultAgentCapacity = 1024</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_DefaultHelperCapacity" data-uid="ShapeEngine.Pathfinding.Pathfinder.DefaultHelperCapacity">
+  DefaultHelperCapacity
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L57"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Default initial capacity for internal helper collections (e.g. HashSet, List)
+used by the pathfinder for temporary operations and batching.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int DefaultHelperCapacity = 1024</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_DefaultPathRequestCapacity" data-uid="ShapeEngine.Pathfinding.Pathfinder.DefaultPathRequestCapacity">
+  DefaultPathRequestCapacity
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L66"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Default initial capacity for the collection storing pending path requests.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int DefaultPathRequestCapacity = 256</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_DefaultRequestsPerFrame" data-uid="ShapeEngine.Pathfinding.Pathfinder.DefaultRequestsPerFrame">
+  DefaultRequestsPerFrame
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L75"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Default number of path requests processed per frame.
+If this value is less than or equal to zero, all incoming requests are handled in a frame.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int DefaultRequestsPerFrame = 24</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_Grid" data-uid="ShapeEngine.Pathfinding.Pathfinder.Grid">
   Grid
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L51"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The grid used by the pathfinder.</p>
@@ -241,13 +419,48 @@ Class Pathfinder  <a class="header-action link-secondary" title="View source" hr
 
 
 
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ParallelProcessing" data-uid="ShapeEngine.Pathfinding.Pathfinder.ParallelProcessing">
+  ParallelProcessing
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L43"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>If true, path requests will be processed in parallel using the thread pool.
+When enabled, a thread-local <code>AStar</code> instance is used for each worker.
+Disable to process requests serially on the main thread (uses <code>localAstar</code>).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ParallelProcessing</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_RequestsPerFrame" data-uid="ShapeEngine.Pathfinding.Pathfinder.RequestsPerFrame">
   RequestsPerFrame
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L37"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>How many agent requests are handled each frame.
-If the value is smaller or equal to zero, all incoming requests are handled.</p>
+If the value is smaller or equal to zero, all incoming requests are handled.
+This also affects the maximum number of requests that are handled in parallel processing,
+when <a class="xref" href="ShapeEngine.Pathfinding.Pathfinder.html#ShapeEngine_Pathfinding_Pathfinder_ParallelProcessing">ParallelProcessing</a> is <code>true</code>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -280,7 +493,7 @@ If the value is smaller or equal to zero, all incoming requests are handled.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_Bounds" data-uid="ShapeEngine.Pathfinding.Pathfinder.Bounds">
   Bounds
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L100"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The bounds of the pathfinder.
@@ -313,7 +526,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_CellSize" data-uid="ShapeEngine.Pathfinding.Pathfinder.CellSize">
   CellSize
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L47"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>The size of each cell in the grid.</p>
@@ -349,7 +562,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_AddAgent_ShapeEngine_Pathfinding_IPathfinderAgent_" data-uid="ShapeEngine.Pathfinding.Pathfinder.AddAgent(ShapeEngine.Pathfinding.IPathfinderAgent)">
   AddAgent(IPathfinderAgent)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L251"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L305"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Adds an agent to the pathfinder.</p>
@@ -388,7 +601,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_AddConnections_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_RectDef_Rect_System_Boolean_" data-uid="ShapeEngine.Pathfinding.Pathfinder.AddConnections(ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.RectDef.Rect,System.Boolean)">
   AddConnections(Rect, Rect, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L436"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L616"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Adds connections between all nodes in two rectangles.</p>
@@ -427,7 +640,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_AddConnections_ShapeEngine_Geometry_RectDef_Rect_System_Numerics_Vector2_System_Boolean_" data-uid="ShapeEngine.Pathfinding.Pathfinder.AddConnections(ShapeEngine.Geometry.RectDef.Rect,System.Numerics.Vector2,System.Boolean)">
   AddConnections(Rect, Vector2, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L419"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L599"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Adds connections between all nodes in a rectangle and a node.</p>
@@ -466,7 +679,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_AddConnections_System_Numerics_Vector2_ShapeEngine_Geometry_RectDef_Rect_System_Boolean_" data-uid="ShapeEngine.Pathfinding.Pathfinder.AddConnections(System.Numerics.Vector2,ShapeEngine.Geometry.RectDef.Rect,System.Boolean)">
   AddConnections(Vector2, Rect, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L399"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L579"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Adds connections between a node and all nodes in a rectangle.</p>
@@ -505,7 +718,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_AddConnections_System_Numerics_Vector2_System_Numerics_Vector2_System_Boolean_" data-uid="ShapeEngine.Pathfinding.Pathfinder.AddConnections(System.Numerics.Vector2,System.Numerics.Vector2,System.Boolean)">
   AddConnections(Vector2, Vector2, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L383"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L563"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Adds a connection between two nodes.</p>
@@ -548,9 +761,9 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <a id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue*"></a>
 
-  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Pathfinding_NodeValue_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Pathfinding.NodeValue)">
-  ApplyNodeValue(Circle, NodeValue)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L642"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Pathfinding_NodeCost_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Pathfinding.NodeCost)">
+  ApplyNodeValue(Circle, NodeCost)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L822"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Applies a node value to all nodes that intersect the given circle.</p>
@@ -558,7 +771,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int ApplyNodeValue(Circle shape, NodeValue value)</code></pre>
+    <pre><code class="lang-csharp hljs">public int ApplyNodeValue(Circle shape, NodeCost cost)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -566,7 +779,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
     <dt><code>shape</code> <a class="xref" href="ShapeEngine.Geometry.CircleDef.Circle.html">Circle</a></dt>
     <dd><p>The circle.</p>
 </dd>
-    <dt><code>value</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeValue.html">NodeValue</a></dt>
+    <dt><code>cost</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeCost.html">NodeCost</a></dt>
     <dd><p>The node value to apply.</p>
 </dd>
   </dl>
@@ -590,9 +803,9 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <a id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue*"></a>
 
-  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Pathfinding_NodeValue_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Pathfinding.NodeValue)">
-  ApplyNodeValue(Polygon, NodeValue)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L804"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Pathfinding_NodeCost_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Pathfinding.NodeCost)">
+  ApplyNodeValue(Polygon, NodeCost)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L984"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Applies a node value to all nodes that intersect the given polygon.</p>
@@ -600,7 +813,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int ApplyNodeValue(Polygon shape, NodeValue value)</code></pre>
+    <pre><code class="lang-csharp hljs">public int ApplyNodeValue(Polygon shape, NodeCost cost)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -608,7 +821,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
     <dt><code>shape</code> <a class="xref" href="ShapeEngine.Geometry.PolygonDef.Polygon.html">Polygon</a></dt>
     <dd><p>The polygon.</p>
 </dd>
-    <dt><code>value</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeValue.html">NodeValue</a></dt>
+    <dt><code>cost</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeCost.html">NodeCost</a></dt>
     <dd><p>The node value to apply.</p>
 </dd>
   </dl>
@@ -632,9 +845,9 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <a id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue*"></a>
 
-  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_ShapeEngine_Geometry_PolylineDef_Polyline_ShapeEngine_Pathfinding_NodeValue_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue(ShapeEngine.Geometry.PolylineDef.Polyline,ShapeEngine.Pathfinding.NodeValue)">
-  ApplyNodeValue(Polyline, NodeValue)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L845"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_ShapeEngine_Geometry_PolylineDef_Polyline_ShapeEngine_Pathfinding_NodeCost_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue(ShapeEngine.Geometry.PolylineDef.Polyline,ShapeEngine.Pathfinding.NodeCost)">
+  ApplyNodeValue(Polyline, NodeCost)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L1025"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Applies a node value to all nodes that intersect the given polyline.</p>
@@ -642,7 +855,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int ApplyNodeValue(Polyline shape, NodeValue value)</code></pre>
+    <pre><code class="lang-csharp hljs">public int ApplyNodeValue(Polyline shape, NodeCost cost)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -650,7 +863,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
     <dt><code>shape</code> <a class="xref" href="ShapeEngine.Geometry.PolylineDef.Polyline.html">Polyline</a></dt>
     <dd><p>The polyline.</p>
 </dd>
-    <dt><code>value</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeValue.html">NodeValue</a></dt>
+    <dt><code>cost</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeCost.html">NodeCost</a></dt>
     <dd><p>The node value to apply.</p>
 </dd>
   </dl>
@@ -674,9 +887,9 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <a id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue*"></a>
 
-  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Pathfinding_NodeValue_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue(ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Pathfinding.NodeValue)">
-  ApplyNodeValue(Quad, NodeValue)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L763"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Pathfinding_NodeCost_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue(ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Pathfinding.NodeCost)">
+  ApplyNodeValue(Quad, NodeCost)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L943"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Applies a node value to all nodes that intersect the given quad.</p>
@@ -684,7 +897,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int ApplyNodeValue(Quad shape, NodeValue value)</code></pre>
+    <pre><code class="lang-csharp hljs">public int ApplyNodeValue(Quad shape, NodeCost cost)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -692,7 +905,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
     <dt><code>shape</code> <a class="xref" href="ShapeEngine.Geometry.QuadDef.Quad.html">Quad</a></dt>
     <dd><p>The quad.</p>
 </dd>
-    <dt><code>value</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeValue.html">NodeValue</a></dt>
+    <dt><code>cost</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeCost.html">NodeCost</a></dt>
     <dd><p>The node value to apply.</p>
 </dd>
   </dl>
@@ -716,9 +929,9 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <a id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue*"></a>
 
-  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Pathfinding_NodeValue_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue(ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Pathfinding.NodeValue)">
-  ApplyNodeValue(Rect, NodeValue)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L722"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Pathfinding_NodeCost_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue(ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Pathfinding.NodeCost)">
+  ApplyNodeValue(Rect, NodeCost)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L902"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Applies a node value to all nodes that intersect the given rectangle.</p>
@@ -726,7 +939,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int ApplyNodeValue(Rect shape, NodeValue value)</code></pre>
+    <pre><code class="lang-csharp hljs">public int ApplyNodeValue(Rect shape, NodeCost cost)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -734,7 +947,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
     <dt><code>shape</code> <a class="xref" href="ShapeEngine.Geometry.RectDef.Rect.html">Rect</a></dt>
     <dd><p>The rectangle.</p>
 </dd>
-    <dt><code>value</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeValue.html">NodeValue</a></dt>
+    <dt><code>cost</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeCost.html">NodeCost</a></dt>
     <dd><p>The node value to apply.</p>
 </dd>
   </dl>
@@ -758,9 +971,9 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <a id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue*"></a>
 
-  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Pathfinding_NodeValue_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Pathfinding.NodeValue)">
-  ApplyNodeValue(Segment, NodeValue)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L602"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Pathfinding_NodeCost_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Pathfinding.NodeCost)">
+  ApplyNodeValue(Segment, NodeCost)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L782"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Applies a node value to all nodes that intersect the given segment.</p>
@@ -768,7 +981,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int ApplyNodeValue(Segment shape, NodeValue value)</code></pre>
+    <pre><code class="lang-csharp hljs">public int ApplyNodeValue(Segment shape, NodeCost cost)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -776,7 +989,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
     <dt><code>shape</code> <a class="xref" href="ShapeEngine.Geometry.SegmentDef.Segment.html">Segment</a></dt>
     <dd><p>The segment.</p>
 </dd>
-    <dt><code>value</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeValue.html">NodeValue</a></dt>
+    <dt><code>cost</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeCost.html">NodeCost</a></dt>
     <dd><p>The node value to apply.</p>
 </dd>
   </dl>
@@ -800,9 +1013,9 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <a id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue*"></a>
 
-  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Pathfinding_NodeValue_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Pathfinding.NodeValue)">
-  ApplyNodeValue(Triangle, NodeValue)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L682"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Pathfinding_NodeCost_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Pathfinding.NodeCost)">
+  ApplyNodeValue(Triangle, NodeCost)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L862"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Applies a node value to all nodes that intersect the given triangle.</p>
@@ -810,7 +1023,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int ApplyNodeValue(Triangle shape, NodeValue value)</code></pre>
+    <pre><code class="lang-csharp hljs">public int ApplyNodeValue(Triangle shape, NodeCost cost)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -818,7 +1031,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
     <dt><code>shape</code> <a class="xref" href="ShapeEngine.Geometry.TriangleDef.Triangle.html">Triangle</a></dt>
     <dd><p>The triangle.</p>
 </dd>
-    <dt><code>value</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeValue.html">NodeValue</a></dt>
+    <dt><code>cost</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeCost.html">NodeCost</a></dt>
     <dd><p>The node value to apply.</p>
 </dd>
   </dl>
@@ -842,9 +1055,9 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <a id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue*"></a>
 
-  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_System_Int32_ShapeEngine_Pathfinding_NodeValue_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue(System.Int32,ShapeEngine.Pathfinding.NodeValue)">
-  ApplyNodeValue(int, NodeValue)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L542"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_System_Int32_ShapeEngine_Pathfinding_NodeCost_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue(System.Int32,ShapeEngine.Pathfinding.NodeCost)">
+  ApplyNodeValue(int, NodeCost)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L722"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Applies a node value to the node at the given index.</p>
@@ -852,7 +1065,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool ApplyNodeValue(int index, NodeValue value)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool ApplyNodeValue(int index, NodeCost cost)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -860,7 +1073,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
     <dt><code>index</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd><p>The index of the node.</p>
 </dd>
-    <dt><code>value</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeValue.html">NodeValue</a></dt>
+    <dt><code>cost</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeCost.html">NodeCost</a></dt>
     <dd><p>The node value to apply.</p>
 </dd>
   </dl>
@@ -884,9 +1097,9 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <a id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue*"></a>
 
-  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_System_Numerics_Vector2_ShapeEngine_Pathfinding_NodeValue_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue(System.Numerics.Vector2,ShapeEngine.Pathfinding.NodeValue)">
-  ApplyNodeValue(Vector2, NodeValue)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L572"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValue_System_Numerics_Vector2_ShapeEngine_Pathfinding_NodeCost_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValue(System.Numerics.Vector2,ShapeEngine.Pathfinding.NodeCost)">
+  ApplyNodeValue(Vector2, NodeCost)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L752"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Applies a node value to the node at the given position.</p>
@@ -894,7 +1107,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool ApplyNodeValue(Vector2 position, NodeValue value)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool ApplyNodeValue(Vector2 position, NodeCost cost)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -902,7 +1115,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
     <dt><code>position</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
     <dd><p>The position of the node.</p>
 </dd>
-    <dt><code>value</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeValue.html">NodeValue</a></dt>
+    <dt><code>cost</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeCost.html">NodeCost</a></dt>
     <dd><p>The node value to apply.</p>
 </dd>
   </dl>
@@ -926,9 +1139,9 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <a id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues*"></a>
 
-  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Pathfinding_NodeValue___" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Pathfinding.NodeValue[])">
-  ApplyNodeValues(Circle, params NodeValue[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L660"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Pathfinding_NodeCost___" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Pathfinding.NodeCost[])">
+  ApplyNodeValues(Circle, params NodeCost[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L840"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Applies multiple node values to all nodes that intersect the given circle.</p>
@@ -936,7 +1149,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int ApplyNodeValues(Circle shape, params NodeValue[] values)</code></pre>
+    <pre><code class="lang-csharp hljs">public int ApplyNodeValues(Circle shape, params NodeCost[] values)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -944,7 +1157,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
     <dt><code>shape</code> <a class="xref" href="ShapeEngine.Geometry.CircleDef.Circle.html">Circle</a></dt>
     <dd><p>The circle.</p>
 </dd>
-    <dt><code>values</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeValue.html">NodeValue</a>[]</dt>
+    <dt><code>values</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeCost.html">NodeCost</a>[]</dt>
     <dd><p>The node values to apply.</p>
 </dd>
   </dl>
@@ -968,9 +1181,9 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <a id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues*"></a>
 
-  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Pathfinding_NodeValue___" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Pathfinding.NodeValue[])">
-  ApplyNodeValues(Polygon, params NodeValue[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L823"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Pathfinding_NodeCost___" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Pathfinding.NodeCost[])">
+  ApplyNodeValues(Polygon, params NodeCost[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L1003"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Applies multiple node values to all nodes that intersect the given polygon.</p>
@@ -978,7 +1191,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int ApplyNodeValues(Polygon shape, params NodeValue[] values)</code></pre>
+    <pre><code class="lang-csharp hljs">public int ApplyNodeValues(Polygon shape, params NodeCost[] values)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -986,7 +1199,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
     <dt><code>shape</code> <a class="xref" href="ShapeEngine.Geometry.PolygonDef.Polygon.html">Polygon</a></dt>
     <dd><p>The polygon.</p>
 </dd>
-    <dt><code>values</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeValue.html">NodeValue</a>[]</dt>
+    <dt><code>values</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeCost.html">NodeCost</a>[]</dt>
     <dd><p>The node values to apply.</p>
 </dd>
   </dl>
@@ -1010,9 +1223,9 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <a id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues*"></a>
 
-  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_ShapeEngine_Geometry_PolylineDef_Polyline_ShapeEngine_Pathfinding_NodeValue___" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues(ShapeEngine.Geometry.PolylineDef.Polyline,ShapeEngine.Pathfinding.NodeValue[])">
-  ApplyNodeValues(Polyline, params NodeValue[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L864"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_ShapeEngine_Geometry_PolylineDef_Polyline_ShapeEngine_Pathfinding_NodeCost___" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues(ShapeEngine.Geometry.PolylineDef.Polyline,ShapeEngine.Pathfinding.NodeCost[])">
+  ApplyNodeValues(Polyline, params NodeCost[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L1044"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Applies multiple node values to all nodes that intersect the given polyline.</p>
@@ -1020,7 +1233,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int ApplyNodeValues(Polyline shape, params NodeValue[] values)</code></pre>
+    <pre><code class="lang-csharp hljs">public int ApplyNodeValues(Polyline shape, params NodeCost[] values)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1028,7 +1241,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
     <dt><code>shape</code> <a class="xref" href="ShapeEngine.Geometry.PolylineDef.Polyline.html">Polyline</a></dt>
     <dd><p>The polyline.</p>
 </dd>
-    <dt><code>values</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeValue.html">NodeValue</a>[]</dt>
+    <dt><code>values</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeCost.html">NodeCost</a>[]</dt>
     <dd><p>The node values to apply.</p>
 </dd>
   </dl>
@@ -1052,9 +1265,9 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <a id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues*"></a>
 
-  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Pathfinding_NodeValue___" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues(ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Pathfinding.NodeValue[])">
-  ApplyNodeValues(Quad, params NodeValue[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L782"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Pathfinding_NodeCost___" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues(ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Pathfinding.NodeCost[])">
+  ApplyNodeValues(Quad, params NodeCost[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L962"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Applies multiple node values to all nodes that intersect the given quad.</p>
@@ -1062,7 +1275,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int ApplyNodeValues(Quad shape, params NodeValue[] values)</code></pre>
+    <pre><code class="lang-csharp hljs">public int ApplyNodeValues(Quad shape, params NodeCost[] values)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1070,7 +1283,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
     <dt><code>shape</code> <a class="xref" href="ShapeEngine.Geometry.QuadDef.Quad.html">Quad</a></dt>
     <dd><p>The quad.</p>
 </dd>
-    <dt><code>values</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeValue.html">NodeValue</a>[]</dt>
+    <dt><code>values</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeCost.html">NodeCost</a>[]</dt>
     <dd><p>The node values to apply.</p>
 </dd>
   </dl>
@@ -1094,9 +1307,9 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <a id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues*"></a>
 
-  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Pathfinding_NodeValue___" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues(ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Pathfinding.NodeValue[])">
-  ApplyNodeValues(Rect, params NodeValue[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L741"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Pathfinding_NodeCost___" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues(ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Pathfinding.NodeCost[])">
+  ApplyNodeValues(Rect, params NodeCost[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L921"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Applies multiple node values to all nodes that intersect the given rectangle.</p>
@@ -1104,7 +1317,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int ApplyNodeValues(Rect shape, params NodeValue[] values)</code></pre>
+    <pre><code class="lang-csharp hljs">public int ApplyNodeValues(Rect shape, params NodeCost[] values)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1112,7 +1325,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
     <dt><code>shape</code> <a class="xref" href="ShapeEngine.Geometry.RectDef.Rect.html">Rect</a></dt>
     <dd><p>The rectangle.</p>
 </dd>
-    <dt><code>values</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeValue.html">NodeValue</a>[]</dt>
+    <dt><code>values</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeCost.html">NodeCost</a>[]</dt>
     <dd><p>The node values to apply.</p>
 </dd>
   </dl>
@@ -1136,9 +1349,9 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <a id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues*"></a>
 
-  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Pathfinding_NodeValue___" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Pathfinding.NodeValue[])">
-  ApplyNodeValues(Segment, params NodeValue[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L620"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Pathfinding_NodeCost___" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Pathfinding.NodeCost[])">
+  ApplyNodeValues(Segment, params NodeCost[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L800"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Applies multiple node values to all nodes that intersect the given segment.</p>
@@ -1146,7 +1359,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int ApplyNodeValues(Segment shape, params NodeValue[] values)</code></pre>
+    <pre><code class="lang-csharp hljs">public int ApplyNodeValues(Segment shape, params NodeCost[] values)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1154,7 +1367,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
     <dt><code>shape</code> <a class="xref" href="ShapeEngine.Geometry.SegmentDef.Segment.html">Segment</a></dt>
     <dd><p>The segment.</p>
 </dd>
-    <dt><code>values</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeValue.html">NodeValue</a>[]</dt>
+    <dt><code>values</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeCost.html">NodeCost</a>[]</dt>
     <dd><p>The node values to apply.</p>
 </dd>
   </dl>
@@ -1178,9 +1391,9 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <a id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues*"></a>
 
-  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Pathfinding_NodeValue___" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Pathfinding.NodeValue[])">
-  ApplyNodeValues(Triangle, params NodeValue[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L700"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Pathfinding_NodeCost___" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Pathfinding.NodeCost[])">
+  ApplyNodeValues(Triangle, params NodeCost[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L880"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Applies multiple node values to all nodes that intersect the given triangle.</p>
@@ -1188,7 +1401,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int ApplyNodeValues(Triangle shape, params NodeValue[] values)</code></pre>
+    <pre><code class="lang-csharp hljs">public int ApplyNodeValues(Triangle shape, params NodeCost[] values)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1196,7 +1409,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
     <dt><code>shape</code> <a class="xref" href="ShapeEngine.Geometry.TriangleDef.Triangle.html">Triangle</a></dt>
     <dd><p>The triangle.</p>
 </dd>
-    <dt><code>values</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeValue.html">NodeValue</a>[]</dt>
+    <dt><code>values</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeCost.html">NodeCost</a>[]</dt>
     <dd><p>The node values to apply.</p>
 </dd>
   </dl>
@@ -1220,9 +1433,9 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <a id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues*"></a>
 
-  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_System_Int32_ShapeEngine_Pathfinding_NodeValue___" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues(System.Int32,ShapeEngine.Pathfinding.NodeValue[])">
-  ApplyNodeValues(int, params NodeValue[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L555"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_System_Int32_ShapeEngine_Pathfinding_NodeCost___" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues(System.Int32,ShapeEngine.Pathfinding.NodeCost[])">
+  ApplyNodeValues(int, params NodeCost[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L735"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Applies multiple node values to the node at the given index.</p>
@@ -1230,7 +1443,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool ApplyNodeValues(int index, params NodeValue[] values)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool ApplyNodeValues(int index, params NodeCost[] values)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1238,7 +1451,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
     <dt><code>index</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd><p>The index of the node.</p>
 </dd>
-    <dt><code>values</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeValue.html">NodeValue</a>[]</dt>
+    <dt><code>values</code> <a class="xref" href="ShapeEngine.Pathfinding.NodeCost.html">NodeCost</a>[]</dt>
     <dd><p>The node values to apply.</p>
 </dd>
   </dl>
@@ -1262,9 +1475,9 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <a id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues*"></a>
 
-  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_System_Numerics_Vector2_System_Collections_Generic_IEnumerable_ShapeEngine_Pathfinding_NodeValue__" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues(System.Numerics.Vector2,System.Collections.Generic.IEnumerable{ShapeEngine.Pathfinding.NodeValue})">
-  ApplyNodeValues(Vector2, IEnumerable&lt;NodeValue&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L585"><i class="bi bi-code-slash"></i></a>
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_ApplyNodeValues_System_Numerics_Vector2_System_Collections_Generic_IEnumerable_ShapeEngine_Pathfinding_NodeCost__" data-uid="ShapeEngine.Pathfinding.Pathfinder.ApplyNodeValues(System.Numerics.Vector2,System.Collections.Generic.IEnumerable{ShapeEngine.Pathfinding.NodeCost})">
+  ApplyNodeValues(Vector2, IEnumerable&lt;NodeCost&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L765"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Applies multiple node values to the node at the given position.</p>
@@ -1272,7 +1485,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool ApplyNodeValues(Vector2 position, IEnumerable&lt;NodeValue&gt; values)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool ApplyNodeValues(Vector2 position, IEnumerable&lt;NodeCost&gt; values)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1280,7 +1493,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
     <dt><code>position</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
     <dd><p>The position of the node.</p>
 </dd>
-    <dt><code>values</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="ShapeEngine.Pathfinding.NodeValue.html">NodeValue</a>&gt;</dt>
+    <dt><code>values</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="ShapeEngine.Pathfinding.NodeCost.html">NodeCost</a>&gt;</dt>
     <dd><p>The node values to apply.</p>
 </dd>
   </dl>
@@ -1306,7 +1519,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_Clear" data-uid="ShapeEngine.Pathfinding.Pathfinder.Clear">
   Clear()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L137"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L192"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Clears the pathfinder.</p>
@@ -1333,7 +1546,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_ClearAgents" data-uid="ShapeEngine.Pathfinding.Pathfinder.ClearAgents">
   ClearAgents()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L279"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L333"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Clears all agents from the pathfinder.</p>
@@ -1360,7 +1573,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_DrawDebug_ShapeEngine_Color_ColorRgba_ShapeEngine_Color_ColorRgba_ShapeEngine_Color_ColorRgba_ShapeEngine_Color_ColorRgba_ShapeEngine_Color_ColorRgba_System_UInt32_" data-uid="ShapeEngine.Pathfinding.Pathfinder.DrawDebug(ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba,System.UInt32)">
   DrawDebug(ColorRgba, ColorRgba, ColorRgba, ColorRgba, ColorRgba, uint)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L1155"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L1423"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Draws a debug view of the pathfinder.</p>
@@ -1408,7 +1621,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_GetIndex_System_Numerics_Vector2_" data-uid="ShapeEngine.Pathfinding.Pathfinder.GetIndex(System.Numerics.Vector2)">
   GetIndex(Vector2)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L187"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L242"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the index of the cell at the given position.</p>
@@ -1447,7 +1660,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_GetIndexUnclamped_System_Numerics_Vector2_" data-uid="ShapeEngine.Pathfinding.Pathfinder.GetIndexUnclamped(System.Numerics.Vector2)">
   GetIndexUnclamped(Vector2)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L194"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L249"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the index of the cell at the given position without clamping the position to the bounds.</p>
@@ -1486,7 +1699,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_GetPath_System_Numerics_Vector2_System_Numerics_Vector2_System_UInt32_" data-uid="ShapeEngine.Pathfinding.Pathfinder.GetPath(System.Numerics.Vector2,System.Numerics.Vector2,System.UInt32)">
   GetPath(Vector2, Vector2, uint)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L350"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L370"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a path from the start to the end position for the given layer.</p>
@@ -1523,6 +1736,118 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
 
 
+  <h4 class="section" id="ShapeEngine_Pathfinding_Pathfinder_GetPath_System_Numerics_Vector2_System_Numerics_Vector2_System_UInt32__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Path is a pooled classed.
+Instances should be returned to the pool via <a class="xref" href="ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_ReturnPath_ShapeEngine_Pathfinding_Path_">ReturnPath(Path)</a> or <a class="xref" href="ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_ReturnInstance">ReturnInstance()</a> when no longer needed.
+Returned instances should not be accessed afterwards.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Pathfinding_Pathfinder_GetPathAsync_" data-uid="ShapeEngine.Pathfinding.Pathfinder.GetPathAsync*"></a>
+
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_GetPathAsync_System_Numerics_Vector2_System_Numerics_Vector2_System_UInt32_System_Threading_CancellationToken_" data-uid="ShapeEngine.Pathfinding.Pathfinder.GetPathAsync(System.Numerics.Vector2,System.Numerics.Vector2,System.UInt32,System.Threading.CancellationToken)">
+  GetPathAsync(Vector2, Vector2, uint, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L429"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Asynchronously finds a path between two world positions using A* on this pathfinder.
+The start and end positions are clamped to the pathfinder bounds. If the clamped start or end
+cell is not traversable, the nearest traversable cell will be used; if none is available the
+method returns null.
+Using the async version makes sense when pathfinding may take a long time, e.g. on large grids or very complex paths.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;Path?&gt; GetPathAsync(Vector2 start, Vector2 end, uint layer, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>start</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
+    <dd><p>Start world position.</p>
+</dd>
+    <dt><code>end</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
+    <dd><p>End world position.</p>
+</dd>
+    <dt><code>layer</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
+    <dd><p>Traversal layer used for weight and traversability checks.</p>
+</dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>Cancellation token to cancel the pathfinding operation.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="ShapeEngine.Pathfinding.Path.html">Path</a>&gt;</dt>
+    <dd><p>A task that completes with the found <a class="xref" href="ShapeEngine.Pathfinding.Path.html">Path</a> or null if no path exists
+or valid traversable start/end cells could not be found.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Pathfinding_Pathfinder_GetPathAsync_System_Numerics_Vector2_System_Numerics_Vector2_System_UInt32_System_Threading_CancellationToken__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Path is a pooled classed.
+Instances should be returned to the pool via <a class="xref" href="ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_ReturnPath_ShapeEngine_Pathfinding_Path_">ReturnPath(Path)</a> or <a class="xref" href="ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_ReturnInstance">ReturnInstance()</a> when no longer needed.
+Returned instances should not be accessed afterwards.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Pathfinding_Pathfinder_GetPathsParallel_" data-uid="ShapeEngine.Pathfinding.Pathfinder.GetPathsParallel*"></a>
+
+  <h3 id="ShapeEngine_Pathfinding_Pathfinder_GetPathsParallel_System_Collections_Generic_List_System_ValueTuple_System_Numerics_Vector2_System_Numerics_Vector2_System_UInt32___System_Threading_CancellationToken_" data-uid="ShapeEngine.Pathfinding.Pathfinder.GetPathsParallel(System.Collections.Generic.List{System.ValueTuple{System.Numerics.Vector2,System.Numerics.Vector2,System.UInt32}},System.Threading.CancellationToken)">
+  GetPathsParallel(List&lt;(Vector2 start, Vector2 end, uint layer)&gt;, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L517"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Executes multiple pathfinding requests in parallel and returns an array of results.
+Each element in the returned array corresponds to the request at the same index in <code class="paramref">requests</code>.
+Returns <code>null</code> if <code class="paramref">requests</code> is empty or if the operation was cancelled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Path?[]? GetPathsParallel(List&lt;(Vector2 start, Vector2 end, uint layer)&gt; requests, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>requests</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.numerics.vector2,system.numerics.vector2,system.uint32-.start">start</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.numerics.vector2,system.numerics.vector2,system.uint32-.end">end</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.numerics.vector2,system.numerics.vector2,system.uint32-.layer">layer</a>)&gt;</dt>
+    <dd><p>A list of tuples where each tuple contains the start position, end position and traversal layer.</p>
+</dd>
+    <dt><code>cancellationToken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></dt>
+    <dd><p>Optional cancellation token to cancel the parallel operation.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ShapeEngine.Pathfinding.Path.html">Path</a>[]</dt>
+    <dd><p>An array of <a class="xref" href="ShapeEngine.Pathfinding.Path.html">Path</a>? results matching the request order, or <code>null</code> if no requests were provided or the operation was cancelled.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Pathfinding_Pathfinder_GetPathsParallel_System_Collections_Generic_List_System_ValueTuple_System_Numerics_Vector2_System_Numerics_Vector2_System_UInt32___System_Threading_CancellationToken__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Path is a pooled class.
+Instances should be returned to the pool via <a class="xref" href="ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_ReturnPath_ShapeEngine_Pathfinding_Path_">ReturnPath(Path)</a> or <a class="xref" href="ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_ReturnInstance">ReturnInstance()</a> when no longer needed.
+Returned instances should not be accessed afterward.</p>
+</div>
 
 
 
@@ -1531,7 +1856,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_GetRect_System_Int32_" data-uid="ShapeEngine.Pathfinding.Pathfinder.GetRect(System.Int32)">
   GetRect(int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L207"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L262"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the rectangle of the cell at the given index.</p>
@@ -1570,7 +1895,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_GetRect_System_Numerics_Vector2_" data-uid="ShapeEngine.Pathfinding.Pathfinder.GetRect(System.Numerics.Vector2)">
   GetRect(Vector2)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L201"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L256"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the rectangle of the cell at the given position.</p>
@@ -1609,7 +1934,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_GetRects_ShapeEngine_Geometry_RectDef_Rect_System_Boolean_" data-uid="ShapeEngine.Pathfinding.Pathfinder.GetRects(ShapeEngine.Geometry.RectDef.Rect,System.Boolean)">
   GetRects(Rect, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L1220"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L1488"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a list of all rectangles in the given area.</p>
@@ -1651,7 +1976,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_GetRects_ShapeEngine_Geometry_RectDef_Rect_System_UInt32_System_Int32_System_Int32_" data-uid="ShapeEngine.Pathfinding.Pathfinder.GetRects(ShapeEngine.Geometry.RectDef.Rect,System.UInt32,System.Int32,System.Int32)">
   GetRects(Rect, uint, int, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L1243"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L1511"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a list of all rectangles in the given area with a weight between the given values.</p>
@@ -1699,7 +2024,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_GetRects_System_Boolean_" data-uid="ShapeEngine.Pathfinding.Pathfinder.GetRects(System.Boolean)">
   GetRects(bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L1183"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L1451"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a list of all rectangles in the pathfinder.</p>
@@ -1738,7 +2063,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_GetRects_System_UInt32_System_Int32_System_Int32_" data-uid="ShapeEngine.Pathfinding.Pathfinder.GetRects(System.UInt32,System.Int32,System.Int32)">
   GetRects(uint, int, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L1203"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L1471"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets a list of all rectangles in the pathfinder with a weight between the given values.</p>
@@ -1783,7 +2108,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_GetWeight_System_Int32_" data-uid="ShapeEngine.Pathfinding.Pathfinder.GetWeight(System.Int32)">
   GetWeight(int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L220"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L274"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the weight of the cell at the given index.</p>
@@ -1822,7 +2147,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_GetWeight_System_Int32_System_UInt32_" data-uid="ShapeEngine.Pathfinding.Pathfinder.GetWeight(System.Int32,System.UInt32)">
   GetWeight(int, uint)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L227"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L281"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the weight of the cell at the given index for the given layer.</p>
@@ -1864,7 +2189,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_IsIndexValid_System_Int32_" data-uid="ShapeEngine.Pathfinding.Pathfinder.IsIndexValid(System.Int32)">
   IsIndexValid(int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L181"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L236"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Checks if the given index is valid.</p>
@@ -1903,7 +2228,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_IsInside_System_Numerics_Vector2_" data-uid="ShapeEngine.Pathfinding.Pathfinder.IsInside(System.Numerics.Vector2)">
   IsInside(Vector2)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L175"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L230"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Checks if the given position is inside the pathfinder bounds.</p>
@@ -1942,7 +2267,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_IsTraversable_System_Int32_" data-uid="ShapeEngine.Pathfinding.Pathfinder.IsTraversable(System.Int32)">
   IsTraversable(int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L233"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L287"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Checks if the cell at the given index is traversable.</p>
@@ -1981,7 +2306,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_IsTraversable_System_Int32_System_UInt32_" data-uid="ShapeEngine.Pathfinding.Pathfinder.IsTraversable(System.Int32,System.UInt32)">
   IsTraversable(int, uint)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L240"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L294"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Checks if the cell at the given index is traversable for the given layer.</p>
@@ -2023,7 +2348,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_RegenerationWasRequested" data-uid="ShapeEngine.Pathfinding.Pathfinder.RegenerationWasRequested">
   RegenerationWasRequested()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L888"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L1068"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Called when the pathfinder requests regeneration. Override to implement custom behavior on regeneration request.</p>
@@ -2050,7 +2375,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_RemoveAgent_ShapeEngine_Pathfinding_IPathfinderAgent_" data-uid="ShapeEngine.Pathfinding.Pathfinder.RemoveAgent(ShapeEngine.Pathfinding.IPathfinderAgent)">
   RemoveAgent(IPathfinderAgent)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L265"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L319"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Removes an agent from the pathfinder.</p>
@@ -2089,7 +2414,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_RemoveConnections_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_RectDef_Rect_System_Boolean_" data-uid="ShapeEngine.Pathfinding.Pathfinder.RemoveConnections(ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.RectDef.Rect,System.Boolean)">
   RemoveConnections(Rect, Rect, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L514"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L694"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Removes connections between all nodes in two rectangles.</p>
@@ -2128,7 +2453,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_RemoveConnections_ShapeEngine_Geometry_RectDef_Rect_System_Numerics_Vector2_System_Boolean_" data-uid="ShapeEngine.Pathfinding.Pathfinder.RemoveConnections(ShapeEngine.Geometry.RectDef.Rect,System.Numerics.Vector2,System.Boolean)">
   RemoveConnections(Rect, Vector2, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L495"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L675"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Removes connections between all nodes in a rectangle and a node.</p>
@@ -2167,7 +2492,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_RemoveConnections_System_Numerics_Vector2_ShapeEngine_Geometry_RectDef_Rect_System_Boolean_" data-uid="ShapeEngine.Pathfinding.Pathfinder.RemoveConnections(System.Numerics.Vector2,ShapeEngine.Geometry.RectDef.Rect,System.Boolean)">
   RemoveConnections(Vector2, Rect, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L475"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L655"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Removes connections between a node and all nodes in a rectangle.</p>
@@ -2206,7 +2531,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_RemoveConnections_System_Numerics_Vector2_System_Numerics_Vector2_System_Boolean_" data-uid="ShapeEngine.Pathfinding.Pathfinder.RemoveConnections(System.Numerics.Vector2,System.Numerics.Vector2,System.Boolean)">
   RemoveConnections(Vector2, Vector2, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L459"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L639"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Removes a connection between two nodes.</p>
@@ -2251,7 +2576,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_ResetNodes" data-uid="ShapeEngine.Pathfinding.Pathfinder.ResetNodes">
   ResetNodes()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L148"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L203"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Resets all nodes in the pathfinder.</p>
@@ -2278,7 +2603,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_ResetNodes_ShapeEngine_Geometry_RectDef_Rect_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ResetNodes(ShapeEngine.Geometry.RectDef.Rect)">
   ResetNodes(Rect)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L159"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L214"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Resets all nodes in the given rectangle.</p>
@@ -2311,7 +2636,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_ResizeBounds_ShapeEngine_Geometry_RectDef_Rect_" data-uid="ShapeEngine.Pathfinding.Pathfinder.ResizeBounds(ShapeEngine.Geometry.RectDef.Rect)">
   ResizeBounds(Rect)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L119"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L174"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Resizes the bounds of the pathfinder.</p>
@@ -2344,7 +2669,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_Update_System_Single_" data-uid="ShapeEngine.Pathfinding.Pathfinder.Update(System.Single)">
   Update(float)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L128"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L183"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Updates the pathfinder.</p>
@@ -2377,7 +2702,7 @@ If the bounds are changed, the pathfinder is regenerated.</p>
 
   <h3 id="ShapeEngine_Pathfinding_Pathfinder_WasCleared" data-uid="ShapeEngine.Pathfinding.Pathfinder.WasCleared">
   WasCleared()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L884"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Pathfinding/Pathfinder.cs/#L1064"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Called when the pathfinder has been cleared. Override to implement custom behavior on clear.</p>

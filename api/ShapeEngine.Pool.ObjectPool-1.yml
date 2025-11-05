@@ -1,0 +1,1159 @@
+### YamlMime:ManagedReference
+items:
+- uid: ShapeEngine.Pool.ObjectPool`1
+  commentId: T:ShapeEngine.Pool.ObjectPool`1
+  id: ObjectPool`1
+  parent: ShapeEngine.Pool
+  children:
+  - ShapeEngine.Pool.ObjectPool`1.#ctor(System.Func{`0},System.Action{`0})
+  - ShapeEngine.Pool.ObjectPool`1.Clear
+  - ShapeEngine.Pool.ObjectPool`1.GetDisposableHandle
+  - ShapeEngine.Pool.ObjectPool`1.Rent
+  - ShapeEngine.Pool.ObjectPool`1.Return(`0)
+  langs:
+  - csharp
+  - vb
+  name: ObjectPool<T>
+  nameWithType: ObjectPool<T>
+  fullName: ShapeEngine.Pool.ObjectPool<T>
+  type: Class
+  source:
+    remote:
+      path: ShapeEngine/Pool/ObjectPool.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: ObjectPool
+    path: ../ShapeEngine/ShapeEngine/Pool/ObjectPool.cs
+    startLine: 14
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Pool
+  summary: A thread-safe object pool for reusing instances of type <code class="typeparamref">T</code>.
+  remarks: >-
+    Uses a thread-safe <xref href="System.Collections.Concurrent.ConcurrentBag%601" data-throw-if-not-resolved="false"></xref> to store available instances.
+
+    Provide a <xref href="System.Func%601" data-throw-if-not-resolved="false"></xref> to create new instances and an optional
+
+    <xref href="System.Action%601" data-throw-if-not-resolved="false"></xref> to reset instances when they are returned to the pool.
+
+    If extension is needed, prefer a wrapper that delegates to <code>ObjectPool</code> rather than deriving from it.
+  example: []
+  syntax:
+    content: 'public sealed class ObjectPool<T> where T : class'
+    typeParameters:
+    - id: T
+      description: The reference type being pooled.
+    content.vb: Public NotInheritable Class ObjectPool(Of T As Class)
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ObjectPool(Of T)
+  fullName.vb: ShapeEngine.Pool.ObjectPool(Of T)
+  name.vb: ObjectPool(Of T)
+- uid: ShapeEngine.Pool.ObjectPool`1.#ctor(System.Func{`0},System.Action{`0})
+  commentId: M:ShapeEngine.Pool.ObjectPool`1.#ctor(System.Func{`0},System.Action{`0})
+  id: '#ctor(System.Func{`0},System.Action{`0})'
+  parent: ShapeEngine.Pool.ObjectPool`1
+  langs:
+  - csharp
+  - vb
+  name: ObjectPool(Func<T>, Action<T>?)
+  nameWithType: ObjectPool<T>.ObjectPool(Func<T>, Action<T>?)
+  fullName: ShapeEngine.Pool.ObjectPool<T>.ObjectPool(System.Func<T>, System.Action<T>?)
+  type: Constructor
+  source:
+    remote:
+      path: ShapeEngine/Pool/ObjectPool.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: .ctor
+    path: ../ShapeEngine/ShapeEngine/Pool/ObjectPool.cs
+    startLine: 41
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Pool
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Pool.ObjectPool%601" data-throw-if-not-resolved="false"></xref> class.
+  example: []
+  syntax:
+    content: public ObjectPool(Func<T> objectGenerator, Action<T>? objectResetter = null)
+    parameters:
+    - id: objectGenerator
+      type: System.Func{{T}}
+      description: A factory function used to create new instances when the pool is empty. Must not be null.
+    - id: objectResetter
+      type: System.Action{{T}}
+      description: An optional action invoked to reset an instance before it is returned to the pool.
+    content.vb: Public Sub New(objectGenerator As Func(Of T), objectResetter As Action(Of T) = Nothing)
+  overload: ShapeEngine.Pool.ObjectPool`1.#ctor*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code class="paramref">objectGenerator</code> is null.
+  nameWithType.vb: ObjectPool(Of T).New(Func(Of T), Action(Of T))
+  fullName.vb: ShapeEngine.Pool.ObjectPool(Of T).New(System.Func(Of T), System.Action(Of T))
+  name.vb: New(Func(Of T), Action(Of T))
+- uid: ShapeEngine.Pool.ObjectPool`1.Rent
+  commentId: M:ShapeEngine.Pool.ObjectPool`1.Rent
+  id: Rent
+  parent: ShapeEngine.Pool.ObjectPool`1
+  langs:
+  - csharp
+  - vb
+  name: Rent()
+  nameWithType: ObjectPool<T>.Rent()
+  fullName: ShapeEngine.Pool.ObjectPool<T>.Rent()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Pool/ObjectPool.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Rent
+    path: ../ShapeEngine/ShapeEngine/Pool/ObjectPool.cs
+    startLine: 56
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Pool
+  summary: >-
+    Retrieves an instance from the pool if one is available; otherwise creates a new instance
+
+    using the factory provided to the pool constructor.
+  example: []
+  syntax:
+    content: public T Rent()
+    return:
+      type: '{T}'
+      description: >-
+        A pooled instance of <code class="typeparamref">T</code>. The caller should return the instance
+
+        to the pool by calling <xref href="ShapeEngine.Pool.ObjectPool%601.Return(%600)" data-throw-if-not-resolved="false"></xref> when finished.
+    content.vb: Public Function Rent() As T
+  overload: ShapeEngine.Pool.ObjectPool`1.Rent*
+  nameWithType.vb: ObjectPool(Of T).Rent()
+  fullName.vb: ShapeEngine.Pool.ObjectPool(Of T).Rent()
+- uid: ShapeEngine.Pool.ObjectPool`1.Return(`0)
+  commentId: M:ShapeEngine.Pool.ObjectPool`1.Return(`0)
+  id: Return(`0)
+  parent: ShapeEngine.Pool.ObjectPool`1
+  langs:
+  - csharp
+  - vb
+  name: Return(T)
+  nameWithType: ObjectPool<T>.Return(T)
+  fullName: ShapeEngine.Pool.ObjectPool<T>.Return(T)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Pool/ObjectPool.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Return
+    path: ../ShapeEngine/ShapeEngine/Pool/ObjectPool.cs
+    startLine: 67
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Pool
+  summary: >-
+    Returns an instance to the pool. The instance will be reset using the optional
+
+    reset delegate (if provided) and then added back to the internal storage for reuse.
+  example: []
+  syntax:
+    content: public void Return(T instance)
+    parameters:
+    - id: instance
+      type: '{T}'
+      description: The instance to return to the pool. Must not be null.
+    content.vb: Public Sub [Return](instance As T)
+  overload: ShapeEngine.Pool.ObjectPool`1.Return*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown when <code class="paramref">instance</code> is null.
+  nameWithType.vb: ObjectPool(Of T).Return(T)
+  fullName.vb: ShapeEngine.Pool.ObjectPool(Of T).Return(T)
+- uid: ShapeEngine.Pool.ObjectPool`1.GetDisposableHandle
+  commentId: M:ShapeEngine.Pool.ObjectPool`1.GetDisposableHandle
+  id: GetDisposableHandle
+  parent: ShapeEngine.Pool.ObjectPool`1
+  langs:
+  - csharp
+  - vb
+  name: GetDisposableHandle()
+  nameWithType: ObjectPool<T>.GetDisposableHandle()
+  fullName: ShapeEngine.Pool.ObjectPool<T>.GetDisposableHandle()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Pool/ObjectPool.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetDisposableHandle
+    path: ../ShapeEngine/ShapeEngine/Pool/ObjectPool.cs
+    startLine: 85
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Pool
+  summary: >-
+    Creates a disposable handle that wraps a pooled instance.
+
+    The handle will return the instance to this pool when the handle is disposed.
+  remarks: >-
+    Use the returned handle in a `using` statement (or dispose it manually) to ensure the instance
+
+    is returned to the pool promptly. This method obtains a single instance via <xref href="ShapeEngine.Pool.ObjectPool%601.Rent" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public PooledObjectHandle<T> GetDisposableHandle()
+    return:
+      type: ShapeEngine.Pool.PooledObjectHandle{{T}}
+      description: A <xref href="ShapeEngine.Pool.PooledObjectHandle%601" data-throw-if-not-resolved="false"></xref> containing a pooled <code class="typeparamref">T</code> instance.
+    content.vb: Public Function GetDisposableHandle() As PooledObjectHandle(Of T)
+  overload: ShapeEngine.Pool.ObjectPool`1.GetDisposableHandle*
+  nameWithType.vb: ObjectPool(Of T).GetDisposableHandle()
+  fullName.vb: ShapeEngine.Pool.ObjectPool(Of T).GetDisposableHandle()
+- uid: ShapeEngine.Pool.ObjectPool`1.Clear
+  commentId: M:ShapeEngine.Pool.ObjectPool`1.Clear
+  id: Clear
+  parent: ShapeEngine.Pool.ObjectPool`1
+  langs:
+  - csharp
+  - vb
+  name: Clear()
+  nameWithType: ObjectPool<T>.Clear()
+  fullName: ShapeEngine.Pool.ObjectPool<T>.Clear()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Pool/ObjectPool.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Clear
+    path: ../ShapeEngine/ShapeEngine/Pool/ObjectPool.cs
+    startLine: 99
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Pool
+  summary: Removes all objects currently stored in the pool's internal container.
+  remarks: >-
+    This clears only the available instances held by the pool; instances already checked out
+
+    via <xref href="ShapeEngine.Pool.ObjectPool%601.Rent" data-throw-if-not-resolved="false"></xref> are not affected. The underlying operation uses the thread-safe
+
+    <xref href="System.Collections.Concurrent.ConcurrentBag%601" data-throw-if-not-resolved="false"></xref> implementation.
+  example: []
+  syntax:
+    content: public void Clear()
+    content.vb: Public Sub Clear()
+  overload: ShapeEngine.Pool.ObjectPool`1.Clear*
+  nameWithType.vb: ObjectPool(Of T).Clear()
+  fullName.vb: ShapeEngine.Pool.ObjectPool(Of T).Clear()
+references:
+- uid: System.Collections.Concurrent.ConcurrentBag`1
+  commentId: T:System.Collections.Concurrent.ConcurrentBag`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.concurrent.concurrentbag-1
+  name: ConcurrentBag<T>
+  nameWithType: ConcurrentBag<T>
+  fullName: System.Collections.Concurrent.ConcurrentBag<T>
+  nameWithType.vb: ConcurrentBag(Of T)
+  fullName.vb: System.Collections.Concurrent.ConcurrentBag(Of T)
+  name.vb: ConcurrentBag(Of T)
+  spec.csharp:
+  - uid: System.Collections.Concurrent.ConcurrentBag`1
+    name: ConcurrentBag
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.concurrent.concurrentbag-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Concurrent.ConcurrentBag`1
+    name: ConcurrentBag
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.concurrent.concurrentbag-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Func`1
+  commentId: T:System.Func`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.func-1
+  name: Func<TResult>
+  nameWithType: Func<TResult>
+  fullName: System.Func<TResult>
+  nameWithType.vb: Func(Of TResult)
+  fullName.vb: System.Func(Of TResult)
+  name.vb: Func(Of TResult)
+  spec.csharp:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Action`1
+  commentId: T:System.Action`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: ShapeEngine.Pool
+  commentId: N:ShapeEngine.Pool
+  href: ShapeEngine.html
+  name: ShapeEngine.Pool
+  nameWithType: ShapeEngine.Pool
+  fullName: ShapeEngine.Pool
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Pool
+    name: Pool
+    href: ShapeEngine.Pool.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Pool
+    name: Pool
+    href: ShapeEngine.Pool.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
+  href: ShapeEngine.html
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+- uid: ShapeEngine.Pool.ObjectPool`1
+  commentId: T:ShapeEngine.Pool.ObjectPool`1
+  href: ShapeEngine.Pool.ObjectPool-1.html
+  name: ObjectPool<T>
+  nameWithType: ObjectPool<T>
+  fullName: ShapeEngine.Pool.ObjectPool<T>
+  nameWithType.vb: ObjectPool(Of T)
+  fullName.vb: ShapeEngine.Pool.ObjectPool(Of T)
+  name.vb: ObjectPool(Of T)
+  spec.csharp:
+  - uid: ShapeEngine.Pool.ObjectPool`1
+    name: ObjectPool
+    href: ShapeEngine.Pool.ObjectPool-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: ShapeEngine.Pool.ObjectPool`1
+    name: ObjectPool
+    href: ShapeEngine.Pool.ObjectPool-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.ArgumentNullException
+  commentId: T:System.ArgumentNullException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentnullexception
+  name: ArgumentNullException
+  nameWithType: ArgumentNullException
+  fullName: System.ArgumentNullException
+- uid: ShapeEngine.Pool.ObjectPool`1.#ctor*
+  commentId: Overload:ShapeEngine.Pool.ObjectPool`1.#ctor
+  href: ShapeEngine.Pool.ObjectPool-1.html#ShapeEngine_Pool_ObjectPool_1__ctor_System_Func__0__System_Action__0__
+  name: ObjectPool
+  nameWithType: ObjectPool<T>.ObjectPool
+  fullName: ShapeEngine.Pool.ObjectPool<T>.ObjectPool
+  nameWithType.vb: ObjectPool(Of T).New
+  fullName.vb: ShapeEngine.Pool.ObjectPool(Of T).New
+  name.vb: New
+- uid: System.Func{{T}}
+  commentId: T:System.Func{`0}
+  parent: System
+  definition: System.Func`1
+  href: https://learn.microsoft.com/dotnet/api/system.func-1
+  name: Func<T>
+  nameWithType: Func<T>
+  fullName: System.Func<T>
+  nameWithType.vb: Func(Of T)
+  fullName.vb: System.Func(Of T)
+  name.vb: Func(Of T)
+  spec.csharp:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Func`1
+    name: Func
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.func-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Action{{T}}
+  commentId: T:System.Action{`0}
+  parent: System
+  definition: System.Action`1
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: ShapeEngine.Pool.ObjectPool`1.Return(`0)
+  commentId: M:ShapeEngine.Pool.ObjectPool`1.Return(`0)
+  href: ShapeEngine.Pool.ObjectPool-1.html#ShapeEngine_Pool_ObjectPool_1_Return__0_
+  name: Return(T)
+  nameWithType: ObjectPool<T>.Return(T)
+  fullName: ShapeEngine.Pool.ObjectPool<T>.Return(T)
+  nameWithType.vb: ObjectPool(Of T).Return(T)
+  fullName.vb: ShapeEngine.Pool.ObjectPool(Of T).Return(T)
+  spec.csharp:
+  - uid: ShapeEngine.Pool.ObjectPool`1.Return(`0)
+    name: Return
+    href: ShapeEngine.Pool.ObjectPool-1.html#ShapeEngine_Pool_ObjectPool_1_Return__0_
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Pool.ObjectPool`1.Return(`0)
+    name: Return
+    href: ShapeEngine.Pool.ObjectPool-1.html#ShapeEngine_Pool_ObjectPool_1_Return__0_
+  - name: (
+  - name: T
+  - name: )
+- uid: ShapeEngine.Pool.ObjectPool`1.Rent*
+  commentId: Overload:ShapeEngine.Pool.ObjectPool`1.Rent
+  href: ShapeEngine.Pool.ObjectPool-1.html#ShapeEngine_Pool_ObjectPool_1_Rent
+  name: Rent
+  nameWithType: ObjectPool<T>.Rent
+  fullName: ShapeEngine.Pool.ObjectPool<T>.Rent
+  nameWithType.vb: ObjectPool(Of T).Rent
+  fullName.vb: ShapeEngine.Pool.ObjectPool(Of T).Rent
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: ShapeEngine.Pool.ObjectPool`1.Return*
+  commentId: Overload:ShapeEngine.Pool.ObjectPool`1.Return
+  href: ShapeEngine.Pool.ObjectPool-1.html#ShapeEngine_Pool_ObjectPool_1_Return__0_
+  name: Return
+  nameWithType: ObjectPool<T>.Return
+  fullName: ShapeEngine.Pool.ObjectPool<T>.Return
+  nameWithType.vb: ObjectPool(Of T).Return
+  fullName.vb: ShapeEngine.Pool.ObjectPool(Of T).Return
+- uid: ShapeEngine.Pool.PooledObjectHandle`1
+  commentId: T:ShapeEngine.Pool.PooledObjectHandle`1
+  href: ShapeEngine.Pool.PooledObjectHandle-1.html
+  name: PooledObjectHandle<T>
+  nameWithType: PooledObjectHandle<T>
+  fullName: ShapeEngine.Pool.PooledObjectHandle<T>
+  nameWithType.vb: PooledObjectHandle(Of T)
+  fullName.vb: ShapeEngine.Pool.PooledObjectHandle(Of T)
+  name.vb: PooledObjectHandle(Of T)
+  spec.csharp:
+  - uid: ShapeEngine.Pool.PooledObjectHandle`1
+    name: PooledObjectHandle
+    href: ShapeEngine.Pool.PooledObjectHandle-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: ShapeEngine.Pool.PooledObjectHandle`1
+    name: PooledObjectHandle
+    href: ShapeEngine.Pool.PooledObjectHandle-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: ShapeEngine.Pool.ObjectPool`1.Rent
+  commentId: M:ShapeEngine.Pool.ObjectPool`1.Rent
+  href: ShapeEngine.Pool.ObjectPool-1.html#ShapeEngine_Pool_ObjectPool_1_Rent
+  name: Rent()
+  nameWithType: ObjectPool<T>.Rent()
+  fullName: ShapeEngine.Pool.ObjectPool<T>.Rent()
+  nameWithType.vb: ObjectPool(Of T).Rent()
+  fullName.vb: ShapeEngine.Pool.ObjectPool(Of T).Rent()
+  spec.csharp:
+  - uid: ShapeEngine.Pool.ObjectPool`1.Rent
+    name: Rent
+    href: ShapeEngine.Pool.ObjectPool-1.html#ShapeEngine_Pool_ObjectPool_1_Rent
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Pool.ObjectPool`1.Rent
+    name: Rent
+    href: ShapeEngine.Pool.ObjectPool-1.html#ShapeEngine_Pool_ObjectPool_1_Rent
+  - name: (
+  - name: )
+- uid: ShapeEngine.Pool.ObjectPool`1.GetDisposableHandle*
+  commentId: Overload:ShapeEngine.Pool.ObjectPool`1.GetDisposableHandle
+  href: ShapeEngine.Pool.ObjectPool-1.html#ShapeEngine_Pool_ObjectPool_1_GetDisposableHandle
+  name: GetDisposableHandle
+  nameWithType: ObjectPool<T>.GetDisposableHandle
+  fullName: ShapeEngine.Pool.ObjectPool<T>.GetDisposableHandle
+  nameWithType.vb: ObjectPool(Of T).GetDisposableHandle
+  fullName.vb: ShapeEngine.Pool.ObjectPool(Of T).GetDisposableHandle
+- uid: ShapeEngine.Pool.PooledObjectHandle{{T}}
+  commentId: T:ShapeEngine.Pool.PooledObjectHandle{`0}
+  parent: ShapeEngine.Pool
+  definition: ShapeEngine.Pool.PooledObjectHandle`1
+  href: ShapeEngine.Pool.PooledObjectHandle-1.html
+  name: PooledObjectHandle<T>
+  nameWithType: PooledObjectHandle<T>
+  fullName: ShapeEngine.Pool.PooledObjectHandle<T>
+  nameWithType.vb: PooledObjectHandle(Of T)
+  fullName.vb: ShapeEngine.Pool.PooledObjectHandle(Of T)
+  name.vb: PooledObjectHandle(Of T)
+  spec.csharp:
+  - uid: ShapeEngine.Pool.PooledObjectHandle`1
+    name: PooledObjectHandle
+    href: ShapeEngine.Pool.PooledObjectHandle-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: ShapeEngine.Pool.PooledObjectHandle`1
+    name: PooledObjectHandle
+    href: ShapeEngine.Pool.PooledObjectHandle-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: ShapeEngine.Pool.ObjectPool`1.Clear*
+  commentId: Overload:ShapeEngine.Pool.ObjectPool`1.Clear
+  href: ShapeEngine.Pool.ObjectPool-1.html#ShapeEngine_Pool_ObjectPool_1_Clear
+  name: Clear
+  nameWithType: ObjectPool<T>.Clear
+  fullName: ShapeEngine.Pool.ObjectPool<T>.Clear
+  nameWithType.vb: ObjectPool(Of T).Clear
+  fullName.vb: ShapeEngine.Pool.ObjectPool(Of T).Clear
