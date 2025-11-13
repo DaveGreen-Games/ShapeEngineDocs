@@ -58,6 +58,7 @@ items:
   - ShapeEngine.Geometry.TriangleDef.Triangle.GetBoundingBox
   - ShapeEngine.Geometry.TriangleDef.Triangle.GetCentroid
   - ShapeEngine.Geometry.TriangleDef.Triangle.GetCircumCircle
+  - ShapeEngine.Geometry.TriangleDef.Triangle.GetClosedShapeType
   - ShapeEngine.Geometry.TriangleDef.Triangle.GetClosestPoint(ShapeEngine.Geometry.CircleDef.Circle)
   - ShapeEngine.Geometry.TriangleDef.Triangle.GetClosestPoint(ShapeEngine.Geometry.CollisionSystem.Collider)
   - ShapeEngine.Geometry.TriangleDef.Triangle.GetClosestPoint(ShapeEngine.Geometry.CollisionSystem.CollisionObject)
@@ -93,6 +94,7 @@ items:
   - ShapeEngine.Geometry.TriangleDef.Triangle.GetRandomPointsOnEdge(System.Int32)
   - ShapeEngine.Geometry.TriangleDef.Triangle.GetRandomVertex
   - ShapeEngine.Geometry.TriangleDef.Triangle.GetSegment(System.Int32)
+  - ShapeEngine.Geometry.TriangleDef.Triangle.GetShapeType
   - ShapeEngine.Geometry.TriangleDef.Triangle.Intersect(ShapeEngine.Geometry.CollisionSystem.Collider)
   - ShapeEngine.Geometry.TriangleDef.Triangle.Intersect(ShapeEngine.Geometry.CollisionSystem.Collider,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
   - ShapeEngine.Geometry.TriangleDef.Triangle.Intersect(ShapeEngine.Geometry.CollisionSystem.CollisionObject)
@@ -227,10 +229,12 @@ items:
     The triangle is immutable and all operations that modify the triangle return a new instance.
   example: []
   syntax:
-    content: 'public readonly struct Triangle : IEquatable<Triangle>'
-    content.vb: Public Structure Triangle Implements IEquatable(Of Triangle)
+    content: 'public readonly struct Triangle : IEquatable<Triangle>, IShapeTypeProvider, IClosedShapeTypeProvider'
+    content.vb: Public Structure Triangle Implements IEquatable(Of Triangle), IShapeTypeProvider, IClosedShapeTypeProvider
   implements:
   - System.IEquatable{ShapeEngine.Geometry.TriangleDef.Triangle}
+  - ShapeEngine.Geometry.IShapeTypeProvider
+  - ShapeEngine.Geometry.IClosedShapeTypeProvider
   inheritedMembers:
   - System.ValueType.ToString
   - System.Object.Equals(System.Object,System.Object)
@@ -257,6 +261,12 @@ items:
   - ShapeEngine.Geometry.TriangleDef.Triangle.ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLines(ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Numerics.Vector2)
   - ShapeEngine.Geometry.TriangleDef.Triangle.ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLines(System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Geometry.LineCapType,System.Int32)
   - ShapeEngine.Geometry.TriangleDef.Triangle.ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLines(System.Single,ShapeEngine.Color.ColorRgba,System.Single,ShapeEngine.Geometry.LineCapType,System.Int32)
+  - ShapeEngine.Geometry.TriangleDef.Triangle.ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.TriangleDef.Triangle.ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.TriangleDef.Triangle.ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.TriangleDef.Triangle.ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.TriangleDef.Triangle.ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.TriangleDef.Triangle.ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked``1({T},ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
   - ShapeEngine.Geometry.TriangleDef.Triangle.ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesPercentage(System.Single,ShapeEngine.Geometry.LineDrawingInfo)
   - ShapeEngine.Geometry.TriangleDef.Triangle.ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesPercentage(System.Single,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Numerics.Vector2)
   - ShapeEngine.Geometry.TriangleDef.Triangle.ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesPercentage(System.Single,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Geometry.LineCapType,System.Int32)
@@ -1619,6 +1629,75 @@ items:
     content.vb: Public Overrides Function GetHashCode() As Integer
   overridden: System.ValueType.GetHashCode
   overload: ShapeEngine.Geometry.TriangleDef.Triangle.GetHashCode*
+- uid: ShapeEngine.Geometry.TriangleDef.Triangle.GetClosedShapeType
+  commentId: M:ShapeEngine.Geometry.TriangleDef.Triangle.GetClosedShapeType
+  id: GetClosedShapeType
+  parent: ShapeEngine.Geometry.TriangleDef.Triangle
+  langs:
+  - csharp
+  - vb
+  name: GetClosedShapeType()
+  nameWithType: Triangle.GetClosedShapeType()
+  fullName: ShapeEngine.Geometry.TriangleDef.Triangle.GetClosedShapeType()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/TriangleDef/Triangle.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetClosedShapeType
+    path: ../ShapeEngine/ShapeEngine/Geometry/TriangleDef/Triangle.cs
+    startLine: 510
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.TriangleDef
+  summary: Returns the concrete <xref href="ShapeEngine.Geometry.ClosedShapeType" data-throw-if-not-resolved="false"></xref> supplied by this provider.
+  example: []
+  syntax:
+    content: public ClosedShapeType GetClosedShapeType()
+    return:
+      type: ShapeEngine.Geometry.ClosedShapeType
+      description: The <xref href="ShapeEngine.Geometry.ClosedShapeType" data-throw-if-not-resolved="false"></xref> representing the closed shape implementation.
+    content.vb: Public Function GetClosedShapeType() As ClosedShapeType
+  overload: ShapeEngine.Geometry.TriangleDef.Triangle.GetClosedShapeType*
+  implements:
+  - ShapeEngine.Geometry.IClosedShapeTypeProvider.GetClosedShapeType
+- uid: ShapeEngine.Geometry.TriangleDef.Triangle.GetShapeType
+  commentId: M:ShapeEngine.Geometry.TriangleDef.Triangle.GetShapeType
+  id: GetShapeType
+  parent: ShapeEngine.Geometry.TriangleDef.Triangle
+  langs:
+  - csharp
+  - vb
+  name: GetShapeType()
+  nameWithType: Triangle.GetShapeType()
+  fullName: ShapeEngine.Geometry.TriangleDef.Triangle.GetShapeType()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/TriangleDef/Triangle.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetShapeType
+    path: ../ShapeEngine/ShapeEngine/Geometry/TriangleDef/Triangle.cs
+    startLine: 512
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.TriangleDef
+  summary: >-
+    Returns the canonical <xref href="ShapeEngine.Geometry.ShapeType" data-throw-if-not-resolved="false"></xref> that represents the concrete shape instance.
+
+    Implementers must return the <xref href="ShapeEngine.Geometry.ShapeType" data-throw-if-not-resolved="false"></xref> corresponding to the concrete shape.
+  example: []
+  syntax:
+    content: public ShapeType GetShapeType()
+    return:
+      type: ShapeEngine.Geometry.ShapeType
+      description: The mapped <xref href="ShapeEngine.Geometry.ShapeType" data-throw-if-not-resolved="false"></xref> for this shape.
+    content.vb: Public Function GetShapeType() As ShapeType
+  overload: ShapeEngine.Geometry.TriangleDef.Triangle.GetShapeType*
+  implements:
+  - ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
 - uid: ShapeEngine.Geometry.TriangleDef.Triangle.op_Equality(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.TriangleDef.Triangle)
   commentId: M:ShapeEngine.Geometry.TriangleDef.Triangle.op_Equality(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.TriangleDef.Triangle)
   id: op_Equality(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.TriangleDef.Triangle)
@@ -1637,7 +1716,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Equality
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangleDef/Triangle.cs
-    startLine: 516
+    startLine: 520
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangleDef
@@ -1678,7 +1757,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Inequality
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangleDef/Triangle.cs
-    startLine: 527
+    startLine: 531
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangleDef
@@ -1719,7 +1798,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Equals
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangleDef/Triangle.cs
-    startLine: 537
+    startLine: 541
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangleDef
@@ -1758,7 +1837,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Addition
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangleDef/Triangle.cs
-    startLine: 554
+    startLine: 558
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangleDef
@@ -1800,7 +1879,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Subtraction
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangleDef/Triangle.cs
-    startLine: 571
+    startLine: 575
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangleDef
@@ -1842,7 +1921,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Multiply
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangleDef/Triangle.cs
-    startLine: 588
+    startLine: 592
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangleDef
@@ -1884,7 +1963,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Division
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangleDef/Triangle.cs
-    startLine: 605
+    startLine: 609
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangleDef
@@ -1926,7 +2005,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Addition
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangleDef/Triangle.cs
-    startLine: 622
+    startLine: 626
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangleDef
@@ -1968,7 +2047,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Subtraction
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangleDef/Triangle.cs
-    startLine: 639
+    startLine: 643
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangleDef
@@ -2010,7 +2089,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Multiply
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangleDef/Triangle.cs
-    startLine: 656
+    startLine: 660
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangleDef
@@ -2052,7 +2131,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Division
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangleDef/Triangle.cs
-    startLine: 673
+    startLine: 677
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangleDef
@@ -2094,7 +2173,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Addition
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangleDef/Triangle.cs
-    startLine: 690
+    startLine: 694
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangleDef
@@ -2136,7 +2215,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Subtraction
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangleDef/Triangle.cs
-    startLine: 707
+    startLine: 711
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangleDef
@@ -2178,7 +2257,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Multiply
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangleDef/Triangle.cs
-    startLine: 724
+    startLine: 728
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangleDef
@@ -2220,7 +2299,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Division
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangleDef/Triangle.cs
-    startLine: 741
+    startLine: 745
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangleDef
@@ -2262,7 +2341,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AreaSigned
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangleDef/Triangle.cs
-    startLine: 765
+    startLine: 769
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangleDef
@@ -2306,7 +2385,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GenerateRelative
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangleDef/Triangle.cs
-    startLine: 777
+    startLine: 781
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangleDef
@@ -2351,7 +2430,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Generate
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangleDef/Triangle.cs
-    startLine: 799
+    startLine: 803
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangleDef
@@ -2399,7 +2478,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetInterpolatedEdgePoints
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangleDef/Triangle.cs
-    startLine: 825
+    startLine: 829
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangleDef
@@ -2443,7 +2522,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetInterpolatedEdgePoints
     path: ../ShapeEngine/ShapeEngine/Geometry/TriangleDef/Triangle.cs
-    startLine: 845
+    startLine: 849
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.TriangleDef
@@ -8256,6 +8335,20 @@ references:
     name: Triangle
     href: ShapeEngine.Geometry.TriangleDef.Triangle.html
   - name: )
+- uid: ShapeEngine.Geometry.IShapeTypeProvider
+  commentId: T:ShapeEngine.Geometry.IShapeTypeProvider
+  parent: ShapeEngine.Geometry
+  href: ShapeEngine.Geometry.IShapeTypeProvider.html
+  name: IShapeTypeProvider
+  nameWithType: IShapeTypeProvider
+  fullName: ShapeEngine.Geometry.IShapeTypeProvider
+- uid: ShapeEngine.Geometry.IClosedShapeTypeProvider
+  commentId: T:ShapeEngine.Geometry.IClosedShapeTypeProvider
+  parent: ShapeEngine.Geometry
+  href: ShapeEngine.Geometry.IClosedShapeTypeProvider.html
+  name: IClosedShapeTypeProvider
+  nameWithType: IClosedShapeTypeProvider
+  fullName: ShapeEngine.Geometry.IClosedShapeTypeProvider
 - uid: System.ValueType.ToString
   commentId: M:System.ValueType.ToString
   parent: System.ValueType
@@ -9786,6 +9879,376 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.int32
   - name: )
+- uid: ShapeEngine.Geometry.TriangleDef.Triangle.ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.TriangleDef.TriangleDrawing
+  definition: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawLinesMasked(Triangle, Circle, LineDrawingInfo, bool)
+  nameWithType: TriangleDrawing.DrawLinesMasked(Triangle, Circle, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: TriangleDrawing.DrawLinesMasked(Triangle, Circle, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawLinesMasked(Triangle, Circle, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.TriangleDef.Triangle.ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.TriangleDef.TriangleDrawing
+  definition: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawLinesMasked(Triangle, Polygon, LineDrawingInfo, bool)
+  nameWithType: TriangleDrawing.DrawLinesMasked(Triangle, Polygon, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: TriangleDrawing.DrawLinesMasked(Triangle, Polygon, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawLinesMasked(Triangle, Polygon, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.TriangleDef.Triangle.ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.TriangleDef.TriangleDrawing
+  definition: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawLinesMasked(Triangle, Quad, LineDrawingInfo, bool)
+  nameWithType: TriangleDrawing.DrawLinesMasked(Triangle, Quad, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.QuadDef.Quad, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: TriangleDrawing.DrawLinesMasked(Triangle, Quad, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.QuadDef.Quad, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawLinesMasked(Triangle, Quad, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.QuadDef.Quad
+    name: Quad
+    href: ShapeEngine.Geometry.QuadDef.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.QuadDef.Quad
+    name: Quad
+    href: ShapeEngine.Geometry.QuadDef.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.TriangleDef.Triangle.ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.TriangleDef.TriangleDrawing
+  definition: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawLinesMasked(Triangle, Rect, LineDrawingInfo, bool)
+  nameWithType: TriangleDrawing.DrawLinesMasked(Triangle, Rect, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: TriangleDrawing.DrawLinesMasked(Triangle, Rect, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawLinesMasked(Triangle, Rect, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.TriangleDef.Triangle.ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.TriangleDef.TriangleDrawing
+  definition: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawLinesMasked(Triangle, Triangle, LineDrawingInfo, bool)
+  nameWithType: TriangleDrawing.DrawLinesMasked(Triangle, Triangle, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: TriangleDrawing.DrawLinesMasked(Triangle, Triangle, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawLinesMasked(Triangle, Triangle, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.TriangleDef.Triangle.ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked``1({T},ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked``1(ShapeEngine.Geometry.TriangleDef.Triangle,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.TriangleDef.TriangleDrawing
+  definition: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked``1(ShapeEngine.Geometry.TriangleDef.Triangle,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked__1_ShapeEngine_Geometry_TriangleDef_Triangle___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawLinesMasked<T>(Triangle, T, LineDrawingInfo, bool)
+  nameWithType: TriangleDrawing.DrawLinesMasked<T>(Triangle, T, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked<T>(ShapeEngine.Geometry.TriangleDef.Triangle, T, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: TriangleDrawing.DrawLinesMasked(Of T)(Triangle, T, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(Of T)(ShapeEngine.Geometry.TriangleDef.Triangle, T, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawLinesMasked(Of T)(Triangle, T, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked``1(ShapeEngine.Geometry.TriangleDef.Triangle,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked__1_ShapeEngine_Geometry_TriangleDef_Triangle___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked``1(ShapeEngine.Geometry.TriangleDef.Triangle,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked__1_ShapeEngine_Geometry_TriangleDef_Triangle___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
 - uid: ShapeEngine.Geometry.TriangleDef.Triangle.ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesPercentage(System.Single,ShapeEngine.Geometry.LineDrawingInfo)
   commentId: M:ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesPercentage(ShapeEngine.Geometry.TriangleDef.Triangle,System.Single,ShapeEngine.Geometry.LineDrawingInfo)
   parent: ShapeEngine.Geometry.TriangleDef.TriangleDrawing
@@ -10341,6 +10804,28 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: ShapeEngine.Geometry
+  commentId: N:ShapeEngine.Geometry
+  href: ShapeEngine.html
+  name: ShapeEngine.Geometry
+  nameWithType: ShapeEngine.Geometry
+  fullName: ShapeEngine.Geometry
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
 - uid: System.ValueType
   commentId: T:System.ValueType
   parent: System
@@ -11753,6 +12238,370 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.int32
   - name: )
+- uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawLinesMasked(Triangle, Circle, LineDrawingInfo, bool)
+  nameWithType: TriangleDrawing.DrawLinesMasked(Triangle, Circle, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: TriangleDrawing.DrawLinesMasked(Triangle, Circle, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawLinesMasked(Triangle, Circle, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawLinesMasked(Triangle, Polygon, LineDrawingInfo, bool)
+  nameWithType: TriangleDrawing.DrawLinesMasked(Triangle, Polygon, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: TriangleDrawing.DrawLinesMasked(Triangle, Polygon, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawLinesMasked(Triangle, Polygon, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawLinesMasked(Triangle, Quad, LineDrawingInfo, bool)
+  nameWithType: TriangleDrawing.DrawLinesMasked(Triangle, Quad, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.QuadDef.Quad, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: TriangleDrawing.DrawLinesMasked(Triangle, Quad, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.QuadDef.Quad, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawLinesMasked(Triangle, Quad, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.QuadDef.Quad
+    name: Quad
+    href: ShapeEngine.Geometry.QuadDef.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.QuadDef.Quad
+    name: Quad
+    href: ShapeEngine.Geometry.QuadDef.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawLinesMasked(Triangle, Rect, LineDrawingInfo, bool)
+  nameWithType: TriangleDrawing.DrawLinesMasked(Triangle, Rect, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: TriangleDrawing.DrawLinesMasked(Triangle, Rect, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawLinesMasked(Triangle, Rect, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawLinesMasked(Triangle, Triangle, LineDrawingInfo, bool)
+  nameWithType: TriangleDrawing.DrawLinesMasked(Triangle, Triangle, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: TriangleDrawing.DrawLinesMasked(Triangle, Triangle, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawLinesMasked(Triangle, Triangle, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked``1(ShapeEngine.Geometry.TriangleDef.Triangle,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked``1(ShapeEngine.Geometry.TriangleDef.Triangle,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked__1_ShapeEngine_Geometry_TriangleDef_Triangle___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawLinesMasked<T>(Triangle, T, LineDrawingInfo, bool)
+  nameWithType: TriangleDrawing.DrawLinesMasked<T>(Triangle, T, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked<T>(ShapeEngine.Geometry.TriangleDef.Triangle, T, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: TriangleDrawing.DrawLinesMasked(Of T)(Triangle, T, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked(Of T)(ShapeEngine.Geometry.TriangleDef.Triangle, T, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawLinesMasked(Of T)(Triangle, T, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked``1(ShapeEngine.Geometry.TriangleDef.Triangle,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked__1_ShapeEngine_Geometry_TriangleDef_Triangle___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesMasked``1(ShapeEngine.Geometry.TriangleDef.Triangle,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.html#ShapeEngine_Geometry_TriangleDef_TriangleDrawing_DrawLinesMasked__1_ShapeEngine_Geometry_TriangleDef_Triangle___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
 - uid: ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesPercentage(ShapeEngine.Geometry.TriangleDef.Triangle,System.Single,ShapeEngine.Geometry.LineDrawingInfo)
   commentId: M:ShapeEngine.Geometry.TriangleDef.TriangleDrawing.DrawLinesPercentage(ShapeEngine.Geometry.TriangleDef.Triangle,System.Single,ShapeEngine.Geometry.LineDrawingInfo)
   isExternal: true
@@ -12272,28 +13121,6 @@ references:
     name: LogLevel
     href: ShapeEngine.Core.Logging.LogLevel.html
   - name: )
-- uid: ShapeEngine.Geometry
-  commentId: N:ShapeEngine.Geometry
-  href: ShapeEngine.html
-  name: ShapeEngine.Geometry
-  nameWithType: ShapeEngine.Geometry
-  fullName: ShapeEngine.Geometry
-  spec.csharp:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Geometry
-    name: Geometry
-    href: ShapeEngine.Geometry.html
-  spec.vb:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Geometry
-    name: Geometry
-    href: ShapeEngine.Geometry.html
 - uid: ShapeEngine.Geometry.StripedDrawingDef
   commentId: N:ShapeEngine.Geometry.StripedDrawingDef
   href: ShapeEngine.html
@@ -13065,6 +13892,70 @@ references:
   name: GetHashCode
   nameWithType: Triangle.GetHashCode
   fullName: ShapeEngine.Geometry.TriangleDef.Triangle.GetHashCode
+- uid: ShapeEngine.Geometry.ClosedShapeType
+  commentId: T:ShapeEngine.Geometry.ClosedShapeType
+  parent: ShapeEngine.Geometry
+  href: ShapeEngine.Geometry.ClosedShapeType.html
+  name: ClosedShapeType
+  nameWithType: ClosedShapeType
+  fullName: ShapeEngine.Geometry.ClosedShapeType
+- uid: ShapeEngine.Geometry.TriangleDef.Triangle.GetClosedShapeType*
+  commentId: Overload:ShapeEngine.Geometry.TriangleDef.Triangle.GetClosedShapeType
+  href: ShapeEngine.Geometry.TriangleDef.Triangle.html#ShapeEngine_Geometry_TriangleDef_Triangle_GetClosedShapeType
+  name: GetClosedShapeType
+  nameWithType: Triangle.GetClosedShapeType
+  fullName: ShapeEngine.Geometry.TriangleDef.Triangle.GetClosedShapeType
+- uid: ShapeEngine.Geometry.IClosedShapeTypeProvider.GetClosedShapeType
+  commentId: M:ShapeEngine.Geometry.IClosedShapeTypeProvider.GetClosedShapeType
+  parent: ShapeEngine.Geometry.IClosedShapeTypeProvider
+  href: ShapeEngine.Geometry.IClosedShapeTypeProvider.html#ShapeEngine_Geometry_IClosedShapeTypeProvider_GetClosedShapeType
+  name: GetClosedShapeType()
+  nameWithType: IClosedShapeTypeProvider.GetClosedShapeType()
+  fullName: ShapeEngine.Geometry.IClosedShapeTypeProvider.GetClosedShapeType()
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.IClosedShapeTypeProvider.GetClosedShapeType
+    name: GetClosedShapeType
+    href: ShapeEngine.Geometry.IClosedShapeTypeProvider.html#ShapeEngine_Geometry_IClosedShapeTypeProvider_GetClosedShapeType
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.IClosedShapeTypeProvider.GetClosedShapeType
+    name: GetClosedShapeType
+    href: ShapeEngine.Geometry.IClosedShapeTypeProvider.html#ShapeEngine_Geometry_IClosedShapeTypeProvider_GetClosedShapeType
+  - name: (
+  - name: )
+- uid: ShapeEngine.Geometry.ShapeType
+  commentId: T:ShapeEngine.Geometry.ShapeType
+  parent: ShapeEngine.Geometry
+  href: ShapeEngine.Geometry.ShapeType.html
+  name: ShapeType
+  nameWithType: ShapeType
+  fullName: ShapeEngine.Geometry.ShapeType
+- uid: ShapeEngine.Geometry.TriangleDef.Triangle.GetShapeType*
+  commentId: Overload:ShapeEngine.Geometry.TriangleDef.Triangle.GetShapeType
+  href: ShapeEngine.Geometry.TriangleDef.Triangle.html#ShapeEngine_Geometry_TriangleDef_Triangle_GetShapeType
+  name: GetShapeType
+  nameWithType: Triangle.GetShapeType
+  fullName: ShapeEngine.Geometry.TriangleDef.Triangle.GetShapeType
+- uid: ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+  commentId: M:ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+  parent: ShapeEngine.Geometry.IShapeTypeProvider
+  href: ShapeEngine.Geometry.IShapeTypeProvider.html#ShapeEngine_Geometry_IShapeTypeProvider_GetShapeType
+  name: GetShapeType()
+  nameWithType: IShapeTypeProvider.GetShapeType()
+  fullName: ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType()
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+    name: GetShapeType
+    href: ShapeEngine.Geometry.IShapeTypeProvider.html#ShapeEngine_Geometry_IShapeTypeProvider_GetShapeType
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+    name: GetShapeType
+    href: ShapeEngine.Geometry.IShapeTypeProvider.html#ShapeEngine_Geometry_IShapeTypeProvider_GetShapeType
+  - name: (
+  - name: )
 - uid: ShapeEngine.Geometry.TriangleDef.Triangle.op_Equality*
   commentId: Overload:ShapeEngine.Geometry.TriangleDef.Triangle.op_Equality
   href: ShapeEngine.Geometry.TriangleDef.Triangle.html#ShapeEngine_Geometry_TriangleDef_Triangle_op_Equality_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_TriangleDef_Triangle_

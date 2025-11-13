@@ -62,6 +62,7 @@ items:
   - ShapeEngine.Geometry.CircleDef.Circle.GetCircumference
   - ShapeEngine.Geometry.CircleDef.Circle.GetCircumference(System.Single)
   - ShapeEngine.Geometry.CircleDef.Circle.GetCircumferenceSquared
+  - ShapeEngine.Geometry.CircleDef.Circle.GetClosedShapeType
   - ShapeEngine.Geometry.CircleDef.Circle.GetClosestPoint(ShapeEngine.Geometry.CircleDef.Circle)
   - ShapeEngine.Geometry.CircleDef.Circle.GetClosestPoint(ShapeEngine.Geometry.CollisionSystem.Collider)
   - ShapeEngine.Geometry.CircleDef.Circle.GetClosestPoint(ShapeEngine.Geometry.CollisionSystem.CollisionObject)
@@ -98,6 +99,7 @@ items:
   - ShapeEngine.Geometry.CircleDef.Circle.GetRandomVertex
   - ShapeEngine.Geometry.CircleDef.Circle.GetRectCorners
   - ShapeEngine.Geometry.CircleDef.Circle.GetRectCornersList
+  - ShapeEngine.Geometry.CircleDef.Circle.GetShapeType
   - ShapeEngine.Geometry.CircleDef.Circle.GetVertex(System.Single,System.Single,System.Int32)
   - ShapeEngine.Geometry.CircleDef.Circle.GetVertices(System.Int32)
   - ShapeEngine.Geometry.CircleDef.Circle.Intersect(ShapeEngine.Geometry.CollisionSystem.Collider)
@@ -217,10 +219,12 @@ items:
   remarks: Provides geometric, collision, and transformation operations for circles in 2D space.
   example: []
   syntax:
-    content: 'public readonly struct Circle : IEquatable<Circle>'
-    content.vb: Public Structure Circle Implements IEquatable(Of Circle)
+    content: 'public readonly struct Circle : IEquatable<Circle>, IShapeTypeProvider, IClosedShapeTypeProvider'
+    content.vb: Public Structure Circle Implements IEquatable(Of Circle), IShapeTypeProvider, IClosedShapeTypeProvider
   implements:
   - System.IEquatable{ShapeEngine.Geometry.CircleDef.Circle}
+  - ShapeEngine.Geometry.IShapeTypeProvider
+  - ShapeEngine.Geometry.IClosedShapeTypeProvider
   inheritedMembers:
   - System.ValueType.ToString
   - System.Object.Equals(System.Object,System.Object)
@@ -236,6 +240,12 @@ items:
   - ShapeEngine.Geometry.CircleDef.Circle.ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLines(System.Single,ShapeEngine.Color.ColorRgba,System.Single)
   - ShapeEngine.Geometry.CircleDef.Circle.ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLines(System.Single,System.Int32,ShapeEngine.Color.ColorRgba)
   - ShapeEngine.Geometry.CircleDef.Circle.ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLines(System.Single,System.Single,System.Int32,ShapeEngine.Color.ColorRgba)
+  - ShapeEngine.Geometry.CircleDef.Circle.ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  - ShapeEngine.Geometry.CircleDef.Circle.ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  - ShapeEngine.Geometry.CircleDef.Circle.ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  - ShapeEngine.Geometry.CircleDef.Circle.ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  - ShapeEngine.Geometry.CircleDef.Circle.ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  - ShapeEngine.Geometry.CircleDef.Circle.ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked``1({T},ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
   - ShapeEngine.Geometry.CircleDef.Circle.ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesPercentage(System.Single,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32)
   - ShapeEngine.Geometry.CircleDef.Circle.ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesPercentage(System.Single,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Single)
   - ShapeEngine.Geometry.CircleDef.Circle.ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesPercentage(System.Single,System.Single,ShapeEngine.Color.ColorRgba,System.Single)
@@ -911,6 +921,75 @@ items:
     content.vb: Public Overrides Function GetHashCode() As Integer
   overridden: System.ValueType.GetHashCode
   overload: ShapeEngine.Geometry.CircleDef.Circle.GetHashCode*
+- uid: ShapeEngine.Geometry.CircleDef.Circle.GetClosedShapeType
+  commentId: M:ShapeEngine.Geometry.CircleDef.Circle.GetClosedShapeType
+  id: GetClosedShapeType
+  parent: ShapeEngine.Geometry.CircleDef.Circle
+  langs:
+  - csharp
+  - vb
+  name: GetClosedShapeType()
+  nameWithType: Circle.GetClosedShapeType()
+  fullName: ShapeEngine.Geometry.CircleDef.Circle.GetClosedShapeType()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/CircleDef/Circle.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetClosedShapeType
+    path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
+    startLine: 197
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.CircleDef
+  summary: Returns the concrete <xref href="ShapeEngine.Geometry.ClosedShapeType" data-throw-if-not-resolved="false"></xref> supplied by this provider.
+  example: []
+  syntax:
+    content: public ClosedShapeType GetClosedShapeType()
+    return:
+      type: ShapeEngine.Geometry.ClosedShapeType
+      description: The <xref href="ShapeEngine.Geometry.ClosedShapeType" data-throw-if-not-resolved="false"></xref> representing the closed shape implementation.
+    content.vb: Public Function GetClosedShapeType() As ClosedShapeType
+  overload: ShapeEngine.Geometry.CircleDef.Circle.GetClosedShapeType*
+  implements:
+  - ShapeEngine.Geometry.IClosedShapeTypeProvider.GetClosedShapeType
+- uid: ShapeEngine.Geometry.CircleDef.Circle.GetShapeType
+  commentId: M:ShapeEngine.Geometry.CircleDef.Circle.GetShapeType
+  id: GetShapeType
+  parent: ShapeEngine.Geometry.CircleDef.Circle
+  langs:
+  - csharp
+  - vb
+  name: GetShapeType()
+  nameWithType: Circle.GetShapeType()
+  fullName: ShapeEngine.Geometry.CircleDef.Circle.GetShapeType()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/CircleDef/Circle.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetShapeType
+    path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
+    startLine: 199
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.CircleDef
+  summary: >-
+    Returns the canonical <xref href="ShapeEngine.Geometry.ShapeType" data-throw-if-not-resolved="false"></xref> that represents the concrete shape instance.
+
+    Implementers must return the <xref href="ShapeEngine.Geometry.ShapeType" data-throw-if-not-resolved="false"></xref> corresponding to the concrete shape.
+  example: []
+  syntax:
+    content: public ShapeType GetShapeType()
+    return:
+      type: ShapeEngine.Geometry.ShapeType
+      description: The mapped <xref href="ShapeEngine.Geometry.ShapeType" data-throw-if-not-resolved="false"></xref> for this shape.
+    content.vb: Public Function GetShapeType() As ShapeType
+  overload: ShapeEngine.Geometry.CircleDef.Circle.GetShapeType*
+  implements:
+  - ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
 - uid: ShapeEngine.Geometry.CircleDef.Circle.op_Equality(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.CircleDef.Circle)
   commentId: M:ShapeEngine.Geometry.CircleDef.Circle.op_Equality(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.CircleDef.Circle)
   id: op_Equality(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.CircleDef.Circle)
@@ -929,7 +1008,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Equality
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 203
+    startLine: 207
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -970,7 +1049,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Inequality
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 214
+    startLine: 218
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1011,7 +1090,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Equals
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 224
+    startLine: 228
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1050,7 +1129,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetVertex
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 239
+    startLine: 243
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1094,7 +1173,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetPoint
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 249
+    startLine: 253
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1135,7 +1214,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetRandomPoint
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 254
+    startLine: 258
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1166,7 +1245,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetRandomPoints
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 265
+    startLine: 269
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1204,7 +1283,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetRandomVertex
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 278
+    startLine: 282
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1235,7 +1314,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetRandomEdge
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 284
+    startLine: 288
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1266,7 +1345,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetRandomPointOnEdge
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 290
+    startLine: 294
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1297,7 +1376,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetRandomPointsOnEdge
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 296
+    startLine: 300
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1335,7 +1414,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetEdges
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 313
+    startLine: 317
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1373,7 +1452,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetVertices
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 331
+    startLine: 335
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1411,7 +1490,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToPolygon
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 347
+    startLine: 351
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1449,7 +1528,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToPolygon
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 364
+    startLine: 368
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1490,7 +1569,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToPolyline
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 384
+    startLine: 388
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1528,7 +1607,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Triangulate
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 399
+    startLine: 403
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1559,7 +1638,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetBoundingBox
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 404
+    startLine: 408
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1590,7 +1669,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Combine
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 414
+    startLine: 418
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1629,7 +1708,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetCorners
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 429
+    startLine: 433
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1660,7 +1739,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetCornersList
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 441
+    startLine: 445
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1691,7 +1770,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetRectCorners
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 455
+    startLine: 459
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1727,7 +1806,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetRectCornersList
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 469
+    startLine: 473
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1763,7 +1842,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Addition
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 486
+    startLine: 490
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1804,7 +1883,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Subtraction
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 500
+    startLine: 504
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1845,7 +1924,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Multiply
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 514
+    startLine: 518
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1886,7 +1965,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Division
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 528
+    startLine: 532
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1927,7 +2006,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Addition
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 542
+    startLine: 546
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -1968,7 +2047,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Subtraction
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 556
+    startLine: 560
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -2009,7 +2088,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Multiply
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 570
+    startLine: 574
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -2050,7 +2129,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Division
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 584
+    startLine: 588
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -2091,7 +2170,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Addition
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 598
+    startLine: 602
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -2132,7 +2211,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Subtraction
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 612
+    startLine: 616
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -2173,7 +2252,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Multiply
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 626
+    startLine: 630
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -2214,7 +2293,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Division
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 640
+    startLine: 644
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -2255,7 +2334,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Combine
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 660
+    startLine: 664
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -2297,7 +2376,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetInterpolatedEdgePoints
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 688
+    startLine: 692
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -2338,7 +2417,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetInterpolatedEdgePoints
     path: ../ShapeEngine/ShapeEngine/Geometry/CircleDef/Circle.cs
-    startLine: 715
+    startLine: 719
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.CircleDef
@@ -7828,6 +7907,20 @@ references:
     name: Circle
     href: ShapeEngine.Geometry.CircleDef.Circle.html
   - name: )
+- uid: ShapeEngine.Geometry.IShapeTypeProvider
+  commentId: T:ShapeEngine.Geometry.IShapeTypeProvider
+  parent: ShapeEngine.Geometry
+  href: ShapeEngine.Geometry.IShapeTypeProvider.html
+  name: IShapeTypeProvider
+  nameWithType: IShapeTypeProvider
+  fullName: ShapeEngine.Geometry.IShapeTypeProvider
+- uid: ShapeEngine.Geometry.IClosedShapeTypeProvider
+  commentId: T:ShapeEngine.Geometry.IClosedShapeTypeProvider
+  parent: ShapeEngine.Geometry
+  href: ShapeEngine.Geometry.IClosedShapeTypeProvider.html
+  name: IClosedShapeTypeProvider
+  nameWithType: IClosedShapeTypeProvider
+  fullName: ShapeEngine.Geometry.IClosedShapeTypeProvider
 - uid: System.ValueType.ToString
   commentId: M:System.ValueType.ToString
   parent: System.ValueType
@@ -8491,6 +8584,520 @@ references:
   - uid: ShapeEngine.Color.ColorRgba
     name: ColorRgba
     href: ShapeEngine.Color.ColorRgba.html
+  - name: )
+- uid: ShapeEngine.Geometry.CircleDef.Circle.ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  parent: ShapeEngine.Geometry.CircleDef.CircleDrawing
+  definition: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  name: DrawLinesMasked(Circle, Circle, LineDrawingInfo, float, int, bool)
+  nameWithType: CircleDrawing.DrawLinesMasked(Circle, Circle, LineDrawingInfo, float, int, bool)
+  fullName: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.LineDrawingInfo, float, int, bool)
+  nameWithType.vb: CircleDrawing.DrawLinesMasked(Circle, Circle, LineDrawingInfo, Single, Integer, Boolean)
+  fullName.vb: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.LineDrawingInfo, Single, Integer, Boolean)
+  name.vb: DrawLinesMasked(Circle, Circle, LineDrawingInfo, Single, Integer, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.CircleDef.Circle.ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  parent: ShapeEngine.Geometry.CircleDef.CircleDrawing
+  definition: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  name: DrawLinesMasked(Circle, Polygon, LineDrawingInfo, float, int, bool)
+  nameWithType: CircleDrawing.DrawLinesMasked(Circle, Polygon, LineDrawingInfo, float, int, bool)
+  fullName: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.LineDrawingInfo, float, int, bool)
+  nameWithType.vb: CircleDrawing.DrawLinesMasked(Circle, Polygon, LineDrawingInfo, Single, Integer, Boolean)
+  fullName.vb: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.LineDrawingInfo, Single, Integer, Boolean)
+  name.vb: DrawLinesMasked(Circle, Polygon, LineDrawingInfo, Single, Integer, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.CircleDef.Circle.ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  parent: ShapeEngine.Geometry.CircleDef.CircleDrawing
+  definition: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  name: DrawLinesMasked(Circle, Quad, LineDrawingInfo, float, int, bool)
+  nameWithType: CircleDrawing.DrawLinesMasked(Circle, Quad, LineDrawingInfo, float, int, bool)
+  fullName: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.QuadDef.Quad, ShapeEngine.Geometry.LineDrawingInfo, float, int, bool)
+  nameWithType.vb: CircleDrawing.DrawLinesMasked(Circle, Quad, LineDrawingInfo, Single, Integer, Boolean)
+  fullName.vb: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.QuadDef.Quad, ShapeEngine.Geometry.LineDrawingInfo, Single, Integer, Boolean)
+  name.vb: DrawLinesMasked(Circle, Quad, LineDrawingInfo, Single, Integer, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.QuadDef.Quad
+    name: Quad
+    href: ShapeEngine.Geometry.QuadDef.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.QuadDef.Quad
+    name: Quad
+    href: ShapeEngine.Geometry.QuadDef.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.CircleDef.Circle.ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  parent: ShapeEngine.Geometry.CircleDef.CircleDrawing
+  definition: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  name: DrawLinesMasked(Circle, Rect, LineDrawingInfo, float, int, bool)
+  nameWithType: CircleDrawing.DrawLinesMasked(Circle, Rect, LineDrawingInfo, float, int, bool)
+  fullName: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Geometry.LineDrawingInfo, float, int, bool)
+  nameWithType.vb: CircleDrawing.DrawLinesMasked(Circle, Rect, LineDrawingInfo, Single, Integer, Boolean)
+  fullName.vb: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Geometry.LineDrawingInfo, Single, Integer, Boolean)
+  name.vb: DrawLinesMasked(Circle, Rect, LineDrawingInfo, Single, Integer, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.CircleDef.Circle.ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  parent: ShapeEngine.Geometry.CircleDef.CircleDrawing
+  definition: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  name: DrawLinesMasked(Circle, Triangle, LineDrawingInfo, float, int, bool)
+  nameWithType: CircleDrawing.DrawLinesMasked(Circle, Triangle, LineDrawingInfo, float, int, bool)
+  fullName: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.LineDrawingInfo, float, int, bool)
+  nameWithType.vb: CircleDrawing.DrawLinesMasked(Circle, Triangle, LineDrawingInfo, Single, Integer, Boolean)
+  fullName.vb: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.LineDrawingInfo, Single, Integer, Boolean)
+  name.vb: DrawLinesMasked(Circle, Triangle, LineDrawingInfo, Single, Integer, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.CircleDef.Circle.ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked``1({T},ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked``1(ShapeEngine.Geometry.CircleDef.Circle,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  parent: ShapeEngine.Geometry.CircleDef.CircleDrawing
+  definition: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked``1(ShapeEngine.Geometry.CircleDef.Circle,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked__1_ShapeEngine_Geometry_CircleDef_Circle___0_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  name: DrawLinesMasked<T>(Circle, T, LineDrawingInfo, float, int, bool)
+  nameWithType: CircleDrawing.DrawLinesMasked<T>(Circle, T, LineDrawingInfo, float, int, bool)
+  fullName: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked<T>(ShapeEngine.Geometry.CircleDef.Circle, T, ShapeEngine.Geometry.LineDrawingInfo, float, int, bool)
+  nameWithType.vb: CircleDrawing.DrawLinesMasked(Of T)(Circle, T, LineDrawingInfo, Single, Integer, Boolean)
+  fullName.vb: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(Of T)(ShapeEngine.Geometry.CircleDef.Circle, T, ShapeEngine.Geometry.LineDrawingInfo, Single, Integer, Boolean)
+  name.vb: DrawLinesMasked(Of T)(Circle, T, LineDrawingInfo, Single, Integer, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked``1(ShapeEngine.Geometry.CircleDef.Circle,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked__1_ShapeEngine_Geometry_CircleDef_Circle___0_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked``1(ShapeEngine.Geometry.CircleDef.Circle,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked__1_ShapeEngine_Geometry_CircleDef_Circle___0_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: )
 - uid: ShapeEngine.Geometry.CircleDef.Circle.ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesPercentage(System.Single,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32)
   commentId: M:ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesPercentage(ShapeEngine.Geometry.CircleDef.Circle,System.Single,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32)
@@ -11112,6 +11719,28 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: ShapeEngine.Geometry
+  commentId: N:ShapeEngine.Geometry
+  href: ShapeEngine.html
+  name: ShapeEngine.Geometry
+  nameWithType: ShapeEngine.Geometry
+  fullName: ShapeEngine.Geometry
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
 - uid: System.ValueType
   commentId: T:System.ValueType
   parent: System
@@ -11655,6 +12284,514 @@ references:
   - uid: ShapeEngine.Color.ColorRgba
     name: ColorRgba
     href: ShapeEngine.Color.ColorRgba.html
+  - name: )
+- uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  name: DrawLinesMasked(Circle, Circle, LineDrawingInfo, float, int, bool)
+  nameWithType: CircleDrawing.DrawLinesMasked(Circle, Circle, LineDrawingInfo, float, int, bool)
+  fullName: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.LineDrawingInfo, float, int, bool)
+  nameWithType.vb: CircleDrawing.DrawLinesMasked(Circle, Circle, LineDrawingInfo, Single, Integer, Boolean)
+  fullName.vb: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.LineDrawingInfo, Single, Integer, Boolean)
+  name.vb: DrawLinesMasked(Circle, Circle, LineDrawingInfo, Single, Integer, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  name: DrawLinesMasked(Circle, Polygon, LineDrawingInfo, float, int, bool)
+  nameWithType: CircleDrawing.DrawLinesMasked(Circle, Polygon, LineDrawingInfo, float, int, bool)
+  fullName: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.LineDrawingInfo, float, int, bool)
+  nameWithType.vb: CircleDrawing.DrawLinesMasked(Circle, Polygon, LineDrawingInfo, Single, Integer, Boolean)
+  fullName.vb: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.LineDrawingInfo, Single, Integer, Boolean)
+  name.vb: DrawLinesMasked(Circle, Polygon, LineDrawingInfo, Single, Integer, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  name: DrawLinesMasked(Circle, Quad, LineDrawingInfo, float, int, bool)
+  nameWithType: CircleDrawing.DrawLinesMasked(Circle, Quad, LineDrawingInfo, float, int, bool)
+  fullName: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.QuadDef.Quad, ShapeEngine.Geometry.LineDrawingInfo, float, int, bool)
+  nameWithType.vb: CircleDrawing.DrawLinesMasked(Circle, Quad, LineDrawingInfo, Single, Integer, Boolean)
+  fullName.vb: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.QuadDef.Quad, ShapeEngine.Geometry.LineDrawingInfo, Single, Integer, Boolean)
+  name.vb: DrawLinesMasked(Circle, Quad, LineDrawingInfo, Single, Integer, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.QuadDef.Quad
+    name: Quad
+    href: ShapeEngine.Geometry.QuadDef.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.QuadDef.Quad
+    name: Quad
+    href: ShapeEngine.Geometry.QuadDef.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  name: DrawLinesMasked(Circle, Rect, LineDrawingInfo, float, int, bool)
+  nameWithType: CircleDrawing.DrawLinesMasked(Circle, Rect, LineDrawingInfo, float, int, bool)
+  fullName: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Geometry.LineDrawingInfo, float, int, bool)
+  nameWithType.vb: CircleDrawing.DrawLinesMasked(Circle, Rect, LineDrawingInfo, Single, Integer, Boolean)
+  fullName.vb: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Geometry.LineDrawingInfo, Single, Integer, Boolean)
+  name.vb: DrawLinesMasked(Circle, Rect, LineDrawingInfo, Single, Integer, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  name: DrawLinesMasked(Circle, Triangle, LineDrawingInfo, float, int, bool)
+  nameWithType: CircleDrawing.DrawLinesMasked(Circle, Triangle, LineDrawingInfo, float, int, bool)
+  fullName: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.LineDrawingInfo, float, int, bool)
+  nameWithType.vb: CircleDrawing.DrawLinesMasked(Circle, Triangle, LineDrawingInfo, Single, Integer, Boolean)
+  fullName.vb: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.LineDrawingInfo, Single, Integer, Boolean)
+  name.vb: DrawLinesMasked(Circle, Triangle, LineDrawingInfo, Single, Integer, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked``1(ShapeEngine.Geometry.CircleDef.Circle,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked``1(ShapeEngine.Geometry.CircleDef.Circle,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked__1_ShapeEngine_Geometry_CircleDef_Circle___0_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  name: DrawLinesMasked<T>(Circle, T, LineDrawingInfo, float, int, bool)
+  nameWithType: CircleDrawing.DrawLinesMasked<T>(Circle, T, LineDrawingInfo, float, int, bool)
+  fullName: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked<T>(ShapeEngine.Geometry.CircleDef.Circle, T, ShapeEngine.Geometry.LineDrawingInfo, float, int, bool)
+  nameWithType.vb: CircleDrawing.DrawLinesMasked(Of T)(Circle, T, LineDrawingInfo, Single, Integer, Boolean)
+  fullName.vb: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked(Of T)(ShapeEngine.Geometry.CircleDef.Circle, T, ShapeEngine.Geometry.LineDrawingInfo, Single, Integer, Boolean)
+  name.vb: DrawLinesMasked(Of T)(Circle, T, LineDrawingInfo, Single, Integer, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked``1(ShapeEngine.Geometry.CircleDef.Circle,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked__1_ShapeEngine_Geometry_CircleDef_Circle___0_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesMasked``1(ShapeEngine.Geometry.CircleDef.Circle,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.CircleDef.CircleDrawing.html#ShapeEngine_Geometry_CircleDef_CircleDrawing_DrawLinesMasked__1_ShapeEngine_Geometry_CircleDef_Circle___0_ShapeEngine_Geometry_LineDrawingInfo_System_Single_System_Int32_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: )
 - uid: ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesPercentage(ShapeEngine.Geometry.CircleDef.Circle,System.Single,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32)
   commentId: M:ShapeEngine.Geometry.CircleDef.CircleDrawing.DrawLinesPercentage(ShapeEngine.Geometry.CircleDef.Circle,System.Single,ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Int32)
@@ -14236,28 +15373,6 @@ references:
     name: LogLevel
     href: ShapeEngine.Core.Logging.LogLevel.html
   - name: )
-- uid: ShapeEngine.Geometry
-  commentId: N:ShapeEngine.Geometry
-  href: ShapeEngine.html
-  name: ShapeEngine.Geometry
-  nameWithType: ShapeEngine.Geometry
-  fullName: ShapeEngine.Geometry
-  spec.csharp:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Geometry
-    name: Geometry
-    href: ShapeEngine.Geometry.html
-  spec.vb:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Geometry
-    name: Geometry
-    href: ShapeEngine.Geometry.html
 - uid: ShapeEngine.Geometry.StripedDrawingDef
   commentId: N:ShapeEngine.Geometry.StripedDrawingDef
   href: ShapeEngine.html
@@ -14611,6 +15726,70 @@ references:
   nameWithType.vb: Integer
   fullName.vb: Integer
   name.vb: Integer
+- uid: ShapeEngine.Geometry.ClosedShapeType
+  commentId: T:ShapeEngine.Geometry.ClosedShapeType
+  parent: ShapeEngine.Geometry
+  href: ShapeEngine.Geometry.ClosedShapeType.html
+  name: ClosedShapeType
+  nameWithType: ClosedShapeType
+  fullName: ShapeEngine.Geometry.ClosedShapeType
+- uid: ShapeEngine.Geometry.CircleDef.Circle.GetClosedShapeType*
+  commentId: Overload:ShapeEngine.Geometry.CircleDef.Circle.GetClosedShapeType
+  href: ShapeEngine.Geometry.CircleDef.Circle.html#ShapeEngine_Geometry_CircleDef_Circle_GetClosedShapeType
+  name: GetClosedShapeType
+  nameWithType: Circle.GetClosedShapeType
+  fullName: ShapeEngine.Geometry.CircleDef.Circle.GetClosedShapeType
+- uid: ShapeEngine.Geometry.IClosedShapeTypeProvider.GetClosedShapeType
+  commentId: M:ShapeEngine.Geometry.IClosedShapeTypeProvider.GetClosedShapeType
+  parent: ShapeEngine.Geometry.IClosedShapeTypeProvider
+  href: ShapeEngine.Geometry.IClosedShapeTypeProvider.html#ShapeEngine_Geometry_IClosedShapeTypeProvider_GetClosedShapeType
+  name: GetClosedShapeType()
+  nameWithType: IClosedShapeTypeProvider.GetClosedShapeType()
+  fullName: ShapeEngine.Geometry.IClosedShapeTypeProvider.GetClosedShapeType()
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.IClosedShapeTypeProvider.GetClosedShapeType
+    name: GetClosedShapeType
+    href: ShapeEngine.Geometry.IClosedShapeTypeProvider.html#ShapeEngine_Geometry_IClosedShapeTypeProvider_GetClosedShapeType
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.IClosedShapeTypeProvider.GetClosedShapeType
+    name: GetClosedShapeType
+    href: ShapeEngine.Geometry.IClosedShapeTypeProvider.html#ShapeEngine_Geometry_IClosedShapeTypeProvider_GetClosedShapeType
+  - name: (
+  - name: )
+- uid: ShapeEngine.Geometry.ShapeType
+  commentId: T:ShapeEngine.Geometry.ShapeType
+  parent: ShapeEngine.Geometry
+  href: ShapeEngine.Geometry.ShapeType.html
+  name: ShapeType
+  nameWithType: ShapeType
+  fullName: ShapeEngine.Geometry.ShapeType
+- uid: ShapeEngine.Geometry.CircleDef.Circle.GetShapeType*
+  commentId: Overload:ShapeEngine.Geometry.CircleDef.Circle.GetShapeType
+  href: ShapeEngine.Geometry.CircleDef.Circle.html#ShapeEngine_Geometry_CircleDef_Circle_GetShapeType
+  name: GetShapeType
+  nameWithType: Circle.GetShapeType
+  fullName: ShapeEngine.Geometry.CircleDef.Circle.GetShapeType
+- uid: ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+  commentId: M:ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+  parent: ShapeEngine.Geometry.IShapeTypeProvider
+  href: ShapeEngine.Geometry.IShapeTypeProvider.html#ShapeEngine_Geometry_IShapeTypeProvider_GetShapeType
+  name: GetShapeType()
+  nameWithType: IShapeTypeProvider.GetShapeType()
+  fullName: ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType()
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+    name: GetShapeType
+    href: ShapeEngine.Geometry.IShapeTypeProvider.html#ShapeEngine_Geometry_IShapeTypeProvider_GetShapeType
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+    name: GetShapeType
+    href: ShapeEngine.Geometry.IShapeTypeProvider.html#ShapeEngine_Geometry_IShapeTypeProvider_GetShapeType
+  - name: (
+  - name: )
 - uid: ShapeEngine.Geometry.CircleDef.Circle.op_Equality*
   commentId: Overload:ShapeEngine.Geometry.CircleDef.Circle.op_Equality
   href: ShapeEngine.Geometry.CircleDef.Circle.html#ShapeEngine_Geometry_CircleDef_Circle_op_Equality_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_CircleDef_Circle_

@@ -13,6 +13,8 @@ items:
   - ShapeEngine.Geometry.LineDef.Line.ChangePoint(System.Numerics.Vector2)
   - ShapeEngine.Geometry.LineDef.Line.ChangeRotation(System.Single)
   - ShapeEngine.Geometry.LineDef.Line.Direction
+  - ShapeEngine.Geometry.LineDef.Line.Equals(ShapeEngine.Geometry.LineDef.Line)
+  - ShapeEngine.Geometry.LineDef.Line.Equals(System.Object)
   - ShapeEngine.Geometry.LineDef.Line.FlipNormal
   - ShapeEngine.Geometry.LineDef.Line.GetBoundingBox
   - ShapeEngine.Geometry.LineDef.Line.GetBoundingBox(System.Single)
@@ -35,7 +37,9 @@ items:
   - ShapeEngine.Geometry.LineDef.Line.GetClosestPointLinePoint(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Single@)
   - ShapeEngine.Geometry.LineDef.Line.GetClosestPointLineRay(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Single@)
   - ShapeEngine.Geometry.LineDef.Line.GetClosestPointLineSegment(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Single@)
+  - ShapeEngine.Geometry.LineDef.Line.GetHashCode
   - ShapeEngine.Geometry.LineDef.Line.GetNormal(System.Numerics.Vector2,System.Boolean)
+  - ShapeEngine.Geometry.LineDef.Line.GetShapeType
   - ShapeEngine.Geometry.LineDef.Line.Intersect(ShapeEngine.Geometry.CollisionSystem.Collider)
   - ShapeEngine.Geometry.LineDef.Line.Intersect(ShapeEngine.Geometry.CollisionSystem.Collider,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
   - ShapeEngine.Geometry.LineDef.Line.Intersect(ShapeEngine.Geometry.CollisionSystem.CollisionObject)
@@ -174,17 +178,24 @@ items:
     Includes methods for geometric operations such as intersections, overlaps, and closest point calculations.
   example: []
   syntax:
-    content: public readonly struct Line
-    content.vb: Public Structure Line
+    content: 'public readonly struct Line : IShapeTypeProvider, IEquatable<Line>'
+    content.vb: Public Structure Line Implements IShapeTypeProvider, IEquatable(Of Line)
+  implements:
+  - ShapeEngine.Geometry.IShapeTypeProvider
+  - System.IEquatable{ShapeEngine.Geometry.LineDef.Line}
   inheritedMembers:
-  - System.ValueType.Equals(System.Object)
-  - System.ValueType.GetHashCode
   - System.ValueType.ToString
   - System.Object.Equals(System.Object,System.Object)
   - System.Object.GetType
   - System.Object.ReferenceEquals(System.Object,System.Object)
   extensionMethods:
   - ShapeEngine.Geometry.LineDef.Line.ShapeEngine.Geometry.LineDef.LineDrawing.Draw(System.Single,System.Single,ShapeEngine.Color.ColorRgba)
+  - ShapeEngine.Geometry.LineDef.Line.ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(System.Single,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.LineDef.Line.ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(System.Single,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.LineDef.Line.ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(System.Single,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.LineDef.Line.ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(System.Single,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.LineDef.Line.ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(System.Single,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.LineDef.Line.ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked``1(System.Single,{T},ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
   - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
   - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
   - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
@@ -1139,6 +1150,158 @@ items:
   nameWithType.vb: Line.SetRotation(Single)
   fullName.vb: ShapeEngine.Geometry.LineDef.Line.SetRotation(Single)
   name.vb: SetRotation(Single)
+- uid: ShapeEngine.Geometry.LineDef.Line.GetShapeType
+  commentId: M:ShapeEngine.Geometry.LineDef.Line.GetShapeType
+  id: GetShapeType
+  parent: ShapeEngine.Geometry.LineDef.Line
+  langs:
+  - csharp
+  - vb
+  name: GetShapeType()
+  nameWithType: Line.GetShapeType()
+  fullName: ShapeEngine.Geometry.LineDef.Line.GetShapeType()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/LineDef/Line.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetShapeType
+    path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/Line.cs
+    startLine: 322
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.LineDef
+  summary: Gets the <xref href="ShapeEngine.Geometry.ShapeType" data-throw-if-not-resolved="false"></xref> for this shape.
+  example: []
+  syntax:
+    content: public ShapeType GetShapeType()
+    return:
+      type: ShapeEngine.Geometry.ShapeType
+      description: <xref href="ShapeEngine.Geometry.ShapeType.Line" data-throw-if-not-resolved="false"></xref> indicating this instance represents a line.
+    content.vb: Public Function GetShapeType() As ShapeType
+  overload: ShapeEngine.Geometry.LineDef.Line.GetShapeType*
+  implements:
+  - ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+- uid: ShapeEngine.Geometry.LineDef.Line.Equals(ShapeEngine.Geometry.LineDef.Line)
+  commentId: M:ShapeEngine.Geometry.LineDef.Line.Equals(ShapeEngine.Geometry.LineDef.Line)
+  id: Equals(ShapeEngine.Geometry.LineDef.Line)
+  parent: ShapeEngine.Geometry.LineDef.Line
+  langs:
+  - csharp
+  - vb
+  name: Equals(Line)
+  nameWithType: Line.Equals(Line)
+  fullName: ShapeEngine.Geometry.LineDef.Line.Equals(ShapeEngine.Geometry.LineDef.Line)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/LineDef/Line.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Equals
+    path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/Line.cs
+    startLine: 329
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.LineDef
+  summary: Determines whether this instance is equal to another <xref href="ShapeEngine.Geometry.LineDef.Line" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public bool Equals(Line other)
+    parameters:
+    - id: other
+      type: ShapeEngine.Geometry.LineDef.Line
+      description: The other <xref href="ShapeEngine.Geometry.LineDef.Line" data-throw-if-not-resolved="false"></xref> to compare against.
+    return:
+      type: System.Boolean
+      description: <code>true</code> if both the <xref href="ShapeEngine.Geometry.LineDef.Line.Point" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Geometry.LineDef.Line.Direction" data-throw-if-not-resolved="false"></xref> are equal; otherwise <code>false</code>.
+    content.vb: Public Function Equals(other As Line) As Boolean
+  overload: ShapeEngine.Geometry.LineDef.Line.Equals*
+  implements:
+  - System.IEquatable{ShapeEngine.Geometry.LineDef.Line}.Equals(ShapeEngine.Geometry.LineDef.Line)
+- uid: ShapeEngine.Geometry.LineDef.Line.Equals(System.Object)
+  commentId: M:ShapeEngine.Geometry.LineDef.Line.Equals(System.Object)
+  id: Equals(System.Object)
+  parent: ShapeEngine.Geometry.LineDef.Line
+  langs:
+  - csharp
+  - vb
+  name: Equals(object?)
+  nameWithType: Line.Equals(object?)
+  fullName: ShapeEngine.Geometry.LineDef.Line.Equals(object?)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/LineDef/Line.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Equals
+    path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/Line.cs
+    startLine: 341
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.LineDef
+  summary: Determines whether the specified object is equal to this instance of <xref href="ShapeEngine.Geometry.LineDef.Line" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public override bool Equals(object? obj)
+    parameters:
+    - id: obj
+      type: System.Object
+      description: The object to compare with the current <xref href="ShapeEngine.Geometry.LineDef.Line" data-throw-if-not-resolved="false"></xref>. May be <code>null</code> or of a different type.
+    return:
+      type: System.Boolean
+      description: <code>true</code> if <code class="paramref">obj</code> is a <xref href="ShapeEngine.Geometry.LineDef.Line" data-throw-if-not-resolved="false"></xref> and has the same <xref href="ShapeEngine.Geometry.LineDef.Line.Point" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Geometry.LineDef.Line.Direction" data-throw-if-not-resolved="false"></xref>; otherwise <code>false</code>.
+    content.vb: Public Overrides Function Equals(obj As Object) As Boolean
+  overridden: System.ValueType.Equals(System.Object)
+  overload: ShapeEngine.Geometry.LineDef.Line.Equals*
+  nameWithType.vb: Line.Equals(Object)
+  fullName.vb: ShapeEngine.Geometry.LineDef.Line.Equals(Object)
+  name.vb: Equals(Object)
+- uid: ShapeEngine.Geometry.LineDef.Line.GetHashCode
+  commentId: M:ShapeEngine.Geometry.LineDef.Line.GetHashCode
+  id: GetHashCode
+  parent: ShapeEngine.Geometry.LineDef.Line
+  langs:
+  - csharp
+  - vb
+  name: GetHashCode()
+  nameWithType: Line.GetHashCode()
+  fullName: ShapeEngine.Geometry.LineDef.Line.GetHashCode()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/LineDef/Line.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetHashCode
+    path: ../ShapeEngine/ShapeEngine/Geometry/LineDef/Line.cs
+    startLine: 359
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.LineDef
+  summary: Returns a hash code for this <xref href="ShapeEngine.Geometry.LineDef.Line" data-throw-if-not-resolved="false"></xref> instance.
+  remarks: >-
+    The hash intentionally combines only <xref href="ShapeEngine.Geometry.LineDef.Line.Point" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Geometry.LineDef.Line.Direction" data-throw-if-not-resolved="false"></xref>
+
+    to remain consistent with <xref href="ShapeEngine.Geometry.LineDef.Line.Equals(ShapeEngine.Geometry.LineDef.Line)" data-throw-if-not-resolved="false"></xref>, which compares those two members.
+
+    The <xref href="ShapeEngine.Geometry.LineDef.Line.Normal" data-throw-if-not-resolved="false"></xref> is excluded because its value is derived from <xref href="ShapeEngine.Geometry.LineDef.Line.Direction" data-throw-if-not-resolved="false"></xref>
+
+    (and possibly a flip) and including it could break the hash/equality contract.
+  example: []
+  syntax:
+    content: public override int GetHashCode()
+    return:
+      type: System.Int32
+      description: >-
+        A 32-bit signed integer hash code generated by combining the <xref href="ShapeEngine.Geometry.LineDef.Line.Point" data-throw-if-not-resolved="false"></xref>
+
+        and <xref href="ShapeEngine.Geometry.LineDef.Line.Direction" data-throw-if-not-resolved="false"></xref> members.
+    content.vb: Public Overrides Function GetHashCode() As Integer
+  overridden: System.ValueType.GetHashCode
+  overload: ShapeEngine.Geometry.LineDef.Line.GetHashCode*
 - uid: ShapeEngine.Geometry.LineDef.Line.GetClosestPoint(ShapeEngine.Geometry.CollisionSystem.CollisionObject)
   commentId: M:ShapeEngine.Geometry.LineDef.Line.GetClosestPoint(ShapeEngine.Geometry.CollisionSystem.CollisionObject)
   id: GetClosestPoint(ShapeEngine.Geometry.CollisionSystem.CollisionObject)
@@ -6139,60 +6302,45 @@ references:
   - uid: ShapeEngine.Geometry.LineDef
     name: LineDef
     href: ShapeEngine.Geometry.LineDef.html
-- uid: System.ValueType.Equals(System.Object)
-  commentId: M:System.ValueType.Equals(System.Object)
-  parent: System.ValueType
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
-  name: Equals(object)
-  nameWithType: ValueType.Equals(object)
-  fullName: System.ValueType.Equals(object)
-  nameWithType.vb: ValueType.Equals(Object)
-  fullName.vb: System.ValueType.Equals(Object)
-  name.vb: Equals(Object)
+- uid: ShapeEngine.Geometry.IShapeTypeProvider
+  commentId: T:ShapeEngine.Geometry.IShapeTypeProvider
+  parent: ShapeEngine.Geometry
+  href: ShapeEngine.Geometry.IShapeTypeProvider.html
+  name: IShapeTypeProvider
+  nameWithType: IShapeTypeProvider
+  fullName: ShapeEngine.Geometry.IShapeTypeProvider
+- uid: System.IEquatable{ShapeEngine.Geometry.LineDef.Line}
+  commentId: T:System.IEquatable{ShapeEngine.Geometry.LineDef.Line}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<Line>
+  nameWithType: IEquatable<Line>
+  fullName: System.IEquatable<ShapeEngine.Geometry.LineDef.Line>
+  nameWithType.vb: IEquatable(Of Line)
+  fullName.vb: System.IEquatable(Of ShapeEngine.Geometry.LineDef.Line)
+  name.vb: IEquatable(Of Line)
   spec.csharp:
-  - uid: System.ValueType.Equals(System.Object)
-    name: Equals
+  - uid: System.IEquatable`1
+    name: IEquatable
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: )
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: '>'
   spec.vb:
-  - uid: System.ValueType.Equals(System.Object)
-    name: Equals
+  - uid: System.IEquatable`1
+    name: IEquatable
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
   - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: )
-- uid: System.ValueType.GetHashCode
-  commentId: M:System.ValueType.GetHashCode
-  parent: System.ValueType
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
-  name: GetHashCode()
-  nameWithType: ValueType.GetHashCode()
-  fullName: System.ValueType.GetHashCode()
-  spec.csharp:
-  - uid: System.ValueType.GetHashCode
-    name: GetHashCode
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: System.ValueType.GetHashCode
-    name: GetHashCode
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
-  - name: (
+  - name: Of
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
   - name: )
 - uid: System.ValueType.ToString
   commentId: M:System.ValueType.ToString
@@ -6393,6 +6541,448 @@ references:
     name: ColorRgba
     href: ShapeEngine.Color.ColorRgba.html
   - name: )
+- uid: ShapeEngine.Geometry.LineDef.Line.ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(System.Single,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.LineDef.LineDrawing
+  definition: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Line, float, Circle, LineDrawingInfo, bool)
+  nameWithType: LineDrawing.DrawMasked(Line, float, Circle, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line, float, ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: LineDrawing.DrawMasked(Line, Single, Circle, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line, Single, ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Line, Single, Circle, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.LineDef.Line.ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(System.Single,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.LineDef.LineDrawing
+  definition: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Line, float, Polygon, LineDrawingInfo, bool)
+  nameWithType: LineDrawing.DrawMasked(Line, float, Polygon, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line, float, ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: LineDrawing.DrawMasked(Line, Single, Polygon, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line, Single, ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Line, Single, Polygon, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.LineDef.Line.ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(System.Single,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.LineDef.LineDrawing
+  definition: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Line, float, Quad, LineDrawingInfo, bool)
+  nameWithType: LineDrawing.DrawMasked(Line, float, Quad, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line, float, ShapeEngine.Geometry.QuadDef.Quad, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: LineDrawing.DrawMasked(Line, Single, Quad, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line, Single, ShapeEngine.Geometry.QuadDef.Quad, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Line, Single, Quad, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.QuadDef.Quad
+    name: Quad
+    href: ShapeEngine.Geometry.QuadDef.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.QuadDef.Quad
+    name: Quad
+    href: ShapeEngine.Geometry.QuadDef.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.LineDef.Line.ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(System.Single,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.LineDef.LineDrawing
+  definition: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Line, float, Rect, LineDrawingInfo, bool)
+  nameWithType: LineDrawing.DrawMasked(Line, float, Rect, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line, float, ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: LineDrawing.DrawMasked(Line, Single, Rect, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line, Single, ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Line, Single, Rect, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.LineDef.Line.ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(System.Single,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.LineDef.LineDrawing
+  definition: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Line, float, Triangle, LineDrawingInfo, bool)
+  nameWithType: LineDrawing.DrawMasked(Line, float, Triangle, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line, float, ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: LineDrawing.DrawMasked(Line, Single, Triangle, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line, Single, ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Line, Single, Triangle, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.LineDef.Line.ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked``1(System.Single,{T},ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked``1(ShapeEngine.Geometry.LineDef.Line,System.Single,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.LineDef.LineDrawing
+  definition: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked``1(ShapeEngine.Geometry.LineDef.Line,System.Single,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked__1_ShapeEngine_Geometry_LineDef_Line_System_Single___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked<T>(Line, float, T, LineDrawingInfo, bool)
+  nameWithType: LineDrawing.DrawMasked<T>(Line, float, T, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked<T>(ShapeEngine.Geometry.LineDef.Line, float, T, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: LineDrawing.DrawMasked(Of T)(Line, Single, T, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(Of T)(ShapeEngine.Geometry.LineDef.Line, Single, T, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Of T)(Line, Single, T, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked``1(ShapeEngine.Geometry.LineDef.Line,System.Single,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked__1_ShapeEngine_Geometry_LineDef_Line_System_Single___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked``1(ShapeEngine.Geometry.LineDef.Line,System.Single,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked__1_ShapeEngine_Geometry_LineDef_Line_System_Single___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
 - uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
   commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
   parent: ShapeEngine.StaticLib.ShapeLogger
@@ -6552,6 +7142,63 @@ references:
     name: LogLevel
     href: ShapeEngine.Core.Logging.LogLevel.html
   - name: )
+- uid: ShapeEngine.Geometry
+  commentId: N:ShapeEngine.Geometry
+  href: ShapeEngine.html
+  name: ShapeEngine.Geometry
+  nameWithType: ShapeEngine.Geometry
+  fullName: ShapeEngine.Geometry
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
 - uid: System.ValueType
   commentId: T:System.ValueType
   parent: System
@@ -6640,6 +7287,442 @@ references:
   name: LineDrawing
   nameWithType: LineDrawing
   fullName: ShapeEngine.Geometry.LineDef.LineDrawing
+- uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Line, float, Circle, LineDrawingInfo, bool)
+  nameWithType: LineDrawing.DrawMasked(Line, float, Circle, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line, float, ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: LineDrawing.DrawMasked(Line, Single, Circle, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line, Single, ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Line, Single, Circle, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Line, float, Polygon, LineDrawingInfo, bool)
+  nameWithType: LineDrawing.DrawMasked(Line, float, Polygon, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line, float, ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: LineDrawing.DrawMasked(Line, Single, Polygon, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line, Single, ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Line, Single, Polygon, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Line, float, Quad, LineDrawingInfo, bool)
+  nameWithType: LineDrawing.DrawMasked(Line, float, Quad, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line, float, ShapeEngine.Geometry.QuadDef.Quad, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: LineDrawing.DrawMasked(Line, Single, Quad, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line, Single, ShapeEngine.Geometry.QuadDef.Quad, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Line, Single, Quad, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.QuadDef.Quad
+    name: Quad
+    href: ShapeEngine.Geometry.QuadDef.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.QuadDef.Quad
+    name: Quad
+    href: ShapeEngine.Geometry.QuadDef.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Line, float, Rect, LineDrawingInfo, bool)
+  nameWithType: LineDrawing.DrawMasked(Line, float, Rect, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line, float, ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: LineDrawing.DrawMasked(Line, Single, Rect, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line, Single, ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Line, Single, Rect, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Line, float, Triangle, LineDrawingInfo, bool)
+  nameWithType: LineDrawing.DrawMasked(Line, float, Triangle, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line, float, ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: LineDrawing.DrawMasked(Line, Single, Triangle, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line, Single, ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Line, Single, Triangle, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(ShapeEngine.Geometry.LineDef.Line,System.Single,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked_ShapeEngine_Geometry_LineDef_Line_System_Single_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked``1(ShapeEngine.Geometry.LineDef.Line,System.Single,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked``1(ShapeEngine.Geometry.LineDef.Line,System.Single,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked__1_ShapeEngine_Geometry_LineDef_Line_System_Single___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked<T>(Line, float, T, LineDrawingInfo, bool)
+  nameWithType: LineDrawing.DrawMasked<T>(Line, float, T, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked<T>(ShapeEngine.Geometry.LineDef.Line, float, T, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: LineDrawing.DrawMasked(Of T)(Line, Single, T, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked(Of T)(ShapeEngine.Geometry.LineDef.Line, Single, T, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Of T)(Line, Single, T, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked``1(ShapeEngine.Geometry.LineDef.Line,System.Single,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked__1_ShapeEngine_Geometry_LineDef_Line_System_Single___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.LineDef.LineDrawing.DrawMasked``1(ShapeEngine.Geometry.LineDef.Line,System.Single,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.LineDef.LineDrawing.html#ShapeEngine_Geometry_LineDef_LineDrawing_DrawMasked__1_ShapeEngine_Geometry_LineDef_Line_System_Single___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
 - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
   commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
   isExternal: true
@@ -6803,13 +7886,6 @@ references:
     name: LogLevel
     href: ShapeEngine.Core.Logging.LogLevel.html
   - name: )
-- uid: System
-  commentId: N:System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system
-  name: System
-  nameWithType: System
-  fullName: System
 - uid: ShapeEngine.StaticLib
   commentId: N:ShapeEngine.StaticLib
   href: ShapeEngine.html
@@ -7112,6 +8188,213 @@ references:
   name: SetRotation
   nameWithType: Line.SetRotation
   fullName: ShapeEngine.Geometry.LineDef.Line.SetRotation
+- uid: ShapeEngine.Geometry.ShapeType
+  commentId: T:ShapeEngine.Geometry.ShapeType
+  parent: ShapeEngine.Geometry
+  href: ShapeEngine.Geometry.ShapeType.html
+  name: ShapeType
+  nameWithType: ShapeType
+  fullName: ShapeEngine.Geometry.ShapeType
+- uid: ShapeEngine.Geometry.ShapeType.Line
+  commentId: F:ShapeEngine.Geometry.ShapeType.Line
+  href: ShapeEngine.Geometry.ShapeType.html#ShapeEngine_Geometry_ShapeType_Line
+  name: Line
+  nameWithType: ShapeType.Line
+  fullName: ShapeEngine.Geometry.ShapeType.Line
+- uid: ShapeEngine.Geometry.LineDef.Line.GetShapeType*
+  commentId: Overload:ShapeEngine.Geometry.LineDef.Line.GetShapeType
+  href: ShapeEngine.Geometry.LineDef.Line.html#ShapeEngine_Geometry_LineDef_Line_GetShapeType
+  name: GetShapeType
+  nameWithType: Line.GetShapeType
+  fullName: ShapeEngine.Geometry.LineDef.Line.GetShapeType
+- uid: ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+  commentId: M:ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+  parent: ShapeEngine.Geometry.IShapeTypeProvider
+  href: ShapeEngine.Geometry.IShapeTypeProvider.html#ShapeEngine_Geometry_IShapeTypeProvider_GetShapeType
+  name: GetShapeType()
+  nameWithType: IShapeTypeProvider.GetShapeType()
+  fullName: ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType()
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+    name: GetShapeType
+    href: ShapeEngine.Geometry.IShapeTypeProvider.html#ShapeEngine_Geometry_IShapeTypeProvider_GetShapeType
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+    name: GetShapeType
+    href: ShapeEngine.Geometry.IShapeTypeProvider.html#ShapeEngine_Geometry_IShapeTypeProvider_GetShapeType
+  - name: (
+  - name: )
+- uid: ShapeEngine.Geometry.LineDef.Line.Point
+  commentId: F:ShapeEngine.Geometry.LineDef.Line.Point
+  href: ShapeEngine.Geometry.LineDef.Line.html#ShapeEngine_Geometry_LineDef_Line_Point
+  name: Point
+  nameWithType: Line.Point
+  fullName: ShapeEngine.Geometry.LineDef.Line.Point
+- uid: ShapeEngine.Geometry.LineDef.Line.Equals*
+  commentId: Overload:ShapeEngine.Geometry.LineDef.Line.Equals
+  href: ShapeEngine.Geometry.LineDef.Line.html#ShapeEngine_Geometry_LineDef_Line_Equals_ShapeEngine_Geometry_LineDef_Line_
+  name: Equals
+  nameWithType: Line.Equals
+  fullName: ShapeEngine.Geometry.LineDef.Line.Equals
+- uid: System.IEquatable{ShapeEngine.Geometry.LineDef.Line}.Equals(ShapeEngine.Geometry.LineDef.Line)
+  commentId: M:System.IEquatable{ShapeEngine.Geometry.LineDef.Line}.Equals(ShapeEngine.Geometry.LineDef.Line)
+  parent: System.IEquatable{ShapeEngine.Geometry.LineDef.Line}
+  definition: System.IEquatable`1.Equals(`0)
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(Line)
+  nameWithType: IEquatable<Line>.Equals(Line)
+  fullName: System.IEquatable<ShapeEngine.Geometry.LineDef.Line>.Equals(ShapeEngine.Geometry.LineDef.Line)
+  nameWithType.vb: IEquatable(Of Line).Equals(Line)
+  fullName.vb: System.IEquatable(Of ShapeEngine.Geometry.LineDef.Line).Equals(ShapeEngine.Geometry.LineDef.Line)
+  spec.csharp:
+  - uid: System.IEquatable{ShapeEngine.Geometry.LineDef.Line}.Equals(ShapeEngine.Geometry.LineDef.Line)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable{ShapeEngine.Geometry.LineDef.Line}.Equals(ShapeEngine.Geometry.LineDef.Line)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: )
+- uid: System.IEquatable`1.Equals(`0)
+  commentId: M:System.IEquatable`1.Equals(`0)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(T)
+  nameWithType: IEquatable<T>.Equals(T)
+  fullName: System.IEquatable<T>.Equals(T)
+  nameWithType.vb: IEquatable(Of T).Equals(T)
+  fullName.vb: System.IEquatable(Of T).Equals(T)
+  spec.csharp:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+- uid: System.ValueType.Equals(System.Object)
+  commentId: M:System.ValueType.Equals(System.Object)
+  parent: System.ValueType
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  name: Equals(object)
+  nameWithType: ValueType.Equals(object)
+  fullName: System.ValueType.Equals(object)
+  nameWithType.vb: ValueType.Equals(Object)
+  fullName.vb: System.ValueType.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.ValueType.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ValueType.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: ShapeEngine.Geometry.LineDef.Line.Equals(ShapeEngine.Geometry.LineDef.Line)
+  commentId: M:ShapeEngine.Geometry.LineDef.Line.Equals(ShapeEngine.Geometry.LineDef.Line)
+  href: ShapeEngine.Geometry.LineDef.Line.html#ShapeEngine_Geometry_LineDef_Line_Equals_ShapeEngine_Geometry_LineDef_Line_
+  name: Equals(Line)
+  nameWithType: Line.Equals(Line)
+  fullName: ShapeEngine.Geometry.LineDef.Line.Equals(ShapeEngine.Geometry.LineDef.Line)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.LineDef.Line.Equals(ShapeEngine.Geometry.LineDef.Line)
+    name: Equals
+    href: ShapeEngine.Geometry.LineDef.Line.html#ShapeEngine_Geometry_LineDef_Line_Equals_ShapeEngine_Geometry_LineDef_Line_
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.LineDef.Line.Equals(ShapeEngine.Geometry.LineDef.Line)
+    name: Equals
+    href: ShapeEngine.Geometry.LineDef.Line.html#ShapeEngine_Geometry_LineDef_Line_Equals_ShapeEngine_Geometry_LineDef_Line_
+  - name: (
+  - uid: ShapeEngine.Geometry.LineDef.Line
+    name: Line
+    href: ShapeEngine.Geometry.LineDef.Line.html
+  - name: )
+- uid: ShapeEngine.Geometry.LineDef.Line.Normal
+  commentId: F:ShapeEngine.Geometry.LineDef.Line.Normal
+  href: ShapeEngine.Geometry.LineDef.Line.html#ShapeEngine_Geometry_LineDef_Line_Normal
+  name: Normal
+  nameWithType: Line.Normal
+  fullName: ShapeEngine.Geometry.LineDef.Line.Normal
+- uid: System.ValueType.GetHashCode
+  commentId: M:System.ValueType.GetHashCode
+  parent: System.ValueType
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  name: GetHashCode()
+  nameWithType: ValueType.GetHashCode()
+  fullName: System.ValueType.GetHashCode()
+  spec.csharp:
+  - uid: System.ValueType.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ValueType.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  - name: (
+  - name: )
+- uid: ShapeEngine.Geometry.LineDef.Line.GetHashCode*
+  commentId: Overload:ShapeEngine.Geometry.LineDef.Line.GetHashCode
+  href: ShapeEngine.Geometry.LineDef.Line.html#ShapeEngine_Geometry_LineDef_Line_GetHashCode
+  name: GetHashCode
+  nameWithType: Line.GetHashCode
+  fullName: ShapeEngine.Geometry.LineDef.Line.GetHashCode
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
 - uid: ShapeEngine.Geometry.CollisionSystem.ClosestPointResult
   commentId: T:ShapeEngine.Geometry.CollisionSystem.ClosestPointResult
   parent: ShapeEngine.Geometry.CollisionSystem
@@ -7405,28 +8688,6 @@ references:
   name: IShape
   nameWithType: IShape
   fullName: ShapeEngine.Geometry.IShape
-- uid: ShapeEngine.Geometry
-  commentId: N:ShapeEngine.Geometry
-  href: ShapeEngine.html
-  name: ShapeEngine.Geometry
-  nameWithType: ShapeEngine.Geometry
-  fullName: ShapeEngine.Geometry
-  spec.csharp:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Geometry
-    name: Geometry
-    href: ShapeEngine.Geometry.html
-  spec.vb:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Geometry
-    name: Geometry
-    href: ShapeEngine.Geometry.html
 - uid: ShapeEngine.Geometry.LineDef.Line.GetClosestPointLinePoint*
   commentId: Overload:ShapeEngine.Geometry.LineDef.Line.GetClosestPointLinePoint
   href: ShapeEngine.Geometry.LineDef.Line.html#ShapeEngine_Geometry_LineDef_Line_GetClosestPointLinePoint_System_Numerics_Vector2_System_Numerics_Vector2_System_Numerics_Vector2_System_Single__
@@ -7676,17 +8937,6 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
   - name: )
-- uid: System.Int32
-  commentId: T:System.Int32
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.int32
-  name: int
-  nameWithType: int
-  fullName: int
-  nameWithType.vb: Integer
-  fullName.vb: Integer
-  name.vb: Integer
 - uid: System.Collections.Generic.List`1
   commentId: T:System.Collections.Generic.List`1
   isExternal: true

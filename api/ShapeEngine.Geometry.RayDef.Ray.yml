@@ -13,6 +13,8 @@ items:
   - ShapeEngine.Geometry.RayDef.Ray.ChangePoint(System.Numerics.Vector2)
   - ShapeEngine.Geometry.RayDef.Ray.ChangeRotation(System.Single)
   - ShapeEngine.Geometry.RayDef.Ray.Direction
+  - ShapeEngine.Geometry.RayDef.Ray.Equals(ShapeEngine.Geometry.RayDef.Ray)
+  - ShapeEngine.Geometry.RayDef.Ray.Equals(System.Object)
   - ShapeEngine.Geometry.RayDef.Ray.FlipNormal
   - ShapeEngine.Geometry.RayDef.Ray.GetBoundingBox
   - ShapeEngine.Geometry.RayDef.Ray.GetBoundingBox(System.Single)
@@ -35,7 +37,9 @@ items:
   - ShapeEngine.Geometry.RayDef.Ray.GetClosestPointRayPoint(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Single@)
   - ShapeEngine.Geometry.RayDef.Ray.GetClosestPointRayRay(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Single@)
   - ShapeEngine.Geometry.RayDef.Ray.GetClosestPointRaySegment(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Single@)
+  - ShapeEngine.Geometry.RayDef.Ray.GetHashCode
   - ShapeEngine.Geometry.RayDef.Ray.GetNormal(System.Numerics.Vector2,System.Boolean)
+  - ShapeEngine.Geometry.RayDef.Ray.GetShapeType
   - ShapeEngine.Geometry.RayDef.Ray.Intersect(ShapeEngine.Geometry.CollisionSystem.Collider)
   - ShapeEngine.Geometry.RayDef.Ray.Intersect(ShapeEngine.Geometry.CollisionSystem.Collider,ShapeEngine.Geometry.CollisionSystem.IntersectionPoints@,System.Boolean)
   - ShapeEngine.Geometry.RayDef.Ray.Intersect(ShapeEngine.Geometry.CollisionSystem.CollisionObject)
@@ -171,17 +175,24 @@ items:
   summary: Represents a 2D ray with a point of origin, direction, and normal.
   example: []
   syntax:
-    content: public readonly struct Ray
-    content.vb: Public Structure Ray
+    content: 'public readonly struct Ray : IShapeTypeProvider, IEquatable<Ray>'
+    content.vb: Public Structure Ray Implements IShapeTypeProvider, IEquatable(Of Ray)
+  implements:
+  - ShapeEngine.Geometry.IShapeTypeProvider
+  - System.IEquatable{ShapeEngine.Geometry.RayDef.Ray}
   inheritedMembers:
-  - System.ValueType.Equals(System.Object)
-  - System.ValueType.GetHashCode
   - System.ValueType.ToString
   - System.Object.Equals(System.Object,System.Object)
   - System.Object.GetType
   - System.Object.ReferenceEquals(System.Object,System.Object)
   extensionMethods:
   - ShapeEngine.Geometry.RayDef.Ray.ShapeEngine.Geometry.RayDef.RayDrawing.Draw(System.Single,System.Single,ShapeEngine.Color.ColorRgba)
+  - ShapeEngine.Geometry.RayDef.Ray.ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(System.Single,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.RayDef.Ray.ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(System.Single,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.RayDef.Ray.ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(System.Single,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.RayDef.Ray.ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(System.Single,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.RayDef.Ray.ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(System.Single,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.RayDef.Ray.ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked``1(System.Single,{T},ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
   - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
   - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
   - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
@@ -1114,6 +1125,156 @@ items:
   nameWithType.vb: Ray.SetRotation(Single)
   fullName.vb: ShapeEngine.Geometry.RayDef.Ray.SetRotation(Single)
   name.vb: SetRotation(Single)
+- uid: ShapeEngine.Geometry.RayDef.Ray.GetShapeType
+  commentId: M:ShapeEngine.Geometry.RayDef.Ray.GetShapeType
+  id: GetShapeType
+  parent: ShapeEngine.Geometry.RayDef.Ray
+  langs:
+  - csharp
+  - vb
+  name: GetShapeType()
+  nameWithType: Ray.GetShapeType()
+  fullName: ShapeEngine.Geometry.RayDef.Ray.GetShapeType()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/RayDef/Ray.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetShapeType
+    path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/Ray.cs
+    startLine: 275
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.RayDef
+  summary: Gets the <xref href="ShapeEngine.Geometry.ShapeType" data-throw-if-not-resolved="false"></xref> identifying this shape as a ray.
+  example: []
+  syntax:
+    content: public ShapeType GetShapeType()
+    return:
+      type: ShapeEngine.Geometry.ShapeType
+      description: <xref href="ShapeEngine.Geometry.ShapeType.Ray" data-throw-if-not-resolved="false"></xref>.
+    content.vb: Public Function GetShapeType() As ShapeType
+  overload: ShapeEngine.Geometry.RayDef.Ray.GetShapeType*
+  implements:
+  - ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+- uid: ShapeEngine.Geometry.RayDef.Ray.Equals(ShapeEngine.Geometry.RayDef.Ray)
+  commentId: M:ShapeEngine.Geometry.RayDef.Ray.Equals(ShapeEngine.Geometry.RayDef.Ray)
+  id: Equals(ShapeEngine.Geometry.RayDef.Ray)
+  parent: ShapeEngine.Geometry.RayDef.Ray
+  langs:
+  - csharp
+  - vb
+  name: Equals(Ray)
+  nameWithType: Ray.Equals(Ray)
+  fullName: ShapeEngine.Geometry.RayDef.Ray.Equals(ShapeEngine.Geometry.RayDef.Ray)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/RayDef/Ray.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Equals
+    path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/Ray.cs
+    startLine: 283
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.RayDef
+  summary: >-
+    Determines whether the current <xref href="ShapeEngine.Geometry.RayDef.Ray" data-throw-if-not-resolved="false"></xref> is equal to another <xref href="ShapeEngine.Geometry.RayDef.Ray" data-throw-if-not-resolved="false"></xref>.
+
+    Comparison is performed on the <xref href="ShapeEngine.Geometry.RayDef.Ray.Point" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Geometry.RayDef.Ray.Direction" data-throw-if-not-resolved="false"></xref> fields.
+  example: []
+  syntax:
+    content: public bool Equals(Ray other)
+    parameters:
+    - id: other
+      type: ShapeEngine.Geometry.RayDef.Ray
+      description: The other <xref href="ShapeEngine.Geometry.RayDef.Ray" data-throw-if-not-resolved="false"></xref> to compare with the current instance.
+    return:
+      type: System.Boolean
+      description: <code>true</code> if both the point and direction are equal; otherwise, <code>false</code>.
+    content.vb: Public Function Equals(other As Ray) As Boolean
+  overload: ShapeEngine.Geometry.RayDef.Ray.Equals*
+  implements:
+  - System.IEquatable{ShapeEngine.Geometry.RayDef.Ray}.Equals(ShapeEngine.Geometry.RayDef.Ray)
+- uid: ShapeEngine.Geometry.RayDef.Ray.Equals(System.Object)
+  commentId: M:ShapeEngine.Geometry.RayDef.Ray.Equals(System.Object)
+  id: Equals(System.Object)
+  parent: ShapeEngine.Geometry.RayDef.Ray
+  langs:
+  - csharp
+  - vb
+  name: Equals(object?)
+  nameWithType: Ray.Equals(object?)
+  fullName: ShapeEngine.Geometry.RayDef.Ray.Equals(object?)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/RayDef/Ray.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Equals
+    path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/Ray.cs
+    startLine: 296
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.RayDef
+  summary: >-
+    Determines whether the specified object is equal to the current <xref href="ShapeEngine.Geometry.RayDef.Ray" data-throw-if-not-resolved="false"></xref>.
+
+    Comparison is performed on the <xref href="ShapeEngine.Geometry.RayDef.Ray.Point" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Geometry.RayDef.Ray.Direction" data-throw-if-not-resolved="false"></xref> fields.
+  example: []
+  syntax:
+    content: public override bool Equals(object? obj)
+    parameters:
+    - id: obj
+      type: System.Object
+      description: The object to compare with the current <xref href="ShapeEngine.Geometry.RayDef.Ray" data-throw-if-not-resolved="false"></xref>.
+    return:
+      type: System.Boolean
+      description: <code>true</code> if <code class="paramref">obj</code> is a <xref href="ShapeEngine.Geometry.RayDef.Ray" data-throw-if-not-resolved="false"></xref> and has the same point and direction; otherwise, <code>false</code>.
+    content.vb: Public Overrides Function Equals(obj As Object) As Boolean
+  overridden: System.ValueType.Equals(System.Object)
+  overload: ShapeEngine.Geometry.RayDef.Ray.Equals*
+  nameWithType.vb: Ray.Equals(Object)
+  fullName.vb: ShapeEngine.Geometry.RayDef.Ray.Equals(Object)
+  name.vb: Equals(Object)
+- uid: ShapeEngine.Geometry.RayDef.Ray.GetHashCode
+  commentId: M:ShapeEngine.Geometry.RayDef.Ray.GetHashCode
+  id: GetHashCode
+  parent: ShapeEngine.Geometry.RayDef.Ray
+  langs:
+  - csharp
+  - vb
+  name: GetHashCode()
+  nameWithType: Ray.GetHashCode()
+  fullName: ShapeEngine.Geometry.RayDef.Ray.GetHashCode()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/RayDef/Ray.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetHashCode
+    path: ../ShapeEngine/ShapeEngine/Geometry/RayDef/Ray.cs
+    startLine: 306
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.RayDef
+  summary: >-
+    Returns a hash code for the current <xref href="ShapeEngine.Geometry.RayDef.Ray" data-throw-if-not-resolved="false"></xref> instance.
+
+    Combines the <xref href="ShapeEngine.Geometry.RayDef.Ray.Point" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Geometry.RayDef.Ray.Direction" data-throw-if-not-resolved="false"></xref> fields to produce the hash.
+  example: []
+  syntax:
+    content: public override int GetHashCode()
+    return:
+      type: System.Int32
+      description: A 32-bit signed integer that is the hash code for this instance.
+    content.vb: Public Overrides Function GetHashCode() As Integer
+  overridden: System.ValueType.GetHashCode
+  overload: ShapeEngine.Geometry.RayDef.Ray.GetHashCode*
 - uid: ShapeEngine.Geometry.RayDef.Ray.GetClosestPoint(ShapeEngine.Geometry.CollisionSystem.CollisionObject)
   commentId: M:ShapeEngine.Geometry.RayDef.Ray.GetClosestPoint(ShapeEngine.Geometry.CollisionSystem.CollisionObject)
   id: GetClosestPoint(ShapeEngine.Geometry.CollisionSystem.CollisionObject)
@@ -6052,60 +6213,45 @@ references:
   - uid: ShapeEngine.Geometry.RayDef
     name: RayDef
     href: ShapeEngine.Geometry.RayDef.html
-- uid: System.ValueType.Equals(System.Object)
-  commentId: M:System.ValueType.Equals(System.Object)
-  parent: System.ValueType
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
-  name: Equals(object)
-  nameWithType: ValueType.Equals(object)
-  fullName: System.ValueType.Equals(object)
-  nameWithType.vb: ValueType.Equals(Object)
-  fullName.vb: System.ValueType.Equals(Object)
-  name.vb: Equals(Object)
+- uid: ShapeEngine.Geometry.IShapeTypeProvider
+  commentId: T:ShapeEngine.Geometry.IShapeTypeProvider
+  parent: ShapeEngine.Geometry
+  href: ShapeEngine.Geometry.IShapeTypeProvider.html
+  name: IShapeTypeProvider
+  nameWithType: IShapeTypeProvider
+  fullName: ShapeEngine.Geometry.IShapeTypeProvider
+- uid: System.IEquatable{ShapeEngine.Geometry.RayDef.Ray}
+  commentId: T:System.IEquatable{ShapeEngine.Geometry.RayDef.Ray}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<Ray>
+  nameWithType: IEquatable<Ray>
+  fullName: System.IEquatable<ShapeEngine.Geometry.RayDef.Ray>
+  nameWithType.vb: IEquatable(Of Ray)
+  fullName.vb: System.IEquatable(Of ShapeEngine.Geometry.RayDef.Ray)
+  name.vb: IEquatable(Of Ray)
   spec.csharp:
-  - uid: System.ValueType.Equals(System.Object)
-    name: Equals
+  - uid: System.IEquatable`1
+    name: IEquatable
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: )
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: '>'
   spec.vb:
-  - uid: System.ValueType.Equals(System.Object)
-    name: Equals
+  - uid: System.IEquatable`1
+    name: IEquatable
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
   - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: )
-- uid: System.ValueType.GetHashCode
-  commentId: M:System.ValueType.GetHashCode
-  parent: System.ValueType
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
-  name: GetHashCode()
-  nameWithType: ValueType.GetHashCode()
-  fullName: System.ValueType.GetHashCode()
-  spec.csharp:
-  - uid: System.ValueType.GetHashCode
-    name: GetHashCode
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: System.ValueType.GetHashCode
-    name: GetHashCode
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
-  - name: (
+  - name: Of
+  - name: " "
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
   - name: )
 - uid: System.ValueType.ToString
   commentId: M:System.ValueType.ToString
@@ -6306,6 +6452,448 @@ references:
     name: ColorRgba
     href: ShapeEngine.Color.ColorRgba.html
   - name: )
+- uid: ShapeEngine.Geometry.RayDef.Ray.ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(System.Single,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.RayDef.RayDrawing
+  definition: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Ray, float, Circle, LineDrawingInfo, bool)
+  nameWithType: RayDrawing.DrawMasked(Ray, float, Circle, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray, float, ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: RayDrawing.DrawMasked(Ray, Single, Circle, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray, Single, ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Ray, Single, Circle, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.RayDef.Ray.ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(System.Single,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.RayDef.RayDrawing
+  definition: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Ray, float, Polygon, LineDrawingInfo, bool)
+  nameWithType: RayDrawing.DrawMasked(Ray, float, Polygon, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray, float, ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: RayDrawing.DrawMasked(Ray, Single, Polygon, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray, Single, ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Ray, Single, Polygon, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.RayDef.Ray.ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(System.Single,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.RayDef.RayDrawing
+  definition: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Ray, float, Quad, LineDrawingInfo, bool)
+  nameWithType: RayDrawing.DrawMasked(Ray, float, Quad, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray, float, ShapeEngine.Geometry.QuadDef.Quad, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: RayDrawing.DrawMasked(Ray, Single, Quad, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray, Single, ShapeEngine.Geometry.QuadDef.Quad, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Ray, Single, Quad, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.QuadDef.Quad
+    name: Quad
+    href: ShapeEngine.Geometry.QuadDef.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.QuadDef.Quad
+    name: Quad
+    href: ShapeEngine.Geometry.QuadDef.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.RayDef.Ray.ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(System.Single,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.RayDef.RayDrawing
+  definition: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Ray, float, Rect, LineDrawingInfo, bool)
+  nameWithType: RayDrawing.DrawMasked(Ray, float, Rect, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray, float, ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: RayDrawing.DrawMasked(Ray, Single, Rect, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray, Single, ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Ray, Single, Rect, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.RayDef.Ray.ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(System.Single,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.RayDef.RayDrawing
+  definition: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Ray, float, Triangle, LineDrawingInfo, bool)
+  nameWithType: RayDrawing.DrawMasked(Ray, float, Triangle, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray, float, ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: RayDrawing.DrawMasked(Ray, Single, Triangle, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray, Single, ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Ray, Single, Triangle, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.RayDef.Ray.ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked``1(System.Single,{T},ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked``1(ShapeEngine.Geometry.RayDef.Ray,System.Single,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.RayDef.RayDrawing
+  definition: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked``1(ShapeEngine.Geometry.RayDef.Ray,System.Single,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked__1_ShapeEngine_Geometry_RayDef_Ray_System_Single___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked<T>(Ray, float, T, LineDrawingInfo, bool)
+  nameWithType: RayDrawing.DrawMasked<T>(Ray, float, T, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked<T>(ShapeEngine.Geometry.RayDef.Ray, float, T, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: RayDrawing.DrawMasked(Of T)(Ray, Single, T, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(Of T)(ShapeEngine.Geometry.RayDef.Ray, Single, T, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Of T)(Ray, Single, T, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked``1(ShapeEngine.Geometry.RayDef.Ray,System.Single,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked__1_ShapeEngine_Geometry_RayDef_Ray_System_Single___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked``1(ShapeEngine.Geometry.RayDef.Ray,System.Single,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked__1_ShapeEngine_Geometry_RayDef_Ray_System_Single___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
 - uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
   commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
   parent: ShapeEngine.StaticLib.ShapeLogger
@@ -6465,6 +7053,63 @@ references:
     name: LogLevel
     href: ShapeEngine.Core.Logging.LogLevel.html
   - name: )
+- uid: ShapeEngine.Geometry
+  commentId: N:ShapeEngine.Geometry
+  href: ShapeEngine.html
+  name: ShapeEngine.Geometry
+  nameWithType: ShapeEngine.Geometry
+  fullName: ShapeEngine.Geometry
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
 - uid: System.ValueType
   commentId: T:System.ValueType
   parent: System
@@ -6553,6 +7198,442 @@ references:
   name: RayDrawing
   nameWithType: RayDrawing
   fullName: ShapeEngine.Geometry.RayDef.RayDrawing
+- uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Ray, float, Circle, LineDrawingInfo, bool)
+  nameWithType: RayDrawing.DrawMasked(Ray, float, Circle, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray, float, ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: RayDrawing.DrawMasked(Ray, Single, Circle, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray, Single, ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Ray, Single, Circle, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Ray, float, Polygon, LineDrawingInfo, bool)
+  nameWithType: RayDrawing.DrawMasked(Ray, float, Polygon, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray, float, ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: RayDrawing.DrawMasked(Ray, Single, Polygon, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray, Single, ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Ray, Single, Polygon, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Ray, float, Quad, LineDrawingInfo, bool)
+  nameWithType: RayDrawing.DrawMasked(Ray, float, Quad, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray, float, ShapeEngine.Geometry.QuadDef.Quad, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: RayDrawing.DrawMasked(Ray, Single, Quad, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray, Single, ShapeEngine.Geometry.QuadDef.Quad, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Ray, Single, Quad, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.QuadDef.Quad
+    name: Quad
+    href: ShapeEngine.Geometry.QuadDef.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.QuadDef.Quad
+    name: Quad
+    href: ShapeEngine.Geometry.QuadDef.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Ray, float, Rect, LineDrawingInfo, bool)
+  nameWithType: RayDrawing.DrawMasked(Ray, float, Rect, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray, float, ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: RayDrawing.DrawMasked(Ray, Single, Rect, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray, Single, ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Ray, Single, Rect, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Ray, float, Triangle, LineDrawingInfo, bool)
+  nameWithType: RayDrawing.DrawMasked(Ray, float, Triangle, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray, float, ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: RayDrawing.DrawMasked(Ray, Single, Triangle, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray, Single, ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Ray, Single, Triangle, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(ShapeEngine.Geometry.RayDef.Ray,System.Single,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked_ShapeEngine_Geometry_RayDef_Ray_System_Single_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked``1(ShapeEngine.Geometry.RayDef.Ray,System.Single,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked``1(ShapeEngine.Geometry.RayDef.Ray,System.Single,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked__1_ShapeEngine_Geometry_RayDef_Ray_System_Single___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked<T>(Ray, float, T, LineDrawingInfo, bool)
+  nameWithType: RayDrawing.DrawMasked<T>(Ray, float, T, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked<T>(ShapeEngine.Geometry.RayDef.Ray, float, T, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: RayDrawing.DrawMasked(Of T)(Ray, Single, T, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked(Of T)(ShapeEngine.Geometry.RayDef.Ray, Single, T, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Of T)(Ray, Single, T, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked``1(ShapeEngine.Geometry.RayDef.Ray,System.Single,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked__1_ShapeEngine_Geometry_RayDef_Ray_System_Single___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.RayDef.RayDrawing.DrawMasked``1(ShapeEngine.Geometry.RayDef.Ray,System.Single,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.RayDef.RayDrawing.html#ShapeEngine_Geometry_RayDef_RayDrawing_DrawMasked__1_ShapeEngine_Geometry_RayDef_Ray_System_Single___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
 - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
   commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
   isExternal: true
@@ -6716,13 +7797,6 @@ references:
     name: LogLevel
     href: ShapeEngine.Core.Logging.LogLevel.html
   - name: )
-- uid: System
-  commentId: N:System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system
-  name: System
-  nameWithType: System
-  fullName: System
 - uid: ShapeEngine.StaticLib
   commentId: N:ShapeEngine.StaticLib
   href: ShapeEngine.html
@@ -7019,6 +8093,189 @@ references:
   name: SetRotation
   nameWithType: Ray.SetRotation
   fullName: ShapeEngine.Geometry.RayDef.Ray.SetRotation
+- uid: ShapeEngine.Geometry.ShapeType
+  commentId: T:ShapeEngine.Geometry.ShapeType
+  parent: ShapeEngine.Geometry
+  href: ShapeEngine.Geometry.ShapeType.html
+  name: ShapeType
+  nameWithType: ShapeType
+  fullName: ShapeEngine.Geometry.ShapeType
+- uid: ShapeEngine.Geometry.ShapeType.Ray
+  commentId: F:ShapeEngine.Geometry.ShapeType.Ray
+  href: ShapeEngine.Geometry.ShapeType.html#ShapeEngine_Geometry_ShapeType_Ray
+  name: Ray
+  nameWithType: ShapeType.Ray
+  fullName: ShapeEngine.Geometry.ShapeType.Ray
+- uid: ShapeEngine.Geometry.RayDef.Ray.GetShapeType*
+  commentId: Overload:ShapeEngine.Geometry.RayDef.Ray.GetShapeType
+  href: ShapeEngine.Geometry.RayDef.Ray.html#ShapeEngine_Geometry_RayDef_Ray_GetShapeType
+  name: GetShapeType
+  nameWithType: Ray.GetShapeType
+  fullName: ShapeEngine.Geometry.RayDef.Ray.GetShapeType
+- uid: ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+  commentId: M:ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+  parent: ShapeEngine.Geometry.IShapeTypeProvider
+  href: ShapeEngine.Geometry.IShapeTypeProvider.html#ShapeEngine_Geometry_IShapeTypeProvider_GetShapeType
+  name: GetShapeType()
+  nameWithType: IShapeTypeProvider.GetShapeType()
+  fullName: ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType()
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+    name: GetShapeType
+    href: ShapeEngine.Geometry.IShapeTypeProvider.html#ShapeEngine_Geometry_IShapeTypeProvider_GetShapeType
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+    name: GetShapeType
+    href: ShapeEngine.Geometry.IShapeTypeProvider.html#ShapeEngine_Geometry_IShapeTypeProvider_GetShapeType
+  - name: (
+  - name: )
+- uid: ShapeEngine.Geometry.RayDef.Ray.Point
+  commentId: F:ShapeEngine.Geometry.RayDef.Ray.Point
+  href: ShapeEngine.Geometry.RayDef.Ray.html#ShapeEngine_Geometry_RayDef_Ray_Point
+  name: Point
+  nameWithType: Ray.Point
+  fullName: ShapeEngine.Geometry.RayDef.Ray.Point
+- uid: ShapeEngine.Geometry.RayDef.Ray.Direction
+  commentId: F:ShapeEngine.Geometry.RayDef.Ray.Direction
+  href: ShapeEngine.Geometry.RayDef.Ray.html#ShapeEngine_Geometry_RayDef_Ray_Direction
+  name: Direction
+  nameWithType: Ray.Direction
+  fullName: ShapeEngine.Geometry.RayDef.Ray.Direction
+- uid: ShapeEngine.Geometry.RayDef.Ray.Equals*
+  commentId: Overload:ShapeEngine.Geometry.RayDef.Ray.Equals
+  href: ShapeEngine.Geometry.RayDef.Ray.html#ShapeEngine_Geometry_RayDef_Ray_Equals_ShapeEngine_Geometry_RayDef_Ray_
+  name: Equals
+  nameWithType: Ray.Equals
+  fullName: ShapeEngine.Geometry.RayDef.Ray.Equals
+- uid: System.IEquatable{ShapeEngine.Geometry.RayDef.Ray}.Equals(ShapeEngine.Geometry.RayDef.Ray)
+  commentId: M:System.IEquatable{ShapeEngine.Geometry.RayDef.Ray}.Equals(ShapeEngine.Geometry.RayDef.Ray)
+  parent: System.IEquatable{ShapeEngine.Geometry.RayDef.Ray}
+  definition: System.IEquatable`1.Equals(`0)
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(Ray)
+  nameWithType: IEquatable<Ray>.Equals(Ray)
+  fullName: System.IEquatable<ShapeEngine.Geometry.RayDef.Ray>.Equals(ShapeEngine.Geometry.RayDef.Ray)
+  nameWithType.vb: IEquatable(Of Ray).Equals(Ray)
+  fullName.vb: System.IEquatable(Of ShapeEngine.Geometry.RayDef.Ray).Equals(ShapeEngine.Geometry.RayDef.Ray)
+  spec.csharp:
+  - uid: System.IEquatable{ShapeEngine.Geometry.RayDef.Ray}.Equals(ShapeEngine.Geometry.RayDef.Ray)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable{ShapeEngine.Geometry.RayDef.Ray}.Equals(ShapeEngine.Geometry.RayDef.Ray)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - uid: ShapeEngine.Geometry.RayDef.Ray
+    name: Ray
+    href: ShapeEngine.Geometry.RayDef.Ray.html
+  - name: )
+- uid: System.IEquatable`1.Equals(`0)
+  commentId: M:System.IEquatable`1.Equals(`0)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(T)
+  nameWithType: IEquatable<T>.Equals(T)
+  fullName: System.IEquatable<T>.Equals(T)
+  nameWithType.vb: IEquatable(Of T).Equals(T)
+  fullName.vb: System.IEquatable(Of T).Equals(T)
+  spec.csharp:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+- uid: System.ValueType.Equals(System.Object)
+  commentId: M:System.ValueType.Equals(System.Object)
+  parent: System.ValueType
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  name: Equals(object)
+  nameWithType: ValueType.Equals(object)
+  fullName: System.ValueType.Equals(object)
+  nameWithType.vb: ValueType.Equals(Object)
+  fullName.vb: System.ValueType.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.ValueType.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ValueType.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.ValueType.GetHashCode
+  commentId: M:System.ValueType.GetHashCode
+  parent: System.ValueType
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  name: GetHashCode()
+  nameWithType: ValueType.GetHashCode()
+  fullName: System.ValueType.GetHashCode()
+  spec.csharp:
+  - uid: System.ValueType.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ValueType.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  - name: (
+  - name: )
+- uid: ShapeEngine.Geometry.RayDef.Ray.GetHashCode*
+  commentId: Overload:ShapeEngine.Geometry.RayDef.Ray.GetHashCode
+  href: ShapeEngine.Geometry.RayDef.Ray.html#ShapeEngine_Geometry_RayDef_Ray_GetHashCode
+  name: GetHashCode
+  nameWithType: Ray.GetHashCode
+  fullName: ShapeEngine.Geometry.RayDef.Ray.GetHashCode
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
 - uid: ShapeEngine.Geometry.CollisionSystem.ClosestPointResult
   commentId: T:ShapeEngine.Geometry.CollisionSystem.ClosestPointResult
   parent: ShapeEngine.Geometry.CollisionSystem
@@ -7312,28 +8569,6 @@ references:
   name: IShape
   nameWithType: IShape
   fullName: ShapeEngine.Geometry.IShape
-- uid: ShapeEngine.Geometry
-  commentId: N:ShapeEngine.Geometry
-  href: ShapeEngine.html
-  name: ShapeEngine.Geometry
-  nameWithType: ShapeEngine.Geometry
-  fullName: ShapeEngine.Geometry
-  spec.csharp:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Geometry
-    name: Geometry
-    href: ShapeEngine.Geometry.html
-  spec.vb:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Geometry
-    name: Geometry
-    href: ShapeEngine.Geometry.html
 - uid: ShapeEngine.Geometry.RayDef.Ray.GetClosestPointRayPoint*
   commentId: Overload:ShapeEngine.Geometry.RayDef.Ray.GetClosestPointRayPoint
   href: ShapeEngine.Geometry.RayDef.Ray.html#ShapeEngine_Geometry_RayDef_Ray_GetClosestPointRayPoint_System_Numerics_Vector2_System_Numerics_Vector2_System_Numerics_Vector2_System_Single__
@@ -7583,17 +8818,6 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
   - name: )
-- uid: System.Int32
-  commentId: T:System.Int32
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.int32
-  name: int
-  nameWithType: int
-  fullName: int
-  nameWithType.vb: Integer
-  fullName.vb: Integer
-  name.vb: Integer
 - uid: System.Collections.Generic.List`1
   commentId: T:System.Collections.Generic.List`1
   isExternal: true

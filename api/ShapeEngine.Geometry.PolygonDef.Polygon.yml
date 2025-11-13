@@ -100,6 +100,7 @@ items:
   - ShapeEngine.Geometry.PolygonDef.Polygon.GetBoundingTriangle(System.Single)
   - ShapeEngine.Geometry.PolygonDef.Polygon.GetCentroid
   - ShapeEngine.Geometry.PolygonDef.Polygon.GetCentroidMean
+  - ShapeEngine.Geometry.PolygonDef.Polygon.GetClosedShapeType
   - ShapeEngine.Geometry.PolygonDef.Polygon.GetClosestPoint(ShapeEngine.Geometry.CircleDef.Circle)
   - ShapeEngine.Geometry.PolygonDef.Polygon.GetClosestPoint(ShapeEngine.Geometry.IShape)
   - ShapeEngine.Geometry.PolygonDef.Polygon.GetClosestPoint(ShapeEngine.Geometry.LineDef.Line)
@@ -133,6 +134,7 @@ items:
   - ShapeEngine.Geometry.PolygonDef.Polygon.GetSegmentAxis(ShapeEngine.Geometry.PolygonDef.Polygon,System.Boolean)
   - ShapeEngine.Geometry.PolygonDef.Polygon.GetSegmentAxis(ShapeEngine.Geometry.SegmentsDef.Segments,System.Boolean)
   - ShapeEngine.Geometry.PolygonDef.Polygon.GetShape(ShapeEngine.Geometry.PointsDef.Points,ShapeEngine.Core.Structs.Transform2D)
+  - ShapeEngine.Geometry.PolygonDef.Polygon.GetShapeType
   - ShapeEngine.Geometry.PolygonDef.Polygon.GetVertex(System.Int32)
   - ShapeEngine.Geometry.PolygonDef.Polygon.IncreaseVertexCount(System.Int32)
   - ShapeEngine.Geometry.PolygonDef.Polygon.Intersect(ShapeEngine.Geometry.CollisionSystem.Collider)
@@ -264,8 +266,8 @@ items:
   remarks: " Points should be provided in CCW order for correct geometric calculations.\n Use <xref href=\"ShapeEngine.Geometry.PolygonDef.Polygon.FixWindingOrder\" data-throw-if-not-resolved=\"false\"></xref> or <xref href=\"ShapeEngine.Geometry.PolygonDef.Polygon.MakeCounterClockwise\" data-throw-if-not-resolved=\"false\"></xref> if your points are in clockwise (CW) order.\n <ul><li>\nA convex polygon is a polygon where all interior angles are less than 180°,\n and every line segment between any two points inside the polygon lies entirely within the polygon.\n In other words, no vertices \"point inward.\"\n </li><li>\nA concave polygon is a polygon that has at least one interior angle greater than 180°,\n and at least one line segment between points inside the polygon passes outside the polygon.\n This means it has at least one \"caved-in\" or inward-pointing vertex.\n </li></ul>"
   example: []
   syntax:
-    content: 'public class Polygon : Points, IList<Vector2>, ICollection<Vector2>, IReadOnlyList<Vector2>, IReadOnlyCollection<Vector2>, IEnumerable<Vector2>, IList, ICollection, IEnumerable, IEquatable<Points>, IEquatable<Polygon>'
-    content.vb: Public Class Polygon Inherits Points Implements IList(Of Vector2), ICollection(Of Vector2), IReadOnlyList(Of Vector2), IReadOnlyCollection(Of Vector2), IEnumerable(Of Vector2), IList, ICollection, IEnumerable, IEquatable(Of Points), IEquatable(Of Polygon)
+    content: 'public class Polygon : Points, IList<Vector2>, ICollection<Vector2>, IReadOnlyList<Vector2>, IReadOnlyCollection<Vector2>, IEnumerable<Vector2>, IList, ICollection, IEnumerable, IEquatable<Points>, IEquatable<Polygon>, IShapeTypeProvider, IClosedShapeTypeProvider'
+    content.vb: Public Class Polygon Inherits Points Implements IList(Of Vector2), ICollection(Of Vector2), IReadOnlyList(Of Vector2), IReadOnlyCollection(Of Vector2), IEnumerable(Of Vector2), IList, ICollection, IEnumerable, IEquatable(Of Points), IEquatable(Of Polygon), IShapeTypeProvider, IClosedShapeTypeProvider
   inheritance:
   - System.Object
   - System.Collections.Generic.List{System.Numerics.Vector2}
@@ -282,6 +284,8 @@ items:
   - System.Collections.IEnumerable
   - System.IEquatable{ShapeEngine.Geometry.PointsDef.Points}
   - System.IEquatable{ShapeEngine.Geometry.PolygonDef.Polygon}
+  - ShapeEngine.Geometry.IShapeTypeProvider
+  - ShapeEngine.Geometry.IClosedShapeTypeProvider
   inheritedMembers:
   - ShapeEngine.Geometry.PointsDef.Points.Equals(ShapeEngine.Geometry.PointsDef.Points)
   - ShapeEngine.Geometry.PointsDef.Points.GetPoint(System.Int32)
@@ -412,6 +416,12 @@ items:
   - ShapeEngine.Geometry.PolygonDef.Polygon.ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLines(System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba,ShapeEngine.Geometry.LineCapType,System.Int32)
   - ShapeEngine.Geometry.PolygonDef.Polygon.ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLines(System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Geometry.LineCapType,System.Int32)
   - ShapeEngine.Geometry.PolygonDef.Polygon.ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLines(System.Single,ShapeEngine.Color.ColorRgba,System.Single,ShapeEngine.Geometry.LineCapType,System.Int32)
+  - ShapeEngine.Geometry.PolygonDef.Polygon.ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.PolygonDef.Polygon.ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.PolygonDef.Polygon.ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.PolygonDef.Polygon.ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.PolygonDef.Polygon.ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.PolygonDef.Polygon.ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked``1({T},ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
   - ShapeEngine.Geometry.PolygonDef.Polygon.ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesPercentage(System.Single,ShapeEngine.Geometry.LineDrawingInfo)
   - ShapeEngine.Geometry.PolygonDef.Polygon.ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesPercentage(System.Single,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Geometry.LineCapType,System.Int32)
   - ShapeEngine.Geometry.PolygonDef.Polygon.ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesPerimeter(System.Single,System.Int32,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Geometry.LineCapType,System.Int32)
@@ -965,6 +975,75 @@ items:
     content.vb: Public Overrides Function GetHashCode() As Integer
   overridden: ShapeEngine.Geometry.PointsDef.Points.GetHashCode
   overload: ShapeEngine.Geometry.PolygonDef.Polygon.GetHashCode*
+- uid: ShapeEngine.Geometry.PolygonDef.Polygon.GetClosedShapeType
+  commentId: M:ShapeEngine.Geometry.PolygonDef.Polygon.GetClosedShapeType
+  id: GetClosedShapeType
+  parent: ShapeEngine.Geometry.PolygonDef.Polygon
+  langs:
+  - csharp
+  - vb
+  name: GetClosedShapeType()
+  nameWithType: Polygon.GetClosedShapeType()
+  fullName: ShapeEngine.Geometry.PolygonDef.Polygon.GetClosedShapeType()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/PolygonDef/Polygon.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetClosedShapeType
+    path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
+    startLine: 144
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.PolygonDef
+  summary: Returns the concrete <xref href="ShapeEngine.Geometry.ClosedShapeType" data-throw-if-not-resolved="false"></xref> supplied by this provider.
+  example: []
+  syntax:
+    content: public ClosedShapeType GetClosedShapeType()
+    return:
+      type: ShapeEngine.Geometry.ClosedShapeType
+      description: The <xref href="ShapeEngine.Geometry.ClosedShapeType" data-throw-if-not-resolved="false"></xref> representing the closed shape implementation.
+    content.vb: Public Function GetClosedShapeType() As ClosedShapeType
+  overload: ShapeEngine.Geometry.PolygonDef.Polygon.GetClosedShapeType*
+  implements:
+  - ShapeEngine.Geometry.IClosedShapeTypeProvider.GetClosedShapeType
+- uid: ShapeEngine.Geometry.PolygonDef.Polygon.GetShapeType
+  commentId: M:ShapeEngine.Geometry.PolygonDef.Polygon.GetShapeType
+  id: GetShapeType
+  parent: ShapeEngine.Geometry.PolygonDef.Polygon
+  langs:
+  - csharp
+  - vb
+  name: GetShapeType()
+  nameWithType: Polygon.GetShapeType()
+  fullName: ShapeEngine.Geometry.PolygonDef.Polygon.GetShapeType()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/PolygonDef/Polygon.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetShapeType
+    path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
+    startLine: 146
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.PolygonDef
+  summary: >-
+    Returns the canonical <xref href="ShapeEngine.Geometry.ShapeType" data-throw-if-not-resolved="false"></xref> that represents the concrete shape instance.
+
+    Implementers must return the <xref href="ShapeEngine.Geometry.ShapeType" data-throw-if-not-resolved="false"></xref> corresponding to the concrete shape.
+  example: []
+  syntax:
+    content: public ShapeType GetShapeType()
+    return:
+      type: ShapeEngine.Geometry.ShapeType
+      description: The mapped <xref href="ShapeEngine.Geometry.ShapeType" data-throw-if-not-resolved="false"></xref> for this shape.
+    content.vb: Public Function GetShapeType() As ShapeType
+  overload: ShapeEngine.Geometry.PolygonDef.Polygon.GetShapeType*
+  implements:
+  - ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
 - uid: ShapeEngine.Geometry.PolygonDef.Polygon.Equals(System.Object)
   commentId: M:ShapeEngine.Geometry.PolygonDef.Polygon.Equals(System.Object)
   id: Equals(System.Object)
@@ -983,7 +1062,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Equals
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 149
+    startLine: 153
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1022,7 +1101,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetSegment
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 161
+    startLine: 165
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1060,7 +1139,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FixWindingOrder
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 179
+    startLine: 183
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1089,7 +1168,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MakeClockwise
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 192
+    startLine: 196
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1118,7 +1197,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MakeCounterClockwise
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 203
+    startLine: 207
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1147,7 +1226,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ReduceVertexCount
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 212
+    startLine: 216
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1182,7 +1261,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ReduceVertexCount
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 237
+    startLine: 241
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1217,7 +1296,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IncreaseVertexCount
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 245
+    startLine: 249
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1252,7 +1331,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetVertex
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 271
+    startLine: 275
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1290,7 +1369,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveColinearVertices
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 278
+    startLine: 282
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1319,7 +1398,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveDuplicates
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 300
+    startLine: 304
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1356,7 +1435,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Smooth
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 319
+    startLine: 323
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1394,7 +1473,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToRelative
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 344
+    startLine: 348
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1428,7 +1507,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToRelativePoints
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 369
+    startLine: 373
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1463,7 +1542,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToRelativePolygon
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 385
+    startLine: 389
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1498,7 +1577,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToRelative
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 401
+    startLine: 405
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1533,7 +1612,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetBoundingTriangle
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 417
+    startLine: 421
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1571,7 +1650,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Triangulate
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 425
+    startLine: 429
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1603,7 +1682,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetEdges
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 497
+    startLine: 501
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1635,7 +1714,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetBoundingCircleSimple
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 525
+    startLine: 529
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1684,7 +1763,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetBoundingCircle
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 545
+    startLine: 549
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1715,7 +1794,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetBoundingBox
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 653
+    startLine: 657
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1746,7 +1825,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToConvex
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 680
+    startLine: 684
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1777,7 +1856,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetRandomPointInside
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 688
+    startLine: 692
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1808,7 +1887,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetRandomPointsInside
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 704
+    startLine: 708
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1846,7 +1925,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetRandomVertex
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 725
+    startLine: 729
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1877,7 +1956,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetRandomEdge
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 730
+    startLine: 734
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1908,7 +1987,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetRandomPointOnEdge
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 735
+    startLine: 739
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1939,7 +2018,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetRandomPointsOnEdge
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 741
+    startLine: 745
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -1977,7 +2056,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetRandomPointConvex
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 746
+    startLine: 750
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -2008,7 +2087,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddCompoundShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 793
+    startLine: 797
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -2043,7 +2122,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddCompoundShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 807
+    startLine: 811
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -2078,7 +2157,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddCompoundShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 829
+    startLine: 833
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -2119,7 +2198,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddCompoundShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 842
+    startLine: 846
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -2154,7 +2233,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddCompoundShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 855
+    startLine: 859
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -2189,7 +2268,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddCompoundShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 868
+    startLine: 872
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -2224,7 +2303,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddCompoundShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 881
+    startLine: 885
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -2259,7 +2338,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddCutoutShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 897
+    startLine: 901
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -2298,7 +2377,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddCutoutShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 914
+    startLine: 918
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -2337,7 +2416,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddCutoutShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 940
+    startLine: 944
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -2382,7 +2461,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddCutoutShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 957
+    startLine: 961
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -2421,7 +2500,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddCutoutShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 974
+    startLine: 978
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -2460,7 +2539,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddCutoutShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 991
+    startLine: 995
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -2499,7 +2578,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddCutoutShape
     path: ../ShapeEngine/ShapeEngine/Geometry/PolygonDef/Polygon.cs
-    startLine: 1008
+    startLine: 1012
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.PolygonDef
@@ -9760,6 +9839,20 @@ references:
     name: Polygon
     href: ShapeEngine.Geometry.PolygonDef.Polygon.html
   - name: )
+- uid: ShapeEngine.Geometry.IShapeTypeProvider
+  commentId: T:ShapeEngine.Geometry.IShapeTypeProvider
+  parent: ShapeEngine.Geometry
+  href: ShapeEngine.Geometry.IShapeTypeProvider.html
+  name: IShapeTypeProvider
+  nameWithType: IShapeTypeProvider
+  fullName: ShapeEngine.Geometry.IShapeTypeProvider
+- uid: ShapeEngine.Geometry.IClosedShapeTypeProvider
+  commentId: T:ShapeEngine.Geometry.IClosedShapeTypeProvider
+  parent: ShapeEngine.Geometry
+  href: ShapeEngine.Geometry.IClosedShapeTypeProvider.html
+  name: IClosedShapeTypeProvider
+  nameWithType: IClosedShapeTypeProvider
+  fullName: ShapeEngine.Geometry.IClosedShapeTypeProvider
 - uid: ShapeEngine.Geometry.PointsDef.Points.Equals(ShapeEngine.Geometry.PointsDef.Points)
   commentId: M:ShapeEngine.Geometry.PointsDef.Points.Equals(ShapeEngine.Geometry.PointsDef.Points)
   parent: ShapeEngine.Geometry.PointsDef.Points
@@ -15387,6 +15480,376 @@ references:
     name: Integer
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: ShapeEngine.Geometry.PolygonDef.Polygon.ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.PolygonDef.PolygonDrawing
+  definition: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawLinesMasked(Polygon, Circle, LineDrawingInfo, bool)
+  nameWithType: PolygonDrawing.DrawLinesMasked(Polygon, Circle, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: PolygonDrawing.DrawLinesMasked(Polygon, Circle, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawLinesMasked(Polygon, Circle, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.PolygonDef.Polygon.ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.PolygonDef.PolygonDrawing
+  definition: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawLinesMasked(Polygon, Polygon, LineDrawingInfo, bool)
+  nameWithType: PolygonDrawing.DrawLinesMasked(Polygon, Polygon, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: PolygonDrawing.DrawLinesMasked(Polygon, Polygon, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawLinesMasked(Polygon, Polygon, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.PolygonDef.Polygon.ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.PolygonDef.PolygonDrawing
+  definition: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawLinesMasked(Polygon, Quad, LineDrawingInfo, bool)
+  nameWithType: PolygonDrawing.DrawLinesMasked(Polygon, Quad, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.QuadDef.Quad, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: PolygonDrawing.DrawLinesMasked(Polygon, Quad, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.QuadDef.Quad, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawLinesMasked(Polygon, Quad, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.QuadDef.Quad
+    name: Quad
+    href: ShapeEngine.Geometry.QuadDef.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.QuadDef.Quad
+    name: Quad
+    href: ShapeEngine.Geometry.QuadDef.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.PolygonDef.Polygon.ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.PolygonDef.PolygonDrawing
+  definition: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawLinesMasked(Polygon, Rect, LineDrawingInfo, bool)
+  nameWithType: PolygonDrawing.DrawLinesMasked(Polygon, Rect, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: PolygonDrawing.DrawLinesMasked(Polygon, Rect, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawLinesMasked(Polygon, Rect, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.PolygonDef.Polygon.ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.PolygonDef.PolygonDrawing
+  definition: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawLinesMasked(Polygon, Triangle, LineDrawingInfo, bool)
+  nameWithType: PolygonDrawing.DrawLinesMasked(Polygon, Triangle, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: PolygonDrawing.DrawLinesMasked(Polygon, Triangle, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawLinesMasked(Polygon, Triangle, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.PolygonDef.Polygon.ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked``1({T},ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked``1(ShapeEngine.Geometry.PolygonDef.Polygon,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.PolygonDef.PolygonDrawing
+  definition: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked``1(ShapeEngine.Geometry.PolygonDef.Polygon,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked__1_ShapeEngine_Geometry_PolygonDef_Polygon___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawLinesMasked<T>(Polygon, T, LineDrawingInfo, bool)
+  nameWithType: PolygonDrawing.DrawLinesMasked<T>(Polygon, T, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked<T>(ShapeEngine.Geometry.PolygonDef.Polygon, T, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: PolygonDrawing.DrawLinesMasked(Of T)(Polygon, T, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(Of T)(ShapeEngine.Geometry.PolygonDef.Polygon, T, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawLinesMasked(Of T)(Polygon, T, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked``1(ShapeEngine.Geometry.PolygonDef.Polygon,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked__1_ShapeEngine_Geometry_PolygonDef_Polygon___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked``1(ShapeEngine.Geometry.PolygonDef.Polygon,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked__1_ShapeEngine_Geometry_PolygonDef_Polygon___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: )
 - uid: ShapeEngine.Geometry.PolygonDef.Polygon.ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesPercentage(System.Single,ShapeEngine.Geometry.LineDrawingInfo)
   commentId: M:ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesPercentage(ShapeEngine.Geometry.PolygonDef.Polygon,System.Single,ShapeEngine.Geometry.LineDrawingInfo)
@@ -25383,6 +25846,370 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.int32
   - name: )
+- uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawLinesMasked(Polygon, Circle, LineDrawingInfo, bool)
+  nameWithType: PolygonDrawing.DrawLinesMasked(Polygon, Circle, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: PolygonDrawing.DrawLinesMasked(Polygon, Circle, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawLinesMasked(Polygon, Circle, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawLinesMasked(Polygon, Polygon, LineDrawingInfo, bool)
+  nameWithType: PolygonDrawing.DrawLinesMasked(Polygon, Polygon, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: PolygonDrawing.DrawLinesMasked(Polygon, Polygon, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawLinesMasked(Polygon, Polygon, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawLinesMasked(Polygon, Quad, LineDrawingInfo, bool)
+  nameWithType: PolygonDrawing.DrawLinesMasked(Polygon, Quad, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.QuadDef.Quad, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: PolygonDrawing.DrawLinesMasked(Polygon, Quad, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.QuadDef.Quad, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawLinesMasked(Polygon, Quad, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.QuadDef.Quad
+    name: Quad
+    href: ShapeEngine.Geometry.QuadDef.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.QuadDef.Quad
+    name: Quad
+    href: ShapeEngine.Geometry.QuadDef.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawLinesMasked(Polygon, Rect, LineDrawingInfo, bool)
+  nameWithType: PolygonDrawing.DrawLinesMasked(Polygon, Rect, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: PolygonDrawing.DrawLinesMasked(Polygon, Rect, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawLinesMasked(Polygon, Rect, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawLinesMasked(Polygon, Triangle, LineDrawingInfo, bool)
+  nameWithType: PolygonDrawing.DrawLinesMasked(Polygon, Triangle, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: PolygonDrawing.DrawLinesMasked(Polygon, Triangle, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawLinesMasked(Polygon, Triangle, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked``1(ShapeEngine.Geometry.PolygonDef.Polygon,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked``1(ShapeEngine.Geometry.PolygonDef.Polygon,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked__1_ShapeEngine_Geometry_PolygonDef_Polygon___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawLinesMasked<T>(Polygon, T, LineDrawingInfo, bool)
+  nameWithType: PolygonDrawing.DrawLinesMasked<T>(Polygon, T, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked<T>(ShapeEngine.Geometry.PolygonDef.Polygon, T, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: PolygonDrawing.DrawLinesMasked(Of T)(Polygon, T, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked(Of T)(ShapeEngine.Geometry.PolygonDef.Polygon, T, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawLinesMasked(Of T)(Polygon, T, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked``1(ShapeEngine.Geometry.PolygonDef.Polygon,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked__1_ShapeEngine_Geometry_PolygonDef_Polygon___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesMasked``1(ShapeEngine.Geometry.PolygonDef.Polygon,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawLinesMasked
+    href: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.html#ShapeEngine_Geometry_PolygonDef_PolygonDrawing_DrawLinesMasked__1_ShapeEngine_Geometry_PolygonDef_Polygon___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
 - uid: ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesPercentage(ShapeEngine.Geometry.PolygonDef.Polygon,System.Single,ShapeEngine.Geometry.LineDrawingInfo)
   commentId: M:ShapeEngine.Geometry.PolygonDef.PolygonDrawing.DrawLinesPercentage(ShapeEngine.Geometry.PolygonDef.Polygon,System.Single,ShapeEngine.Geometry.LineDrawingInfo)
   isExternal: true
@@ -31397,6 +32224,70 @@ references:
   name: GetHashCode
   nameWithType: Polygon.GetHashCode
   fullName: ShapeEngine.Geometry.PolygonDef.Polygon.GetHashCode
+- uid: ShapeEngine.Geometry.ClosedShapeType
+  commentId: T:ShapeEngine.Geometry.ClosedShapeType
+  parent: ShapeEngine.Geometry
+  href: ShapeEngine.Geometry.ClosedShapeType.html
+  name: ClosedShapeType
+  nameWithType: ClosedShapeType
+  fullName: ShapeEngine.Geometry.ClosedShapeType
+- uid: ShapeEngine.Geometry.PolygonDef.Polygon.GetClosedShapeType*
+  commentId: Overload:ShapeEngine.Geometry.PolygonDef.Polygon.GetClosedShapeType
+  href: ShapeEngine.Geometry.PolygonDef.Polygon.html#ShapeEngine_Geometry_PolygonDef_Polygon_GetClosedShapeType
+  name: GetClosedShapeType
+  nameWithType: Polygon.GetClosedShapeType
+  fullName: ShapeEngine.Geometry.PolygonDef.Polygon.GetClosedShapeType
+- uid: ShapeEngine.Geometry.IClosedShapeTypeProvider.GetClosedShapeType
+  commentId: M:ShapeEngine.Geometry.IClosedShapeTypeProvider.GetClosedShapeType
+  parent: ShapeEngine.Geometry.IClosedShapeTypeProvider
+  href: ShapeEngine.Geometry.IClosedShapeTypeProvider.html#ShapeEngine_Geometry_IClosedShapeTypeProvider_GetClosedShapeType
+  name: GetClosedShapeType()
+  nameWithType: IClosedShapeTypeProvider.GetClosedShapeType()
+  fullName: ShapeEngine.Geometry.IClosedShapeTypeProvider.GetClosedShapeType()
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.IClosedShapeTypeProvider.GetClosedShapeType
+    name: GetClosedShapeType
+    href: ShapeEngine.Geometry.IClosedShapeTypeProvider.html#ShapeEngine_Geometry_IClosedShapeTypeProvider_GetClosedShapeType
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.IClosedShapeTypeProvider.GetClosedShapeType
+    name: GetClosedShapeType
+    href: ShapeEngine.Geometry.IClosedShapeTypeProvider.html#ShapeEngine_Geometry_IClosedShapeTypeProvider_GetClosedShapeType
+  - name: (
+  - name: )
+- uid: ShapeEngine.Geometry.ShapeType
+  commentId: T:ShapeEngine.Geometry.ShapeType
+  parent: ShapeEngine.Geometry
+  href: ShapeEngine.Geometry.ShapeType.html
+  name: ShapeType
+  nameWithType: ShapeType
+  fullName: ShapeEngine.Geometry.ShapeType
+- uid: ShapeEngine.Geometry.PolygonDef.Polygon.GetShapeType*
+  commentId: Overload:ShapeEngine.Geometry.PolygonDef.Polygon.GetShapeType
+  href: ShapeEngine.Geometry.PolygonDef.Polygon.html#ShapeEngine_Geometry_PolygonDef_Polygon_GetShapeType
+  name: GetShapeType
+  nameWithType: Polygon.GetShapeType
+  fullName: ShapeEngine.Geometry.PolygonDef.Polygon.GetShapeType
+- uid: ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+  commentId: M:ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+  parent: ShapeEngine.Geometry.IShapeTypeProvider
+  href: ShapeEngine.Geometry.IShapeTypeProvider.html#ShapeEngine_Geometry_IShapeTypeProvider_GetShapeType
+  name: GetShapeType()
+  nameWithType: IShapeTypeProvider.GetShapeType()
+  fullName: ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType()
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+    name: GetShapeType
+    href: ShapeEngine.Geometry.IShapeTypeProvider.html#ShapeEngine_Geometry_IShapeTypeProvider_GetShapeType
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+    name: GetShapeType
+    href: ShapeEngine.Geometry.IShapeTypeProvider.html#ShapeEngine_Geometry_IShapeTypeProvider_GetShapeType
+  - name: (
+  - name: )
 - uid: System.Object.Equals(System.Object)
   commentId: M:System.Object.Equals(System.Object)
   parent: System.Object

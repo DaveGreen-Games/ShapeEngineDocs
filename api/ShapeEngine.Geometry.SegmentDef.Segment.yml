@@ -59,6 +59,7 @@ items:
   - ShapeEngine.Geometry.SegmentDef.Segment.GetRandomPoint
   - ShapeEngine.Geometry.SegmentDef.Segment.GetRandomPoints(System.Int32)
   - ShapeEngine.Geometry.SegmentDef.Segment.GetRandomVertex
+  - ShapeEngine.Geometry.SegmentDef.Segment.GetShapeType
   - ShapeEngine.Geometry.SegmentDef.Segment.GetVertices
   - ShapeEngine.Geometry.SegmentDef.Segment.Inflate(System.Single,System.Single)
   - ShapeEngine.Geometry.SegmentDef.Segment.Intersect(ShapeEngine.Geometry.CollisionSystem.Collider)
@@ -221,10 +222,11 @@ items:
   summary: Represents a 2D line segment defined by a start and end point, with a calculated normal.
   example: []
   syntax:
-    content: 'public readonly struct Segment : IEquatable<Segment>'
-    content.vb: Public Structure Segment Implements IEquatable(Of Segment)
+    content: 'public readonly struct Segment : IEquatable<Segment>, IShapeTypeProvider'
+    content.vb: Public Structure Segment Implements IEquatable(Of Segment), IShapeTypeProvider
   implements:
   - System.IEquatable{ShapeEngine.Geometry.SegmentDef.Segment}
+  - ShapeEngine.Geometry.IShapeTypeProvider
   inheritedMembers:
   - System.ValueType.ToString
   - System.Object.Equals(System.Object,System.Object)
@@ -236,6 +238,12 @@ items:
   - ShapeEngine.Geometry.SegmentDef.Segment.ShapeEngine.Geometry.SegmentDef.SegmentDrawing.Draw(System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Geometry.LineCapType,System.Int32)
   - ShapeEngine.Geometry.SegmentDef.Segment.ShapeEngine.Geometry.SegmentDef.SegmentDrawing.Draw(System.Single,System.Single,ShapeEngine.Geometry.LineDrawingInfo)
   - ShapeEngine.Geometry.SegmentDef.Segment.ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawGlow(System.Single,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba,System.Int32,ShapeEngine.Geometry.LineCapType,System.Int32)
+  - ShapeEngine.Geometry.SegmentDef.Segment.ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.SegmentDef.Segment.ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.SegmentDef.Segment.ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.SegmentDef.Segment.ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.SegmentDef.Segment.ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  - ShapeEngine.Geometry.SegmentDef.Segment.ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked``1({T},ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
   - ShapeEngine.Geometry.SegmentDef.Segment.ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawPercentage(System.Single,ShapeEngine.Geometry.LineDrawingInfo)
   - ShapeEngine.Geometry.SegmentDef.Segment.ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawPercentage(System.Single,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Geometry.LineCapType,System.Int32)
   - ShapeEngine.Geometry.SegmentDef.Segment.ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawScaled(ShapeEngine.Geometry.LineDrawingInfo,System.Single,System.Single)
@@ -1768,6 +1776,42 @@ items:
     content.vb: Public Overrides Function GetHashCode() As Integer
   overridden: System.ValueType.GetHashCode
   overload: ShapeEngine.Geometry.SegmentDef.Segment.GetHashCode*
+- uid: ShapeEngine.Geometry.SegmentDef.Segment.GetShapeType
+  commentId: M:ShapeEngine.Geometry.SegmentDef.Segment.GetShapeType
+  id: GetShapeType
+  parent: ShapeEngine.Geometry.SegmentDef.Segment
+  langs:
+  - csharp
+  - vb
+  name: GetShapeType()
+  nameWithType: Segment.GetShapeType()
+  fullName: ShapeEngine.Geometry.SegmentDef.Segment.GetShapeType()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Geometry/SegmentDef/Segment.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetShapeType
+    path: ../ShapeEngine/ShapeEngine/Geometry/SegmentDef/Segment.cs
+    startLine: 415
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Geometry.SegmentDef
+  summary: >-
+    Returns the canonical <xref href="ShapeEngine.Geometry.ShapeType" data-throw-if-not-resolved="false"></xref> that represents the concrete shape instance.
+
+    Implementers must return the <xref href="ShapeEngine.Geometry.ShapeType" data-throw-if-not-resolved="false"></xref> corresponding to the concrete shape.
+  example: []
+  syntax:
+    content: public ShapeType GetShapeType()
+    return:
+      type: ShapeEngine.Geometry.ShapeType
+      description: The mapped <xref href="ShapeEngine.Geometry.ShapeType" data-throw-if-not-resolved="false"></xref> for this shape.
+    content.vb: Public Function GetShapeType() As ShapeType
+  overload: ShapeEngine.Geometry.SegmentDef.Segment.GetShapeType*
+  implements:
+  - ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
 - uid: ShapeEngine.Geometry.SegmentDef.Segment.op_Equality(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.SegmentDef.Segment)
   commentId: M:ShapeEngine.Geometry.SegmentDef.Segment.op_Equality(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.SegmentDef.Segment)
   id: op_Equality(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.SegmentDef.Segment)
@@ -1786,7 +1830,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Equality
     path: ../ShapeEngine/ShapeEngine/Geometry/SegmentDef/Segment.cs
-    startLine: 420
+    startLine: 423
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.SegmentDef
@@ -1827,7 +1871,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Inequality
     path: ../ShapeEngine/ShapeEngine/Geometry/SegmentDef/Segment.cs
-    startLine: 430
+    startLine: 433
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.SegmentDef
@@ -1868,7 +1912,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Equals
     path: ../ShapeEngine/ShapeEngine/Geometry/SegmentDef/Segment.cs
-    startLine: 439
+    startLine: 442
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.SegmentDef
@@ -1907,7 +1951,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CreateLightningSegments
     path: ../ShapeEngine/ShapeEngine/Geometry/SegmentDef/Segment.cs
-    startLine: 455
+    startLine: 458
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.SegmentDef
@@ -1948,7 +1992,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CreateLightningSegments
     path: ../ShapeEngine/ShapeEngine/Geometry/SegmentDef/Segment.cs
-    startLine: 510
+    startLine: 513
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.SegmentDef
@@ -1989,7 +2033,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawNormal
     path: ../ShapeEngine/ShapeEngine/Geometry/SegmentDef/Segment.cs
-    startLine: 566
+    startLine: 569
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry.SegmentDef
@@ -8035,6 +8079,13 @@ references:
     name: Segment
     href: ShapeEngine.Geometry.SegmentDef.Segment.html
   - name: )
+- uid: ShapeEngine.Geometry.IShapeTypeProvider
+  commentId: T:ShapeEngine.Geometry.IShapeTypeProvider
+  parent: ShapeEngine.Geometry
+  href: ShapeEngine.Geometry.IShapeTypeProvider.html
+  name: IShapeTypeProvider
+  nameWithType: IShapeTypeProvider
+  fullName: ShapeEngine.Geometry.IShapeTypeProvider
 - uid: System.ValueType.ToString
   commentId: M:System.ValueType.ToString
   parent: System.ValueType
@@ -8510,6 +8561,376 @@ references:
     name: Integer
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: ShapeEngine.Geometry.SegmentDef.Segment.ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.SegmentDef.SegmentDrawing
+  definition: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Segment, Circle, LineDrawingInfo, bool)
+  nameWithType: SegmentDrawing.DrawMasked(Segment, Circle, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment, ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: SegmentDrawing.DrawMasked(Segment, Circle, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment, ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Segment, Circle, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.SegmentDef.Segment
+    name: Segment
+    href: ShapeEngine.Geometry.SegmentDef.Segment.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.SegmentDef.Segment
+    name: Segment
+    href: ShapeEngine.Geometry.SegmentDef.Segment.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.SegmentDef.Segment.ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.SegmentDef.SegmentDrawing
+  definition: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Segment, Polygon, LineDrawingInfo, bool)
+  nameWithType: SegmentDrawing.DrawMasked(Segment, Polygon, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment, ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: SegmentDrawing.DrawMasked(Segment, Polygon, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment, ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Segment, Polygon, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.SegmentDef.Segment
+    name: Segment
+    href: ShapeEngine.Geometry.SegmentDef.Segment.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.SegmentDef.Segment
+    name: Segment
+    href: ShapeEngine.Geometry.SegmentDef.Segment.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.SegmentDef.Segment.ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.SegmentDef.SegmentDrawing
+  definition: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Segment, Quad, LineDrawingInfo, bool)
+  nameWithType: SegmentDrawing.DrawMasked(Segment, Quad, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment, ShapeEngine.Geometry.QuadDef.Quad, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: SegmentDrawing.DrawMasked(Segment, Quad, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment, ShapeEngine.Geometry.QuadDef.Quad, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Segment, Quad, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.SegmentDef.Segment
+    name: Segment
+    href: ShapeEngine.Geometry.SegmentDef.Segment.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.QuadDef.Quad
+    name: Quad
+    href: ShapeEngine.Geometry.QuadDef.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.SegmentDef.Segment
+    name: Segment
+    href: ShapeEngine.Geometry.SegmentDef.Segment.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.QuadDef.Quad
+    name: Quad
+    href: ShapeEngine.Geometry.QuadDef.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.SegmentDef.Segment.ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.SegmentDef.SegmentDrawing
+  definition: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Segment, Rect, LineDrawingInfo, bool)
+  nameWithType: SegmentDrawing.DrawMasked(Segment, Rect, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment, ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: SegmentDrawing.DrawMasked(Segment, Rect, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment, ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Segment, Rect, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.SegmentDef.Segment
+    name: Segment
+    href: ShapeEngine.Geometry.SegmentDef.Segment.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.SegmentDef.Segment
+    name: Segment
+    href: ShapeEngine.Geometry.SegmentDef.Segment.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.SegmentDef.Segment.ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.SegmentDef.SegmentDrawing
+  definition: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Segment, Triangle, LineDrawingInfo, bool)
+  nameWithType: SegmentDrawing.DrawMasked(Segment, Triangle, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment, ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: SegmentDrawing.DrawMasked(Segment, Triangle, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment, ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Segment, Triangle, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.SegmentDef.Segment
+    name: Segment
+    href: ShapeEngine.Geometry.SegmentDef.Segment.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.SegmentDef.Segment
+    name: Segment
+    href: ShapeEngine.Geometry.SegmentDef.Segment.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.SegmentDef.Segment.ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked``1({T},ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked``1(ShapeEngine.Geometry.SegmentDef.Segment,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  parent: ShapeEngine.Geometry.SegmentDef.SegmentDrawing
+  definition: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked``1(ShapeEngine.Geometry.SegmentDef.Segment,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked__1_ShapeEngine_Geometry_SegmentDef_Segment___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked<T>(Segment, T, LineDrawingInfo, bool)
+  nameWithType: SegmentDrawing.DrawMasked<T>(Segment, T, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked<T>(ShapeEngine.Geometry.SegmentDef.Segment, T, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: SegmentDrawing.DrawMasked(Of T)(Segment, T, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(Of T)(ShapeEngine.Geometry.SegmentDef.Segment, T, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Of T)(Segment, T, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked``1(ShapeEngine.Geometry.SegmentDef.Segment,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked__1_ShapeEngine_Geometry_SegmentDef_Segment___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: ShapeEngine.Geometry.SegmentDef.Segment
+    name: Segment
+    href: ShapeEngine.Geometry.SegmentDef.Segment.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked``1(ShapeEngine.Geometry.SegmentDef.Segment,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked__1_ShapeEngine_Geometry_SegmentDef_Segment___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: ShapeEngine.Geometry.SegmentDef.Segment
+    name: Segment
+    href: ShapeEngine.Geometry.SegmentDef.Segment.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: )
 - uid: ShapeEngine.Geometry.SegmentDef.Segment.ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawPercentage(System.Single,ShapeEngine.Geometry.LineDrawingInfo)
   commentId: M:ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawPercentage(ShapeEngine.Geometry.SegmentDef.Segment,System.Single,ShapeEngine.Geometry.LineDrawingInfo)
@@ -9106,6 +9527,28 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: ShapeEngine.Geometry
+  commentId: N:ShapeEngine.Geometry
+  href: ShapeEngine.html
+  name: ShapeEngine.Geometry
+  nameWithType: ShapeEngine.Geometry
+  fullName: ShapeEngine.Geometry
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
 - uid: System.ValueType
   commentId: T:System.ValueType
   parent: System
@@ -9472,6 +9915,370 @@ references:
     name: Integer
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Segment, Circle, LineDrawingInfo, bool)
+  nameWithType: SegmentDrawing.DrawMasked(Segment, Circle, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment, ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: SegmentDrawing.DrawMasked(Segment, Circle, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment, ShapeEngine.Geometry.CircleDef.Circle, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Segment, Circle, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.SegmentDef.Segment
+    name: Segment
+    href: ShapeEngine.Geometry.SegmentDef.Segment.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.CircleDef.Circle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_CircleDef_Circle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.SegmentDef.Segment
+    name: Segment
+    href: ShapeEngine.Geometry.SegmentDef.Segment.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.CircleDef.Circle
+    name: Circle
+    href: ShapeEngine.Geometry.CircleDef.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Segment, Polygon, LineDrawingInfo, bool)
+  nameWithType: SegmentDrawing.DrawMasked(Segment, Polygon, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment, ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: SegmentDrawing.DrawMasked(Segment, Polygon, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment, ShapeEngine.Geometry.PolygonDef.Polygon, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Segment, Polygon, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.SegmentDef.Segment
+    name: Segment
+    href: ShapeEngine.Geometry.SegmentDef.Segment.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.PolygonDef.Polygon,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_PolygonDef_Polygon_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.SegmentDef.Segment
+    name: Segment
+    href: ShapeEngine.Geometry.SegmentDef.Segment.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.PolygonDef.Polygon
+    name: Polygon
+    href: ShapeEngine.Geometry.PolygonDef.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Segment, Quad, LineDrawingInfo, bool)
+  nameWithType: SegmentDrawing.DrawMasked(Segment, Quad, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment, ShapeEngine.Geometry.QuadDef.Quad, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: SegmentDrawing.DrawMasked(Segment, Quad, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment, ShapeEngine.Geometry.QuadDef.Quad, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Segment, Quad, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.SegmentDef.Segment
+    name: Segment
+    href: ShapeEngine.Geometry.SegmentDef.Segment.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.QuadDef.Quad
+    name: Quad
+    href: ShapeEngine.Geometry.QuadDef.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.QuadDef.Quad,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_QuadDef_Quad_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.SegmentDef.Segment
+    name: Segment
+    href: ShapeEngine.Geometry.SegmentDef.Segment.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.QuadDef.Quad
+    name: Quad
+    href: ShapeEngine.Geometry.QuadDef.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Segment, Rect, LineDrawingInfo, bool)
+  nameWithType: SegmentDrawing.DrawMasked(Segment, Rect, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment, ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: SegmentDrawing.DrawMasked(Segment, Rect, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment, ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Segment, Rect, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.SegmentDef.Segment
+    name: Segment
+    href: ShapeEngine.Geometry.SegmentDef.Segment.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.SegmentDef.Segment
+    name: Segment
+    href: ShapeEngine.Geometry.SegmentDef.Segment.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked(Segment, Triangle, LineDrawingInfo, bool)
+  nameWithType: SegmentDrawing.DrawMasked(Segment, Triangle, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment, ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: SegmentDrawing.DrawMasked(Segment, Triangle, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment, ShapeEngine.Geometry.TriangleDef.Triangle, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Segment, Triangle, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.SegmentDef.Segment
+    name: Segment
+    href: ShapeEngine.Geometry.SegmentDef.Segment.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(ShapeEngine.Geometry.SegmentDef.Segment,ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Geometry.SegmentDef.Segment
+    name: Segment
+    href: ShapeEngine.Geometry.SegmentDef.Segment.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.TriangleDef.Triangle
+    name: Triangle
+    href: ShapeEngine.Geometry.TriangleDef.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked``1(ShapeEngine.Geometry.SegmentDef.Segment,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  commentId: M:ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked``1(ShapeEngine.Geometry.SegmentDef.Segment,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked__1_ShapeEngine_Geometry_SegmentDef_Segment___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  name: DrawMasked<T>(Segment, T, LineDrawingInfo, bool)
+  nameWithType: SegmentDrawing.DrawMasked<T>(Segment, T, LineDrawingInfo, bool)
+  fullName: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked<T>(ShapeEngine.Geometry.SegmentDef.Segment, T, ShapeEngine.Geometry.LineDrawingInfo, bool)
+  nameWithType.vb: SegmentDrawing.DrawMasked(Of T)(Segment, T, LineDrawingInfo, Boolean)
+  fullName.vb: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked(Of T)(ShapeEngine.Geometry.SegmentDef.Segment, T, ShapeEngine.Geometry.LineDrawingInfo, Boolean)
+  name.vb: DrawMasked(Of T)(Segment, T, LineDrawingInfo, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked``1(ShapeEngine.Geometry.SegmentDef.Segment,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked__1_ShapeEngine_Geometry_SegmentDef_Segment___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: <
+  - name: T
+  - name: '>'
+  - name: (
+  - uid: ShapeEngine.Geometry.SegmentDef.Segment
+    name: Segment
+    href: ShapeEngine.Geometry.SegmentDef.Segment.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawMasked``1(ShapeEngine.Geometry.SegmentDef.Segment,``0,ShapeEngine.Geometry.LineDrawingInfo,System.Boolean)
+    name: DrawMasked
+    href: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.html#ShapeEngine_Geometry_SegmentDef_SegmentDrawing_DrawMasked__1_ShapeEngine_Geometry_SegmentDef_Segment___0_ShapeEngine_Geometry_LineDrawingInfo_System_Boolean_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: (
+  - uid: ShapeEngine.Geometry.SegmentDef.Segment
+    name: Segment
+    href: ShapeEngine.Geometry.SegmentDef.Segment.html
+  - name: ','
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.LineDrawingInfo
+    name: LineDrawingInfo
+    href: ShapeEngine.Geometry.LineDrawingInfo.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: )
 - uid: ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawPercentage(ShapeEngine.Geometry.SegmentDef.Segment,System.Single,ShapeEngine.Geometry.LineDrawingInfo)
   commentId: M:ShapeEngine.Geometry.SegmentDef.SegmentDrawing.DrawPercentage(ShapeEngine.Geometry.SegmentDef.Segment,System.Single,ShapeEngine.Geometry.LineDrawingInfo)
@@ -10035,28 +10842,6 @@ references:
     name: LogLevel
     href: ShapeEngine.Core.Logging.LogLevel.html
   - name: )
-- uid: ShapeEngine.Geometry
-  commentId: N:ShapeEngine.Geometry
-  href: ShapeEngine.html
-  name: ShapeEngine.Geometry
-  nameWithType: ShapeEngine.Geometry
-  fullName: ShapeEngine.Geometry
-  spec.csharp:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Geometry
-    name: Geometry
-    href: ShapeEngine.Geometry.html
-  spec.vb:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Geometry
-    name: Geometry
-    href: ShapeEngine.Geometry.html
 - uid: ShapeEngine.StaticLib
   commentId: N:ShapeEngine.StaticLib
   href: ShapeEngine.html
@@ -10617,6 +11402,38 @@ references:
   name: GetHashCode
   nameWithType: Segment.GetHashCode
   fullName: ShapeEngine.Geometry.SegmentDef.Segment.GetHashCode
+- uid: ShapeEngine.Geometry.ShapeType
+  commentId: T:ShapeEngine.Geometry.ShapeType
+  parent: ShapeEngine.Geometry
+  href: ShapeEngine.Geometry.ShapeType.html
+  name: ShapeType
+  nameWithType: ShapeType
+  fullName: ShapeEngine.Geometry.ShapeType
+- uid: ShapeEngine.Geometry.SegmentDef.Segment.GetShapeType*
+  commentId: Overload:ShapeEngine.Geometry.SegmentDef.Segment.GetShapeType
+  href: ShapeEngine.Geometry.SegmentDef.Segment.html#ShapeEngine_Geometry_SegmentDef_Segment_GetShapeType
+  name: GetShapeType
+  nameWithType: Segment.GetShapeType
+  fullName: ShapeEngine.Geometry.SegmentDef.Segment.GetShapeType
+- uid: ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+  commentId: M:ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+  parent: ShapeEngine.Geometry.IShapeTypeProvider
+  href: ShapeEngine.Geometry.IShapeTypeProvider.html#ShapeEngine_Geometry_IShapeTypeProvider_GetShapeType
+  name: GetShapeType()
+  nameWithType: IShapeTypeProvider.GetShapeType()
+  fullName: ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType()
+  spec.csharp:
+  - uid: ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+    name: GetShapeType
+    href: ShapeEngine.Geometry.IShapeTypeProvider.html#ShapeEngine_Geometry_IShapeTypeProvider_GetShapeType
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Geometry.IShapeTypeProvider.GetShapeType
+    name: GetShapeType
+    href: ShapeEngine.Geometry.IShapeTypeProvider.html#ShapeEngine_Geometry_IShapeTypeProvider_GetShapeType
+  - name: (
+  - name: )
 - uid: ShapeEngine.Geometry.SegmentDef.Segment.op_Equality*
   commentId: Overload:ShapeEngine.Geometry.SegmentDef.Segment.op_Equality
   href: ShapeEngine.Geometry.SegmentDef.Segment.html#ShapeEngine_Geometry_SegmentDef_Segment_op_Equality_ShapeEngine_Geometry_SegmentDef_Segment_ShapeEngine_Geometry_SegmentDef_Segment_
