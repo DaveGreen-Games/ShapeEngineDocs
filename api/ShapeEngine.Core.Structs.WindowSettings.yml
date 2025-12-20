@@ -5,13 +5,12 @@ items:
   id: WindowSettings
   parent: ShapeEngine.Core.Structs
   children:
+  - ShapeEngine.Core.Structs.WindowSettings.AdaptiveFpsLimiterSettings
   - ShapeEngine.Core.Structs.WindowSettings.Default
   - ShapeEngine.Core.Structs.WindowSettings.FrameRateLimit
   - ShapeEngine.Core.Structs.WindowSettings.FramebufferTransparent
   - ShapeEngine.Core.Structs.WindowSettings.FullscreenAutoRestoring
   - ShapeEngine.Core.Structs.WindowSettings.HighDPI
-  - ShapeEngine.Core.Structs.WindowSettings.MaxFramerate
-  - ShapeEngine.Core.Structs.WindowSettings.MinFramerate
   - ShapeEngine.Core.Structs.WindowSettings.Monitor
   - ShapeEngine.Core.Structs.WindowSettings.MouseEnabled
   - ShapeEngine.Core.Structs.WindowSettings.MouseVisible
@@ -75,7 +74,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Default
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 31
+    startLine: 30
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -99,9 +98,7 @@ items:
 
     FrameRateLimit = 60,
 
-    MinFramerate = 30,
-
-    MaxFramerate = 240,
+    AdaptiveFpsLimiterSettings = new(30, 240, true),
 
     WindowOpacity = 1f,
 
@@ -141,7 +138,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: WindowSize
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 61
+    startLine: 59
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -170,7 +167,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: WindowMinSize
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 66
+    startLine: 64
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -199,7 +196,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Title
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 71
+    startLine: 69
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -228,7 +225,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Topmost
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 76
+    startLine: 74
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -257,7 +254,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FullscreenAutoRestoring
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 82
+    startLine: 80
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -289,7 +286,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: WindowBorder
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 87
+    startLine: 85
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -318,7 +315,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Vsync
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 92
+    startLine: 90
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -347,75 +344,49 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FrameRateLimit
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 97
+    startLine: 95
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
-  summary: The target frame rate limit for the application.
+  summary: The target frame rate limit for the application. 0 or less means unlimited frame rate.
   example: []
   syntax:
     content: public int FrameRateLimit
     return:
       type: System.Int32
     content.vb: Public FrameRateLimit As Integer
-- uid: ShapeEngine.Core.Structs.WindowSettings.MinFramerate
-  commentId: F:ShapeEngine.Core.Structs.WindowSettings.MinFramerate
-  id: MinFramerate
+- uid: ShapeEngine.Core.Structs.WindowSettings.AdaptiveFpsLimiterSettings
+  commentId: F:ShapeEngine.Core.Structs.WindowSettings.AdaptiveFpsLimiterSettings
+  id: AdaptiveFpsLimiterSettings
   parent: ShapeEngine.Core.Structs.WindowSettings
   langs:
   - csharp
   - vb
-  name: MinFramerate
-  nameWithType: WindowSettings.MinFramerate
-  fullName: ShapeEngine.Core.Structs.WindowSettings.MinFramerate
+  name: AdaptiveFpsLimiterSettings
+  nameWithType: WindowSettings.AdaptiveFpsLimiterSettings
+  fullName: ShapeEngine.Core.Structs.WindowSettings.AdaptiveFpsLimiterSettings
   type: Field
   source:
     remote:
       path: ShapeEngine/Core/Structs/WindowSettings.cs
       branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: MinFramerate
+    id: AdaptiveFpsLimiterSettings
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 102
+    startLine: 101
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
-  summary: The minimum acceptable frame rate for the application.
+  summary: >-
+    Settings for the adaptive FPS limiter which dynamically adjusts the frame cap.
+
+    Contains minimum and maximum target frame rates and whether adaptive limiting is enabled.
   example: []
   syntax:
-    content: public int MinFramerate
+    content: public AdaptiveFpsLimiter.Settings AdaptiveFpsLimiterSettings
     return:
-      type: System.Int32
-    content.vb: Public MinFramerate As Integer
-- uid: ShapeEngine.Core.Structs.WindowSettings.MaxFramerate
-  commentId: F:ShapeEngine.Core.Structs.WindowSettings.MaxFramerate
-  id: MaxFramerate
-  parent: ShapeEngine.Core.Structs.WindowSettings
-  langs:
-  - csharp
-  - vb
-  name: MaxFramerate
-  nameWithType: WindowSettings.MaxFramerate
-  fullName: ShapeEngine.Core.Structs.WindowSettings.MaxFramerate
-  type: Field
-  source:
-    remote:
-      path: ShapeEngine/Core/Structs/WindowSettings.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: MaxFramerate
-    path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 107
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core.Structs
-  summary: The maximum allowed frame rate for the application.
-  example: []
-  syntax:
-    content: public int MaxFramerate
-    return:
-      type: System.Int32
-    content.vb: Public MaxFramerate As Integer
+      type: ShapeEngine.Core.AdaptiveFpsLimiter.Settings
+    content.vb: Public AdaptiveFpsLimiterSettings As AdaptiveFpsLimiter.Settings
 - uid: ShapeEngine.Core.Structs.WindowSettings.WindowOpacity
   commentId: F:ShapeEngine.Core.Structs.WindowSettings.WindowOpacity
   id: WindowOpacity
@@ -434,7 +405,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: WindowOpacity
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 112
+    startLine: 106
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -463,7 +434,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Monitor
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 117
+    startLine: 111
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -492,7 +463,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MouseVisible
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 122
+    startLine: 116
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -521,7 +492,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MouseEnabled
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 127
+    startLine: 121
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -550,7 +521,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Msaa4x
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 132
+    startLine: 126
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -579,7 +550,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HighDPI
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 137
+    startLine: 131
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -608,7 +579,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FramebufferTransparent
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 142
+    startLine: 136
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -1293,6 +1264,29 @@ references:
   nameWithType.vb: Integer
   fullName.vb: Integer
   name.vb: Integer
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.Settings
+  commentId: T:ShapeEngine.Core.AdaptiveFpsLimiter.Settings
+  parent: ShapeEngine.Core
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html
+  name: AdaptiveFpsLimiter.Settings
+  nameWithType: AdaptiveFpsLimiter.Settings
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.Settings
+  spec.csharp:
+  - uid: ShapeEngine.Core.AdaptiveFpsLimiter
+    name: AdaptiveFpsLimiter
+    href: ShapeEngine.Core.AdaptiveFpsLimiter.html
+  - name: .
+  - uid: ShapeEngine.Core.AdaptiveFpsLimiter.Settings
+    name: Settings
+    href: ShapeEngine.Core.AdaptiveFpsLimiter.Settings.html
+  spec.vb:
+  - uid: ShapeEngine.Core.AdaptiveFpsLimiter
+    name: AdaptiveFpsLimiter
+    href: ShapeEngine.Core.AdaptiveFpsLimiter.html
+  - name: .
+  - uid: ShapeEngine.Core.AdaptiveFpsLimiter.Settings
+    name: Settings
+    href: ShapeEngine.Core.AdaptiveFpsLimiter.Settings.html
 - uid: System.Single
   commentId: T:System.Single
   parent: System

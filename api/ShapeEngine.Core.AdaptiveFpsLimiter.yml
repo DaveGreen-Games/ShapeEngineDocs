@@ -1,0 +1,1605 @@
+### YamlMime:ManagedReference
+items:
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter
+  commentId: T:ShapeEngine.Core.AdaptiveFpsLimiter
+  id: AdaptiveFpsLimiter
+  parent: ShapeEngine.Core
+  children:
+  - ShapeEngine.Core.AdaptiveFpsLimiter.#ctor(ShapeEngine.Core.AdaptiveFpsLimiter.Settings)
+  - ShapeEngine.Core.AdaptiveFpsLimiter.ChangeSettings(ShapeEngine.Core.AdaptiveFpsLimiter.Settings)
+  - ShapeEngine.Core.AdaptiveFpsLimiter.CriticalFramerateReductionStep
+  - ShapeEngine.Core.AdaptiveFpsLimiter.Enabled
+  - ShapeEngine.Core.AdaptiveFpsLimiter.FasterFrameTimeAverageWeight
+  - ShapeEngine.Core.AdaptiveFpsLimiter.FrameTimeTolerance
+  - ShapeEngine.Core.AdaptiveFpsLimiter.FramerateReductionStep
+  - ShapeEngine.Core.AdaptiveFpsLimiter.Limit
+  - ShapeEngine.Core.AdaptiveFpsLimiter.MaxFpsCooldownDurationFactor
+  - ShapeEngine.Core.AdaptiveFpsLimiter.MaxFpsLimit
+  - ShapeEngine.Core.AdaptiveFpsLimiter.MaxRaiseFpsCooldownDuration
+  - ShapeEngine.Core.AdaptiveFpsLimiter.MinFpsLimit
+  - ShapeEngine.Core.AdaptiveFpsLimiter.RaiseFpsAdditionalCooldownDuration
+  - ShapeEngine.Core.AdaptiveFpsLimiter.RaiseFpsCooldownDuration
+  - ShapeEngine.Core.AdaptiveFpsLimiter.RequiredConsecutiveChecks
+  - ShapeEngine.Core.AdaptiveFpsLimiter.RequiredConsecutiveExtraCooldownChecks
+  - ShapeEngine.Core.AdaptiveFpsLimiter.SetEnabled(System.Boolean)
+  - ShapeEngine.Core.AdaptiveFpsLimiter.TargetFps
+  langs:
+  - csharp
+  - vb
+  name: AdaptiveFpsLimiter
+  nameWithType: AdaptiveFpsLimiter
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter
+  type: Class
+  source:
+    remote:
+      path: ShapeEngine/Core/AdaptiveFpsLimiter.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: AdaptiveFpsLimiter
+    path: ../ShapeEngine/ShapeEngine/Core/AdaptiveFpsLimiter.cs
+    startLine: 14
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: >-
+    Adaptive FPS limiter that adjusts the engine's target framerate at runtime based on measured frame times.
+
+    It reduces the target framerate when frames are consistently slower than the current target and raises it
+
+    when frames are consistently faster, honoring configured cooldowns, tolerances and limits.
+  remarks: >-
+    Construct with a <xref href="ShapeEngine.Core.AdaptiveFpsLimiter.Settings" data-throw-if-not-resolved="false"></xref> instance. The limiter clamps target values to <xref href="ShapeEngine.Core.AdaptiveFpsLimiter.Limit" data-throw-if-not-resolved="false"></xref> and
+
+    is not thread-safe — intended for use from the main/update thread.
+  example: []
+  syntax:
+    content: public sealed class AdaptiveFpsLimiter
+    content.vb: Public NotInheritable Class AdaptiveFpsLimiter
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.TargetFps
+  commentId: P:ShapeEngine.Core.AdaptiveFpsLimiter.TargetFps
+  id: TargetFps
+  parent: ShapeEngine.Core.AdaptiveFpsLimiter
+  langs:
+  - csharp
+  - vb
+  name: TargetFps
+  nameWithType: AdaptiveFpsLimiter.TargetFps
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.TargetFps
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/AdaptiveFpsLimiter.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: TargetFps
+    path: ../ShapeEngine/ShapeEngine/Core/AdaptiveFpsLimiter.cs
+    startLine: 208
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Current target frames-per-second that the engine should aim for.
+  remarks: >-
+    Getter is public; setter is private. The limiter updates this value (for example in <xref href="ShapeEngine.Core.AdaptiveFpsLimiter.Update(System.Int32%2cSystem.Double%2cSystem.Double)" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Core.AdaptiveFpsLimiter.ChangeSettings(ShapeEngine.Core.AdaptiveFpsLimiter.Settings)" data-throw-if-not-resolved="false"></xref>)
+
+    and it is clamped to the configured <xref href="ShapeEngine.Core.AdaptiveFpsLimiter.Limit" data-throw-if-not-resolved="false"></xref>. Not thread-safe — intended to be used from the main/update thread.
+  example: []
+  syntax:
+    content: public int TargetFps { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property TargetFps As Integer
+  overload: ShapeEngine.Core.AdaptiveFpsLimiter.TargetFps*
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.Limit
+  commentId: P:ShapeEngine.Core.AdaptiveFpsLimiter.Limit
+  id: Limit
+  parent: ShapeEngine.Core.AdaptiveFpsLimiter
+  langs:
+  - csharp
+  - vb
+  name: Limit
+  nameWithType: AdaptiveFpsLimiter.Limit
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.Limit
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/AdaptiveFpsLimiter.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Limit
+    path: ../ShapeEngine/ShapeEngine/Core/AdaptiveFpsLimiter.cs
+    startLine: 217
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Gets the allowed FPS range as a <xref href="ShapeEngine.Core.Structs.ValueRangeInt" data-throw-if-not-resolved="false"></xref>.
+  remarks: >-
+    Assigning a new range updates the internal limit and immediately clamps <xref href="ShapeEngine.Core.AdaptiveFpsLimiter.TargetFps" data-throw-if-not-resolved="false"></xref>
+
+    into the new bounds. The property's setter is private to ensure updates go through the limiter's logic.
+  example: []
+  syntax:
+    content: public ValueRangeInt Limit { get; }
+    parameters: []
+    return:
+      type: ShapeEngine.Core.Structs.ValueRangeInt
+    content.vb: Public Property Limit As ValueRangeInt
+  overload: ShapeEngine.Core.AdaptiveFpsLimiter.Limit*
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.Enabled
+  commentId: P:ShapeEngine.Core.AdaptiveFpsLimiter.Enabled
+  id: Enabled
+  parent: ShapeEngine.Core.AdaptiveFpsLimiter
+  langs:
+  - csharp
+  - vb
+  name: Enabled
+  nameWithType: AdaptiveFpsLimiter.Enabled
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.Enabled
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/AdaptiveFpsLimiter.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Enabled
+    path: ../ShapeEngine/ShapeEngine/Core/AdaptiveFpsLimiter.cs
+    startLine: 231
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Whether the adaptive FPS limiter is enabled. When false the limiter is inactive and will not modify the target FPS.
+  example: []
+  syntax:
+    content: public bool Enabled { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property Enabled As Boolean
+  overload: ShapeEngine.Core.AdaptiveFpsLimiter.Enabled*
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.RaiseFpsCooldownDuration
+  commentId: P:ShapeEngine.Core.AdaptiveFpsLimiter.RaiseFpsCooldownDuration
+  id: RaiseFpsCooldownDuration
+  parent: ShapeEngine.Core.AdaptiveFpsLimiter
+  langs:
+  - csharp
+  - vb
+  name: RaiseFpsCooldownDuration
+  nameWithType: AdaptiveFpsLimiter.RaiseFpsCooldownDuration
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.RaiseFpsCooldownDuration
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/AdaptiveFpsLimiter.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: RaiseFpsCooldownDuration
+    path: ../ShapeEngine/ShapeEngine/Core/AdaptiveFpsLimiter.cs
+    startLine: 236
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Base cooldown duration in seconds that prevents the limiter from raising the target FPS too soon after a slowdown.
+  example: []
+  syntax:
+    content: public double RaiseFpsCooldownDuration { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property RaiseFpsCooldownDuration As Double
+  overload: ShapeEngine.Core.AdaptiveFpsLimiter.RaiseFpsCooldownDuration*
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.RequiredConsecutiveChecks
+  commentId: P:ShapeEngine.Core.AdaptiveFpsLimiter.RequiredConsecutiveChecks
+  id: RequiredConsecutiveChecks
+  parent: ShapeEngine.Core.AdaptiveFpsLimiter
+  langs:
+  - csharp
+  - vb
+  name: RequiredConsecutiveChecks
+  nameWithType: AdaptiveFpsLimiter.RequiredConsecutiveChecks
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.RequiredConsecutiveChecks
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/AdaptiveFpsLimiter.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: RequiredConsecutiveChecks
+    path: ../ShapeEngine/ShapeEngine/Core/AdaptiveFpsLimiter.cs
+    startLine: 241
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Number of consecutive checks (faster or slower) required before the limiter performs an adjustment.
+  example: []
+  syntax:
+    content: public int RequiredConsecutiveChecks { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property RequiredConsecutiveChecks As Integer
+  overload: ShapeEngine.Core.AdaptiveFpsLimiter.RequiredConsecutiveChecks*
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.FasterFrameTimeAverageWeight
+  commentId: P:ShapeEngine.Core.AdaptiveFpsLimiter.FasterFrameTimeAverageWeight
+  id: FasterFrameTimeAverageWeight
+  parent: ShapeEngine.Core.AdaptiveFpsLimiter
+  langs:
+  - csharp
+  - vb
+  name: FasterFrameTimeAverageWeight
+  nameWithType: AdaptiveFpsLimiter.FasterFrameTimeAverageWeight
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.FasterFrameTimeAverageWeight
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/AdaptiveFpsLimiter.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: FasterFrameTimeAverageWeight
+    path: ../ShapeEngine/ShapeEngine/Core/AdaptiveFpsLimiter.cs
+    startLine: 247
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: >-
+    Weight applied when averaging recent faster frame times while deciding to raise FPS.
+
+    Value is in range [0,1]: 0 = only use the running average, 1 = only use the most recent frame time.
+  example: []
+  syntax:
+    content: public float FasterFrameTimeAverageWeight { get; }
+    parameters: []
+    return:
+      type: System.Single
+    content.vb: Public Property FasterFrameTimeAverageWeight As Single
+  overload: ShapeEngine.Core.AdaptiveFpsLimiter.FasterFrameTimeAverageWeight*
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.FramerateReductionStep
+  commentId: P:ShapeEngine.Core.AdaptiveFpsLimiter.FramerateReductionStep
+  id: FramerateReductionStep
+  parent: ShapeEngine.Core.AdaptiveFpsLimiter
+  langs:
+  - csharp
+  - vb
+  name: FramerateReductionStep
+  nameWithType: AdaptiveFpsLimiter.FramerateReductionStep
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.FramerateReductionStep
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/AdaptiveFpsLimiter.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: FramerateReductionStep
+    path: ../ShapeEngine/ShapeEngine/Core/AdaptiveFpsLimiter.cs
+    startLine: 252
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Amount (in FPS) to reduce the target framerate on a normal slowdown adjustment.
+  example: []
+  syntax:
+    content: public int FramerateReductionStep { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property FramerateReductionStep As Integer
+  overload: ShapeEngine.Core.AdaptiveFpsLimiter.FramerateReductionStep*
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.CriticalFramerateReductionStep
+  commentId: P:ShapeEngine.Core.AdaptiveFpsLimiter.CriticalFramerateReductionStep
+  id: CriticalFramerateReductionStep
+  parent: ShapeEngine.Core.AdaptiveFpsLimiter
+  langs:
+  - csharp
+  - vb
+  name: CriticalFramerateReductionStep
+  nameWithType: AdaptiveFpsLimiter.CriticalFramerateReductionStep
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.CriticalFramerateReductionStep
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/AdaptiveFpsLimiter.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: CriticalFramerateReductionStep
+    path: ../ShapeEngine/ShapeEngine/Core/AdaptiveFpsLimiter.cs
+    startLine: 257
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Amount (in FPS) to reduce the target framerate on a critical slowdown adjustment.
+  example: []
+  syntax:
+    content: public int CriticalFramerateReductionStep { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property CriticalFramerateReductionStep As Integer
+  overload: ShapeEngine.Core.AdaptiveFpsLimiter.CriticalFramerateReductionStep*
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.RequiredConsecutiveExtraCooldownChecks
+  commentId: P:ShapeEngine.Core.AdaptiveFpsLimiter.RequiredConsecutiveExtraCooldownChecks
+  id: RequiredConsecutiveExtraCooldownChecks
+  parent: ShapeEngine.Core.AdaptiveFpsLimiter
+  langs:
+  - csharp
+  - vb
+  name: RequiredConsecutiveExtraCooldownChecks
+  nameWithType: AdaptiveFpsLimiter.RequiredConsecutiveExtraCooldownChecks
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.RequiredConsecutiveExtraCooldownChecks
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/AdaptiveFpsLimiter.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: RequiredConsecutiveExtraCooldownChecks
+    path: ../ShapeEngine/ShapeEngine/Core/AdaptiveFpsLimiter.cs
+    startLine: 262
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Number of consecutive slow-down adjustments required to increase the additional raise-FPS cooldown.
+  example: []
+  syntax:
+    content: public int RequiredConsecutiveExtraCooldownChecks { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property RequiredConsecutiveExtraCooldownChecks As Integer
+  overload: ShapeEngine.Core.AdaptiveFpsLimiter.RequiredConsecutiveExtraCooldownChecks*
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.FrameTimeTolerance
+  commentId: P:ShapeEngine.Core.AdaptiveFpsLimiter.FrameTimeTolerance
+  id: FrameTimeTolerance
+  parent: ShapeEngine.Core.AdaptiveFpsLimiter
+  langs:
+  - csharp
+  - vb
+  name: FrameTimeTolerance
+  nameWithType: AdaptiveFpsLimiter.FrameTimeTolerance
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.FrameTimeTolerance
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/AdaptiveFpsLimiter.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: FrameTimeTolerance
+    path: ../ShapeEngine/ShapeEngine/Core/AdaptiveFpsLimiter.cs
+    startLine: 267
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Allowed frame time tolerance in seconds. Small fluctuations within this tolerance are ignored to avoid oscillation.
+  example: []
+  syntax:
+    content: public double FrameTimeTolerance { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property FrameTimeTolerance As Double
+  overload: ShapeEngine.Core.AdaptiveFpsLimiter.FrameTimeTolerance*
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.RaiseFpsAdditionalCooldownDuration
+  commentId: P:ShapeEngine.Core.AdaptiveFpsLimiter.RaiseFpsAdditionalCooldownDuration
+  id: RaiseFpsAdditionalCooldownDuration
+  parent: ShapeEngine.Core.AdaptiveFpsLimiter
+  langs:
+  - csharp
+  - vb
+  name: RaiseFpsAdditionalCooldownDuration
+  nameWithType: AdaptiveFpsLimiter.RaiseFpsAdditionalCooldownDuration
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.RaiseFpsAdditionalCooldownDuration
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/AdaptiveFpsLimiter.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: RaiseFpsAdditionalCooldownDuration
+    path: ../ShapeEngine/ShapeEngine/Core/AdaptiveFpsLimiter.cs
+    startLine: 275
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Additional cooldown duration in seconds added to the raise-FPS cooldown after repeated slowdowns.
+  remarks: Total raise-FPS cooldown is calculated as <xref href="ShapeEngine.Core.AdaptiveFpsLimiter.RaiseFpsCooldownDuration" data-throw-if-not-resolved="false"></xref> + this value and is capped by <xref href="ShapeEngine.Core.AdaptiveFpsLimiter.MaxRaiseFpsCooldownDuration" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public float RaiseFpsAdditionalCooldownDuration { get; }
+    parameters: []
+    return:
+      type: System.Single
+    content.vb: Public Property RaiseFpsAdditionalCooldownDuration As Single
+  overload: ShapeEngine.Core.AdaptiveFpsLimiter.RaiseFpsAdditionalCooldownDuration*
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.MaxFpsCooldownDurationFactor
+  commentId: P:ShapeEngine.Core.AdaptiveFpsLimiter.MaxFpsCooldownDurationFactor
+  id: MaxFpsCooldownDurationFactor
+  parent: ShapeEngine.Core.AdaptiveFpsLimiter
+  langs:
+  - csharp
+  - vb
+  name: MaxFpsCooldownDurationFactor
+  nameWithType: AdaptiveFpsLimiter.MaxFpsCooldownDurationFactor
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.MaxFpsCooldownDurationFactor
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/AdaptiveFpsLimiter.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: MaxFpsCooldownDurationFactor
+    path: ../ShapeEngine/ShapeEngine/Core/AdaptiveFpsLimiter.cs
+    startLine: 281
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: >-
+    Multiplier applied to <xref href="ShapeEngine.Core.AdaptiveFpsLimiter.RaiseFpsCooldownDuration" data-throw-if-not-resolved="false"></xref> to compute the maximum allowed raise-FPS cooldown.
+
+    Values below 1.0 are clamped to 1.0 by the property's setter.
+  example: []
+  syntax:
+    content: public double MaxFpsCooldownDurationFactor { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property MaxFpsCooldownDurationFactor As Double
+  overload: ShapeEngine.Core.AdaptiveFpsLimiter.MaxFpsCooldownDurationFactor*
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.MaxRaiseFpsCooldownDuration
+  commentId: P:ShapeEngine.Core.AdaptiveFpsLimiter.MaxRaiseFpsCooldownDuration
+  id: MaxRaiseFpsCooldownDuration
+  parent: ShapeEngine.Core.AdaptiveFpsLimiter
+  langs:
+  - csharp
+  - vb
+  name: MaxRaiseFpsCooldownDuration
+  nameWithType: AdaptiveFpsLimiter.MaxRaiseFpsCooldownDuration
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.MaxRaiseFpsCooldownDuration
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/AdaptiveFpsLimiter.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: MaxRaiseFpsCooldownDuration
+    path: ../ShapeEngine/ShapeEngine/Core/AdaptiveFpsLimiter.cs
+    startLine: 296
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: >-
+    Maximum allowed raise-FPS cooldown duration in seconds.
+
+    Computed as <xref href="ShapeEngine.Core.AdaptiveFpsLimiter.RaiseFpsCooldownDuration" data-throw-if-not-resolved="false"></xref> multiplied by
+
+    <xref href="ShapeEngine.Core.AdaptiveFpsLimiter.MaxFpsCooldownDurationFactor" data-throw-if-not-resolved="false"></xref>.
+  remarks: >-
+    The <xref href="ShapeEngine.Core.AdaptiveFpsLimiter.MaxFpsCooldownDurationFactor" data-throw-if-not-resolved="false"></xref> is clamped to a minimum of 1.0,
+
+    so this value will never be less than <xref href="ShapeEngine.Core.AdaptiveFpsLimiter.RaiseFpsCooldownDuration" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public double MaxRaiseFpsCooldownDuration { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public ReadOnly Property MaxRaiseFpsCooldownDuration As Double
+  overload: ShapeEngine.Core.AdaptiveFpsLimiter.MaxRaiseFpsCooldownDuration*
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.MinFpsLimit
+  commentId: F:ShapeEngine.Core.AdaptiveFpsLimiter.MinFpsLimit
+  id: MinFpsLimit
+  parent: ShapeEngine.Core.AdaptiveFpsLimiter
+  langs:
+  - csharp
+  - vb
+  name: MinFpsLimit
+  nameWithType: AdaptiveFpsLimiter.MinFpsLimit
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.MinFpsLimit
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Core/AdaptiveFpsLimiter.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: MinFpsLimit
+    path: ../ShapeEngine/ShapeEngine/Core/AdaptiveFpsLimiter.cs
+    startLine: 353
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: >-
+    Minimum allowed FPS limit used to clamp the limiter's configured minimum.
+
+    Prevents configuring non-sensical values (zero or negative FPS).
+  example: []
+  syntax:
+    content: public static readonly int MinFpsLimit
+    return:
+      type: System.Int32
+    content.vb: Public Shared ReadOnly MinFpsLimit As Integer
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.MaxFpsLimit
+  commentId: F:ShapeEngine.Core.AdaptiveFpsLimiter.MaxFpsLimit
+  id: MaxFpsLimit
+  parent: ShapeEngine.Core.AdaptiveFpsLimiter
+  langs:
+  - csharp
+  - vb
+  name: MaxFpsLimit
+  nameWithType: AdaptiveFpsLimiter.MaxFpsLimit
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.MaxFpsLimit
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Core/AdaptiveFpsLimiter.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: MaxFpsLimit
+    path: ../ShapeEngine/ShapeEngine/Core/AdaptiveFpsLimiter.cs
+    startLine: 359
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: >-
+    Maximum allowed FPS limit used to clamp the limiter's configured maximum.
+
+    Set to <xref href="System.Int32.MaxValue" data-throw-if-not-resolved="false"></xref> to indicate effectively no practical upper bound.
+  example: []
+  syntax:
+    content: public static readonly int MaxFpsLimit
+    return:
+      type: System.Int32
+    content.vb: Public Shared ReadOnly MaxFpsLimit As Integer
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.#ctor(ShapeEngine.Core.AdaptiveFpsLimiter.Settings)
+  commentId: M:ShapeEngine.Core.AdaptiveFpsLimiter.#ctor(ShapeEngine.Core.AdaptiveFpsLimiter.Settings)
+  id: '#ctor(ShapeEngine.Core.AdaptiveFpsLimiter.Settings)'
+  parent: ShapeEngine.Core.AdaptiveFpsLimiter
+  langs:
+  - csharp
+  - vb
+  name: AdaptiveFpsLimiter(Settings)
+  nameWithType: AdaptiveFpsLimiter.AdaptiveFpsLimiter(AdaptiveFpsLimiter.Settings)
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.AdaptiveFpsLimiter(ShapeEngine.Core.AdaptiveFpsLimiter.Settings)
+  type: Constructor
+  source:
+    remote:
+      path: ShapeEngine/Core/AdaptiveFpsLimiter.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: .ctor
+    path: ../ShapeEngine/ShapeEngine/Core/AdaptiveFpsLimiter.cs
+    startLine: 376
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.AdaptiveFpsLimiter" data-throw-if-not-resolved="false"></xref> class using the provided <xref href="ShapeEngine.Core.AdaptiveFpsLimiter.Settings" data-throw-if-not-resolved="false"></xref>.
+  remarks: >-
+    The constructor:
+
+    - Clamps the configured minimum and maximum FPS to the static bounds (<xref href="ShapeEngine.Core.AdaptiveFpsLimiter.MinFpsLimit" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Core.AdaptiveFpsLimiter.MaxFpsLimit" data-throw-if-not-resolved="false"></xref>).
+
+    - Swaps min/max when they are supplied in the wrong order.
+
+    - Assigns <xref href="ShapeEngine.Core.AdaptiveFpsLimiter.Limit" data-throw-if-not-resolved="false"></xref>, which will also clamp <xref href="ShapeEngine.Core.AdaptiveFpsLimiter.TargetFps" data-throw-if-not-resolved="false"></xref> to the resulting range.
+
+    - Applies settings to the limiter's public properties. The limiter is not thread-safe and is intended to be used
+      from the engine's main/update thread.
+  example: []
+  syntax:
+    content: public AdaptiveFpsLimiter(AdaptiveFpsLimiter.Settings settings)
+    parameters:
+    - id: settings
+      type: ShapeEngine.Core.AdaptiveFpsLimiter.Settings
+      description: >-
+        Configuration used to initialize enabled state, allowed FPS range, cooldowns,
+            averaging weights and reduction steps.
+    content.vb: Public Sub New(settings As AdaptiveFpsLimiter.Settings)
+  overload: ShapeEngine.Core.AdaptiveFpsLimiter.#ctor*
+  nameWithType.vb: AdaptiveFpsLimiter.New(AdaptiveFpsLimiter.Settings)
+  fullName.vb: ShapeEngine.Core.AdaptiveFpsLimiter.New(ShapeEngine.Core.AdaptiveFpsLimiter.Settings)
+  name.vb: New(Settings)
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.ChangeSettings(ShapeEngine.Core.AdaptiveFpsLimiter.Settings)
+  commentId: M:ShapeEngine.Core.AdaptiveFpsLimiter.ChangeSettings(ShapeEngine.Core.AdaptiveFpsLimiter.Settings)
+  id: ChangeSettings(ShapeEngine.Core.AdaptiveFpsLimiter.Settings)
+  parent: ShapeEngine.Core.AdaptiveFpsLimiter
+  langs:
+  - csharp
+  - vb
+  name: ChangeSettings(Settings)
+  nameWithType: AdaptiveFpsLimiter.ChangeSettings(AdaptiveFpsLimiter.Settings)
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.ChangeSettings(ShapeEngine.Core.AdaptiveFpsLimiter.Settings)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/AdaptiveFpsLimiter.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: ChangeSettings
+    path: ../ShapeEngine/ShapeEngine/Core/AdaptiveFpsLimiter.cs
+    startLine: 497
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: >-
+    Applies the provided <xref href="ShapeEngine.Core.AdaptiveFpsLimiter.Settings" data-throw-if-not-resolved="false"></xref> to the limiter.
+
+    Updates limits, enabled state and all related configuration properties,
+
+    clamps the current target FPS to the new limit and resets internal runtime state.
+  example: []
+  syntax:
+    content: public bool ChangeSettings(AdaptiveFpsLimiter.Settings newSettings)
+    parameters:
+    - id: newSettings
+      type: ShapeEngine.Core.AdaptiveFpsLimiter.Settings
+      description: The new settings to apply.
+    return:
+      type: System.Boolean
+      description: True if the settings were applied successfully.
+    content.vb: Public Function ChangeSettings(newSettings As AdaptiveFpsLimiter.Settings) As Boolean
+  overload: ShapeEngine.Core.AdaptiveFpsLimiter.ChangeSettings*
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.SetEnabled(System.Boolean)
+  commentId: M:ShapeEngine.Core.AdaptiveFpsLimiter.SetEnabled(System.Boolean)
+  id: SetEnabled(System.Boolean)
+  parent: ShapeEngine.Core.AdaptiveFpsLimiter
+  langs:
+  - csharp
+  - vb
+  name: SetEnabled(bool)
+  nameWithType: AdaptiveFpsLimiter.SetEnabled(bool)
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.SetEnabled(bool)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/AdaptiveFpsLimiter.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: SetEnabled
+    path: ../ShapeEngine/ShapeEngine/Core/AdaptiveFpsLimiter.cs
+    startLine: 535
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Enables or disables the adaptive FPS limiter.
+  remarks: This method is intended to be called from the engine's main/update thread and is not thread-safe.
+  example: []
+  syntax:
+    content: public void SetEnabled(bool enabled)
+    parameters:
+    - id: enabled
+      type: System.Boolean
+      description: >-
+        True to enable the limiter; false to disable. When disabling, the limiter's internal runtime state is reset.
+
+        Calling with the current value is a no-op.
+    content.vb: Public Sub SetEnabled(enabled As Boolean)
+  overload: ShapeEngine.Core.AdaptiveFpsLimiter.SetEnabled*
+  nameWithType.vb: AdaptiveFpsLimiter.SetEnabled(Boolean)
+  fullName.vb: ShapeEngine.Core.AdaptiveFpsLimiter.SetEnabled(Boolean)
+  name.vb: SetEnabled(Boolean)
+references:
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.Settings
+  commentId: T:ShapeEngine.Core.AdaptiveFpsLimiter.Settings
+  parent: ShapeEngine.Core
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html
+  name: AdaptiveFpsLimiter.Settings
+  nameWithType: AdaptiveFpsLimiter.Settings
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.Settings
+  spec.csharp:
+  - uid: ShapeEngine.Core.AdaptiveFpsLimiter
+    name: AdaptiveFpsLimiter
+    href: ShapeEngine.Core.AdaptiveFpsLimiter.html
+  - name: .
+  - uid: ShapeEngine.Core.AdaptiveFpsLimiter.Settings
+    name: Settings
+    href: ShapeEngine.Core.AdaptiveFpsLimiter.Settings.html
+  spec.vb:
+  - uid: ShapeEngine.Core.AdaptiveFpsLimiter
+    name: AdaptiveFpsLimiter
+    href: ShapeEngine.Core.AdaptiveFpsLimiter.html
+  - name: .
+  - uid: ShapeEngine.Core.AdaptiveFpsLimiter.Settings
+    name: Settings
+    href: ShapeEngine.Core.AdaptiveFpsLimiter.Settings.html
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.Limit
+  commentId: P:ShapeEngine.Core.AdaptiveFpsLimiter.Limit
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_Limit
+  name: Limit
+  nameWithType: AdaptiveFpsLimiter.Limit
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.Limit
+- uid: ShapeEngine.Core
+  commentId: N:ShapeEngine.Core
+  href: ShapeEngine.html
+  name: ShapeEngine.Core
+  nameWithType: ShapeEngine.Core
+  fullName: ShapeEngine.Core
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
+  href: ShapeEngine.html
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.Update(System.Int32,System.Double,System.Double)
+  commentId: M:ShapeEngine.Core.AdaptiveFpsLimiter.Update(System.Int32,System.Double,System.Double)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: Update(int, double, double)
+  nameWithType: AdaptiveFpsLimiter.Update(int, double, double)
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.Update(int, double, double)
+  nameWithType.vb: AdaptiveFpsLimiter.Update(Integer, Double, Double)
+  fullName.vb: ShapeEngine.Core.AdaptiveFpsLimiter.Update(Integer, Double, Double)
+  name.vb: Update(Integer, Double, Double)
+  spec.csharp:
+  - uid: ShapeEngine.Core.AdaptiveFpsLimiter.Update(System.Int32,System.Double,System.Double)
+    name: Update
+  - name: (
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Double
+    name: double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: ','
+  - name: " "
+  - uid: System.Double
+    name: double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.AdaptiveFpsLimiter.Update(System.Int32,System.Double,System.Double)
+    name: Update
+  - name: (
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Double
+    name: Double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: ','
+  - name: " "
+  - uid: System.Double
+    name: Double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: )
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.ChangeSettings(ShapeEngine.Core.AdaptiveFpsLimiter.Settings)
+  commentId: M:ShapeEngine.Core.AdaptiveFpsLimiter.ChangeSettings(ShapeEngine.Core.AdaptiveFpsLimiter.Settings)
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_ChangeSettings_ShapeEngine_Core_AdaptiveFpsLimiter_Settings_
+  name: ChangeSettings(Settings)
+  nameWithType: AdaptiveFpsLimiter.ChangeSettings(AdaptiveFpsLimiter.Settings)
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.ChangeSettings(ShapeEngine.Core.AdaptiveFpsLimiter.Settings)
+  spec.csharp:
+  - uid: ShapeEngine.Core.AdaptiveFpsLimiter.ChangeSettings(ShapeEngine.Core.AdaptiveFpsLimiter.Settings)
+    name: ChangeSettings
+    href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_ChangeSettings_ShapeEngine_Core_AdaptiveFpsLimiter_Settings_
+  - name: (
+  - uid: ShapeEngine.Core.AdaptiveFpsLimiter.Settings
+    name: Settings
+    href: ShapeEngine.Core.AdaptiveFpsLimiter.Settings.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.AdaptiveFpsLimiter.ChangeSettings(ShapeEngine.Core.AdaptiveFpsLimiter.Settings)
+    name: ChangeSettings
+    href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_ChangeSettings_ShapeEngine_Core_AdaptiveFpsLimiter_Settings_
+  - name: (
+  - uid: ShapeEngine.Core.AdaptiveFpsLimiter.Settings
+    name: Settings
+    href: ShapeEngine.Core.AdaptiveFpsLimiter.Settings.html
+  - name: )
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.TargetFps*
+  commentId: Overload:ShapeEngine.Core.AdaptiveFpsLimiter.TargetFps
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_TargetFps
+  name: TargetFps
+  nameWithType: AdaptiveFpsLimiter.TargetFps
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.TargetFps
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: ShapeEngine.Core.Structs.ValueRangeInt
+  commentId: T:ShapeEngine.Core.Structs.ValueRangeInt
+  parent: ShapeEngine.Core.Structs
+  href: ShapeEngine.Core.Structs.ValueRangeInt.html
+  name: ValueRangeInt
+  nameWithType: ValueRangeInt
+  fullName: ShapeEngine.Core.Structs.ValueRangeInt
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.TargetFps
+  commentId: P:ShapeEngine.Core.AdaptiveFpsLimiter.TargetFps
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_TargetFps
+  name: TargetFps
+  nameWithType: AdaptiveFpsLimiter.TargetFps
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.TargetFps
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.Limit*
+  commentId: Overload:ShapeEngine.Core.AdaptiveFpsLimiter.Limit
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_Limit
+  name: Limit
+  nameWithType: AdaptiveFpsLimiter.Limit
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.Limit
+- uid: ShapeEngine.Core.Structs
+  commentId: N:ShapeEngine.Core.Structs
+  href: ShapeEngine.html
+  name: ShapeEngine.Core.Structs
+  nameWithType: ShapeEngine.Core.Structs
+  fullName: ShapeEngine.Core.Structs
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+  - name: .
+  - uid: ShapeEngine.Core.Structs
+    name: Structs
+    href: ShapeEngine.Core.Structs.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+  - name: .
+  - uid: ShapeEngine.Core.Structs
+    name: Structs
+    href: ShapeEngine.Core.Structs.html
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.Enabled*
+  commentId: Overload:ShapeEngine.Core.AdaptiveFpsLimiter.Enabled
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_Enabled
+  name: Enabled
+  nameWithType: AdaptiveFpsLimiter.Enabled
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.Enabled
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.RaiseFpsCooldownDuration*
+  commentId: Overload:ShapeEngine.Core.AdaptiveFpsLimiter.RaiseFpsCooldownDuration
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_RaiseFpsCooldownDuration
+  name: RaiseFpsCooldownDuration
+  nameWithType: AdaptiveFpsLimiter.RaiseFpsCooldownDuration
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.RaiseFpsCooldownDuration
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.RequiredConsecutiveChecks*
+  commentId: Overload:ShapeEngine.Core.AdaptiveFpsLimiter.RequiredConsecutiveChecks
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_RequiredConsecutiveChecks
+  name: RequiredConsecutiveChecks
+  nameWithType: AdaptiveFpsLimiter.RequiredConsecutiveChecks
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.RequiredConsecutiveChecks
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.FasterFrameTimeAverageWeight*
+  commentId: Overload:ShapeEngine.Core.AdaptiveFpsLimiter.FasterFrameTimeAverageWeight
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_FasterFrameTimeAverageWeight
+  name: FasterFrameTimeAverageWeight
+  nameWithType: AdaptiveFpsLimiter.FasterFrameTimeAverageWeight
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.FasterFrameTimeAverageWeight
+- uid: System.Single
+  commentId: T:System.Single
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.single
+  name: float
+  nameWithType: float
+  fullName: float
+  nameWithType.vb: Single
+  fullName.vb: Single
+  name.vb: Single
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.FramerateReductionStep*
+  commentId: Overload:ShapeEngine.Core.AdaptiveFpsLimiter.FramerateReductionStep
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_FramerateReductionStep
+  name: FramerateReductionStep
+  nameWithType: AdaptiveFpsLimiter.FramerateReductionStep
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.FramerateReductionStep
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.CriticalFramerateReductionStep*
+  commentId: Overload:ShapeEngine.Core.AdaptiveFpsLimiter.CriticalFramerateReductionStep
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_CriticalFramerateReductionStep
+  name: CriticalFramerateReductionStep
+  nameWithType: AdaptiveFpsLimiter.CriticalFramerateReductionStep
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.CriticalFramerateReductionStep
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.RequiredConsecutiveExtraCooldownChecks*
+  commentId: Overload:ShapeEngine.Core.AdaptiveFpsLimiter.RequiredConsecutiveExtraCooldownChecks
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_RequiredConsecutiveExtraCooldownChecks
+  name: RequiredConsecutiveExtraCooldownChecks
+  nameWithType: AdaptiveFpsLimiter.RequiredConsecutiveExtraCooldownChecks
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.RequiredConsecutiveExtraCooldownChecks
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.FrameTimeTolerance*
+  commentId: Overload:ShapeEngine.Core.AdaptiveFpsLimiter.FrameTimeTolerance
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_FrameTimeTolerance
+  name: FrameTimeTolerance
+  nameWithType: AdaptiveFpsLimiter.FrameTimeTolerance
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.FrameTimeTolerance
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.RaiseFpsCooldownDuration
+  commentId: P:ShapeEngine.Core.AdaptiveFpsLimiter.RaiseFpsCooldownDuration
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_RaiseFpsCooldownDuration
+  name: RaiseFpsCooldownDuration
+  nameWithType: AdaptiveFpsLimiter.RaiseFpsCooldownDuration
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.RaiseFpsCooldownDuration
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.MaxRaiseFpsCooldownDuration
+  commentId: P:ShapeEngine.Core.AdaptiveFpsLimiter.MaxRaiseFpsCooldownDuration
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_MaxRaiseFpsCooldownDuration
+  name: MaxRaiseFpsCooldownDuration
+  nameWithType: AdaptiveFpsLimiter.MaxRaiseFpsCooldownDuration
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.MaxRaiseFpsCooldownDuration
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.RaiseFpsAdditionalCooldownDuration*
+  commentId: Overload:ShapeEngine.Core.AdaptiveFpsLimiter.RaiseFpsAdditionalCooldownDuration
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_RaiseFpsAdditionalCooldownDuration
+  name: RaiseFpsAdditionalCooldownDuration
+  nameWithType: AdaptiveFpsLimiter.RaiseFpsAdditionalCooldownDuration
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.RaiseFpsAdditionalCooldownDuration
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.MaxFpsCooldownDurationFactor*
+  commentId: Overload:ShapeEngine.Core.AdaptiveFpsLimiter.MaxFpsCooldownDurationFactor
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_MaxFpsCooldownDurationFactor
+  name: MaxFpsCooldownDurationFactor
+  nameWithType: AdaptiveFpsLimiter.MaxFpsCooldownDurationFactor
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.MaxFpsCooldownDurationFactor
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.MaxFpsCooldownDurationFactor
+  commentId: P:ShapeEngine.Core.AdaptiveFpsLimiter.MaxFpsCooldownDurationFactor
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_MaxFpsCooldownDurationFactor
+  name: MaxFpsCooldownDurationFactor
+  nameWithType: AdaptiveFpsLimiter.MaxFpsCooldownDurationFactor
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.MaxFpsCooldownDurationFactor
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.MaxRaiseFpsCooldownDuration*
+  commentId: Overload:ShapeEngine.Core.AdaptiveFpsLimiter.MaxRaiseFpsCooldownDuration
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_MaxRaiseFpsCooldownDuration
+  name: MaxRaiseFpsCooldownDuration
+  nameWithType: AdaptiveFpsLimiter.MaxRaiseFpsCooldownDuration
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.MaxRaiseFpsCooldownDuration
+- uid: System.Int32.MaxValue
+  commentId: F:System.Int32.MaxValue
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32.maxvalue
+  name: MaxValue
+  nameWithType: int.MaxValue
+  fullName: int.MaxValue
+  nameWithType.vb: Integer.MaxValue
+  fullName.vb: Integer.MaxValue
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter
+  commentId: T:ShapeEngine.Core.AdaptiveFpsLimiter
+  parent: ShapeEngine.Core
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html
+  name: AdaptiveFpsLimiter
+  nameWithType: AdaptiveFpsLimiter
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.MinFpsLimit
+  commentId: F:ShapeEngine.Core.AdaptiveFpsLimiter.MinFpsLimit
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_MinFpsLimit
+  name: MinFpsLimit
+  nameWithType: AdaptiveFpsLimiter.MinFpsLimit
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.MinFpsLimit
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.MaxFpsLimit
+  commentId: F:ShapeEngine.Core.AdaptiveFpsLimiter.MaxFpsLimit
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_MaxFpsLimit
+  name: MaxFpsLimit
+  nameWithType: AdaptiveFpsLimiter.MaxFpsLimit
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.MaxFpsLimit
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.#ctor*
+  commentId: Overload:ShapeEngine.Core.AdaptiveFpsLimiter.#ctor
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter__ctor_ShapeEngine_Core_AdaptiveFpsLimiter_Settings_
+  name: AdaptiveFpsLimiter
+  nameWithType: AdaptiveFpsLimiter.AdaptiveFpsLimiter
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.AdaptiveFpsLimiter
+  nameWithType.vb: AdaptiveFpsLimiter.New
+  fullName.vb: ShapeEngine.Core.AdaptiveFpsLimiter.New
+  name.vb: New
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.ChangeSettings*
+  commentId: Overload:ShapeEngine.Core.AdaptiveFpsLimiter.ChangeSettings
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_ChangeSettings_ShapeEngine_Core_AdaptiveFpsLimiter_Settings_
+  name: ChangeSettings
+  nameWithType: AdaptiveFpsLimiter.ChangeSettings
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.ChangeSettings
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.SetEnabled*
+  commentId: Overload:ShapeEngine.Core.AdaptiveFpsLimiter.SetEnabled
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_SetEnabled_System_Boolean_
+  name: SetEnabled
+  nameWithType: AdaptiveFpsLimiter.SetEnabled
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.SetEnabled

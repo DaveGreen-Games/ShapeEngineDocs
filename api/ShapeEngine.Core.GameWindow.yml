@@ -7,6 +7,7 @@ items:
   children:
   - ShapeEngine.Core.GameWindow.ActivateBorderlessFullscreen
   - ShapeEngine.Core.GameWindow.ActivateFullscreen(System.Int32,System.Int32)
+  - ShapeEngine.Core.GameWindow.AdaptiveFpsLimiter
   - ShapeEngine.Core.GameWindow.CenterWindow
   - ShapeEngine.Core.GameWindow.CurScreenSize
   - ShapeEngine.Core.GameWindow.DisplayState
@@ -21,9 +22,7 @@ items:
   - ShapeEngine.Core.GameWindow.IsWindowMinimized
   - ShapeEngine.Core.GameWindow.IsWindowNormal
   - ShapeEngine.Core.GameWindow.IsWindowTopmost
-  - ShapeEngine.Core.GameWindow.MaxFramerate
   - ShapeEngine.Core.GameWindow.MaximizeWindow
-  - ShapeEngine.Core.GameWindow.MinFramerate
   - ShapeEngine.Core.GameWindow.MinimizeWindow
   - ShapeEngine.Core.GameWindow.Monitor
   - ShapeEngine.Core.GameWindow.MonitorToScreen
@@ -944,90 +943,47 @@ items:
       type: ShapeEngine.Core.WindowBorder
     content.vb: Public Property WindowBorder As WindowBorder
   overload: ShapeEngine.Core.GameWindow.WindowBorder*
-- uid: ShapeEngine.Core.GameWindow.MinFramerate
-  commentId: P:ShapeEngine.Core.GameWindow.MinFramerate
-  id: MinFramerate
+- uid: ShapeEngine.Core.GameWindow.AdaptiveFpsLimiter
+  commentId: P:ShapeEngine.Core.GameWindow.AdaptiveFpsLimiter
+  id: AdaptiveFpsLimiter
   parent: ShapeEngine.Core.GameWindow
   langs:
   - csharp
   - vb
-  name: MinFramerate
-  nameWithType: GameWindow.MinFramerate
-  fullName: ShapeEngine.Core.GameWindow.MinFramerate
+  name: AdaptiveFpsLimiter
+  nameWithType: GameWindow.AdaptiveFpsLimiter
+  fullName: ShapeEngine.Core.GameWindow.AdaptiveFpsLimiter
   type: Property
   source:
     remote:
       path: ShapeEngine/Core/GameWindow.cs
       branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: MinFramerate
+    id: AdaptiveFpsLimiter
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 338
+    startLine: 336
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
   summary: >-
-    Gets or sets the minimum allowed framerate for the application.
+    If enabled the FPS limiter will dynamically adjust the frame rate limit based on performance.
 
-    To allow an unlimited frame rate, <xref href="ShapeEngine.Core.GameWindow.MinFramerate" data-throw-if-not-resolved="false"></xref> has to be set to 0, <xref href="ShapeEngine.Core.GameWindow.FpsLimit" data-throw-if-not-resolved="false"></xref> has to be set to 0, and <xref href="ShapeEngine.Core.GameWindow.VSync" data-throw-if-not-resolved="false"></xref> has to be false.
-  remarks: >-
-    - Negative values are clamped to 0.
+    If an <xref href="ShapeEngine.Core.GameWindow.FpsLimit" data-throw-if-not-resolved="false"></xref> is set (whether through <xref href="ShapeEngine.Core.GameWindow.VSync" data-throw-if-not-resolved="false"></xref> with a valid monitor refresh rate or manually),
 
-    - If the new minimum is greater than <xref href="ShapeEngine.Core.GameWindow.MaxFramerate" data-throw-if-not-resolved="false"></xref>,
-      the previous <xref href="ShapeEngine.Core.GameWindow.MaxFramerate" data-throw-if-not-resolved="false"></xref> will be assigned to <xref href="ShapeEngine.Core.GameWindow.MinFramerate" data-throw-if-not-resolved="false"></xref>
-      and <xref href="ShapeEngine.Core.GameWindow.MaxFramerate" data-throw-if-not-resolved="false"></xref> will be set to the provided value (effectively swapping).
-    - When the <xref href="ShapeEngine.Core.GameWindow.FpsLimit" data-throw-if-not-resolved="false"></xref> is lower than the new minimum, <xref href="ShapeEngine.Core.GameWindow.FpsLimit" data-throw-if-not-resolved="false"></xref>
-      is adjusted to match the new minimum.
+    the adaptive limiter will try to keep the frame rate close to that limit and reduce the limit if performance drops.
+
+    If no <xref href="ShapeEngine.Core.GameWindow.FpsLimit" data-throw-if-not-resolved="false"></xref> is set (0 = unlimited), the adaptive limiter will try to keep the frame rate between its configured minimum and maximum limits,
+
+    trying to reach the maximum limit when possible and never going below the minimum limit.
+  remarks: Can be enabled or disabled through <xref href="ShapeEngine.Core.AdaptiveFpsLimiter.Enabled" data-throw-if-not-resolved="false"></xref> at any time.
   example: []
   syntax:
-    content: public int MinFramerate { get; set; }
+    content: public AdaptiveFpsLimiter AdaptiveFpsLimiter { get; }
     parameters: []
     return:
-      type: System.Int32
-    content.vb: Public Property MinFramerate As Integer
-  overload: ShapeEngine.Core.GameWindow.MinFramerate*
-- uid: ShapeEngine.Core.GameWindow.MaxFramerate
-  commentId: P:ShapeEngine.Core.GameWindow.MaxFramerate
-  id: MaxFramerate
-  parent: ShapeEngine.Core.GameWindow
-  langs:
-  - csharp
-  - vb
-  name: MaxFramerate
-  nameWithType: GameWindow.MaxFramerate
-  fullName: ShapeEngine.Core.GameWindow.MaxFramerate
-  type: Property
-  source:
-    remote:
-      path: ShapeEngine/Core/GameWindow.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: MaxFramerate
-    path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 367
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core
-  summary: >-
-    Gets or sets the maximum allowed framerate for the application.
-
-    If set to 0 frame rate will be unlimited when <xref href="ShapeEngine.Core.GameWindow.VSync" data-throw-if-not-resolved="false"></xref> is disabled.
-  remarks: >-
-    - Negative values are clamped to 0.
-
-    - If the provided value is less than <xref href="ShapeEngine.Core.GameWindow.MinFramerate" data-throw-if-not-resolved="false"></xref>,
-      the previous <xref href="ShapeEngine.Core.GameWindow.MinFramerate" data-throw-if-not-resolved="false"></xref> will be assigned to <xref href="ShapeEngine.Core.GameWindow.MaxFramerate" data-throw-if-not-resolved="false"></xref>
-      and <xref href="ShapeEngine.Core.GameWindow.MinFramerate" data-throw-if-not-resolved="false"></xref> will be set to the provided value (effectively swapping).
-    - When <xref href="ShapeEngine.Core.GameWindow.FpsLimit" data-throw-if-not-resolved="false"></xref> is greater than the new maximum, <xref href="ShapeEngine.Core.GameWindow.FpsLimit" data-throw-if-not-resolved="false"></xref>
-      is adjusted to match the new maximum to maintain consistency.
-  example: []
-  syntax:
-    content: public int MaxFramerate { get; set; }
-    parameters: []
-    return:
-      type: System.Int32
-    content.vb: Public Property MaxFramerate As Integer
-  overload: ShapeEngine.Core.GameWindow.MaxFramerate*
+      type: ShapeEngine.Core.AdaptiveFpsLimiter
+    content.vb: Public Property AdaptiveFpsLimiter As AdaptiveFpsLimiter
+  overload: ShapeEngine.Core.GameWindow.AdaptiveFpsLimiter*
 - uid: ShapeEngine.Core.GameWindow.FpsLimit
   commentId: P:ShapeEngine.Core.GameWindow.FpsLimit
   id: FpsLimit
@@ -1046,18 +1002,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FpsLimit
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 404
+    startLine: 346
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
   summary: >-
     Gets or sets the frames-per-second limit used when VSync is disabled. 0 means unlimited.
 
-    <xref href="ShapeEngine.Core.GameWindow.MinFramerate" data-throw-if-not-resolved="false"></xref> has to be set to 0 and <xref href="ShapeEngine.Core.GameWindow.VSync" data-throw-if-not-resolved="false"></xref> has to be false to allow an unlimited frame rate.
-  remarks: >-
-    Value is clamped to the current <xref href="ShapeEngine.Core.GameWindow.MinFramerate" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Core.GameWindow.MaxFramerate" data-throw-if-not-resolved="false"></xref> range.
-
-    When VSync is disabled, assigning to this property will update <xref href="ShapeEngine.Core.GameWindow.TargetFps" data-throw-if-not-resolved="false"></xref> accordingly.
+    <xref href="ShapeEngine.Core.GameWindow.VSync" data-throw-if-not-resolved="false"></xref> has to be false to allow an unlimited frame rate.
+  remarks: When VSync is disabled, assigning to this property will update <xref href="ShapeEngine.Core.GameWindow.TargetFps" data-throw-if-not-resolved="false"></xref> accordingly.
   example: []
   syntax:
     content: public int FpsLimit { get; set; }
@@ -1084,7 +1037,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TargetFps
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 423
+    startLine: 363
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1119,7 +1072,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: VSync
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 438
+    startLine: 378
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1159,7 +1112,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MouseOnScreen
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 467
+    startLine: 407
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1190,7 +1143,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ScreenArea
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 479
+    startLine: 419
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1221,7 +1174,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FullscreenAutoRestoring
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 484
+    startLine: 424
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1252,7 +1205,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RestoreWindow
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 677
+    startLine: 607
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1283,7 +1236,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CenterWindow
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 703
+    startLine: 633
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1311,7 +1264,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ResizeWindow
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 717
+    startLine: 647
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1343,7 +1296,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ResetWindow
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 721
+    startLine: 651
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1371,7 +1324,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ActivateFullscreen
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 733
+    startLine: 663
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1412,7 +1365,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ActivateBorderlessFullscreen
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 775
+    startLine: 705
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1443,7 +1396,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MinimizeWindow
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 817
+    startLine: 747
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1474,7 +1427,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MaximizeWindow
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 848
+    startLine: 778
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1505,7 +1458,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToggleBorderlessFullscreen
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 880
+    startLine: 810
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1533,7 +1486,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToggleMaximizeWindow
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 894
+    startLine: 824
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1561,7 +1514,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToggleMinimizeWindow
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 908
+    startLine: 838
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1589,7 +1542,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SetWindowBorderFixed
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 924
+    startLine: 854
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1620,7 +1573,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SetWindowBorderResizable
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 943
+    startLine: 873
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1651,7 +1604,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SetWindowBorderUndecorated
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 960
+    startLine: 890
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1682,7 +1635,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SetWindowTopmost
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 979
+    startLine: 909
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1720,7 +1673,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsWindowBorderlessFullscreen
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 990
+    startLine: 920
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1750,7 +1703,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsWindowFullscreen
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 994
+    startLine: 924
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1780,7 +1733,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsWindowMaximized
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 998
+    startLine: 928
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1810,7 +1763,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsWindowMinimized
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 1002
+    startLine: 932
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1840,7 +1793,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsWindowNormal
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 1006
+    startLine: 936
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1870,7 +1823,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsWindowFocused
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 1011
+    startLine: 941
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1901,7 +1854,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsWindowTopmost
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 1015
+    startLine: 945
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1932,7 +1885,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetScreenPercentage
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 1021
+    startLine: 951
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1963,7 +1916,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SetMonitor
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 1320
+    startLine: 1250
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -2001,7 +1954,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: NextMonitor
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 1333
+    startLine: 1263
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -2029,7 +1982,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MousePosition
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 1392
+    startLine: 1322
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -2060,7 +2013,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MouseDelta
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 1401
+    startLine: 1331
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -2091,7 +2044,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MouseX
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 1405
+    startLine: 1335
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -2122,7 +2075,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MouseY
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 1409
+    startLine: 1339
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -2153,7 +2106,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MouseEnabled
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 1414
+    startLine: 1344
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -2184,7 +2137,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MouseVisible
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 1438
+    startLine: 1368
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -2215,7 +2168,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ResetMousePosition
     path: ../ShapeEngine/ShapeEngine/Core/GameWindow.cs
-    startLine: 1459
+    startLine: 1389
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -3212,12 +3165,6 @@ references:
   name: WindowBorder
   nameWithType: WindowBorder
   fullName: ShapeEngine.Core.WindowBorder
-- uid: ShapeEngine.Core.GameWindow.MinFramerate
-  commentId: P:ShapeEngine.Core.GameWindow.MinFramerate
-  href: ShapeEngine.Core.GameWindow.html#ShapeEngine_Core_GameWindow_MinFramerate
-  name: MinFramerate
-  nameWithType: GameWindow.MinFramerate
-  fullName: ShapeEngine.Core.GameWindow.MinFramerate
 - uid: ShapeEngine.Core.GameWindow.FpsLimit
   commentId: P:ShapeEngine.Core.GameWindow.FpsLimit
   href: ShapeEngine.Core.GameWindow.html#ShapeEngine_Core_GameWindow_FpsLimit
@@ -3230,35 +3177,25 @@ references:
   name: VSync
   nameWithType: GameWindow.VSync
   fullName: ShapeEngine.Core.GameWindow.VSync
-- uid: ShapeEngine.Core.GameWindow.MaxFramerate
-  commentId: P:ShapeEngine.Core.GameWindow.MaxFramerate
-  href: ShapeEngine.Core.GameWindow.html#ShapeEngine_Core_GameWindow_MaxFramerate
-  name: MaxFramerate
-  nameWithType: GameWindow.MaxFramerate
-  fullName: ShapeEngine.Core.GameWindow.MaxFramerate
-- uid: ShapeEngine.Core.GameWindow.MinFramerate*
-  commentId: Overload:ShapeEngine.Core.GameWindow.MinFramerate
-  href: ShapeEngine.Core.GameWindow.html#ShapeEngine_Core_GameWindow_MinFramerate
-  name: MinFramerate
-  nameWithType: GameWindow.MinFramerate
-  fullName: ShapeEngine.Core.GameWindow.MinFramerate
-- uid: System.Int32
-  commentId: T:System.Int32
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.int32
-  name: int
-  nameWithType: int
-  fullName: int
-  nameWithType.vb: Integer
-  fullName.vb: Integer
-  name.vb: Integer
-- uid: ShapeEngine.Core.GameWindow.MaxFramerate*
-  commentId: Overload:ShapeEngine.Core.GameWindow.MaxFramerate
-  href: ShapeEngine.Core.GameWindow.html#ShapeEngine_Core_GameWindow_MaxFramerate
-  name: MaxFramerate
-  nameWithType: GameWindow.MaxFramerate
-  fullName: ShapeEngine.Core.GameWindow.MaxFramerate
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter.Enabled
+  commentId: P:ShapeEngine.Core.AdaptiveFpsLimiter.Enabled
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html#ShapeEngine_Core_AdaptiveFpsLimiter_Enabled
+  name: Enabled
+  nameWithType: AdaptiveFpsLimiter.Enabled
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter.Enabled
+- uid: ShapeEngine.Core.GameWindow.AdaptiveFpsLimiter*
+  commentId: Overload:ShapeEngine.Core.GameWindow.AdaptiveFpsLimiter
+  href: ShapeEngine.Core.GameWindow.html#ShapeEngine_Core_GameWindow_AdaptiveFpsLimiter
+  name: AdaptiveFpsLimiter
+  nameWithType: GameWindow.AdaptiveFpsLimiter
+  fullName: ShapeEngine.Core.GameWindow.AdaptiveFpsLimiter
+- uid: ShapeEngine.Core.AdaptiveFpsLimiter
+  commentId: T:ShapeEngine.Core.AdaptiveFpsLimiter
+  parent: ShapeEngine.Core
+  href: ShapeEngine.Core.AdaptiveFpsLimiter.html
+  name: AdaptiveFpsLimiter
+  nameWithType: AdaptiveFpsLimiter
+  fullName: ShapeEngine.Core.AdaptiveFpsLimiter
 - uid: ShapeEngine.Core.GameWindow.TargetFps
   commentId: P:ShapeEngine.Core.GameWindow.TargetFps
   href: ShapeEngine.Core.GameWindow.html#ShapeEngine_Core_GameWindow_TargetFps
@@ -3271,6 +3208,17 @@ references:
   name: FpsLimit
   nameWithType: GameWindow.FpsLimit
   fullName: ShapeEngine.Core.GameWindow.FpsLimit
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
 - uid: ShapeEngine.Core.GameWindow.TargetFps*
   commentId: Overload:ShapeEngine.Core.GameWindow.TargetFps
   href: ShapeEngine.Core.GameWindow.html#ShapeEngine_Core_GameWindow_TargetFps
