@@ -5,20 +5,22 @@ items:
   id: GameSettings
   parent: ShapeEngine.Core.Structs
   children:
-  - ShapeEngine.Core.Structs.GameSettings.#ctor(ShapeEngine.Core.Structs.Dimensions,System.Int32,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.Boolean,System.String,System.Nullable{System.Environment.SpecialFolder})
-  - ShapeEngine.Core.Structs.GameSettings.#ctor(System.Int32,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.String,System.Nullable{System.Environment.SpecialFolder})
-  - ShapeEngine.Core.Structs.GameSettings.#ctor(System.Single,System.Int32,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.String,System.Nullable{System.Environment.SpecialFolder})
+  - ShapeEngine.Core.Structs.GameSettings.#ctor(ShapeEngine.Core.Structs.Dimensions,System.Int32,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.Boolean,System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
+  - ShapeEngine.Core.Structs.GameSettings.#ctor(System.Int32,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
+  - ShapeEngine.Core.Structs.GameSettings.#ctor(System.Single,System.Int32,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
   - ShapeEngine.Core.Structs.GameSettings.ApplicationName
   - ShapeEngine.Core.Structs.GameSettings.FixedDimensions
   - ShapeEngine.Core.Structs.GameSettings.FixedFramerate
-  - ShapeEngine.Core.Structs.GameSettings.FixedMode(System.String,System.Nullable{System.Environment.SpecialFolder})
-  - ShapeEngine.Core.Structs.GameSettings.FixedNearestMode(System.String,System.Nullable{System.Environment.SpecialFolder})
+  - ShapeEngine.Core.Structs.GameSettings.FixedMode(System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
+  - ShapeEngine.Core.Structs.GameSettings.FixedNearestMode(System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
+  - ShapeEngine.Core.Structs.GameSettings.IdleFrameRateLimit
+  - ShapeEngine.Core.Structs.GameSettings.IdleTimeThreshold
   - ShapeEngine.Core.Structs.GameSettings.PixelationFactor
-  - ShapeEngine.Core.Structs.GameSettings.PixelationMode(System.String,System.Nullable{System.Environment.SpecialFolder})
+  - ShapeEngine.Core.Structs.GameSettings.PixelationMode(System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
   - ShapeEngine.Core.Structs.GameSettings.SaveDirectory
   - ShapeEngine.Core.Structs.GameSettings.ScreenTextureMode
   - ShapeEngine.Core.Structs.GameSettings.ShaderSupportType
-  - ShapeEngine.Core.Structs.GameSettings.StretchMode(System.String,System.Nullable{System.Environment.SpecialFolder})
+  - ShapeEngine.Core.Structs.GameSettings.StretchMode(System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
   - ShapeEngine.Core.Structs.GameSettings.TextureFilter
   langs:
   - csharp
@@ -54,16 +56,16 @@ items:
   - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
   - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
   - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
-- uid: ShapeEngine.Core.Structs.GameSettings.StretchMode(System.String,System.Nullable{System.Environment.SpecialFolder})
-  commentId: M:ShapeEngine.Core.Structs.GameSettings.StretchMode(System.String,System.Nullable{System.Environment.SpecialFolder})
-  id: StretchMode(System.String,System.Nullable{System.Environment.SpecialFolder})
+- uid: ShapeEngine.Core.Structs.GameSettings.StretchMode(System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
+  commentId: M:ShapeEngine.Core.Structs.GameSettings.StretchMode(System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
+  id: StretchMode(System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
   parent: ShapeEngine.Core.Structs.GameSettings
   langs:
   - csharp
   - vb
-  name: StretchMode(string, SpecialFolder?)
-  nameWithType: GameSettings.StretchMode(string, Environment.SpecialFolder?)
-  fullName: ShapeEngine.Core.Structs.GameSettings.StretchMode(string, System.Environment.SpecialFolder?)
+  name: StretchMode(string, SpecialFolder?, int, float)
+  nameWithType: GameSettings.StretchMode(string, Environment.SpecialFolder?, int, float)
+  fullName: ShapeEngine.Core.Structs.GameSettings.StretchMode(string, System.Environment.SpecialFolder?, int, float)
   type: Method
   source:
     remote:
@@ -72,14 +74,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: StretchMode
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
-    startLine: 18
+    startLine: 20
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
   summary: Creates a new GameSettings instance with stretch mode.
   example: []
   syntax:
-    content: public static GameSettings StretchMode(string applicationName = "ShapeEngineGame", Environment.SpecialFolder? saveDirectory = SpecialFolder.LocalApplicationData)
+    content: public static GameSettings StretchMode(string applicationName = "ShapeEngineGame", Environment.SpecialFolder? saveDirectory = SpecialFolder.LocalApplicationData, int idleFrameRateLimit = 30, float idleTimeThreshold = 120)
     parameters:
     - id: applicationName
       type: System.String
@@ -89,23 +91,29 @@ items:
       description: >-
         The directory for saving game data. If set to null, no directory will be created.
             Savegame location: saveDirectory/applicationName.
+    - id: idleFrameRateLimit
+      type: System.Int32
+      description: The frame rate limit to apply when the engine goes into idle mode after <code>idleTimeThreshold</code> seconds of no input.
+    - id: idleTimeThreshold
+      type: System.Single
+      description: The amount of seconds of no input after which the engine is considered idle.
     return:
       type: ShapeEngine.Core.Structs.GameSettings
-    content.vb: Public Shared Function StretchMode(applicationName As String = "ShapeEngineGame", saveDirectory As Environment.SpecialFolder? = SpecialFolder.LocalApplicationData) As GameSettings
+    content.vb: Public Shared Function StretchMode(applicationName As String = "ShapeEngineGame", saveDirectory As Environment.SpecialFolder? = SpecialFolder.LocalApplicationData, idleFrameRateLimit As Integer = 30, idleTimeThreshold As Single = 120) As GameSettings
   overload: ShapeEngine.Core.Structs.GameSettings.StretchMode*
-  nameWithType.vb: GameSettings.StretchMode(String, Environment.SpecialFolder?)
-  fullName.vb: ShapeEngine.Core.Structs.GameSettings.StretchMode(String, System.Environment.SpecialFolder?)
-  name.vb: StretchMode(String, SpecialFolder?)
-- uid: ShapeEngine.Core.Structs.GameSettings.FixedMode(System.String,System.Nullable{System.Environment.SpecialFolder})
-  commentId: M:ShapeEngine.Core.Structs.GameSettings.FixedMode(System.String,System.Nullable{System.Environment.SpecialFolder})
-  id: FixedMode(System.String,System.Nullable{System.Environment.SpecialFolder})
+  nameWithType.vb: GameSettings.StretchMode(String, Environment.SpecialFolder?, Integer, Single)
+  fullName.vb: ShapeEngine.Core.Structs.GameSettings.StretchMode(String, System.Environment.SpecialFolder?, Integer, Single)
+  name.vb: StretchMode(String, SpecialFolder?, Integer, Single)
+- uid: ShapeEngine.Core.Structs.GameSettings.FixedMode(System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
+  commentId: M:ShapeEngine.Core.Structs.GameSettings.FixedMode(System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
+  id: FixedMode(System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
   parent: ShapeEngine.Core.Structs.GameSettings
   langs:
   - csharp
   - vb
-  name: FixedMode(string, SpecialFolder?)
-  nameWithType: GameSettings.FixedMode(string, Environment.SpecialFolder?)
-  fullName: ShapeEngine.Core.Structs.GameSettings.FixedMode(string, System.Environment.SpecialFolder?)
+  name: FixedMode(string, SpecialFolder?, int, float)
+  nameWithType: GameSettings.FixedMode(string, Environment.SpecialFolder?, int, float)
+  fullName: ShapeEngine.Core.Structs.GameSettings.FixedMode(string, System.Environment.SpecialFolder?, int, float)
   type: Method
   source:
     remote:
@@ -114,14 +122,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FixedMode
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
-    startLine: 31
+    startLine: 36
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
   summary: Creates a new GameSettings instance with fixed dimensions and the nearest scaling disabled.
   example: []
   syntax:
-    content: public static GameSettings FixedMode(string applicationName = "ShapeEngineGame", Environment.SpecialFolder? saveDirectory = SpecialFolder.LocalApplicationData)
+    content: public static GameSettings FixedMode(string applicationName = "ShapeEngineGame", Environment.SpecialFolder? saveDirectory = SpecialFolder.LocalApplicationData, int idleFrameRateLimit = 30, float idleTimeThreshold = 120)
     parameters:
     - id: applicationName
       type: System.String
@@ -131,23 +139,29 @@ items:
       description: >-
         The directory for saving game data. If set to null, no directory will be created.
             Savegame location: saveDirectory/applicationName.
+    - id: idleFrameRateLimit
+      type: System.Int32
+      description: The frame rate limit to apply when the engine goes into idle mode after <code>idleTimeThreshold</code> seconds of no input.
+    - id: idleTimeThreshold
+      type: System.Single
+      description: The amount of seconds of no input after which the engine is considered idle.
     return:
       type: ShapeEngine.Core.Structs.GameSettings
-    content.vb: Public Shared Function FixedMode(applicationName As String = "ShapeEngineGame", saveDirectory As Environment.SpecialFolder? = SpecialFolder.LocalApplicationData) As GameSettings
+    content.vb: Public Shared Function FixedMode(applicationName As String = "ShapeEngineGame", saveDirectory As Environment.SpecialFolder? = SpecialFolder.LocalApplicationData, idleFrameRateLimit As Integer = 30, idleTimeThreshold As Single = 120) As GameSettings
   overload: ShapeEngine.Core.Structs.GameSettings.FixedMode*
-  nameWithType.vb: GameSettings.FixedMode(String, Environment.SpecialFolder?)
-  fullName.vb: ShapeEngine.Core.Structs.GameSettings.FixedMode(String, System.Environment.SpecialFolder?)
-  name.vb: FixedMode(String, SpecialFolder?)
-- uid: ShapeEngine.Core.Structs.GameSettings.FixedNearestMode(System.String,System.Nullable{System.Environment.SpecialFolder})
-  commentId: M:ShapeEngine.Core.Structs.GameSettings.FixedNearestMode(System.String,System.Nullable{System.Environment.SpecialFolder})
-  id: FixedNearestMode(System.String,System.Nullable{System.Environment.SpecialFolder})
+  nameWithType.vb: GameSettings.FixedMode(String, Environment.SpecialFolder?, Integer, Single)
+  fullName.vb: ShapeEngine.Core.Structs.GameSettings.FixedMode(String, System.Environment.SpecialFolder?, Integer, Single)
+  name.vb: FixedMode(String, SpecialFolder?, Integer, Single)
+- uid: ShapeEngine.Core.Structs.GameSettings.FixedNearestMode(System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
+  commentId: M:ShapeEngine.Core.Structs.GameSettings.FixedNearestMode(System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
+  id: FixedNearestMode(System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
   parent: ShapeEngine.Core.Structs.GameSettings
   langs:
   - csharp
   - vb
-  name: FixedNearestMode(string, SpecialFolder?)
-  nameWithType: GameSettings.FixedNearestMode(string, Environment.SpecialFolder?)
-  fullName: ShapeEngine.Core.Structs.GameSettings.FixedNearestMode(string, System.Environment.SpecialFolder?)
+  name: FixedNearestMode(string, SpecialFolder?, int, float)
+  nameWithType: GameSettings.FixedNearestMode(string, Environment.SpecialFolder?, int, float)
+  fullName: ShapeEngine.Core.Structs.GameSettings.FixedNearestMode(string, System.Environment.SpecialFolder?, int, float)
   type: Method
   source:
     remote:
@@ -156,14 +170,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FixedNearestMode
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
-    startLine: 45
+    startLine: 52
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
   summary: Creates a new GameSettings instance with fixed dimensions and the nearest scaling enabled.
   example: []
   syntax:
-    content: public static GameSettings FixedNearestMode(string applicationName = "ShapeEngineGame", Environment.SpecialFolder? saveDirectory = SpecialFolder.LocalApplicationData)
+    content: public static GameSettings FixedNearestMode(string applicationName = "ShapeEngineGame", Environment.SpecialFolder? saveDirectory = SpecialFolder.LocalApplicationData, int idleFrameRateLimit = 30, float idleTimeThreshold = 120)
     parameters:
     - id: applicationName
       type: System.String
@@ -173,23 +187,29 @@ items:
       description: >-
         The directory for saving game data. If set to null, no directory will be created.
             Savegame location: saveDirectory/applicationName.
+    - id: idleFrameRateLimit
+      type: System.Int32
+      description: The frame rate limit to apply when the engine goes into idle mode after <code>idleTimeThreshold</code> seconds of no input.
+    - id: idleTimeThreshold
+      type: System.Single
+      description: The amount of seconds of no input after which the engine is considered idle.
     return:
       type: ShapeEngine.Core.Structs.GameSettings
-    content.vb: Public Shared Function FixedNearestMode(applicationName As String = "ShapeEngineGame", saveDirectory As Environment.SpecialFolder? = SpecialFolder.LocalApplicationData) As GameSettings
+    content.vb: Public Shared Function FixedNearestMode(applicationName As String = "ShapeEngineGame", saveDirectory As Environment.SpecialFolder? = SpecialFolder.LocalApplicationData, idleFrameRateLimit As Integer = 30, idleTimeThreshold As Single = 120) As GameSettings
   overload: ShapeEngine.Core.Structs.GameSettings.FixedNearestMode*
-  nameWithType.vb: GameSettings.FixedNearestMode(String, Environment.SpecialFolder?)
-  fullName.vb: ShapeEngine.Core.Structs.GameSettings.FixedNearestMode(String, System.Environment.SpecialFolder?)
-  name.vb: FixedNearestMode(String, SpecialFolder?)
-- uid: ShapeEngine.Core.Structs.GameSettings.PixelationMode(System.String,System.Nullable{System.Environment.SpecialFolder})
-  commentId: M:ShapeEngine.Core.Structs.GameSettings.PixelationMode(System.String,System.Nullable{System.Environment.SpecialFolder})
-  id: PixelationMode(System.String,System.Nullable{System.Environment.SpecialFolder})
+  nameWithType.vb: GameSettings.FixedNearestMode(String, Environment.SpecialFolder?, Integer, Single)
+  fullName.vb: ShapeEngine.Core.Structs.GameSettings.FixedNearestMode(String, System.Environment.SpecialFolder?, Integer, Single)
+  name.vb: FixedNearestMode(String, SpecialFolder?, Integer, Single)
+- uid: ShapeEngine.Core.Structs.GameSettings.PixelationMode(System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
+  commentId: M:ShapeEngine.Core.Structs.GameSettings.PixelationMode(System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
+  id: PixelationMode(System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
   parent: ShapeEngine.Core.Structs.GameSettings
   langs:
   - csharp
   - vb
-  name: PixelationMode(string, SpecialFolder?)
-  nameWithType: GameSettings.PixelationMode(string, Environment.SpecialFolder?)
-  fullName: ShapeEngine.Core.Structs.GameSettings.PixelationMode(string, System.Environment.SpecialFolder?)
+  name: PixelationMode(string, SpecialFolder?, int, float)
+  nameWithType: GameSettings.PixelationMode(string, Environment.SpecialFolder?, int, float)
+  fullName: ShapeEngine.Core.Structs.GameSettings.PixelationMode(string, System.Environment.SpecialFolder?, int, float)
   type: Method
   source:
     remote:
@@ -198,14 +218,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PixelationMode
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
-    startLine: 58
+    startLine: 68
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
   summary: Creates a new GameSettings instance with pixelation mode.
   example: []
   syntax:
-    content: public static GameSettings PixelationMode(string applicationName = "ShapeEngineGame", Environment.SpecialFolder? saveDirectory = SpecialFolder.LocalApplicationData)
+    content: public static GameSettings PixelationMode(string applicationName = "ShapeEngineGame", Environment.SpecialFolder? saveDirectory = SpecialFolder.LocalApplicationData, int idleFrameRateLimit = 30, float idleTimeThreshold = 120)
     parameters:
     - id: applicationName
       type: System.String
@@ -215,23 +235,29 @@ items:
       description: >-
         The directory for saving game data. If set to null, no directory will be created.
             Savegame location: saveDirectory/applicationName.
+    - id: idleFrameRateLimit
+      type: System.Int32
+      description: The frame rate limit to apply when the engine goes into idle mode after <code>idleTimeThreshold</code> seconds of no input.
+    - id: idleTimeThreshold
+      type: System.Single
+      description: The amount of seconds of no input after which the engine is considered idle.
     return:
       type: ShapeEngine.Core.Structs.GameSettings
-    content.vb: Public Shared Function PixelationMode(applicationName As String = "ShapeEngineGame", saveDirectory As Environment.SpecialFolder? = SpecialFolder.LocalApplicationData) As GameSettings
+    content.vb: Public Shared Function PixelationMode(applicationName As String = "ShapeEngineGame", saveDirectory As Environment.SpecialFolder? = SpecialFolder.LocalApplicationData, idleFrameRateLimit As Integer = 30, idleTimeThreshold As Single = 120) As GameSettings
   overload: ShapeEngine.Core.Structs.GameSettings.PixelationMode*
-  nameWithType.vb: GameSettings.PixelationMode(String, Environment.SpecialFolder?)
-  fullName.vb: ShapeEngine.Core.Structs.GameSettings.PixelationMode(String, System.Environment.SpecialFolder?)
-  name.vb: PixelationMode(String, SpecialFolder?)
-- uid: ShapeEngine.Core.Structs.GameSettings.#ctor(System.Int32,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.String,System.Nullable{System.Environment.SpecialFolder})
-  commentId: M:ShapeEngine.Core.Structs.GameSettings.#ctor(System.Int32,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.String,System.Nullable{System.Environment.SpecialFolder})
-  id: '#ctor(System.Int32,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.String,System.Nullable{System.Environment.SpecialFolder})'
+  nameWithType.vb: GameSettings.PixelationMode(String, Environment.SpecialFolder?, Integer, Single)
+  fullName.vb: ShapeEngine.Core.Structs.GameSettings.PixelationMode(String, System.Environment.SpecialFolder?, Integer, Single)
+  name.vb: PixelationMode(String, SpecialFolder?, Integer, Single)
+- uid: ShapeEngine.Core.Structs.GameSettings.#ctor(System.Int32,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
+  commentId: M:ShapeEngine.Core.Structs.GameSettings.#ctor(System.Int32,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
+  id: '#ctor(System.Int32,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)'
   parent: ShapeEngine.Core.Structs.GameSettings
   langs:
   - csharp
   - vb
-  name: GameSettings(int, TextureFilter, ShaderSupportType, string, SpecialFolder?)
-  nameWithType: GameSettings.GameSettings(int, TextureFilter, ShaderSupportType, string, Environment.SpecialFolder?)
-  fullName: ShapeEngine.Core.Structs.GameSettings.GameSettings(int, Raylib_cs.TextureFilter, ShapeEngine.Screen.ShaderSupportType, string, System.Environment.SpecialFolder?)
+  name: GameSettings(int, TextureFilter, ShaderSupportType, string, SpecialFolder?, int, float)
+  nameWithType: GameSettings.GameSettings(int, TextureFilter, ShaderSupportType, string, Environment.SpecialFolder?, int, float)
+  fullName: ShapeEngine.Core.Structs.GameSettings.GameSettings(int, Raylib_cs.TextureFilter, ShapeEngine.Screen.ShaderSupportType, string, System.Environment.SpecialFolder?, int, float)
   type: Constructor
   source:
     remote:
@@ -240,14 +266,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
-    startLine: 78
+    startLine: 91
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
   summary: Initializes a new instance of the GameSettings struct with the specified fixed framerate, texture filter, and shader support type.
   example: []
   syntax:
-    content: public GameSettings(int fixedFramerate, TextureFilter textureFilter, ShaderSupportType shaderSupportType, string applicationName = "ShapeEngineGame", Environment.SpecialFolder? saveDirectory = SpecialFolder.LocalApplicationData)
+    content: public GameSettings(int fixedFramerate, TextureFilter textureFilter, ShaderSupportType shaderSupportType, string applicationName = "ShapeEngineGame", Environment.SpecialFolder? saveDirectory = SpecialFolder.LocalApplicationData, int idleFrameRateLimit = 30, float idleTimeThreshold = 120)
     parameters:
     - id: fixedFramerate
       type: System.Int32
@@ -266,21 +292,27 @@ items:
       description: >-
         The directory for saving game data. If set to null, no directory will be created.
             Savegame location: saveDirectory/applicationName.
-    content.vb: Public Sub New(fixedFramerate As Integer, textureFilter As TextureFilter, shaderSupportType As ShaderSupportType, applicationName As String = "ShapeEngineGame", saveDirectory As Environment.SpecialFolder? = SpecialFolder.LocalApplicationData)
+    - id: idleFrameRateLimit
+      type: System.Int32
+      description: The frame rate limit to apply when the engine goes into idle mode after <code>idleTimeThreshold</code> seconds of no input.
+    - id: idleTimeThreshold
+      type: System.Single
+      description: The amount of seconds of no input after which the engine is considered idle.
+    content.vb: Public Sub New(fixedFramerate As Integer, textureFilter As TextureFilter, shaderSupportType As ShaderSupportType, applicationName As String = "ShapeEngineGame", saveDirectory As Environment.SpecialFolder? = SpecialFolder.LocalApplicationData, idleFrameRateLimit As Integer = 30, idleTimeThreshold As Single = 120)
   overload: ShapeEngine.Core.Structs.GameSettings.#ctor*
-  nameWithType.vb: GameSettings.New(Integer, TextureFilter, ShaderSupportType, String, Environment.SpecialFolder?)
-  fullName.vb: ShapeEngine.Core.Structs.GameSettings.New(Integer, Raylib_cs.TextureFilter, ShapeEngine.Screen.ShaderSupportType, String, System.Environment.SpecialFolder?)
-  name.vb: New(Integer, TextureFilter, ShaderSupportType, String, SpecialFolder?)
-- uid: ShapeEngine.Core.Structs.GameSettings.#ctor(ShapeEngine.Core.Structs.Dimensions,System.Int32,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.Boolean,System.String,System.Nullable{System.Environment.SpecialFolder})
-  commentId: M:ShapeEngine.Core.Structs.GameSettings.#ctor(ShapeEngine.Core.Structs.Dimensions,System.Int32,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.Boolean,System.String,System.Nullable{System.Environment.SpecialFolder})
-  id: '#ctor(ShapeEngine.Core.Structs.Dimensions,System.Int32,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.Boolean,System.String,System.Nullable{System.Environment.SpecialFolder})'
+  nameWithType.vb: GameSettings.New(Integer, TextureFilter, ShaderSupportType, String, Environment.SpecialFolder?, Integer, Single)
+  fullName.vb: ShapeEngine.Core.Structs.GameSettings.New(Integer, Raylib_cs.TextureFilter, ShapeEngine.Screen.ShaderSupportType, String, System.Environment.SpecialFolder?, Integer, Single)
+  name.vb: New(Integer, TextureFilter, ShaderSupportType, String, SpecialFolder?, Integer, Single)
+- uid: ShapeEngine.Core.Structs.GameSettings.#ctor(ShapeEngine.Core.Structs.Dimensions,System.Int32,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.Boolean,System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
+  commentId: M:ShapeEngine.Core.Structs.GameSettings.#ctor(ShapeEngine.Core.Structs.Dimensions,System.Int32,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.Boolean,System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
+  id: '#ctor(ShapeEngine.Core.Structs.Dimensions,System.Int32,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.Boolean,System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)'
   parent: ShapeEngine.Core.Structs.GameSettings
   langs:
   - csharp
   - vb
-  name: GameSettings(Dimensions, int, TextureFilter, ShaderSupportType, bool, string, SpecialFolder?)
-  nameWithType: GameSettings.GameSettings(Dimensions, int, TextureFilter, ShaderSupportType, bool, string, Environment.SpecialFolder?)
-  fullName: ShapeEngine.Core.Structs.GameSettings.GameSettings(ShapeEngine.Core.Structs.Dimensions, int, Raylib_cs.TextureFilter, ShapeEngine.Screen.ShaderSupportType, bool, string, System.Environment.SpecialFolder?)
+  name: GameSettings(Dimensions, int, TextureFilter, ShaderSupportType, bool, string, SpecialFolder?, int, float)
+  nameWithType: GameSettings.GameSettings(Dimensions, int, TextureFilter, ShaderSupportType, bool, string, Environment.SpecialFolder?, int, float)
+  fullName: ShapeEngine.Core.Structs.GameSettings.GameSettings(ShapeEngine.Core.Structs.Dimensions, int, Raylib_cs.TextureFilter, ShapeEngine.Screen.ShaderSupportType, bool, string, System.Environment.SpecialFolder?, int, float)
   type: Constructor
   source:
     remote:
@@ -289,14 +321,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
-    startLine: 102
+    startLine: 120
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
   summary: Initializes a new instance of the GameSettings struct with the specified fixed dimensions, fixed framerate, texture filter, shader support type, and nearest scaling option.
   example: []
   syntax:
-    content: public GameSettings(Dimensions fixedDimensions, int fixedFramerate, TextureFilter textureFilter, ShaderSupportType shaderSupportType, bool nearestScaling = false, string applicationName = "ShapeEngineGame", Environment.SpecialFolder? saveDirectory = SpecialFolder.LocalApplicationData)
+    content: public GameSettings(Dimensions fixedDimensions, int fixedFramerate, TextureFilter textureFilter, ShaderSupportType shaderSupportType, bool nearestScaling = false, string applicationName = "ShapeEngineGame", Environment.SpecialFolder? saveDirectory = SpecialFolder.LocalApplicationData, int idleFrameRateLimit = 30, float idleTimeThreshold = 120)
     parameters:
     - id: fixedDimensions
       type: ShapeEngine.Core.Structs.Dimensions
@@ -321,21 +353,27 @@ items:
       description: >-
         The directory for saving game data. If set to null, no directory will be created.
             Savegame location: saveDirectory/applicationName.
-    content.vb: Public Sub New(fixedDimensions As Dimensions, fixedFramerate As Integer, textureFilter As TextureFilter, shaderSupportType As ShaderSupportType, nearestScaling As Boolean = False, applicationName As String = "ShapeEngineGame", saveDirectory As Environment.SpecialFolder? = SpecialFolder.LocalApplicationData)
+    - id: idleFrameRateLimit
+      type: System.Int32
+      description: The frame rate limit to apply when the engine goes into idle mode after <code>idleTimeThreshold</code> seconds of no input.
+    - id: idleTimeThreshold
+      type: System.Single
+      description: The amount of seconds of no input after which the engine is considered idle.
+    content.vb: Public Sub New(fixedDimensions As Dimensions, fixedFramerate As Integer, textureFilter As TextureFilter, shaderSupportType As ShaderSupportType, nearestScaling As Boolean = False, applicationName As String = "ShapeEngineGame", saveDirectory As Environment.SpecialFolder? = SpecialFolder.LocalApplicationData, idleFrameRateLimit As Integer = 30, idleTimeThreshold As Single = 120)
   overload: ShapeEngine.Core.Structs.GameSettings.#ctor*
-  nameWithType.vb: GameSettings.New(Dimensions, Integer, TextureFilter, ShaderSupportType, Boolean, String, Environment.SpecialFolder?)
-  fullName.vb: ShapeEngine.Core.Structs.GameSettings.New(ShapeEngine.Core.Structs.Dimensions, Integer, Raylib_cs.TextureFilter, ShapeEngine.Screen.ShaderSupportType, Boolean, String, System.Environment.SpecialFolder?)
-  name.vb: New(Dimensions, Integer, TextureFilter, ShaderSupportType, Boolean, String, SpecialFolder?)
-- uid: ShapeEngine.Core.Structs.GameSettings.#ctor(System.Single,System.Int32,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.String,System.Nullable{System.Environment.SpecialFolder})
-  commentId: M:ShapeEngine.Core.Structs.GameSettings.#ctor(System.Single,System.Int32,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.String,System.Nullable{System.Environment.SpecialFolder})
-  id: '#ctor(System.Single,System.Int32,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.String,System.Nullable{System.Environment.SpecialFolder})'
+  nameWithType.vb: GameSettings.New(Dimensions, Integer, TextureFilter, ShaderSupportType, Boolean, String, Environment.SpecialFolder?, Integer, Single)
+  fullName.vb: ShapeEngine.Core.Structs.GameSettings.New(ShapeEngine.Core.Structs.Dimensions, Integer, Raylib_cs.TextureFilter, ShapeEngine.Screen.ShaderSupportType, Boolean, String, System.Environment.SpecialFolder?, Integer, Single)
+  name.vb: New(Dimensions, Integer, TextureFilter, ShaderSupportType, Boolean, String, SpecialFolder?, Integer, Single)
+- uid: ShapeEngine.Core.Structs.GameSettings.#ctor(System.Single,System.Int32,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
+  commentId: M:ShapeEngine.Core.Structs.GameSettings.#ctor(System.Single,System.Int32,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)
+  id: '#ctor(System.Single,System.Int32,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.String,System.Nullable{System.Environment.SpecialFolder},System.Int32,System.Single)'
   parent: ShapeEngine.Core.Structs.GameSettings
   langs:
   - csharp
   - vb
-  name: GameSettings(float, int, TextureFilter, ShaderSupportType, string, SpecialFolder?)
-  nameWithType: GameSettings.GameSettings(float, int, TextureFilter, ShaderSupportType, string, Environment.SpecialFolder?)
-  fullName: ShapeEngine.Core.Structs.GameSettings.GameSettings(float, int, Raylib_cs.TextureFilter, ShapeEngine.Screen.ShaderSupportType, string, System.Environment.SpecialFolder?)
+  name: GameSettings(float, int, TextureFilter, ShaderSupportType, string, SpecialFolder?, int, float)
+  nameWithType: GameSettings.GameSettings(float, int, TextureFilter, ShaderSupportType, string, Environment.SpecialFolder?, int, float)
+  fullName: ShapeEngine.Core.Structs.GameSettings.GameSettings(float, int, Raylib_cs.TextureFilter, ShapeEngine.Screen.ShaderSupportType, string, System.Environment.SpecialFolder?, int, float)
   type: Constructor
   source:
     remote:
@@ -344,14 +382,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
-    startLine: 142
+    startLine: 166
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
   summary: Initializes a new instance of the GameSettings struct with the specified pixelation factor, fixed framerate, texture filter, and shader support type.
   example: []
   syntax:
-    content: public GameSettings(float pixelationFactor, int fixedFramerate, TextureFilter textureFilter, ShaderSupportType shaderSupportType, string applicationName = "ShapeEngineGame", Environment.SpecialFolder? saveDirectory = SpecialFolder.LocalApplicationData)
+    content: public GameSettings(float pixelationFactor, int fixedFramerate, TextureFilter textureFilter, ShaderSupportType shaderSupportType, string applicationName = "ShapeEngineGame", Environment.SpecialFolder? saveDirectory = SpecialFolder.LocalApplicationData, int idleFrameRateLimit = 30, float idleTimeThreshold = 120)
     parameters:
     - id: pixelationFactor
       type: System.Single
@@ -373,11 +411,17 @@ items:
       description: >-
         The directory for saving game data. If set to null, no directory will be created.
             Savegame location: saveDirectory/applicationName.
-    content.vb: Public Sub New(pixelationFactor As Single, fixedFramerate As Integer, textureFilter As TextureFilter, shaderSupportType As ShaderSupportType, applicationName As String = "ShapeEngineGame", saveDirectory As Environment.SpecialFolder? = SpecialFolder.LocalApplicationData)
+    - id: idleFrameRateLimit
+      type: System.Int32
+      description: The frame rate limit to apply when the engine goes into idle mode after <code>idleTimeThreshold</code> seconds of no input.
+    - id: idleTimeThreshold
+      type: System.Single
+      description: The amount of seconds of no input after which the engine is considered idle.
+    content.vb: Public Sub New(pixelationFactor As Single, fixedFramerate As Integer, textureFilter As TextureFilter, shaderSupportType As ShaderSupportType, applicationName As String = "ShapeEngineGame", saveDirectory As Environment.SpecialFolder? = SpecialFolder.LocalApplicationData, idleFrameRateLimit As Integer = 30, idleTimeThreshold As Single = 120)
   overload: ShapeEngine.Core.Structs.GameSettings.#ctor*
-  nameWithType.vb: GameSettings.New(Single, Integer, TextureFilter, ShaderSupportType, String, Environment.SpecialFolder?)
-  fullName.vb: ShapeEngine.Core.Structs.GameSettings.New(Single, Integer, Raylib_cs.TextureFilter, ShapeEngine.Screen.ShaderSupportType, String, System.Environment.SpecialFolder?)
-  name.vb: New(Single, Integer, TextureFilter, ShaderSupportType, String, SpecialFolder?)
+  nameWithType.vb: GameSettings.New(Single, Integer, TextureFilter, ShaderSupportType, String, Environment.SpecialFolder?, Integer, Single)
+  fullName.vb: ShapeEngine.Core.Structs.GameSettings.New(Single, Integer, Raylib_cs.TextureFilter, ShapeEngine.Screen.ShaderSupportType, String, System.Environment.SpecialFolder?, Integer, Single)
+  name.vb: New(Single, Integer, TextureFilter, ShaderSupportType, String, SpecialFolder?, Integer, Single)
 - uid: ShapeEngine.Core.Structs.GameSettings.ScreenTextureMode
   commentId: F:ShapeEngine.Core.Structs.GameSettings.ScreenTextureMode
   id: ScreenTextureMode
@@ -396,7 +440,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ScreenTextureMode
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
-    startLine: 170
+    startLine: 198
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -425,7 +469,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FixedFramerate
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
-    startLine: 181
+    startLine: 209
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -457,7 +501,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ShaderSupportType
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
-    startLine: 186
+    startLine: 214
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -486,7 +530,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TextureFilter
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
-    startLine: 191
+    startLine: 219
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -515,7 +559,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FixedDimensions
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
-    startLine: 196
+    startLine: 224
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -544,7 +588,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PixelationFactor
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
-    startLine: 201
+    startLine: 229
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -573,7 +617,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplicationName
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
-    startLine: 206
+    startLine: 234
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -602,7 +646,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SaveDirectory
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
-    startLine: 222
+    startLine: 250
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -624,6 +668,73 @@ items:
     return:
       type: System.Nullable{System.Environment.SpecialFolder}
     content.vb: Public ReadOnly SaveDirectory As Environment.SpecialFolder?
+- uid: ShapeEngine.Core.Structs.GameSettings.IdleFrameRateLimit
+  commentId: F:ShapeEngine.Core.Structs.GameSettings.IdleFrameRateLimit
+  id: IdleFrameRateLimit
+  parent: ShapeEngine.Core.Structs.GameSettings
+  langs:
+  - csharp
+  - vb
+  name: IdleFrameRateLimit
+  nameWithType: GameSettings.IdleFrameRateLimit
+  fullName: ShapeEngine.Core.Structs.GameSettings.IdleFrameRateLimit
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/GameSettings.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: IdleFrameRateLimit
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
+    startLine: 259
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: >-
+    The target frame rate limit applied when the application is idle (no input detected for <xref href="ShapeEngine.Core.Structs.GameSettings.IdleTimeThreshold" data-throw-if-not-resolved="false"></xref> seconds).
+
+    Set to 0 or less to disable the idle-specific limit (no change from the normal limit).
+  remarks: Use this to reduce CPU/GPU usage while the window does not have focus.
+  example: []
+  syntax:
+    content: public readonly int IdleFrameRateLimit
+    return:
+      type: System.Int32
+    content.vb: Public ReadOnly IdleFrameRateLimit As Integer
+- uid: ShapeEngine.Core.Structs.GameSettings.IdleTimeThreshold
+  commentId: F:ShapeEngine.Core.Structs.GameSettings.IdleTimeThreshold
+  id: IdleTimeThreshold
+  parent: ShapeEngine.Core.Structs.GameSettings
+  langs:
+  - csharp
+  - vb
+  name: IdleTimeThreshold
+  nameWithType: GameSettings.IdleTimeThreshold
+  fullName: ShapeEngine.Core.Structs.GameSettings.IdleTimeThreshold
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/GameSettings.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: IdleTimeThreshold
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
+    startLine: 266
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: >-
+    Time in seconds without input after which the application is considered idle.
+
+    When the idle period is reached the <xref href="ShapeEngine.Core.Structs.GameSettings.IdleFrameRateLimit" data-throw-if-not-resolved="false"></xref> may be applied.
+
+    Set to 0 or less to disable idle detection.
+  example: []
+  syntax:
+    content: public readonly float IdleTimeThreshold
+    return:
+      type: System.Single
+    content.vb: Public ReadOnly IdleTimeThreshold As Single
 references:
 - uid: ShapeEngine.Core.Structs
   commentId: N:ShapeEngine.Core.Structs
@@ -1218,7 +1329,7 @@ references:
     href: ShapeEngine.StaticLib.html
 - uid: ShapeEngine.Core.Structs.GameSettings.StretchMode*
   commentId: Overload:ShapeEngine.Core.Structs.GameSettings.StretchMode
-  href: ShapeEngine.Core.Structs.GameSettings.html#ShapeEngine_Core_Structs_GameSettings_StretchMode_System_String_System_Nullable_System_Environment_SpecialFolder__
+  href: ShapeEngine.Core.Structs.GameSettings.html#ShapeEngine_Core_Structs_GameSettings_StretchMode_System_String_System_Nullable_System_Environment_SpecialFolder__System_Int32_System_Single_
   name: StretchMode
   nameWithType: GameSettings.StretchMode
   fullName: ShapeEngine.Core.Structs.GameSettings.StretchMode
@@ -1263,6 +1374,28 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.environment.specialfolder
   - name: '?'
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: System.Single
+  commentId: T:System.Single
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.single
+  name: float
+  nameWithType: float
+  fullName: float
+  nameWithType.vb: Single
+  fullName.vb: Single
+  name.vb: Single
 - uid: ShapeEngine.Core.Structs.GameSettings
   commentId: T:ShapeEngine.Core.Structs.GameSettings
   parent: ShapeEngine.Core.Structs
@@ -1300,42 +1433,31 @@ references:
   - name: )
 - uid: ShapeEngine.Core.Structs.GameSettings.FixedMode*
   commentId: Overload:ShapeEngine.Core.Structs.GameSettings.FixedMode
-  href: ShapeEngine.Core.Structs.GameSettings.html#ShapeEngine_Core_Structs_GameSettings_FixedMode_System_String_System_Nullable_System_Environment_SpecialFolder__
+  href: ShapeEngine.Core.Structs.GameSettings.html#ShapeEngine_Core_Structs_GameSettings_FixedMode_System_String_System_Nullable_System_Environment_SpecialFolder__System_Int32_System_Single_
   name: FixedMode
   nameWithType: GameSettings.FixedMode
   fullName: ShapeEngine.Core.Structs.GameSettings.FixedMode
 - uid: ShapeEngine.Core.Structs.GameSettings.FixedNearestMode*
   commentId: Overload:ShapeEngine.Core.Structs.GameSettings.FixedNearestMode
-  href: ShapeEngine.Core.Structs.GameSettings.html#ShapeEngine_Core_Structs_GameSettings_FixedNearestMode_System_String_System_Nullable_System_Environment_SpecialFolder__
+  href: ShapeEngine.Core.Structs.GameSettings.html#ShapeEngine_Core_Structs_GameSettings_FixedNearestMode_System_String_System_Nullable_System_Environment_SpecialFolder__System_Int32_System_Single_
   name: FixedNearestMode
   nameWithType: GameSettings.FixedNearestMode
   fullName: ShapeEngine.Core.Structs.GameSettings.FixedNearestMode
 - uid: ShapeEngine.Core.Structs.GameSettings.PixelationMode*
   commentId: Overload:ShapeEngine.Core.Structs.GameSettings.PixelationMode
-  href: ShapeEngine.Core.Structs.GameSettings.html#ShapeEngine_Core_Structs_GameSettings_PixelationMode_System_String_System_Nullable_System_Environment_SpecialFolder__
+  href: ShapeEngine.Core.Structs.GameSettings.html#ShapeEngine_Core_Structs_GameSettings_PixelationMode_System_String_System_Nullable_System_Environment_SpecialFolder__System_Int32_System_Single_
   name: PixelationMode
   nameWithType: GameSettings.PixelationMode
   fullName: ShapeEngine.Core.Structs.GameSettings.PixelationMode
 - uid: ShapeEngine.Core.Structs.GameSettings.#ctor*
   commentId: Overload:ShapeEngine.Core.Structs.GameSettings.#ctor
-  href: ShapeEngine.Core.Structs.GameSettings.html#ShapeEngine_Core_Structs_GameSettings__ctor_System_Int32_Raylib_cs_TextureFilter_ShapeEngine_Screen_ShaderSupportType_System_String_System_Nullable_System_Environment_SpecialFolder__
+  href: ShapeEngine.Core.Structs.GameSettings.html#ShapeEngine_Core_Structs_GameSettings__ctor_System_Int32_Raylib_cs_TextureFilter_ShapeEngine_Screen_ShaderSupportType_System_String_System_Nullable_System_Environment_SpecialFolder__System_Int32_System_Single_
   name: GameSettings
   nameWithType: GameSettings.GameSettings
   fullName: ShapeEngine.Core.Structs.GameSettings.GameSettings
   nameWithType.vb: GameSettings.New
   fullName.vb: ShapeEngine.Core.Structs.GameSettings.New
   name.vb: New
-- uid: System.Int32
-  commentId: T:System.Int32
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.int32
-  name: int
-  nameWithType: int
-  fullName: int
-  nameWithType.vb: Integer
-  fullName.vb: Integer
-  name.vb: Integer
 - uid: Raylib_cs.TextureFilter
   commentId: T:Raylib_cs.TextureFilter
   parent: Raylib_cs
@@ -1396,17 +1518,6 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
-- uid: System.Single
-  commentId: T:System.Single
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.single
-  name: float
-  nameWithType: float
-  fullName: float
-  nameWithType.vb: Single
-  fullName.vb: Single
-  name.vb: Single
 - uid: ShapeEngine.Screen.ScreenTextureMode
   commentId: T:ShapeEngine.Screen.ScreenTextureMode
   parent: ShapeEngine.Screen
@@ -1426,3 +1537,15 @@ references:
   name: ApplicationName
   nameWithType: GameSettings.ApplicationName
   fullName: ShapeEngine.Core.Structs.GameSettings.ApplicationName
+- uid: ShapeEngine.Core.Structs.GameSettings.IdleTimeThreshold
+  commentId: F:ShapeEngine.Core.Structs.GameSettings.IdleTimeThreshold
+  href: ShapeEngine.Core.Structs.GameSettings.html#ShapeEngine_Core_Structs_GameSettings_IdleTimeThreshold
+  name: IdleTimeThreshold
+  nameWithType: GameSettings.IdleTimeThreshold
+  fullName: ShapeEngine.Core.Structs.GameSettings.IdleTimeThreshold
+- uid: ShapeEngine.Core.Structs.GameSettings.IdleFrameRateLimit
+  commentId: F:ShapeEngine.Core.Structs.GameSettings.IdleFrameRateLimit
+  href: ShapeEngine.Core.Structs.GameSettings.html#ShapeEngine_Core_Structs_GameSettings_IdleFrameRateLimit
+  name: IdleFrameRateLimit
+  nameWithType: GameSettings.IdleFrameRateLimit
+  fullName: ShapeEngine.Core.Structs.GameSettings.IdleFrameRateLimit

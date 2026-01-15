@@ -179,7 +179,7 @@ Fixed Game loop call order:
 
   <h3 id="ShapeEngine_Core_GameDef_Game__ctor_ShapeEngine_Core_Structs_GameSettings_ShapeEngine_Core_Structs_WindowSettings_ShapeEngine_Input_InputSettings_" data-uid="ShapeEngine.Core.GameDef.Game.#ctor(ShapeEngine.Core.Structs.GameSettings,ShapeEngine.Core.Structs.WindowSettings,ShapeEngine.Input.InputSettings)">
   Game(GameSettings, WindowSettings, InputSettings)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L334"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L396"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Initializes a new instance of the Game class with the specified game settings and window settings.</p>
@@ -353,6 +353,78 @@ adjusting volume, and managing audio resources.</p>
   <div class="markdown level1 remarks"><p>This property returns the base directory of the current application domain.
 It is equivalent to the value returned by <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.directory.getcurrentdirectory">GetCurrentDirectory()</a> method.
 If you need directories for save games, logs, or other files, you can use <a class="xref" href="ShapeEngine.StaticLib.ShapeFileManager.html">ShapeFileManager</a> class.</p>
+</div>
+
+
+
+
+
+  <h3 id="ShapeEngine_Core_GameDef_Game_IdleFrameRateLimit" data-uid="ShapeEngine.Core.GameDef.Game.IdleFrameRateLimit">
+  IdleFrameRateLimit
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L309"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Target framerate to cap the game to while idle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int IdleFrameRateLimit</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_GameDef_Game_IdleFrameRateLimit_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>If this value is less than or equal to 0, no idle framerate limiting is applied.
+When greater than 0 and the game is idle, the engine may limit updates/rendering to this value.
+If <a class="xref" href="ShapeEngine.Core.GameWindow.html#ShapeEngine_Core_GameWindow_UnfocusedFrameRateLimit">UnfocusedFrameRateLimit</a> is active as well, the lower of the two limits will be used.</p>
+</div>
+
+
+
+
+
+  <h3 id="ShapeEngine_Core_GameDef_Game_IdleTimeThreshold" data-uid="ShapeEngine.Core.GameDef.Game.IdleTimeThreshold">
+  IdleTimeThreshold
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L299"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Time in seconds of inactivity (no input) before the game is considered idle.
+Setting to 0 or less disables idle detection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float IdleTimeThreshold</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_GameDef_Game_IdleTimeThreshold_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>When the accumulated idle timer exceeds this threshold, <a class="xref" href="ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_IsIdle">IsIdle</a> may be set to true
+and idle-specific behaviour (such as framerate limiting) can be applied.</p>
 </div>
 
 
@@ -1061,7 +1133,7 @@ in game UI coordinates.</p>
 
   <h3 id="ShapeEngine_Core_GameDef_Game_Instance" data-uid="ShapeEngine.Core.GameDef.Game.Instance">
   Instance
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L305"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L367"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the singleton instance of the current game.</p>
@@ -1091,6 +1163,42 @@ You need to create a game instance before accessing this property.
 If it is accessed before being set, a NullReferenceException will be thrown.
 You should only ever create one game instance per application,
 but in case you create multiple, this property will always point to the last created game instance.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Core_GameDef_Game_IsIdle_" data-uid="ShapeEngine.Core.GameDef.Game.IsIdle*"></a>
+
+  <h3 id="ShapeEngine_Core_GameDef_Game_IsIdle" data-uid="ShapeEngine.Core.GameDef.Game.IsIdle">
+  IsIdle
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L318"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Indicates whether the game is currently considered idle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsIdle { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_GameDef_Game_IsIdle_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>This property is set internally based on <span class="xref">ShapeEngine.Core.GameDef.Game.idleTimer</span> and <a class="xref" href="ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_IdleTimeThreshold">IdleTimeThreshold</a>.
+It is read-only to external callers.</p>
 </div>
 
 
@@ -1622,7 +1730,7 @@ fullscreen state, and input handling.</p>
 
   <h3 id="ShapeEngine_Core_GameDef_Game_AddScreenTexture_ShapeEngine_Screen_ScreenTexture_" data-uid="ShapeEngine.Core.GameDef.Game.AddScreenTexture(ShapeEngine.Screen.ScreenTexture)">
   AddScreenTexture(ScreenTexture)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L597"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L661"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Adds a custom screen texture to the game's rendering pipeline.</p>
@@ -1792,7 +1900,7 @@ in <a class="xref" href="ShapeEngine.Core.Structs.GameSettings.html">GameSetting
 
   <h3 id="ShapeEngine_Core_GameDef_Game_CallDeferred_System_Action_System_Int32_" data-uid="ShapeEngine.Core.GameDef.Game.CallDeferred(System.Action,System.Int32)">
   CallDeferred(Action, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L752"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L816"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Schedules an action to be executed after a specified number of frames.</p>
@@ -1829,7 +1937,7 @@ The default is 0 (next frame).</p>
 
   <h3 id="ShapeEngine_Core_GameDef_Game_ChangeGameTexture_ShapeEngine_Screen_ScreenTexture_" data-uid="ShapeEngine.Core.GameDef.Game.ChangeGameTexture(ShapeEngine.Screen.ScreenTexture)">
   ChangeGameTexture(ScreenTexture)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L806"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L870"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Changes the game's rendering texture to a new one.</p>
@@ -1941,7 +2049,7 @@ The old ScreenTexture should be unloaded and disposed of if no longer needed!</p
 
   <h3 id="ShapeEngine_Core_GameDef_Game_ClearFlashes" data-uid="ShapeEngine.Core.GameDef.Game.ClearFlashes">
   ClearFlashes()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L793"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L857"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Removes all active flash effects.</p>
@@ -1968,7 +2076,7 @@ The old ScreenTexture should be unloaded and disposed of if no longer needed!</p
 
   <h3 id="ShapeEngine_Core_GameDef_Game_ClearScreenTextures" data-uid="ShapeEngine.Core.GameDef.Game.ClearScreenTextures">
   ClearScreenTextures()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L643"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L707"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Removes all screen textures from the game's custom texture collection.</p>
@@ -2108,7 +2216,7 @@ in <a class="xref" href="ShapeEngine.Core.Structs.GameSettings.html">GameSetting
 
   <h3 id="ShapeEngine_Core_GameDef_Game_DrawCursorGame_ShapeEngine_Core_Structs_ScreenInfo_" data-uid="ShapeEngine.Core.GameDef.Game.DrawCursorGame(ShapeEngine.Core.Structs.ScreenInfo)">
   DrawCursorGame(ScreenInfo)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L676"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L740"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Draws the cursor in the game world space.</p>
@@ -2145,7 +2253,7 @@ to implement custom cursor rendering in the game world. If not overridden, no cu
 
   <h3 id="ShapeEngine_Core_GameDef_Game_DrawCursorGameUi_ShapeEngine_Core_Structs_ScreenInfo_" data-uid="ShapeEngine.Core.GameDef.Game.DrawCursorGameUi(ShapeEngine.Core.Structs.ScreenInfo)">
   DrawCursorGameUi(ScreenInfo)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L689"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L753"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Draws the cursor on the game UI. This method is called during the UI rendering phase when the mouse is on the screen.</p>
@@ -2182,7 +2290,7 @@ The base implementation does not draw anything.</p>
 
   <h3 id="ShapeEngine_Core_GameDef_Game_DrawCursorUi_ShapeEngine_Core_Structs_ScreenInfo_" data-uid="ShapeEngine.Core.GameDef.Game.DrawCursorUi(ShapeEngine.Core.Structs.ScreenInfo)">
   DrawCursorUi(ScreenInfo)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L702"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L766"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Draws cursor UI elements on the screen.</p>
@@ -2388,7 +2496,7 @@ ensures consistent physics and game logic calculations independent of frame rate
 
   <h3 id="ShapeEngine_Core_GameDef_Game_Flash_System_Single_ShapeEngine_Color_ColorRgba_ShapeEngine_Color_ColorRgba_" data-uid="ShapeEngine.Core.GameDef.Game.Flash(System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)">
   Flash(float, ColorRgba, ColorRgba)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L775"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L839"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Creates a screen flash effect that transitions from start color to end color over the specified duration.</p>
@@ -2552,7 +2660,7 @@ in <a class="xref" href="ShapeEngine.Core.Structs.GameSettings.html">GameSetting
 
   <h3 id="ShapeEngine_Core_GameDef_Game_GetInstanceAs__1" data-uid="ShapeEngine.Core.GameDef.Game.GetInstanceAs``1">
   GetInstanceAs&lt;T&gt;()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L315"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L377"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the current <a class="xref" href="ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_Instance">Instance</a> cast to the specified type <code class="typeparamref">T</code>.</p>
@@ -2791,7 +2899,7 @@ in <a class="xref" href="ShapeEngine.Core.Structs.GameSettings.html">GameSetting
 
   <h3 id="ShapeEngine_Core_GameDef_Game_GoToScene_ShapeEngine_Core_Scene_" data-uid="ShapeEngine.Core.GameDef.Game.GoToScene(ShapeEngine.Core.Scene)">
   GoToScene(Scene)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L733"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L797"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Switches to the new scene. Deactivates the current scene and activates the new scene.</p>
@@ -2863,7 +2971,7 @@ in <a class="xref" href="ShapeEngine.Core.Structs.GameSettings.html">GameSetting
 
   <h3 id="ShapeEngine_Core_GameDef_Game_HasScreenTexture_ShapeEngine_Screen_ScreenTexture_" data-uid="ShapeEngine.Core.GameDef.Game.HasScreenTexture(ShapeEngine.Screen.ScreenTexture)">
   HasScreenTexture(ScreenTexture)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L620"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L684"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Checks if a specific screen texture is already in the game's custom texture collection.</p>
@@ -4136,7 +4244,7 @@ Returns false otherwise.</p>
 
   <h3 id="ShapeEngine_Core_GameDef_Game_Quit" data-uid="ShapeEngine.Core.GameDef.Game.Quit">
   Quit()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L723"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L787"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Quits the game by setting the quit flag while ensuring restart is not triggered.</p>
@@ -4202,7 +4310,7 @@ Returns false otherwise.</p>
 
   <h3 id="ShapeEngine_Core_GameDef_Game_RemoveScreenTexture_ShapeEngine_Screen_ScreenTexture_" data-uid="ShapeEngine.Core.GameDef.Game.RemoveScreenTexture(ShapeEngine.Screen.ScreenTexture)">
   RemoveScreenTexture(ScreenTexture)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L630"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L694"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Removes a specific screen texture from the game's custom texture collection.</p>
@@ -4242,7 +4350,7 @@ Returns false if the texture was not found in the collection or if the collectio
 
   <h3 id="ShapeEngine_Core_GameDef_Game_ResetCamera" data-uid="ShapeEngine.Core.GameDef.Game.ResetCamera">
   ResetCamera()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L798"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L862"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Resets the current camera to the basic default camera.</p>
@@ -4269,7 +4377,7 @@ Returns false if the texture was not found in the collection or if the collectio
 
   <h3 id="ShapeEngine_Core_GameDef_Game_Restart" data-uid="ShapeEngine.Core.GameDef.Game.Restart">
   Restart()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L714"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L778"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Restarts the game by setting both restart and quit flags.</p>
@@ -4296,7 +4404,7 @@ Returns false if the texture was not found in the collection or if the collectio
 
   <h3 id="ShapeEngine_Core_GameDef_Game_Run_System_String___" data-uid="ShapeEngine.Core.GameDef.Game.Run(System.String[])">
   Run(params string[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L830"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L894"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Starts the game loop and runs the game until it is terminated.</p>
@@ -4662,7 +4770,7 @@ called every frame at variable intervals.</p>
 
   <h3 id="ShapeEngine_Core_GameDef_Game_UpdateCursor_System_Single_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_" data-uid="ShapeEngine.Core.GameDef.Game.UpdateCursor(System.Single,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)">
   UpdateCursor(float, ScreenInfo, ScreenInfo, ScreenInfo)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L664"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L728"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Updates the cursor based on the current state of the game.
@@ -4697,6 +4805,49 @@ This method is called every frame and can be overridden in derived classes to im
 
 
 
+
+
+
+
+  <h2 class="section" id="events">Events
+</h2>
+
+
+
+  <h3 id="ShapeEngine_Core_GameDef_Game_OnIdleChanged" data-uid="ShapeEngine.Core.GameDef.Game.OnIdleChanged">
+  OnIdleChanged
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameDef/Game.cs/#L289"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Event fired when the game's idle state changes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event Action&lt;bool&gt;? OnIdleChanged</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_GameDef_Game_OnIdleChanged_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>The boolean argument indicates the new idle state:</p>
+<ul>
+<li><code>true</code> when the game became idle.</li>
+<li><code>false</code> when the game is no longer idle.
+Subscribers can use this to adjust behavior when idle (for example, apply a framerate cap or reduce updates).</li>
+</ul>
+</div>
 
 
 

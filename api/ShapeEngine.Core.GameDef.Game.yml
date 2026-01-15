@@ -57,11 +57,14 @@ items:
   - ShapeEngine.Core.GameDef.Game.GoToScene(ShapeEngine.Core.Scene)
   - ShapeEngine.Core.GameDef.Game.HasCustomEvent(ShapeEngine.Core.GameDef.Game.CustomEvent)
   - ShapeEngine.Core.GameDef.Game.HasScreenTexture(ShapeEngine.Screen.ScreenTexture)
+  - ShapeEngine.Core.GameDef.Game.IdleFrameRateLimit
+  - ShapeEngine.Core.GameDef.Game.IdleTimeThreshold
   - ShapeEngine.Core.GameDef.Game.IncrementBackup(System.Int32,System.Int32)
   - ShapeEngine.Core.GameDef.Game.Input
   - ShapeEngine.Core.GameDef.Game.Instance
   - ShapeEngine.Core.GameDef.Game.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Single)
   - ShapeEngine.Core.GameDef.Game.IsEqual``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{``0})
+  - ShapeEngine.Core.GameDef.Game.IsIdle
   - ShapeEngine.Core.GameDef.Game.IsLinux
   - ShapeEngine.Core.GameDef.Game.IsOSX
   - ShapeEngine.Core.GameDef.Game.IsSaveDirectoryValid
@@ -84,6 +87,7 @@ items:
   - ShapeEngine.Core.GameDef.Game.OnGamepadConnected(ShapeEngine.Input.GamepadDevice)
   - ShapeEngine.Core.GameDef.Game.OnGamepadDisconnected(ShapeEngine.Input.GamepadDevice)
   - ShapeEngine.Core.GameDef.Game.OnGamepadFreed(ShapeEngine.Input.GamepadDevice)
+  - ShapeEngine.Core.GameDef.Game.OnIdleChanged
   - ShapeEngine.Core.GameDef.Game.OnInputDeviceChanged(ShapeEngine.Input.InputDeviceType,ShapeEngine.Input.InputDeviceType)
   - ShapeEngine.Core.GameDef.Game.OnMonitorChanged(ShapeEngine.Screen.MonitorInfo)
   - ShapeEngine.Core.GameDef.Game.OnMouseEnabledChanged(System.Boolean)
@@ -930,6 +934,149 @@ items:
     return:
       type: ShapeEngine.Input.InputSystem
     content.vb: Public ReadOnly Input As InputSystem
+- uid: ShapeEngine.Core.GameDef.Game.OnIdleChanged
+  commentId: E:ShapeEngine.Core.GameDef.Game.OnIdleChanged
+  id: OnIdleChanged
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: OnIdleChanged
+  nameWithType: Game.OnIdleChanged
+  fullName: ShapeEngine.Core.GameDef.Game.OnIdleChanged
+  type: Event
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/Game.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnIdleChanged
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
+    startLine: 288
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Event fired when the game's idle state changes.
+  remarks: >-
+    The boolean argument indicates the new idle state:
+
+    - <code>true</code> when the game became idle.
+
+    - <code>false</code> when the game is no longer idle.
+
+    Subscribers can use this to adjust behavior when idle (for example, apply a framerate cap or reduce updates).
+  example: []
+  syntax:
+    content: public event Action<bool>? OnIdleChanged
+    return:
+      type: System.Action{System.Boolean}
+    content.vb: Public Event OnIdleChanged As Action(Of Boolean)
+- uid: ShapeEngine.Core.GameDef.Game.IdleTimeThreshold
+  commentId: F:ShapeEngine.Core.GameDef.Game.IdleTimeThreshold
+  id: IdleTimeThreshold
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: IdleTimeThreshold
+  nameWithType: Game.IdleTimeThreshold
+  fullName: ShapeEngine.Core.GameDef.Game.IdleTimeThreshold
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/Game.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: IdleTimeThreshold
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
+    startLine: 298
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: >-
+    Time in seconds of inactivity (no input) before the game is considered idle.
+
+    Setting to 0 or less disables idle detection.
+  remarks: >-
+    When the accumulated idle timer exceeds this threshold, <xref href="ShapeEngine.Core.GameDef.Game.IsIdle" data-throw-if-not-resolved="false"></xref> may be set to true
+
+    and idle-specific behaviour (such as framerate limiting) can be applied.
+  example: []
+  syntax:
+    content: public float IdleTimeThreshold
+    return:
+      type: System.Single
+    content.vb: Public IdleTimeThreshold As Single
+- uid: ShapeEngine.Core.GameDef.Game.IdleFrameRateLimit
+  commentId: F:ShapeEngine.Core.GameDef.Game.IdleFrameRateLimit
+  id: IdleFrameRateLimit
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: IdleFrameRateLimit
+  nameWithType: Game.IdleFrameRateLimit
+  fullName: ShapeEngine.Core.GameDef.Game.IdleFrameRateLimit
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/Game.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: IdleFrameRateLimit
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
+    startLine: 308
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Target framerate to cap the game to while idle.
+  remarks: >-
+    If this value is less than or equal to 0, no idle framerate limiting is applied.
+
+    When greater than 0 and the game is idle, the engine may limit updates/rendering to this value.
+
+    If <xref href="ShapeEngine.Core.GameWindow.UnfocusedFrameRateLimit" data-throw-if-not-resolved="false"></xref> is active as well, the lower of the two limits will be used.
+  example: []
+  syntax:
+    content: public int IdleFrameRateLimit
+    return:
+      type: System.Int32
+    content.vb: Public IdleFrameRateLimit As Integer
+- uid: ShapeEngine.Core.GameDef.Game.IsIdle
+  commentId: P:ShapeEngine.Core.GameDef.Game.IsIdle
+  id: IsIdle
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: IsIdle
+  nameWithType: Game.IsIdle
+  fullName: ShapeEngine.Core.GameDef.Game.IsIdle
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/Game.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: IsIdle
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
+    startLine: 317
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Indicates whether the game is currently considered idle.
+  remarks: >-
+    This property is set internally based on <xref href="ShapeEngine.Core.GameDef.Game.idleTimer" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Core.GameDef.Game.IdleTimeThreshold" data-throw-if-not-resolved="false"></xref>.
+
+    It is read-only to external callers.
+  example: []
+  syntax:
+    content: public bool IsIdle { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsIdle As Boolean
+  overload: ShapeEngine.Core.GameDef.Game.IsIdle*
 - uid: ShapeEngine.Core.GameDef.Game.Instance
   commentId: P:ShapeEngine.Core.GameDef.Game.Instance
   id: Instance
@@ -948,7 +1095,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Instance
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 304
+    startLine: 366
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -989,7 +1136,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetInstanceAs
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 314
+    startLine: 376
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1030,7 +1177,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 333
+    startLine: 395
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1075,7 +1222,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddScreenTexture
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 596
+    startLine: 660
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1113,7 +1260,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HasScreenTexture
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 619
+    startLine: 683
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1151,7 +1298,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveScreenTexture
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 629
+    startLine: 693
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1189,7 +1336,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ClearScreenTextures
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 642
+    startLine: 706
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1223,7 +1370,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: UpdateCursor
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 663
+    startLine: 727
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1270,7 +1417,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawCursorGame
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 675
+    startLine: 739
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1306,7 +1453,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawCursorGameUi
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 688
+    startLine: 752
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1342,7 +1489,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawCursorUi
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 701
+    startLine: 765
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1378,7 +1525,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Restart
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 713
+    startLine: 777
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1406,7 +1553,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Quit
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 722
+    startLine: 786
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1434,7 +1581,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GoToScene
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 732
+    startLine: 796
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1466,7 +1613,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CallDeferred
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 751
+    startLine: 815
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1506,7 +1653,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Flash
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 774
+    startLine: 838
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1547,7 +1694,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ClearFlashes
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 792
+    startLine: 856
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1575,7 +1722,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ResetCamera
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 797
+    startLine: 861
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1603,7 +1750,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ChangeGameTexture
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 805
+    startLine: 869
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1640,7 +1787,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Run
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 829
+    startLine: 893
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -6097,6 +6244,98 @@ references:
   - uid: ShapeEngine.Input
     name: Input
     href: ShapeEngine.Input.html
+- uid: System.Action{System.Boolean}
+  commentId: T:System.Action{System.Boolean}
+  parent: System
+  definition: System.Action`1
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<bool>
+  nameWithType: Action<bool>
+  fullName: System.Action<bool>
+  nameWithType.vb: Action(Of Boolean)
+  fullName.vb: System.Action(Of Boolean)
+  name.vb: Action(Of Boolean)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: System.Action`1
+  commentId: T:System.Action`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: ShapeEngine.Core.GameDef.Game.IsIdle
+  commentId: P:ShapeEngine.Core.GameDef.Game.IsIdle
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_IsIdle
+  name: IsIdle
+  nameWithType: Game.IsIdle
+  fullName: ShapeEngine.Core.GameDef.Game.IsIdle
+- uid: ShapeEngine.Core.GameWindow.UnfocusedFrameRateLimit
+  commentId: F:ShapeEngine.Core.GameWindow.UnfocusedFrameRateLimit
+  href: ShapeEngine.Core.GameWindow.html#ShapeEngine_Core_GameWindow_UnfocusedFrameRateLimit
+  name: UnfocusedFrameRateLimit
+  nameWithType: GameWindow.UnfocusedFrameRateLimit
+  fullName: ShapeEngine.Core.GameWindow.UnfocusedFrameRateLimit
+- uid: ShapeEngine.Core.GameDef.Game.idleTimer
+  commentId: F:ShapeEngine.Core.GameDef.Game.idleTimer
+  name: idleTimer
+  nameWithType: Game.idleTimer
+  fullName: ShapeEngine.Core.GameDef.Game.idleTimer
+- uid: ShapeEngine.Core.GameDef.Game.IdleTimeThreshold
+  commentId: F:ShapeEngine.Core.GameDef.Game.IdleTimeThreshold
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_IdleTimeThreshold
+  name: IdleTimeThreshold
+  nameWithType: Game.IdleTimeThreshold
+  fullName: ShapeEngine.Core.GameDef.Game.IdleTimeThreshold
+- uid: ShapeEngine.Core.GameDef.Game.IsIdle*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.IsIdle
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_IsIdle
+  name: IsIdle
+  nameWithType: Game.IsIdle
+  fullName: ShapeEngine.Core.GameDef.Game.IsIdle
 - uid: ShapeEngine.Core.GameDef.Game.Instance*
   commentId: Overload:ShapeEngine.Core.GameDef.Game.Instance
   href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_Instance
