@@ -5,7 +5,7 @@ items:
   id: Game
   parent: ShapeEngine.Core.GameDef
   children:
-  - ShapeEngine.Core.GameDef.Game.#ctor(ShapeEngine.Core.Structs.GameSettings,ShapeEngine.Core.Structs.WindowSettings,ShapeEngine.Input.InputSettings)
+  - ShapeEngine.Core.GameDef.Game.#ctor(ShapeEngine.Core.Structs.GameSettings,ShapeEngine.Core.Structs.WindowSettings,ShapeEngine.Core.Structs.FramerateSettings,ShapeEngine.Input.InputSettings)
   - ShapeEngine.Core.GameDef.Game.AddCustomEvent(ShapeEngine.Core.GameDef.Game.CustomEvent)
   - ShapeEngine.Core.GameDef.Game.AddScreenTexture(ShapeEngine.Screen.ScreenTexture)
   - ShapeEngine.Core.GameDef.Game.ApplicationName
@@ -32,12 +32,13 @@ items:
   - ShapeEngine.Core.GameDef.Game.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
   - ShapeEngine.Core.GameDef.Game.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
   - ShapeEngine.Core.GameDef.Game.DrawUI(ShapeEngine.Core.Structs.ScreenInfo)
+  - ShapeEngine.Core.GameDef.Game.DynamicSubsteppingEnabled
   - ShapeEngine.Core.GameDef.Game.EndRun
-  - ShapeEngine.Core.GameDef.Game.FixedPhysicsEnabled
-  - ShapeEngine.Core.GameDef.Game.FixedPhysicsFramerate
-  - ShapeEngine.Core.GameDef.Game.FixedPhysicsTimestep
-  - ShapeEngine.Core.GameDef.Game.FixedTime
-  - ShapeEngine.Core.GameDef.Game.FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  - ShapeEngine.Core.GameDef.Game.FixedFramerate
+  - ShapeEngine.Core.GameDef.Game.FixedFramerateEnabled
+  - ShapeEngine.Core.GameDef.Game.FixedFramerateInterpolationFactor
+  - ShapeEngine.Core.GameDef.Game.FixedFramerateInterpolationFactorF
+  - ShapeEngine.Core.GameDef.Game.FixedTimestep
   - ShapeEngine.Core.GameDef.Game.Flash(System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)
   - ShapeEngine.Core.GameDef.Game.FrameDelta
   - ShapeEngine.Core.GameDef.Game.FrameDeltaNanoSeconds
@@ -62,7 +63,6 @@ items:
   - ShapeEngine.Core.GameDef.Game.IncrementBackup(System.Int32,System.Int32)
   - ShapeEngine.Core.GameDef.Game.Input
   - ShapeEngine.Core.GameDef.Game.Instance
-  - ShapeEngine.Core.GameDef.Game.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Single)
   - ShapeEngine.Core.GameDef.Game.IsEqual``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{``0})
   - ShapeEngine.Core.GameDef.Game.IsIdle
   - ShapeEngine.Core.GameDef.Game.IsLinux
@@ -78,6 +78,10 @@ items:
   - ShapeEngine.Core.GameDef.Game.LoadFromSlot(System.String,System.Int32,System.String@)
   - ShapeEngine.Core.GameDef.Game.LoadSavegameSlotInformation(System.Int32@,System.Int32@,System.Int32@)
   - ShapeEngine.Core.GameDef.Game.Logger
+  - ShapeEngine.Core.GameDef.Game.MaxDeltaTime
+  - ShapeEngine.Core.GameDef.Game.MaxDynamicSubsteps
+  - ShapeEngine.Core.GameDef.Game.MaxDynamicTimestep
+  - ShapeEngine.Core.GameDef.Game.MinDynamicSubsteppingFramerate
   - ShapeEngine.Core.GameDef.Game.OSXIsRunningInAppBundle
   - ShapeEngine.Core.GameDef.Game.OS_PLATFORM
   - ShapeEngine.Core.GameDef.Game.OnButtonPressed(ShapeEngine.Input.InputEvent)
@@ -129,6 +133,7 @@ items:
   - ShapeEngine.Core.GameDef.Game.UnloadContent
   - ShapeEngine.Core.GameDef.Game.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
   - ShapeEngine.Core.GameDef.Game.UpdateCursor(System.Single,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  - ShapeEngine.Core.GameDef.Game.UpdateTime
   - ShapeEngine.Core.GameDef.Game.Window
   langs:
   - csharp
@@ -163,7 +168,7 @@ items:
 
     Fixed Game loop call order:
 
-    <ul><li><xref href="ShapeEngine.Core.GameDef.Game.LoadContent" data-throw-if-not-resolved="false"></xref> - Called once.</li><li><xref href="ShapeEngine.Core.GameDef.Game.BeginRun" data-throw-if-not-resolved="false"></xref> - Called once.</li><li><xref href="ShapeEngine.Core.GameDef.Game.Update(ShapeEngine.Core.Structs.GameTime%2cShapeEngine.Core.Structs.ScreenInfo%2cShapeEngine.Core.Structs.ScreenInfo%2cShapeEngine.Core.Structs.ScreenInfo)" data-throw-if-not-resolved="false"></xref> - Called every frame with variable timing.</li><li><xref href="ShapeEngine.Core.GameDef.Game.FixedUpdate(ShapeEngine.Core.Structs.GameTime%2cShapeEngine.Core.Structs.ScreenInfo%2cShapeEngine.Core.Structs.ScreenInfo%2cShapeEngine.Core.Structs.ScreenInfo)" data-throw-if-not-resolved="false"></xref> - Called in a fixed interval with fixed timing.</li><li><xref href="ShapeEngine.Core.GameDef.Game.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime%2cShapeEngine.Core.Structs.ScreenInfo%2cShapeEngine.Core.Structs.ScreenInfo%2cShapeEngine.Core.Structs.ScreenInfo%2cSystem.Single)" data-throw-if-not-resolved="false"></xref> - Called every frame with variable timing.</li><li><xref href="ShapeEngine.Core.GameDef.Game.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)" data-throw-if-not-resolved="false"></xref> - Called every frame.</li><li><xref href="ShapeEngine.Core.GameDef.Game.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)" data-throw-if-not-resolved="false"></xref> - Called every frame.</li><li><xref href="ShapeEngine.Core.GameDef.Game.DrawUI(ShapeEngine.Core.Structs.ScreenInfo)" data-throw-if-not-resolved="false"></xref> - Called every frame.</li><li><xref href="ShapeEngine.Core.GameDef.Game.EndRun" data-throw-if-not-resolved="false"></xref> - Called once.</li><li><xref href="ShapeEngine.Core.GameDef.Game.UnloadContent" data-throw-if-not-resolved="false"></xref> - Called once.</li></ul>
+    <ul><li><xref href="ShapeEngine.Core.GameDef.Game.LoadContent" data-throw-if-not-resolved="false"></xref> - Called once.</li><li><xref href="ShapeEngine.Core.GameDef.Game.BeginRun" data-throw-if-not-resolved="false"></xref> - Called once.</li><li><xref href="ShapeEngine.Core.GameDef.Game.Update(ShapeEngine.Core.Structs.GameTime%2cShapeEngine.Core.Structs.ScreenInfo%2cShapeEngine.Core.Structs.ScreenInfo%2cShapeEngine.Core.Structs.ScreenInfo)" data-throw-if-not-resolved="false"></xref> - Called every frame with variable timing.</li><li><xref href="ShapeEngine.Core.GameDef.Game.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)" data-throw-if-not-resolved="false"></xref> - Called every frame.</li><li><xref href="ShapeEngine.Core.GameDef.Game.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)" data-throw-if-not-resolved="false"></xref> - Called every frame.</li><li><xref href="ShapeEngine.Core.GameDef.Game.DrawUI(ShapeEngine.Core.Structs.ScreenInfo)" data-throw-if-not-resolved="false"></xref> - Called every frame.</li><li><xref href="ShapeEngine.Core.GameDef.Game.EndRun" data-throw-if-not-resolved="false"></xref> - Called once.</li><li><xref href="ShapeEngine.Core.GameDef.Game.UnloadContent" data-throw-if-not-resolved="false"></xref> - Called once.</li></ul>
   example: []
   syntax:
     content: public class Game
@@ -200,7 +205,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Logger
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 56
+    startLine: 54
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -236,7 +241,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplicationName
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 61
+    startLine: 59
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -265,7 +270,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LaunchParams
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 71
+    startLine: 69
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -282,117 +287,270 @@ items:
       type: System.String[]
     content.vb: Public Property LaunchParams As String()
   overload: ShapeEngine.Core.GameDef.Game.LaunchParams*
-- uid: ShapeEngine.Core.GameDef.Game.FixedPhysicsEnabled
-  commentId: P:ShapeEngine.Core.GameDef.Game.FixedPhysicsEnabled
-  id: FixedPhysicsEnabled
+- uid: ShapeEngine.Core.GameDef.Game.FixedFramerate
+  commentId: P:ShapeEngine.Core.GameDef.Game.FixedFramerate
+  id: FixedFramerate
   parent: ShapeEngine.Core.GameDef.Game
   langs:
   - csharp
   - vb
-  name: FixedPhysicsEnabled
-  nameWithType: Game.FixedPhysicsEnabled
-  fullName: ShapeEngine.Core.GameDef.Game.FixedPhysicsEnabled
+  name: FixedFramerate
+  nameWithType: Game.FixedFramerate
+  fullName: ShapeEngine.Core.GameDef.Game.FixedFramerate
   type: Property
   source:
     remote:
       path: ShapeEngine/Core/GameDef/Game.cs
       branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: FixedPhysicsEnabled
+    id: FixedFramerate
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
+    startLine: 75
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: >-
+    Gets the target framerate for the fixed update loop.
+
+    Is used for calculating <xref href="ShapeEngine.Core.GameDef.Game.FixedTimestep" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public int FixedFramerate { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property FixedFramerate As Integer
+  overload: ShapeEngine.Core.GameDef.Game.FixedFramerate*
+- uid: ShapeEngine.Core.GameDef.Game.FixedTimestep
+  commentId: P:ShapeEngine.Core.GameDef.Game.FixedTimestep
+  id: FixedTimestep
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: FixedTimestep
+  nameWithType: Game.FixedTimestep
+  fullName: ShapeEngine.Core.GameDef.Game.FixedTimestep
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/Game.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: FixedTimestep
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
+    startLine: 83
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Gets the time interval in seconds between fixed substeps in the fixed update loop.
+  remarks: This value is calculated as <code>1.0 / FixedFramerate</code>.
+  example: []
+  syntax:
+    content: public double FixedTimestep { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property FixedTimestep As Double
+  overload: ShapeEngine.Core.GameDef.Game.FixedTimestep*
+- uid: ShapeEngine.Core.GameDef.Game.FixedFramerateInterpolationFactor
+  commentId: P:ShapeEngine.Core.GameDef.Game.FixedFramerateInterpolationFactor
+  id: FixedFramerateInterpolationFactor
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: FixedFramerateInterpolationFactor
+  nameWithType: Game.FixedFramerateInterpolationFactor
+  fullName: ShapeEngine.Core.GameDef.Game.FixedFramerateInterpolationFactor
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/Game.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: FixedFramerateInterpolationFactor
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
     startLine: 95
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
-  summary: Gets whether the fixed physics update system is enabled.
+  summary: >-
+    Interpolation factor used to blend between the previous and current states
+
+    when rendering between fixed updates.
+
+    Also available as float via <xref href="ShapeEngine.Core.GameDef.Game.FixedFramerateInterpolationFactorF" data-throw-if-not-resolved="false"></xref> and in <xref href="ShapeEngine.Core.Structs.ScreenInfo" data-throw-if-not-resolved="false"></xref> structs.
   remarks: >-
-    When true, the fixed update functions will be called at the FixedPhysicsFramerate.
+    Expected range is 0.0 (use previous state) to 1.0 (use current state).
 
-    Fixed Update call order:
+    This value is updated each frame when <xref href="ShapeEngine.Core.GameDef.Game.FixedFramerateEnabled" data-throw-if-not-resolved="false"></xref> is true and is useful
 
-    <ul><li><xref href="ShapeEngine.Core.GameDef.Game.Update(ShapeEngine.Core.Structs.GameTime%2cShapeEngine.Core.Structs.ScreenInfo%2cShapeEngine.Core.Structs.ScreenInfo%2cShapeEngine.Core.Structs.ScreenInfo)" data-throw-if-not-resolved="false"></xref> with variable timing.</li><li><xref href="ShapeEngine.Core.GameDef.Game.FixedUpdate(ShapeEngine.Core.Structs.GameTime%2cShapeEngine.Core.Structs.ScreenInfo%2cShapeEngine.Core.Structs.ScreenInfo%2cShapeEngine.Core.Structs.ScreenInfo)" data-throw-if-not-resolved="false"></xref> with fixed timing.</li><li><xref href="ShapeEngine.Core.GameDef.Game.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime%2cShapeEngine.Core.Structs.ScreenInfo%2cShapeEngine.Core.Structs.ScreenInfo%2cShapeEngine.Core.Structs.ScreenInfo%2cSystem.Single)" data-throw-if-not-resolved="false"></xref> with variable timing.</li><li><xref href="ShapeEngine.Core.GameDef.Game.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)" data-throw-if-not-resolved="false"></xref></li><li><xref href="ShapeEngine.Core.GameDef.Game.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)" data-throw-if-not-resolved="false"></xref></li><li><xref href="ShapeEngine.Core.GameDef.Game.DrawUI(ShapeEngine.Core.Structs.ScreenInfo)" data-throw-if-not-resolved="false"></xref></li></ul>
-
-    Unlocked Update call order:
-
-    <ul><li><xref href="ShapeEngine.Core.GameDef.Game.Update(ShapeEngine.Core.Structs.GameTime%2cShapeEngine.Core.Structs.ScreenInfo%2cShapeEngine.Core.Structs.ScreenInfo%2cShapeEngine.Core.Structs.ScreenInfo)" data-throw-if-not-resolved="false"></xref> with variable timing.</li><li><xref href="ShapeEngine.Core.GameDef.Game.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)" data-throw-if-not-resolved="false"></xref></li><li><xref href="ShapeEngine.Core.GameDef.Game.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)" data-throw-if-not-resolved="false"></xref></li><li><xref href="ShapeEngine.Core.GameDef.Game.DrawUI(ShapeEngine.Core.Structs.ScreenInfo)" data-throw-if-not-resolved="false"></xref></li></ul>
+    for smooth rendering when physics updates run at a different rate than rendering.
   example: []
   syntax:
-    content: public bool FixedPhysicsEnabled { get; }
-    parameters: []
-    return:
-      type: System.Boolean
-    content.vb: Public Property FixedPhysicsEnabled As Boolean
-  overload: ShapeEngine.Core.GameDef.Game.FixedPhysicsEnabled*
-- uid: ShapeEngine.Core.GameDef.Game.FixedPhysicsFramerate
-  commentId: P:ShapeEngine.Core.GameDef.Game.FixedPhysicsFramerate
-  id: FixedPhysicsFramerate
-  parent: ShapeEngine.Core.GameDef.Game
-  langs:
-  - csharp
-  - vb
-  name: FixedPhysicsFramerate
-  nameWithType: Game.FixedPhysicsFramerate
-  fullName: ShapeEngine.Core.GameDef.Game.FixedPhysicsFramerate
-  type: Property
-  source:
-    remote:
-      path: ShapeEngine/Core/GameDef/Game.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: FixedPhysicsFramerate
-    path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 104
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core.GameDef
-  summary: Gets the target framerate for fixed physics updates.
-  remarks: >-
-    This value determines how many physics updates will be performed per second.
-
-    Higher values provide more accurate physics but require more processing power.
-  example: []
-  syntax:
-    content: public int FixedPhysicsFramerate { get; }
-    parameters: []
-    return:
-      type: System.Int32
-    content.vb: Public Property FixedPhysicsFramerate As Integer
-  overload: ShapeEngine.Core.GameDef.Game.FixedPhysicsFramerate*
-- uid: ShapeEngine.Core.GameDef.Game.FixedPhysicsTimestep
-  commentId: P:ShapeEngine.Core.GameDef.Game.FixedPhysicsTimestep
-  id: FixedPhysicsTimestep
-  parent: ShapeEngine.Core.GameDef.Game
-  langs:
-  - csharp
-  - vb
-  name: FixedPhysicsTimestep
-  nameWithType: Game.FixedPhysicsTimestep
-  fullName: ShapeEngine.Core.GameDef.Game.FixedPhysicsTimestep
-  type: Property
-  source:
-    remote:
-      path: ShapeEngine/Core/GameDef/Game.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: FixedPhysicsTimestep
-    path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 113
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core.GameDef
-  summary: Gets the time interval in seconds between fixed physics updates.
-  remarks: >-
-    This value is calculated as 1.0 / FixedPhysicsFramerate and represents
-
-    the duration of each physics step in seconds.
-  example: []
-  syntax:
-    content: public double FixedPhysicsTimestep { get; }
+    content: public double FixedFramerateInterpolationFactor { get; }
     parameters: []
     return:
       type: System.Double
-    content.vb: Public Property FixedPhysicsTimestep As Double
-  overload: ShapeEngine.Core.GameDef.Game.FixedPhysicsTimestep*
+    content.vb: Public Property FixedFramerateInterpolationFactor As Double
+  overload: ShapeEngine.Core.GameDef.Game.FixedFramerateInterpolationFactor*
+- uid: ShapeEngine.Core.GameDef.Game.FixedFramerateInterpolationFactorF
+  commentId: P:ShapeEngine.Core.GameDef.Game.FixedFramerateInterpolationFactorF
+  id: FixedFramerateInterpolationFactorF
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: FixedFramerateInterpolationFactorF
+  nameWithType: Game.FixedFramerateInterpolationFactorF
+  fullName: ShapeEngine.Core.GameDef.Game.FixedFramerateInterpolationFactorF
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/Game.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: FixedFramerateInterpolationFactorF
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
+    startLine: 106
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: >-
+    Gets the interpolation factor used for blending between previous and current physics states
+
+    as a single-precision float.
+  remarks: >-
+    Returns <xref href="ShapeEngine.Core.GameDef.Game.FixedFramerateInterpolationFactor" data-throw-if-not-resolved="false"></xref> cast to <xref href="System.Single" data-throw-if-not-resolved="false"></xref>.
+
+    Expected range is between 0.0f (use previous state) and 1.0f (use current state).
+
+    Useful when APIs or shaders require a float instead of a double.
+  example: []
+  syntax:
+    content: public float FixedFramerateInterpolationFactorF { get; }
+    parameters: []
+    return:
+      type: System.Single
+    content.vb: Public Property FixedFramerateInterpolationFactorF As Single
+  overload: ShapeEngine.Core.GameDef.Game.FixedFramerateInterpolationFactorF*
+- uid: ShapeEngine.Core.GameDef.Game.FixedFramerateEnabled
+  commentId: P:ShapeEngine.Core.GameDef.Game.FixedFramerateEnabled
+  id: FixedFramerateEnabled
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: FixedFramerateEnabled
+  nameWithType: Game.FixedFramerateEnabled
+  fullName: ShapeEngine.Core.GameDef.Game.FixedFramerateEnabled
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/Game.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: FixedFramerateEnabled
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
+    startLine: 115
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Indicates whether fixed-timestep updates are enabled.
+  remarks: >-
+    Returns true when <xref href="ShapeEngine.Core.GameDef.Game.FixedFramerate" data-throw-if-not-resolved="false"></xref> is greater than zero,
+
+    meaning the engine will perform fixed framerate updates.
+  example: []
+  syntax:
+    content: public bool FixedFramerateEnabled { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property FixedFramerateEnabled As Boolean
+  overload: ShapeEngine.Core.GameDef.Game.FixedFramerateEnabled*
+- uid: ShapeEngine.Core.GameDef.Game.MaxDeltaTime
+  commentId: P:ShapeEngine.Core.GameDef.Game.MaxDeltaTime
+  id: MaxDeltaTime
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: MaxDeltaTime
+  nameWithType: Game.MaxDeltaTime
+  fullName: ShapeEngine.Core.GameDef.Game.MaxDeltaTime
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/Game.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: MaxDeltaTime
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
+    startLine: 127
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Maximum allowed delta time (in seconds) for a single frame.
+  remarks: >-
+    This value is used to clamp the frame delta to avoid very large time steps
+
+    (which can destabilize physics or cause large logic jumps) when the application
+
+    experiences a hitch or is resumed after being suspended. It is set from the
+
+    framerate/engine settings and can be zero or a positive value.
+
+    Zero means no clamping is applied.
+  example: []
+  syntax:
+    content: public double MaxDeltaTime { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property MaxDeltaTime As Double
+  overload: ShapeEngine.Core.GameDef.Game.MaxDeltaTime*
+- uid: ShapeEngine.Core.GameDef.Game.UpdateTime
+  commentId: P:ShapeEngine.Core.GameDef.Game.UpdateTime
+  id: UpdateTime
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: UpdateTime
+  nameWithType: Game.UpdateTime
+  fullName: ShapeEngine.Core.GameDef.Game.UpdateTime
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/Game.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: UpdateTime
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
+    startLine: 139
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: >-
+    Gets the game time information for the update loop.
+
+    This should only be used in Update methods.
+
+    Is affected by a fixed framerate or dynamic substepping.
+  remarks: >-
+    Contains timing data such as elapsed time, delta time, and frame count
+
+    for the main game update loop.
+  example: []
+  syntax:
+    content: public GameTime UpdateTime { get; }
+    parameters: []
+    return:
+      type: ShapeEngine.Core.Structs.GameTime
+    content.vb: Public Property UpdateTime As GameTime
+  overload: ShapeEngine.Core.GameDef.Game.UpdateTime*
 - uid: ShapeEngine.Core.GameDef.Game.Time
   commentId: P:ShapeEngine.Core.GameDef.Game.Time
   id: Time
@@ -411,15 +569,20 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Time
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 122
+    startLine: 150
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
-  summary: Gets the game time information for the variable update loop.
-  remarks: >-
-    Contains timing data such as elapsed time, delta time, and frame count
+  summary: >-
+    Time information for the main game loop.
 
-    for the main game loop that runs at variable framerates.
+    This should always be used outside of Update methods, for instance in Draw methods.
+  remarks: >-
+    Contains the unmodified timing values (elapsed, delta, frame count) for the main loop.
+
+    This value is not affected by fixed-framerate interpolation or dynamic substepping and
+
+    should be used when raw, real-time timing is required.
   example: []
   syntax:
     content: public GameTime Time { get; }
@@ -428,41 +591,6 @@ items:
       type: ShapeEngine.Core.Structs.GameTime
     content.vb: Public Property Time As GameTime
   overload: ShapeEngine.Core.GameDef.Game.Time*
-- uid: ShapeEngine.Core.GameDef.Game.FixedTime
-  commentId: P:ShapeEngine.Core.GameDef.Game.FixedTime
-  id: FixedTime
-  parent: ShapeEngine.Core.GameDef.Game
-  langs:
-  - csharp
-  - vb
-  name: FixedTime
-  nameWithType: Game.FixedTime
-  fullName: ShapeEngine.Core.GameDef.Game.FixedTime
-  type: Property
-  source:
-    remote:
-      path: ShapeEngine/Core/GameDef/Game.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: FixedTime
-    path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 131
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core.GameDef
-  summary: Gets the game time information for the fixed update loop.
-  remarks: >-
-    Contains timing data for the physics update loop that runs at a fixed timestep.
-
-    Only relevant when FixedPhysicsEnabled is true.
-  example: []
-  syntax:
-    content: public GameTime FixedTime { get; }
-    parameters: []
-    return:
-      type: ShapeEngine.Core.Structs.GameTime
-    content.vb: Public Property FixedTime As GameTime
-  overload: ShapeEngine.Core.GameDef.Game.FixedTime*
 - uid: ShapeEngine.Core.GameDef.Game.BackgroundColorRgba
   commentId: F:ShapeEngine.Core.GameDef.Game.BackgroundColorRgba
   id: BackgroundColorRgba
@@ -481,7 +609,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BackgroundColorRgba
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 139
+    startLine: 158
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -511,7 +639,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ScreenEffectIntensity
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 148
+    startLine: 167
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -544,7 +672,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ScreenShaders
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 157
+    startLine: 176
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -579,7 +707,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Camera
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 166
+    startLine: 185
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -614,7 +742,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GameScreenInfo
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 187
+    startLine: 206
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -649,7 +777,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GameUiScreenInfo
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 196
+    startLine: 215
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -684,7 +812,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: UIScreenInfo
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 205
+    startLine: 224
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -719,7 +847,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Paused
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 215
+    startLine: 234
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -754,7 +882,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Window
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 235
+    startLine: 254
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -789,7 +917,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AudioDevice
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 244
+    startLine: 263
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -822,7 +950,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CurScene
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 253
+    startLine: 272
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -857,7 +985,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GameTexture
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 262
+    startLine: 281
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -892,7 +1020,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetGameTexture
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 268
+    startLine: 287
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -923,7 +1051,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Input
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 273
+    startLine: 292
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -934,6 +1062,157 @@ items:
     return:
       type: ShapeEngine.Input.InputSystem
     content.vb: Public ReadOnly Input As InputSystem
+- uid: ShapeEngine.Core.GameDef.Game.DynamicSubsteppingEnabled
+  commentId: P:ShapeEngine.Core.GameDef.Game.DynamicSubsteppingEnabled
+  id: DynamicSubsteppingEnabled
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: DynamicSubsteppingEnabled
+  nameWithType: Game.DynamicSubsteppingEnabled
+  fullName: ShapeEngine.Core.GameDef.Game.DynamicSubsteppingEnabled
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/Game.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: DynamicSubsteppingEnabled
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
+    startLine: 306
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Indicates whether dynamic substepping is enabled.
+  remarks: >-
+    Returns <code>true</code> when <xref href="ShapeEngine.Core.GameDef.Game.MaxDynamicSubsteps" data-throw-if-not-resolved="false"></xref> is greater than zero.
+
+    When enabled, the engine may split large frame deltas into multiple smaller update steps
+
+    to maintain stable physics and smoother simulation.
+  example: []
+  syntax:
+    content: public bool DynamicSubsteppingEnabled { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property DynamicSubsteppingEnabled As Boolean
+  overload: ShapeEngine.Core.GameDef.Game.DynamicSubsteppingEnabled*
+- uid: ShapeEngine.Core.GameDef.Game.MinDynamicSubsteppingFramerate
+  commentId: P:ShapeEngine.Core.GameDef.Game.MinDynamicSubsteppingFramerate
+  id: MinDynamicSubsteppingFramerate
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: MinDynamicSubsteppingFramerate
+  nameWithType: Game.MinDynamicSubsteppingFramerate
+  fullName: ShapeEngine.Core.GameDef.Game.MinDynamicSubsteppingFramerate
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/Game.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: MinDynamicSubsteppingFramerate
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
+    startLine: 316
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: >-
+    Minimum allowed target framerate (in frames per second) used when dynamic substepping is active.
+
+    This value constrains how low the effective framerate may go when splitting a large frame delta
+
+    into multiple substeps.
+  remarks: This effectively sets the maximum allowed delta time (or timestep) for each dynamic substep.
+  example: []
+  syntax:
+    content: public int MinDynamicSubsteppingFramerate { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property MinDynamicSubsteppingFramerate As Integer
+  overload: ShapeEngine.Core.GameDef.Game.MinDynamicSubsteppingFramerate*
+- uid: ShapeEngine.Core.GameDef.Game.MaxDynamicSubsteps
+  commentId: P:ShapeEngine.Core.GameDef.Game.MaxDynamicSubsteps
+  id: MaxDynamicSubsteps
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: MaxDynamicSubsteps
+  nameWithType: Game.MaxDynamicSubsteps
+  fullName: ShapeEngine.Core.GameDef.Game.MaxDynamicSubsteps
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/Game.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: MaxDynamicSubsteps
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
+    startLine: 326
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: >-
+    Maximum number of dynamic substeps allowed when dynamic substepping is active.
+
+    Limits how many smaller update steps the engine may perform in a single frame to smooth out large frame deltas.
+  remarks: >-
+    The effective maximum substeps allowed is decreased by 1 every frame at least 1 substep is performed to a minimum of 1.
+
+    This prevents spiraling and ensures at least one substep per frame with <xref href="ShapeEngine.Core.GameDef.Game.MaxDynamicTimestep" data-throw-if-not-resolved="false"></xref> as delta time.
+  example: []
+  syntax:
+    content: public int MaxDynamicSubsteps { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property MaxDynamicSubsteps As Integer
+  overload: ShapeEngine.Core.GameDef.Game.MaxDynamicSubsteps*
+- uid: ShapeEngine.Core.GameDef.Game.MaxDynamicTimestep
+  commentId: P:ShapeEngine.Core.GameDef.Game.MaxDynamicTimestep
+  id: MaxDynamicTimestep
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: MaxDynamicTimestep
+  nameWithType: Game.MaxDynamicTimestep
+  fullName: ShapeEngine.Core.GameDef.Game.MaxDynamicTimestep
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/Game.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: MaxDynamicTimestep
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
+    startLine: 337
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Maximum dynamic timestep used when performing dynamic substepping.
+  remarks: >-
+    Represents the largest allowed duration (in seconds) for an individual
+
+    dynamic substep when splitting a large frame delta into multiple updates.
+
+    Calculated from <xref href="ShapeEngine.Core.GameDef.Game.MinDynamicSubsteppingFramerate" data-throw-if-not-resolved="false"></xref> as
+
+    <code>1.0 / MinDynamicSubsteppingFramerate</code> during construction.
+  example: []
+  syntax:
+    content: public double MaxDynamicTimestep { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property MaxDynamicTimestep As Double
+  overload: ShapeEngine.Core.GameDef.Game.MaxDynamicTimestep*
 - uid: ShapeEngine.Core.GameDef.Game.OnIdleChanged
   commentId: E:ShapeEngine.Core.GameDef.Game.OnIdleChanged
   id: OnIdleChanged
@@ -952,7 +1231,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnIdleChanged
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 288
+    startLine: 351
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -989,7 +1268,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IdleTimeThreshold
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 298
+    startLine: 361
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1025,7 +1304,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IdleFrameRateLimit
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 308
+    startLine: 371
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1060,7 +1339,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsIdle
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 317
+    startLine: 380
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1095,7 +1374,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Instance
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 366
+    startLine: 429
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1136,7 +1415,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetInstanceAs
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 376
+    startLine: 439
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1159,16 +1438,16 @@ items:
   nameWithType.vb: Game.GetInstanceAs(Of T)()
   fullName.vb: ShapeEngine.Core.GameDef.Game.GetInstanceAs(Of T)()
   name.vb: GetInstanceAs(Of T)()
-- uid: ShapeEngine.Core.GameDef.Game.#ctor(ShapeEngine.Core.Structs.GameSettings,ShapeEngine.Core.Structs.WindowSettings,ShapeEngine.Input.InputSettings)
-  commentId: M:ShapeEngine.Core.GameDef.Game.#ctor(ShapeEngine.Core.Structs.GameSettings,ShapeEngine.Core.Structs.WindowSettings,ShapeEngine.Input.InputSettings)
-  id: '#ctor(ShapeEngine.Core.Structs.GameSettings,ShapeEngine.Core.Structs.WindowSettings,ShapeEngine.Input.InputSettings)'
+- uid: ShapeEngine.Core.GameDef.Game.#ctor(ShapeEngine.Core.Structs.GameSettings,ShapeEngine.Core.Structs.WindowSettings,ShapeEngine.Core.Structs.FramerateSettings,ShapeEngine.Input.InputSettings)
+  commentId: M:ShapeEngine.Core.GameDef.Game.#ctor(ShapeEngine.Core.Structs.GameSettings,ShapeEngine.Core.Structs.WindowSettings,ShapeEngine.Core.Structs.FramerateSettings,ShapeEngine.Input.InputSettings)
+  id: '#ctor(ShapeEngine.Core.Structs.GameSettings,ShapeEngine.Core.Structs.WindowSettings,ShapeEngine.Core.Structs.FramerateSettings,ShapeEngine.Input.InputSettings)'
   parent: ShapeEngine.Core.GameDef.Game
   langs:
   - csharp
   - vb
-  name: Game(GameSettings, WindowSettings, InputSettings)
-  nameWithType: Game.Game(GameSettings, WindowSettings, InputSettings)
-  fullName: ShapeEngine.Core.GameDef.Game.Game(ShapeEngine.Core.Structs.GameSettings, ShapeEngine.Core.Structs.WindowSettings, ShapeEngine.Input.InputSettings)
+  name: Game(GameSettings, WindowSettings, FramerateSettings, InputSettings)
+  nameWithType: Game.Game(GameSettings, WindowSettings, FramerateSettings, InputSettings)
+  fullName: ShapeEngine.Core.GameDef.Game.Game(ShapeEngine.Core.Structs.GameSettings, ShapeEngine.Core.Structs.WindowSettings, ShapeEngine.Core.Structs.FramerateSettings, ShapeEngine.Input.InputSettings)
   type: Constructor
   source:
     remote:
@@ -1177,7 +1456,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 395
+    startLine: 459
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1188,7 +1467,7 @@ items:
     <xref href="ShapeEngine.Core.GameDef.Game.Instance" data-throw-if-not-resolved="false"></xref> will be set to the created instance.
   example: []
   syntax:
-    content: public Game(GameSettings gameSettings, WindowSettings windowSettings, InputSettings inputSettings)
+    content: public Game(GameSettings gameSettings, WindowSettings windowSettings, FramerateSettings framerateSettings, InputSettings inputSettings)
     parameters:
     - id: gameSettings
       type: ShapeEngine.Core.Structs.GameSettings
@@ -1196,14 +1475,17 @@ items:
     - id: windowSettings
       type: ShapeEngine.Core.Structs.WindowSettings
       description: The settings for the window, including size, position, and display properties.
+    - id: framerateSettings
+      type: ShapeEngine.Core.Structs.FramerateSettings
+      description: The settings for framerate control, including fixed timestep and frame rate limits.
     - id: inputSettings
       type: ShapeEngine.Input.InputSettings
       description: The settings for input devices, including keyboard, mouse, and gamepad configurations.
-    content.vb: Public Sub New(gameSettings As GameSettings, windowSettings As WindowSettings, inputSettings As InputSettings)
+    content.vb: Public Sub New(gameSettings As GameSettings, windowSettings As WindowSettings, framerateSettings As FramerateSettings, inputSettings As InputSettings)
   overload: ShapeEngine.Core.GameDef.Game.#ctor*
-  nameWithType.vb: Game.New(GameSettings, WindowSettings, InputSettings)
-  fullName.vb: ShapeEngine.Core.GameDef.Game.New(ShapeEngine.Core.Structs.GameSettings, ShapeEngine.Core.Structs.WindowSettings, ShapeEngine.Input.InputSettings)
-  name.vb: New(GameSettings, WindowSettings, InputSettings)
+  nameWithType.vb: Game.New(GameSettings, WindowSettings, FramerateSettings, InputSettings)
+  fullName.vb: ShapeEngine.Core.GameDef.Game.New(ShapeEngine.Core.Structs.GameSettings, ShapeEngine.Core.Structs.WindowSettings, ShapeEngine.Core.Structs.FramerateSettings, ShapeEngine.Input.InputSettings)
+  name.vb: New(GameSettings, WindowSettings, FramerateSettings, InputSettings)
 - uid: ShapeEngine.Core.GameDef.Game.AddScreenTexture(ShapeEngine.Screen.ScreenTexture)
   commentId: M:ShapeEngine.Core.GameDef.Game.AddScreenTexture(ShapeEngine.Screen.ScreenTexture)
   id: AddScreenTexture(ShapeEngine.Screen.ScreenTexture)
@@ -1222,7 +1504,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddScreenTexture
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 660
+    startLine: 733
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1260,7 +1542,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HasScreenTexture
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 683
+    startLine: 756
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1298,7 +1580,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveScreenTexture
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 693
+    startLine: 766
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1336,7 +1618,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ClearScreenTextures
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 706
+    startLine: 779
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1370,7 +1652,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: UpdateCursor
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 727
+    startLine: 800
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1417,7 +1699,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawCursorGame
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 739
+    startLine: 812
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1453,7 +1735,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawCursorGameUi
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 752
+    startLine: 825
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1489,7 +1771,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawCursorUi
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 765
+    startLine: 838
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1525,7 +1807,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Restart
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 777
+    startLine: 850
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1553,7 +1835,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Quit
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 786
+    startLine: 859
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1581,7 +1863,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GoToScene
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 796
+    startLine: 869
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1613,7 +1895,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CallDeferred
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 815
+    startLine: 888
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1653,7 +1935,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Flash
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 838
+    startLine: 911
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1694,7 +1976,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ClearFlashes
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 856
+    startLine: 929
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1722,7 +2004,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ResetCamera
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 861
+    startLine: 934
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1750,7 +2032,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ChangeGameTexture
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 869
+    startLine: 942
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1787,7 +2069,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Run
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 893
+    startLine: 966
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1959,7 +2241,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FramesPerSecond
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameGameloop.cs
-    startLine: 22
+    startLine: 24
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -1991,7 +2273,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FrameDelta
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameGameloop.cs
-    startLine: 28
+    startLine: 30
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -2023,7 +2305,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FrameDeltaNanoSeconds
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameGameloop.cs
-    startLine: 34
+    startLine: 36
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -2055,7 +2337,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: FrameTime
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameGameloop.cs
-    startLine: 44
+    startLine: 46
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -3825,100 +4107,6 @@ items:
       description: Screen information for the global UI.
     content.vb: Protected Overridable Sub Update(time As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo)
   overload: ShapeEngine.Core.GameDef.Game.Update*
-- uid: ShapeEngine.Core.GameDef.Game.FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  commentId: M:ShapeEngine.Core.GameDef.Game.FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  id: FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  parent: ShapeEngine.Core.GameDef.Game
-  langs:
-  - csharp
-  - vb
-  name: FixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
-  nameWithType: Game.FixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
-  fullName: ShapeEngine.Core.GameDef.Game.FixedUpdate(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Core/GameDef/GameVirtual.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: FixedUpdate
-    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 43
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core.GameDef
-  summary: >-
-    Updates the game at a fixed time interval when fixed framerate is enabled. This method
-
-    ensures consistent physics and game logic calculations independent of frame rate.
-  example: []
-  syntax:
-    content: protected virtual void FixedUpdate(GameTime fixedTime, ScreenInfo game, ScreenInfo gameUi, ScreenInfo ui)
-    parameters:
-    - id: fixedTime
-      type: ShapeEngine.Core.Structs.GameTime
-      description: Contains timing information for the fixed update cycle.
-    - id: game
-      type: ShapeEngine.Core.Structs.ScreenInfo
-      description: Screen information for the main game area.
-    - id: gameUi
-      type: ShapeEngine.Core.Structs.ScreenInfo
-      description: Screen information for the game's UI elements.
-    - id: ui
-      type: ShapeEngine.Core.Structs.ScreenInfo
-      description: Screen information for the global UI.
-    content.vb: Protected Overridable Sub FixedUpdate(fixedTime As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo)
-  overload: ShapeEngine.Core.GameDef.Game.FixedUpdate*
-- uid: ShapeEngine.Core.GameDef.Game.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Single)
-  commentId: M:ShapeEngine.Core.GameDef.Game.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Single)
-  id: InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Single)
-  parent: ShapeEngine.Core.GameDef.Game
-  langs:
-  - csharp
-  - vb
-  name: InterpolateFixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo, float)
-  nameWithType: Game.InterpolateFixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo, float)
-  fullName: ShapeEngine.Core.GameDef.Game.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, float)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Core/GameDef/GameVirtual.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: InterpolateFixedUpdate
-    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 56
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core.GameDef
-  summary: >-
-    Interpolates between fixed updates when fixed framerate is enabled. Called every frame
-
-    to provide smooth rendering between physics/logic steps.
-  example: []
-  syntax:
-    content: protected virtual void InterpolateFixedUpdate(GameTime time, ScreenInfo game, ScreenInfo gameUi, ScreenInfo ui, float f)
-    parameters:
-    - id: time
-      type: ShapeEngine.Core.Structs.GameTime
-      description: Contains timing information for the current frame.
-    - id: game
-      type: ShapeEngine.Core.Structs.ScreenInfo
-      description: Screen information for the main game area.
-    - id: gameUi
-      type: ShapeEngine.Core.Structs.ScreenInfo
-      description: Screen information for the game's UI elements.
-    - id: ui
-      type: ShapeEngine.Core.Structs.ScreenInfo
-      description: Screen information for the global UI.
-    - id: f
-      type: System.Single
-      description: Interpolation factor (0.0 to 1.0) between the current and next fixed update.
-    content.vb: Protected Overridable Sub InterpolateFixedUpdate(time As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo, f As Single)
-  overload: ShapeEngine.Core.GameDef.Game.InterpolateFixedUpdate*
-  nameWithType.vb: Game.InterpolateFixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo, Single)
-  fullName.vb: ShapeEngine.Core.GameDef.Game.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, Single)
-  name.vb: InterpolateFixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo, Single)
 - uid: ShapeEngine.Core.GameDef.Game.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
   commentId: M:ShapeEngine.Core.GameDef.Game.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
   id: DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
@@ -3937,7 +4125,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawGame
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 64
+    startLine: 39
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -3969,7 +4157,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawGameUI
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 72
+    startLine: 47
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4001,7 +4189,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawUI
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 80
+    startLine: 55
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4033,7 +4221,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: EndRun
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 87
+    startLine: 62
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4061,7 +4249,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: UnloadContent
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 94
+    startLine: 69
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4089,7 +4277,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnGameTextureResized
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 103
+    startLine: 78
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4127,7 +4315,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowSizeChanged
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 111
+    startLine: 86
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4159,7 +4347,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowPositionChanged
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 120
+    startLine: 95
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4194,7 +4382,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMonitorChanged
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 128
+    startLine: 103
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4226,7 +4414,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnPausedChanged
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 136
+    startLine: 111
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4261,7 +4449,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnInputDeviceChanged
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 145
+    startLine: 120
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4296,7 +4484,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnGamepadConnected
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 153
+    startLine: 128
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4328,7 +4516,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnGamepadDisconnected
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 161
+    startLine: 136
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4360,7 +4548,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnGamepadClaimed
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 167
+    startLine: 142
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4392,7 +4580,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnGamepadFreed
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 173
+    startLine: 148
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4424,7 +4612,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMouseEnteredScreen
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 177
+    startLine: 152
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4452,7 +4640,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMouseLeftScreen
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 184
+    startLine: 159
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4480,7 +4668,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMouseVisibilityChanged
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 192
+    startLine: 167
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4515,7 +4703,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMouseEnabledChanged
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 200
+    startLine: 175
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4550,7 +4738,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowFocusChanged
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 208
+    startLine: 183
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4585,7 +4773,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowFullscreenChanged
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 216
+    startLine: 191
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4620,7 +4808,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowMaximizeChanged
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 224
+    startLine: 199
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4655,7 +4843,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowMinimizedChanged
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 232
+    startLine: 207
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4690,7 +4878,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowHiddenChanged
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 240
+    startLine: 215
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4725,7 +4913,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowTopmostChanged
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 248
+    startLine: 223
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4760,7 +4948,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ChangeMousePos
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 259
+    startLine: 234
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4804,7 +4992,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnButtonPressed
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 265
+    startLine: 240
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4836,7 +5024,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnButtonReleased
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 273
+    startLine: 248
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -5092,130 +5280,6 @@ references:
     name: UnloadContent
     href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_UnloadContent
   - name: (
-  - name: )
-- uid: ShapeEngine.Core.GameDef.Game.FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  commentId: M:ShapeEngine.Core.GameDef.Game.FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_FixedUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
-  name: FixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
-  nameWithType: Game.FixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
-  fullName: ShapeEngine.Core.GameDef.Game.FixedUpdate(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
-  spec.csharp:
-  - uid: ShapeEngine.Core.GameDef.Game.FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-    name: FixedUpdate
-    href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_FixedUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
-  - name: (
-  - uid: ShapeEngine.Core.Structs.GameTime
-    name: GameTime
-    href: ShapeEngine.Core.Structs.GameTime.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.GameDef.Game.FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-    name: FixedUpdate
-    href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_FixedUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
-  - name: (
-  - uid: ShapeEngine.Core.Structs.GameTime
-    name: GameTime
-    href: ShapeEngine.Core.Structs.GameTime.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: )
-- uid: ShapeEngine.Core.GameDef.Game.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Single)
-  commentId: M:ShapeEngine.Core.GameDef.Game.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Single)
-  isExternal: true
-  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_InterpolateFixedUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_System_Single_
-  name: InterpolateFixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo, float)
-  nameWithType: Game.InterpolateFixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo, float)
-  fullName: ShapeEngine.Core.GameDef.Game.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, float)
-  nameWithType.vb: Game.InterpolateFixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo, Single)
-  fullName.vb: ShapeEngine.Core.GameDef.Game.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, Single)
-  name.vb: InterpolateFixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo, Single)
-  spec.csharp:
-  - uid: ShapeEngine.Core.GameDef.Game.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Single)
-    name: InterpolateFixedUpdate
-    href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_InterpolateFixedUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_System_Single_
-  - name: (
-  - uid: ShapeEngine.Core.Structs.GameTime
-    name: GameTime
-    href: ShapeEngine.Core.Structs.GameTime.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: System.Single
-    name: float
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.single
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.GameDef.Game.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Single)
-    name: InterpolateFixedUpdate
-    href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_InterpolateFixedUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_System_Single_
-  - name: (
-  - uid: ShapeEngine.Core.Structs.GameTime
-    name: GameTime
-    href: ShapeEngine.Core.Structs.GameTime.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: System.Single
-    name: Single
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.single
   - name: )
 - uid: ShapeEngine.Core.GameDef
   commentId: N:ShapeEngine.Core.GameDef
@@ -5911,29 +5975,18 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.string
   - name: (
   - name: )
-- uid: ShapeEngine.Core.GameDef.Game.FixedPhysicsEnabled*
-  commentId: Overload:ShapeEngine.Core.GameDef.Game.FixedPhysicsEnabled
-  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_FixedPhysicsEnabled
-  name: FixedPhysicsEnabled
-  nameWithType: Game.FixedPhysicsEnabled
-  fullName: ShapeEngine.Core.GameDef.Game.FixedPhysicsEnabled
-- uid: System.Boolean
-  commentId: T:System.Boolean
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.boolean
-  name: bool
-  nameWithType: bool
-  fullName: bool
-  nameWithType.vb: Boolean
-  fullName.vb: Boolean
-  name.vb: Boolean
-- uid: ShapeEngine.Core.GameDef.Game.FixedPhysicsFramerate*
-  commentId: Overload:ShapeEngine.Core.GameDef.Game.FixedPhysicsFramerate
-  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_FixedPhysicsFramerate
-  name: FixedPhysicsFramerate
-  nameWithType: Game.FixedPhysicsFramerate
-  fullName: ShapeEngine.Core.GameDef.Game.FixedPhysicsFramerate
+- uid: ShapeEngine.Core.GameDef.Game.FixedTimestep
+  commentId: P:ShapeEngine.Core.GameDef.Game.FixedTimestep
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_FixedTimestep
+  name: FixedTimestep
+  nameWithType: Game.FixedTimestep
+  fullName: ShapeEngine.Core.GameDef.Game.FixedTimestep
+- uid: ShapeEngine.Core.GameDef.Game.FixedFramerate*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.FixedFramerate
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_FixedFramerate
+  name: FixedFramerate
+  nameWithType: Game.FixedFramerate
+  fullName: ShapeEngine.Core.GameDef.Game.FixedFramerate
 - uid: System.Int32
   commentId: T:System.Int32
   parent: System
@@ -5945,12 +5998,12 @@ references:
   nameWithType.vb: Integer
   fullName.vb: Integer
   name.vb: Integer
-- uid: ShapeEngine.Core.GameDef.Game.FixedPhysicsTimestep*
-  commentId: Overload:ShapeEngine.Core.GameDef.Game.FixedPhysicsTimestep
-  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_FixedPhysicsTimestep
-  name: FixedPhysicsTimestep
-  nameWithType: Game.FixedPhysicsTimestep
-  fullName: ShapeEngine.Core.GameDef.Game.FixedPhysicsTimestep
+- uid: ShapeEngine.Core.GameDef.Game.FixedTimestep*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.FixedTimestep
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_FixedTimestep
+  name: FixedTimestep
+  nameWithType: Game.FixedTimestep
+  fullName: ShapeEngine.Core.GameDef.Game.FixedTimestep
 - uid: System.Double
   commentId: T:System.Double
   parent: System
@@ -5962,19 +6015,31 @@ references:
   nameWithType.vb: Double
   fullName.vb: Double
   name.vb: Double
-- uid: ShapeEngine.Core.GameDef.Game.Time*
-  commentId: Overload:ShapeEngine.Core.GameDef.Game.Time
-  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_Time
-  name: Time
-  nameWithType: Game.Time
-  fullName: ShapeEngine.Core.GameDef.Game.Time
-- uid: ShapeEngine.Core.Structs.GameTime
-  commentId: T:ShapeEngine.Core.Structs.GameTime
+- uid: ShapeEngine.Core.GameDef.Game.FixedFramerateInterpolationFactorF
+  commentId: P:ShapeEngine.Core.GameDef.Game.FixedFramerateInterpolationFactorF
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_FixedFramerateInterpolationFactorF
+  name: FixedFramerateInterpolationFactorF
+  nameWithType: Game.FixedFramerateInterpolationFactorF
+  fullName: ShapeEngine.Core.GameDef.Game.FixedFramerateInterpolationFactorF
+- uid: ShapeEngine.Core.Structs.ScreenInfo
+  commentId: T:ShapeEngine.Core.Structs.ScreenInfo
   parent: ShapeEngine.Core.Structs
-  href: ShapeEngine.Core.Structs.GameTime.html
-  name: GameTime
-  nameWithType: GameTime
-  fullName: ShapeEngine.Core.Structs.GameTime
+  href: ShapeEngine.Core.Structs.ScreenInfo.html
+  name: ScreenInfo
+  nameWithType: ScreenInfo
+  fullName: ShapeEngine.Core.Structs.ScreenInfo
+- uid: ShapeEngine.Core.GameDef.Game.FixedFramerateEnabled
+  commentId: P:ShapeEngine.Core.GameDef.Game.FixedFramerateEnabled
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_FixedFramerateEnabled
+  name: FixedFramerateEnabled
+  nameWithType: Game.FixedFramerateEnabled
+  fullName: ShapeEngine.Core.GameDef.Game.FixedFramerateEnabled
+- uid: ShapeEngine.Core.GameDef.Game.FixedFramerateInterpolationFactor*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.FixedFramerateInterpolationFactor
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_FixedFramerateInterpolationFactor
+  name: FixedFramerateInterpolationFactor
+  nameWithType: Game.FixedFramerateInterpolationFactor
+  fullName: ShapeEngine.Core.GameDef.Game.FixedFramerateInterpolationFactor
 - uid: ShapeEngine.Core.Structs
   commentId: N:ShapeEngine.Core.Structs
   href: ShapeEngine.html
@@ -6005,12 +6070,77 @@ references:
   - uid: ShapeEngine.Core.Structs
     name: Structs
     href: ShapeEngine.Core.Structs.html
-- uid: ShapeEngine.Core.GameDef.Game.FixedTime*
-  commentId: Overload:ShapeEngine.Core.GameDef.Game.FixedTime
-  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_FixedTime
-  name: FixedTime
-  nameWithType: Game.FixedTime
-  fullName: ShapeEngine.Core.GameDef.Game.FixedTime
+- uid: ShapeEngine.Core.GameDef.Game.FixedFramerateInterpolationFactor
+  commentId: P:ShapeEngine.Core.GameDef.Game.FixedFramerateInterpolationFactor
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_FixedFramerateInterpolationFactor
+  name: FixedFramerateInterpolationFactor
+  nameWithType: Game.FixedFramerateInterpolationFactor
+  fullName: ShapeEngine.Core.GameDef.Game.FixedFramerateInterpolationFactor
+- uid: System.Single
+  commentId: T:System.Single
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.single
+  name: float
+  nameWithType: float
+  fullName: float
+  nameWithType.vb: Single
+  fullName.vb: Single
+  name.vb: Single
+- uid: ShapeEngine.Core.GameDef.Game.FixedFramerateInterpolationFactorF*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.FixedFramerateInterpolationFactorF
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_FixedFramerateInterpolationFactorF
+  name: FixedFramerateInterpolationFactorF
+  nameWithType: Game.FixedFramerateInterpolationFactorF
+  fullName: ShapeEngine.Core.GameDef.Game.FixedFramerateInterpolationFactorF
+- uid: ShapeEngine.Core.GameDef.Game.FixedFramerate
+  commentId: P:ShapeEngine.Core.GameDef.Game.FixedFramerate
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_FixedFramerate
+  name: FixedFramerate
+  nameWithType: Game.FixedFramerate
+  fullName: ShapeEngine.Core.GameDef.Game.FixedFramerate
+- uid: ShapeEngine.Core.GameDef.Game.FixedFramerateEnabled*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.FixedFramerateEnabled
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_FixedFramerateEnabled
+  name: FixedFramerateEnabled
+  nameWithType: Game.FixedFramerateEnabled
+  fullName: ShapeEngine.Core.GameDef.Game.FixedFramerateEnabled
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: ShapeEngine.Core.GameDef.Game.MaxDeltaTime*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.MaxDeltaTime
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_MaxDeltaTime
+  name: MaxDeltaTime
+  nameWithType: Game.MaxDeltaTime
+  fullName: ShapeEngine.Core.GameDef.Game.MaxDeltaTime
+- uid: ShapeEngine.Core.GameDef.Game.UpdateTime*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.UpdateTime
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_UpdateTime
+  name: UpdateTime
+  nameWithType: Game.UpdateTime
+  fullName: ShapeEngine.Core.GameDef.Game.UpdateTime
+- uid: ShapeEngine.Core.Structs.GameTime
+  commentId: T:ShapeEngine.Core.Structs.GameTime
+  parent: ShapeEngine.Core.Structs
+  href: ShapeEngine.Core.Structs.GameTime.html
+  name: GameTime
+  nameWithType: GameTime
+  fullName: ShapeEngine.Core.Structs.GameTime
+- uid: ShapeEngine.Core.GameDef.Game.Time*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.Time
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_Time
+  name: Time
+  nameWithType: Game.Time
+  fullName: ShapeEngine.Core.GameDef.Game.Time
 - uid: ShapeEngine.Color.ColorRgba
   commentId: T:ShapeEngine.Color.ColorRgba
   parent: ShapeEngine.Color
@@ -6040,17 +6170,6 @@ references:
   - uid: ShapeEngine.Color
     name: Color
     href: ShapeEngine.Color.html
-- uid: System.Single
-  commentId: T:System.Single
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.single
-  name: float
-  nameWithType: float
-  fullName: float
-  nameWithType.vb: Single
-  fullName.vb: Single
-  name.vb: Single
 - uid: ShapeEngine.Core.GameDef.Game.ScreenShaders*
   commentId: Overload:ShapeEngine.Core.GameDef.Game.ScreenShaders
   href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_ScreenShaders
@@ -6105,13 +6224,6 @@ references:
   name: GameScreenInfo
   nameWithType: Game.GameScreenInfo
   fullName: ShapeEngine.Core.GameDef.Game.GameScreenInfo
-- uid: ShapeEngine.Core.Structs.ScreenInfo
-  commentId: T:ShapeEngine.Core.Structs.ScreenInfo
-  parent: ShapeEngine.Core.Structs
-  href: ShapeEngine.Core.Structs.ScreenInfo.html
-  name: ScreenInfo
-  nameWithType: ScreenInfo
-  fullName: ShapeEngine.Core.Structs.ScreenInfo
 - uid: ShapeEngine.Core.GameDef.Game.GameUiScreenInfo*
   commentId: Overload:ShapeEngine.Core.GameDef.Game.GameUiScreenInfo
   href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_GameUiScreenInfo
@@ -6255,6 +6367,48 @@ references:
   - uid: ShapeEngine.Input
     name: Input
     href: ShapeEngine.Input.html
+- uid: ShapeEngine.Core.GameDef.Game.MaxDynamicSubsteps
+  commentId: P:ShapeEngine.Core.GameDef.Game.MaxDynamicSubsteps
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_MaxDynamicSubsteps
+  name: MaxDynamicSubsteps
+  nameWithType: Game.MaxDynamicSubsteps
+  fullName: ShapeEngine.Core.GameDef.Game.MaxDynamicSubsteps
+- uid: ShapeEngine.Core.GameDef.Game.DynamicSubsteppingEnabled*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.DynamicSubsteppingEnabled
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_DynamicSubsteppingEnabled
+  name: DynamicSubsteppingEnabled
+  nameWithType: Game.DynamicSubsteppingEnabled
+  fullName: ShapeEngine.Core.GameDef.Game.DynamicSubsteppingEnabled
+- uid: ShapeEngine.Core.GameDef.Game.MinDynamicSubsteppingFramerate*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.MinDynamicSubsteppingFramerate
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_MinDynamicSubsteppingFramerate
+  name: MinDynamicSubsteppingFramerate
+  nameWithType: Game.MinDynamicSubsteppingFramerate
+  fullName: ShapeEngine.Core.GameDef.Game.MinDynamicSubsteppingFramerate
+- uid: ShapeEngine.Core.GameDef.Game.MaxDynamicTimestep
+  commentId: P:ShapeEngine.Core.GameDef.Game.MaxDynamicTimestep
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_MaxDynamicTimestep
+  name: MaxDynamicTimestep
+  nameWithType: Game.MaxDynamicTimestep
+  fullName: ShapeEngine.Core.GameDef.Game.MaxDynamicTimestep
+- uid: ShapeEngine.Core.GameDef.Game.MaxDynamicSubsteps*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.MaxDynamicSubsteps
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_MaxDynamicSubsteps
+  name: MaxDynamicSubsteps
+  nameWithType: Game.MaxDynamicSubsteps
+  fullName: ShapeEngine.Core.GameDef.Game.MaxDynamicSubsteps
+- uid: ShapeEngine.Core.GameDef.Game.MinDynamicSubsteppingFramerate
+  commentId: P:ShapeEngine.Core.GameDef.Game.MinDynamicSubsteppingFramerate
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_MinDynamicSubsteppingFramerate
+  name: MinDynamicSubsteppingFramerate
+  nameWithType: Game.MinDynamicSubsteppingFramerate
+  fullName: ShapeEngine.Core.GameDef.Game.MinDynamicSubsteppingFramerate
+- uid: ShapeEngine.Core.GameDef.Game.MaxDynamicTimestep*
+  commentId: Overload:ShapeEngine.Core.GameDef.Game.MaxDynamicTimestep
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_MaxDynamicTimestep
+  name: MaxDynamicTimestep
+  nameWithType: Game.MaxDynamicTimestep
+  fullName: ShapeEngine.Core.GameDef.Game.MaxDynamicTimestep
 - uid: System.Action{System.Boolean}
   commentId: T:System.Action{System.Boolean}
   parent: System
@@ -6385,7 +6539,7 @@ references:
   fullName: T
 - uid: ShapeEngine.Core.GameDef.Game.#ctor*
   commentId: Overload:ShapeEngine.Core.GameDef.Game.#ctor
-  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game__ctor_ShapeEngine_Core_Structs_GameSettings_ShapeEngine_Core_Structs_WindowSettings_ShapeEngine_Input_InputSettings_
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game__ctor_ShapeEngine_Core_Structs_GameSettings_ShapeEngine_Core_Structs_WindowSettings_ShapeEngine_Core_Structs_FramerateSettings_ShapeEngine_Input_InputSettings_
   name: Game
   nameWithType: Game.Game
   fullName: ShapeEngine.Core.GameDef.Game.Game
@@ -6406,6 +6560,13 @@ references:
   name: WindowSettings
   nameWithType: WindowSettings
   fullName: ShapeEngine.Core.Structs.WindowSettings
+- uid: ShapeEngine.Core.Structs.FramerateSettings
+  commentId: T:ShapeEngine.Core.Structs.FramerateSettings
+  parent: ShapeEngine.Core.Structs
+  href: ShapeEngine.Core.Structs.FramerateSettings.html
+  name: FramerateSettings
+  nameWithType: FramerateSettings
+  fullName: ShapeEngine.Core.Structs.FramerateSettings
 - uid: ShapeEngine.Input.InputSettings
   commentId: T:ShapeEngine.Input.InputSettings
   parent: ShapeEngine.Input
@@ -7292,18 +7453,6 @@ references:
   name: Update
   nameWithType: Game.Update
   fullName: ShapeEngine.Core.GameDef.Game.Update
-- uid: ShapeEngine.Core.GameDef.Game.FixedUpdate*
-  commentId: Overload:ShapeEngine.Core.GameDef.Game.FixedUpdate
-  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_FixedUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
-  name: FixedUpdate
-  nameWithType: Game.FixedUpdate
-  fullName: ShapeEngine.Core.GameDef.Game.FixedUpdate
-- uid: ShapeEngine.Core.GameDef.Game.InterpolateFixedUpdate*
-  commentId: Overload:ShapeEngine.Core.GameDef.Game.InterpolateFixedUpdate
-  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_InterpolateFixedUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_System_Single_
-  name: InterpolateFixedUpdate
-  nameWithType: Game.InterpolateFixedUpdate
-  fullName: ShapeEngine.Core.GameDef.Game.InterpolateFixedUpdate
 - uid: ShapeEngine.Core.GameDef.Game.DrawGame*
   commentId: Overload:ShapeEngine.Core.GameDef.Game.DrawGame
   href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_DrawGame_ShapeEngine_Core_Structs_ScreenInfo_
