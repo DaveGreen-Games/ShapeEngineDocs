@@ -29,6 +29,7 @@ items:
   - ShapeEngine.Core.Scene.OnGamepadConnected(ShapeEngine.Input.GamepadDevice)
   - ShapeEngine.Core.Scene.OnGamepadDisconnected(ShapeEngine.Input.GamepadDevice)
   - ShapeEngine.Core.Scene.OnGamepadFreed(ShapeEngine.Input.GamepadDevice)
+  - ShapeEngine.Core.Scene.OnHandleInput(ShapeEngine.Core.Structs.GameTime,System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2)
   - ShapeEngine.Core.Scene.OnInputDeviceChanged(ShapeEngine.Input.InputDeviceType,ShapeEngine.Input.InputDeviceType)
   - ShapeEngine.Core.Scene.OnMonitorChanged(ShapeEngine.Screen.MonitorInfo)
   - ShapeEngine.Core.Scene.OnMouseEnabledChanged(System.Boolean)
@@ -651,7 +652,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ResolveOnButtonPressed
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 338
+    startLine: 343
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -688,7 +689,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ResolveOnButtonReleased
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 348
+    startLine: 353
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -725,7 +726,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnActivate
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 360
+    startLine: 365
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -757,7 +758,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnDeactivate
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 365
+    startLine: 370
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -785,7 +786,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnClose
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 370
+    startLine: 375
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -813,7 +814,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnGameTextureResized
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 380
+    startLine: 385
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -833,6 +834,52 @@ items:
   nameWithType.vb: Scene.OnGameTextureResized(Integer, Integer)
   fullName.vb: ShapeEngine.Core.Scene.OnGameTextureResized(Integer, Integer)
   name.vb: OnGameTextureResized(Integer, Integer)
+- uid: ShapeEngine.Core.Scene.OnHandleInput(ShapeEngine.Core.Structs.GameTime,System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2)
+  commentId: M:ShapeEngine.Core.Scene.OnHandleInput(ShapeEngine.Core.Structs.GameTime,System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2)
+  id: OnHandleInput(ShapeEngine.Core.Structs.GameTime,System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2)
+  parent: ShapeEngine.Core.Scene
+  langs:
+  - csharp
+  - vb
+  name: OnHandleInput(GameTime, Vector2, Vector2, Vector2)
+  nameWithType: Scene.OnHandleInput(GameTime, Vector2, Vector2, Vector2)
+  fullName: ShapeEngine.Core.Scene.OnHandleInput(ShapeEngine.Core.Structs.GameTime, System.Numerics.Vector2, System.Numerics.Vector2, System.Numerics.Vector2)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Scene.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnHandleInput
+    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
+    startLine: 396
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: >-
+    Handle input for the scene. Override to process per-frame input using the provided timing
+
+    information and mouse coordinates in three coordinate spaces.
+
+    Default implementation does nothing.
+  example: []
+  syntax:
+    content: protected virtual void OnHandleInput(GameTime time, Vector2 mousePosGame, Vector2 mousePosGameUi, Vector2 mousePosUi)
+    parameters:
+    - id: time
+      type: ShapeEngine.Core.Structs.GameTime
+      description: Frame timing and delta information.
+    - id: mousePosGame
+      type: System.Numerics.Vector2
+      description: Mouse position in game world coordinates (camera-transformed).
+    - id: mousePosGameUi
+      type: System.Numerics.Vector2
+      description: Mouse position in the game UI render target coordinates.
+    - id: mousePosUi
+      type: System.Numerics.Vector2
+      description: Mouse position in the main UI (screen) coordinates.
+    content.vb: Protected Overridable Sub OnHandleInput(time As GameTime, mousePosGame As Vector2, mousePosGameUi As Vector2, mousePosUi As Vector2)
+  overload: ShapeEngine.Core.Scene.OnHandleInput*
 - uid: ShapeEngine.Core.Scene.OnUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
   commentId: M:ShapeEngine.Core.Scene.OnUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
   id: OnUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
@@ -851,27 +898,33 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnUpdate
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 389
+    startLine: 410
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Called every frame. Called before FixedUpdate if fixed framerate is enabled.
+  summary: >-
+    Called once per frame to update the scene's logic. Override this method to perform
+
+    per-frame updates such as game object state updates, AI, timers, etc.
+
+    The default implementation does nothing.
+  remarks: This method is subject to fixed framerate settings and dynamic substepping, if enabled.
   example: []
   syntax:
     content: protected virtual void OnUpdate(GameTime time, ScreenInfo game, ScreenInfo gameUi, ScreenInfo ui)
     parameters:
     - id: time
       type: ShapeEngine.Core.Structs.GameTime
-      description: ''
+      description: Frame timing and delta information.
     - id: game
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: Screen information for the game render target (camera-transformed).
     - id: gameUi
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: Screen information for the game UI render target (not affected by camera).
     - id: ui
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
+      description: Screen information for the main UI (screen coordinates).
     content.vb: Protected Overridable Sub OnUpdate(time As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo)
   overload: ShapeEngine.Core.Scene.OnUpdate*
 - uid: ShapeEngine.Core.Scene.OnPreDrawGame(ShapeEngine.Core.Structs.ScreenInfo)
@@ -892,7 +945,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnPreDrawGame
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 395
+    startLine: 416
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -924,7 +977,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnDrawGame
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 400
+    startLine: 421
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -956,7 +1009,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnPreDrawGameUI
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 406
+    startLine: 427
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -988,7 +1041,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnDrawGameUI
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 411
+    startLine: 432
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1020,7 +1073,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnDrawUI
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 416
+    startLine: 437
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1051,7 +1104,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowSizeChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 421
+    startLine: 442
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1083,7 +1136,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowPositionChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 428
+    startLine: 449
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1118,7 +1171,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMonitorChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 434
+    startLine: 455
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1150,7 +1203,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnGamepadConnected
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 440
+    startLine: 461
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1182,7 +1235,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnGamepadDisconnected
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 446
+    startLine: 467
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1214,7 +1267,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnGamepadClaimed
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 451
+    startLine: 472
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1246,7 +1299,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnGamepadFreed
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 457
+    startLine: 478
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1278,7 +1331,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnInputDeviceChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 464
+    startLine: 485
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1313,7 +1366,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnPausedChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 470
+    startLine: 491
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1348,7 +1401,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMouseEnteredScreen
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 474
+    startLine: 495
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1376,7 +1429,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMouseLeftScreen
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 479
+    startLine: 500
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1404,7 +1457,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMouseVisibilityChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 485
+    startLine: 506
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1439,7 +1492,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMouseEnabledChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 491
+    startLine: 512
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1474,7 +1527,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowFocusChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 497
+    startLine: 518
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1509,7 +1562,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowFullscreenChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 503
+    startLine: 524
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1544,7 +1597,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowMaximizeChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 508
+    startLine: 529
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1579,7 +1632,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowMinimizedChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 514
+    startLine: 535
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1614,7 +1667,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowHiddenChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 520
+    startLine: 541
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1649,7 +1702,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowTopmostChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 526
+    startLine: 547
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1684,7 +1737,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnButtonPressed
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 532
+    startLine: 553
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -1716,7 +1769,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnButtonReleased
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 538
+    startLine: 559
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -2705,12 +2758,12 @@ references:
   name: OnGameTextureResized
   nameWithType: Scene.OnGameTextureResized
   fullName: ShapeEngine.Core.Scene.OnGameTextureResized
-- uid: ShapeEngine.Core.Scene.OnUpdate*
-  commentId: Overload:ShapeEngine.Core.Scene.OnUpdate
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
-  name: OnUpdate
-  nameWithType: Scene.OnUpdate
-  fullName: ShapeEngine.Core.Scene.OnUpdate
+- uid: ShapeEngine.Core.Scene.OnHandleInput*
+  commentId: Overload:ShapeEngine.Core.Scene.OnHandleInput
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnHandleInput_ShapeEngine_Core_Structs_GameTime_System_Numerics_Vector2_System_Numerics_Vector2_System_Numerics_Vector2_
+  name: OnHandleInput
+  nameWithType: Scene.OnHandleInput
+  fullName: ShapeEngine.Core.Scene.OnHandleInput
 - uid: ShapeEngine.Core.Structs.GameTime
   commentId: T:ShapeEngine.Core.Structs.GameTime
   parent: ShapeEngine.Core.Structs
@@ -2718,13 +2771,14 @@ references:
   name: GameTime
   nameWithType: GameTime
   fullName: ShapeEngine.Core.Structs.GameTime
-- uid: ShapeEngine.Core.Structs.ScreenInfo
-  commentId: T:ShapeEngine.Core.Structs.ScreenInfo
-  parent: ShapeEngine.Core.Structs
-  href: ShapeEngine.Core.Structs.ScreenInfo.html
-  name: ScreenInfo
-  nameWithType: ScreenInfo
-  fullName: ShapeEngine.Core.Structs.ScreenInfo
+- uid: System.Numerics.Vector2
+  commentId: T:System.Numerics.Vector2
+  parent: System.Numerics
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  name: Vector2
+  nameWithType: Vector2
+  fullName: System.Numerics.Vector2
 - uid: ShapeEngine.Core.Structs
   commentId: N:ShapeEngine.Core.Structs
   href: ShapeEngine.html
@@ -2755,6 +2809,46 @@ references:
   - uid: ShapeEngine.Core.Structs
     name: Structs
     href: ShapeEngine.Core.Structs.html
+- uid: System.Numerics
+  commentId: N:System.Numerics
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Numerics
+  nameWithType: System.Numerics
+  fullName: System.Numerics
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Numerics
+    name: Numerics
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Numerics
+    name: Numerics
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics
+- uid: ShapeEngine.Core.Scene.OnUpdate*
+  commentId: Overload:ShapeEngine.Core.Scene.OnUpdate
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
+  name: OnUpdate
+  nameWithType: Scene.OnUpdate
+  fullName: ShapeEngine.Core.Scene.OnUpdate
+- uid: ShapeEngine.Core.Structs.ScreenInfo
+  commentId: T:ShapeEngine.Core.Structs.ScreenInfo
+  parent: ShapeEngine.Core.Structs
+  href: ShapeEngine.Core.Structs.ScreenInfo.html
+  name: ScreenInfo
+  nameWithType: ScreenInfo
+  fullName: ShapeEngine.Core.Structs.ScreenInfo
 - uid: ShapeEngine.Core.Scene.OnPreDrawGame*
   commentId: Overload:ShapeEngine.Core.Scene.OnPreDrawGame
   href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnPreDrawGame_ShapeEngine_Core_Structs_ScreenInfo_
@@ -2804,41 +2898,6 @@ references:
   name: OnWindowPositionChanged
   nameWithType: Scene.OnWindowPositionChanged
   fullName: ShapeEngine.Core.Scene.OnWindowPositionChanged
-- uid: System.Numerics.Vector2
-  commentId: T:System.Numerics.Vector2
-  parent: System.Numerics
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
-  name: Vector2
-  nameWithType: Vector2
-  fullName: System.Numerics.Vector2
-- uid: System.Numerics
-  commentId: N:System.Numerics
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system
-  name: System.Numerics
-  nameWithType: System.Numerics
-  fullName: System.Numerics
-  spec.csharp:
-  - uid: System
-    name: System
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system
-  - name: .
-  - uid: System.Numerics
-    name: Numerics
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.numerics
-  spec.vb:
-  - uid: System
-    name: System
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system
-  - name: .
-  - uid: System.Numerics
-    name: Numerics
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.numerics
 - uid: ShapeEngine.Core.Scene.OnMonitorChanged*
   commentId: Overload:ShapeEngine.Core.Scene.OnMonitorChanged
   href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnMonitorChanged_ShapeEngine_Screen_MonitorInfo_
