@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class TriangleBatch | ShapeEngine </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class TriangleBatch | ShapeEngine ">
+      
+      <meta name="description" content="A class for efficient triangle drawing using Raylib&#39;s RLGL, supporting both persistent batches and immediate-mode drawing.  This class serves two main purposes:   Pooled Instances: obtain an instance via  to manage a persistent list of vertices. This is ideal for static geometry that doesn&#39;t change often. The batch can be drawn repeatedly with . Remember to return it to the pool with  when finished.  Immediate Mode (Static): use static methods like , , and  for dynamic, per-frame triangle drawing without managing a specific object instance.   Both approaches utilize , meaning every 3 consecutive vertices form a single triangle.">
+      <link rel="icon" href="../media/shape-engine.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/DaveGreen-Games/ShapeEngine/new/copilot/update-docs-publishing-pipeline/apiSpec/new?filename=ShapeEngine_Core_TriangleBatch.md&amp;value=---%0Auid%3A%20ShapeEngine.Core.TriangleBatch%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="https://davegreen-games.github.io/ShapeEngineDocs/">
+            <img id="logo" class="svg" src="../media/shape-engine.ico" alt="ShapeEngine">
+            ShapeEngine
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="ShapeEngine.Core.TriangleBatch">
+
+
+
+  <h1 id="ShapeEngine_Core_TriangleBatch" data-uid="ShapeEngine.Core.TriangleBatch" class="text-break">
+Class TriangleBatch  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="ShapeEngine.html">ShapeEngine</a>.<a class="xref" href="ShapeEngine.Core.html">Core</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>ShapeEngine.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>A class for efficient triangle drawing using Raylib's RLGL, supporting both persistent batches and immediate-mode drawing.</p>
+<p>
+This class serves two main purposes:
+</p>
+<ul><li>
+<b>Pooled Instances:</b> obtain an instance via <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_Get_ShapeEngine_Color_ColorRgba_System_Int32_">Get(ColorRgba, int)</a> to manage a persistent list of vertices.
+This is ideal for static geometry that doesn't change often. The batch can be drawn repeatedly with <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_Draw">Draw()</a>.
+Remember to return it to the pool with <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_Return_ShapeEngine_Core_TriangleBatch_">Return(TriangleBatch)</a> when finished.
+</li><li>
+<b>Immediate Mode (Static):</b> use static methods like <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_StartImmediateBatch_ShapeEngine_Color_ColorRgba_">StartImmediateBatch(ColorRgba)</a>, <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_AddImmediateVertex_System_Single_System_Single_">AddImmediateVertex(float, float)</a>,
+and <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_EndImmediateBatch">EndImmediateBatch()</a> for dynamic, per-frame triangle drawing without managing a specific object instance.
+</li></ul>
+<p>
+Both approaches utilize <span class="xref">Raylib_cs.DrawMode.Triangles</span>, meaning every 3 consecutive vertices form a single triangle.
+</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class TriangleBatch</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">TriangleBatch</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_">ShapeLogger.Log(object, string, LogLevel)</a>
+  </div>
+  <div>
+      <a class="xref" href="ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_">ShapeLogger.LogConsole(object, string, LogLevel)</a>
+  </div>
+  <div>
+      <a class="xref" href="ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_">ShapeLogger.LogFile(object, string, LogLevel)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_InUse_" data-uid="ShapeEngine.Core.TriangleBatch.InUse*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_InUse" data-uid="ShapeEngine.Core.TriangleBatch.InUse">
+  InUse
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L101"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this batch is currently in use.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool InUse { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_AddImmediateTriangle_" data-uid="ShapeEngine.Core.TriangleBatch.AddImmediateTriangle*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_AddImmediateTriangle_ShapeEngine_Geometry_TriangleDef_Triangle_" data-uid="ShapeEngine.Core.TriangleBatch.AddImmediateTriangle(ShapeEngine.Geometry.TriangleDef.Triangle)">
+  AddImmediateTriangle(Triangle)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L505"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a triangle's vertices to the current batch.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddImmediateTriangle(Triangle triangle)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>triangle</code> <a class="xref" href="ShapeEngine.Geometry.TriangleDef.Triangle.html">Triangle</a></dt>
+    <dd><p>The triangle to add.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_TriangleBatch_AddImmediateTriangle_ShapeEngine_Geometry_TriangleDef_Triangle__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Batch must be active before using this function. Use <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_StartImmediateBatch_ShapeEngine_Color_ColorRgba_">StartImmediateBatch(ColorRgba)</a> to start a batch before setting the color.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_AddImmediateTriangle_" data-uid="ShapeEngine.Core.TriangleBatch.AddImmediateTriangle*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_AddImmediateTriangle_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Color_ColorRgba_" data-uid="ShapeEngine.Core.TriangleBatch.AddImmediateTriangle(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Color.ColorRgba)">
+  AddImmediateTriangle(Triangle, ColorRgba)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L528"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets the color and adds a triangle's vertices to the current batch.
+The color used will affect all subsequent vertices until changed again or the batch ends.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddImmediateTriangle(Triangle triangle, ColorRgba color)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>triangle</code> <a class="xref" href="ShapeEngine.Geometry.TriangleDef.Triangle.html">Triangle</a></dt>
+    <dd><p>The triangle to add.</p>
+</dd>
+    <dt><code>color</code> <a class="xref" href="ShapeEngine.Color.ColorRgba.html">ColorRgba</a></dt>
+    <dd><p>The color to use for this triangle.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_TriangleBatch_AddImmediateTriangle_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Color_ColorRgba__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Batch must be active before using this function. Use <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_StartImmediateBatch_ShapeEngine_Color_ColorRgba_">StartImmediateBatch(ColorRgba)</a> to start a batch before setting the color.
+Resets the color back to the previous color set by <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_SetImmediateColor_ShapeEngine_Color_ColorRgba_">SetImmediateColor(ColorRgba)</a> or <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_StartImmediateBatch_ShapeEngine_Color_ColorRgba_">StartImmediateBatch(ColorRgba)</a> after adding the triangle, so this will not affect subsequent vertices.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_AddImmediateTriangle_" data-uid="ShapeEngine.Core.TriangleBatch.AddImmediateTriangle*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_AddImmediateTriangle_System_Numerics_Vector2_System_Numerics_Vector2_System_Numerics_Vector2_" data-uid="ShapeEngine.Core.TriangleBatch.AddImmediateTriangle(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2)">
+  AddImmediateTriangle(Vector2, Vector2, Vector2)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L456"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a triangle's vertices to the current batch.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddImmediateTriangle(Vector2 a, Vector2 b, Vector2 c)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>a</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
+    <dd><p>The first vertex.</p>
+</dd>
+    <dt><code>b</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
+    <dd><p>The second vertex.</p>
+</dd>
+    <dt><code>c</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
+    <dd><p>The third vertex.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_TriangleBatch_AddImmediateTriangle_System_Numerics_Vector2_System_Numerics_Vector2_System_Numerics_Vector2__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Batch must be active before using this function. Use <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_StartImmediateBatch_ShapeEngine_Color_ColorRgba_">StartImmediateBatch(ColorRgba)</a> to start a batch before setting the color.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_AddImmediateTriangle_" data-uid="ShapeEngine.Core.TriangleBatch.AddImmediateTriangle*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_AddImmediateTriangle_System_Numerics_Vector2_System_Numerics_Vector2_System_Numerics_Vector2_ShapeEngine_Color_ColorRgba_" data-uid="ShapeEngine.Core.TriangleBatch.AddImmediateTriangle(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,ShapeEngine.Color.ColorRgba)">
+  AddImmediateTriangle(Vector2, Vector2, Vector2, ColorRgba)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L481"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets the color and adds a triangle's vertices to the current batch.
+The color used will affect all subsequent vertices until changed again or the batch ends.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddImmediateTriangle(Vector2 a, Vector2 b, Vector2 c, ColorRgba color)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>a</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
+    <dd><p>The first vertex.</p>
+</dd>
+    <dt><code>b</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
+    <dd><p>The second vertex.</p>
+</dd>
+    <dt><code>c</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
+    <dd><p>The third vertex.</p>
+</dd>
+    <dt><code>color</code> <a class="xref" href="ShapeEngine.Color.ColorRgba.html">ColorRgba</a></dt>
+    <dd><p>The color to use for this triangle.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_TriangleBatch_AddImmediateTriangle_System_Numerics_Vector2_System_Numerics_Vector2_System_Numerics_Vector2_ShapeEngine_Color_ColorRgba__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Batch must be active before using this function. Use <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_StartImmediateBatch_ShapeEngine_Color_ColorRgba_">StartImmediateBatch(ColorRgba)</a> to start a batch before setting the color.
+Resets the color back to the previous color set by <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_SetImmediateColor_ShapeEngine_Color_ColorRgba_">SetImmediateColor(ColorRgba)</a> or <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_StartImmediateBatch_ShapeEngine_Color_ColorRgba_">StartImmediateBatch(ColorRgba)</a> after adding the triangle vertices, so this will not affect subsequent vertices.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_AddImmediateTriangles_" data-uid="ShapeEngine.Core.TriangleBatch.AddImmediateTriangles*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_AddImmediateTriangles_System_Collections_Generic_IEnumerable_ShapeEngine_Geometry_TriangleDef_Triangle__" data-uid="ShapeEngine.Core.TriangleBatch.AddImmediateTriangles(System.Collections.Generic.IEnumerable{ShapeEngine.Geometry.TriangleDef.Triangle})">
+  AddImmediateTriangles(IEnumerable&lt;Triangle&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L552"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a collection of triangles to the current batch.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddImmediateTriangles(IEnumerable&lt;Triangle&gt; triangles)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>triangles</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="ShapeEngine.Geometry.TriangleDef.Triangle.html">Triangle</a>&gt;</dt>
+    <dd><p>The collection of triangles to add.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_TriangleBatch_AddImmediateTriangles_System_Collections_Generic_IEnumerable_ShapeEngine_Geometry_TriangleDef_Triangle___remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Batch must be active before using this function. Use <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_StartImmediateBatch_ShapeEngine_Color_ColorRgba_">StartImmediateBatch(ColorRgba)</a> to start a batch before adding triangles.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_AddImmediateTriangles_" data-uid="ShapeEngine.Core.TriangleBatch.AddImmediateTriangles*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_AddImmediateTriangles_System_Collections_Generic_IEnumerable_ShapeEngine_Geometry_TriangleDef_Triangle__ShapeEngine_Color_ColorRgba_" data-uid="ShapeEngine.Core.TriangleBatch.AddImmediateTriangles(System.Collections.Generic.IEnumerable{ShapeEngine.Geometry.TriangleDef.Triangle},ShapeEngine.Color.ColorRgba)">
+  AddImmediateTriangles(IEnumerable&lt;Triangle&gt;, ColorRgba)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L578"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets the color and adds a collection of triangles to the current batch.
+The color used will affect all subsequent vertices until changed again or the batch ends.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddImmediateTriangles(IEnumerable&lt;Triangle&gt; triangles, ColorRgba color)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>triangles</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="ShapeEngine.Geometry.TriangleDef.Triangle.html">Triangle</a>&gt;</dt>
+    <dd><p>The collection of triangles to add.</p>
+</dd>
+    <dt><code>color</code> <a class="xref" href="ShapeEngine.Color.ColorRgba.html">ColorRgba</a></dt>
+    <dd><p>The color to use for these triangles.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_TriangleBatch_AddImmediateTriangles_System_Collections_Generic_IEnumerable_ShapeEngine_Geometry_TriangleDef_Triangle__ShapeEngine_Color_ColorRgba__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Batch must be active before using this function. Use <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_StartImmediateBatch_ShapeEngine_Color_ColorRgba_">StartImmediateBatch(ColorRgba)</a> to start a batch before adding triangles.
+Resets the color back to the previous color set by <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_SetImmediateColor_ShapeEngine_Color_ColorRgba_">SetImmediateColor(ColorRgba)</a> or <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_StartImmediateBatch_ShapeEngine_Color_ColorRgba_">StartImmediateBatch(ColorRgba)</a> after adding the triangles, so this will not affect subsequent vertices.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_AddImmediateVertex_" data-uid="ShapeEngine.Core.TriangleBatch.AddImmediateVertex*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_AddImmediateVertex_System_Numerics_Vector2_" data-uid="ShapeEngine.Core.TriangleBatch.AddImmediateVertex(System.Numerics.Vector2)">
+  AddImmediateVertex(Vector2)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L357"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a single vertex to the current batch using the current color.
+TriangleBatcher uses DrawMode.Triangles, so every 3 consecutive vertices added will form a triangle when <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_EndImmediateBatch">EndImmediateBatch()</a> is called!</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddImmediateVertex(Vector2 vertex)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>vertex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
+    <dd><p>The position of the vertex.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_TriangleBatch_AddImmediateVertex_System_Numerics_Vector2__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Batch must be active before using this function. Use <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_StartImmediateBatch_ShapeEngine_Color_ColorRgba_">StartImmediateBatch(ColorRgba)</a> to start a batch.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_AddImmediateVertex_" data-uid="ShapeEngine.Core.TriangleBatch.AddImmediateVertex*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_AddImmediateVertex_System_Numerics_Vector2_ShapeEngine_Color_ColorRgba_" data-uid="ShapeEngine.Core.TriangleBatch.AddImmediateVertex(System.Numerics.Vector2,ShapeEngine.Color.ColorRgba)">
+  AddImmediateVertex(Vector2, ColorRgba)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L379"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets the color and adds a single vertex to the current batch.
+The color used will affect all subsequent vertices until changed again or the batch ends.
+TriangleBatcher uses DrawMode.Triangles, so every 3 consecutive vertices added will form a triangle when <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_EndImmediateBatch">EndImmediateBatch()</a> is called!</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddImmediateVertex(Vector2 vertex, ColorRgba color)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>vertex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
+    <dd><p>The position of the vertex.</p>
+</dd>
+    <dt><code>color</code> <a class="xref" href="ShapeEngine.Color.ColorRgba.html">ColorRgba</a></dt>
+    <dd><p>The color to apply for this vertex and subsequent vertices.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_TriangleBatch_AddImmediateVertex_System_Numerics_Vector2_ShapeEngine_Color_ColorRgba__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Batch must be active before using this function. Use <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_StartImmediateBatch_ShapeEngine_Color_ColorRgba_">StartImmediateBatch(ColorRgba)</a> to start a batch.
+Resets the color back to the previous color set by <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_SetImmediateColor_ShapeEngine_Color_ColorRgba_">SetImmediateColor(ColorRgba)</a> or <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_StartImmediateBatch_ShapeEngine_Color_ColorRgba_">StartImmediateBatch(ColorRgba)</a> after adding the vertex, so this will not affect subsequent vertices.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_AddImmediateVertex_" data-uid="ShapeEngine.Core.TriangleBatch.AddImmediateVertex*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_AddImmediateVertex_System_Single_System_Single_" data-uid="ShapeEngine.Core.TriangleBatch.AddImmediateVertex(System.Single,System.Single)">
+  AddImmediateVertex(float, float)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L312"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a single vertex to the current batch using the current color.
+TriangleBatcher uses DrawMode.Triangles, so every 3 consecutive vertices added will form a triangle when <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_EndImmediateBatch">EndImmediateBatch()</a> is called!</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddImmediateVertex(float x, float y)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>x</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>The x-coordinate of the vertex.</p>
+</dd>
+    <dt><code>y</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>The y-coordinate of the vertex.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_TriangleBatch_AddImmediateVertex_System_Single_System_Single__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Batch must be active before using this function. Use <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_StartImmediateBatch_ShapeEngine_Color_ColorRgba_">StartImmediateBatch(ColorRgba)</a> to start a batch.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_AddImmediateVertex_" data-uid="ShapeEngine.Core.TriangleBatch.AddImmediateVertex*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_AddImmediateVertex_System_Single_System_Single_ShapeEngine_Color_ColorRgba_" data-uid="ShapeEngine.Core.TriangleBatch.AddImmediateVertex(System.Single,System.Single,ShapeEngine.Color.ColorRgba)">
+  AddImmediateVertex(float, float, ColorRgba)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L334"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets the color and adds a single vertex to the current batch.
+TriangleBatcher uses DrawMode.Triangles, so every 3 consecutive vertices added will form a triangle when <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_EndImmediateBatch">EndImmediateBatch()</a> is called!</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddImmediateVertex(float x, float y, ColorRgba color)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>x</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>The x-coordinate of the vertex.</p>
+</dd>
+    <dt><code>y</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>The y-coordinate of the vertex.</p>
+</dd>
+    <dt><code>color</code> <a class="xref" href="ShapeEngine.Color.ColorRgba.html">ColorRgba</a></dt>
+    <dd><p>The color to apply for this vertex and subsequent vertices.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_TriangleBatch_AddImmediateVertex_System_Single_System_Single_ShapeEngine_Color_ColorRgba__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Batch must be active before using this function. Use <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_StartImmediateBatch_ShapeEngine_Color_ColorRgba_">StartImmediateBatch(ColorRgba)</a> to start a batch.
+Resets the color back to the previous color set by <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_SetImmediateColor_ShapeEngine_Color_ColorRgba_">SetImmediateColor(ColorRgba)</a> or <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_StartImmediateBatch_ShapeEngine_Color_ColorRgba_">StartImmediateBatch(ColorRgba)</a> after adding the vertex, so this will not affect subsequent vertices.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_AddImmediateVertices_" data-uid="ShapeEngine.Core.TriangleBatch.AddImmediateVertices*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_AddImmediateVertices_System_Collections_Generic_IEnumerable_System_Numerics_Vector2__" data-uid="ShapeEngine.Core.TriangleBatch.AddImmediateVertices(System.Collections.Generic.IEnumerable{System.Numerics.Vector2})">
+  AddImmediateVertices(IEnumerable&lt;Vector2&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L402"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a collection of vertices to the current batch using the current color.
+TriangleBatcher uses DrawMode.Triangles, so every 3 consecutive vertices added will form a triangle when <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_EndImmediateBatch">EndImmediateBatch()</a> is called!</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddImmediateVertices(IEnumerable&lt;Vector2&gt; vertices)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>vertices</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a>&gt;</dt>
+    <dd><p>The collection of vertices to add.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_TriangleBatch_AddImmediateVertices_System_Collections_Generic_IEnumerable_System_Numerics_Vector2___remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Batch must be active before using this function. Use <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_StartImmediateBatch_ShapeEngine_Color_ColorRgba_">StartImmediateBatch(ColorRgba)</a> to start a batch.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_AddImmediateVertices_" data-uid="ShapeEngine.Core.TriangleBatch.AddImmediateVertices*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_AddImmediateVertices_System_Collections_Generic_IEnumerable_System_Numerics_Vector2__ShapeEngine_Color_ColorRgba_" data-uid="ShapeEngine.Core.TriangleBatch.AddImmediateVertices(System.Collections.Generic.IEnumerable{System.Numerics.Vector2},ShapeEngine.Color.ColorRgba)">
+  AddImmediateVertices(IEnumerable&lt;Vector2&gt;, ColorRgba)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L427"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets the color and adds a collection of vertices to the current batch.
+The color used will affect all subsequent vertices until changed again or the batch ends.
+TriangleBatcher uses DrawMode.Triangles, so every 3 consecutive vertices added will form a triangle when <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_EndImmediateBatch">EndImmediateBatch()</a> is called!</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddImmediateVertices(IEnumerable&lt;Vector2&gt; vertices, ColorRgba color)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>vertices</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a>&gt;</dt>
+    <dd><p>The collection of vertices to add.</p>
+</dd>
+    <dt><code>color</code> <a class="xref" href="ShapeEngine.Color.ColorRgba.html">ColorRgba</a></dt>
+    <dd><p>The color to apply for these vertices and subsequent vertices.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_TriangleBatch_AddImmediateVertices_System_Collections_Generic_IEnumerable_System_Numerics_Vector2__ShapeEngine_Color_ColorRgba__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Batch must be active before using this function. Use <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_StartImmediateBatch_ShapeEngine_Color_ColorRgba_">StartImmediateBatch(ColorRgba)</a> to start a batch.
+Resets the color back to the previous color set by <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_SetImmediateColor_ShapeEngine_Color_ColorRgba_">SetImmediateColor(ColorRgba)</a> or <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_StartImmediateBatch_ShapeEngine_Color_ColorRgba_">StartImmediateBatch(ColorRgba)</a> after adding the vertices, so this will not affect subsequent vertices.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_AddTriangle_" data-uid="ShapeEngine.Core.TriangleBatch.AddTriangle*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_AddTriangle_ShapeEngine_Geometry_TriangleDef_Triangle_" data-uid="ShapeEngine.Core.TriangleBatch.AddTriangle(ShapeEngine.Geometry.TriangleDef.Triangle)">
+  AddTriangle(Triangle)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L144"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a triangle to the batch.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddTriangle(Triangle triangle)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>triangle</code> <a class="xref" href="ShapeEngine.Geometry.TriangleDef.Triangle.html">Triangle</a></dt>
+    <dd><p>The triangle to add.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_TriangleBatch_AddTriangle_ShapeEngine_Geometry_TriangleDef_Triangle__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Can only be called if the batch is in use.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_AddTriangle_" data-uid="ShapeEngine.Core.TriangleBatch.AddTriangle*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_AddTriangle_System_Numerics_Vector2_System_Numerics_Vector2_System_Numerics_Vector2_" data-uid="ShapeEngine.Core.TriangleBatch.AddTriangle(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2)">
+  AddTriangle(Vector2, Vector2, Vector2)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L165"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a triangle defined by three vertices to the batch.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddTriangle(Vector2 a, Vector2 b, Vector2 c)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>a</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
+    <dd><p>The first vertex of the triangle.</p>
+</dd>
+    <dt><code>b</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
+    <dd><p>The second vertex of the triangle.</p>
+</dd>
+    <dt><code>c</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
+    <dd><p>The third vertex of the triangle.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_TriangleBatch_AddTriangle_System_Numerics_Vector2_System_Numerics_Vector2_System_Numerics_Vector2__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Can only be called if the batch is in use.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_Clear_" data-uid="ShapeEngine.Core.TriangleBatch.Clear*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_Clear" data-uid="ShapeEngine.Core.TriangleBatch.Clear">
+  Clear()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L210"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Clears all vertices from the batch.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Clear()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_Clear_" data-uid="ShapeEngine.Core.TriangleBatch.Clear*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_Clear_ShapeEngine_Color_ColorRgba_" data-uid="ShapeEngine.Core.TriangleBatch.Clear(ShapeEngine.Color.ColorRgba)">
+  Clear(ColorRgba)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L219"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Clears all vertices from the batch and sets a new color.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Clear(ColorRgba newColor)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>newColor</code> <a class="xref" href="ShapeEngine.Color.ColorRgba.html">ColorRgba</a></dt>
+    <dd><p>The new color to use for the batch.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_Draw_" data-uid="ShapeEngine.Core.TriangleBatch.Draw*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_Draw" data-uid="ShapeEngine.Core.TriangleBatch.Draw">
+  Draw()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L184"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Draws all triangles currently in the batch using the batch's color.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Draw()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_TriangleBatch_Draw_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Uses <span class="xref">Raylib_cs.Rlgl</span> (Raylib OpenGL wrapper) to draw vertices in <span class="xref">Raylib_cs.DrawMode.Triangles</span> mode.
+Can only be called if the batch is in use.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_DrawImmediateTriangle_" data-uid="ShapeEngine.Core.TriangleBatch.DrawImmediateTriangle*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_DrawImmediateTriangle_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Color_ColorRgba_" data-uid="ShapeEngine.Core.TriangleBatch.DrawImmediateTriangle(ShapeEngine.Geometry.TriangleDef.Triangle,ShapeEngine.Color.ColorRgba)">
+  DrawImmediateTriangle(Triangle, ColorRgba)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L609"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Draws a single triangle immediately.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void DrawImmediateTriangle(Triangle triangle, ColorRgba color)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>triangle</code> <a class="xref" href="ShapeEngine.Geometry.TriangleDef.Triangle.html">Triangle</a></dt>
+    <dd><p>The triangle to draw.</p>
+</dd>
+    <dt><code>color</code> <a class="xref" href="ShapeEngine.Color.ColorRgba.html">ColorRgba</a></dt>
+    <dd><p>The color of the triangle.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_TriangleBatch_DrawImmediateTriangle_ShapeEngine_Geometry_TriangleDef_Triangle_ShapeEngine_Color_ColorRgba__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Batch must NOT be active when calling this function. This is for immediate-mode style drawing of individual triangles.
+Use <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_EndImmediateBatch">EndImmediateBatch()</a> to end any active batch before calling this function.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_DrawImmediateTriangle_" data-uid="ShapeEngine.Core.TriangleBatch.DrawImmediateTriangle*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_DrawImmediateTriangle_System_Numerics_Vector2_System_Numerics_Vector2_System_Numerics_Vector2_ShapeEngine_Color_ColorRgba_" data-uid="ShapeEngine.Core.TriangleBatch.DrawImmediateTriangle(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,ShapeEngine.Color.ColorRgba)">
+  DrawImmediateTriangle(Vector2, Vector2, Vector2, ColorRgba)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L639"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Draws a single triangle defined by three vertices immediately.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void DrawImmediateTriangle(Vector2 a, Vector2 b, Vector2 c, ColorRgba color)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>a</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
+    <dd><p>The first vertex.</p>
+</dd>
+    <dt><code>b</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
+    <dd><p>The second vertex.</p>
+</dd>
+    <dt><code>c</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
+    <dd><p>The third vertex.</p>
+</dd>
+    <dt><code>color</code> <a class="xref" href="ShapeEngine.Color.ColorRgba.html">ColorRgba</a></dt>
+    <dd><p>The color of the triangle.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_TriangleBatch_DrawImmediateTriangle_System_Numerics_Vector2_System_Numerics_Vector2_System_Numerics_Vector2_ShapeEngine_Color_ColorRgba__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Batch must NOT be active when calling this function. This is for immediate-mode style drawing of individual triangles.
+Use <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_EndImmediateBatch">EndImmediateBatch()</a> to end any active batch before calling this function.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_DrawImmediateTriangles_" data-uid="ShapeEngine.Core.TriangleBatch.DrawImmediateTriangles*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_DrawImmediateTriangles_System_Collections_Generic_IEnumerable_ShapeEngine_Geometry_TriangleDef_Triangle__ShapeEngine_Color_ColorRgba_" data-uid="ShapeEngine.Core.TriangleBatch.DrawImmediateTriangles(System.Collections.Generic.IEnumerable{ShapeEngine.Geometry.TriangleDef.Triangle},ShapeEngine.Color.ColorRgba)">
+  DrawImmediateTriangles(IEnumerable&lt;Triangle&gt;, ColorRgba)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L667"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Draws a collection of triangles immediately.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void DrawImmediateTriangles(IEnumerable&lt;Triangle&gt; triangles, ColorRgba color)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>triangles</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="ShapeEngine.Geometry.TriangleDef.Triangle.html">Triangle</a>&gt;</dt>
+    <dd><p>The collection of triangles to draw.</p>
+</dd>
+    <dt><code>color</code> <a class="xref" href="ShapeEngine.Color.ColorRgba.html">ColorRgba</a></dt>
+    <dd><p>The color to use for all triangles.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_TriangleBatch_DrawImmediateTriangles_System_Collections_Generic_IEnumerable_ShapeEngine_Geometry_TriangleDef_Triangle__ShapeEngine_Color_ColorRgba__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Batch must NOT be active when calling this function. This is for immediate-mode style drawing of individual triangles.
+Use <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_EndImmediateBatch">EndImmediateBatch()</a> to end any active batch before calling this function.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_DrawImmediateTriangles_" data-uid="ShapeEngine.Core.TriangleBatch.DrawImmediateTriangles*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_DrawImmediateTriangles_System_Numerics_Vector2___ShapeEngine_Color_ColorRgba_" data-uid="ShapeEngine.Core.TriangleBatch.DrawImmediateTriangles(System.Numerics.Vector2[],ShapeEngine.Color.ColorRgba)">
+  DrawImmediateTriangles(Vector2[], ColorRgba)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L698"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Draws a series of triangles defined by a flat array of vertices immediately.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void DrawImmediateTriangles(Vector2[] trianglePoints, ColorRgba color)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>trianglePoints</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a>[]</dt>
+    <dd><p>An array of vertices where every 3 vertices define a triangle.</p>
+</dd>
+    <dt><code>color</code> <a class="xref" href="ShapeEngine.Color.ColorRgba.html">ColorRgba</a></dt>
+    <dd><p>The color to use for all triangles.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_TriangleBatch_DrawImmediateTriangles_System_Numerics_Vector2___ShapeEngine_Color_ColorRgba__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Batch must NOT be active when calling this function. This is for immediate-mode style drawing of individual triangles.
+Use <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_EndImmediateBatch">EndImmediateBatch()</a> to end any active batch before calling this function.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_EndImmediateBatch_" data-uid="ShapeEngine.Core.TriangleBatch.EndImmediateBatch*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_EndImmediateBatch" data-uid="ShapeEngine.Core.TriangleBatch.EndImmediateBatch">
+  EndImmediateBatch()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L263"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Ends the current triangle batch drawing operation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void EndImmediateBatch()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_TriangleBatch_EndImmediateBatch_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Calls <span class="xref">Raylib_cs.Rlgl.End()</span>.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_Get_" data-uid="ShapeEngine.Core.TriangleBatch.Get*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_Get_ShapeEngine_Color_ColorRgba_System_Int32_" data-uid="ShapeEngine.Core.TriangleBatch.Get(ShapeEngine.Color.ColorRgba,System.Int32)">
+  Get(ColorRgba, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L43"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves a cleared, ready-to-use TriangleBatch from the pool or creates a new one.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TriangleBatch Get(ColorRgba color, int initialCapacity = 64)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>color</code> <a class="xref" href="ShapeEngine.Color.ColorRgba.html">ColorRgba</a></dt>
+    <dd><p>The color to be used for drawing the triangles in this batch.</p>
+</dd>
+    <dt><code>initialCapacity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The initial capacity of the vertex list (number of triangles * 3).</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ShapeEngine.Core.TriangleBatch.html">TriangleBatch</a></dt>
+    <dd><p>A TriangleBatch instance ready for use.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_Return_" data-uid="ShapeEngine.Core.TriangleBatch.Return*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_Return_ShapeEngine_Core_TriangleBatch_" data-uid="ShapeEngine.Core.TriangleBatch.Return(ShapeEngine.Core.TriangleBatch)">
+  Return(TriangleBatch)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L71"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the batch to the pool for reuse.
+DO NOT use the batch reference after calling this.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Return(TriangleBatch batch)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>batch</code> <a class="xref" href="ShapeEngine.Core.TriangleBatch.html">TriangleBatch</a></dt>
+    <dd><p>The batch to return to the pool.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_SetColor_" data-uid="ShapeEngine.Core.TriangleBatch.SetColor*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_SetColor_ShapeEngine_Color_ColorRgba_" data-uid="ShapeEngine.Core.TriangleBatch.SetColor(ShapeEngine.Color.ColorRgba)">
+  SetColor(ColorRgba)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L127"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets the color for the entire batch. This is mostly useful for changing color between frames or over time
+without needing to create a new batch, but it can also be used to change the color of the batch before drawing if needed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetColor(ColorRgba newColor)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>newColor</code> <a class="xref" href="ShapeEngine.Color.ColorRgba.html">ColorRgba</a></dt>
+    <dd><p>The new color to apply.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_TriangleBatch_SetColor_ShapeEngine_Color_ColorRgba__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Can only be called if the batch is in use.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_SetImmediateColor_" data-uid="ShapeEngine.Core.TriangleBatch.SetImmediateColor*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_SetImmediateColor_ShapeEngine_Color_ColorRgba_" data-uid="ShapeEngine.Core.TriangleBatch.SetImmediateColor(ShapeEngine.Color.ColorRgba)">
+  SetImmediateColor(ColorRgba)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L287"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets the current drawing color in RLGL.
+This affects all subsequent vertices until the color is changed again or the batch ends.
+This method can be used to change colors between vertices within the same batch.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetImmediateColor(ColorRgba color)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>color</code> <a class="xref" href="ShapeEngine.Color.ColorRgba.html">ColorRgba</a></dt>
+    <dd><p>The color to set.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_TriangleBatch_SetImmediateColor_ShapeEngine_Color_ColorRgba__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Batch must be active before using this function. Use <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_StartImmediateBatch_ShapeEngine_Color_ColorRgba_">StartImmediateBatch(ColorRgba)</a> to start a batch before setting the color.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Core_TriangleBatch_StartImmediateBatch_" data-uid="ShapeEngine.Core.TriangleBatch.StartImmediateBatch*"></a>
+
+  <h3 id="ShapeEngine_Core_TriangleBatch_StartImmediateBatch_ShapeEngine_Color_ColorRgba_" data-uid="ShapeEngine.Core.TriangleBatch.StartImmediateBatch(ShapeEngine.Color.ColorRgba)">
+  StartImmediateBatch(ColorRgba)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L241"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Starts a new triangle batch drawing operation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void StartImmediateBatch(ColorRgba color)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>color</code> <a class="xref" href="ShapeEngine.Color.ColorRgba.html">ColorRgba</a></dt>
+    <dd><p>The color to be applied to subsequent vertices.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_TriangleBatch_StartImmediateBatch_ShapeEngine_Color_ColorRgba__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Calls <span class="xref">Raylib_cs.Rlgl.Begin(Raylib_cs.DrawMode)</span> with <span class="xref">Raylib_cs.DrawMode.Triangles</span>.
+Must be paired with <a class="xref" href="ShapeEngine.Core.TriangleBatch.html#ShapeEngine_Core_TriangleBatch_EndImmediateBatch">EndImmediateBatch()</a>.</p>
+</div>
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/DaveGreen-Games/ShapeEngine/blob/copilot/update-docs-publishing-pipeline/ShapeEngine/Core/TriangleBatch.cs/#L29" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

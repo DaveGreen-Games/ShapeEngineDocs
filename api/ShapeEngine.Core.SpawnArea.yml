@@ -5,14 +5,14 @@ items:
   id: SpawnArea
   parent: ShapeEngine.Core
   children:
-  - ShapeEngine.Core.SpawnArea.#ctor
-  - ShapeEngine.Core.SpawnArea.#ctor(ShapeEngine.Geometry.RectDef.Rect)
+  - ShapeEngine.Core.SpawnArea.#ctor(ShapeEngine.Core.Shapes.Rect)
   - ShapeEngine.Core.SpawnArea.#ctor(System.Single,System.Single,System.Single,System.Single)
   - ShapeEngine.Core.SpawnArea.AddGameObject(ShapeEngine.Core.GameObject)
   - ShapeEngine.Core.SpawnArea.AddGameObjects(ShapeEngine.Core.GameObject[])
   - ShapeEngine.Core.SpawnArea.AddGameObjects(System.Collections.Generic.IEnumerable{ShapeEngine.Core.GameObject})
+  - ShapeEngine.Core.SpawnArea.Bounds
   - ShapeEngine.Core.SpawnArea.Clear
-  - ShapeEngine.Core.SpawnArea.ClearArea(ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Core.Structs.BitFlag)
+  - ShapeEngine.Core.SpawnArea.ClearArea(ShapeEngine.Core.Shapes.Rect,ShapeEngine.Core.Structs.BitFlag)
   - ShapeEngine.Core.SpawnArea.ClearLayer(System.UInt32)
   - ShapeEngine.Core.SpawnArea.Close
   - ShapeEngine.Core.SpawnArea.Count
@@ -25,13 +25,11 @@ items:
   - ShapeEngine.Core.SpawnArea.GetAllGameObjects(System.Collections.Generic.List{ShapeEngine.Core.GameObject}@)
   - ShapeEngine.Core.SpawnArea.GetAllGameObjects(System.Predicate{ShapeEngine.Core.GameObject})
   - ShapeEngine.Core.SpawnArea.GetAllGameObjects(System.Predicate{ShapeEngine.Core.GameObject},System.Collections.Generic.List{ShapeEngine.Core.GameObject}@)
-  - ShapeEngine.Core.SpawnArea.GetBounds
   - ShapeEngine.Core.SpawnArea.GetGameObjects(ShapeEngine.Core.Structs.BitFlag,System.Collections.Generic.List{ShapeEngine.Core.GameObject}@)
   - ShapeEngine.Core.SpawnArea.GetGameObjects(ShapeEngine.Core.Structs.BitFlag,System.Predicate{ShapeEngine.Core.GameObject},System.Collections.Generic.List{ShapeEngine.Core.GameObject}@)
   - ShapeEngine.Core.SpawnArea.GetGameObjects(System.UInt32,System.Predicate{ShapeEngine.Core.GameObject})
   - ShapeEngine.Core.SpawnArea.GetGameObjects(System.UInt32,System.Predicate{ShapeEngine.Core.GameObject},System.Collections.Generic.List{ShapeEngine.Core.GameObject}@)
   - ShapeEngine.Core.SpawnArea.HasLayer(System.UInt32)
-  - ShapeEngine.Core.SpawnArea.HasValidBounds
   - ShapeEngine.Core.SpawnArea.NewLayerStartCapacity
   - ShapeEngine.Core.SpawnArea.OnGameObjectAdded
   - ShapeEngine.Core.SpawnArea.OnGameObjectRemoved
@@ -43,9 +41,9 @@ items:
   - ShapeEngine.Core.SpawnArea.RemoveGameObjects(System.Collections.Generic.IEnumerable{ShapeEngine.Core.GameObject})
   - ShapeEngine.Core.SpawnArea.RemoveGameObjects(System.Predicate{ShapeEngine.Core.GameObject})
   - ShapeEngine.Core.SpawnArea.RemoveGameObjects(System.UInt32,System.Predicate{ShapeEngine.Core.GameObject},System.Collections.Generic.List{ShapeEngine.Core.GameObject}@)
-  - ShapeEngine.Core.SpawnArea.SetBounds(ShapeEngine.Geometry.RectDef.Rect)
+  - ShapeEngine.Core.SpawnArea.ResizeBounds(ShapeEngine.Core.Shapes.Rect)
   - ShapeEngine.Core.SpawnArea.Start
-  - ShapeEngine.Core.SpawnArea.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  - ShapeEngine.Core.SpawnArea.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
   langs:
   - csharp
   - vb
@@ -56,33 +54,25 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SpawnArea
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 17
+    startLine: 15
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: >-
-    Provides a simple area for managing <xref href="ShapeEngine.Core.GameObject" data-throw-if-not-resolved="false"></xref> instances with  adding/removing, updating, and drawing functions.
-
-    Does not provide a collision system.
-
-    <xref href="ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef.CollisionHandler" data-throw-if-not-resolved="false"></xref> provides a collision system if needed.
-  remarks: >-
-    SpawnArea manages collections of <xref href="ShapeEngine.Core.GameObject" data-throw-if-not-resolved="false"></xref>s, organized by layer, and provides update, draw, and removal logic.
-
-    It supports parallax, area clearing, and event hooks for object addition/removal.
+  summary: Provides a simple area for managing adding/removing, updating, and drawing of area objects. Does not provide a collision system.
   example: []
   syntax:
-    content: 'public class SpawnArea : IDrawable, IBounds'
-    content.vb: Public Class SpawnArea Implements IDrawable, IBounds
+    content: 'public class SpawnArea : IUpdateable, IDrawable, IBounds'
+    content.vb: Public Class SpawnArea Implements IUpdateable, IDrawable, IBounds
   inheritance:
   - System.Object
   implements:
-  - ShapeEngine.Core.IDrawable
-  - ShapeEngine.Core.IBounds
+  - ShapeEngine.Core.Interfaces.IUpdateable
+  - ShapeEngine.Core.Interfaces.IDrawable
+  - ShapeEngine.Core.Interfaces.IBounds
   inheritedMembers:
   - System.Object.Equals(System.Object)
   - System.Object.Equals(System.Object,System.Object)
@@ -91,10 +81,6 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
-  extensionMethods:
-  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
-  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
-  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
 - uid: ShapeEngine.Core.SpawnArea.OnGameObjectAdded
   commentId: E:ShapeEngine.Core.SpawnArea.OnGameObjectAdded
   id: OnGameObjectAdded
@@ -109,20 +95,14 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnGameObjectAdded
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 26
+    startLine: 17
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: >-
-    Occurs when a <xref href="ShapeEngine.Core.GameObject" data-throw-if-not-resolved="false"></xref> is added to the area.
-
-
-    <ul><li>GameObject: The object being added.</li></ul>
-  example: []
   syntax:
     content: public event Action<GameObject>? OnGameObjectAdded
     return:
@@ -142,20 +122,14 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnGameObjectRemoved
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 33
+    startLine: 18
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: >-
-    Occurs when a <xref href="ShapeEngine.Core.GameObject" data-throw-if-not-resolved="false"></xref> is removed from the area.
-
-
-    <ul><li>GameObject: The object being removed.</li></ul>
-  example: []
   syntax:
     content: public event Action<GameObject>? OnGameObjectRemoved
     return:
@@ -175,16 +149,14 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: NewLayerStartCapacity
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 38
+    startLine: 21
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: The initial capacity for new layers.
-  example: []
   syntax:
     content: public int NewLayerStartCapacity
     return:
@@ -204,16 +176,14 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Count
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 42
+    startLine: 22
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Gets the total number of game objects in the area.
-  example: []
   syntax:
     content: public int Count { get; }
     parameters: []
@@ -221,6 +191,38 @@ items:
       type: System.Int32
     content.vb: Public Property Count As Integer
   overload: ShapeEngine.Core.SpawnArea.Count*
+- uid: ShapeEngine.Core.SpawnArea.Bounds
+  commentId: P:ShapeEngine.Core.SpawnArea.Bounds
+  id: Bounds
+  parent: ShapeEngine.Core.SpawnArea
+  langs:
+  - csharp
+  - vb
+  name: Bounds
+  nameWithType: SpawnArea.Bounds
+  fullName: ShapeEngine.Core.SpawnArea.Bounds
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/SpawnArea.cs
+      branch: copilot/update-docs-publishing-pipeline
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Bounds
+    path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
+    startLine: 23
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  example: []
+  syntax:
+    content: public Rect Bounds { get; protected set; }
+    parameters: []
+    return:
+      type: ShapeEngine.Core.Shapes.Rect
+    content.vb: Public Property Bounds As Rect
+  overload: ShapeEngine.Core.SpawnArea.Bounds*
+  implements:
+  - ShapeEngine.Core.Interfaces.IBounds.Bounds
 - uid: ShapeEngine.Core.SpawnArea.ParallaxePosition
   commentId: P:ShapeEngine.Core.SpawnArea.ParallaxePosition
   id: ParallaxePosition
@@ -235,16 +237,14 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ParallaxePosition
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 47
+    startLine: 26
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Gets or sets the parallax position for the area.
-  example: []
   syntax:
     content: public Vector2 ParallaxePosition { get; set; }
     parameters: []
@@ -252,37 +252,6 @@ items:
       type: System.Numerics.Vector2
     content.vb: Public Property ParallaxePosition As Vector2
   overload: ShapeEngine.Core.SpawnArea.ParallaxePosition*
-- uid: ShapeEngine.Core.SpawnArea.#ctor
-  commentId: M:ShapeEngine.Core.SpawnArea.#ctor
-  id: '#ctor'
-  parent: ShapeEngine.Core.SpawnArea
-  langs:
-  - csharp
-  - vb
-  name: SpawnArea()
-  nameWithType: SpawnArea.SpawnArea()
-  fullName: ShapeEngine.Core.SpawnArea.SpawnArea()
-  type: Constructor
-  source:
-    remote:
-      path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: .ctor
-    path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 70
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core
-  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.SpawnArea" data-throw-if-not-resolved="false"></xref> class with no bounds.
-  example: []
-  syntax:
-    content: public SpawnArea()
-    content.vb: Public Sub New()
-  overload: ShapeEngine.Core.SpawnArea.#ctor*
-  nameWithType.vb: SpawnArea.New()
-  fullName.vb: ShapeEngine.Core.SpawnArea.New()
-  name.vb: New()
 - uid: ShapeEngine.Core.SpawnArea.#ctor(System.Single,System.Single,System.Single,System.Single)
   commentId: M:ShapeEngine.Core.SpawnArea.#ctor(System.Single,System.Single,System.Single,System.Single)
   id: '#ctor(System.Single,System.Single,System.Single,System.Single)'
@@ -297,71 +266,128 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 88
+    startLine: 41
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.SpawnArea" data-throw-if-not-resolved="false"></xref> class with the specified position and size.
-  example: []
   syntax:
     content: public SpawnArea(float x, float y, float w, float h)
     parameters:
     - id: x
       type: System.Single
-      description: The x-coordinate of the spawn area's position.
     - id: y
       type: System.Single
-      description: The y-coordinate of the spawn area's position.
     - id: w
       type: System.Single
-      description: The width of the spawn area.
     - id: h
       type: System.Single
-      description: The height of the spawn area.
     content.vb: Public Sub New(x As Single, y As Single, w As Single, h As Single)
   overload: ShapeEngine.Core.SpawnArea.#ctor*
   nameWithType.vb: SpawnArea.New(Single, Single, Single, Single)
   fullName.vb: ShapeEngine.Core.SpawnArea.New(Single, Single, Single, Single)
   name.vb: New(Single, Single, Single, Single)
-- uid: ShapeEngine.Core.SpawnArea.#ctor(ShapeEngine.Geometry.RectDef.Rect)
-  commentId: M:ShapeEngine.Core.SpawnArea.#ctor(ShapeEngine.Geometry.RectDef.Rect)
-  id: '#ctor(ShapeEngine.Geometry.RectDef.Rect)'
+- uid: ShapeEngine.Core.SpawnArea.#ctor(ShapeEngine.Core.Shapes.Rect)
+  commentId: M:ShapeEngine.Core.SpawnArea.#ctor(ShapeEngine.Core.Shapes.Rect)
+  id: '#ctor(ShapeEngine.Core.Shapes.Rect)'
   parent: ShapeEngine.Core.SpawnArea
   langs:
   - csharp
   - vb
   name: SpawnArea(Rect)
   nameWithType: SpawnArea.SpawnArea(Rect)
-  fullName: ShapeEngine.Core.SpawnArea.SpawnArea(ShapeEngine.Geometry.RectDef.Rect)
+  fullName: ShapeEngine.Core.SpawnArea.SpawnArea(ShapeEngine.Core.Shapes.Rect)
   type: Constructor
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 103
+    startLine: 45
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.SpawnArea" data-throw-if-not-resolved="false"></xref> class with the specified bounds.
-  example: []
   syntax:
     content: public SpawnArea(Rect bounds)
     parameters:
     - id: bounds
-      type: ShapeEngine.Geometry.RectDef.Rect
-      description: The bounds of the spawn area.
+      type: ShapeEngine.Core.Shapes.Rect
     content.vb: Public Sub New(bounds As Rect)
   overload: ShapeEngine.Core.SpawnArea.#ctor*
   nameWithType.vb: SpawnArea.New(Rect)
-  fullName.vb: ShapeEngine.Core.SpawnArea.New(ShapeEngine.Geometry.RectDef.Rect)
+  fullName.vb: ShapeEngine.Core.SpawnArea.New(ShapeEngine.Core.Shapes.Rect)
   name.vb: New(Rect)
+- uid: ShapeEngine.Core.SpawnArea.ResizeBounds(ShapeEngine.Core.Shapes.Rect)
+  commentId: M:ShapeEngine.Core.SpawnArea.ResizeBounds(ShapeEngine.Core.Shapes.Rect)
+  id: ResizeBounds(ShapeEngine.Core.Shapes.Rect)
+  parent: ShapeEngine.Core.SpawnArea
+  langs:
+  - csharp
+  - vb
+  name: ResizeBounds(Rect)
+  nameWithType: SpawnArea.ResizeBounds(Rect)
+  fullName: ShapeEngine.Core.SpawnArea.ResizeBounds(ShapeEngine.Core.Shapes.Rect)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/SpawnArea.cs
+      branch: copilot/update-docs-publishing-pipeline
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: ResizeBounds
+    path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
+    startLine: 93
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  example: []
+  syntax:
+    content: public virtual void ResizeBounds(Rect newBounds)
+    parameters:
+    - id: newBounds
+      type: ShapeEngine.Core.Shapes.Rect
+    content.vb: Public Overridable Sub ResizeBounds(newBounds As Rect)
+  overload: ShapeEngine.Core.SpawnArea.ResizeBounds*
+  implements:
+  - ShapeEngine.Core.Interfaces.IBounds.ResizeBounds(ShapeEngine.Core.Shapes.Rect)
+- uid: ShapeEngine.Core.SpawnArea.HasLayer(System.UInt32)
+  commentId: M:ShapeEngine.Core.SpawnArea.HasLayer(System.UInt32)
+  id: HasLayer(System.UInt32)
+  parent: ShapeEngine.Core.SpawnArea
+  langs:
+  - csharp
+  - vb
+  name: HasLayer(uint)
+  nameWithType: SpawnArea.HasLayer(uint)
+  fullName: ShapeEngine.Core.SpawnArea.HasLayer(uint)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/SpawnArea.cs
+      branch: copilot/update-docs-publishing-pipeline
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: HasLayer
+    path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
+    startLine: 98
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  syntax:
+    content: public bool HasLayer(uint layer)
+    parameters:
+    - id: layer
+      type: System.UInt32
+    return:
+      type: System.Boolean
+    content.vb: Public Function HasLayer(layer As UInteger) As Boolean
+  overload: ShapeEngine.Core.SpawnArea.HasLayer*
+  nameWithType.vb: SpawnArea.HasLayer(UInteger)
+  fullName.vb: ShapeEngine.Core.SpawnArea.HasLayer(UInteger)
+  name.vb: HasLayer(UInteger)
 - uid: ShapeEngine.Core.SpawnArea.GetGameObjects(System.UInt32,System.Predicate{ShapeEngine.Core.GameObject})
   commentId: M:ShapeEngine.Core.SpawnArea.GetGameObjects(System.UInt32,System.Predicate{ShapeEngine.Core.GameObject})
   id: GetGameObjects(System.UInt32,System.Predicate{ShapeEngine.Core.GameObject})
@@ -376,28 +402,23 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 123
+    startLine: 100
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Retrieves a list of game objects in the specified layer that match the given criteria.
-  example: []
   syntax:
     content: public List<GameObject>? GetGameObjects(uint layer, Predicate<GameObject> match)
     parameters:
     - id: layer
       type: System.UInt32
-      description: The layer to search.
     - id: match
       type: System.Predicate{ShapeEngine.Core.GameObject}
-      description: The criteria that game objects must match.
     return:
       type: System.Collections.Generic.List{ShapeEngine.Core.GameObject}
-      description: A list of matching game objects, or <code>null</code> if none found.
     content.vb: Public Function GetGameObjects(layer As UInteger, match As Predicate(Of GameObject)) As List(Of GameObject)
   overload: ShapeEngine.Core.SpawnArea.GetGameObjects*
   nameWithType.vb: SpawnArea.GetGameObjects(UInteger, Predicate(Of GameObject))
@@ -417,28 +438,23 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 134
+    startLine: 105
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Fills the provided list with game objects in the specified layer that match the given criteria.
-  example: []
   syntax:
     content: public void GetGameObjects(uint layer, Predicate<GameObject> match, ref List<GameObject> result)
     parameters:
     - id: layer
       type: System.UInt32
-      description: The layer to search.
     - id: match
       type: System.Predicate{ShapeEngine.Core.GameObject}
-      description: The criteria that game objects must match.
     - id: result
       type: System.Collections.Generic.List{ShapeEngine.Core.GameObject}
-      description: The list to fill with matching game objects.
     content.vb: Public Sub GetGameObjects(layer As UInteger, match As Predicate(Of GameObject), result As List(Of GameObject))
   overload: ShapeEngine.Core.SpawnArea.GetGameObjects*
   nameWithType.vb: SpawnArea.GetGameObjects(UInteger, Predicate(Of GameObject), List(Of GameObject))
@@ -458,25 +474,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 150
+    startLine: 119
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Retrieves a list of game objects in the spawn area that match the given criteria, across all layers specified by the layer mask.
-  example: []
   syntax:
     content: public void GetGameObjects(BitFlag layerMask, ref List<GameObject> result)
     parameters:
     - id: layerMask
       type: ShapeEngine.Core.Structs.BitFlag
-      description: The layer mask specifying which layers to include in the search.
     - id: result
       type: System.Collections.Generic.List{ShapeEngine.Core.GameObject}
-      description: The list to fill with matching game objects.
     content.vb: Public Sub GetGameObjects(layerMask As BitFlag, result As List(Of GameObject))
   overload: ShapeEngine.Core.SpawnArea.GetGameObjects*
   nameWithType.vb: SpawnArea.GetGameObjects(BitFlag, List(Of GameObject))
@@ -496,28 +508,23 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 171
+    startLine: 137
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Retrieves a list of game objects in the specified layers that match the given criteria.
-  example: []
   syntax:
     content: public void GetGameObjects(BitFlag layerMask, Predicate<GameObject> match, ref List<GameObject> result)
     parameters:
     - id: layerMask
       type: ShapeEngine.Core.Structs.BitFlag
-      description: The layer mask specifying which layers to include in the search.
     - id: match
       type: System.Predicate{ShapeEngine.Core.GameObject}
-      description: The criteria that game objects must match.
     - id: result
       type: System.Collections.Generic.List{ShapeEngine.Core.GameObject}
-      description: The list to fill with matching game objects.
     content.vb: Public Sub GetGameObjects(layerMask As BitFlag, match As Predicate(Of GameObject), result As List(Of GameObject))
   overload: ShapeEngine.Core.SpawnArea.GetGameObjects*
   nameWithType.vb: SpawnArea.GetGameObjects(BitFlag, Predicate(Of GameObject), List(Of GameObject))
@@ -537,21 +544,18 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetAllGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 191
+    startLine: 157
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Retrieves all game objects in the spawn area.
-  example: []
   syntax:
     content: public List<GameObject>? GetAllGameObjects()
     return:
       type: System.Collections.Generic.List{ShapeEngine.Core.GameObject}
-      description: A list of all game objects in the spawn area, or <code>null</code> if there are none.
     content.vb: Public Function GetAllGameObjects() As List(Of GameObject)
   overload: ShapeEngine.Core.SpawnArea.GetAllGameObjects*
 - uid: ShapeEngine.Core.SpawnArea.GetAllGameObjects(System.Collections.Generic.List{ShapeEngine.Core.GameObject}@)
@@ -568,22 +572,19 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetAllGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 205
+    startLine: 167
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Fills the provided list with all game objects in the spawn area.
-  example: []
   syntax:
     content: public void GetAllGameObjects(ref List<GameObject> result)
     parameters:
     - id: result
       type: System.Collections.Generic.List{ShapeEngine.Core.GameObject}
-      description: The list to fill with all game objects.
     content.vb: Public Sub GetAllGameObjects(result As List(Of GameObject))
   overload: ShapeEngine.Core.SpawnArea.GetAllGameObjects*
   nameWithType.vb: SpawnArea.GetAllGameObjects(List(Of GameObject))
@@ -603,25 +604,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetAllGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 219
+    startLine: 178
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Retrieves a list of all game objects in the spawn area that match the given criteria.
-  example: []
   syntax:
     content: public void GetAllGameObjects(Predicate<GameObject> match, ref List<GameObject> result)
     parameters:
     - id: match
       type: System.Predicate{ShapeEngine.Core.GameObject}
-      description: The criteria that game objects must match.
     - id: result
       type: System.Collections.Generic.List{ShapeEngine.Core.GameObject}
-      description: The list to fill with matching game objects.
     content.vb: Public Sub GetAllGameObjects(match As Predicate(Of GameObject), result As List(Of GameObject))
   overload: ShapeEngine.Core.SpawnArea.GetAllGameObjects*
   nameWithType.vb: SpawnArea.GetAllGameObjects(Predicate(Of GameObject), List(Of GameObject))
@@ -641,25 +638,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetAllGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 234
+    startLine: 189
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Retrieves a list of all game objects in the spawn area that match the given criteria.
-  example: []
   syntax:
     content: public List<GameObject>? GetAllGameObjects(Predicate<GameObject> match)
     parameters:
     - id: match
       type: System.Predicate{ShapeEngine.Core.GameObject}
-      description: The criteria that game objects must match.
     return:
       type: System.Collections.Generic.List{ShapeEngine.Core.GameObject}
-      description: A list of matching game objects, or <code>null</code> if none found.
     content.vb: Public Function GetAllGameObjects(match As Predicate(Of GameObject)) As List(Of GameObject)
   overload: ShapeEngine.Core.SpawnArea.GetAllGameObjects*
   nameWithType.vb: SpawnArea.GetAllGameObjects(Predicate(Of GameObject))
@@ -679,22 +672,19 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddGameObject
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 249
+    startLine: 204
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Adds a game object to the spawn area.
-  example: []
   syntax:
     content: public void AddGameObject(GameObject gameObject)
     parameters:
     - id: gameObject
       type: ShapeEngine.Core.GameObject
-      description: The game object to add.
     content.vb: Public Sub AddGameObject(gameObject As GameObject)
   overload: ShapeEngine.Core.SpawnArea.AddGameObject*
 - uid: ShapeEngine.Core.SpawnArea.AddGameObjects(ShapeEngine.Core.GameObject[])
@@ -711,22 +701,19 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 265
+    startLine: 226
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Adds multiple game objects to the spawn area.
-  example: []
   syntax:
     content: public void AddGameObjects(params GameObject[] areaObjects)
     parameters:
     - id: areaObjects
       type: ShapeEngine.Core.GameObject[]
-      description: The game objects to add.
     content.vb: Public Sub AddGameObjects(ParamArray areaObjects As GameObject())
   overload: ShapeEngine.Core.SpawnArea.AddGameObjects*
   nameWithType.vb: SpawnArea.AddGameObjects(ParamArray GameObject())
@@ -746,22 +733,19 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 270
+    startLine: 227
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Adds multiple game objects to the spawn area.
-  example: []
   syntax:
     content: public void AddGameObjects(IEnumerable<GameObject> areaObjects)
     parameters:
     - id: areaObjects
       type: System.Collections.Generic.IEnumerable{ShapeEngine.Core.GameObject}
-      description: The game objects to add.
     content.vb: Public Sub AddGameObjects(areaObjects As IEnumerable(Of GameObject))
   overload: ShapeEngine.Core.SpawnArea.AddGameObjects*
   nameWithType.vb: SpawnArea.AddGameObjects(IEnumerable(Of GameObject))
@@ -781,25 +765,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveGameObject
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 276
+    startLine: 228
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Removes a game object from the spawn area.
-  example: []
   syntax:
     content: public bool RemoveGameObject(GameObject gameObject)
     parameters:
     - id: gameObject
       type: ShapeEngine.Core.GameObject
-      description: The game object to remove.
     return:
       type: System.Boolean
-      description: <code>true</code> if the game object was successfully removed; otherwise, <code>false</code>.
     content.vb: Public Function RemoveGameObject(gameObject As GameObject) As Boolean
   overload: ShapeEngine.Core.SpawnArea.RemoveGameObject*
 - uid: ShapeEngine.Core.SpawnArea.RemoveGameObjects(ShapeEngine.Core.GameObject[])
@@ -816,22 +796,19 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 292
+    startLine: 250
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Removes multiple game objects from the spawn area.
-  example: []
   syntax:
     content: public void RemoveGameObjects(params GameObject[] areaObjects)
     parameters:
     - id: areaObjects
       type: ShapeEngine.Core.GameObject[]
-      description: The game objects to remove.
     content.vb: Public Sub RemoveGameObjects(ParamArray areaObjects As GameObject())
   overload: ShapeEngine.Core.SpawnArea.RemoveGameObjects*
   nameWithType.vb: SpawnArea.RemoveGameObjects(ParamArray GameObject())
@@ -851,22 +828,19 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 303
+    startLine: 257
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Removes multiple game objects from the spawn area.
-  example: []
   syntax:
     content: public void RemoveGameObjects(IEnumerable<GameObject> areaObjects)
     parameters:
     - id: areaObjects
       type: System.Collections.Generic.IEnumerable{ShapeEngine.Core.GameObject}
-      description: The game objects to remove.
     content.vb: Public Sub RemoveGameObjects(areaObjects As IEnumerable(Of GameObject))
   overload: ShapeEngine.Core.SpawnArea.RemoveGameObjects*
   nameWithType.vb: SpawnArea.RemoveGameObjects(IEnumerable(Of GameObject))
@@ -886,28 +860,23 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 316
+    startLine: 266
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Removes game objects from the specified layer that match the given criteria.
-  example: []
   syntax:
     content: public void RemoveGameObjects(uint layer, Predicate<GameObject> match, ref List<GameObject> result)
     parameters:
     - id: layer
       type: System.UInt32
-      description: The layer to remove game objects from.
     - id: match
       type: System.Predicate{ShapeEngine.Core.GameObject}
-      description: The criteria that game objects must match to be removed.
     - id: result
       type: System.Collections.Generic.List{ShapeEngine.Core.GameObject}
-      description: The list to fill with removed game objects.
     content.vb: Public Sub RemoveGameObjects(layer As UInteger, match As Predicate(Of GameObject), result As List(Of GameObject))
   overload: ShapeEngine.Core.SpawnArea.RemoveGameObjects*
   nameWithType.vb: SpawnArea.RemoveGameObjects(UInteger, Predicate(Of GameObject), List(Of GameObject))
@@ -927,28 +896,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 334
+    startLine: 278
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: >-
-    Removes game objects from the spawn area that match the given criteria,
-
-    across all layers specified by the layer mask.
-  example: []
   syntax:
     content: public void RemoveGameObjects(BitFlag layerMask, ref List<GameObject> result)
     parameters:
     - id: layerMask
       type: ShapeEngine.Core.Structs.BitFlag
-      description: The layer mask specifying which layers to include in the removal.
     - id: result
       type: System.Collections.Generic.List{ShapeEngine.Core.GameObject}
-      description: The list to fill with removed game objects.
     content.vb: Public Sub RemoveGameObjects(layerMask As BitFlag, result As List(Of GameObject))
   overload: ShapeEngine.Core.SpawnArea.RemoveGameObjects*
   nameWithType.vb: SpawnArea.RemoveGameObjects(BitFlag, List(Of GameObject))
@@ -968,28 +930,23 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 351
+    startLine: 289
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Removes game objects from the specified layers that match the given criteria.
-  example: []
   syntax:
     content: public void RemoveGameObjects(BitFlag layerMask, Predicate<GameObject> match, ref List<GameObject> result)
     parameters:
     - id: layerMask
       type: ShapeEngine.Core.Structs.BitFlag
-      description: The layer mask specifying which layers to include in the removal.
     - id: match
       type: System.Predicate{ShapeEngine.Core.GameObject}
-      description: The criteria that game objects must match to be removed.
     - id: result
       type: System.Collections.Generic.List{ShapeEngine.Core.GameObject}
-      description: The list to fill with removed game objects.
     content.vb: Public Sub RemoveGameObjects(layerMask As BitFlag, match As Predicate(Of GameObject), result As List(Of GameObject))
   overload: ShapeEngine.Core.SpawnArea.RemoveGameObjects*
   nameWithType.vb: SpawnArea.RemoveGameObjects(BitFlag, Predicate(Of GameObject), List(Of GameObject))
@@ -1009,98 +966,53 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveGameObjects
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 366
+    startLine: 300
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Removes all game objects from the spawn area that match the given criteria.
-  example: []
   syntax:
     content: public void RemoveGameObjects(Predicate<GameObject> match)
     parameters:
     - id: match
       type: System.Predicate{ShapeEngine.Core.GameObject}
-      description: The criteria that game objects must match to be removed.
     content.vb: Public Sub RemoveGameObjects(match As Predicate(Of GameObject))
   overload: ShapeEngine.Core.SpawnArea.RemoveGameObjects*
   nameWithType.vb: SpawnArea.RemoveGameObjects(Predicate(Of GameObject))
   fullName.vb: ShapeEngine.Core.SpawnArea.RemoveGameObjects(System.Predicate(Of ShapeEngine.Core.GameObject))
   name.vb: RemoveGameObjects(Predicate(Of GameObject))
-- uid: ShapeEngine.Core.SpawnArea.HasLayer(System.UInt32)
-  commentId: M:ShapeEngine.Core.SpawnArea.HasLayer(System.UInt32)
-  id: HasLayer(System.UInt32)
-  parent: ShapeEngine.Core.SpawnArea
-  langs:
-  - csharp
-  - vb
-  name: HasLayer(uint)
-  nameWithType: SpawnArea.HasLayer(uint)
-  fullName: ShapeEngine.Core.SpawnArea.HasLayer(uint)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: HasLayer
-    path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 384
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core
-  summary: Determines whether the specified layer exists in the spawn area.
-  example: []
-  syntax:
-    content: public bool HasLayer(uint layer)
-    parameters:
-    - id: layer
-      type: System.UInt32
-      description: The layer to check.
-    return:
-      type: System.Boolean
-      description: <code>true</code> if the layer exists; otherwise, <code>false</code>.
-    content.vb: Public Function HasLayer(layer As UInteger) As Boolean
-  overload: ShapeEngine.Core.SpawnArea.HasLayer*
-  nameWithType.vb: SpawnArea.HasLayer(UInteger)
-  fullName.vb: ShapeEngine.Core.SpawnArea.HasLayer(UInteger)
-  name.vb: HasLayer(UInteger)
-- uid: ShapeEngine.Core.SpawnArea.ClearArea(ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Core.Structs.BitFlag)
-  commentId: M:ShapeEngine.Core.SpawnArea.ClearArea(ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Core.Structs.BitFlag)
-  id: ClearArea(ShapeEngine.Geometry.RectDef.Rect,ShapeEngine.Core.Structs.BitFlag)
+- uid: ShapeEngine.Core.SpawnArea.ClearArea(ShapeEngine.Core.Shapes.Rect,ShapeEngine.Core.Structs.BitFlag)
+  commentId: M:ShapeEngine.Core.SpawnArea.ClearArea(ShapeEngine.Core.Shapes.Rect,ShapeEngine.Core.Structs.BitFlag)
+  id: ClearArea(ShapeEngine.Core.Shapes.Rect,ShapeEngine.Core.Structs.BitFlag)
   parent: ShapeEngine.Core.SpawnArea
   langs:
   - csharp
   - vb
   name: ClearArea(Rect, BitFlag)
   nameWithType: SpawnArea.ClearArea(Rect, BitFlag)
-  fullName: ShapeEngine.Core.SpawnArea.ClearArea(ShapeEngine.Geometry.RectDef.Rect, ShapeEngine.Core.Structs.BitFlag)
+  fullName: ShapeEngine.Core.SpawnArea.ClearArea(ShapeEngine.Core.Shapes.Rect, ShapeEngine.Core.Structs.BitFlag)
   type: Method
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ClearArea
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 391
+    startLine: 312
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Clears a specified area of the spawn area, removing all game objects within it that match the layer mask.
-  example: []
   syntax:
     content: public void ClearArea(Rect area, BitFlag areaLayerMask)
     parameters:
     - id: area
-      type: ShapeEngine.Geometry.RectDef.Rect
-      description: The area to clear.
+      type: ShapeEngine.Core.Shapes.Rect
     - id: areaLayerMask
       type: ShapeEngine.Core.Structs.BitFlag
-      description: The layer mask specifying which layers to clear.
     content.vb: Public Sub ClearArea(area As Rect, areaLayerMask As BitFlag)
   overload: ShapeEngine.Core.SpawnArea.ClearArea*
 - uid: ShapeEngine.Core.SpawnArea.GameObjectWasAdded(ShapeEngine.Core.GameObject)
@@ -1117,23 +1029,19 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GameObjectWasAdded
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 418
+    startLine: 343
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Called when a game object is added to the spawn area.
-  remarks: Override for custom logic.
-  example: []
   syntax:
     content: protected virtual void GameObjectWasAdded(GameObject obj)
     parameters:
     - id: obj
       type: ShapeEngine.Core.GameObject
-      description: The game object that was added.
     content.vb: Protected Overridable Sub GameObjectWasAdded(obj As GameObject)
   overload: ShapeEngine.Core.SpawnArea.GameObjectWasAdded*
 - uid: ShapeEngine.Core.SpawnArea.GameObjectWasRemoved(ShapeEngine.Core.GameObject)
@@ -1150,23 +1058,19 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GameObjectWasRemoved
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 424
+    startLine: 344
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Called when a game object is removed from the spawn area.
-  remarks: Override for custom logic.
-  example: []
   syntax:
     content: protected virtual void GameObjectWasRemoved(GameObject obj)
     parameters:
     - id: obj
       type: ShapeEngine.Core.GameObject
-      description: The game object that was removed.
     content.vb: Protected Overridable Sub GameObjectWasRemoved(obj As GameObject)
   overload: ShapeEngine.Core.SpawnArea.GameObjectWasRemoved*
 - uid: ShapeEngine.Core.SpawnArea.Clear
@@ -1183,16 +1087,14 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Clear
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 429
+    startLine: 346
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Clears all game objects from the spawn area.
-  example: []
   syntax:
     content: public virtual void Clear()
     content.vb: Public Overridable Sub Clear()
@@ -1211,22 +1113,19 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ClearLayer
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 444
+    startLine: 358
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Clears all game objects from the specified layer.
-  example: []
   syntax:
     content: public virtual void ClearLayer(uint layer)
     parameters:
     - id: layer
       type: System.UInt32
-      description: The layer to clear.
     content.vb: Public Overridable Sub ClearLayer(layer As UInteger)
   overload: ShapeEngine.Core.SpawnArea.ClearLayer*
   nameWithType.vb: SpawnArea.ClearLayer(UInteger)
@@ -1246,16 +1145,14 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Start
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 462
+    startLine: 378
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Initializes the spawn area. Override to add custom initialization logic.
-  example: []
   syntax:
     content: public virtual void Start()
     content.vb: Public Overridable Sub Start()
@@ -1274,17 +1171,14 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Close
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 467
+    startLine: 379
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Closes the spawn area, clearing all objects. Override to add custom closing logic.
-  remarks: Calls <xref href="ShapeEngine.Core.SpawnArea.Clear" data-throw-if-not-resolved="false"></xref> function.
-  example: []
   syntax:
     content: public virtual void Close()
     content.vb: Public Overridable Sub Close()
@@ -1303,30 +1197,61 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawDebug
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 478
+    startLine: 387
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Draws debug information for the spawn area.
+  syntax:
+    content: public virtual void DrawDebug(ColorRgba bounds, ColorRgba border, ColorRgba fill)
+    parameters:
+    - id: bounds
+      type: ShapeEngine.Color.ColorRgba
+    - id: border
+      type: ShapeEngine.Color.ColorRgba
+    - id: fill
+      type: ShapeEngine.Color.ColorRgba
+    content.vb: Public Overridable Sub DrawDebug(bounds As ColorRgba, border As ColorRgba, fill As ColorRgba)
+  overload: ShapeEngine.Core.SpawnArea.DrawDebug*
+- uid: ShapeEngine.Core.SpawnArea.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  commentId: M:ShapeEngine.Core.SpawnArea.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  id: Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  parent: ShapeEngine.Core.SpawnArea
+  langs:
+  - csharp
+  - vb
+  name: Update(GameTime, ScreenInfo, ScreenInfo)
+  nameWithType: SpawnArea.Update(GameTime, ScreenInfo, ScreenInfo)
+  fullName: ShapeEngine.Core.SpawnArea.Update(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/SpawnArea.cs
+      branch: copilot/update-docs-publishing-pipeline
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Update
+    path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
+    startLine: 395
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
   example: []
   syntax:
-    content: public virtual void DrawDebug(ColorRgba boundsColor, ColorRgba borderColor, ColorRgba fillColor)
+    content: public virtual void Update(GameTime time, ScreenInfo game, ScreenInfo ui)
     parameters:
-    - id: boundsColor
-      type: ShapeEngine.Color.ColorRgba
-      description: The color for the bounds.
-    - id: borderColor
-      type: ShapeEngine.Color.ColorRgba
-      description: The color for the border.
-    - id: fillColor
-      type: ShapeEngine.Color.ColorRgba
-      description: The color for the fill.
-    content.vb: Public Overridable Sub DrawDebug(boundsColor As ColorRgba, borderColor As ColorRgba, fillColor As ColorRgba)
-  overload: ShapeEngine.Core.SpawnArea.DrawDebug*
+    - id: time
+      type: ShapeEngine.Core.Structs.GameTime
+    - id: game
+      type: ShapeEngine.Core.Structs.ScreenInfo
+    - id: ui
+      type: ShapeEngine.Core.Structs.ScreenInfo
+    content.vb: Public Overridable Sub Update(time As GameTime, game As ScreenInfo, ui As ScreenInfo)
+  overload: ShapeEngine.Core.SpawnArea.Update*
+  implements:
+  - ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
 - uid: ShapeEngine.Core.SpawnArea.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
   commentId: M:ShapeEngine.Core.SpawnArea.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
   id: DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
@@ -1341,26 +1266,26 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawGame
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 487
+    startLine: 456
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Draws the game objects that are marked for drawing to the game area.
+  summary: Draw the game here. Is affected by screen shaders and the camera.
   example: []
   syntax:
     content: public virtual void DrawGame(ScreenInfo game)
     parameters:
     - id: game
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: The screen information for the game area.
+      description: ''
     content.vb: Public Overridable Sub DrawGame(game As ScreenInfo)
   overload: ShapeEngine.Core.SpawnArea.DrawGame*
   implements:
-  - ShapeEngine.Core.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
+  - ShapeEngine.Core.Interfaces.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
 - uid: ShapeEngine.Core.SpawnArea.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
   commentId: M:ShapeEngine.Core.SpawnArea.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
   id: DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
@@ -1375,198 +1300,27 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawGameUI
     path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 498
+    startLine: 463
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Draws the game objects that are marked for drawing to the game UI area.
+  summary: Draw to the game ui here. Is affected by screen shaders but NOT by the camera.
   example: []
   syntax:
-    content: public virtual void DrawGameUI(ScreenInfo gameUi)
+    content: public virtual void DrawGameUI(ScreenInfo ui)
     parameters:
-    - id: gameUi
-      type: ShapeEngine.Core.Structs.ScreenInfo
-      description: The screen information for the game UI area.
-    content.vb: Public Overridable Sub DrawGameUI(gameUi As ScreenInfo)
-  overload: ShapeEngine.Core.SpawnArea.DrawGameUI*
-  implements:
-  - ShapeEngine.Core.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
-- uid: ShapeEngine.Core.SpawnArea.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  commentId: M:ShapeEngine.Core.SpawnArea.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  id: Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  parent: ShapeEngine.Core.SpawnArea
-  langs:
-  - csharp
-  - vb
-  name: Update(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
-  nameWithType: SpawnArea.Update(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
-  fullName: ShapeEngine.Core.SpawnArea.Update(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: Update
-    path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 516
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core
-  summary: Updates the spawn area and all contained game objects. This method is called with variable time steps.
-  example: []
-  syntax:
-    content: public virtual void Update(GameTime time, ScreenInfo game, ScreenInfo gameUi, ScreenInfo ui)
-    parameters:
-    - id: time
-      type: ShapeEngine.Core.Structs.GameTime
-      description: The current game time.
-    - id: game
-      type: ShapeEngine.Core.Structs.ScreenInfo
-      description: The screen information for the game area.
-    - id: gameUi
-      type: ShapeEngine.Core.Structs.ScreenInfo
-      description: The screen information for the game UI area.
     - id: ui
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: The screen information for the UI area.
-    content.vb: Public Overridable Sub Update(time As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo)
-  overload: ShapeEngine.Core.SpawnArea.Update*
-- uid: ShapeEngine.Core.SpawnArea.GetBounds
-  commentId: M:ShapeEngine.Core.SpawnArea.GetBounds
-  id: GetBounds
-  parent: ShapeEngine.Core.SpawnArea
-  langs:
-  - csharp
-  - vb
-  name: GetBounds()
-  nameWithType: SpawnArea.GetBounds()
-  fullName: ShapeEngine.Core.SpawnArea.GetBounds()
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: GetBounds
-    path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 569
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core
-  summary: Gets the bounds of the spawn area. Use <xref href="ShapeEngine.Core.SpawnArea.HasValidBounds" data-throw-if-not-resolved="false"></xref> to check if the bounds are valid.
-  remarks: >-
-    When bounds are valid, <xref href="ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Geometry.RectDef.Rect)" data-throw-if-not-resolved="false"></xref> is checked for each object.
-
-    Objects that have left the bounds are automatically removed.
-
-    If bounds are invalid, this enforcement is disabled.
-  example: []
-  syntax:
-    content: public Rect GetBounds()
-    return:
-      type: ShapeEngine.Geometry.RectDef.Rect
-    content.vb: Public Function GetBounds() As Rect
-  overload: ShapeEngine.Core.SpawnArea.GetBounds*
+      description: ''
+    content.vb: Public Overridable Sub DrawGameUI(ui As ScreenInfo)
+  overload: ShapeEngine.Core.SpawnArea.DrawGameUI*
   implements:
-  - ShapeEngine.Core.IBounds.GetBounds
-- uid: ShapeEngine.Core.SpawnArea.SetBounds(ShapeEngine.Geometry.RectDef.Rect)
-  commentId: M:ShapeEngine.Core.SpawnArea.SetBounds(ShapeEngine.Geometry.RectDef.Rect)
-  id: SetBounds(ShapeEngine.Geometry.RectDef.Rect)
-  parent: ShapeEngine.Core.SpawnArea
-  langs:
-  - csharp
-  - vb
-  name: SetBounds(Rect)
-  nameWithType: SpawnArea.SetBounds(Rect)
-  fullName: ShapeEngine.Core.SpawnArea.SetBounds(ShapeEngine.Geometry.RectDef.Rect)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: SetBounds
-    path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 582
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core
-  summary: Sets the bounds of the spawn area. A width or height less than or equal to zero will invalidate the bounds.
-  remarks: >-
-    When bounds are valid, <xref href="ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Geometry.RectDef.Rect)" data-throw-if-not-resolved="false"></xref> is checked for each object.
-
-    Objects that have left the bounds are automatically removed.
-
-    If bounds are invalid, this enforcement is disabled.
-  example: []
-  syntax:
-    content: public virtual void SetBounds(Rect newBounds)
-    parameters:
-    - id: newBounds
-      type: ShapeEngine.Geometry.RectDef.Rect
-      description: The new bounds to set for the spawn area.
-    content.vb: Public Overridable Sub SetBounds(newBounds As Rect)
-  overload: ShapeEngine.Core.SpawnArea.SetBounds*
-  implements:
-  - ShapeEngine.Core.IBounds.SetBounds(ShapeEngine.Geometry.RectDef.Rect)
-- uid: ShapeEngine.Core.SpawnArea.HasValidBounds
-  commentId: M:ShapeEngine.Core.SpawnArea.HasValidBounds
-  id: HasValidBounds
-  parent: ShapeEngine.Core.SpawnArea
-  langs:
-  - csharp
-  - vb
-  name: HasValidBounds()
-  nameWithType: SpawnArea.HasValidBounds()
-  fullName: ShapeEngine.Core.SpawnArea.HasValidBounds()
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Core/SpawnArea.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: HasValidBounds
-    path: ../ShapeEngine/ShapeEngine/Core/SpawnArea.cs
-    startLine: 602
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core
-  summary: Returns whether the spawn area has valid bounds. Valid bounds have a width and height greater than zero.
-  remarks: >-
-    When bounds are valid, <xref href="ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Geometry.RectDef.Rect)" data-throw-if-not-resolved="false"></xref> is checked for each object.
-
-    Objects that have left the bounds are automatically removed.
-
-    If bounds are invalid, this enforcement is disabled.
-  example: []
-  syntax:
-    content: public bool HasValidBounds()
-    return:
-      type: System.Boolean
-    content.vb: Public Function HasValidBounds() As Boolean
-  overload: ShapeEngine.Core.SpawnArea.HasValidBounds*
-  implements:
-  - ShapeEngine.Core.IBounds.HasValidBounds
+  - ShapeEngine.Core.Interfaces.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
 references:
-- uid: ShapeEngine.Core.GameObject
-  commentId: T:ShapeEngine.Core.GameObject
-  parent: ShapeEngine.Core
-  href: ShapeEngine.Core.GameObject.html
-  name: GameObject
-  nameWithType: GameObject
-  fullName: ShapeEngine.Core.GameObject
-- uid: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef.CollisionHandler
-  commentId: T:ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef.CollisionHandler
-  parent: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef
-  href: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef.CollisionHandler.html
-  name: CollisionHandler
-  nameWithType: CollisionHandler
-  fullName: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef.CollisionHandler
 - uid: ShapeEngine.Core
   commentId: N:ShapeEngine.Core
   href: ShapeEngine.html
@@ -1600,20 +1354,27 @@ references:
   nameWithType.vb: Object
   fullName.vb: Object
   name.vb: Object
-- uid: ShapeEngine.Core.IDrawable
-  commentId: T:ShapeEngine.Core.IDrawable
-  parent: ShapeEngine.Core
-  href: ShapeEngine.Core.IDrawable.html
+- uid: ShapeEngine.Core.Interfaces.IUpdateable
+  commentId: T:ShapeEngine.Core.Interfaces.IUpdateable
+  parent: ShapeEngine.Core.Interfaces
+  href: ShapeEngine.Core.Interfaces.IUpdateable.html
+  name: IUpdateable
+  nameWithType: IUpdateable
+  fullName: ShapeEngine.Core.Interfaces.IUpdateable
+- uid: ShapeEngine.Core.Interfaces.IDrawable
+  commentId: T:ShapeEngine.Core.Interfaces.IDrawable
+  parent: ShapeEngine.Core.Interfaces
+  href: ShapeEngine.Core.Interfaces.IDrawable.html
   name: IDrawable
   nameWithType: IDrawable
-  fullName: ShapeEngine.Core.IDrawable
-- uid: ShapeEngine.Core.IBounds
-  commentId: T:ShapeEngine.Core.IBounds
-  parent: ShapeEngine.Core
-  href: ShapeEngine.Core.IBounds.html
+  fullName: ShapeEngine.Core.Interfaces.IDrawable
+- uid: ShapeEngine.Core.Interfaces.IBounds
+  commentId: T:ShapeEngine.Core.Interfaces.IBounds
+  parent: ShapeEngine.Core.Interfaces
+  href: ShapeEngine.Core.Interfaces.IBounds.html
   name: IBounds
   nameWithType: IBounds
-  fullName: ShapeEngine.Core.IBounds
+  fullName: ShapeEngine.Core.Interfaces.IBounds
 - uid: System.Object.Equals(System.Object)
   commentId: M:System.Object.Equals(System.Object)
   parent: System.Object
@@ -1833,203 +1594,6 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
-- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  parent: ShapeEngine.StaticLib.ShapeLogger
-  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: Log(object, string, LogLevel)
-  nameWithType: ShapeLogger.Log(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: Log(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  parent: ShapeEngine.StaticLib.ShapeLogger
-  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogConsole(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogConsole(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  parent: ShapeEngine.StaticLib.ShapeLogger
-  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogFile(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogFile(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef
-  commentId: N:ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef
-  href: ShapeEngine.html
-  name: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef
-  nameWithType: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef
-  fullName: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef
-  spec.csharp:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Geometry
-    name: Geometry
-    href: ShapeEngine.Geometry.html
-  - name: .
-  - uid: ShapeEngine.Geometry.CollisionSystem
-    name: CollisionSystem
-    href: ShapeEngine.Geometry.CollisionSystem.html
-  - name: .
-  - uid: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef
-    name: CollisionHandlerDef
-    href: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef.html
-  spec.vb:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Geometry
-    name: Geometry
-    href: ShapeEngine.Geometry.html
-  - name: .
-  - uid: ShapeEngine.Geometry.CollisionSystem
-    name: CollisionSystem
-    href: ShapeEngine.Geometry.CollisionSystem.html
-  - name: .
-  - uid: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef
-    name: CollisionHandlerDef
-    href: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef.html
 - uid: System
   commentId: N:System
   isExternal: true
@@ -2037,191 +1601,36 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  isExternal: true
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: Log(object, string, LogLevel)
-  nameWithType: ShapeLogger.Log(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: Log(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.StaticLib.ShapeLogger
-  commentId: T:ShapeEngine.StaticLib.ShapeLogger
-  parent: ShapeEngine.StaticLib
-  href: ShapeEngine.StaticLib.ShapeLogger.html
-  name: ShapeLogger
-  nameWithType: ShapeLogger
-  fullName: ShapeEngine.StaticLib.ShapeLogger
-- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  isExternal: true
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogConsole(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogConsole(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  isExternal: true
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogFile(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogFile(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.StaticLib
-  commentId: N:ShapeEngine.StaticLib
+- uid: ShapeEngine.Core.Interfaces
+  commentId: N:ShapeEngine.Core.Interfaces
   href: ShapeEngine.html
-  name: ShapeEngine.StaticLib
-  nameWithType: ShapeEngine.StaticLib
-  fullName: ShapeEngine.StaticLib
+  name: ShapeEngine.Core.Interfaces
+  nameWithType: ShapeEngine.Core.Interfaces
+  fullName: ShapeEngine.Core.Interfaces
   spec.csharp:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.StaticLib
-    name: StaticLib
-    href: ShapeEngine.StaticLib.html
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+  - name: .
+  - uid: ShapeEngine.Core.Interfaces
+    name: Interfaces
+    href: ShapeEngine.Core.Interfaces.html
   spec.vb:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.StaticLib
-    name: StaticLib
-    href: ShapeEngine.StaticLib.html
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+  - name: .
+  - uid: ShapeEngine.Core.Interfaces
+    name: Interfaces
+    href: ShapeEngine.Core.Interfaces.html
 - uid: System.Action{ShapeEngine.Core.GameObject}
   commentId: T:System.Action{ShapeEngine.Core.GameObject}
   parent: System
@@ -2300,6 +1709,56 @@ references:
   name: Count
   nameWithType: SpawnArea.Count
   fullName: ShapeEngine.Core.SpawnArea.Count
+- uid: ShapeEngine.Core.SpawnArea.Bounds*
+  commentId: Overload:ShapeEngine.Core.SpawnArea.Bounds
+  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_Bounds
+  name: Bounds
+  nameWithType: SpawnArea.Bounds
+  fullName: ShapeEngine.Core.SpawnArea.Bounds
+- uid: ShapeEngine.Core.Interfaces.IBounds.Bounds
+  commentId: P:ShapeEngine.Core.Interfaces.IBounds.Bounds
+  parent: ShapeEngine.Core.Interfaces.IBounds
+  href: ShapeEngine.Core.Interfaces.IBounds.html#ShapeEngine_Core_Interfaces_IBounds_Bounds
+  name: Bounds
+  nameWithType: IBounds.Bounds
+  fullName: ShapeEngine.Core.Interfaces.IBounds.Bounds
+- uid: ShapeEngine.Core.Shapes.Rect
+  commentId: T:ShapeEngine.Core.Shapes.Rect
+  parent: ShapeEngine.Core.Shapes
+  href: ShapeEngine.Core.Shapes.Rect.html
+  name: Rect
+  nameWithType: Rect
+  fullName: ShapeEngine.Core.Shapes.Rect
+- uid: ShapeEngine.Core.Shapes
+  commentId: N:ShapeEngine.Core.Shapes
+  href: ShapeEngine.html
+  name: ShapeEngine.Core.Shapes
+  nameWithType: ShapeEngine.Core.Shapes
+  fullName: ShapeEngine.Core.Shapes
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+  - name: .
+  - uid: ShapeEngine.Core.Shapes
+    name: Shapes
+    href: ShapeEngine.Core.Shapes.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+  - name: .
+  - uid: ShapeEngine.Core.Shapes
+    name: Shapes
+    href: ShapeEngine.Core.Shapes.html
 - uid: ShapeEngine.Core.SpawnArea.ParallaxePosition*
   commentId: Overload:ShapeEngine.Core.SpawnArea.ParallaxePosition
   href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_ParallaxePosition
@@ -2341,16 +1800,9 @@ references:
     name: Numerics
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.numerics
-- uid: ShapeEngine.Core.SpawnArea
-  commentId: T:ShapeEngine.Core.SpawnArea
-  parent: ShapeEngine.Core
-  href: ShapeEngine.Core.SpawnArea.html
-  name: SpawnArea
-  nameWithType: SpawnArea
-  fullName: ShapeEngine.Core.SpawnArea
 - uid: ShapeEngine.Core.SpawnArea.#ctor*
   commentId: Overload:ShapeEngine.Core.SpawnArea.#ctor
-  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea__ctor
+  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea__ctor_System_Single_System_Single_System_Single_System_Single_
   name: SpawnArea
   nameWithType: SpawnArea.SpawnArea
   fullName: ShapeEngine.Core.SpawnArea.SpawnArea
@@ -2368,49 +1820,43 @@ references:
   nameWithType.vb: Single
   fullName.vb: Single
   name.vb: Single
-- uid: ShapeEngine.Geometry.RectDef.Rect
-  commentId: T:ShapeEngine.Geometry.RectDef.Rect
-  parent: ShapeEngine.Geometry.RectDef
-  href: ShapeEngine.Geometry.RectDef.Rect.html
-  name: Rect
-  nameWithType: Rect
-  fullName: ShapeEngine.Geometry.RectDef.Rect
-- uid: ShapeEngine.Geometry.RectDef
-  commentId: N:ShapeEngine.Geometry.RectDef
-  href: ShapeEngine.html
-  name: ShapeEngine.Geometry.RectDef
-  nameWithType: ShapeEngine.Geometry.RectDef
-  fullName: ShapeEngine.Geometry.RectDef
+- uid: ShapeEngine.Core.SpawnArea.ResizeBounds*
+  commentId: Overload:ShapeEngine.Core.SpawnArea.ResizeBounds
+  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_ResizeBounds_ShapeEngine_Core_Shapes_Rect_
+  name: ResizeBounds
+  nameWithType: SpawnArea.ResizeBounds
+  fullName: ShapeEngine.Core.SpawnArea.ResizeBounds
+- uid: ShapeEngine.Core.Interfaces.IBounds.ResizeBounds(ShapeEngine.Core.Shapes.Rect)
+  commentId: M:ShapeEngine.Core.Interfaces.IBounds.ResizeBounds(ShapeEngine.Core.Shapes.Rect)
+  parent: ShapeEngine.Core.Interfaces.IBounds
+  href: ShapeEngine.Core.Interfaces.IBounds.html#ShapeEngine_Core_Interfaces_IBounds_ResizeBounds_ShapeEngine_Core_Shapes_Rect_
+  name: ResizeBounds(Rect)
+  nameWithType: IBounds.ResizeBounds(Rect)
+  fullName: ShapeEngine.Core.Interfaces.IBounds.ResizeBounds(ShapeEngine.Core.Shapes.Rect)
   spec.csharp:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Geometry
-    name: Geometry
-    href: ShapeEngine.Geometry.html
-  - name: .
-  - uid: ShapeEngine.Geometry.RectDef
-    name: RectDef
-    href: ShapeEngine.Geometry.RectDef.html
+  - uid: ShapeEngine.Core.Interfaces.IBounds.ResizeBounds(ShapeEngine.Core.Shapes.Rect)
+    name: ResizeBounds
+    href: ShapeEngine.Core.Interfaces.IBounds.html#ShapeEngine_Core_Interfaces_IBounds_ResizeBounds_ShapeEngine_Core_Shapes_Rect_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Rect
+    name: Rect
+    href: ShapeEngine.Core.Shapes.Rect.html
+  - name: )
   spec.vb:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Geometry
-    name: Geometry
-    href: ShapeEngine.Geometry.html
-  - name: .
-  - uid: ShapeEngine.Geometry.RectDef
-    name: RectDef
-    href: ShapeEngine.Geometry.RectDef.html
-- uid: ShapeEngine.Core.SpawnArea.GetGameObjects*
-  commentId: Overload:ShapeEngine.Core.SpawnArea.GetGameObjects
-  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_GetGameObjects_System_UInt32_System_Predicate_ShapeEngine_Core_GameObject__
-  name: GetGameObjects
-  nameWithType: SpawnArea.GetGameObjects
-  fullName: ShapeEngine.Core.SpawnArea.GetGameObjects
+  - uid: ShapeEngine.Core.Interfaces.IBounds.ResizeBounds(ShapeEngine.Core.Shapes.Rect)
+    name: ResizeBounds
+    href: ShapeEngine.Core.Interfaces.IBounds.html#ShapeEngine_Core_Interfaces_IBounds_ResizeBounds_ShapeEngine_Core_Shapes_Rect_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Rect
+    name: Rect
+    href: ShapeEngine.Core.Shapes.Rect.html
+  - name: )
+- uid: ShapeEngine.Core.SpawnArea.HasLayer*
+  commentId: Overload:ShapeEngine.Core.SpawnArea.HasLayer
+  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_HasLayer_System_UInt32_
+  name: HasLayer
+  nameWithType: SpawnArea.HasLayer
+  fullName: ShapeEngine.Core.SpawnArea.HasLayer
 - uid: System.UInt32
   commentId: T:System.UInt32
   parent: System
@@ -2422,6 +1868,23 @@ references:
   nameWithType.vb: UInteger
   fullName.vb: UInteger
   name.vb: UInteger
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: ShapeEngine.Core.SpawnArea.GetGameObjects*
+  commentId: Overload:ShapeEngine.Core.SpawnArea.GetGameObjects
+  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_GetGameObjects_System_UInt32_System_Predicate_ShapeEngine_Core_GameObject__
+  name: GetGameObjects
+  nameWithType: SpawnArea.GetGameObjects
+  fullName: ShapeEngine.Core.SpawnArea.GetGameObjects
 - uid: System.Predicate{ShapeEngine.Core.GameObject}
   commentId: T:System.Predicate{ShapeEngine.Core.GameObject}
   parent: System
@@ -2630,6 +2093,13 @@ references:
   name: AddGameObject
   nameWithType: SpawnArea.AddGameObject
   fullName: ShapeEngine.Core.SpawnArea.AddGameObject
+- uid: ShapeEngine.Core.GameObject
+  commentId: T:ShapeEngine.Core.GameObject
+  parent: ShapeEngine.Core
+  href: ShapeEngine.Core.GameObject.html
+  name: GameObject
+  nameWithType: GameObject
+  fullName: ShapeEngine.Core.GameObject
 - uid: ShapeEngine.Core.SpawnArea.AddGameObjects*
   commentId: Overload:ShapeEngine.Core.SpawnArea.AddGameObjects
   href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_AddGameObjects_ShapeEngine_Core_GameObject___
@@ -2724,32 +2194,15 @@ references:
   name: RemoveGameObject
   nameWithType: SpawnArea.RemoveGameObject
   fullName: ShapeEngine.Core.SpawnArea.RemoveGameObject
-- uid: System.Boolean
-  commentId: T:System.Boolean
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.boolean
-  name: bool
-  nameWithType: bool
-  fullName: bool
-  nameWithType.vb: Boolean
-  fullName.vb: Boolean
-  name.vb: Boolean
 - uid: ShapeEngine.Core.SpawnArea.RemoveGameObjects*
   commentId: Overload:ShapeEngine.Core.SpawnArea.RemoveGameObjects
   href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_RemoveGameObjects_ShapeEngine_Core_GameObject___
   name: RemoveGameObjects
   nameWithType: SpawnArea.RemoveGameObjects
   fullName: ShapeEngine.Core.SpawnArea.RemoveGameObjects
-- uid: ShapeEngine.Core.SpawnArea.HasLayer*
-  commentId: Overload:ShapeEngine.Core.SpawnArea.HasLayer
-  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_HasLayer_System_UInt32_
-  name: HasLayer
-  nameWithType: SpawnArea.HasLayer
-  fullName: ShapeEngine.Core.SpawnArea.HasLayer
 - uid: ShapeEngine.Core.SpawnArea.ClearArea*
   commentId: Overload:ShapeEngine.Core.SpawnArea.ClearArea
-  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_ClearArea_ShapeEngine_Geometry_RectDef_Rect_ShapeEngine_Core_Structs_BitFlag_
+  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_ClearArea_ShapeEngine_Core_Shapes_Rect_ShapeEngine_Core_Structs_BitFlag_
   name: ClearArea
   nameWithType: SpawnArea.ClearArea
   fullName: ShapeEngine.Core.SpawnArea.ClearArea
@@ -2783,24 +2236,6 @@ references:
   name: Start
   nameWithType: SpawnArea.Start
   fullName: ShapeEngine.Core.SpawnArea.Start
-- uid: ShapeEngine.Core.SpawnArea.Clear
-  commentId: M:ShapeEngine.Core.SpawnArea.Clear
-  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_Clear
-  name: Clear()
-  nameWithType: SpawnArea.Clear()
-  fullName: ShapeEngine.Core.SpawnArea.Clear()
-  spec.csharp:
-  - uid: ShapeEngine.Core.SpawnArea.Clear
-    name: Clear
-    href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_Clear
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.SpawnArea.Clear
-    name: Clear
-    href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_Clear
-  - name: (
-  - name: )
 - uid: ShapeEngine.Core.SpawnArea.Close*
   commentId: Overload:ShapeEngine.Core.SpawnArea.Close
   href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_Close
@@ -2842,81 +2277,57 @@ references:
   - uid: ShapeEngine.Color
     name: Color
     href: ShapeEngine.Color.html
-- uid: ShapeEngine.Core.SpawnArea.DrawGame*
-  commentId: Overload:ShapeEngine.Core.SpawnArea.DrawGame
-  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_DrawGame_ShapeEngine_Core_Structs_ScreenInfo_
-  name: DrawGame
-  nameWithType: SpawnArea.DrawGame
-  fullName: ShapeEngine.Core.SpawnArea.DrawGame
-- uid: ShapeEngine.Core.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
-  commentId: M:ShapeEngine.Core.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
-  parent: ShapeEngine.Core.IDrawable
-  href: ShapeEngine.Core.IDrawable.html#ShapeEngine_Core_IDrawable_DrawGame_ShapeEngine_Core_Structs_ScreenInfo_
-  name: DrawGame(ScreenInfo)
-  nameWithType: IDrawable.DrawGame(ScreenInfo)
-  fullName: ShapeEngine.Core.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
-  spec.csharp:
-  - uid: ShapeEngine.Core.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
-    name: DrawGame
-    href: ShapeEngine.Core.IDrawable.html#ShapeEngine_Core_IDrawable_DrawGame_ShapeEngine_Core_Structs_ScreenInfo_
-  - name: (
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
-    name: DrawGame
-    href: ShapeEngine.Core.IDrawable.html#ShapeEngine_Core_IDrawable_DrawGame_ShapeEngine_Core_Structs_ScreenInfo_
-  - name: (
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: )
-- uid: ShapeEngine.Core.Structs.ScreenInfo
-  commentId: T:ShapeEngine.Core.Structs.ScreenInfo
-  parent: ShapeEngine.Core.Structs
-  href: ShapeEngine.Core.Structs.ScreenInfo.html
-  name: ScreenInfo
-  nameWithType: ScreenInfo
-  fullName: ShapeEngine.Core.Structs.ScreenInfo
-- uid: ShapeEngine.Core.SpawnArea.DrawGameUI*
-  commentId: Overload:ShapeEngine.Core.SpawnArea.DrawGameUI
-  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_DrawGameUI_ShapeEngine_Core_Structs_ScreenInfo_
-  name: DrawGameUI
-  nameWithType: SpawnArea.DrawGameUI
-  fullName: ShapeEngine.Core.SpawnArea.DrawGameUI
-- uid: ShapeEngine.Core.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
-  commentId: M:ShapeEngine.Core.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
-  parent: ShapeEngine.Core.IDrawable
-  href: ShapeEngine.Core.IDrawable.html#ShapeEngine_Core_IDrawable_DrawGameUI_ShapeEngine_Core_Structs_ScreenInfo_
-  name: DrawGameUI(ScreenInfo)
-  nameWithType: IDrawable.DrawGameUI(ScreenInfo)
-  fullName: ShapeEngine.Core.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
-  spec.csharp:
-  - uid: ShapeEngine.Core.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
-    name: DrawGameUI
-    href: ShapeEngine.Core.IDrawable.html#ShapeEngine_Core_IDrawable_DrawGameUI_ShapeEngine_Core_Structs_ScreenInfo_
-  - name: (
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
-    name: DrawGameUI
-    href: ShapeEngine.Core.IDrawable.html#ShapeEngine_Core_IDrawable_DrawGameUI_ShapeEngine_Core_Structs_ScreenInfo_
-  - name: (
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: )
 - uid: ShapeEngine.Core.SpawnArea.Update*
   commentId: Overload:ShapeEngine.Core.SpawnArea.Update
-  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
+  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
   name: Update
   nameWithType: SpawnArea.Update
   fullName: ShapeEngine.Core.SpawnArea.Update
+- uid: ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  commentId: M:ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  parent: ShapeEngine.Core.Interfaces.IUpdateable
+  href: ShapeEngine.Core.Interfaces.IUpdateable.html#ShapeEngine_Core_Interfaces_IUpdateable_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
+  name: Update(GameTime, ScreenInfo, ScreenInfo)
+  nameWithType: IUpdateable.Update(GameTime, ScreenInfo, ScreenInfo)
+  fullName: ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+    name: Update
+    href: ShapeEngine.Core.Interfaces.IUpdateable.html#ShapeEngine_Core_Interfaces_IUpdateable_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
+  - name: (
+  - uid: ShapeEngine.Core.Structs.GameTime
+    name: GameTime
+    href: ShapeEngine.Core.Structs.GameTime.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+    name: Update
+    href: ShapeEngine.Core.Interfaces.IUpdateable.html#ShapeEngine_Core_Interfaces_IUpdateable_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
+  - name: (
+  - uid: ShapeEngine.Core.Structs.GameTime
+    name: GameTime
+    href: ShapeEngine.Core.Structs.GameTime.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
+  - name: )
 - uid: ShapeEngine.Core.Structs.GameTime
   commentId: T:ShapeEngine.Core.Structs.GameTime
   parent: ShapeEngine.Core.Structs
@@ -2924,127 +2335,72 @@ references:
   name: GameTime
   nameWithType: GameTime
   fullName: ShapeEngine.Core.Structs.GameTime
-- uid: ShapeEngine.Core.SpawnArea.HasValidBounds
-  commentId: M:ShapeEngine.Core.SpawnArea.HasValidBounds
-  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_HasValidBounds
-  name: HasValidBounds()
-  nameWithType: SpawnArea.HasValidBounds()
-  fullName: ShapeEngine.Core.SpawnArea.HasValidBounds()
+- uid: ShapeEngine.Core.Structs.ScreenInfo
+  commentId: T:ShapeEngine.Core.Structs.ScreenInfo
+  parent: ShapeEngine.Core.Structs
+  href: ShapeEngine.Core.Structs.ScreenInfo.html
+  name: ScreenInfo
+  nameWithType: ScreenInfo
+  fullName: ShapeEngine.Core.Structs.ScreenInfo
+- uid: ShapeEngine.Core.SpawnArea.DrawGame*
+  commentId: Overload:ShapeEngine.Core.SpawnArea.DrawGame
+  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_DrawGame_ShapeEngine_Core_Structs_ScreenInfo_
+  name: DrawGame
+  nameWithType: SpawnArea.DrawGame
+  fullName: ShapeEngine.Core.SpawnArea.DrawGame
+- uid: ShapeEngine.Core.Interfaces.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
+  commentId: M:ShapeEngine.Core.Interfaces.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
+  parent: ShapeEngine.Core.Interfaces.IDrawable
+  href: ShapeEngine.Core.Interfaces.IDrawable.html#ShapeEngine_Core_Interfaces_IDrawable_DrawGame_ShapeEngine_Core_Structs_ScreenInfo_
+  name: DrawGame(ScreenInfo)
+  nameWithType: IDrawable.DrawGame(ScreenInfo)
+  fullName: ShapeEngine.Core.Interfaces.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
   spec.csharp:
-  - uid: ShapeEngine.Core.SpawnArea.HasValidBounds
-    name: HasValidBounds
-    href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_HasValidBounds
+  - uid: ShapeEngine.Core.Interfaces.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
+    name: DrawGame
+    href: ShapeEngine.Core.Interfaces.IDrawable.html#ShapeEngine_Core_Interfaces_IDrawable_DrawGame_ShapeEngine_Core_Structs_ScreenInfo_
   - name: (
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.SpawnArea.HasValidBounds
-    name: HasValidBounds
-    href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_HasValidBounds
+  - uid: ShapeEngine.Core.Interfaces.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
+    name: DrawGame
+    href: ShapeEngine.Core.Interfaces.IDrawable.html#ShapeEngine_Core_Interfaces_IDrawable_DrawGame_ShapeEngine_Core_Structs_ScreenInfo_
   - name: (
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
   - name: )
-- uid: ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Geometry.RectDef.Rect)
-  commentId: M:ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Geometry.RectDef.Rect)
-  parent: ShapeEngine.Core.GameObject
-  href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_HasLeftBounds_ShapeEngine_Geometry_RectDef_Rect_
-  name: HasLeftBounds(Rect)
-  nameWithType: GameObject.HasLeftBounds(Rect)
-  fullName: ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Geometry.RectDef.Rect)
+- uid: ShapeEngine.Core.SpawnArea.DrawGameUI*
+  commentId: Overload:ShapeEngine.Core.SpawnArea.DrawGameUI
+  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_DrawGameUI_ShapeEngine_Core_Structs_ScreenInfo_
+  name: DrawGameUI
+  nameWithType: SpawnArea.DrawGameUI
+  fullName: ShapeEngine.Core.SpawnArea.DrawGameUI
+- uid: ShapeEngine.Core.Interfaces.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
+  commentId: M:ShapeEngine.Core.Interfaces.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
+  parent: ShapeEngine.Core.Interfaces.IDrawable
+  href: ShapeEngine.Core.Interfaces.IDrawable.html#ShapeEngine_Core_Interfaces_IDrawable_DrawGameUI_ShapeEngine_Core_Structs_ScreenInfo_
+  name: DrawGameUI(ScreenInfo)
+  nameWithType: IDrawable.DrawGameUI(ScreenInfo)
+  fullName: ShapeEngine.Core.Interfaces.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
   spec.csharp:
-  - uid: ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Geometry.RectDef.Rect)
-    name: HasLeftBounds
-    href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_HasLeftBounds_ShapeEngine_Geometry_RectDef_Rect_
+  - uid: ShapeEngine.Core.Interfaces.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
+    name: DrawGameUI
+    href: ShapeEngine.Core.Interfaces.IDrawable.html#ShapeEngine_Core_Interfaces_IDrawable_DrawGameUI_ShapeEngine_Core_Structs_ScreenInfo_
   - name: (
-  - uid: ShapeEngine.Geometry.RectDef.Rect
-    name: Rect
-    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Geometry.RectDef.Rect)
-    name: HasLeftBounds
-    href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_HasLeftBounds_ShapeEngine_Geometry_RectDef_Rect_
+  - uid: ShapeEngine.Core.Interfaces.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
+    name: DrawGameUI
+    href: ShapeEngine.Core.Interfaces.IDrawable.html#ShapeEngine_Core_Interfaces_IDrawable_DrawGameUI_ShapeEngine_Core_Structs_ScreenInfo_
   - name: (
-  - uid: ShapeEngine.Geometry.RectDef.Rect
-    name: Rect
-    href: ShapeEngine.Geometry.RectDef.Rect.html
-  - name: )
-- uid: ShapeEngine.Core.SpawnArea.GetBounds*
-  commentId: Overload:ShapeEngine.Core.SpawnArea.GetBounds
-  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_GetBounds
-  name: GetBounds
-  nameWithType: SpawnArea.GetBounds
-  fullName: ShapeEngine.Core.SpawnArea.GetBounds
-- uid: ShapeEngine.Core.IBounds.GetBounds
-  commentId: M:ShapeEngine.Core.IBounds.GetBounds
-  parent: ShapeEngine.Core.IBounds
-  href: ShapeEngine.Core.IBounds.html#ShapeEngine_Core_IBounds_GetBounds
-  name: GetBounds()
-  nameWithType: IBounds.GetBounds()
-  fullName: ShapeEngine.Core.IBounds.GetBounds()
-  spec.csharp:
-  - uid: ShapeEngine.Core.IBounds.GetBounds
-    name: GetBounds
-    href: ShapeEngine.Core.IBounds.html#ShapeEngine_Core_IBounds_GetBounds
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.IBounds.GetBounds
-    name: GetBounds
-    href: ShapeEngine.Core.IBounds.html#ShapeEngine_Core_IBounds_GetBounds
-  - name: (
-  - name: )
-- uid: ShapeEngine.Core.SpawnArea.SetBounds*
-  commentId: Overload:ShapeEngine.Core.SpawnArea.SetBounds
-  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_SetBounds_ShapeEngine_Geometry_RectDef_Rect_
-  name: SetBounds
-  nameWithType: SpawnArea.SetBounds
-  fullName: ShapeEngine.Core.SpawnArea.SetBounds
-- uid: ShapeEngine.Core.IBounds.SetBounds(ShapeEngine.Geometry.RectDef.Rect)
-  commentId: M:ShapeEngine.Core.IBounds.SetBounds(ShapeEngine.Geometry.RectDef.Rect)
-  parent: ShapeEngine.Core.IBounds
-  href: ShapeEngine.Core.IBounds.html#ShapeEngine_Core_IBounds_SetBounds_ShapeEngine_Geometry_RectDef_Rect_
-  name: SetBounds(Rect)
-  nameWithType: IBounds.SetBounds(Rect)
-  fullName: ShapeEngine.Core.IBounds.SetBounds(ShapeEngine.Geometry.RectDef.Rect)
-  spec.csharp:
-  - uid: ShapeEngine.Core.IBounds.SetBounds(ShapeEngine.Geometry.RectDef.Rect)
-    name: SetBounds
-    href: ShapeEngine.Core.IBounds.html#ShapeEngine_Core_IBounds_SetBounds_ShapeEngine_Geometry_RectDef_Rect_
-  - name: (
-  - uid: ShapeEngine.Geometry.RectDef.Rect
-    name: Rect
-    href: ShapeEngine.Geometry.RectDef.Rect.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.IBounds.SetBounds(ShapeEngine.Geometry.RectDef.Rect)
-    name: SetBounds
-    href: ShapeEngine.Core.IBounds.html#ShapeEngine_Core_IBounds_SetBounds_ShapeEngine_Geometry_RectDef_Rect_
-  - name: (
-  - uid: ShapeEngine.Geometry.RectDef.Rect
-    name: Rect
-    href: ShapeEngine.Geometry.RectDef.Rect.html
-  - name: )
-- uid: ShapeEngine.Core.SpawnArea.HasValidBounds*
-  commentId: Overload:ShapeEngine.Core.SpawnArea.HasValidBounds
-  href: ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_HasValidBounds
-  name: HasValidBounds
-  nameWithType: SpawnArea.HasValidBounds
-  fullName: ShapeEngine.Core.SpawnArea.HasValidBounds
-- uid: ShapeEngine.Core.IBounds.HasValidBounds
-  commentId: M:ShapeEngine.Core.IBounds.HasValidBounds
-  parent: ShapeEngine.Core.IBounds
-  href: ShapeEngine.Core.IBounds.html#ShapeEngine_Core_IBounds_HasValidBounds
-  name: HasValidBounds()
-  nameWithType: IBounds.HasValidBounds()
-  fullName: ShapeEngine.Core.IBounds.HasValidBounds()
-  spec.csharp:
-  - uid: ShapeEngine.Core.IBounds.HasValidBounds
-    name: HasValidBounds
-    href: ShapeEngine.Core.IBounds.html#ShapeEngine_Core_IBounds_HasValidBounds
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.IBounds.HasValidBounds
-    name: HasValidBounds
-    href: ShapeEngine.Core.IBounds.html#ShapeEngine_Core_IBounds_HasValidBounds
-  - name: (
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
   - name: )

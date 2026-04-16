@@ -6,11 +6,11 @@ items:
   parent: ShapeEngine.Pool
   children:
   - ShapeEngine.Pool.IPool.Clear
-  - ShapeEngine.Pool.IPool.GetId
   - ShapeEngine.Pool.IPool.GetInstance
   - ShapeEngine.Pool.IPool.GetInstance``1
   - ShapeEngine.Pool.IPool.HasInstances
   - ShapeEngine.Pool.IPool.HasUsableInstances
+  - ShapeEngine.Pool.IPool.OnInstanceFinished(ShapeEngine.Pool.IPoolable)
   - ShapeEngine.Pool.IPool.ReturnInstance(ShapeEngine.Pool.IPoolable)
   langs:
   - csharp
@@ -21,55 +21,20 @@ items:
   type: Interface
   source:
     remote:
-      path: ShapeEngine/Pool/IPool.cs
-      branch: main
+      path: ShapeEngine/Pool/Pool.cs
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IPool
-    path: ../ShapeEngine/ShapeEngine/Pool/IPool.cs
-    startLine: 5
+    path: ../ShapeEngine/ShapeEngine/Pool/Pool.cs
+    startLine: 12
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Pool
-  summary: Defines the interface for an object pool, providing methods for managing pooled instances.
-  example: []
   syntax:
     content: public interface IPool
     content.vb: Public Interface IPool
-  extensionMethods:
-  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
-  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
-  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
-- uid: ShapeEngine.Pool.IPool.GetId
-  commentId: M:ShapeEngine.Pool.IPool.GetId
-  id: GetId
-  parent: ShapeEngine.Pool.IPool
-  langs:
-  - csharp
-  - vb
-  name: GetId()
-  nameWithType: IPool.GetId()
-  fullName: ShapeEngine.Pool.IPool.GetId()
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Pool/IPool.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: GetId
-    path: ../ShapeEngine/ShapeEngine/Pool/IPool.cs
-    startLine: 11
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Pool
-  summary: Gets the unique identifier for this pool.
-  example: []
-  syntax:
-    content: uint GetId()
-    return:
-      type: System.UInt32
-      description: The unique pool ID.
-    content.vb: Function GetId() As UInteger
-  overload: ShapeEngine.Pool.IPool.GetId*
+  derivedClasses:
+  - ShapeEngine.Pool.Pool
 - uid: ShapeEngine.Pool.IPool.Clear
   commentId: M:ShapeEngine.Pool.IPool.Clear
   id: Clear
@@ -83,17 +48,15 @@ items:
   type: Method
   source:
     remote:
-      path: ShapeEngine/Pool/IPool.cs
-      branch: main
+      path: ShapeEngine/Pool/Pool.cs
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Clear
-    path: ../ShapeEngine/ShapeEngine/Pool/IPool.cs
-    startLine: 15
+    path: ../ShapeEngine/ShapeEngine/Pool/Pool.cs
+    startLine: 14
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Pool
-  summary: Clears all instances from the pool, resetting its state.
-  example: []
   syntax:
     content: void Clear()
     content.vb: Sub Clear()
@@ -111,22 +74,19 @@ items:
   type: Method
   source:
     remote:
-      path: ShapeEngine/Pool/IPool.cs
-      branch: main
+      path: ShapeEngine/Pool/Pool.cs
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HasUsableInstances
-    path: ../ShapeEngine/ShapeEngine/Pool/IPool.cs
-    startLine: 20
+    path: ../ShapeEngine/ShapeEngine/Pool/Pool.cs
+    startLine: 15
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Pool
-  summary: Determines whether the pool has any usable (available) instances.
-  example: []
   syntax:
     content: bool HasUsableInstances()
     return:
       type: System.Boolean
-      description: True if there are usable instances; otherwise, false.
     content.vb: Function HasUsableInstances() As Boolean
   overload: ShapeEngine.Pool.IPool.HasUsableInstances*
 - uid: ShapeEngine.Pool.IPool.HasInstances
@@ -142,22 +102,19 @@ items:
   type: Method
   source:
     remote:
-      path: ShapeEngine/Pool/IPool.cs
-      branch: main
+      path: ShapeEngine/Pool/Pool.cs
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HasInstances
-    path: ../ShapeEngine/ShapeEngine/Pool/IPool.cs
-    startLine: 25
+    path: ../ShapeEngine/ShapeEngine/Pool/Pool.cs
+    startLine: 16
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Pool
-  summary: Determines whether the pool contains any instances (usable or in use).
-  example: []
   syntax:
     content: bool HasInstances()
     return:
       type: System.Boolean
-      description: True if the pool contains any instances; otherwise, false.
     content.vb: Function HasInstances() As Boolean
   overload: ShapeEngine.Pool.IPool.HasInstances*
 - uid: ShapeEngine.Pool.IPool.GetInstance
@@ -173,22 +130,19 @@ items:
   type: Method
   source:
     remote:
-      path: ShapeEngine/Pool/IPool.cs
-      branch: main
+      path: ShapeEngine/Pool/Pool.cs
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetInstance
-    path: ../ShapeEngine/ShapeEngine/Pool/IPool.cs
-    startLine: 30
+    path: ../ShapeEngine/ShapeEngine/Pool/Pool.cs
+    startLine: 18
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Pool
-  summary: Retrieves an available instance from the pool.
-  example: []
   syntax:
     content: IPoolable? GetInstance()
     return:
       type: ShapeEngine.Pool.IPoolable
-      description: An <xref href="ShapeEngine.Pool.IPoolable" data-throw-if-not-resolved="false"></xref> instance if available; otherwise, null.
     content.vb: Function GetInstance() As IPoolable
   overload: ShapeEngine.Pool.IPool.GetInstance*
 - uid: ShapeEngine.Pool.IPool.GetInstance``1
@@ -204,25 +158,21 @@ items:
   type: Method
   source:
     remote:
-      path: ShapeEngine/Pool/IPool.cs
-      branch: main
+      path: ShapeEngine/Pool/Pool.cs
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetInstance
-    path: ../ShapeEngine/ShapeEngine/Pool/IPool.cs
-    startLine: 36
+    path: ../ShapeEngine/ShapeEngine/Pool/Pool.cs
+    startLine: 19
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Pool
-  summary: Retrieves an available instance of type <code class="typeparamref">T</code> from the pool.
-  example: []
   syntax:
     content: T? GetInstance<T>()
     typeParameters:
     - id: T
-      description: The type of instance to retrieve.
     return:
       type: '{T}'
-      description: An instance of type <code class="typeparamref">T</code> if available; otherwise, null.
     content.vb: Function GetInstance(Of T)() As T
   overload: ShapeEngine.Pool.IPool.GetInstance*
   nameWithType.vb: IPool.GetInstance(Of T)()
@@ -241,25 +191,51 @@ items:
   type: Method
   source:
     remote:
-      path: ShapeEngine/Pool/IPool.cs
-      branch: main
+      path: ShapeEngine/Pool/Pool.cs
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ReturnInstance
-    path: ../ShapeEngine/ShapeEngine/Pool/IPool.cs
-    startLine: 41
+    path: ../ShapeEngine/ShapeEngine/Pool/Pool.cs
+    startLine: 20
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Pool
-  summary: Returns an instance to the pool, making it available for reuse.
-  example: []
   syntax:
     content: void ReturnInstance(IPoolable instance)
     parameters:
     - id: instance
       type: ShapeEngine.Pool.IPoolable
-      description: The instance to return.
     content.vb: Sub ReturnInstance(instance As IPoolable)
   overload: ShapeEngine.Pool.IPool.ReturnInstance*
+- uid: ShapeEngine.Pool.IPool.OnInstanceFinished(ShapeEngine.Pool.IPoolable)
+  commentId: M:ShapeEngine.Pool.IPool.OnInstanceFinished(ShapeEngine.Pool.IPoolable)
+  id: OnInstanceFinished(ShapeEngine.Pool.IPoolable)
+  parent: ShapeEngine.Pool.IPool
+  langs:
+  - csharp
+  - vb
+  name: OnInstanceFinished(IPoolable)
+  nameWithType: IPool.OnInstanceFinished(IPoolable)
+  fullName: ShapeEngine.Pool.IPool.OnInstanceFinished(ShapeEngine.Pool.IPoolable)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Pool/Pool.cs
+      branch: copilot/update-docs-publishing-pipeline
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnInstanceFinished
+    path: ../ShapeEngine/ShapeEngine/Pool/Pool.cs
+    startLine: 22
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Pool
+  syntax:
+    content: void OnInstanceFinished(IPoolable instance)
+    parameters:
+    - id: instance
+      type: ShapeEngine.Pool.IPoolable
+    content.vb: Sub OnInstanceFinished(instance As IPoolable)
+  overload: ShapeEngine.Pool.IPool.OnInstanceFinished*
 references:
 - uid: ShapeEngine.Pool
   commentId: N:ShapeEngine.Pool
@@ -283,374 +259,6 @@ references:
   - uid: ShapeEngine.Pool
     name: Pool
     href: ShapeEngine.Pool.html
-- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  parent: ShapeEngine.StaticLib.ShapeLogger
-  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: Log(object, string, LogLevel)
-  nameWithType: ShapeLogger.Log(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: Log(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  parent: ShapeEngine.StaticLib.ShapeLogger
-  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogConsole(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogConsole(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  parent: ShapeEngine.StaticLib.ShapeLogger
-  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogFile(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogFile(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  isExternal: true
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: Log(object, string, LogLevel)
-  nameWithType: ShapeLogger.Log(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: Log(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.StaticLib.ShapeLogger
-  commentId: T:ShapeEngine.StaticLib.ShapeLogger
-  parent: ShapeEngine.StaticLib
-  href: ShapeEngine.StaticLib.ShapeLogger.html
-  name: ShapeLogger
-  nameWithType: ShapeLogger
-  fullName: ShapeEngine.StaticLib.ShapeLogger
-- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  isExternal: true
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogConsole(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogConsole(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  isExternal: true
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogFile(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogFile(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.StaticLib
-  commentId: N:ShapeEngine.StaticLib
-  href: ShapeEngine.html
-  name: ShapeEngine.StaticLib
-  nameWithType: ShapeEngine.StaticLib
-  fullName: ShapeEngine.StaticLib
-  spec.csharp:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.StaticLib
-    name: StaticLib
-    href: ShapeEngine.StaticLib.html
-  spec.vb:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.StaticLib
-    name: StaticLib
-    href: ShapeEngine.StaticLib.html
-- uid: ShapeEngine.Pool.IPool.GetId*
-  commentId: Overload:ShapeEngine.Pool.IPool.GetId
-  href: ShapeEngine.Pool.IPool.html#ShapeEngine_Pool_IPool_GetId
-  name: GetId
-  nameWithType: IPool.GetId
-  fullName: ShapeEngine.Pool.IPool.GetId
-- uid: System.UInt32
-  commentId: T:System.UInt32
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.uint32
-  name: uint
-  nameWithType: uint
-  fullName: uint
-  nameWithType.vb: UInteger
-  fullName.vb: UInteger
-  name.vb: UInteger
-- uid: System
-  commentId: N:System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system
-  name: System
-  nameWithType: System
-  fullName: System
 - uid: ShapeEngine.Pool.IPool.Clear*
   commentId: Overload:ShapeEngine.Pool.IPool.Clear
   href: ShapeEngine.Pool.IPool.html#ShapeEngine_Pool_IPool_Clear
@@ -674,12 +282,25 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
 - uid: ShapeEngine.Pool.IPool.HasInstances*
   commentId: Overload:ShapeEngine.Pool.IPool.HasInstances
   href: ShapeEngine.Pool.IPool.html#ShapeEngine_Pool_IPool_HasInstances
   name: HasInstances
   nameWithType: IPool.HasInstances
   fullName: ShapeEngine.Pool.IPool.HasInstances
+- uid: ShapeEngine.Pool.IPool.GetInstance*
+  commentId: Overload:ShapeEngine.Pool.IPool.GetInstance
+  href: ShapeEngine.Pool.IPool.html#ShapeEngine_Pool_IPool_GetInstance
+  name: GetInstance
+  nameWithType: IPool.GetInstance
+  fullName: ShapeEngine.Pool.IPool.GetInstance
 - uid: ShapeEngine.Pool.IPoolable
   commentId: T:ShapeEngine.Pool.IPoolable
   parent: ShapeEngine.Pool
@@ -687,12 +308,6 @@ references:
   name: IPoolable
   nameWithType: IPoolable
   fullName: ShapeEngine.Pool.IPoolable
-- uid: ShapeEngine.Pool.IPool.GetInstance*
-  commentId: Overload:ShapeEngine.Pool.IPool.GetInstance
-  href: ShapeEngine.Pool.IPool.html#ShapeEngine_Pool_IPool_GetInstance
-  name: GetInstance
-  nameWithType: IPool.GetInstance
-  fullName: ShapeEngine.Pool.IPool.GetInstance
 - uid: '{T}'
   commentId: '!:T'
   definition: T
@@ -709,3 +324,9 @@ references:
   name: ReturnInstance
   nameWithType: IPool.ReturnInstance
   fullName: ShapeEngine.Pool.IPool.ReturnInstance
+- uid: ShapeEngine.Pool.IPool.OnInstanceFinished*
+  commentId: Overload:ShapeEngine.Pool.IPool.OnInstanceFinished
+  href: ShapeEngine.Pool.IPool.html#ShapeEngine_Pool_IPool_OnInstanceFinished_ShapeEngine_Pool_IPoolable_
+  name: OnInstanceFinished
+  nameWithType: IPool.OnInstanceFinished
+  fullName: ShapeEngine.Pool.IPool.OnInstanceFinished

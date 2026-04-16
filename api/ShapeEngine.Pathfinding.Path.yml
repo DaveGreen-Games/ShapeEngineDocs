@@ -5,16 +5,9 @@ items:
   id: Path
   parent: ShapeEngine.Pathfinding
   children:
-  - ShapeEngine.Pathfinding.Path.Copy
+  - ShapeEngine.Pathfinding.Path.#ctor(System.Numerics.Vector2,System.Numerics.Vector2,System.Collections.Generic.List{ShapeEngine.Core.Shapes.Rect})
   - ShapeEngine.Pathfinding.Path.End
-  - ShapeEngine.Pathfinding.Path.GetRectsCopy
-  - ShapeEngine.Pathfinding.Path.GetRectsSetCopy
-  - ShapeEngine.Pathfinding.Path.IsValid
   - ShapeEngine.Pathfinding.Path.Rects
-  - ShapeEngine.Pathfinding.Path.RentPath(System.Numerics.Vector2,System.Numerics.Vector2,System.Int32)
-  - ShapeEngine.Pathfinding.Path.ReturnInstance
-  - ShapeEngine.Pathfinding.Path.ReturnPath(ShapeEngine.Pathfinding.Path)
-  - ShapeEngine.Pathfinding.Path.ReturnPaths(System.Collections.Generic.IEnumerable{ShapeEngine.Pathfinding.Path})
   - ShapeEngine.Pathfinding.Path.Start
   langs:
   - csharp
@@ -26,27 +19,14 @@ items:
   source:
     remote:
       path: ShapeEngine/Pathfinding/Path.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Path
     path: ../ShapeEngine/ShapeEngine/Pathfinding/Path.cs
-    startLine: 16
+    startLine: 6
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Pathfinding
-  summary: >-
-    Represents a path used by the pathfinding system.
-
-    Contains the start and end positions and the sequence of rectangles that form the path.
-
-    Instances are intended to be rented from and returned to an internal pool
-
-    using <xref href="ShapeEngine.Pathfinding.Path.RentPath(System.Numerics.Vector2%2cSystem.Numerics.Vector2%2cSystem.Int32)" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Pathfinding.Path.ReturnPath(ShapeEngine.Pathfinding.Path)" data-throw-if-not-resolved="false"></xref> to minimize allocations.
-  remarks: >-
-    Returned instances will have their <xref href="ShapeEngine.Pathfinding.Path.Rects" data-throw-if-not-resolved="false"></xref> collection cleared before being reused.
-
-    Returned instances should not be accessed after being returned to the pool.
-  example: []
   syntax:
     content: public class Path
     content.vb: Public Class Path
@@ -60,138 +40,8 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
-  extensionMethods:
-  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
-  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
-  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
-- uid: ShapeEngine.Pathfinding.Path.RentPath(System.Numerics.Vector2,System.Numerics.Vector2,System.Int32)
-  commentId: M:ShapeEngine.Pathfinding.Path.RentPath(System.Numerics.Vector2,System.Numerics.Vector2,System.Int32)
-  id: RentPath(System.Numerics.Vector2,System.Numerics.Vector2,System.Int32)
-  parent: ShapeEngine.Pathfinding.Path
-  langs:
-  - csharp
-  - vb
-  name: RentPath(Vector2, Vector2, int)
-  nameWithType: Path.RentPath(Vector2, Vector2, int)
-  fullName: ShapeEngine.Pathfinding.Path.RentPath(System.Numerics.Vector2, System.Numerics.Vector2, int)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Pathfinding/Path.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: RentPath
-    path: ../ShapeEngine/ShapeEngine/Pathfinding/Path.cs
-    startLine: 29
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Pathfinding
-  summary: >-
-    Rent a <xref href="ShapeEngine.Pathfinding.Path" data-throw-if-not-resolved="false"></xref> instance from the pool or create a new one if none are available.
-
-    The returned instance will have its <xref href="ShapeEngine.Pathfinding.Path.Start" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Pathfinding.Path.End" data-throw-if-not-resolved="false"></xref> properties set.
-  example: []
-  syntax:
-    content: public static Path RentPath(Vector2 start, Vector2 end, int capacity)
-    parameters:
-    - id: start
-      type: System.Numerics.Vector2
-      description: The starting position of the path.
-    - id: end
-      type: System.Numerics.Vector2
-      description: The ending position of the path.
-    - id: capacity
-      type: System.Int32
-      description: Initial capacity for the internal <xref href="ShapeEngine.Pathfinding.Path.Rects" data-throw-if-not-resolved="false"></xref> list.
-    return:
-      type: ShapeEngine.Pathfinding.Path
-      description: A <xref href="ShapeEngine.Pathfinding.Path" data-throw-if-not-resolved="false"></xref> instance ready for use.
-    content.vb: Public Shared Function RentPath(start As Vector2, [end] As Vector2, capacity As Integer) As Path
-  overload: ShapeEngine.Pathfinding.Path.RentPath*
-  nameWithType.vb: Path.RentPath(Vector2, Vector2, Integer)
-  fullName.vb: ShapeEngine.Pathfinding.Path.RentPath(System.Numerics.Vector2, System.Numerics.Vector2, Integer)
-  name.vb: RentPath(Vector2, Vector2, Integer)
-- uid: ShapeEngine.Pathfinding.Path.ReturnPath(ShapeEngine.Pathfinding.Path)
-  commentId: M:ShapeEngine.Pathfinding.Path.ReturnPath(ShapeEngine.Pathfinding.Path)
-  id: ReturnPath(ShapeEngine.Pathfinding.Path)
-  parent: ShapeEngine.Pathfinding.Path
-  langs:
-  - csharp
-  - vb
-  name: ReturnPath(Path)
-  nameWithType: Path.ReturnPath(Path)
-  fullName: ShapeEngine.Pathfinding.Path.ReturnPath(ShapeEngine.Pathfinding.Path)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Pathfinding/Path.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: ReturnPath
-    path: ../ShapeEngine/ShapeEngine/Pathfinding/Path.cs
-    startLine: 52
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Pathfinding
-  summary: >-
-    Returns a rented <xref href="ShapeEngine.Pathfinding.Path" data-throw-if-not-resolved="false"></xref> instance to the internal pool.
-
-    The path's <xref href="ShapeEngine.Pathfinding.Path.Rects" data-throw-if-not-resolved="false"></xref> collection will be cleared by the caller
-  example: []
-  syntax:
-    content: public static void ReturnPath(Path path)
-    parameters:
-    - id: path
-      type: ShapeEngine.Pathfinding.Path
-      description: The <xref href="ShapeEngine.Pathfinding.Path" data-throw-if-not-resolved="false"></xref> instance to enqueue for reuse.
-    content.vb: Public Shared Sub ReturnPath(path As Path)
-  overload: ShapeEngine.Pathfinding.Path.ReturnPath*
-- uid: ShapeEngine.Pathfinding.Path.ReturnPaths(System.Collections.Generic.IEnumerable{ShapeEngine.Pathfinding.Path})
-  commentId: M:ShapeEngine.Pathfinding.Path.ReturnPaths(System.Collections.Generic.IEnumerable{ShapeEngine.Pathfinding.Path})
-  id: ReturnPaths(System.Collections.Generic.IEnumerable{ShapeEngine.Pathfinding.Path})
-  parent: ShapeEngine.Pathfinding.Path
-  langs:
-  - csharp
-  - vb
-  name: ReturnPaths(IEnumerable<Path>)
-  nameWithType: Path.ReturnPaths(IEnumerable<Path>)
-  fullName: ShapeEngine.Pathfinding.Path.ReturnPaths(System.Collections.Generic.IEnumerable<ShapeEngine.Pathfinding.Path>)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Pathfinding/Path.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: ReturnPaths
-    path: ../ShapeEngine/ShapeEngine/Pathfinding/Path.cs
-    startLine: 70
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Pathfinding
-  summary: >-
-    Returns a collection of rented <xref href="ShapeEngine.Pathfinding.Path" data-throw-if-not-resolved="false"></xref> instances to the internal pool.
-
-    Each path will be cleared and enqueued via <xref href="ShapeEngine.Pathfinding.Path.ReturnPath(ShapeEngine.Pathfinding.Path)" data-throw-if-not-resolved="false"></xref>; after calling this
-
-    the caller must not access the returned instances.
-  remarks: >-
-    <code class="paramref">paths</code> should be cleared after calling this method to avoid accidental access
-
-    to returned instances.
-  example: []
-  syntax:
-    content: public static void ReturnPaths(IEnumerable<Path> paths)
-    parameters:
-    - id: paths
-      type: System.Collections.Generic.IEnumerable{ShapeEngine.Pathfinding.Path}
-      description: Enumerable of <xref href="ShapeEngine.Pathfinding.Path" data-throw-if-not-resolved="false"></xref> instances to return.
-    content.vb: Public Shared Sub ReturnPaths(paths As IEnumerable(Of Path))
-  overload: ShapeEngine.Pathfinding.Path.ReturnPaths*
-  nameWithType.vb: Path.ReturnPaths(IEnumerable(Of Path))
-  fullName.vb: ShapeEngine.Pathfinding.Path.ReturnPaths(System.Collections.Generic.IEnumerable(Of ShapeEngine.Pathfinding.Path))
-  name.vb: ReturnPaths(IEnumerable(Of Path))
 - uid: ShapeEngine.Pathfinding.Path.Start
-  commentId: P:ShapeEngine.Pathfinding.Path.Start
+  commentId: F:ShapeEngine.Pathfinding.Path.Start
   id: Start
   parent: ShapeEngine.Pathfinding.Path
   langs:
@@ -200,29 +50,25 @@ items:
   name: Start
   nameWithType: Path.Start
   fullName: ShapeEngine.Pathfinding.Path.Start
-  type: Property
+  type: Field
   source:
     remote:
       path: ShapeEngine/Pathfinding/Path.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Start
     path: ../ShapeEngine/ShapeEngine/Pathfinding/Path.cs
-    startLine: 85
+    startLine: 8
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Pathfinding
-  summary: The starting position of the path.
-  example: []
   syntax:
-    content: public Vector2 Start { get; }
-    parameters: []
+    content: public readonly Vector2 Start
     return:
       type: System.Numerics.Vector2
-    content.vb: Public Property Start As Vector2
-  overload: ShapeEngine.Pathfinding.Path.Start*
+    content.vb: Public ReadOnly Start As Vector2
 - uid: ShapeEngine.Pathfinding.Path.End
-  commentId: P:ShapeEngine.Pathfinding.Path.End
+  commentId: F:ShapeEngine.Pathfinding.Path.End
   id: End
   parent: ShapeEngine.Pathfinding.Path
   langs:
@@ -231,29 +77,25 @@ items:
   name: End
   nameWithType: Path.End
   fullName: ShapeEngine.Pathfinding.Path.End
-  type: Property
+  type: Field
   source:
     remote:
       path: ShapeEngine/Pathfinding/Path.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: End
     path: ../ShapeEngine/ShapeEngine/Pathfinding/Path.cs
-    startLine: 90
+    startLine: 9
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Pathfinding
-  summary: The ending position of the path.
-  example: []
   syntax:
-    content: public Vector2 End { get; }
-    parameters: []
+    content: public readonly Vector2 End
     return:
       type: System.Numerics.Vector2
-    content.vb: Public Property [End] As Vector2
-  overload: ShapeEngine.Pathfinding.Path.End*
+    content.vb: Public ReadOnly [End] As Vector2
 - uid: ShapeEngine.Pathfinding.Path.Rects
-  commentId: P:ShapeEngine.Pathfinding.Path.Rects
+  commentId: F:ShapeEngine.Pathfinding.Path.Rects
   id: Rects
   parent: ShapeEngine.Pathfinding.Path
   langs:
@@ -262,299 +104,60 @@ items:
   name: Rects
   nameWithType: Path.Rects
   fullName: ShapeEngine.Pathfinding.Path.Rects
-  type: Property
+  type: Field
   source:
     remote:
       path: ShapeEngine/Pathfinding/Path.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Rects
     path: ../ShapeEngine/ShapeEngine/Pathfinding/Path.cs
-    startLine: 121
+    startLine: 10
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Pathfinding
-  summary: Provides a read-only view of the internal list of rectangles that compose this path.
-  remarks: >-
-    Returns the internal <xref href="ShapeEngine.Pathfinding.Path.RectsList" data-throw-if-not-resolved="false"></xref> as an <xref href="System.Collections.Generic.IReadOnlyList%601" data-throw-if-not-resolved="false"></xref>.
-
-    Treat the returned collection as read-only: the underlying list is cleared when the
-
-    instance is returned to the pool and must not be retained or modified by callers.
-  example: []
   syntax:
-    content: public IReadOnlyList<Rect> Rects { get; }
-    parameters: []
+    content: public readonly List<Rect> Rects
     return:
-      type: System.Collections.Generic.IReadOnlyList{ShapeEngine.Geometry.RectDef.Rect}
-    content.vb: Public ReadOnly Property Rects As IReadOnlyList(Of Rect)
-  overload: ShapeEngine.Pathfinding.Path.Rects*
-- uid: ShapeEngine.Pathfinding.Path.GetRectsCopy
-  commentId: M:ShapeEngine.Pathfinding.Path.GetRectsCopy
-  id: GetRectsCopy
+      type: System.Collections.Generic.List{ShapeEngine.Core.Shapes.Rect}
+    content.vb: Public ReadOnly Rects As List(Of Rect)
+- uid: ShapeEngine.Pathfinding.Path.#ctor(System.Numerics.Vector2,System.Numerics.Vector2,System.Collections.Generic.List{ShapeEngine.Core.Shapes.Rect})
+  commentId: M:ShapeEngine.Pathfinding.Path.#ctor(System.Numerics.Vector2,System.Numerics.Vector2,System.Collections.Generic.List{ShapeEngine.Core.Shapes.Rect})
+  id: '#ctor(System.Numerics.Vector2,System.Numerics.Vector2,System.Collections.Generic.List{ShapeEngine.Core.Shapes.Rect})'
   parent: ShapeEngine.Pathfinding.Path
   langs:
   - csharp
   - vb
-  name: GetRectsCopy()
-  nameWithType: Path.GetRectsCopy()
-  fullName: ShapeEngine.Pathfinding.Path.GetRectsCopy()
-  type: Method
+  name: Path(Vector2, Vector2, List<Rect>)
+  nameWithType: Path.Path(Vector2, Vector2, List<Rect>)
+  fullName: ShapeEngine.Pathfinding.Path.Path(System.Numerics.Vector2, System.Numerics.Vector2, System.Collections.Generic.List<ShapeEngine.Core.Shapes.Rect>)
+  type: Constructor
   source:
     remote:
       path: ShapeEngine/Pathfinding/Path.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: GetRectsCopy
+    id: .ctor
     path: ../ShapeEngine/ShapeEngine/Pathfinding/Path.cs
-    startLine: 134
+    startLine: 12
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Pathfinding
-  summary: Creates and returns a new list containing the rectangles from the internal backing list.
-  remarks: >-
-    This method allocates a new list. Prefer using the <xref href="ShapeEngine.Pathfinding.Path.Rects" data-throw-if-not-resolved="false"></xref> property for a non-allocating
-
-    read-only view when possible. Do not rely on the original <xref href="ShapeEngine.Pathfinding.Path" data-throw-if-not-resolved="false"></xref> after it has been
-
-    returned to the pool; the returned copy is the only safe representation to hold beyond that.
-  example: []
   syntax:
-    content: public List<Rect> GetRectsCopy()
-    return:
-      type: System.Collections.Generic.List{ShapeEngine.Geometry.RectDef.Rect}
-      description: >-
-        A new <xref href="System.Collections.Generic.List%601" data-throw-if-not-resolved="false"></xref> containing the path's rectangles. The returned list is a copy and
-
-        can be modified independently of the <xref href="ShapeEngine.Pathfinding.Path" data-throw-if-not-resolved="false"></xref> instance.
-    content.vb: Public Function GetRectsCopy() As List(Of Rect)
-  overload: ShapeEngine.Pathfinding.Path.GetRectsCopy*
-- uid: ShapeEngine.Pathfinding.Path.GetRectsSetCopy
-  commentId: M:ShapeEngine.Pathfinding.Path.GetRectsSetCopy
-  id: GetRectsSetCopy
-  parent: ShapeEngine.Pathfinding.Path
-  langs:
-  - csharp
-  - vb
-  name: GetRectsSetCopy()
-  nameWithType: Path.GetRectsSetCopy()
-  fullName: ShapeEngine.Pathfinding.Path.GetRectsSetCopy()
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Pathfinding/Path.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: GetRectsSetCopy
-    path: ../ShapeEngine/ShapeEngine/Pathfinding/Path.cs
-    startLine: 146
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Pathfinding
-  summary: >-
-    Creates and returns a new <xref href="System.Collections.Generic.HashSet%601" data-throw-if-not-resolved="false"></xref> containing the rectangles
-
-    that compose this path.
-  example: []
-  syntax:
-    content: public HashSet<Rect> GetRectsSetCopy()
-    return:
-      type: System.Collections.Generic.HashSet{ShapeEngine.Geometry.RectDef.Rect}
-      description: >-
-        A new hash set populated from the internal backing list. The returned set is an
-
-        independent copy and can be modified without affecting the <xref href="ShapeEngine.Pathfinding.Path" data-throw-if-not-resolved="false"></xref>.
-    content.vb: Public Function GetRectsSetCopy() As HashSet(Of Rect)
-  overload: ShapeEngine.Pathfinding.Path.GetRectsSetCopy*
-- uid: ShapeEngine.Pathfinding.Path.IsValid
-  commentId: P:ShapeEngine.Pathfinding.Path.IsValid
-  id: IsValid
-  parent: ShapeEngine.Pathfinding.Path
-  langs:
-  - csharp
-  - vb
-  name: IsValid
-  nameWithType: Path.IsValid
-  fullName: ShapeEngine.Pathfinding.Path.IsValid
-  type: Property
-  source:
-    remote:
-      path: ShapeEngine/Pathfinding/Path.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: IsValid
-    path: ../ShapeEngine/ShapeEngine/Pathfinding/Path.cs
-    startLine: 156
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Pathfinding
-  summary: Gets a value indicating whether this path contains at least one rectangle.
-  remarks: A path is considered valid when its <xref href="ShapeEngine.Pathfinding.Path.Rects" data-throw-if-not-resolved="false"></xref> collection is not empty.
-  example: []
-  syntax:
-    content: public bool IsValid { get; }
-    parameters: []
-    return:
-      type: System.Boolean
-    content.vb: Public ReadOnly Property IsValid As Boolean
-  overload: ShapeEngine.Pathfinding.Path.IsValid*
-- uid: ShapeEngine.Pathfinding.Path.ReturnInstance
-  commentId: M:ShapeEngine.Pathfinding.Path.ReturnInstance
-  id: ReturnInstance
-  parent: ShapeEngine.Pathfinding.Path
-  langs:
-  - csharp
-  - vb
-  name: ReturnInstance()
-  nameWithType: Path.ReturnInstance()
-  fullName: ShapeEngine.Pathfinding.Path.ReturnInstance()
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Pathfinding/Path.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: ReturnInstance
-    path: ../ShapeEngine/ShapeEngine/Pathfinding/Path.cs
-    startLine: 184
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Pathfinding
-  summary: Returns this rented <xref href="ShapeEngine.Pathfinding.Path" data-throw-if-not-resolved="false"></xref> instance to the internal pool for reuse.
-  remarks: >-
-    This method forwards to <xref href="ShapeEngine.Pathfinding.Path.ReturnPath(ShapeEngine.Pathfinding.Path)" data-throw-if-not-resolved="false"></xref>. After calling this, the instance
-
-    may be reused by other code and should not be accessed by the caller.
-  example: []
-  syntax:
-    content: public void ReturnInstance()
-    content.vb: Public Sub ReturnInstance()
-  overload: ShapeEngine.Pathfinding.Path.ReturnInstance*
-- uid: ShapeEngine.Pathfinding.Path.Copy
-  commentId: M:ShapeEngine.Pathfinding.Path.Copy
-  id: Copy
-  parent: ShapeEngine.Pathfinding.Path
-  langs:
-  - csharp
-  - vb
-  name: Copy()
-  nameWithType: Path.Copy()
-  fullName: ShapeEngine.Pathfinding.Path.Copy()
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Pathfinding/Path.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: Copy
-    path: ../ShapeEngine/ShapeEngine/Pathfinding/Path.cs
-    startLine: 199
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Pathfinding
-  summary: Creates a deep copy of this <xref href="ShapeEngine.Pathfinding.Path" data-throw-if-not-resolved="false"></xref>.
-  example: []
-  syntax:
-    content: public Path Copy()
-    return:
-      type: ShapeEngine.Pathfinding.Path
-      description: >-
-        A new <xref href="ShapeEngine.Pathfinding.Path" data-throw-if-not-resolved="false"></xref> instance with the same <xref href="ShapeEngine.Pathfinding.Path.Start" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Pathfinding.Path.End" data-throw-if-not-resolved="false"></xref> values
-
-        and an independent copy of the internal rectangles list (created via <xref href="ShapeEngine.Pathfinding.Path.GetRectsCopy" data-throw-if-not-resolved="false"></xref>).
-
-        The returned instance is marked as rented; callers can return it to the pool using
-
-        <xref href="ShapeEngine.Pathfinding.Path.ReturnInstance" data-throw-if-not-resolved="false"></xref> / <xref href="ShapeEngine.Pathfinding.Path.ReturnPath(ShapeEngine.Pathfinding.Path)" data-throw-if-not-resolved="false"></xref> when finished or keep it for independent use.
-
-        Once returned to the pool, the original instance should not be accessed further.
-    content.vb: Public Function Copy() As Path
-  overload: ShapeEngine.Pathfinding.Path.Copy*
+    content: public Path(Vector2 start, Vector2 end, List<Rect> rects)
+    parameters:
+    - id: start
+      type: System.Numerics.Vector2
+    - id: end
+      type: System.Numerics.Vector2
+    - id: rects
+      type: System.Collections.Generic.List{ShapeEngine.Core.Shapes.Rect}
+    content.vb: Public Sub New(start As Vector2, [end] As Vector2, rects As List(Of Rect))
+  overload: ShapeEngine.Pathfinding.Path.#ctor*
+  nameWithType.vb: Path.New(Vector2, Vector2, List(Of Rect))
+  fullName.vb: ShapeEngine.Pathfinding.Path.New(System.Numerics.Vector2, System.Numerics.Vector2, System.Collections.Generic.List(Of ShapeEngine.Core.Shapes.Rect))
+  name.vb: New(Vector2, Vector2, List(Of Rect))
 references:
-- uid: ShapeEngine.Pathfinding.Path.RentPath(System.Numerics.Vector2,System.Numerics.Vector2,System.Int32)
-  commentId: M:ShapeEngine.Pathfinding.Path.RentPath(System.Numerics.Vector2,System.Numerics.Vector2,System.Int32)
-  isExternal: true
-  href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_RentPath_System_Numerics_Vector2_System_Numerics_Vector2_System_Int32_
-  name: RentPath(Vector2, Vector2, int)
-  nameWithType: Path.RentPath(Vector2, Vector2, int)
-  fullName: ShapeEngine.Pathfinding.Path.RentPath(System.Numerics.Vector2, System.Numerics.Vector2, int)
-  nameWithType.vb: Path.RentPath(Vector2, Vector2, Integer)
-  fullName.vb: ShapeEngine.Pathfinding.Path.RentPath(System.Numerics.Vector2, System.Numerics.Vector2, Integer)
-  name.vb: RentPath(Vector2, Vector2, Integer)
-  spec.csharp:
-  - uid: ShapeEngine.Pathfinding.Path.RentPath(System.Numerics.Vector2,System.Numerics.Vector2,System.Int32)
-    name: RentPath
-    href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_RentPath_System_Numerics_Vector2_System_Numerics_Vector2_System_Int32_
-  - name: (
-  - uid: System.Numerics.Vector2
-    name: Vector2
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
-  - name: ','
-  - name: " "
-  - uid: System.Numerics.Vector2
-    name: Vector2
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
-  - name: ','
-  - name: " "
-  - uid: System.Int32
-    name: int
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.int32
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Pathfinding.Path.RentPath(System.Numerics.Vector2,System.Numerics.Vector2,System.Int32)
-    name: RentPath
-    href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_RentPath_System_Numerics_Vector2_System_Numerics_Vector2_System_Int32_
-  - name: (
-  - uid: System.Numerics.Vector2
-    name: Vector2
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
-  - name: ','
-  - name: " "
-  - uid: System.Numerics.Vector2
-    name: Vector2
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
-  - name: ','
-  - name: " "
-  - uid: System.Int32
-    name: Integer
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.int32
-  - name: )
-- uid: ShapeEngine.Pathfinding.Path.ReturnPath(ShapeEngine.Pathfinding.Path)
-  commentId: M:ShapeEngine.Pathfinding.Path.ReturnPath(ShapeEngine.Pathfinding.Path)
-  href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_ReturnPath_ShapeEngine_Pathfinding_Path_
-  name: ReturnPath(Path)
-  nameWithType: Path.ReturnPath(Path)
-  fullName: ShapeEngine.Pathfinding.Path.ReturnPath(ShapeEngine.Pathfinding.Path)
-  spec.csharp:
-  - uid: ShapeEngine.Pathfinding.Path.ReturnPath(ShapeEngine.Pathfinding.Path)
-    name: ReturnPath
-    href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_ReturnPath_ShapeEngine_Pathfinding_Path_
-  - name: (
-  - uid: ShapeEngine.Pathfinding.Path
-    name: Path
-    href: ShapeEngine.Pathfinding.Path.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Pathfinding.Path.ReturnPath(ShapeEngine.Pathfinding.Path)
-    name: ReturnPath
-    href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_ReturnPath_ShapeEngine_Pathfinding_Path_
-  - name: (
-  - uid: ShapeEngine.Pathfinding.Path
-    name: Path
-    href: ShapeEngine.Pathfinding.Path.html
-  - name: )
-- uid: ShapeEngine.Pathfinding.Path.Rects
-  commentId: P:ShapeEngine.Pathfinding.Path.Rects
-  href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_Rects
-  name: Rects
-  nameWithType: Path.Rects
-  fullName: ShapeEngine.Pathfinding.Path.Rects
 - uid: ShapeEngine.Pathfinding
   commentId: N:ShapeEngine.Pathfinding
   href: ShapeEngine.html
@@ -807,165 +410,6 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
-- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  parent: ShapeEngine.StaticLib.ShapeLogger
-  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: Log(object, string, LogLevel)
-  nameWithType: ShapeLogger.Log(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: Log(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  parent: ShapeEngine.StaticLib.ShapeLogger
-  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogConsole(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogConsole(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  parent: ShapeEngine.StaticLib.ShapeLogger
-  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogFile(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogFile(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -973,216 +417,6 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  isExternal: true
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: Log(object, string, LogLevel)
-  nameWithType: ShapeLogger.Log(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: Log(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.StaticLib.ShapeLogger
-  commentId: T:ShapeEngine.StaticLib.ShapeLogger
-  parent: ShapeEngine.StaticLib
-  href: ShapeEngine.StaticLib.ShapeLogger.html
-  name: ShapeLogger
-  nameWithType: ShapeLogger
-  fullName: ShapeEngine.StaticLib.ShapeLogger
-- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  isExternal: true
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogConsole(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogConsole(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  isExternal: true
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogFile(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogFile(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.StaticLib
-  commentId: N:ShapeEngine.StaticLib
-  href: ShapeEngine.html
-  name: ShapeEngine.StaticLib
-  nameWithType: ShapeEngine.StaticLib
-  fullName: ShapeEngine.StaticLib
-  spec.csharp:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.StaticLib
-    name: StaticLib
-    href: ShapeEngine.StaticLib.html
-  spec.vb:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.StaticLib
-    name: StaticLib
-    href: ShapeEngine.StaticLib.html
-- uid: ShapeEngine.Pathfinding.Path
-  commentId: T:ShapeEngine.Pathfinding.Path
-  parent: ShapeEngine.Pathfinding
-  href: ShapeEngine.Pathfinding.Path.html
-  name: Path
-  nameWithType: Path
-  fullName: ShapeEngine.Pathfinding.Path
-- uid: ShapeEngine.Pathfinding.Path.Start
-  commentId: P:ShapeEngine.Pathfinding.Path.Start
-  href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_Start
-  name: Start
-  nameWithType: Path.Start
-  fullName: ShapeEngine.Pathfinding.Path.Start
-- uid: ShapeEngine.Pathfinding.Path.End
-  commentId: P:ShapeEngine.Pathfinding.Path.End
-  href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_End
-  name: End
-  nameWithType: Path.End
-  fullName: ShapeEngine.Pathfinding.Path.End
-- uid: ShapeEngine.Pathfinding.Path.RentPath*
-  commentId: Overload:ShapeEngine.Pathfinding.Path.RentPath
-  href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_RentPath_System_Numerics_Vector2_System_Numerics_Vector2_System_Int32_
-  name: RentPath
-  nameWithType: Path.RentPath
-  fullName: ShapeEngine.Pathfinding.Path.RentPath
 - uid: System.Numerics.Vector2
   commentId: T:System.Numerics.Vector2
   parent: System.Numerics
@@ -1191,17 +425,6 @@ references:
   name: Vector2
   nameWithType: Vector2
   fullName: System.Numerics.Vector2
-- uid: System.Int32
-  commentId: T:System.Int32
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.int32
-  name: int
-  nameWithType: int
-  fullName: int
-  nameWithType.vb: Integer
-  fullName.vb: Integer
-  name.vb: Integer
 - uid: System.Numerics
   commentId: N:System.Numerics
   isExternal: true
@@ -1229,74 +452,62 @@ references:
     name: Numerics
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.numerics
-- uid: ShapeEngine.Pathfinding.Path.ReturnPath*
-  commentId: Overload:ShapeEngine.Pathfinding.Path.ReturnPath
-  href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_ReturnPath_ShapeEngine_Pathfinding_Path_
-  name: ReturnPath
-  nameWithType: Path.ReturnPath
-  fullName: ShapeEngine.Pathfinding.Path.ReturnPath
-- uid: ShapeEngine.Pathfinding.Path.ReturnPaths*
-  commentId: Overload:ShapeEngine.Pathfinding.Path.ReturnPaths
-  href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_ReturnPaths_System_Collections_Generic_IEnumerable_ShapeEngine_Pathfinding_Path__
-  name: ReturnPaths
-  nameWithType: Path.ReturnPaths
-  fullName: ShapeEngine.Pathfinding.Path.ReturnPaths
-- uid: System.Collections.Generic.IEnumerable{ShapeEngine.Pathfinding.Path}
-  commentId: T:System.Collections.Generic.IEnumerable{ShapeEngine.Pathfinding.Path}
+- uid: System.Collections.Generic.List{ShapeEngine.Core.Shapes.Rect}
+  commentId: T:System.Collections.Generic.List{ShapeEngine.Core.Shapes.Rect}
   parent: System.Collections.Generic
-  definition: System.Collections.Generic.IEnumerable`1
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
-  name: IEnumerable<Path>
-  nameWithType: IEnumerable<Path>
-  fullName: System.Collections.Generic.IEnumerable<ShapeEngine.Pathfinding.Path>
-  nameWithType.vb: IEnumerable(Of Path)
-  fullName.vb: System.Collections.Generic.IEnumerable(Of ShapeEngine.Pathfinding.Path)
-  name.vb: IEnumerable(Of Path)
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<Rect>
+  nameWithType: List<Rect>
+  fullName: System.Collections.Generic.List<ShapeEngine.Core.Shapes.Rect>
+  nameWithType.vb: List(Of Rect)
+  fullName.vb: System.Collections.Generic.List(Of ShapeEngine.Core.Shapes.Rect)
+  name.vb: List(Of Rect)
   spec.csharp:
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
+  - uid: System.Collections.Generic.List`1
+    name: List
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
   - name: <
-  - uid: ShapeEngine.Pathfinding.Path
-    name: Path
-    href: ShapeEngine.Pathfinding.Path.html
+  - uid: ShapeEngine.Core.Shapes.Rect
+    name: Rect
+    href: ShapeEngine.Core.Shapes.Rect.html
   - name: '>'
   spec.vb:
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
+  - uid: System.Collections.Generic.List`1
+    name: List
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
   - name: (
   - name: Of
   - name: " "
-  - uid: ShapeEngine.Pathfinding.Path
-    name: Path
-    href: ShapeEngine.Pathfinding.Path.html
+  - uid: ShapeEngine.Core.Shapes.Rect
+    name: Rect
+    href: ShapeEngine.Core.Shapes.Rect.html
   - name: )
-- uid: System.Collections.Generic.IEnumerable`1
-  commentId: T:System.Collections.Generic.IEnumerable`1
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
-  name: IEnumerable<T>
-  nameWithType: IEnumerable<T>
-  fullName: System.Collections.Generic.IEnumerable<T>
-  nameWithType.vb: IEnumerable(Of T)
-  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
-  name.vb: IEnumerable(Of T)
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
   spec.csharp:
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
+  - uid: System.Collections.Generic.List`1
+    name: List
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
   - name: <
   - name: T
   - name: '>'
   spec.vb:
-  - uid: System.Collections.Generic.IEnumerable`1
-    name: IEnumerable
+  - uid: System.Collections.Generic.List`1
+    name: List
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
   - name: (
   - name: Of
   - name: " "
@@ -1339,286 +550,12 @@ references:
     name: Generic
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.collections.generic
-- uid: ShapeEngine.Pathfinding.Path.Start*
-  commentId: Overload:ShapeEngine.Pathfinding.Path.Start
-  href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_Start
-  name: Start
-  nameWithType: Path.Start
-  fullName: ShapeEngine.Pathfinding.Path.Start
-- uid: ShapeEngine.Pathfinding.Path.End*
-  commentId: Overload:ShapeEngine.Pathfinding.Path.End
-  href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_End
-  name: End
-  nameWithType: Path.End
-  fullName: ShapeEngine.Pathfinding.Path.End
-- uid: ShapeEngine.Pathfinding.Path.RectsList
-  commentId: F:ShapeEngine.Pathfinding.Path.RectsList
-  name: RectsList
-  nameWithType: Path.RectsList
-  fullName: ShapeEngine.Pathfinding.Path.RectsList
-- uid: System.Collections.Generic.IReadOnlyList`1
-  commentId: T:System.Collections.Generic.IReadOnlyList`1
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
-  name: IReadOnlyList<T>
-  nameWithType: IReadOnlyList<T>
-  fullName: System.Collections.Generic.IReadOnlyList<T>
-  nameWithType.vb: IReadOnlyList(Of T)
-  fullName.vb: System.Collections.Generic.IReadOnlyList(Of T)
-  name.vb: IReadOnlyList(Of T)
-  spec.csharp:
-  - uid: System.Collections.Generic.IReadOnlyList`1
-    name: IReadOnlyList
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
-  - name: <
-  - name: T
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.IReadOnlyList`1
-    name: IReadOnlyList
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
-  - name: (
-  - name: Of
-  - name: " "
-  - name: T
-  - name: )
-- uid: ShapeEngine.Pathfinding.Path.Rects*
-  commentId: Overload:ShapeEngine.Pathfinding.Path.Rects
-  href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_Rects
-  name: Rects
-  nameWithType: Path.Rects
-  fullName: ShapeEngine.Pathfinding.Path.Rects
-- uid: System.Collections.Generic.IReadOnlyList{ShapeEngine.Geometry.RectDef.Rect}
-  commentId: T:System.Collections.Generic.IReadOnlyList{ShapeEngine.Geometry.RectDef.Rect}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.IReadOnlyList`1
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
-  name: IReadOnlyList<Rect>
-  nameWithType: IReadOnlyList<Rect>
-  fullName: System.Collections.Generic.IReadOnlyList<ShapeEngine.Geometry.RectDef.Rect>
-  nameWithType.vb: IReadOnlyList(Of Rect)
-  fullName.vb: System.Collections.Generic.IReadOnlyList(Of ShapeEngine.Geometry.RectDef.Rect)
-  name.vb: IReadOnlyList(Of Rect)
-  spec.csharp:
-  - uid: System.Collections.Generic.IReadOnlyList`1
-    name: IReadOnlyList
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
-  - name: <
-  - uid: ShapeEngine.Geometry.RectDef.Rect
-    name: Rect
-    href: ShapeEngine.Geometry.RectDef.Rect.html
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.IReadOnlyList`1
-    name: IReadOnlyList
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: ShapeEngine.Geometry.RectDef.Rect
-    name: Rect
-    href: ShapeEngine.Geometry.RectDef.Rect.html
-  - name: )
-- uid: System.Collections.Generic.List`1
-  commentId: T:System.Collections.Generic.List`1
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  name: List<T>
-  nameWithType: List<T>
-  fullName: System.Collections.Generic.List<T>
-  nameWithType.vb: List(Of T)
-  fullName.vb: System.Collections.Generic.List(Of T)
-  name.vb: List(Of T)
-  spec.csharp:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  - name: <
-  - name: T
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  - name: (
-  - name: Of
-  - name: " "
-  - name: T
-  - name: )
-- uid: ShapeEngine.Pathfinding.Path.GetRectsCopy*
-  commentId: Overload:ShapeEngine.Pathfinding.Path.GetRectsCopy
-  href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_GetRectsCopy
-  name: GetRectsCopy
-  nameWithType: Path.GetRectsCopy
-  fullName: ShapeEngine.Pathfinding.Path.GetRectsCopy
-- uid: System.Collections.Generic.List{ShapeEngine.Geometry.RectDef.Rect}
-  commentId: T:System.Collections.Generic.List{ShapeEngine.Geometry.RectDef.Rect}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.List`1
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  name: List<Rect>
-  nameWithType: List<Rect>
-  fullName: System.Collections.Generic.List<ShapeEngine.Geometry.RectDef.Rect>
-  nameWithType.vb: List(Of Rect)
-  fullName.vb: System.Collections.Generic.List(Of ShapeEngine.Geometry.RectDef.Rect)
-  name.vb: List(Of Rect)
-  spec.csharp:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  - name: <
-  - uid: ShapeEngine.Geometry.RectDef.Rect
-    name: Rect
-    href: ShapeEngine.Geometry.RectDef.Rect.html
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.List`1
-    name: List
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: ShapeEngine.Geometry.RectDef.Rect
-    name: Rect
-    href: ShapeEngine.Geometry.RectDef.Rect.html
-  - name: )
-- uid: System.Collections.Generic.HashSet`1
-  commentId: T:System.Collections.Generic.HashSet`1
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1
-  name: HashSet<T>
-  nameWithType: HashSet<T>
-  fullName: System.Collections.Generic.HashSet<T>
-  nameWithType.vb: HashSet(Of T)
-  fullName.vb: System.Collections.Generic.HashSet(Of T)
-  name.vb: HashSet(Of T)
-  spec.csharp:
-  - uid: System.Collections.Generic.HashSet`1
-    name: HashSet
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1
-  - name: <
-  - name: T
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.HashSet`1
-    name: HashSet
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1
-  - name: (
-  - name: Of
-  - name: " "
-  - name: T
-  - name: )
-- uid: ShapeEngine.Pathfinding.Path.GetRectsSetCopy*
-  commentId: Overload:ShapeEngine.Pathfinding.Path.GetRectsSetCopy
-  href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_GetRectsSetCopy
-  name: GetRectsSetCopy
-  nameWithType: Path.GetRectsSetCopy
-  fullName: ShapeEngine.Pathfinding.Path.GetRectsSetCopy
-- uid: System.Collections.Generic.HashSet{ShapeEngine.Geometry.RectDef.Rect}
-  commentId: T:System.Collections.Generic.HashSet{ShapeEngine.Geometry.RectDef.Rect}
-  parent: System.Collections.Generic
-  definition: System.Collections.Generic.HashSet`1
-  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1
-  name: HashSet<Rect>
-  nameWithType: HashSet<Rect>
-  fullName: System.Collections.Generic.HashSet<ShapeEngine.Geometry.RectDef.Rect>
-  nameWithType.vb: HashSet(Of Rect)
-  fullName.vb: System.Collections.Generic.HashSet(Of ShapeEngine.Geometry.RectDef.Rect)
-  name.vb: HashSet(Of Rect)
-  spec.csharp:
-  - uid: System.Collections.Generic.HashSet`1
-    name: HashSet
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1
-  - name: <
-  - uid: ShapeEngine.Geometry.RectDef.Rect
-    name: Rect
-    href: ShapeEngine.Geometry.RectDef.Rect.html
-  - name: '>'
-  spec.vb:
-  - uid: System.Collections.Generic.HashSet`1
-    name: HashSet
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.hashset-1
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: ShapeEngine.Geometry.RectDef.Rect
-    name: Rect
-    href: ShapeEngine.Geometry.RectDef.Rect.html
-  - name: )
-- uid: ShapeEngine.Pathfinding.Path.IsValid*
-  commentId: Overload:ShapeEngine.Pathfinding.Path.IsValid
-  href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_IsValid
-  name: IsValid
-  nameWithType: Path.IsValid
-  fullName: ShapeEngine.Pathfinding.Path.IsValid
-- uid: System.Boolean
-  commentId: T:System.Boolean
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.boolean
-  name: bool
-  nameWithType: bool
-  fullName: bool
-  nameWithType.vb: Boolean
-  fullName.vb: Boolean
-  name.vb: Boolean
-- uid: ShapeEngine.Pathfinding.Path.ReturnInstance*
-  commentId: Overload:ShapeEngine.Pathfinding.Path.ReturnInstance
-  href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_ReturnInstance
-  name: ReturnInstance
-  nameWithType: Path.ReturnInstance
-  fullName: ShapeEngine.Pathfinding.Path.ReturnInstance
-- uid: ShapeEngine.Pathfinding.Path.GetRectsCopy
-  commentId: M:ShapeEngine.Pathfinding.Path.GetRectsCopy
-  href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_GetRectsCopy
-  name: GetRectsCopy()
-  nameWithType: Path.GetRectsCopy()
-  fullName: ShapeEngine.Pathfinding.Path.GetRectsCopy()
-  spec.csharp:
-  - uid: ShapeEngine.Pathfinding.Path.GetRectsCopy
-    name: GetRectsCopy
-    href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_GetRectsCopy
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Pathfinding.Path.GetRectsCopy
-    name: GetRectsCopy
-    href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_GetRectsCopy
-  - name: (
-  - name: )
-- uid: ShapeEngine.Pathfinding.Path.ReturnInstance
-  commentId: M:ShapeEngine.Pathfinding.Path.ReturnInstance
-  href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_ReturnInstance
-  name: ReturnInstance()
-  nameWithType: Path.ReturnInstance()
-  fullName: ShapeEngine.Pathfinding.Path.ReturnInstance()
-  spec.csharp:
-  - uid: ShapeEngine.Pathfinding.Path.ReturnInstance
-    name: ReturnInstance
-    href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_ReturnInstance
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Pathfinding.Path.ReturnInstance
-    name: ReturnInstance
-    href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_ReturnInstance
-  - name: (
-  - name: )
-- uid: ShapeEngine.Pathfinding.Path.Copy*
-  commentId: Overload:ShapeEngine.Pathfinding.Path.Copy
-  href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path_Copy
-  name: Copy
-  nameWithType: Path.Copy
-  fullName: ShapeEngine.Pathfinding.Path.Copy
+- uid: ShapeEngine.Pathfinding.Path.#ctor*
+  commentId: Overload:ShapeEngine.Pathfinding.Path.#ctor
+  href: ShapeEngine.Pathfinding.Path.html#ShapeEngine_Pathfinding_Path__ctor_System_Numerics_Vector2_System_Numerics_Vector2_System_Collections_Generic_List_ShapeEngine_Core_Shapes_Rect__
+  name: Path
+  nameWithType: Path.Path
+  fullName: ShapeEngine.Pathfinding.Path.Path
+  nameWithType.vb: Path.New
+  fullName.vb: ShapeEngine.Pathfinding.Path.New
+  name.vb: New

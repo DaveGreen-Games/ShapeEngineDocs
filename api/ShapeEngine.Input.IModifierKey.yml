@@ -6,8 +6,11 @@ items:
   parent: ShapeEngine.Input
   children:
   - ShapeEngine.Input.IModifierKey.GetInputDevice
+  - ShapeEngine.Input.IModifierKey.GetModifierKeyNames(ShapeEngine.Input.IModifierKey[],ShapeEngine.Input.ModifierKeyOperator,System.Boolean)
+  - ShapeEngine.Input.IModifierKey.GetModifierKeyNames(System.Text.StringBuilder,ShapeEngine.Input.IModifierKey[],ShapeEngine.Input.ModifierKeyOperator,System.Boolean)
   - ShapeEngine.Input.IModifierKey.GetName(System.Boolean)
-  - ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.GamepadDevice)
+  - ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.ModifierKeyOperator,ShapeEngine.Input.IModifierKey[],ShapeEngine.Input.ShapeGamepadDevice)
+  - ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.ShapeGamepadDevice)
   langs:
   - csharp
   - vb
@@ -18,68 +21,55 @@ items:
   source:
     remote:
       path: ShapeEngine/Input/IModifierKey.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IModifierKey
     path: ../ShapeEngine/ShapeEngine/Input/IModifierKey.cs
-    startLine: 8
+    startLine: 4
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
-  summary: Represents a modifier key (such as Shift, Ctrl, Alt) for input handling.
-  example: []
   syntax:
-    content: 'public interface IModifierKey : ICopyable<IModifierKey>, IEquatable<IModifierKey>'
-    content.vb: Public Interface IModifierKey Inherits ICopyable(Of IModifierKey), IEquatable(Of IModifierKey)
+    content: public interface IModifierKey
+    content.vb: Public Interface IModifierKey
   derivedClasses:
   - ShapeEngine.Input.ModifierKeyGamepadButton
   - ShapeEngine.Input.ModifierKeyKeyboardButton
   - ShapeEngine.Input.ModifierKeyMouseButton
-  inheritedMembers:
-  - ShapeEngine.Core.ICopyable{ShapeEngine.Input.IModifierKey}.Copy
-  - System.IEquatable{ShapeEngine.Input.IModifierKey}.Equals(ShapeEngine.Input.IModifierKey)
-  extensionMethods:
-  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
-  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
-  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
-- uid: ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.GamepadDevice)
-  commentId: M:ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.GamepadDevice)
-  id: IsActive(ShapeEngine.Input.GamepadDevice)
+- uid: ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.ShapeGamepadDevice)
+  commentId: M:ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.ShapeGamepadDevice)
+  id: IsActive(ShapeEngine.Input.ShapeGamepadDevice)
   parent: ShapeEngine.Input.IModifierKey
   langs:
   - csharp
   - vb
-  name: IsActive(GamepadDevice?)
-  nameWithType: IModifierKey.IsActive(GamepadDevice?)
-  fullName: ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.GamepadDevice?)
+  name: IsActive(ShapeGamepadDevice?)
+  nameWithType: IModifierKey.IsActive(ShapeGamepadDevice?)
+  fullName: ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.ShapeGamepadDevice?)
   type: Method
   source:
     remote:
       path: ShapeEngine/Input/IModifierKey.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsActive
     path: ../ShapeEngine/ShapeEngine/Input/IModifierKey.cs
-    startLine: 15
+    startLine: 6
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
-  summary: Determines if the modifier key is currently active.
-  example: []
   syntax:
-    content: bool IsActive(GamepadDevice? gamepad = null)
+    content: bool IsActive(ShapeGamepadDevice? gamepad = null)
     parameters:
     - id: gamepad
-      type: ShapeEngine.Input.GamepadDevice
-      description: Optional gamepad device to check against.
+      type: ShapeEngine.Input.ShapeGamepadDevice
     return:
       type: System.Boolean
-      description: True if the modifier key is active; otherwise, false.
-    content.vb: Function IsActive(gamepad As GamepadDevice = Nothing) As Boolean
+    content.vb: Function IsActive(gamepad As ShapeGamepadDevice = Nothing) As Boolean
   overload: ShapeEngine.Input.IModifierKey.IsActive*
-  nameWithType.vb: IModifierKey.IsActive(GamepadDevice)
-  fullName.vb: ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.GamepadDevice)
-  name.vb: IsActive(GamepadDevice)
+  nameWithType.vb: IModifierKey.IsActive(ShapeGamepadDevice)
+  fullName.vb: ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.ShapeGamepadDevice)
+  name.vb: IsActive(ShapeGamepadDevice)
 - uid: ShapeEngine.Input.IModifierKey.GetName(System.Boolean)
   commentId: M:ShapeEngine.Input.IModifierKey.GetName(System.Boolean)
   id: GetName(System.Boolean)
@@ -94,25 +84,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Input/IModifierKey.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetName
     path: ../ShapeEngine/ShapeEngine/Input/IModifierKey.cs
-    startLine: 22
+    startLine: 7
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
-  summary: Gets the display name of the modifier key.
-  example: []
   syntax:
     content: string GetName(bool shorthand = true)
     parameters:
     - id: shorthand
       type: System.Boolean
-      description: If true, returns a shorthand name; otherwise, a full name.
     return:
       type: System.String
-      description: The name of the modifier key.
     content.vb: Function GetName(shorthand As Boolean = True) As String
   overload: ShapeEngine.Input.IModifierKey.GetName*
   nameWithType.vb: IModifierKey.GetName(Boolean)
@@ -132,23 +118,134 @@ items:
   source:
     remote:
       path: ShapeEngine/Input/IModifierKey.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetInputDevice
     path: ../ShapeEngine/ShapeEngine/Input/IModifierKey.cs
-    startLine: 28
+    startLine: 8
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
-  summary: Gets the input device type associated with this modifier key.
-  example: []
   syntax:
     content: InputDeviceType GetInputDevice()
     return:
       type: ShapeEngine.Input.InputDeviceType
-      description: The input device type.
     content.vb: Function GetInputDevice() As InputDeviceType
   overload: ShapeEngine.Input.IModifierKey.GetInputDevice*
+- uid: ShapeEngine.Input.IModifierKey.GetModifierKeyNames(ShapeEngine.Input.IModifierKey[],ShapeEngine.Input.ModifierKeyOperator,System.Boolean)
+  commentId: M:ShapeEngine.Input.IModifierKey.GetModifierKeyNames(ShapeEngine.Input.IModifierKey[],ShapeEngine.Input.ModifierKeyOperator,System.Boolean)
+  id: GetModifierKeyNames(ShapeEngine.Input.IModifierKey[],ShapeEngine.Input.ModifierKeyOperator,System.Boolean)
+  parent: ShapeEngine.Input.IModifierKey
+  langs:
+  - csharp
+  - vb
+  name: GetModifierKeyNames(IModifierKey[], ModifierKeyOperator, bool)
+  nameWithType: IModifierKey.GetModifierKeyNames(IModifierKey[], ModifierKeyOperator, bool)
+  fullName: ShapeEngine.Input.IModifierKey.GetModifierKeyNames(ShapeEngine.Input.IModifierKey[], ShapeEngine.Input.ModifierKeyOperator, bool)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Input/IModifierKey.cs
+      branch: copilot/update-docs-publishing-pipeline
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetModifierKeyNames
+    path: ../ShapeEngine/ShapeEngine/Input/IModifierKey.cs
+    startLine: 9
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Input
+  syntax:
+    content: public static string GetModifierKeyNames(IModifierKey[] modifierKeys, ModifierKeyOperator modifierOperator, bool shorthand = true)
+    parameters:
+    - id: modifierKeys
+      type: ShapeEngine.Input.IModifierKey[]
+    - id: modifierOperator
+      type: ShapeEngine.Input.ModifierKeyOperator
+    - id: shorthand
+      type: System.Boolean
+    return:
+      type: System.String
+    content.vb: Public Shared Function GetModifierKeyNames(modifierKeys As IModifierKey(), modifierOperator As ModifierKeyOperator, shorthand As Boolean = True) As String
+  overload: ShapeEngine.Input.IModifierKey.GetModifierKeyNames*
+  nameWithType.vb: IModifierKey.GetModifierKeyNames(IModifierKey(), ModifierKeyOperator, Boolean)
+  fullName.vb: ShapeEngine.Input.IModifierKey.GetModifierKeyNames(ShapeEngine.Input.IModifierKey(), ShapeEngine.Input.ModifierKeyOperator, Boolean)
+  name.vb: GetModifierKeyNames(IModifierKey(), ModifierKeyOperator, Boolean)
+- uid: ShapeEngine.Input.IModifierKey.GetModifierKeyNames(System.Text.StringBuilder,ShapeEngine.Input.IModifierKey[],ShapeEngine.Input.ModifierKeyOperator,System.Boolean)
+  commentId: M:ShapeEngine.Input.IModifierKey.GetModifierKeyNames(System.Text.StringBuilder,ShapeEngine.Input.IModifierKey[],ShapeEngine.Input.ModifierKeyOperator,System.Boolean)
+  id: GetModifierKeyNames(System.Text.StringBuilder,ShapeEngine.Input.IModifierKey[],ShapeEngine.Input.ModifierKeyOperator,System.Boolean)
+  parent: ShapeEngine.Input.IModifierKey
+  langs:
+  - csharp
+  - vb
+  name: GetModifierKeyNames(StringBuilder, IModifierKey[], ModifierKeyOperator, bool)
+  nameWithType: IModifierKey.GetModifierKeyNames(StringBuilder, IModifierKey[], ModifierKeyOperator, bool)
+  fullName: ShapeEngine.Input.IModifierKey.GetModifierKeyNames(System.Text.StringBuilder, ShapeEngine.Input.IModifierKey[], ShapeEngine.Input.ModifierKeyOperator, bool)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Input/IModifierKey.cs
+      branch: copilot/update-docs-publishing-pipeline
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetModifierKeyNames
+    path: ../ShapeEngine/ShapeEngine/Input/IModifierKey.cs
+    startLine: 33
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Input
+  syntax:
+    content: public static void GetModifierKeyNames(StringBuilder sb, IModifierKey[] modifierKeys, ModifierKeyOperator modifierOperator, bool shorthand = true)
+    parameters:
+    - id: sb
+      type: System.Text.StringBuilder
+    - id: modifierKeys
+      type: ShapeEngine.Input.IModifierKey[]
+    - id: modifierOperator
+      type: ShapeEngine.Input.ModifierKeyOperator
+    - id: shorthand
+      type: System.Boolean
+    content.vb: Public Shared Sub GetModifierKeyNames(sb As StringBuilder, modifierKeys As IModifierKey(), modifierOperator As ModifierKeyOperator, shorthand As Boolean = True)
+  overload: ShapeEngine.Input.IModifierKey.GetModifierKeyNames*
+  nameWithType.vb: IModifierKey.GetModifierKeyNames(StringBuilder, IModifierKey(), ModifierKeyOperator, Boolean)
+  fullName.vb: ShapeEngine.Input.IModifierKey.GetModifierKeyNames(System.Text.StringBuilder, ShapeEngine.Input.IModifierKey(), ShapeEngine.Input.ModifierKeyOperator, Boolean)
+  name.vb: GetModifierKeyNames(StringBuilder, IModifierKey(), ModifierKeyOperator, Boolean)
+- uid: ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.ModifierKeyOperator,ShapeEngine.Input.IModifierKey[],ShapeEngine.Input.ShapeGamepadDevice)
+  commentId: M:ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.ModifierKeyOperator,ShapeEngine.Input.IModifierKey[],ShapeEngine.Input.ShapeGamepadDevice)
+  id: IsActive(ShapeEngine.Input.ModifierKeyOperator,ShapeEngine.Input.IModifierKey[],ShapeEngine.Input.ShapeGamepadDevice)
+  parent: ShapeEngine.Input.IModifierKey
+  langs:
+  - csharp
+  - vb
+  name: IsActive(ModifierKeyOperator, IModifierKey[], ShapeGamepadDevice?)
+  nameWithType: IModifierKey.IsActive(ModifierKeyOperator, IModifierKey[], ShapeGamepadDevice?)
+  fullName: ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.ModifierKeyOperator, ShapeEngine.Input.IModifierKey[], ShapeEngine.Input.ShapeGamepadDevice?)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Input/IModifierKey.cs
+      branch: copilot/update-docs-publishing-pipeline
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: IsActive
+    path: ../ShapeEngine/ShapeEngine/Input/IModifierKey.cs
+    startLine: 68
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Input
+  syntax:
+    content: public static bool IsActive(ModifierKeyOperator modifierOperator, IModifierKey[] modifierKeys, ShapeGamepadDevice? gamepad = null)
+    parameters:
+    - id: modifierOperator
+      type: ShapeEngine.Input.ModifierKeyOperator
+    - id: modifierKeys
+      type: ShapeEngine.Input.IModifierKey[]
+    - id: gamepad
+      type: ShapeEngine.Input.ShapeGamepadDevice
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Function IsActive(modifierOperator As ModifierKeyOperator, modifierKeys As IModifierKey(), gamepad As ShapeGamepadDevice = Nothing) As Boolean
+  overload: ShapeEngine.Input.IModifierKey.IsActive*
+  nameWithType.vb: IModifierKey.IsActive(ModifierKeyOperator, IModifierKey(), ShapeGamepadDevice)
+  fullName.vb: ShapeEngine.Input.IModifierKey.IsActive(ShapeEngine.Input.ModifierKeyOperator, ShapeEngine.Input.IModifierKey(), ShapeEngine.Input.ShapeGamepadDevice)
+  name.vb: IsActive(ModifierKeyOperator, IModifierKey(), ShapeGamepadDevice)
 references:
 - uid: ShapeEngine.Input
   commentId: N:ShapeEngine.Input
@@ -172,606 +269,19 @@ references:
   - uid: ShapeEngine.Input
     name: Input
     href: ShapeEngine.Input.html
-- uid: ShapeEngine.Core.ICopyable{ShapeEngine.Input.IModifierKey}.Copy
-  commentId: M:ShapeEngine.Core.ICopyable{ShapeEngine.Input.IModifierKey}.Copy
-  parent: ShapeEngine.Core.ICopyable{ShapeEngine.Input.IModifierKey}
-  definition: ShapeEngine.Core.ICopyable`1.Copy
-  href: ShapeEngine.Core.ICopyable-1.html#ShapeEngine_Core_ICopyable_1_Copy
-  name: Copy()
-  nameWithType: ICopyable<IModifierKey>.Copy()
-  fullName: ShapeEngine.Core.ICopyable<ShapeEngine.Input.IModifierKey>.Copy()
-  nameWithType.vb: ICopyable(Of IModifierKey).Copy()
-  fullName.vb: ShapeEngine.Core.ICopyable(Of ShapeEngine.Input.IModifierKey).Copy()
-  spec.csharp:
-  - uid: ShapeEngine.Core.ICopyable{ShapeEngine.Input.IModifierKey}.Copy
-    name: Copy
-    href: ShapeEngine.Core.ICopyable-1.html#ShapeEngine_Core_ICopyable_1_Copy
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.ICopyable{ShapeEngine.Input.IModifierKey}.Copy
-    name: Copy
-    href: ShapeEngine.Core.ICopyable-1.html#ShapeEngine_Core_ICopyable_1_Copy
-  - name: (
-  - name: )
-- uid: System.IEquatable{ShapeEngine.Input.IModifierKey}.Equals(ShapeEngine.Input.IModifierKey)
-  commentId: M:System.IEquatable{ShapeEngine.Input.IModifierKey}.Equals(ShapeEngine.Input.IModifierKey)
-  parent: System.IEquatable{ShapeEngine.Input.IModifierKey}
-  definition: System.IEquatable`1.Equals(`0)
-  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
-  name: Equals(IModifierKey)
-  nameWithType: IEquatable<IModifierKey>.Equals(IModifierKey)
-  fullName: System.IEquatable<ShapeEngine.Input.IModifierKey>.Equals(ShapeEngine.Input.IModifierKey)
-  nameWithType.vb: IEquatable(Of IModifierKey).Equals(IModifierKey)
-  fullName.vb: System.IEquatable(Of ShapeEngine.Input.IModifierKey).Equals(ShapeEngine.Input.IModifierKey)
-  spec.csharp:
-  - uid: System.IEquatable{ShapeEngine.Input.IModifierKey}.Equals(ShapeEngine.Input.IModifierKey)
-    name: Equals
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
-  - name: (
-  - uid: ShapeEngine.Input.IModifierKey
-    name: IModifierKey
-    href: ShapeEngine.Input.IModifierKey.html
-  - name: )
-  spec.vb:
-  - uid: System.IEquatable{ShapeEngine.Input.IModifierKey}.Equals(ShapeEngine.Input.IModifierKey)
-    name: Equals
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
-  - name: (
-  - uid: ShapeEngine.Input.IModifierKey
-    name: IModifierKey
-    href: ShapeEngine.Input.IModifierKey.html
-  - name: )
-- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  parent: ShapeEngine.StaticLib.ShapeLogger
-  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: Log(object, string, LogLevel)
-  nameWithType: ShapeLogger.Log(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: Log(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  parent: ShapeEngine.StaticLib.ShapeLogger
-  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogConsole(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogConsole(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  parent: ShapeEngine.StaticLib.ShapeLogger
-  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogFile(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogFile(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.Core.ICopyable`1.Copy
-  commentId: M:ShapeEngine.Core.ICopyable`1.Copy
-  href: ShapeEngine.Core.ICopyable-1.html#ShapeEngine_Core_ICopyable_1_Copy
-  name: Copy()
-  nameWithType: ICopyable<T>.Copy()
-  fullName: ShapeEngine.Core.ICopyable<T>.Copy()
-  nameWithType.vb: ICopyable(Of T).Copy()
-  fullName.vb: ShapeEngine.Core.ICopyable(Of T).Copy()
-  spec.csharp:
-  - uid: ShapeEngine.Core.ICopyable`1.Copy
-    name: Copy
-    href: ShapeEngine.Core.ICopyable-1.html#ShapeEngine_Core_ICopyable_1_Copy
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.ICopyable`1.Copy
-    name: Copy
-    href: ShapeEngine.Core.ICopyable-1.html#ShapeEngine_Core_ICopyable_1_Copy
-  - name: (
-  - name: )
-- uid: ShapeEngine.Core.ICopyable{ShapeEngine.Input.IModifierKey}
-  commentId: T:ShapeEngine.Core.ICopyable{ShapeEngine.Input.IModifierKey}
-  parent: ShapeEngine.Core
-  definition: ShapeEngine.Core.ICopyable`1
-  href: ShapeEngine.Core.ICopyable-1.html
-  name: ICopyable<IModifierKey>
-  nameWithType: ICopyable<IModifierKey>
-  fullName: ShapeEngine.Core.ICopyable<ShapeEngine.Input.IModifierKey>
-  nameWithType.vb: ICopyable(Of IModifierKey)
-  fullName.vb: ShapeEngine.Core.ICopyable(Of ShapeEngine.Input.IModifierKey)
-  name.vb: ICopyable(Of IModifierKey)
-  spec.csharp:
-  - uid: ShapeEngine.Core.ICopyable`1
-    name: ICopyable
-    href: ShapeEngine.Core.ICopyable-1.html
-  - name: <
-  - uid: ShapeEngine.Input.IModifierKey
-    name: IModifierKey
-    href: ShapeEngine.Input.IModifierKey.html
-  - name: '>'
-  spec.vb:
-  - uid: ShapeEngine.Core.ICopyable`1
-    name: ICopyable
-    href: ShapeEngine.Core.ICopyable-1.html
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: ShapeEngine.Input.IModifierKey
-    name: IModifierKey
-    href: ShapeEngine.Input.IModifierKey.html
-  - name: )
-- uid: System.IEquatable`1.Equals(`0)
-  commentId: M:System.IEquatable`1.Equals(`0)
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
-  name: Equals(T)
-  nameWithType: IEquatable<T>.Equals(T)
-  fullName: System.IEquatable<T>.Equals(T)
-  nameWithType.vb: IEquatable(Of T).Equals(T)
-  fullName.vb: System.IEquatable(Of T).Equals(T)
-  spec.csharp:
-  - uid: System.IEquatable`1.Equals(`0)
-    name: Equals
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
-  - name: (
-  - name: T
-  - name: )
-  spec.vb:
-  - uid: System.IEquatable`1.Equals(`0)
-    name: Equals
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
-  - name: (
-  - name: T
-  - name: )
-- uid: System.IEquatable{ShapeEngine.Input.IModifierKey}
-  commentId: T:System.IEquatable{ShapeEngine.Input.IModifierKey}
-  parent: System
-  definition: System.IEquatable`1
-  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
-  name: IEquatable<IModifierKey>
-  nameWithType: IEquatable<IModifierKey>
-  fullName: System.IEquatable<ShapeEngine.Input.IModifierKey>
-  nameWithType.vb: IEquatable(Of IModifierKey)
-  fullName.vb: System.IEquatable(Of ShapeEngine.Input.IModifierKey)
-  name.vb: IEquatable(Of IModifierKey)
-  spec.csharp:
-  - uid: System.IEquatable`1
-    name: IEquatable
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
-  - name: <
-  - uid: ShapeEngine.Input.IModifierKey
-    name: IModifierKey
-    href: ShapeEngine.Input.IModifierKey.html
-  - name: '>'
-  spec.vb:
-  - uid: System.IEquatable`1
-    name: IEquatable
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
-  - name: (
-  - name: Of
-  - name: " "
-  - uid: ShapeEngine.Input.IModifierKey
-    name: IModifierKey
-    href: ShapeEngine.Input.IModifierKey.html
-  - name: )
-- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  isExternal: true
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: Log(object, string, LogLevel)
-  nameWithType: ShapeLogger.Log(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: Log(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.StaticLib.ShapeLogger
-  commentId: T:ShapeEngine.StaticLib.ShapeLogger
-  parent: ShapeEngine.StaticLib
-  href: ShapeEngine.StaticLib.ShapeLogger.html
-  name: ShapeLogger
-  nameWithType: ShapeLogger
-  fullName: ShapeEngine.StaticLib.ShapeLogger
-- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  isExternal: true
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogConsole(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogConsole(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  isExternal: true
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogFile(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogFile(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.Core.ICopyable`1
-  commentId: T:ShapeEngine.Core.ICopyable`1
-  href: ShapeEngine.Core.ICopyable-1.html
-  name: ICopyable<T>
-  nameWithType: ICopyable<T>
-  fullName: ShapeEngine.Core.ICopyable<T>
-  nameWithType.vb: ICopyable(Of T)
-  fullName.vb: ShapeEngine.Core.ICopyable(Of T)
-  name.vb: ICopyable(Of T)
-  spec.csharp:
-  - uid: ShapeEngine.Core.ICopyable`1
-    name: ICopyable
-    href: ShapeEngine.Core.ICopyable-1.html
-  - name: <
-  - name: T
-  - name: '>'
-  spec.vb:
-  - uid: ShapeEngine.Core.ICopyable`1
-    name: ICopyable
-    href: ShapeEngine.Core.ICopyable-1.html
-  - name: (
-  - name: Of
-  - name: " "
-  - name: T
-  - name: )
-- uid: ShapeEngine.Core
-  commentId: N:ShapeEngine.Core
-  href: ShapeEngine.html
-  name: ShapeEngine.Core
-  nameWithType: ShapeEngine.Core
-  fullName: ShapeEngine.Core
-  spec.csharp:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Core
-    name: Core
-    href: ShapeEngine.Core.html
-  spec.vb:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Core
-    name: Core
-    href: ShapeEngine.Core.html
-- uid: System.IEquatable`1
-  commentId: T:System.IEquatable`1
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
-  name: IEquatable<T>
-  nameWithType: IEquatable<T>
-  fullName: System.IEquatable<T>
-  nameWithType.vb: IEquatable(Of T)
-  fullName.vb: System.IEquatable(Of T)
-  name.vb: IEquatable(Of T)
-  spec.csharp:
-  - uid: System.IEquatable`1
-    name: IEquatable
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
-  - name: <
-  - name: T
-  - name: '>'
-  spec.vb:
-  - uid: System.IEquatable`1
-    name: IEquatable
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
-  - name: (
-  - name: Of
-  - name: " "
-  - name: T
-  - name: )
-- uid: System
-  commentId: N:System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system
-  name: System
-  nameWithType: System
-  fullName: System
-- uid: ShapeEngine.StaticLib
-  commentId: N:ShapeEngine.StaticLib
-  href: ShapeEngine.html
-  name: ShapeEngine.StaticLib
-  nameWithType: ShapeEngine.StaticLib
-  fullName: ShapeEngine.StaticLib
-  spec.csharp:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.StaticLib
-    name: StaticLib
-    href: ShapeEngine.StaticLib.html
-  spec.vb:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.StaticLib
-    name: StaticLib
-    href: ShapeEngine.StaticLib.html
 - uid: ShapeEngine.Input.IModifierKey.IsActive*
   commentId: Overload:ShapeEngine.Input.IModifierKey.IsActive
-  href: ShapeEngine.Input.IModifierKey.html#ShapeEngine_Input_IModifierKey_IsActive_ShapeEngine_Input_GamepadDevice_
+  href: ShapeEngine.Input.IModifierKey.html#ShapeEngine_Input_IModifierKey_IsActive_ShapeEngine_Input_ShapeGamepadDevice_
   name: IsActive
   nameWithType: IModifierKey.IsActive
   fullName: ShapeEngine.Input.IModifierKey.IsActive
-- uid: ShapeEngine.Input.GamepadDevice
-  commentId: T:ShapeEngine.Input.GamepadDevice
+- uid: ShapeEngine.Input.ShapeGamepadDevice
+  commentId: T:ShapeEngine.Input.ShapeGamepadDevice
   parent: ShapeEngine.Input
-  href: ShapeEngine.Input.GamepadDevice.html
-  name: GamepadDevice
-  nameWithType: GamepadDevice
-  fullName: ShapeEngine.Input.GamepadDevice
+  href: ShapeEngine.Input.ShapeGamepadDevice.html
+  name: ShapeGamepadDevice
+  nameWithType: ShapeGamepadDevice
+  fullName: ShapeEngine.Input.ShapeGamepadDevice
 - uid: System.Boolean
   commentId: T:System.Boolean
   parent: System
@@ -783,6 +293,13 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
 - uid: ShapeEngine.Input.IModifierKey.GetName*
   commentId: Overload:ShapeEngine.Input.IModifierKey.GetName
   href: ShapeEngine.Input.IModifierKey.html#ShapeEngine_Input_IModifierKey_GetName_System_Boolean_
@@ -813,3 +330,72 @@ references:
   name: InputDeviceType
   nameWithType: InputDeviceType
   fullName: ShapeEngine.Input.InputDeviceType
+- uid: ShapeEngine.Input.IModifierKey.GetModifierKeyNames*
+  commentId: Overload:ShapeEngine.Input.IModifierKey.GetModifierKeyNames
+  href: ShapeEngine.Input.IModifierKey.html#ShapeEngine_Input_IModifierKey_GetModifierKeyNames_ShapeEngine_Input_IModifierKey___ShapeEngine_Input_ModifierKeyOperator_System_Boolean_
+  name: GetModifierKeyNames
+  nameWithType: IModifierKey.GetModifierKeyNames
+  fullName: ShapeEngine.Input.IModifierKey.GetModifierKeyNames
+- uid: ShapeEngine.Input.IModifierKey[]
+  isExternal: true
+  href: ShapeEngine.Input.IModifierKey.html
+  name: IModifierKey[]
+  nameWithType: IModifierKey[]
+  fullName: ShapeEngine.Input.IModifierKey[]
+  nameWithType.vb: IModifierKey()
+  fullName.vb: ShapeEngine.Input.IModifierKey()
+  name.vb: IModifierKey()
+  spec.csharp:
+  - uid: ShapeEngine.Input.IModifierKey
+    name: IModifierKey
+    href: ShapeEngine.Input.IModifierKey.html
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: ShapeEngine.Input.IModifierKey
+    name: IModifierKey
+    href: ShapeEngine.Input.IModifierKey.html
+  - name: (
+  - name: )
+- uid: ShapeEngine.Input.ModifierKeyOperator
+  commentId: T:ShapeEngine.Input.ModifierKeyOperator
+  parent: ShapeEngine.Input
+  href: ShapeEngine.Input.ModifierKeyOperator.html
+  name: ModifierKeyOperator
+  nameWithType: ModifierKeyOperator
+  fullName: ShapeEngine.Input.ModifierKeyOperator
+- uid: System.Text.StringBuilder
+  commentId: T:System.Text.StringBuilder
+  parent: System.Text
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.text.stringbuilder
+  name: StringBuilder
+  nameWithType: StringBuilder
+  fullName: System.Text.StringBuilder
+- uid: System.Text
+  commentId: N:System.Text
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Text
+  nameWithType: System.Text
+  fullName: System.Text
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text

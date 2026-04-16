@@ -8,10 +8,10 @@ items:
   - ShapeEngine.Core.GameObject.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
   - ShapeEngine.Core.GameObject.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
   - ShapeEngine.Core.GameObject.GetBoundingBox
-  - ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Geometry.RectDef.Rect)
+  - ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Core.Shapes.Rect)
   - ShapeEngine.Core.GameObject.IsDead
-  - ShapeEngine.Core.GameObject.IsDrawingToGame(ShapeEngine.Geometry.RectDef.Rect)
-  - ShapeEngine.Core.GameObject.IsDrawingToGameUI(ShapeEngine.Geometry.RectDef.Rect)
+  - ShapeEngine.Core.GameObject.IsDrawingToGame(ShapeEngine.Core.Shapes.Rect)
+  - ShapeEngine.Core.GameObject.IsDrawingToGameUI(ShapeEngine.Core.Shapes.Rect)
   - ShapeEngine.Core.GameObject.IsInLayer(System.UInt32)
   - ShapeEngine.Core.GameObject.Kill(System.String,ShapeEngine.Core.GameObject)
   - ShapeEngine.Core.GameObject.Layer
@@ -23,7 +23,7 @@ items:
   - ShapeEngine.Core.GameObject.Transform
   - ShapeEngine.Core.GameObject.TryKill(System.String,ShapeEngine.Core.GameObject)
   - ShapeEngine.Core.GameObject.TryRevive(System.String,ShapeEngine.Core.GameObject)
-  - ShapeEngine.Core.GameObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  - ShapeEngine.Core.GameObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
   - ShapeEngine.Core.GameObject.UpdateParallaxe(System.Numerics.Vector2)
   - ShapeEngine.Core.GameObject.WasKilled(System.String,ShapeEngine.Core.GameObject)
   - ShapeEngine.Core.GameObject.WasRevived(System.String,ShapeEngine.Core.GameObject)
@@ -37,20 +37,14 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/GameObject.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GameObject
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 13
+    startLine: 7
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: >-
-    Represents a base class for all game objects in the engine.
-
-    Provides lifecycle management, update/draw hooks, and layer/bounds logic.
-  remarks: GameObject is intended to be subclassed for specific game logic. It supports kill/revive semantics, event hooks, and parallax/bounds management.
-  example: []
   syntax:
     content: 'public abstract class GameObject : IUpdateable, IDrawable'
     content.vb: Public MustInherit Class GameObject Implements IUpdateable, IDrawable
@@ -60,8 +54,8 @@ items:
   - ShapeEngine.Core.PhysicsObject
   - ShapeEngine.Effects.EffectObject
   implements:
-  - ShapeEngine.Core.IUpdateable
-  - ShapeEngine.Core.IDrawable
+  - ShapeEngine.Core.Interfaces.IUpdateable
+  - ShapeEngine.Core.Interfaces.IDrawable
   inheritedMembers:
   - System.Object.Equals(System.Object)
   - System.Object.Equals(System.Object,System.Object)
@@ -70,10 +64,6 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
-  extensionMethods:
-  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
-  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
-  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
 - uid: ShapeEngine.Core.GameObject.OnKilled
   commentId: E:ShapeEngine.Core.GameObject.OnKilled
   id: OnKilled
@@ -88,20 +78,14 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/GameObject.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnKilled
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 23
+    startLine: 9
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: >-
-    Occurs when this object is killed.
-
-
-    <ul><li>GameObject: The object being killed.</li><li>string?: Optional kill message.</li><li>GameObject?: The killer object, if any.</li></ul>
-  example: []
   syntax:
     content: public event Action<GameObject, string?, GameObject?>? OnKilled
     return:
@@ -121,20 +105,14 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/GameObject.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnRevived
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 32
+    startLine: 10
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: >-
-    Occurs when this object is revived.
-
-
-    <ul><li>GameObject: The object being revived.</li><li>string?: Optional revive message.</li><li>GameObject?: The reviver object, if any.</li></ul>
-  example: []
   syntax:
     content: public event Action<GameObject, string?, GameObject?>? OnRevived
     return:
@@ -154,16 +132,14 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/GameObject.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Transform
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 37
+    startLine: 15
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Gets or sets the transform (position, rotation, scale) of this object.
-  example: []
   syntax:
     content: public Transform2D Transform { get; set; }
     parameters: []
@@ -185,16 +161,14 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/GameObject.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsDead
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 41
+    startLine: 16
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Gets whether this object is dead (killed).
-  example: []
   syntax:
     content: public bool IsDead { get; }
     parameters: []
@@ -216,66 +190,56 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/GameObject.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetBoundingBox
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 47
+    startLine: 19
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Gets the bounding box of this object in world space.
-  example: []
   syntax:
     content: public abstract Rect GetBoundingBox()
     return:
-      type: ShapeEngine.Geometry.RectDef.Rect
-      description: The bounding rectangle.
+      type: ShapeEngine.Core.Shapes.Rect
     content.vb: Public MustOverride Function GetBoundingBox() As Rect
   overload: ShapeEngine.Core.GameObject.GetBoundingBox*
-- uid: ShapeEngine.Core.GameObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  commentId: M:ShapeEngine.Core.GameObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  id: Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+- uid: ShapeEngine.Core.GameObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  commentId: M:ShapeEngine.Core.GameObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  id: Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
   parent: ShapeEngine.Core.GameObject
   langs:
   - csharp
   - vb
-  name: Update(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
-  nameWithType: GameObject.Update(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
-  fullName: ShapeEngine.Core.GameObject.Update(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
+  name: Update(GameTime, ScreenInfo, ScreenInfo)
+  nameWithType: GameObject.Update(GameTime, ScreenInfo, ScreenInfo)
+  fullName: ShapeEngine.Core.GameObject.Update(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
   type: Method
   source:
     remote:
       path: ShapeEngine/Core/GameObject.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 56
+    startLine: 21
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Updates this object. Called every frame.
   example: []
   syntax:
-    content: public abstract void Update(GameTime time, ScreenInfo game, ScreenInfo gameUi, ScreenInfo ui)
+    content: public abstract void Update(GameTime time, ScreenInfo game, ScreenInfo ui)
     parameters:
     - id: time
       type: ShapeEngine.Core.Structs.GameTime
-      description: The current game time.
     - id: game
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: Game screen info.
-    - id: gameUi
-      type: ShapeEngine.Core.Structs.ScreenInfo
-      description: Game UI screen info.
     - id: ui
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: UI screen info.
-    content.vb: Public MustOverride Sub Update(time As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo)
+    content.vb: Public MustOverride Sub Update(time As GameTime, game As ScreenInfo, ui As ScreenInfo)
   overload: ShapeEngine.Core.GameObject.Update*
   implements:
-  - ShapeEngine.Core.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  - ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
 - uid: ShapeEngine.Core.GameObject.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
   commentId: M:ShapeEngine.Core.GameObject.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
   id: DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
@@ -290,26 +254,26 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/GameObject.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawGame
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 62
+    startLine: 23
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Draws this object to the game world.
+  summary: Draw the game here. Is affected by screen shaders and the camera.
   example: []
   syntax:
     content: public abstract void DrawGame(ScreenInfo game)
     parameters:
     - id: game
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: Game screen info.
+      description: ''
     content.vb: Public MustOverride Sub DrawGame(game As ScreenInfo)
   overload: ShapeEngine.Core.GameObject.DrawGame*
   implements:
-  - ShapeEngine.Core.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
+  - ShapeEngine.Core.Interfaces.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
 - uid: ShapeEngine.Core.GameObject.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
   commentId: M:ShapeEngine.Core.GameObject.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
   id: DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
@@ -324,95 +288,87 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/GameObject.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawGameUI
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 68
+    startLine: 25
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Draws this object to the game UI.
+  summary: Draw to the game ui here. Is affected by screen shaders but NOT by the camera.
   example: []
   syntax:
-    content: public abstract void DrawGameUI(ScreenInfo gameUi)
+    content: public abstract void DrawGameUI(ScreenInfo ui)
     parameters:
-    - id: gameUi
+    - id: ui
       type: ShapeEngine.Core.Structs.ScreenInfo
-      description: Game UI screen info.
-    content.vb: Public MustOverride Sub DrawGameUI(gameUi As ScreenInfo)
+      description: ''
+    content.vb: Public MustOverride Sub DrawGameUI(ui As ScreenInfo)
   overload: ShapeEngine.Core.GameObject.DrawGameUI*
   implements:
-  - ShapeEngine.Core.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
-- uid: ShapeEngine.Core.GameObject.IsDrawingToGame(ShapeEngine.Geometry.RectDef.Rect)
-  commentId: M:ShapeEngine.Core.GameObject.IsDrawingToGame(ShapeEngine.Geometry.RectDef.Rect)
-  id: IsDrawingToGame(ShapeEngine.Geometry.RectDef.Rect)
+  - ShapeEngine.Core.Interfaces.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
+- uid: ShapeEngine.Core.GameObject.IsDrawingToGame(ShapeEngine.Core.Shapes.Rect)
+  commentId: M:ShapeEngine.Core.GameObject.IsDrawingToGame(ShapeEngine.Core.Shapes.Rect)
+  id: IsDrawingToGame(ShapeEngine.Core.Shapes.Rect)
   parent: ShapeEngine.Core.GameObject
   langs:
   - csharp
   - vb
   name: IsDrawingToGame(Rect)
   nameWithType: GameObject.IsDrawingToGame(Rect)
-  fullName: ShapeEngine.Core.GameObject.IsDrawingToGame(ShapeEngine.Geometry.RectDef.Rect)
+  fullName: ShapeEngine.Core.GameObject.IsDrawingToGame(ShapeEngine.Core.Shapes.Rect)
   type: Method
   source:
     remote:
       path: ShapeEngine/Core/GameObject.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsDrawingToGame
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 75
+    startLine: 27
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Determines if this object should be drawn to the game world. (default = true)
-  example: []
   syntax:
     content: public virtual bool IsDrawingToGame(Rect gameArea)
     parameters:
     - id: gameArea
-      type: ShapeEngine.Geometry.RectDef.Rect
-      description: The area of the game world.
+      type: ShapeEngine.Core.Shapes.Rect
     return:
       type: System.Boolean
-      description: True if drawing to game, otherwise false.
     content.vb: Public Overridable Function IsDrawingToGame(gameArea As Rect) As Boolean
   overload: ShapeEngine.Core.GameObject.IsDrawingToGame*
-- uid: ShapeEngine.Core.GameObject.IsDrawingToGameUI(ShapeEngine.Geometry.RectDef.Rect)
-  commentId: M:ShapeEngine.Core.GameObject.IsDrawingToGameUI(ShapeEngine.Geometry.RectDef.Rect)
-  id: IsDrawingToGameUI(ShapeEngine.Geometry.RectDef.Rect)
+- uid: ShapeEngine.Core.GameObject.IsDrawingToGameUI(ShapeEngine.Core.Shapes.Rect)
+  commentId: M:ShapeEngine.Core.GameObject.IsDrawingToGameUI(ShapeEngine.Core.Shapes.Rect)
+  id: IsDrawingToGameUI(ShapeEngine.Core.Shapes.Rect)
   parent: ShapeEngine.Core.GameObject
   langs:
   - csharp
   - vb
   name: IsDrawingToGameUI(Rect)
   nameWithType: GameObject.IsDrawingToGameUI(Rect)
-  fullName: ShapeEngine.Core.GameObject.IsDrawingToGameUI(ShapeEngine.Geometry.RectDef.Rect)
+  fullName: ShapeEngine.Core.GameObject.IsDrawingToGameUI(ShapeEngine.Core.Shapes.Rect)
   type: Method
   source:
     remote:
       path: ShapeEngine/Core/GameObject.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsDrawingToGameUI
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 81
+    startLine: 28
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Determines if this object should be drawn to the game UI. (default = false)
-  example: []
   syntax:
-    content: public virtual bool IsDrawingToGameUI(Rect gameUiArea)
+    content: public virtual bool IsDrawingToGameUI(Rect screenArea)
     parameters:
-    - id: gameUiArea
-      type: ShapeEngine.Geometry.RectDef.Rect
-      description: The area of the game UI.
+    - id: screenArea
+      type: ShapeEngine.Core.Shapes.Rect
     return:
       type: System.Boolean
-      description: True if drawing to game UI, otherwise false.
-    content.vb: Public Overridable Function IsDrawingToGameUI(gameUiArea As Rect) As Boolean
+    content.vb: Public Overridable Function IsDrawingToGameUI(screenArea As Rect) As Boolean
   overload: ShapeEngine.Core.GameObject.IsDrawingToGameUI*
 - uid: ShapeEngine.Core.GameObject.Layer
   commentId: P:ShapeEngine.Core.GameObject.Layer
@@ -428,15 +384,15 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/GameObject.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Layer
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 86
+    startLine: 33
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Gets or sets the area layer this object is stored in. Higher layers are drawn on top of lower layers.
+  summary: The area layer the object is stored in. Higher layers are draw on top of lower layers.
   example: []
   syntax:
     content: public uint Layer { get; set; }
@@ -459,15 +415,15 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/GameObject.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: UpdateParallaxe
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 91
+    startLine: 38
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Called by the area to update the object's position based on the new parallax position.
+  summary: Is called by the area. Can be used to update the objects position based on the new parallax position.
   example: []
   syntax:
     content: public virtual void UpdateParallaxe(Vector2 newParallaxPosition)
@@ -491,25 +447,25 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/GameObject.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsInLayer
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 98
+    startLine: 45
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Checks if the object is in a specific layer.
+  summary: Check if the object is in a layer.
   example: []
   syntax:
     content: public bool IsInLayer(uint layer)
     parameters:
     - id: layer
       type: System.UInt32
-      description: The layer to check.
+      description: ''
     return:
       type: System.Boolean
-      description: True if in the specified layer.
+      description: ''
     content.vb: Public Function IsInLayer(layer As UInteger) As Boolean
   overload: ShapeEngine.Core.GameObject.IsInLayer*
   nameWithType.vb: GameObject.IsInLayer(UInteger)
@@ -529,22 +485,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/GameObject.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnSpawned
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 104
+    startLine: 50
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Called when the game object is added to an area.
+  summary: Is called when gameobject is added to an area.
   example: []
   syntax:
     content: public virtual void OnSpawned(SpawnArea spawnArea)
     parameters:
     - id: spawnArea
       type: ShapeEngine.Core.SpawnArea
-      description: The spawn area this object is added to.
     content.vb: Public Overridable Sub OnSpawned(spawnArea As SpawnArea)
   overload: ShapeEngine.Core.GameObject.OnSpawned*
 - uid: ShapeEngine.Core.GameObject.OnDespawned(ShapeEngine.Core.SpawnArea)
@@ -561,57 +516,56 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/GameObject.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnDespawned
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 109
+    startLine: 54
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Called by the area once a game object is removed or dead.
+  summary: Is called by the area once a game object is dead.
   example: []
   syntax:
     content: public virtual void OnDespawned(SpawnArea spawnArea)
     parameters:
     - id: spawnArea
       type: ShapeEngine.Core.SpawnArea
-      description: The spawn area this object is removed from.
     content.vb: Public Overridable Sub OnDespawned(spawnArea As SpawnArea)
   overload: ShapeEngine.Core.GameObject.OnDespawned*
-- uid: ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Geometry.RectDef.Rect)
-  commentId: M:ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Geometry.RectDef.Rect)
-  id: HasLeftBounds(ShapeEngine.Geometry.RectDef.Rect)
+- uid: ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Core.Shapes.Rect)
+  commentId: M:ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Core.Shapes.Rect)
+  id: HasLeftBounds(ShapeEngine.Core.Shapes.Rect)
   parent: ShapeEngine.Core.GameObject
   langs:
   - csharp
   - vb
   name: HasLeftBounds(Rect)
   nameWithType: GameObject.HasLeftBounds(Rect)
-  fullName: ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Geometry.RectDef.Rect)
+  fullName: ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Core.Shapes.Rect)
   type: Method
   source:
     remote:
       path: ShapeEngine/Core/GameObject.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HasLeftBounds
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 116
+    startLine: 73
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Checks if this object should be removed from the spawn area based on bounds.
+  summary: Get the bounds of the spawn area this object is in and return if this object should be removed from the spawn area.
   example: []
   syntax:
     content: public virtual bool HasLeftBounds(Rect bounds)
     parameters:
     - id: bounds
-      type: ShapeEngine.Geometry.RectDef.Rect
+      type: ShapeEngine.Core.Shapes.Rect
       description: The rect bounds of the spawn area.
     return:
       type: System.Boolean
-      description: True if the object should be removed from the spawn area.
+      description: If true is return object is removed from the spawn area
     content.vb: Public Overridable Function HasLeftBounds(bounds As Rect) As Boolean
   overload: ShapeEngine.Core.GameObject.HasLeftBounds*
 - uid: ShapeEngine.Core.GameObject.Kill(System.String,ShapeEngine.Core.GameObject)
@@ -628,11 +582,11 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/GameObject.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Kill
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 124
+    startLine: 79
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -643,13 +597,11 @@ items:
     parameters:
     - id: killMessage
       type: System.String
-      description: Optional message for the kill event.
     - id: killer
       type: ShapeEngine.Core.GameObject
-      description: Optional killer object.
     return:
       type: System.Boolean
-      description: True if kill was successful.
+      description: Returns if kill was successful.
     content.vb: Public Function Kill(killMessage As String = Nothing, killer As GameObject = Nothing) As Boolean
   overload: ShapeEngine.Core.GameObject.Kill*
   nameWithType.vb: GameObject.Kill(String, GameObject)
@@ -669,25 +621,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/GameObject.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: WasKilled
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 143
+    startLine: 93
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Called after the object is killed. Override for custom logic.
-  example: []
   syntax:
     content: protected virtual void WasKilled(string? killMessage = null, GameObject? killer = null)
     parameters:
     - id: killMessage
       type: System.String
-      description: Optional message for the kill event.
     - id: killer
       type: ShapeEngine.Core.GameObject
-      description: Optional killer object.
     content.vb: Protected Overridable Sub WasKilled(killMessage As String = Nothing, killer As GameObject = Nothing)
   overload: ShapeEngine.Core.GameObject.WasKilled*
   nameWithType.vb: GameObject.WasKilled(String, GameObject)
@@ -707,28 +655,23 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/GameObject.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TryKill
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 150
+    startLine: 94
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Called before the object is killed. Override to prevent kill by returning false.
-  example: []
   syntax:
     content: protected virtual bool TryKill(string? killMessage = null, GameObject? killer = null)
     parameters:
     - id: killMessage
       type: System.String
-      description: Optional message for the kill event.
     - id: killer
       type: ShapeEngine.Core.GameObject
-      description: Optional killer object.
     return:
       type: System.Boolean
-      description: True to allow kill, false to prevent.
     content.vb: Protected Overridable Function TryKill(killMessage As String = Nothing, killer As GameObject = Nothing) As Boolean
   overload: ShapeEngine.Core.GameObject.TryKill*
   nameWithType.vb: GameObject.TryKill(String, GameObject)
@@ -748,28 +691,23 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/GameObject.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Revive
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 158
+    startLine: 96
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Tries to revive this game object.
-  example: []
   syntax:
     content: public bool Revive(string? reviveMessage = null, GameObject? reviver = null)
     parameters:
     - id: reviveMessage
       type: System.String
-      description: Optional message for the revive event.
     - id: reviver
       type: ShapeEngine.Core.GameObject
-      description: Optional reviver object.
     return:
       type: System.Boolean
-      description: True if revive was successful.
     content.vb: Public Function Revive(reviveMessage As String = Nothing, reviver As GameObject = Nothing) As Boolean
   overload: ShapeEngine.Core.GameObject.Revive*
   nameWithType.vb: GameObject.Revive(String, GameObject)
@@ -789,25 +727,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/GameObject.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: WasRevived
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 177
+    startLine: 110
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Called after the object is revived. Override for custom logic.
-  example: []
   syntax:
     content: protected virtual void WasRevived(string? reviveMessage = null, GameObject? reviver = null)
     parameters:
     - id: reviveMessage
       type: System.String
-      description: Optional message for the revive event.
     - id: reviver
       type: ShapeEngine.Core.GameObject
-      description: Optional reviver object.
     content.vb: Protected Overridable Sub WasRevived(reviveMessage As String = Nothing, reviver As GameObject = Nothing)
   overload: ShapeEngine.Core.GameObject.WasRevived*
   nameWithType.vb: GameObject.WasRevived(String, GameObject)
@@ -827,28 +761,23 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/GameObject.cs
-      branch: main
+      branch: copilot/update-docs-publishing-pipeline
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TryRevive
     path: ../ShapeEngine/ShapeEngine/Core/GameObject.cs
-    startLine: 184
+    startLine: 111
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Called before the object is revived. Override to prevent revive by returning false.
-  example: []
   syntax:
     content: protected virtual bool TryRevive(string? reviveMessage = null, GameObject? reviver = null)
     parameters:
     - id: reviveMessage
       type: System.String
-      description: Optional message for the revive event.
     - id: reviver
       type: ShapeEngine.Core.GameObject
-      description: Optional reviver object.
     return:
       type: System.Boolean
-      description: True to allow revive, false to prevent.
     content.vb: Protected Overridable Function TryRevive(reviveMessage As String = Nothing, reviver As GameObject = Nothing) As Boolean
   overload: ShapeEngine.Core.GameObject.TryRevive*
   nameWithType.vb: GameObject.TryRevive(String, GameObject)
@@ -888,20 +817,20 @@ references:
   nameWithType.vb: Object
   fullName.vb: Object
   name.vb: Object
-- uid: ShapeEngine.Core.IUpdateable
-  commentId: T:ShapeEngine.Core.IUpdateable
-  parent: ShapeEngine.Core
-  href: ShapeEngine.Core.IUpdateable.html
+- uid: ShapeEngine.Core.Interfaces.IUpdateable
+  commentId: T:ShapeEngine.Core.Interfaces.IUpdateable
+  parent: ShapeEngine.Core.Interfaces
+  href: ShapeEngine.Core.Interfaces.IUpdateable.html
   name: IUpdateable
   nameWithType: IUpdateable
-  fullName: ShapeEngine.Core.IUpdateable
-- uid: ShapeEngine.Core.IDrawable
-  commentId: T:ShapeEngine.Core.IDrawable
-  parent: ShapeEngine.Core
-  href: ShapeEngine.Core.IDrawable.html
+  fullName: ShapeEngine.Core.Interfaces.IUpdateable
+- uid: ShapeEngine.Core.Interfaces.IDrawable
+  commentId: T:ShapeEngine.Core.Interfaces.IDrawable
+  parent: ShapeEngine.Core.Interfaces
+  href: ShapeEngine.Core.Interfaces.IDrawable.html
   name: IDrawable
   nameWithType: IDrawable
-  fullName: ShapeEngine.Core.IDrawable
+  fullName: ShapeEngine.Core.Interfaces.IDrawable
 - uid: System.Object.Equals(System.Object)
   commentId: M:System.Object.Equals(System.Object)
   parent: System.Object
@@ -1121,165 +1050,6 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
-- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  parent: ShapeEngine.StaticLib.ShapeLogger
-  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: Log(object, string, LogLevel)
-  nameWithType: ShapeLogger.Log(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: Log(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  parent: ShapeEngine.StaticLib.ShapeLogger
-  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogConsole(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogConsole(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  parent: ShapeEngine.StaticLib.ShapeLogger
-  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogFile(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogFile(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -1287,191 +1057,36 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  isExternal: true
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: Log(object, string, LogLevel)
-  nameWithType: ShapeLogger.Log(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: Log(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.StaticLib.ShapeLogger
-  commentId: T:ShapeEngine.StaticLib.ShapeLogger
-  parent: ShapeEngine.StaticLib
-  href: ShapeEngine.StaticLib.ShapeLogger.html
-  name: ShapeLogger
-  nameWithType: ShapeLogger
-  fullName: ShapeEngine.StaticLib.ShapeLogger
-- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  isExternal: true
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogConsole(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogConsole(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  isExternal: true
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogFile(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogFile(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.StaticLib
-  commentId: N:ShapeEngine.StaticLib
+- uid: ShapeEngine.Core.Interfaces
+  commentId: N:ShapeEngine.Core.Interfaces
   href: ShapeEngine.html
-  name: ShapeEngine.StaticLib
-  nameWithType: ShapeEngine.StaticLib
-  fullName: ShapeEngine.StaticLib
+  name: ShapeEngine.Core.Interfaces
+  nameWithType: ShapeEngine.Core.Interfaces
+  fullName: ShapeEngine.Core.Interfaces
   spec.csharp:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.StaticLib
-    name: StaticLib
-    href: ShapeEngine.StaticLib.html
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+  - name: .
+  - uid: ShapeEngine.Core.Interfaces
+    name: Interfaces
+    href: ShapeEngine.Core.Interfaces.html
   spec.vb:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.StaticLib
-    name: StaticLib
-    href: ShapeEngine.StaticLib.html
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+  - name: .
+  - uid: ShapeEngine.Core.Interfaces
+    name: Interfaces
+    href: ShapeEngine.Core.Interfaces.html
 - uid: System.Action{ShapeEngine.Core.GameObject,System.String,ShapeEngine.Core.GameObject}
   commentId: T:System.Action{ShapeEngine.Core.GameObject,System.String,ShapeEngine.Core.GameObject}
   parent: System
@@ -1633,69 +1248,64 @@ references:
   name: GetBoundingBox
   nameWithType: GameObject.GetBoundingBox
   fullName: ShapeEngine.Core.GameObject.GetBoundingBox
-- uid: ShapeEngine.Geometry.RectDef.Rect
-  commentId: T:ShapeEngine.Geometry.RectDef.Rect
-  parent: ShapeEngine.Geometry.RectDef
-  href: ShapeEngine.Geometry.RectDef.Rect.html
+- uid: ShapeEngine.Core.Shapes.Rect
+  commentId: T:ShapeEngine.Core.Shapes.Rect
+  parent: ShapeEngine.Core.Shapes
+  href: ShapeEngine.Core.Shapes.Rect.html
   name: Rect
   nameWithType: Rect
-  fullName: ShapeEngine.Geometry.RectDef.Rect
-- uid: ShapeEngine.Geometry.RectDef
-  commentId: N:ShapeEngine.Geometry.RectDef
+  fullName: ShapeEngine.Core.Shapes.Rect
+- uid: ShapeEngine.Core.Shapes
+  commentId: N:ShapeEngine.Core.Shapes
   href: ShapeEngine.html
-  name: ShapeEngine.Geometry.RectDef
-  nameWithType: ShapeEngine.Geometry.RectDef
-  fullName: ShapeEngine.Geometry.RectDef
+  name: ShapeEngine.Core.Shapes
+  nameWithType: ShapeEngine.Core.Shapes
+  fullName: ShapeEngine.Core.Shapes
   spec.csharp:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.Geometry
-    name: Geometry
-    href: ShapeEngine.Geometry.html
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
   - name: .
-  - uid: ShapeEngine.Geometry.RectDef
-    name: RectDef
-    href: ShapeEngine.Geometry.RectDef.html
+  - uid: ShapeEngine.Core.Shapes
+    name: Shapes
+    href: ShapeEngine.Core.Shapes.html
   spec.vb:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.Geometry
-    name: Geometry
-    href: ShapeEngine.Geometry.html
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
   - name: .
-  - uid: ShapeEngine.Geometry.RectDef
-    name: RectDef
-    href: ShapeEngine.Geometry.RectDef.html
+  - uid: ShapeEngine.Core.Shapes
+    name: Shapes
+    href: ShapeEngine.Core.Shapes.html
 - uid: ShapeEngine.Core.GameObject.Update*
   commentId: Overload:ShapeEngine.Core.GameObject.Update
-  href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
+  href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
   name: Update
   nameWithType: GameObject.Update
   fullName: ShapeEngine.Core.GameObject.Update
-- uid: ShapeEngine.Core.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  commentId: M:ShapeEngine.Core.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  parent: ShapeEngine.Core.IUpdateable
-  href: ShapeEngine.Core.IUpdateable.html#ShapeEngine_Core_IUpdateable_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
-  name: Update(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
-  nameWithType: IUpdateable.Update(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
-  fullName: ShapeEngine.Core.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
+- uid: ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  commentId: M:ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  parent: ShapeEngine.Core.Interfaces.IUpdateable
+  href: ShapeEngine.Core.Interfaces.IUpdateable.html#ShapeEngine_Core_Interfaces_IUpdateable_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
+  name: Update(GameTime, ScreenInfo, ScreenInfo)
+  nameWithType: IUpdateable.Update(GameTime, ScreenInfo, ScreenInfo)
+  fullName: ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
   spec.csharp:
-  - uid: ShapeEngine.Core.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  - uid: ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
     name: Update
-    href: ShapeEngine.Core.IUpdateable.html#ShapeEngine_Core_IUpdateable_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
+    href: ShapeEngine.Core.Interfaces.IUpdateable.html#ShapeEngine_Core_Interfaces_IUpdateable_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
   - name: (
   - uid: ShapeEngine.Core.Structs.GameTime
     name: GameTime
     href: ShapeEngine.Core.Structs.GameTime.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
   - name: ','
   - name: " "
   - uid: ShapeEngine.Core.Structs.ScreenInfo
@@ -1708,18 +1318,13 @@ references:
     href: ShapeEngine.Core.Structs.ScreenInfo.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  - uid: ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
     name: Update
-    href: ShapeEngine.Core.IUpdateable.html#ShapeEngine_Core_IUpdateable_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
+    href: ShapeEngine.Core.Interfaces.IUpdateable.html#ShapeEngine_Core_Interfaces_IUpdateable_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
   - name: (
   - uid: ShapeEngine.Core.Structs.GameTime
     name: GameTime
     href: ShapeEngine.Core.Structs.GameTime.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
   - name: ','
   - name: " "
   - uid: ShapeEngine.Core.Structs.ScreenInfo
@@ -1751,26 +1356,26 @@ references:
   name: DrawGame
   nameWithType: GameObject.DrawGame
   fullName: ShapeEngine.Core.GameObject.DrawGame
-- uid: ShapeEngine.Core.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
-  commentId: M:ShapeEngine.Core.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
-  parent: ShapeEngine.Core.IDrawable
-  href: ShapeEngine.Core.IDrawable.html#ShapeEngine_Core_IDrawable_DrawGame_ShapeEngine_Core_Structs_ScreenInfo_
+- uid: ShapeEngine.Core.Interfaces.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
+  commentId: M:ShapeEngine.Core.Interfaces.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
+  parent: ShapeEngine.Core.Interfaces.IDrawable
+  href: ShapeEngine.Core.Interfaces.IDrawable.html#ShapeEngine_Core_Interfaces_IDrawable_DrawGame_ShapeEngine_Core_Structs_ScreenInfo_
   name: DrawGame(ScreenInfo)
   nameWithType: IDrawable.DrawGame(ScreenInfo)
-  fullName: ShapeEngine.Core.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
+  fullName: ShapeEngine.Core.Interfaces.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
   spec.csharp:
-  - uid: ShapeEngine.Core.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
+  - uid: ShapeEngine.Core.Interfaces.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
     name: DrawGame
-    href: ShapeEngine.Core.IDrawable.html#ShapeEngine_Core_IDrawable_DrawGame_ShapeEngine_Core_Structs_ScreenInfo_
+    href: ShapeEngine.Core.Interfaces.IDrawable.html#ShapeEngine_Core_Interfaces_IDrawable_DrawGame_ShapeEngine_Core_Structs_ScreenInfo_
   - name: (
   - uid: ShapeEngine.Core.Structs.ScreenInfo
     name: ScreenInfo
     href: ShapeEngine.Core.Structs.ScreenInfo.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
+  - uid: ShapeEngine.Core.Interfaces.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
     name: DrawGame
-    href: ShapeEngine.Core.IDrawable.html#ShapeEngine_Core_IDrawable_DrawGame_ShapeEngine_Core_Structs_ScreenInfo_
+    href: ShapeEngine.Core.Interfaces.IDrawable.html#ShapeEngine_Core_Interfaces_IDrawable_DrawGame_ShapeEngine_Core_Structs_ScreenInfo_
   - name: (
   - uid: ShapeEngine.Core.Structs.ScreenInfo
     name: ScreenInfo
@@ -1782,26 +1387,26 @@ references:
   name: DrawGameUI
   nameWithType: GameObject.DrawGameUI
   fullName: ShapeEngine.Core.GameObject.DrawGameUI
-- uid: ShapeEngine.Core.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
-  commentId: M:ShapeEngine.Core.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
-  parent: ShapeEngine.Core.IDrawable
-  href: ShapeEngine.Core.IDrawable.html#ShapeEngine_Core_IDrawable_DrawGameUI_ShapeEngine_Core_Structs_ScreenInfo_
+- uid: ShapeEngine.Core.Interfaces.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
+  commentId: M:ShapeEngine.Core.Interfaces.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
+  parent: ShapeEngine.Core.Interfaces.IDrawable
+  href: ShapeEngine.Core.Interfaces.IDrawable.html#ShapeEngine_Core_Interfaces_IDrawable_DrawGameUI_ShapeEngine_Core_Structs_ScreenInfo_
   name: DrawGameUI(ScreenInfo)
   nameWithType: IDrawable.DrawGameUI(ScreenInfo)
-  fullName: ShapeEngine.Core.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
+  fullName: ShapeEngine.Core.Interfaces.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
   spec.csharp:
-  - uid: ShapeEngine.Core.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
+  - uid: ShapeEngine.Core.Interfaces.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
     name: DrawGameUI
-    href: ShapeEngine.Core.IDrawable.html#ShapeEngine_Core_IDrawable_DrawGameUI_ShapeEngine_Core_Structs_ScreenInfo_
+    href: ShapeEngine.Core.Interfaces.IDrawable.html#ShapeEngine_Core_Interfaces_IDrawable_DrawGameUI_ShapeEngine_Core_Structs_ScreenInfo_
   - name: (
   - uid: ShapeEngine.Core.Structs.ScreenInfo
     name: ScreenInfo
     href: ShapeEngine.Core.Structs.ScreenInfo.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
+  - uid: ShapeEngine.Core.Interfaces.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
     name: DrawGameUI
-    href: ShapeEngine.Core.IDrawable.html#ShapeEngine_Core_IDrawable_DrawGameUI_ShapeEngine_Core_Structs_ScreenInfo_
+    href: ShapeEngine.Core.Interfaces.IDrawable.html#ShapeEngine_Core_Interfaces_IDrawable_DrawGameUI_ShapeEngine_Core_Structs_ScreenInfo_
   - name: (
   - uid: ShapeEngine.Core.Structs.ScreenInfo
     name: ScreenInfo
@@ -1809,13 +1414,13 @@ references:
   - name: )
 - uid: ShapeEngine.Core.GameObject.IsDrawingToGame*
   commentId: Overload:ShapeEngine.Core.GameObject.IsDrawingToGame
-  href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_IsDrawingToGame_ShapeEngine_Geometry_RectDef_Rect_
+  href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_IsDrawingToGame_ShapeEngine_Core_Shapes_Rect_
   name: IsDrawingToGame
   nameWithType: GameObject.IsDrawingToGame
   fullName: ShapeEngine.Core.GameObject.IsDrawingToGame
 - uid: ShapeEngine.Core.GameObject.IsDrawingToGameUI*
   commentId: Overload:ShapeEngine.Core.GameObject.IsDrawingToGameUI
-  href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_IsDrawingToGameUI_ShapeEngine_Geometry_RectDef_Rect_
+  href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_IsDrawingToGameUI_ShapeEngine_Core_Shapes_Rect_
   name: IsDrawingToGameUI
   nameWithType: GameObject.IsDrawingToGameUI
   fullName: ShapeEngine.Core.GameObject.IsDrawingToGameUI
@@ -1904,7 +1509,7 @@ references:
   fullName: ShapeEngine.Core.GameObject.OnDespawned
 - uid: ShapeEngine.Core.GameObject.HasLeftBounds*
   commentId: Overload:ShapeEngine.Core.GameObject.HasLeftBounds
-  href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_HasLeftBounds_ShapeEngine_Geometry_RectDef_Rect_
+  href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_HasLeftBounds_ShapeEngine_Core_Shapes_Rect_
   name: HasLeftBounds
   nameWithType: GameObject.HasLeftBounds
   fullName: ShapeEngine.Core.GameObject.HasLeftBounds
