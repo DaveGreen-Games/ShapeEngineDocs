@@ -5,11 +5,13 @@ items:
   id: PhysicsObject
   parent: ShapeEngine.Core
   children:
+  - ShapeEngine.Core.PhysicsObject.AccumulatedAcceleration
   - ShapeEngine.Core.PhysicsObject.AccumulatedForce
   - ShapeEngine.Core.PhysicsObject.AccumulatedImpulses
+  - ShapeEngine.Core.PhysicsObject.AddAcceleration(System.Numerics.Vector2)
   - ShapeEngine.Core.PhysicsObject.AddForce(System.Numerics.Vector2)
-  - ShapeEngine.Core.PhysicsObject.AddForceRaw(System.Numerics.Vector2)
   - ShapeEngine.Core.PhysicsObject.AddImpulse(System.Numerics.Vector2)
+  - ShapeEngine.Core.PhysicsObject.ClearAccumulatedAcceleration
   - ShapeEngine.Core.PhysicsObject.ClearAccumulatedForce
   - ShapeEngine.Core.PhysicsObject.ClearAccumulatedImpulses
   - ShapeEngine.Core.PhysicsObject.ConstAcceleration
@@ -38,15 +40,57 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PhysicsObject
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 13
+    startLine: 34
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: >-
-    Represents a game object with physics properties and simulation logic.
+  summary: Represents a game object with simple gameplay-oriented 2D physics state and integration.
+  remarks: >-
+    <p>
 
-    Inherits from <xref href="ShapeEngine.Core.GameObject" data-throw-if-not-resolved="false"></xref> and adds velocity, mass, drag, and force/impulse accumulation.
-  remarks: PhysicsObject provides a simple physics simulation model for 2D games, including drag, momentum, and energy calculations.
+    <xref href="ShapeEngine.Core.PhysicsObject" data-throw-if-not-resolved="false"></xref> extends <xref href="ShapeEngine.Core.GameObject" data-throw-if-not-resolved="false"></xref> with velocity, mass, drag, constant acceleration,
+
+    and per-frame accumulated force, acceleration, and impulse inputs.
+
+    </p>
+
+    <p>
+
+    The simulation step is intentionally simple and game-friendly:
+
+    accumulated impulses are applied directly to velocity,
+
+    accumulated force inputs are converted to acceleration,
+
+    accumulated acceleration inputs are applied directly,
+
+    drag is applied,
+
+    and then position is advanced using the resulting velocity.
+
+    </p>
+
+    <p>
+
+    A mass less than or equal to zero is treated as <code>1</code> for force and impulse conversion.
+
+    </p>
+
+    <p>
+
+    In this class, <b>force</b> is mass-dependent input that is converted to acceleration during the physics step,
+
+    <b>acceleration</b> is mass-independent input that is applied directly to velocity over time,
+
+    and <b>impulse</b> is an immediate velocity change that is applied before acceleration and drag for the current step.
+
+    Use <xref href="ShapeEngine.Core.PhysicsObject.AddForce(System.Numerics.Vector2)" data-throw-if-not-resolved="false"></xref> for force-like input,
+
+    <xref href="ShapeEngine.Core.PhysicsObject.AddAcceleration(System.Numerics.Vector2)" data-throw-if-not-resolved="false"></xref> for direct acceleration input,
+
+    and <xref href="ShapeEngine.Core.PhysicsObject.AddImpulse(System.Numerics.Vector2)" data-throw-if-not-resolved="false"></xref> for one-shot impacts, jumps, knockback, or collision responses.
+
+    </p>
   example: []
   syntax:
     content: 'public abstract class PhysicsObject : GameObject, IUpdateable, IDrawable'
@@ -120,7 +164,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CurVelocityMagnitudeSquared
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 18
+    startLine: 49
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -151,7 +195,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CurVelocityMagnitude
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 22
+    startLine: 54
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -182,7 +226,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CurVelocityDirection
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 26
+    startLine: 59
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -213,7 +257,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Velocity
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 30
+    startLine: 64
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -244,11 +288,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Mass
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 34
+    startLine: 76
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Gets or sets the mass of the object. Used for force/impulse calculations.
+  summary: Gets or sets the mass of the object. Used for force and impulse conversion.
+  remarks: A mass less than or equal to zero is treated as <code>1</code> internally.
   example: []
   syntax:
     content: public float Mass { get; set; }
@@ -275,7 +320,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DragCoefficient
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 43
+    startLine: 86
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -311,7 +356,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ConstAcceleration
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 47
+    startLine: 91
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -342,17 +387,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AccumulatedForce
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 56
+    startLine: 101
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Gets the accumulated force to be applied on the next update.
+  summary: Gets the accumulated force input to be applied on the next update.
   remarks: >-
-    Calling <xref href="ShapeEngine.Core.PhysicsObject.AddForce(System.Numerics.Vector2)" data-throw-if-not-resolved="false"></xref> or <xref href="ShapeEngine.Core.PhysicsObject.AddForceRaw(System.Numerics.Vector2)" data-throw-if-not-resolved="false"></xref> changes <xref href="ShapeEngine.Core.PhysicsObject.AccumulatedForce" data-throw-if-not-resolved="false"></xref>.
+    This member stores force-like input in engine units.
 
-    Use this to add constant forces each frame.
+    It is converted to acceleration during the physics step by dividing it by the effective mass.
 
-    <xref href="ShapeEngine.Core.PhysicsObject.AccumulatedForce" data-throw-if-not-resolved="false"></xref> will be added to <xref href="ShapeEngine.Core.PhysicsObject.Velocity" data-throw-if-not-resolved="false"></xref> with delta time applied in the physics step.
+    Calling <xref href="ShapeEngine.Core.PhysicsObject.AddForce(System.Numerics.Vector2)" data-throw-if-not-resolved="false"></xref> changes <xref href="ShapeEngine.Core.PhysicsObject.AccumulatedForce" data-throw-if-not-resolved="false"></xref>.
   example: []
   syntax:
     content: public Vector2 AccumulatedForce { get; }
@@ -361,6 +406,41 @@ items:
       type: System.Numerics.Vector2
     content.vb: Public Property AccumulatedForce As Vector2
   overload: ShapeEngine.Core.PhysicsObject.AccumulatedForce*
+- uid: ShapeEngine.Core.PhysicsObject.AccumulatedAcceleration
+  commentId: P:ShapeEngine.Core.PhysicsObject.AccumulatedAcceleration
+  id: AccumulatedAcceleration
+  parent: ShapeEngine.Core.PhysicsObject
+  langs:
+  - csharp
+  - vb
+  name: AccumulatedAcceleration
+  nameWithType: PhysicsObject.AccumulatedAcceleration
+  fullName: ShapeEngine.Core.PhysicsObject.AccumulatedAcceleration
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/PhysicsObject.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: AccumulatedAcceleration
+    path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
+    startLine: 110
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Gets the accumulated acceleration contribution to be applied on the next update.
+  remarks: >-
+    This member stores acceleration input directly, without any mass conversion.
+
+    Calling <xref href="ShapeEngine.Core.PhysicsObject.AddAcceleration(System.Numerics.Vector2)" data-throw-if-not-resolved="false"></xref> changes <xref href="ShapeEngine.Core.PhysicsObject.AccumulatedAcceleration" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public Vector2 AccumulatedAcceleration { get; }
+    parameters: []
+    return:
+      type: System.Numerics.Vector2
+    content.vb: Public Property AccumulatedAcceleration As Vector2
+  overload: ShapeEngine.Core.PhysicsObject.AccumulatedAcceleration*
 - uid: ShapeEngine.Core.PhysicsObject.AccumulatedImpulses
   commentId: P:ShapeEngine.Core.PhysicsObject.AccumulatedImpulses
   id: AccumulatedImpulses
@@ -379,7 +459,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AccumulatedImpulses
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 65
+    startLine: 120
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -387,9 +467,9 @@ items:
   remarks: >-
     Calling <xref href="ShapeEngine.Core.PhysicsObject.AddImpulse(System.Numerics.Vector2)" data-throw-if-not-resolved="false"></xref> changes <xref href="ShapeEngine.Core.PhysicsObject.AccumulatedImpulses" data-throw-if-not-resolved="false"></xref>.
 
-    <xref href="ShapeEngine.Core.PhysicsObject.AccumulatedImpulses" data-throw-if-not-resolved="false"></xref> are added as is to the <xref href="ShapeEngine.Core.PhysicsObject.Velocity" data-throw-if-not-resolved="false"></xref> in the physics step.
+    <xref href="ShapeEngine.Core.PhysicsObject.AccumulatedImpulses" data-throw-if-not-resolved="false"></xref> stores the velocity delta that will be added during the next physics step.
 
-    Use this for one-time impulses, not for constant forces!.
+    Use this for one-time impulses, not for constant acceleration.
   example: []
   syntax:
     content: public Vector2 AccumulatedImpulses { get; }
@@ -416,11 +496,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Momentum
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 70
+    startLine: 129
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Gets the current momentum <code>(mass * velocity magnitude)</code>.
+  summary: Gets the current momentum <code>(effective mass * velocity magnitude)</code>.
   example: []
   syntax:
     content: public float Momentum { get; }
@@ -447,11 +527,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: KineticEnergy
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 74
+    startLine: 134
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Gets the current kinetic energy <code>(0.5 * mass * velocity^2)</code>.
+  summary: Gets the current kinetic energy <code>(0.5 * effective mass * velocity^2)</code>.
   example: []
   syntax:
     content: public float KineticEnergy { get; }
@@ -478,7 +558,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsInMotion
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 78
+    startLine: 139
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -509,16 +589,44 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ClearAccumulatedForce
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 83
+    startLine: 148
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Clears the accumulated force for the next update.
+  summary: Clears the accumulated force input for the next update.
   example: []
   syntax:
     content: public void ClearAccumulatedForce()
     content.vb: Public Sub ClearAccumulatedForce()
   overload: ShapeEngine.Core.PhysicsObject.ClearAccumulatedForce*
+- uid: ShapeEngine.Core.PhysicsObject.ClearAccumulatedAcceleration
+  commentId: M:ShapeEngine.Core.PhysicsObject.ClearAccumulatedAcceleration
+  id: ClearAccumulatedAcceleration
+  parent: ShapeEngine.Core.PhysicsObject
+  langs:
+  - csharp
+  - vb
+  name: ClearAccumulatedAcceleration()
+  nameWithType: PhysicsObject.ClearAccumulatedAcceleration()
+  fullName: ShapeEngine.Core.PhysicsObject.ClearAccumulatedAcceleration()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/PhysicsObject.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: ClearAccumulatedAcceleration
+    path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
+    startLine: 153
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Clears the accumulated acceleration contribution for the next update.
+  example: []
+  syntax:
+    content: public void ClearAccumulatedAcceleration()
+    content.vb: Public Sub ClearAccumulatedAcceleration()
+  overload: ShapeEngine.Core.PhysicsObject.ClearAccumulatedAcceleration*
 - uid: ShapeEngine.Core.PhysicsObject.ClearAccumulatedImpulses
   commentId: M:ShapeEngine.Core.PhysicsObject.ClearAccumulatedImpulses
   id: ClearAccumulatedImpulses
@@ -537,7 +645,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ClearAccumulatedImpulses
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 87
+    startLine: 158
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -565,60 +673,53 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddForce
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 95
+    startLine: 167
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Adds a force to be applied on the next update.
-  remarks: >-
-    Uses this to add constant forces each frame.
-        <xref href="ShapeEngine.Core.PhysicsObject.AccumulatedForce" data-throw-if-not-resolved="false"></xref> will be added to <xref href="ShapeEngine.Core.PhysicsObject.Velocity" data-throw-if-not-resolved="false"></xref> with delta time applied in the physics step.
+  summary: Adds a force-like input to be applied on the next update.
+  remarks: A mass less than or equal to zero is treated as <code>1</code>.
   example: []
   syntax:
     content: public void AddForce(Vector2 force)
     parameters:
     - id: force
       type: System.Numerics.Vector2
-      description: >-
-        The force vector to add.
-            If mass is positive, divides <code class="paramref">force</code> by mass.
+      description: The force vector to add. It is converted to acceleration by dividing by the effective mass.
     content.vb: Public Sub AddForce(force As Vector2)
   overload: ShapeEngine.Core.PhysicsObject.AddForce*
-- uid: ShapeEngine.Core.PhysicsObject.AddForceRaw(System.Numerics.Vector2)
-  commentId: M:ShapeEngine.Core.PhysicsObject.AddForceRaw(System.Numerics.Vector2)
-  id: AddForceRaw(System.Numerics.Vector2)
+- uid: ShapeEngine.Core.PhysicsObject.AddAcceleration(System.Numerics.Vector2)
+  commentId: M:ShapeEngine.Core.PhysicsObject.AddAcceleration(System.Numerics.Vector2)
+  id: AddAcceleration(System.Numerics.Vector2)
   parent: ShapeEngine.Core.PhysicsObject
   langs:
   - csharp
   - vb
-  name: AddForceRaw(Vector2)
-  nameWithType: PhysicsObject.AddForceRaw(Vector2)
-  fullName: ShapeEngine.Core.PhysicsObject.AddForceRaw(System.Numerics.Vector2)
+  name: AddAcceleration(Vector2)
+  nameWithType: PhysicsObject.AddAcceleration(Vector2)
+  fullName: ShapeEngine.Core.PhysicsObject.AddAcceleration(System.Numerics.Vector2)
   type: Method
   source:
     remote:
       path: ShapeEngine/Core/PhysicsObject.cs
       branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: AddForceRaw
+    id: AddAcceleration
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 106
+    startLine: 176
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Adds a force to be applied on the next update, without dividing by mass.
-  remarks: >-
-    Use this to add constant forces each frame.
-        <xref href="ShapeEngine.Core.PhysicsObject.AccumulatedForce" data-throw-if-not-resolved="false"></xref> will be added to <xref href="ShapeEngine.Core.PhysicsObject.Velocity" data-throw-if-not-resolved="false"></xref> with delta time applied in the physics step.
+  summary: Adds an acceleration contribution to be applied on the next update.
   example: []
   syntax:
-    content: public void AddForceRaw(Vector2 force)
+    content: public void AddAcceleration(Vector2 acceleration)
     parameters:
-    - id: force
+    - id: acceleration
       type: System.Numerics.Vector2
-      description: The force vector to add.
-    content.vb: Public Sub AddForceRaw(force As Vector2)
-  overload: ShapeEngine.Core.PhysicsObject.AddForceRaw*
+      description: The acceleration vector to add.
+    content.vb: Public Sub AddAcceleration(acceleration As Vector2)
+  overload: ShapeEngine.Core.PhysicsObject.AddAcceleration*
 - uid: ShapeEngine.Core.PhysicsObject.AddImpulse(System.Numerics.Vector2)
   commentId: M:ShapeEngine.Core.PhysicsObject.AddImpulse(System.Numerics.Vector2)
   id: AddImpulse(System.Numerics.Vector2)
@@ -637,22 +738,22 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddImpulse
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 118
+    startLine: 189
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Adds an impulse to be applied on the next update. If mass is positive, divides by mass.
+  summary: Adds an impulse to be applied on the next update.
   remarks: >-
-    <xref href="ShapeEngine.Core.PhysicsObject.AccumulatedImpulses" data-throw-if-not-resolved="false"></xref> are added as is to the <xref href="ShapeEngine.Core.PhysicsObject.Velocity" data-throw-if-not-resolved="false"></xref> in the physics step.
+    A mass less than or equal to zero is treated as <code>1</code>.
 
-    Use this for one-time impulses, not for constant forces!.
+    Use this for one-time impulses, not for constant acceleration.
   example: []
   syntax:
     content: public void AddImpulse(Vector2 force)
     parameters:
     - id: force
       type: System.Numerics.Vector2
-      description: The impulse vector to add.
+      description: The impulse vector to add. It is converted to a velocity delta by dividing by the effective mass.
     content.vb: Public Sub AddImpulse(force As Vector2)
   overload: ShapeEngine.Core.PhysicsObject.AddImpulse*
 - uid: ShapeEngine.Core.PhysicsObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
@@ -673,7 +774,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 131
+    startLine: 201
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -715,7 +816,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnPhysicsStateUpdated
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 140
+    startLine: 210
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -733,6 +834,13 @@ items:
   fullName.vb: ShapeEngine.Core.PhysicsObject.OnPhysicsStateUpdated(Single)
   name.vb: OnPhysicsStateUpdated(Single)
 references:
+- uid: ShapeEngine.Core.PhysicsObject
+  commentId: T:ShapeEngine.Core.PhysicsObject
+  parent: ShapeEngine.Core
+  href: ShapeEngine.Core.PhysicsObject.html
+  name: PhysicsObject
+  nameWithType: PhysicsObject
+  fullName: ShapeEngine.Core.PhysicsObject
 - uid: ShapeEngine.Core.GameObject
   commentId: T:ShapeEngine.Core.GameObject
   parent: ShapeEngine.Core
@@ -740,6 +848,90 @@ references:
   name: GameObject
   nameWithType: GameObject
   fullName: ShapeEngine.Core.GameObject
+- uid: ShapeEngine.Core.PhysicsObject.AddForce(System.Numerics.Vector2)
+  commentId: M:ShapeEngine.Core.PhysicsObject.AddForce(System.Numerics.Vector2)
+  parent: ShapeEngine.Core.PhysicsObject
+  isExternal: true
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddForce_System_Numerics_Vector2_
+  name: AddForce(Vector2)
+  nameWithType: PhysicsObject.AddForce(Vector2)
+  fullName: ShapeEngine.Core.PhysicsObject.AddForce(System.Numerics.Vector2)
+  spec.csharp:
+  - uid: ShapeEngine.Core.PhysicsObject.AddForce(System.Numerics.Vector2)
+    name: AddForce
+    href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddForce_System_Numerics_Vector2_
+  - name: (
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.PhysicsObject.AddForce(System.Numerics.Vector2)
+    name: AddForce
+    href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddForce_System_Numerics_Vector2_
+  - name: (
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: )
+- uid: ShapeEngine.Core.PhysicsObject.AddAcceleration(System.Numerics.Vector2)
+  commentId: M:ShapeEngine.Core.PhysicsObject.AddAcceleration(System.Numerics.Vector2)
+  parent: ShapeEngine.Core.PhysicsObject
+  isExternal: true
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddAcceleration_System_Numerics_Vector2_
+  name: AddAcceleration(Vector2)
+  nameWithType: PhysicsObject.AddAcceleration(Vector2)
+  fullName: ShapeEngine.Core.PhysicsObject.AddAcceleration(System.Numerics.Vector2)
+  spec.csharp:
+  - uid: ShapeEngine.Core.PhysicsObject.AddAcceleration(System.Numerics.Vector2)
+    name: AddAcceleration
+    href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddAcceleration_System_Numerics_Vector2_
+  - name: (
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.PhysicsObject.AddAcceleration(System.Numerics.Vector2)
+    name: AddAcceleration
+    href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddAcceleration_System_Numerics_Vector2_
+  - name: (
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: )
+- uid: ShapeEngine.Core.PhysicsObject.AddImpulse(System.Numerics.Vector2)
+  commentId: M:ShapeEngine.Core.PhysicsObject.AddImpulse(System.Numerics.Vector2)
+  parent: ShapeEngine.Core.PhysicsObject
+  isExternal: true
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddImpulse_System_Numerics_Vector2_
+  name: AddImpulse(Vector2)
+  nameWithType: PhysicsObject.AddImpulse(Vector2)
+  fullName: ShapeEngine.Core.PhysicsObject.AddImpulse(System.Numerics.Vector2)
+  spec.csharp:
+  - uid: ShapeEngine.Core.PhysicsObject.AddImpulse(System.Numerics.Vector2)
+    name: AddImpulse
+    href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddImpulse_System_Numerics_Vector2_
+  - name: (
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.PhysicsObject.AddImpulse(System.Numerics.Vector2)
+    name: AddImpulse
+    href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddImpulse_System_Numerics_Vector2_
+  - name: (
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: )
 - uid: ShapeEngine.Core
   commentId: N:ShapeEngine.Core
   href: ShapeEngine.html
@@ -3133,62 +3325,6 @@ references:
   name: ConstAcceleration
   nameWithType: PhysicsObject.ConstAcceleration
   fullName: ShapeEngine.Core.PhysicsObject.ConstAcceleration
-- uid: ShapeEngine.Core.PhysicsObject.AddForce(System.Numerics.Vector2)
-  commentId: M:ShapeEngine.Core.PhysicsObject.AddForce(System.Numerics.Vector2)
-  parent: ShapeEngine.Core.PhysicsObject
-  isExternal: true
-  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddForce_System_Numerics_Vector2_
-  name: AddForce(Vector2)
-  nameWithType: PhysicsObject.AddForce(Vector2)
-  fullName: ShapeEngine.Core.PhysicsObject.AddForce(System.Numerics.Vector2)
-  spec.csharp:
-  - uid: ShapeEngine.Core.PhysicsObject.AddForce(System.Numerics.Vector2)
-    name: AddForce
-    href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddForce_System_Numerics_Vector2_
-  - name: (
-  - uid: System.Numerics.Vector2
-    name: Vector2
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.PhysicsObject.AddForce(System.Numerics.Vector2)
-    name: AddForce
-    href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddForce_System_Numerics_Vector2_
-  - name: (
-  - uid: System.Numerics.Vector2
-    name: Vector2
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
-  - name: )
-- uid: ShapeEngine.Core.PhysicsObject.AddForceRaw(System.Numerics.Vector2)
-  commentId: M:ShapeEngine.Core.PhysicsObject.AddForceRaw(System.Numerics.Vector2)
-  parent: ShapeEngine.Core.PhysicsObject
-  isExternal: true
-  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddForceRaw_System_Numerics_Vector2_
-  name: AddForceRaw(Vector2)
-  nameWithType: PhysicsObject.AddForceRaw(Vector2)
-  fullName: ShapeEngine.Core.PhysicsObject.AddForceRaw(System.Numerics.Vector2)
-  spec.csharp:
-  - uid: ShapeEngine.Core.PhysicsObject.AddForceRaw(System.Numerics.Vector2)
-    name: AddForceRaw
-    href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddForceRaw_System_Numerics_Vector2_
-  - name: (
-  - uid: System.Numerics.Vector2
-    name: Vector2
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.PhysicsObject.AddForceRaw(System.Numerics.Vector2)
-    name: AddForceRaw
-    href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddForceRaw_System_Numerics_Vector2_
-  - name: (
-  - uid: System.Numerics.Vector2
-    name: Vector2
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
-  - name: )
 - uid: ShapeEngine.Core.PhysicsObject.AccumulatedForce
   commentId: P:ShapeEngine.Core.PhysicsObject.AccumulatedForce
   parent: ShapeEngine.Core.PhysicsObject
@@ -3196,54 +3332,25 @@ references:
   name: AccumulatedForce
   nameWithType: PhysicsObject.AccumulatedForce
   fullName: ShapeEngine.Core.PhysicsObject.AccumulatedForce
-- uid: ShapeEngine.Core.PhysicsObject.Velocity
-  commentId: P:ShapeEngine.Core.PhysicsObject.Velocity
-  parent: ShapeEngine.Core.PhysicsObject
-  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_Velocity
-  name: Velocity
-  nameWithType: PhysicsObject.Velocity
-  fullName: ShapeEngine.Core.PhysicsObject.Velocity
 - uid: ShapeEngine.Core.PhysicsObject.AccumulatedForce*
   commentId: Overload:ShapeEngine.Core.PhysicsObject.AccumulatedForce
   href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AccumulatedForce
   name: AccumulatedForce
   nameWithType: PhysicsObject.AccumulatedForce
   fullName: ShapeEngine.Core.PhysicsObject.AccumulatedForce
-- uid: ShapeEngine.Core.PhysicsObject
-  commentId: T:ShapeEngine.Core.PhysicsObject
-  parent: ShapeEngine.Core
-  href: ShapeEngine.Core.PhysicsObject.html
-  name: PhysicsObject
-  nameWithType: PhysicsObject
-  fullName: ShapeEngine.Core.PhysicsObject
-- uid: ShapeEngine.Core.PhysicsObject.AddImpulse(System.Numerics.Vector2)
-  commentId: M:ShapeEngine.Core.PhysicsObject.AddImpulse(System.Numerics.Vector2)
+- uid: ShapeEngine.Core.PhysicsObject.AccumulatedAcceleration
+  commentId: P:ShapeEngine.Core.PhysicsObject.AccumulatedAcceleration
   parent: ShapeEngine.Core.PhysicsObject
-  isExternal: true
-  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddImpulse_System_Numerics_Vector2_
-  name: AddImpulse(Vector2)
-  nameWithType: PhysicsObject.AddImpulse(Vector2)
-  fullName: ShapeEngine.Core.PhysicsObject.AddImpulse(System.Numerics.Vector2)
-  spec.csharp:
-  - uid: ShapeEngine.Core.PhysicsObject.AddImpulse(System.Numerics.Vector2)
-    name: AddImpulse
-    href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddImpulse_System_Numerics_Vector2_
-  - name: (
-  - uid: System.Numerics.Vector2
-    name: Vector2
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.PhysicsObject.AddImpulse(System.Numerics.Vector2)
-    name: AddImpulse
-    href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddImpulse_System_Numerics_Vector2_
-  - name: (
-  - uid: System.Numerics.Vector2
-    name: Vector2
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
-  - name: )
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AccumulatedAcceleration
+  name: AccumulatedAcceleration
+  nameWithType: PhysicsObject.AccumulatedAcceleration
+  fullName: ShapeEngine.Core.PhysicsObject.AccumulatedAcceleration
+- uid: ShapeEngine.Core.PhysicsObject.AccumulatedAcceleration*
+  commentId: Overload:ShapeEngine.Core.PhysicsObject.AccumulatedAcceleration
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AccumulatedAcceleration
+  name: AccumulatedAcceleration
+  nameWithType: PhysicsObject.AccumulatedAcceleration
+  fullName: ShapeEngine.Core.PhysicsObject.AccumulatedAcceleration
 - uid: ShapeEngine.Core.PhysicsObject.AccumulatedImpulses
   commentId: P:ShapeEngine.Core.PhysicsObject.AccumulatedImpulses
   parent: ShapeEngine.Core.PhysicsObject
@@ -3292,6 +3399,12 @@ references:
   name: ClearAccumulatedForce
   nameWithType: PhysicsObject.ClearAccumulatedForce
   fullName: ShapeEngine.Core.PhysicsObject.ClearAccumulatedForce
+- uid: ShapeEngine.Core.PhysicsObject.ClearAccumulatedAcceleration*
+  commentId: Overload:ShapeEngine.Core.PhysicsObject.ClearAccumulatedAcceleration
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_ClearAccumulatedAcceleration
+  name: ClearAccumulatedAcceleration
+  nameWithType: PhysicsObject.ClearAccumulatedAcceleration
+  fullName: ShapeEngine.Core.PhysicsObject.ClearAccumulatedAcceleration
 - uid: ShapeEngine.Core.PhysicsObject.ClearAccumulatedImpulses*
   commentId: Overload:ShapeEngine.Core.PhysicsObject.ClearAccumulatedImpulses
   href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_ClearAccumulatedImpulses
@@ -3304,12 +3417,12 @@ references:
   name: AddForce
   nameWithType: PhysicsObject.AddForce
   fullName: ShapeEngine.Core.PhysicsObject.AddForce
-- uid: ShapeEngine.Core.PhysicsObject.AddForceRaw*
-  commentId: Overload:ShapeEngine.Core.PhysicsObject.AddForceRaw
-  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddForceRaw_System_Numerics_Vector2_
-  name: AddForceRaw
-  nameWithType: PhysicsObject.AddForceRaw
-  fullName: ShapeEngine.Core.PhysicsObject.AddForceRaw
+- uid: ShapeEngine.Core.PhysicsObject.AddAcceleration*
+  commentId: Overload:ShapeEngine.Core.PhysicsObject.AddAcceleration
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddAcceleration_System_Numerics_Vector2_
+  name: AddAcceleration
+  nameWithType: PhysicsObject.AddAcceleration
+  fullName: ShapeEngine.Core.PhysicsObject.AddAcceleration
 - uid: ShapeEngine.Core.PhysicsObject.AddImpulse*
   commentId: Overload:ShapeEngine.Core.PhysicsObject.AddImpulse
   href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddImpulse_System_Numerics_Vector2_

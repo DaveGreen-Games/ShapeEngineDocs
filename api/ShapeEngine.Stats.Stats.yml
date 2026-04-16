@@ -40,9 +40,9 @@ items:
   namespace: ShapeEngine.Stats
   summary: Manages a collection of stats and buffs, providing methods to update, add, and remove stats and buffs.
   remarks: >-
-    The <xref href="ShapeEngine.Stats.Stats" data-throw-if-not-resolved="false"></xref> class coordinates the application and removal of buffs to stats,
+    <xref href="ShapeEngine.Stats.Stats" data-throw-if-not-resolved="false"></xref> coordinates the application of all active buffs to all registered stats.
 
-    and raises events for buff changes.
+    Stat values are recalculated during <xref href="ShapeEngine.Stats.Stats.Update(System.Single)" data-throw-if-not-resolved="false"></xref>, and buff-related events are raised when buffs are added, removed, or stacked.
   example: []
   syntax:
     content: public class Stats
@@ -79,7 +79,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnBuffStackAdded
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 14
+    startLine: 16
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -108,7 +108,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnBuffStackRemoved
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 18
+    startLine: 21
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -137,7 +137,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnBuffRemoved
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 22
+    startLine: 26
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -166,7 +166,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnBuffAdded
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 26
+    startLine: 31
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -195,7 +195,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 34
+    startLine: 48
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -226,11 +226,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 44
+    startLine: 63
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
-  summary: Updates all buffs and stats, applying and removing buffs as needed.
+  summary: Updates all buffs, recalculates all registered stats, and removes finished buffs.
   example: []
   syntax:
     content: public void Update(float dt)
@@ -261,11 +261,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddStat
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 73
+    startLine: 101
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
-  summary: Adds a stat to the collection, replacing any existing stat with the same ID.
+  summary: Adds a stat to the collection, replacing any existing stat with the same identifier.
   example: []
   syntax:
     content: public void AddStat(Stat stat)
@@ -293,7 +293,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveStat
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 82
+    startLine: 111
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -328,11 +328,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddBuffStack
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 93
+    startLine: 123
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
-  summary: Adds a stack to a buff, or adds the buff if it does not exist.
+  summary: Adds a stack to an existing buff, or adds the buff if it is not already tracked.
   example: []
   syntax:
     content: public bool AddBuffStack(IBuff buff)
@@ -363,11 +363,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveBuffStack
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 113
+    startLine: 144
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
-  summary: Removes a stack from a buff, or removes the buff if no stacks remain.
+  summary: Removes a stack from a buff, or removes the buff entirely if no stacks remain.
   example: []
   syntax:
     content: public bool RemoveBuffStack(IBuff buff)
@@ -398,7 +398,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DeleteBuff
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 134
+    startLine: 167
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -433,7 +433,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BuffWasRemoved
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 140
+    startLine: 177
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -465,7 +465,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BuffWasAdded
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 145
+    startLine: 183
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -497,7 +497,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BuffStackWasAdded
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 151
+    startLine: 190
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -535,7 +535,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BuffStackWasRemoved
     path: ../ShapeEngine/ShapeEngine/Stats/Stats.cs
-    startLine: 157
+    startLine: 197
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -562,6 +562,36 @@ references:
   name: Stats
   nameWithType: Stats
   fullName: ShapeEngine.Stats.Stats
+- uid: ShapeEngine.Stats.Stats.Update(System.Single)
+  commentId: M:ShapeEngine.Stats.Stats.Update(System.Single)
+  isExternal: true
+  href: ShapeEngine.Stats.Stats.html#ShapeEngine_Stats_Stats_Update_System_Single_
+  name: Update(float)
+  nameWithType: Stats.Update(float)
+  fullName: ShapeEngine.Stats.Stats.Update(float)
+  nameWithType.vb: Stats.Update(Single)
+  fullName.vb: ShapeEngine.Stats.Stats.Update(Single)
+  name.vb: Update(Single)
+  spec.csharp:
+  - uid: ShapeEngine.Stats.Stats.Update(System.Single)
+    name: Update
+    href: ShapeEngine.Stats.Stats.html#ShapeEngine_Stats_Stats_Update_System_Single_
+  - name: (
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Stats.Stats.Update(System.Single)
+    name: Update
+    href: ShapeEngine.Stats.Stats.html#ShapeEngine_Stats_Stats_Update_System_Single_
+  - name: (
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
 - uid: ShapeEngine.Stats
   commentId: N:ShapeEngine.Stats
   href: ShapeEngine.html

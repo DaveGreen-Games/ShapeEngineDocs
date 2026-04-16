@@ -26,6 +26,9 @@ items:
   - ShapeEngine.UI.ControlNode.GetAllChildren(System.Predicate{ShapeEngine.UI.ControlNode},System.Collections.Generic.HashSet{ShapeEngine.UI.ControlNode}@)
   - ShapeEngine.UI.ControlNode.GetAllNavigableChildren(System.Collections.Generic.HashSet{ShapeEngine.UI.ControlNode}@)
   - ShapeEngine.UI.ControlNode.GetAllVisibleInHierarchyChildren(System.Collections.Generic.HashSet{ShapeEngine.UI.ControlNode}@)
+  - ShapeEngine.UI.ControlNode.GetButtonDownState
+  - ShapeEngine.UI.ControlNode.GetButtonPressedState
+  - ShapeEngine.UI.ControlNode.GetButtonReleasedState
   - ShapeEngine.UI.ControlNode.GetChild(System.Int32)
   - ShapeEngine.UI.ControlNode.GetChildIndex(ShapeEngine.UI.ControlNode)
   - ShapeEngine.UI.ControlNode.GetChildren(System.Predicate{ShapeEngine.UI.ControlNode})
@@ -33,11 +36,12 @@ items:
   - ShapeEngine.UI.ControlNode.GetChildrenEnumerable
   - ShapeEngine.UI.ControlNode.GetDistanceSquaredTo(ShapeEngine.UI.ControlNode)
   - ShapeEngine.UI.ControlNode.GetDistanceTo(ShapeEngine.UI.ControlNode)
-  - ShapeEngine.UI.ControlNode.GetMousePressedState
+  - ShapeEngine.UI.ControlNode.GetMouseButtonDownState
+  - ShapeEngine.UI.ControlNode.GetMouseButtonPressedState
+  - ShapeEngine.UI.ControlNode.GetMouseButtonReleasedState
   - ShapeEngine.UI.ControlNode.GetNavigationDirection
   - ShapeEngine.UI.ControlNode.GetNavigationOrigin(ShapeEngine.Core.Structs.Direction)
   - ShapeEngine.UI.ControlNode.GetNextChild(ShapeEngine.UI.ControlNode)
-  - ShapeEngine.UI.ControlNode.GetPressedState
   - ShapeEngine.UI.ControlNode.GetPreviousChild(ShapeEngine.UI.ControlNode)
   - ShapeEngine.UI.ControlNode.HasChildren
   - ShapeEngine.UI.ControlNode.HasDisplayedChildren
@@ -46,6 +50,8 @@ items:
   - ShapeEngine.UI.ControlNode.InputFilter
   - ShapeEngine.UI.ControlNode.InputFilterWasChanged(ShapeEngine.UI.InputFilter,ShapeEngine.UI.InputFilter)
   - ShapeEngine.UI.ControlNode.IsActiveInHierarchy
+  - ShapeEngine.UI.ControlNode.IsDown
+  - ShapeEngine.UI.ControlNode.IsDownWasChanged(System.Boolean)
   - ShapeEngine.UI.ControlNode.IsVisibleInHierarchy
   - ShapeEngine.UI.ControlNode.Margins
   - ShapeEngine.UI.ControlNode.MaxSize
@@ -70,6 +76,7 @@ items:
   - ShapeEngine.UI.ControlNode.OnDisplayedChanged
   - ShapeEngine.UI.ControlNode.OnDraw
   - ShapeEngine.UI.ControlNode.OnInputFilterChanged
+  - ShapeEngine.UI.ControlNode.OnIsDownChanged
   - ShapeEngine.UI.ControlNode.OnMouseEntered
   - ShapeEngine.UI.ControlNode.OnMouseExited
   - ShapeEngine.UI.ControlNode.OnMouseFilterChanged
@@ -627,6 +634,38 @@ items:
     return:
       type: System.Action{ShapeEngine.UI.ControlNode,System.Boolean}
     content.vb: Public Event OnPressedChanged As Action(Of ControlNode, Boolean)
+- uid: ShapeEngine.UI.ControlNode.OnIsDownChanged
+  commentId: E:ShapeEngine.UI.ControlNode.OnIsDownChanged
+  id: OnIsDownChanged
+  parent: ShapeEngine.UI.ControlNode
+  langs:
+  - csharp
+  - vb
+  name: OnIsDownChanged
+  nameWithType: ControlNode.OnIsDownChanged
+  fullName: ShapeEngine.UI.ControlNode.OnIsDownChanged
+  type: Event
+  source:
+    remote:
+      path: ShapeEngine/UI/ControlNode.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnIsDownChanged
+    path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
+    startLine: 107
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.UI
+  summary: >-
+    Occurs when the down state changes.
+
+    Parameters: Invoker, Value
+  example: []
+  syntax:
+    content: public event Action<ControlNode, bool>? OnIsDownChanged
+    return:
+      type: System.Action{ShapeEngine.UI.ControlNode,System.Boolean}
+    content.vb: Public Event OnIsDownChanged As Action(Of ControlNode, Boolean)
 - uid: ShapeEngine.UI.ControlNode.OnNavigableChanged
   commentId: E:ShapeEngine.UI.ControlNode.OnNavigableChanged
   id: OnNavigableChanged
@@ -645,7 +684,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnNavigableChanged
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 107
+    startLine: 113
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -677,7 +716,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMouseFilterChanged
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 113
+    startLine: 119
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -709,7 +748,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnSelectionFilterChanged
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 119
+    startLine: 125
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -741,7 +780,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnInputFilterChanged
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 125
+    startLine: 131
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -755,42 +794,6 @@ items:
     return:
       type: System.Action{ShapeEngine.UI.ControlNode,ShapeEngine.UI.InputFilter,ShapeEngine.UI.InputFilter}
     content.vb: Public Event OnInputFilterChanged As Action(Of ControlNode, InputFilter, InputFilter)
-- uid: ShapeEngine.UI.ControlNode.Displayed
-  commentId: P:ShapeEngine.UI.ControlNode.Displayed
-  id: Displayed
-  parent: ShapeEngine.UI.ControlNode
-  langs:
-  - csharp
-  - vb
-  name: Displayed
-  nameWithType: ControlNode.Displayed
-  fullName: ShapeEngine.UI.ControlNode.Displayed
-  type: Property
-  source:
-    remote:
-      path: ShapeEngine/UI/ControlNode.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: Displayed
-    path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 148
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.UI
-  summary: >-
-    Gets or sets whether this node and its children are displayed.
-
-    Changing this value will recursively update all children.
-
-    Triggers <xref href="ShapeEngine.UI.ControlNode.OnDisplayedChanged" data-throw-if-not-resolved="false"></xref> and updates navigable and visible-in-hierarchy states.
-  example: []
-  syntax:
-    content: public bool Displayed { get; set; }
-    parameters: []
-    return:
-      type: System.Boolean
-    content.vb: Public Property Displayed As Boolean
-  overload: ShapeEngine.UI.ControlNode.Displayed*
 - uid: ShapeEngine.UI.ControlNode.Anchor
   commentId: F:ShapeEngine.UI.ControlNode.Anchor
   id: Anchor
@@ -809,7 +812,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Anchor
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 177
+    startLine: 158
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -838,7 +841,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Stretch
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 183
+    startLine: 164
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -870,7 +873,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ContainerStretch
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 188
+    startLine: 169
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -899,7 +902,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MinSize
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 193
+    startLine: 174
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -928,7 +931,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MaxSize
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 198
+    startLine: 179
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -957,7 +960,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Margins
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 203
+    startLine: 184
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -986,7 +989,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SelectionFilter
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 208
+    startLine: 189
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1017,7 +1020,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MouseFilter
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 224
+    startLine: 205
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1048,7 +1051,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InputFilter
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 239
+    startLine: 220
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1079,7 +1082,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DisplayedChildren
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 256
+    startLine: 237
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1090,6 +1093,42 @@ items:
     return:
       type: System.Collections.Generic.List{ShapeEngine.UI.ControlNode}
     content.vb: Protected DisplayedChildren As List(Of ControlNode)
+- uid: ShapeEngine.UI.ControlNode.Displayed
+  commentId: P:ShapeEngine.UI.ControlNode.Displayed
+  id: Displayed
+  parent: ShapeEngine.UI.ControlNode
+  langs:
+  - csharp
+  - vb
+  name: Displayed
+  nameWithType: ControlNode.Displayed
+  fullName: ShapeEngine.UI.ControlNode.Displayed
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/UI/ControlNode.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Displayed
+    path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
+    startLine: 246
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.UI
+  summary: >-
+    Gets or sets whether this node and its children are displayed.
+
+    Changing this value will recursively update all children.
+
+    Triggers <xref href="ShapeEngine.UI.ControlNode.OnDisplayedChanged" data-throw-if-not-resolved="false"></xref> and updates navigable and visible-in-hierarchy states.
+  example: []
+  syntax:
+    content: public bool Displayed { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property Displayed As Boolean
+  overload: ShapeEngine.UI.ControlNode.Displayed*
 - uid: ShapeEngine.UI.ControlNode.Active
   commentId: P:ShapeEngine.UI.ControlNode.Active
   id: Active
@@ -1108,7 +1147,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Active
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 281
+    startLine: 283
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1143,7 +1182,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Visible
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 301
+    startLine: 303
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1177,7 +1216,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ParentVisible
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 320
+    startLine: 322
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1208,7 +1247,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ParentActive
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 325
+    startLine: 327
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1239,7 +1278,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsVisibleInHierarchy
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 330
+    startLine: 332
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1270,7 +1309,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsActiveInHierarchy
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 335
+    startLine: 337
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1301,7 +1340,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Rect
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 342
+    startLine: 344
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1337,7 +1376,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MouseInside
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 347
+    startLine: 349
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1368,7 +1407,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MouseInsidePosition
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 352
+    startLine: 354
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1399,7 +1438,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Selected
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 358
+    startLine: 360
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1433,7 +1472,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Pressed
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 372
+    startLine: 374
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1446,6 +1485,37 @@ items:
       type: System.Boolean
     content.vb: Public Property Pressed As Boolean
   overload: ShapeEngine.UI.ControlNode.Pressed*
+- uid: ShapeEngine.UI.ControlNode.IsDown
+  commentId: P:ShapeEngine.UI.ControlNode.IsDown
+  id: IsDown
+  parent: ShapeEngine.UI.ControlNode
+  langs:
+  - csharp
+  - vb
+  name: IsDown
+  nameWithType: ControlNode.IsDown
+  fullName: ShapeEngine.UI.ControlNode.IsDown
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/UI/ControlNode.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: IsDown
+    path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
+    startLine: 379
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.UI
+  summary: Gets whether this node is currently down.
+  example: []
+  syntax:
+    content: public bool IsDown { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsDown As Boolean
+  overload: ShapeEngine.UI.ControlNode.IsDown*
 - uid: ShapeEngine.UI.ControlNode.Parent
   commentId: P:ShapeEngine.UI.ControlNode.Parent
   id: Parent
@@ -1464,7 +1534,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Parent
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 378
+    startLine: 385
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1498,7 +1568,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ChildCount
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 394
+    startLine: 401
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1529,7 +1599,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HasParent
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 399
+    startLine: 406
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1560,7 +1630,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HasChildren
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 404
+    startLine: 411
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1591,7 +1661,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DisplayedChildrenCount
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 409
+    startLine: 416
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1622,7 +1692,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HasDisplayedChildren
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 414
+    startLine: 421
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1653,7 +1723,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetChildrenEnumerable
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 419
+    startLine: 426
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1684,7 +1754,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Navigable
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 426
+    startLine: 431
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1715,7 +1785,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetChildIndex
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 438
+    startLine: 443
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1748,7 +1818,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetPreviousChild
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 444
+    startLine: 449
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1784,7 +1854,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetNextChild
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 460
+    startLine: 465
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1820,7 +1890,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddChild
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 476
+    startLine: 481
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1856,7 +1926,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveChild
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 522
+    startLine: 527
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1892,7 +1962,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ClearChildren
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 570
+    startLine: 575
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1920,7 +1990,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetChild
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 581
+    startLine: 586
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1956,7 +2026,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetChildrenCopy
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 586
+    startLine: 591
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -1986,7 +2056,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetChildren
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 591
+    startLine: 596
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2022,7 +2092,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetAllChildren
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 597
+    startLine: 602
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2061,7 +2131,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetAllChildren
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 615
+    startLine: 620
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2102,7 +2172,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetAllNavigableChildren
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 634
+    startLine: 639
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2141,7 +2211,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetAllVisibleInHierarchyChildren
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 652
+    startLine: 657
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2180,7 +2250,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetAllActiveInHierarchyChildren
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 670
+    startLine: 675
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2219,7 +2289,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Select
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 728
+    startLine: 733
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2252,7 +2322,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Deselect
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 739
+    startLine: 744
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2285,7 +2355,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: NavigationSelect
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 751
+    startLine: 756
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2318,7 +2388,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: NavigationDeselect
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 764
+    startLine: 769
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2351,7 +2421,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SetRect
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 800
+    startLine: 805
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2383,7 +2453,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: UpdateRect
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 809
+    startLine: 814
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2415,7 +2485,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 831
+    startLine: 836
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2453,7 +2523,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Draw
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 840
+    startLine: 845
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2481,7 +2551,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SetChildRect
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 852
+    startLine: 857
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2501,25 +2571,25 @@ items:
       description: The rectangle to assign to the child.
     content.vb: Protected Overridable Function SetChildRect(child As ControlNode, inputRect As Rect) As Rect
   overload: ShapeEngine.UI.ControlNode.SetChildRect*
-- uid: ShapeEngine.UI.ControlNode.GetPressedState
-  commentId: M:ShapeEngine.UI.ControlNode.GetPressedState
-  id: GetPressedState
+- uid: ShapeEngine.UI.ControlNode.GetButtonPressedState
+  commentId: M:ShapeEngine.UI.ControlNode.GetButtonPressedState
+  id: GetButtonPressedState
   parent: ShapeEngine.UI.ControlNode
   langs:
   - csharp
   - vb
-  name: GetPressedState()
-  nameWithType: ControlNode.GetPressedState()
-  fullName: ShapeEngine.UI.ControlNode.GetPressedState()
+  name: GetButtonPressedState()
+  nameWithType: ControlNode.GetButtonPressedState()
+  fullName: ShapeEngine.UI.ControlNode.GetButtonPressedState()
   type: Method
   source:
     remote:
       path: ShapeEngine/UI/ControlNode.cs
       branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: GetPressedState
+    id: GetButtonPressedState
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 976
+    startLine: 1017
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2529,31 +2599,31 @@ items:
     Override this method to handle custom input logic.
   example: []
   syntax:
-    content: protected virtual bool GetPressedState()
+    content: protected virtual bool GetButtonPressedState()
     return:
       type: System.Boolean
       description: Returns false per default.
-    content.vb: Protected Overridable Function GetPressedState() As Boolean
-  overload: ShapeEngine.UI.ControlNode.GetPressedState*
-- uid: ShapeEngine.UI.ControlNode.GetMousePressedState
-  commentId: M:ShapeEngine.UI.ControlNode.GetMousePressedState
-  id: GetMousePressedState
+    content.vb: Protected Overridable Function GetButtonPressedState() As Boolean
+  overload: ShapeEngine.UI.ControlNode.GetButtonPressedState*
+- uid: ShapeEngine.UI.ControlNode.GetMouseButtonPressedState
+  commentId: M:ShapeEngine.UI.ControlNode.GetMouseButtonPressedState
+  id: GetMouseButtonPressedState
   parent: ShapeEngine.UI.ControlNode
   langs:
   - csharp
   - vb
-  name: GetMousePressedState()
-  nameWithType: ControlNode.GetMousePressedState()
-  fullName: ShapeEngine.UI.ControlNode.GetMousePressedState()
+  name: GetMouseButtonPressedState()
+  nameWithType: ControlNode.GetMouseButtonPressedState()
+  fullName: ShapeEngine.UI.ControlNode.GetMouseButtonPressedState()
   type: Method
   source:
     remote:
       path: ShapeEngine/UI/ControlNode.cs
       branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: GetMousePressedState
+    id: GetMouseButtonPressedState
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 983
+    startLine: 1024
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2563,12 +2633,148 @@ items:
     Override this method to handle custom input logic.
   example: []
   syntax:
-    content: protected virtual bool GetMousePressedState()
+    content: protected virtual bool GetMouseButtonPressedState()
     return:
       type: System.Boolean
       description: Returns false per default.
-    content.vb: Protected Overridable Function GetMousePressedState() As Boolean
-  overload: ShapeEngine.UI.ControlNode.GetMousePressedState*
+    content.vb: Protected Overridable Function GetMouseButtonPressedState() As Boolean
+  overload: ShapeEngine.UI.ControlNode.GetMouseButtonPressedState*
+- uid: ShapeEngine.UI.ControlNode.GetButtonReleasedState
+  commentId: M:ShapeEngine.UI.ControlNode.GetButtonReleasedState
+  id: GetButtonReleasedState
+  parent: ShapeEngine.UI.ControlNode
+  langs:
+  - csharp
+  - vb
+  name: GetButtonReleasedState()
+  nameWithType: ControlNode.GetButtonReleasedState()
+  fullName: ShapeEngine.UI.ControlNode.GetButtonReleasedState()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/UI/ControlNode.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetButtonReleasedState
+    path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
+    startLine: 1031
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.UI
+  summary: >-
+    Returns whether the key for the released state is down.
+
+    Override this method to handle custom input logic for button release.
+  example: []
+  syntax:
+    content: protected virtual bool GetButtonReleasedState()
+    return:
+      type: System.Boolean
+      description: Returns false by default.
+    content.vb: Protected Overridable Function GetButtonReleasedState() As Boolean
+  overload: ShapeEngine.UI.ControlNode.GetButtonReleasedState*
+- uid: ShapeEngine.UI.ControlNode.GetMouseButtonReleasedState
+  commentId: M:ShapeEngine.UI.ControlNode.GetMouseButtonReleasedState
+  id: GetMouseButtonReleasedState
+  parent: ShapeEngine.UI.ControlNode
+  langs:
+  - csharp
+  - vb
+  name: GetMouseButtonReleasedState()
+  nameWithType: ControlNode.GetMouseButtonReleasedState()
+  fullName: ShapeEngine.UI.ControlNode.GetMouseButtonReleasedState()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/UI/ControlNode.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetMouseButtonReleasedState
+    path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
+    startLine: 1038
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.UI
+  summary: >-
+    Returns whether the mouse button for the released state is down (only called when mouse is inside).
+
+    Override this method to handle custom input logic for mouse button release.
+  example: []
+  syntax:
+    content: protected virtual bool GetMouseButtonReleasedState()
+    return:
+      type: System.Boolean
+      description: Returns false by default.
+    content.vb: Protected Overridable Function GetMouseButtonReleasedState() As Boolean
+  overload: ShapeEngine.UI.ControlNode.GetMouseButtonReleasedState*
+- uid: ShapeEngine.UI.ControlNode.GetButtonDownState
+  commentId: M:ShapeEngine.UI.ControlNode.GetButtonDownState
+  id: GetButtonDownState
+  parent: ShapeEngine.UI.ControlNode
+  langs:
+  - csharp
+  - vb
+  name: GetButtonDownState()
+  nameWithType: ControlNode.GetButtonDownState()
+  fullName: ShapeEngine.UI.ControlNode.GetButtonDownState()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/UI/ControlNode.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetButtonDownState
+    path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
+    startLine: 1045
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.UI
+  summary: >-
+    Returns whether the key for the down state is currently held down.
+
+    Override this method to handle custom input logic for button down.
+  example: []
+  syntax:
+    content: protected virtual bool GetButtonDownState()
+    return:
+      type: System.Boolean
+      description: Returns false by default.
+    content.vb: Protected Overridable Function GetButtonDownState() As Boolean
+  overload: ShapeEngine.UI.ControlNode.GetButtonDownState*
+- uid: ShapeEngine.UI.ControlNode.GetMouseButtonDownState
+  commentId: M:ShapeEngine.UI.ControlNode.GetMouseButtonDownState
+  id: GetMouseButtonDownState
+  parent: ShapeEngine.UI.ControlNode
+  langs:
+  - csharp
+  - vb
+  name: GetMouseButtonDownState()
+  nameWithType: ControlNode.GetMouseButtonDownState()
+  fullName: ShapeEngine.UI.ControlNode.GetMouseButtonDownState()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/UI/ControlNode.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetMouseButtonDownState
+    path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
+    startLine: 1052
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.UI
+  summary: >-
+    Returns whether the mouse button for the down state is currently held down (only called when mouse is inside).
+
+    Override this method to handle custom input logic for mouse button down.
+  example: []
+  syntax:
+    content: protected virtual bool GetMouseButtonDownState()
+    return:
+      type: System.Boolean
+      description: Returns false by default.
+    content.vb: Protected Overridable Function GetMouseButtonDownState() As Boolean
+  overload: ShapeEngine.UI.ControlNode.GetMouseButtonDownState*
 - uid: ShapeEngine.UI.ControlNode.GetNavigationDirection
   commentId: M:ShapeEngine.UI.ControlNode.GetNavigationDirection
   id: GetNavigationDirection
@@ -2587,7 +2793,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetNavigationDirection
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 990
+    startLine: 1059
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2621,7 +2827,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: NavigatedTo
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 997
+    startLine: 1066
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2656,7 +2862,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HasNavigated
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1008
+    startLine: 1077
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2691,7 +2897,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetDistanceTo
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1023
+    startLine: 1092
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2729,7 +2935,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetDistanceSquaredTo
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1036
+    startLine: 1105
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2767,7 +2973,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetNavigationOrigin
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1047
+    startLine: 1116
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2802,7 +3008,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnUpdate
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1060
+    startLine: 1129
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2846,7 +3052,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnChildUpdated
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1067
+    startLine: 1136
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2881,7 +3087,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnDraw
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1073
+    startLine: 1142
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2912,7 +3118,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnChildDrawn
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1080
+    startLine: 1149
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2947,7 +3153,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ActiveWasChanged
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1086
+    startLine: 1155
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -2982,7 +3188,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: VisibleWasChanged
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1092
+    startLine: 1161
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -3017,7 +3223,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ParentActiveWasChanged
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1098
+    startLine: 1167
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -3052,7 +3258,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ParentVisibleWasChanged
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1104
+    startLine: 1173
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -3087,7 +3293,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ParentWasChanged
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1111
+    startLine: 1180
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -3125,7 +3331,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ChildWasAdded
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1117
+    startLine: 1186
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -3157,7 +3363,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ChildWasRemoved
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1123
+    startLine: 1192
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -3189,7 +3395,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MouseHasEntered
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1129
+    startLine: 1198
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -3221,7 +3427,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MouseHasExited
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1135
+    startLine: 1204
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -3253,7 +3459,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SelectedWasChanged
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1141
+    startLine: 1210
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -3288,7 +3494,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PressedWasChanged
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1147
+    startLine: 1216
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -3305,6 +3511,41 @@ items:
   nameWithType.vb: ControlNode.PressedWasChanged(Boolean)
   fullName.vb: ShapeEngine.UI.ControlNode.PressedWasChanged(Boolean)
   name.vb: PressedWasChanged(Boolean)
+- uid: ShapeEngine.UI.ControlNode.IsDownWasChanged(System.Boolean)
+  commentId: M:ShapeEngine.UI.ControlNode.IsDownWasChanged(System.Boolean)
+  id: IsDownWasChanged(System.Boolean)
+  parent: ShapeEngine.UI.ControlNode
+  langs:
+  - csharp
+  - vb
+  name: IsDownWasChanged(bool)
+  nameWithType: ControlNode.IsDownWasChanged(bool)
+  fullName: ShapeEngine.UI.ControlNode.IsDownWasChanged(bool)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/UI/ControlNode.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: IsDownWasChanged
+    path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
+    startLine: 1222
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.UI
+  summary: Called when the IsDown state changes.
+  example: []
+  syntax:
+    content: protected virtual void IsDownWasChanged(bool value)
+    parameters:
+    - id: value
+      type: System.Boolean
+      description: The new IsDown state.
+    content.vb: Protected Overridable Sub IsDownWasChanged(value As Boolean)
+  overload: ShapeEngine.UI.ControlNode.IsDownWasChanged*
+  nameWithType.vb: ControlNode.IsDownWasChanged(Boolean)
+  fullName.vb: ShapeEngine.UI.ControlNode.IsDownWasChanged(Boolean)
+  name.vb: IsDownWasChanged(Boolean)
 - uid: ShapeEngine.UI.ControlNode.MouseFilterWasChanged(ShapeEngine.UI.MouseFilter,ShapeEngine.UI.MouseFilter)
   commentId: M:ShapeEngine.UI.ControlNode.MouseFilterWasChanged(ShapeEngine.UI.MouseFilter,ShapeEngine.UI.MouseFilter)
   id: MouseFilterWasChanged(ShapeEngine.UI.MouseFilter,ShapeEngine.UI.MouseFilter)
@@ -3323,7 +3564,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MouseFilterWasChanged
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1154
+    startLine: 1229
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -3358,7 +3599,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SelectionFilterWasChanged
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1161
+    startLine: 1236
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -3393,7 +3634,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InputFilterWasChanged
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1168
+    startLine: 1243
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -3428,7 +3669,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: NavigableWasChanged
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1174
+    startLine: 1249
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -3463,7 +3704,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DisplayedWasChanged
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1180
+    startLine: 1255
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -3498,7 +3739,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ActiveInHierarchyChanged
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1186
+    startLine: 1261
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -3533,7 +3774,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: VisibleInHierarchyChanged
     path: ../ShapeEngine/ShapeEngine/UI/ControlNode.cs
-    startLine: 1192
+    startLine: 1267
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
@@ -4616,37 +4857,6 @@ references:
     name: InputFilter
     href: ShapeEngine.UI.InputFilter.html
   - name: )
-- uid: ShapeEngine.UI.ControlNode.OnDisplayedChanged
-  commentId: E:ShapeEngine.UI.ControlNode.OnDisplayedChanged
-  parent: ShapeEngine.UI.ControlNode
-  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_OnDisplayedChanged
-  name: OnDisplayedChanged
-  nameWithType: ControlNode.OnDisplayedChanged
-  fullName: ShapeEngine.UI.ControlNode.OnDisplayedChanged
-- uid: ShapeEngine.UI.ControlNode.Displayed*
-  commentId: Overload:ShapeEngine.UI.ControlNode.Displayed
-  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_Displayed
-  name: Displayed
-  nameWithType: ControlNode.Displayed
-  fullName: ShapeEngine.UI.ControlNode.Displayed
-- uid: System.Boolean
-  commentId: T:System.Boolean
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.boolean
-  name: bool
-  nameWithType: bool
-  fullName: bool
-  nameWithType.vb: Boolean
-  fullName.vb: Boolean
-  name.vb: Boolean
-- uid: ShapeEngine.UI.ControlNode
-  commentId: T:ShapeEngine.UI.ControlNode
-  parent: ShapeEngine.UI
-  href: ShapeEngine.UI.ControlNode.html
-  name: ControlNode
-  nameWithType: ControlNode
-  fullName: ShapeEngine.UI.ControlNode
 - uid: ShapeEngine.Core.Structs.AnchorPoint
   commentId: T:ShapeEngine.Core.Structs.AnchorPoint
   parent: ShapeEngine.Core.Structs
@@ -4927,6 +5137,37 @@ references:
     name: Generic
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: ShapeEngine.UI.ControlNode.OnDisplayedChanged
+  commentId: E:ShapeEngine.UI.ControlNode.OnDisplayedChanged
+  parent: ShapeEngine.UI.ControlNode
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_OnDisplayedChanged
+  name: OnDisplayedChanged
+  nameWithType: ControlNode.OnDisplayedChanged
+  fullName: ShapeEngine.UI.ControlNode.OnDisplayedChanged
+- uid: ShapeEngine.UI.ControlNode.Displayed*
+  commentId: Overload:ShapeEngine.UI.ControlNode.Displayed
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_Displayed
+  name: Displayed
+  nameWithType: ControlNode.Displayed
+  fullName: ShapeEngine.UI.ControlNode.Displayed
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: ShapeEngine.UI.ControlNode
+  commentId: T:ShapeEngine.UI.ControlNode
+  parent: ShapeEngine.UI
+  href: ShapeEngine.UI.ControlNode.html
+  name: ControlNode
+  nameWithType: ControlNode
+  fullName: ShapeEngine.UI.ControlNode
 - uid: ShapeEngine.UI.ControlNode.ResolveActiveChanged
   commentId: M:ShapeEngine.UI.ControlNode.ResolveActiveChanged
   name: ResolveActiveChanged()
@@ -5037,6 +5278,12 @@ references:
   name: Pressed
   nameWithType: ControlNode.Pressed
   fullName: ShapeEngine.UI.ControlNode.Pressed
+- uid: ShapeEngine.UI.ControlNode.IsDown*
+  commentId: Overload:ShapeEngine.UI.ControlNode.IsDown
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_IsDown
+  name: IsDown
+  nameWithType: ControlNode.IsDown
+  fullName: ShapeEngine.UI.ControlNode.IsDown
 - uid: ShapeEngine.UI.ControlNode.Parent*
   commentId: Overload:ShapeEngine.UI.ControlNode.Parent
   href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_Parent
@@ -5411,18 +5658,42 @@ references:
   name: SetChildRect
   nameWithType: ControlNode.SetChildRect
   fullName: ShapeEngine.UI.ControlNode.SetChildRect
-- uid: ShapeEngine.UI.ControlNode.GetPressedState*
-  commentId: Overload:ShapeEngine.UI.ControlNode.GetPressedState
-  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetPressedState
-  name: GetPressedState
-  nameWithType: ControlNode.GetPressedState
-  fullName: ShapeEngine.UI.ControlNode.GetPressedState
-- uid: ShapeEngine.UI.ControlNode.GetMousePressedState*
-  commentId: Overload:ShapeEngine.UI.ControlNode.GetMousePressedState
-  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMousePressedState
-  name: GetMousePressedState
-  nameWithType: ControlNode.GetMousePressedState
-  fullName: ShapeEngine.UI.ControlNode.GetMousePressedState
+- uid: ShapeEngine.UI.ControlNode.GetButtonPressedState*
+  commentId: Overload:ShapeEngine.UI.ControlNode.GetButtonPressedState
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetButtonPressedState
+  name: GetButtonPressedState
+  nameWithType: ControlNode.GetButtonPressedState
+  fullName: ShapeEngine.UI.ControlNode.GetButtonPressedState
+- uid: ShapeEngine.UI.ControlNode.GetMouseButtonPressedState*
+  commentId: Overload:ShapeEngine.UI.ControlNode.GetMouseButtonPressedState
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMouseButtonPressedState
+  name: GetMouseButtonPressedState
+  nameWithType: ControlNode.GetMouseButtonPressedState
+  fullName: ShapeEngine.UI.ControlNode.GetMouseButtonPressedState
+- uid: ShapeEngine.UI.ControlNode.GetButtonReleasedState*
+  commentId: Overload:ShapeEngine.UI.ControlNode.GetButtonReleasedState
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetButtonReleasedState
+  name: GetButtonReleasedState
+  nameWithType: ControlNode.GetButtonReleasedState
+  fullName: ShapeEngine.UI.ControlNode.GetButtonReleasedState
+- uid: ShapeEngine.UI.ControlNode.GetMouseButtonReleasedState*
+  commentId: Overload:ShapeEngine.UI.ControlNode.GetMouseButtonReleasedState
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMouseButtonReleasedState
+  name: GetMouseButtonReleasedState
+  nameWithType: ControlNode.GetMouseButtonReleasedState
+  fullName: ShapeEngine.UI.ControlNode.GetMouseButtonReleasedState
+- uid: ShapeEngine.UI.ControlNode.GetButtonDownState*
+  commentId: Overload:ShapeEngine.UI.ControlNode.GetButtonDownState
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetButtonDownState
+  name: GetButtonDownState
+  nameWithType: ControlNode.GetButtonDownState
+  fullName: ShapeEngine.UI.ControlNode.GetButtonDownState
+- uid: ShapeEngine.UI.ControlNode.GetMouseButtonDownState*
+  commentId: Overload:ShapeEngine.UI.ControlNode.GetMouseButtonDownState
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMouseButtonDownState
+  name: GetMouseButtonDownState
+  nameWithType: ControlNode.GetMouseButtonDownState
+  fullName: ShapeEngine.UI.ControlNode.GetMouseButtonDownState
 - uid: ShapeEngine.UI.ControlNode.GetNavigationDirection*
   commentId: Overload:ShapeEngine.UI.ControlNode.GetNavigationDirection
   href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetNavigationDirection
@@ -5563,6 +5834,12 @@ references:
   name: PressedWasChanged
   nameWithType: ControlNode.PressedWasChanged
   fullName: ShapeEngine.UI.ControlNode.PressedWasChanged
+- uid: ShapeEngine.UI.ControlNode.IsDownWasChanged*
+  commentId: Overload:ShapeEngine.UI.ControlNode.IsDownWasChanged
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_IsDownWasChanged_System_Boolean_
+  name: IsDownWasChanged
+  nameWithType: ControlNode.IsDownWasChanged
+  fullName: ShapeEngine.UI.ControlNode.IsDownWasChanged
 - uid: ShapeEngine.UI.ControlNode.MouseFilterWasChanged*
   commentId: Overload:ShapeEngine.UI.ControlNode.MouseFilterWasChanged
   href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_MouseFilterWasChanged_ShapeEngine_UI_MouseFilter_ShapeEngine_UI_MouseFilter_

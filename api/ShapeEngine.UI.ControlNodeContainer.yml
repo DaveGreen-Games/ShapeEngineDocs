@@ -75,11 +75,11 @@ items:
   - ShapeEngine.UI.ControlNode.OnMouseExited
   - ShapeEngine.UI.ControlNode.OnSelectedChanged
   - ShapeEngine.UI.ControlNode.OnPressedChanged
+  - ShapeEngine.UI.ControlNode.OnIsDownChanged
   - ShapeEngine.UI.ControlNode.OnNavigableChanged
   - ShapeEngine.UI.ControlNode.OnMouseFilterChanged
   - ShapeEngine.UI.ControlNode.OnSelectionFilterChanged
   - ShapeEngine.UI.ControlNode.OnInputFilterChanged
-  - ShapeEngine.UI.ControlNode.Displayed
   - ShapeEngine.UI.ControlNode.Anchor
   - ShapeEngine.UI.ControlNode.Stretch
   - ShapeEngine.UI.ControlNode.ContainerStretch
@@ -90,6 +90,7 @@ items:
   - ShapeEngine.UI.ControlNode.MouseFilter
   - ShapeEngine.UI.ControlNode.InputFilter
   - ShapeEngine.UI.ControlNode.DisplayedChildren
+  - ShapeEngine.UI.ControlNode.Displayed
   - ShapeEngine.UI.ControlNode.Active
   - ShapeEngine.UI.ControlNode.Visible
   - ShapeEngine.UI.ControlNode.ParentVisible
@@ -101,6 +102,7 @@ items:
   - ShapeEngine.UI.ControlNode.MouseInsidePosition
   - ShapeEngine.UI.ControlNode.Selected
   - ShapeEngine.UI.ControlNode.Pressed
+  - ShapeEngine.UI.ControlNode.IsDown
   - ShapeEngine.UI.ControlNode.Parent
   - ShapeEngine.UI.ControlNode.ChildCount
   - ShapeEngine.UI.ControlNode.HasParent
@@ -131,8 +133,12 @@ items:
   - ShapeEngine.UI.ControlNode.UpdateRect(ShapeEngine.Geometry.RectDef.Rect)
   - ShapeEngine.UI.ControlNode.Update(System.Single,System.Numerics.Vector2)
   - ShapeEngine.UI.ControlNode.Draw
-  - ShapeEngine.UI.ControlNode.GetPressedState
-  - ShapeEngine.UI.ControlNode.GetMousePressedState
+  - ShapeEngine.UI.ControlNode.GetButtonPressedState
+  - ShapeEngine.UI.ControlNode.GetMouseButtonPressedState
+  - ShapeEngine.UI.ControlNode.GetButtonReleasedState
+  - ShapeEngine.UI.ControlNode.GetMouseButtonReleasedState
+  - ShapeEngine.UI.ControlNode.GetButtonDownState
+  - ShapeEngine.UI.ControlNode.GetMouseButtonDownState
   - ShapeEngine.UI.ControlNode.GetNavigationDirection
   - ShapeEngine.UI.ControlNode.NavigatedTo(ShapeEngine.Core.Structs.Direction)
   - ShapeEngine.UI.ControlNode.HasNavigated(ShapeEngine.Core.Structs.Direction)
@@ -151,6 +157,7 @@ items:
   - ShapeEngine.UI.ControlNode.MouseHasExited(System.Numerics.Vector2)
   - ShapeEngine.UI.ControlNode.SelectedWasChanged(System.Boolean)
   - ShapeEngine.UI.ControlNode.PressedWasChanged(System.Boolean)
+  - ShapeEngine.UI.ControlNode.IsDownWasChanged(System.Boolean)
   - ShapeEngine.UI.ControlNode.MouseFilterWasChanged(ShapeEngine.UI.MouseFilter,ShapeEngine.UI.MouseFilter)
   - ShapeEngine.UI.ControlNode.SelectionFilterWasChanged(ShapeEngine.UI.SelectFilter,ShapeEngine.UI.SelectFilter)
   - ShapeEngine.UI.ControlNode.InputFilterWasChanged(ShapeEngine.UI.InputFilter,ShapeEngine.UI.InputFilter)
@@ -1197,6 +1204,13 @@ references:
   name: OnPressedChanged
   nameWithType: ControlNode.OnPressedChanged
   fullName: ShapeEngine.UI.ControlNode.OnPressedChanged
+- uid: ShapeEngine.UI.ControlNode.OnIsDownChanged
+  commentId: E:ShapeEngine.UI.ControlNode.OnIsDownChanged
+  parent: ShapeEngine.UI.ControlNode
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_OnIsDownChanged
+  name: OnIsDownChanged
+  nameWithType: ControlNode.OnIsDownChanged
+  fullName: ShapeEngine.UI.ControlNode.OnIsDownChanged
 - uid: ShapeEngine.UI.ControlNode.OnNavigableChanged
   commentId: E:ShapeEngine.UI.ControlNode.OnNavigableChanged
   parent: ShapeEngine.UI.ControlNode
@@ -1225,13 +1239,6 @@ references:
   name: OnInputFilterChanged
   nameWithType: ControlNode.OnInputFilterChanged
   fullName: ShapeEngine.UI.ControlNode.OnInputFilterChanged
-- uid: ShapeEngine.UI.ControlNode.Displayed
-  commentId: P:ShapeEngine.UI.ControlNode.Displayed
-  parent: ShapeEngine.UI.ControlNode
-  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_Displayed
-  name: Displayed
-  nameWithType: ControlNode.Displayed
-  fullName: ShapeEngine.UI.ControlNode.Displayed
 - uid: ShapeEngine.UI.ControlNode.Anchor
   commentId: F:ShapeEngine.UI.ControlNode.Anchor
   parent: ShapeEngine.UI.ControlNode
@@ -1302,6 +1309,13 @@ references:
   name: DisplayedChildren
   nameWithType: ControlNode.DisplayedChildren
   fullName: ShapeEngine.UI.ControlNode.DisplayedChildren
+- uid: ShapeEngine.UI.ControlNode.Displayed
+  commentId: P:ShapeEngine.UI.ControlNode.Displayed
+  parent: ShapeEngine.UI.ControlNode
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_Displayed
+  name: Displayed
+  nameWithType: ControlNode.Displayed
+  fullName: ShapeEngine.UI.ControlNode.Displayed
 - uid: ShapeEngine.UI.ControlNode.Active
   commentId: P:ShapeEngine.UI.ControlNode.Active
   parent: ShapeEngine.UI.ControlNode
@@ -1379,6 +1393,13 @@ references:
   name: Pressed
   nameWithType: ControlNode.Pressed
   fullName: ShapeEngine.UI.ControlNode.Pressed
+- uid: ShapeEngine.UI.ControlNode.IsDown
+  commentId: P:ShapeEngine.UI.ControlNode.IsDown
+  parent: ShapeEngine.UI.ControlNode
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_IsDown
+  name: IsDown
+  nameWithType: ControlNode.IsDown
+  fullName: ShapeEngine.UI.ControlNode.IsDown
 - uid: ShapeEngine.UI.ControlNode.Parent
   commentId: P:ShapeEngine.UI.ControlNode.Parent
   parent: ShapeEngine.UI.ControlNode
@@ -2109,42 +2130,118 @@ references:
     href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_Draw
   - name: (
   - name: )
-- uid: ShapeEngine.UI.ControlNode.GetPressedState
-  commentId: M:ShapeEngine.UI.ControlNode.GetPressedState
+- uid: ShapeEngine.UI.ControlNode.GetButtonPressedState
+  commentId: M:ShapeEngine.UI.ControlNode.GetButtonPressedState
   parent: ShapeEngine.UI.ControlNode
-  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetPressedState
-  name: GetPressedState()
-  nameWithType: ControlNode.GetPressedState()
-  fullName: ShapeEngine.UI.ControlNode.GetPressedState()
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetButtonPressedState
+  name: GetButtonPressedState()
+  nameWithType: ControlNode.GetButtonPressedState()
+  fullName: ShapeEngine.UI.ControlNode.GetButtonPressedState()
   spec.csharp:
-  - uid: ShapeEngine.UI.ControlNode.GetPressedState
-    name: GetPressedState
-    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetPressedState
+  - uid: ShapeEngine.UI.ControlNode.GetButtonPressedState
+    name: GetButtonPressedState
+    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetButtonPressedState
   - name: (
   - name: )
   spec.vb:
-  - uid: ShapeEngine.UI.ControlNode.GetPressedState
-    name: GetPressedState
-    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetPressedState
+  - uid: ShapeEngine.UI.ControlNode.GetButtonPressedState
+    name: GetButtonPressedState
+    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetButtonPressedState
   - name: (
   - name: )
-- uid: ShapeEngine.UI.ControlNode.GetMousePressedState
-  commentId: M:ShapeEngine.UI.ControlNode.GetMousePressedState
+- uid: ShapeEngine.UI.ControlNode.GetMouseButtonPressedState
+  commentId: M:ShapeEngine.UI.ControlNode.GetMouseButtonPressedState
   parent: ShapeEngine.UI.ControlNode
-  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMousePressedState
-  name: GetMousePressedState()
-  nameWithType: ControlNode.GetMousePressedState()
-  fullName: ShapeEngine.UI.ControlNode.GetMousePressedState()
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMouseButtonPressedState
+  name: GetMouseButtonPressedState()
+  nameWithType: ControlNode.GetMouseButtonPressedState()
+  fullName: ShapeEngine.UI.ControlNode.GetMouseButtonPressedState()
   spec.csharp:
-  - uid: ShapeEngine.UI.ControlNode.GetMousePressedState
-    name: GetMousePressedState
-    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMousePressedState
+  - uid: ShapeEngine.UI.ControlNode.GetMouseButtonPressedState
+    name: GetMouseButtonPressedState
+    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMouseButtonPressedState
   - name: (
   - name: )
   spec.vb:
-  - uid: ShapeEngine.UI.ControlNode.GetMousePressedState
-    name: GetMousePressedState
-    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMousePressedState
+  - uid: ShapeEngine.UI.ControlNode.GetMouseButtonPressedState
+    name: GetMouseButtonPressedState
+    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMouseButtonPressedState
+  - name: (
+  - name: )
+- uid: ShapeEngine.UI.ControlNode.GetButtonReleasedState
+  commentId: M:ShapeEngine.UI.ControlNode.GetButtonReleasedState
+  parent: ShapeEngine.UI.ControlNode
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetButtonReleasedState
+  name: GetButtonReleasedState()
+  nameWithType: ControlNode.GetButtonReleasedState()
+  fullName: ShapeEngine.UI.ControlNode.GetButtonReleasedState()
+  spec.csharp:
+  - uid: ShapeEngine.UI.ControlNode.GetButtonReleasedState
+    name: GetButtonReleasedState
+    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetButtonReleasedState
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.UI.ControlNode.GetButtonReleasedState
+    name: GetButtonReleasedState
+    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetButtonReleasedState
+  - name: (
+  - name: )
+- uid: ShapeEngine.UI.ControlNode.GetMouseButtonReleasedState
+  commentId: M:ShapeEngine.UI.ControlNode.GetMouseButtonReleasedState
+  parent: ShapeEngine.UI.ControlNode
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMouseButtonReleasedState
+  name: GetMouseButtonReleasedState()
+  nameWithType: ControlNode.GetMouseButtonReleasedState()
+  fullName: ShapeEngine.UI.ControlNode.GetMouseButtonReleasedState()
+  spec.csharp:
+  - uid: ShapeEngine.UI.ControlNode.GetMouseButtonReleasedState
+    name: GetMouseButtonReleasedState
+    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMouseButtonReleasedState
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.UI.ControlNode.GetMouseButtonReleasedState
+    name: GetMouseButtonReleasedState
+    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMouseButtonReleasedState
+  - name: (
+  - name: )
+- uid: ShapeEngine.UI.ControlNode.GetButtonDownState
+  commentId: M:ShapeEngine.UI.ControlNode.GetButtonDownState
+  parent: ShapeEngine.UI.ControlNode
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetButtonDownState
+  name: GetButtonDownState()
+  nameWithType: ControlNode.GetButtonDownState()
+  fullName: ShapeEngine.UI.ControlNode.GetButtonDownState()
+  spec.csharp:
+  - uid: ShapeEngine.UI.ControlNode.GetButtonDownState
+    name: GetButtonDownState
+    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetButtonDownState
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.UI.ControlNode.GetButtonDownState
+    name: GetButtonDownState
+    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetButtonDownState
+  - name: (
+  - name: )
+- uid: ShapeEngine.UI.ControlNode.GetMouseButtonDownState
+  commentId: M:ShapeEngine.UI.ControlNode.GetMouseButtonDownState
+  parent: ShapeEngine.UI.ControlNode
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMouseButtonDownState
+  name: GetMouseButtonDownState()
+  nameWithType: ControlNode.GetMouseButtonDownState()
+  fullName: ShapeEngine.UI.ControlNode.GetMouseButtonDownState()
+  spec.csharp:
+  - uid: ShapeEngine.UI.ControlNode.GetMouseButtonDownState
+    name: GetMouseButtonDownState
+    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMouseButtonDownState
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.UI.ControlNode.GetMouseButtonDownState
+    name: GetMouseButtonDownState
+    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMouseButtonDownState
   - name: (
   - name: )
 - uid: ShapeEngine.UI.ControlNode.GetNavigationDirection
@@ -2631,6 +2728,37 @@ references:
   - uid: ShapeEngine.UI.ControlNode.PressedWasChanged(System.Boolean)
     name: PressedWasChanged
     href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_PressedWasChanged_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.UI.ControlNode.IsDownWasChanged(System.Boolean)
+  commentId: M:ShapeEngine.UI.ControlNode.IsDownWasChanged(System.Boolean)
+  parent: ShapeEngine.UI.ControlNode
+  isExternal: true
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_IsDownWasChanged_System_Boolean_
+  name: IsDownWasChanged(bool)
+  nameWithType: ControlNode.IsDownWasChanged(bool)
+  fullName: ShapeEngine.UI.ControlNode.IsDownWasChanged(bool)
+  nameWithType.vb: ControlNode.IsDownWasChanged(Boolean)
+  fullName.vb: ShapeEngine.UI.ControlNode.IsDownWasChanged(Boolean)
+  name.vb: IsDownWasChanged(Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.UI.ControlNode.IsDownWasChanged(System.Boolean)
+    name: IsDownWasChanged
+    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_IsDownWasChanged_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.UI.ControlNode.IsDownWasChanged(System.Boolean)
+    name: IsDownWasChanged
+    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_IsDownWasChanged_System_Boolean_
   - name: (
   - uid: System.Boolean
     name: Boolean

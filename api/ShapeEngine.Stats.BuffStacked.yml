@@ -37,7 +37,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BuffStacked
     path: ../ShapeEngine/ShapeEngine/Stats/BuffStacked.cs
-    startLine: 9
+    startLine: 10
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -45,7 +45,10 @@ items:
     Represents a buff that supports stacking and timing,
 
     allowing for multiple stacks and optional duration-based degradation.
-  remarks: BuffStacked extends BuffTimed to provide stack management and advanced duration handling.
+  remarks: >-
+    <xref href="ShapeEngine.Stats.BuffStacked" data-throw-if-not-resolved="false"></xref> extends <xref href="ShapeEngine.Stats.BuffTimed" data-throw-if-not-resolved="false"></xref> to provide stack management and advanced duration handling.
+
+    <xref href="ShapeEngine.Stats.BuffStacked.CurStacks" data-throw-if-not-resolved="false"></xref> stores the actual active stack count.
   example: []
   syntax:
     content: 'public class BuffStacked : BuffTimed, IBuff'
@@ -59,7 +62,8 @@ items:
   inheritedMembers:
   - ShapeEngine.Stats.BuffTimed.Duration
   - ShapeEngine.Stats.BuffTimed.Timer
-  - ShapeEngine.Stats.BuffTimed.TimerF
+  - ShapeEngine.Stats.BuffTimed.RemainingFraction
+  - ShapeEngine.Stats.BuffTimed.ElapsedFraction
   - ShapeEngine.Stats.BuffTimed.Degrading
   - ShapeEngine.Stats.Buff.Effects
   - ShapeEngine.Stats.Buff.Id
@@ -97,11 +101,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MaxStacks
     path: ../ShapeEngine/ShapeEngine/Stats/BuffStacked.cs
-    startLine: 14
+    startLine: 20
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
   summary: The maximum number of stacks this buff can have.
+  remarks: Values below zero are treated as unlimited stacks.
   example: []
   syntax:
     content: public int MaxStacks { get; }
@@ -128,7 +133,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CurStacks
     path: ../ShapeEngine/ShapeEngine/Stats/BuffStacked.cs
-    startLine: 18
+    startLine: 25
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -159,11 +164,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: StackF
     path: ../ShapeEngine/ShapeEngine/Stats/BuffStacked.cs
-    startLine: 22
+    startLine: 33
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
-  summary: The current stack fraction (CurStacks / MaxStacks).
+  summary: The current stack fraction (<xref href="ShapeEngine.Stats.BuffStacked.CurStacks" data-throw-if-not-resolved="false"></xref> / <xref href="ShapeEngine.Stats.BuffStacked.MaxStacks" data-throw-if-not-resolved="false"></xref>).
+  remarks: Returns <code>1</code> when stacks are unlimited and at least one stack is active.
   example: []
   syntax:
     content: public float StackF { get; }
@@ -190,7 +196,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: StacksReplenishDuration
     path: ../ShapeEngine/ShapeEngine/Stats/BuffStacked.cs
-    startLine: 34
+    startLine: 46
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -219,7 +225,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ClearAllStacksOnDurationEnd
     path: ../ShapeEngine/ShapeEngine/Stats/BuffStacked.cs
-    startLine: 38
+    startLine: 51
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -248,7 +254,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Stats/BuffStacked.cs
-    startLine: 45
+    startLine: 62
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -286,7 +292,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Stats/BuffStacked.cs
-    startLine: 57
+    startLine: 75
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -327,7 +333,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Stats/BuffStacked.cs
-    startLine: 70
+    startLine: 89
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -371,7 +377,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Stats/BuffStacked.cs
-    startLine: 84
+    startLine: 104
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -418,7 +424,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Stats/BuffStacked.cs
-    startLine: 98
+    startLine: 119
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -465,7 +471,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Stats/BuffStacked.cs
-    startLine: 114
+    startLine: 136
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -518,17 +524,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Clone
     path: ../ShapeEngine/ShapeEngine/Stats/BuffStacked.cs
-    startLine: 125
+    startLine: 151
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
-  summary: Creates a copy of this buff, including stack and duration settings.
+  summary: Creates a new stacked buff with the same identifier, stack settings, duration settings, and effects.
   example: []
   syntax:
     content: public override IBuff Clone()
     return:
       type: ShapeEngine.Stats.IBuff
-      description: A new <xref href="ShapeEngine.Stats.BuffStacked" data-throw-if-not-resolved="false"></xref> instance with the same properties.
+      description: A new <xref href="ShapeEngine.Stats.BuffStacked" data-throw-if-not-resolved="false"></xref> instance with the same configuration.
     content.vb: Public Overrides Function Clone() As IBuff
   overridden: ShapeEngine.Stats.BuffTimed.Clone
   overload: ShapeEngine.Stats.BuffStacked.Clone*
@@ -550,11 +556,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddStacks
     path: ../ShapeEngine/ShapeEngine/Stats/BuffStacked.cs
-    startLine: 131
+    startLine: 158
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
-  summary: Adds stacks to this buff, up to the maximum. Optionally replenishes duration.
+  summary: >-
+    Adds stacks to this buff, up to the configured maximum.
+
+    When enabled, adding stacks also refreshes the remaining duration.
   example: []
   syntax:
     content: public override void AddStacks(int amount)
@@ -586,11 +595,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveStacks
     path: ../ShapeEngine/ShapeEngine/Stats/BuffStacked.cs
-    startLine: 141
+    startLine: 174
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
-  summary: Removes stacks from this buff. If stacks reach zero, the buff is finished.
+  summary: >-
+    Removes stacks from this buff.
+
+    If the stack count reaches zero, the buff is marked as finished.
   example: []
   syntax:
     content: public override bool RemoveStacks(int amount)
@@ -625,11 +637,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/Stats/BuffStacked.cs
-    startLine: 157
+    startLine: 197
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
   summary: Updates the buff's timer and stack state.
+  remarks: >-
+    When the duration expires, either all stacks are cleared or a single stack is consumed,
+
+    depending on <xref href="ShapeEngine.Stats.BuffStacked.ClearAllStacksOnDurationEnd" data-throw-if-not-resolved="false"></xref>.
   example: []
   syntax:
     content: public override void Update(float dt)
@@ -661,14 +677,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsFinished
     path: ../ShapeEngine/ShapeEngine/Stats/BuffStacked.cs
-    startLine: 181
+    startLine: 238
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
   summary: >-
     Determines whether the buff is finished and should be removed.
 
-    The buff is considered finished if its duration is greater than zero and the timer has reached zero or below.
+    The buff is considered finished when no stacks remain.
   example: []
   syntax:
     content: public override bool IsFinished()
@@ -696,7 +712,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetStackText
     path: ../ShapeEngine/ShapeEngine/Stats/BuffStacked.cs
-    startLine: 186
+    startLine: 244
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -706,7 +722,7 @@ items:
     content: public virtual string GetStackText()
     return:
       type: System.String
-      description: A string in the format "Stacks CurStacks/MaxStacks".
+      description: A string in the format <code>Stacks current/max</code>.
     content.vb: Public Overridable Function GetStackText() As String
   overload: ShapeEngine.Stats.BuffStacked.GetStackText*
 - uid: ShapeEngine.Stats.BuffStacked.GetCurBuffValue(ShapeEngine.Stats.BuffEffect)
@@ -727,7 +743,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetCurBuffValue
     path: ../ShapeEngine/ShapeEngine/Stats/BuffStacked.cs
-    startLine: 192
+    startLine: 258
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -741,11 +757,33 @@ items:
       description: The effect to evaluate.
     return:
       type: ShapeEngine.Stats.BuffValue
-      description: The current <xref href="ShapeEngine.Stats.BuffValue" data-throw-if-not-resolved="false"></xref> for the effect.
+      description: >-
+        The current <xref href="ShapeEngine.Stats.BuffValue" data-throw-if-not-resolved="false"></xref> for the effect after applying the active stack count
+
+        and, when enabled, the remaining-time multiplier.
     content.vb: Protected Overrides Function GetCurBuffValue(effect As BuffEffect) As BuffValue
   overridden: ShapeEngine.Stats.BuffTimed.GetCurBuffValue(ShapeEngine.Stats.BuffEffect)
   overload: ShapeEngine.Stats.BuffStacked.GetCurBuffValue*
 references:
+- uid: ShapeEngine.Stats.BuffStacked
+  commentId: T:ShapeEngine.Stats.BuffStacked
+  href: ShapeEngine.Stats.BuffStacked.html
+  name: BuffStacked
+  nameWithType: BuffStacked
+  fullName: ShapeEngine.Stats.BuffStacked
+- uid: ShapeEngine.Stats.BuffTimed
+  commentId: T:ShapeEngine.Stats.BuffTimed
+  parent: ShapeEngine.Stats
+  href: ShapeEngine.Stats.BuffTimed.html
+  name: BuffTimed
+  nameWithType: BuffTimed
+  fullName: ShapeEngine.Stats.BuffTimed
+- uid: ShapeEngine.Stats.BuffStacked.CurStacks
+  commentId: P:ShapeEngine.Stats.BuffStacked.CurStacks
+  href: ShapeEngine.Stats.BuffStacked.html#ShapeEngine_Stats_BuffStacked_CurStacks
+  name: CurStacks
+  nameWithType: BuffStacked.CurStacks
+  fullName: ShapeEngine.Stats.BuffStacked.CurStacks
 - uid: ShapeEngine.Stats
   commentId: N:ShapeEngine.Stats
   href: ShapeEngine.html
@@ -786,13 +824,6 @@ references:
   name: Buff
   nameWithType: Buff
   fullName: ShapeEngine.Stats.Buff
-- uid: ShapeEngine.Stats.BuffTimed
-  commentId: T:ShapeEngine.Stats.BuffTimed
-  parent: ShapeEngine.Stats
-  href: ShapeEngine.Stats.BuffTimed.html
-  name: BuffTimed
-  nameWithType: BuffTimed
-  fullName: ShapeEngine.Stats.BuffTimed
 - uid: ShapeEngine.Stats.IBuff
   commentId: T:ShapeEngine.Stats.IBuff
   parent: ShapeEngine.Stats
@@ -814,13 +845,20 @@ references:
   name: Timer
   nameWithType: BuffTimed.Timer
   fullName: ShapeEngine.Stats.BuffTimed.Timer
-- uid: ShapeEngine.Stats.BuffTimed.TimerF
-  commentId: P:ShapeEngine.Stats.BuffTimed.TimerF
+- uid: ShapeEngine.Stats.BuffTimed.RemainingFraction
+  commentId: P:ShapeEngine.Stats.BuffTimed.RemainingFraction
   parent: ShapeEngine.Stats.BuffTimed
-  href: ShapeEngine.Stats.BuffTimed.html#ShapeEngine_Stats_BuffTimed_TimerF
-  name: TimerF
-  nameWithType: BuffTimed.TimerF
-  fullName: ShapeEngine.Stats.BuffTimed.TimerF
+  href: ShapeEngine.Stats.BuffTimed.html#ShapeEngine_Stats_BuffTimed_RemainingFraction
+  name: RemainingFraction
+  nameWithType: BuffTimed.RemainingFraction
+  fullName: ShapeEngine.Stats.BuffTimed.RemainingFraction
+- uid: ShapeEngine.Stats.BuffTimed.ElapsedFraction
+  commentId: P:ShapeEngine.Stats.BuffTimed.ElapsedFraction
+  parent: ShapeEngine.Stats.BuffTimed
+  href: ShapeEngine.Stats.BuffTimed.html#ShapeEngine_Stats_BuffTimed_ElapsedFraction
+  name: ElapsedFraction
+  nameWithType: BuffTimed.ElapsedFraction
+  fullName: ShapeEngine.Stats.BuffTimed.ElapsedFraction
 - uid: ShapeEngine.Stats.BuffTimed.Degrading
   commentId: F:ShapeEngine.Stats.BuffTimed.Degrading
   parent: ShapeEngine.Stats.BuffTimed
@@ -1576,6 +1614,12 @@ references:
   name: CurStacks
   nameWithType: BuffStacked.CurStacks
   fullName: ShapeEngine.Stats.BuffStacked.CurStacks
+- uid: ShapeEngine.Stats.BuffStacked.MaxStacks
+  commentId: P:ShapeEngine.Stats.BuffStacked.MaxStacks
+  href: ShapeEngine.Stats.BuffStacked.html#ShapeEngine_Stats_BuffStacked_MaxStacks
+  name: MaxStacks
+  nameWithType: BuffStacked.MaxStacks
+  fullName: ShapeEngine.Stats.BuffStacked.MaxStacks
 - uid: ShapeEngine.Stats.BuffStacked.StackF*
   commentId: Overload:ShapeEngine.Stats.BuffStacked.StackF
   href: ShapeEngine.Stats.BuffStacked.html#ShapeEngine_Stats_BuffStacked_StackF
@@ -1604,12 +1648,6 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
-- uid: ShapeEngine.Stats.BuffStacked
-  commentId: T:ShapeEngine.Stats.BuffStacked
-  href: ShapeEngine.Stats.BuffStacked.html
-  name: BuffStacked
-  nameWithType: BuffStacked
-  fullName: ShapeEngine.Stats.BuffStacked
 - uid: ShapeEngine.Stats.BuffStacked.#ctor*
   commentId: Overload:ShapeEngine.Stats.BuffStacked.#ctor
   href: ShapeEngine.Stats.BuffStacked.html#ShapeEngine_Stats_BuffStacked__ctor_System_UInt32_System_Int32_
@@ -1750,6 +1788,12 @@ references:
   name: RemoveStacks
   nameWithType: BuffStacked.RemoveStacks
   fullName: ShapeEngine.Stats.BuffStacked.RemoveStacks
+- uid: ShapeEngine.Stats.BuffStacked.ClearAllStacksOnDurationEnd
+  commentId: F:ShapeEngine.Stats.BuffStacked.ClearAllStacksOnDurationEnd
+  href: ShapeEngine.Stats.BuffStacked.html#ShapeEngine_Stats_BuffStacked_ClearAllStacksOnDurationEnd
+  name: ClearAllStacksOnDurationEnd
+  nameWithType: BuffStacked.ClearAllStacksOnDurationEnd
+  fullName: ShapeEngine.Stats.BuffStacked.ClearAllStacksOnDurationEnd
 - uid: ShapeEngine.Stats.BuffTimed.Update(System.Single)
   commentId: M:ShapeEngine.Stats.BuffTimed.Update(System.Single)
   parent: ShapeEngine.Stats.BuffTimed

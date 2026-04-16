@@ -5,8 +5,8 @@ items:
   id: PointDrawing
   parent: ShapeEngine.Geometry
   children:
-  - ShapeEngine.Geometry.PointDrawing.Draw(ShapeEngine.Geometry.PointsDef.Points,System.Single,ShapeEngine.Color.ColorRgba,System.Int32)
-  - ShapeEngine.Geometry.PointDrawing.Draw(System.Numerics.Vector2,System.Single,ShapeEngine.Color.ColorRgba,System.Int32)
+  - ShapeEngine.Geometry.PointDrawing.Draw(ShapeEngine.Geometry.PointsDef.Points,System.Single,ShapeEngine.Color.ColorRgba,System.Single)
+  - ShapeEngine.Geometry.PointDrawing.Draw(System.Numerics.Vector2,System.Single,ShapeEngine.Color.ColorRgba,System.Single)
   langs:
   - csharp
   - vb
@@ -40,17 +40,17 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
-- uid: ShapeEngine.Geometry.PointDrawing.Draw(System.Numerics.Vector2,System.Single,ShapeEngine.Color.ColorRgba,System.Int32)
-  commentId: M:ShapeEngine.Geometry.PointDrawing.Draw(System.Numerics.Vector2,System.Single,ShapeEngine.Color.ColorRgba,System.Int32)
-  id: Draw(System.Numerics.Vector2,System.Single,ShapeEngine.Color.ColorRgba,System.Int32)
+- uid: ShapeEngine.Geometry.PointDrawing.Draw(System.Numerics.Vector2,System.Single,ShapeEngine.Color.ColorRgba,System.Single)
+  commentId: M:ShapeEngine.Geometry.PointDrawing.Draw(System.Numerics.Vector2,System.Single,ShapeEngine.Color.ColorRgba,System.Single)
+  id: Draw(System.Numerics.Vector2,System.Single,ShapeEngine.Color.ColorRgba,System.Single)
   isExtensionMethod: true
   parent: ShapeEngine.Geometry.PointDrawing
   langs:
   - csharp
   - vb
-  name: Draw(Vector2, float, ColorRgba, int)
-  nameWithType: PointDrawing.Draw(Vector2, float, ColorRgba, int)
-  fullName: ShapeEngine.Geometry.PointDrawing.Draw(System.Numerics.Vector2, float, ShapeEngine.Color.ColorRgba, int)
+  name: Draw(Vector2, float, ColorRgba, float)
+  nameWithType: PointDrawing.Draw(Vector2, float, ColorRgba, float)
+  fullName: ShapeEngine.Geometry.PointDrawing.Draw(System.Numerics.Vector2, float, ShapeEngine.Color.ColorRgba, float)
   type: Method
   source:
     remote:
@@ -59,14 +59,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Draw
     path: ../ShapeEngine/ShapeEngine/Geometry/PointDrawing.cs
-    startLine: 19
+    startLine: 23
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry
   summary: Draws a point as a circle at the specified position.
   example: []
   syntax:
-    content: public static void Draw(this Vector2 p, float radius, ColorRgba color, int segments = 16)
+    content: public static void Draw(this Vector2 p, float radius, ColorRgba color, float smoothness = 0.25)
     parameters:
     - id: p
       type: System.Numerics.Vector2
@@ -77,25 +77,30 @@ items:
     - id: color
       type: ShapeEngine.Color.ColorRgba
       description: The color of the circle.
-    - id: segments
-      type: System.Int32
-      description: The number of segments to use for the circle. Default is 16.
-    content.vb: Public Shared Sub Draw(p As Vector2, radius As Single, color As ColorRgba, segments As Integer = 16)
+    - id: smoothness
+      type: System.Single
+      description: >-
+        The smoothness value (0-1). This controls the visual quality of the circle by inversely interpolating the current <xref href="ShapeEngine.Geometry.CircleDef.Circle.CircleSideLengthRange" data-throw-if-not-resolved="false"></xref>.
+
+        A value of 0 uses the maximum side length (fewer sides, less smooth), while 1 uses the minimum side length (more sides, smoother).
+
+        The resulting side length determines the number of polygon sides used to approximate the circle.
+    content.vb: Public Shared Sub Draw(p As Vector2, radius As Single, color As ColorRgba, smoothness As Single = 0.25)
   overload: ShapeEngine.Geometry.PointDrawing.Draw*
-  nameWithType.vb: PointDrawing.Draw(Vector2, Single, ColorRgba, Integer)
-  fullName.vb: ShapeEngine.Geometry.PointDrawing.Draw(System.Numerics.Vector2, Single, ShapeEngine.Color.ColorRgba, Integer)
-  name.vb: Draw(Vector2, Single, ColorRgba, Integer)
-- uid: ShapeEngine.Geometry.PointDrawing.Draw(ShapeEngine.Geometry.PointsDef.Points,System.Single,ShapeEngine.Color.ColorRgba,System.Int32)
-  commentId: M:ShapeEngine.Geometry.PointDrawing.Draw(ShapeEngine.Geometry.PointsDef.Points,System.Single,ShapeEngine.Color.ColorRgba,System.Int32)
-  id: Draw(ShapeEngine.Geometry.PointsDef.Points,System.Single,ShapeEngine.Color.ColorRgba,System.Int32)
+  nameWithType.vb: PointDrawing.Draw(Vector2, Single, ColorRgba, Single)
+  fullName.vb: ShapeEngine.Geometry.PointDrawing.Draw(System.Numerics.Vector2, Single, ShapeEngine.Color.ColorRgba, Single)
+  name.vb: Draw(Vector2, Single, ColorRgba, Single)
+- uid: ShapeEngine.Geometry.PointDrawing.Draw(ShapeEngine.Geometry.PointsDef.Points,System.Single,ShapeEngine.Color.ColorRgba,System.Single)
+  commentId: M:ShapeEngine.Geometry.PointDrawing.Draw(ShapeEngine.Geometry.PointsDef.Points,System.Single,ShapeEngine.Color.ColorRgba,System.Single)
+  id: Draw(ShapeEngine.Geometry.PointsDef.Points,System.Single,ShapeEngine.Color.ColorRgba,System.Single)
   isExtensionMethod: true
   parent: ShapeEngine.Geometry.PointDrawing
   langs:
   - csharp
   - vb
-  name: Draw(Points, float, ColorRgba, int)
-  nameWithType: PointDrawing.Draw(Points, float, ColorRgba, int)
-  fullName: ShapeEngine.Geometry.PointDrawing.Draw(ShapeEngine.Geometry.PointsDef.Points, float, ShapeEngine.Color.ColorRgba, int)
+  name: Draw(Points, float, ColorRgba, float)
+  nameWithType: PointDrawing.Draw(Points, float, ColorRgba, float)
+  fullName: ShapeEngine.Geometry.PointDrawing.Draw(ShapeEngine.Geometry.PointsDef.Points, float, ShapeEngine.Color.ColorRgba, float)
   type: Method
   source:
     remote:
@@ -104,14 +109,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Draw
     path: ../ShapeEngine/ShapeEngine/Geometry/PointDrawing.cs
-    startLine: 28
+    startLine: 40
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Geometry
   summary: Draws each point in a collection as a circle.
   example: []
   syntax:
-    content: public static void Draw(this Points points, float r, ColorRgba color, int segments = 16)
+    content: public static void Draw(this Points points, float r, ColorRgba color, float smoothness = 0.25)
     parameters:
     - id: points
       type: ShapeEngine.Geometry.PointsDef.Points
@@ -122,14 +127,19 @@ items:
     - id: color
       type: ShapeEngine.Color.ColorRgba
       description: The color of the circles.
-    - id: segments
-      type: System.Int32
-      description: The number of segments to use for each circle. Default is 16.
-    content.vb: Public Shared Sub Draw(points As Points, r As Single, color As ColorRgba, segments As Integer = 16)
+    - id: smoothness
+      type: System.Single
+      description: >-
+        The smoothness value (0-1). This controls the visual quality of the circle by inversely interpolating the current <xref href="ShapeEngine.Geometry.CircleDef.Circle.CircleSideLengthRange" data-throw-if-not-resolved="false"></xref>.
+
+        A value of 0 uses the maximum side length (fewer sides, less smooth), while 1 uses the minimum side length (more sides, smoother).
+
+        The resulting side length determines the number of polygon sides used to approximate the circle.
+    content.vb: Public Shared Sub Draw(points As Points, r As Single, color As ColorRgba, smoothness As Single = 0.25)
   overload: ShapeEngine.Geometry.PointDrawing.Draw*
-  nameWithType.vb: PointDrawing.Draw(Points, Single, ColorRgba, Integer)
-  fullName.vb: ShapeEngine.Geometry.PointDrawing.Draw(ShapeEngine.Geometry.PointsDef.Points, Single, ShapeEngine.Color.ColorRgba, Integer)
-  name.vb: Draw(Points, Single, ColorRgba, Integer)
+  nameWithType.vb: PointDrawing.Draw(Points, Single, ColorRgba, Single)
+  fullName.vb: ShapeEngine.Geometry.PointDrawing.Draw(ShapeEngine.Geometry.PointsDef.Points, Single, ShapeEngine.Color.ColorRgba, Single)
+  name.vb: Draw(Points, Single, ColorRgba, Single)
 references:
 - uid: ShapeEngine.Geometry
   commentId: N:ShapeEngine.Geometry
@@ -390,9 +400,15 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: ShapeEngine.Geometry.CircleDef.Circle.CircleSideLengthRange
+  commentId: F:ShapeEngine.Geometry.CircleDef.Circle.CircleSideLengthRange
+  href: ShapeEngine.Geometry.CircleDef.Circle.html#ShapeEngine_Geometry_CircleDef_Circle_CircleSideLengthRange
+  name: CircleSideLengthRange
+  nameWithType: Circle.CircleSideLengthRange
+  fullName: ShapeEngine.Geometry.CircleDef.Circle.CircleSideLengthRange
 - uid: ShapeEngine.Geometry.PointDrawing.Draw*
   commentId: Overload:ShapeEngine.Geometry.PointDrawing.Draw
-  href: ShapeEngine.Geometry.PointDrawing.html#ShapeEngine_Geometry_PointDrawing_Draw_System_Numerics_Vector2_System_Single_ShapeEngine_Color_ColorRgba_System_Int32_
+  href: ShapeEngine.Geometry.PointDrawing.html#ShapeEngine_Geometry_PointDrawing_Draw_System_Numerics_Vector2_System_Single_ShapeEngine_Color_ColorRgba_System_Single_
   name: Draw
   nameWithType: PointDrawing.Draw
   fullName: ShapeEngine.Geometry.PointDrawing.Draw
@@ -422,17 +438,6 @@ references:
   name: ColorRgba
   nameWithType: ColorRgba
   fullName: ShapeEngine.Color.ColorRgba
-- uid: System.Int32
-  commentId: T:System.Int32
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.int32
-  name: int
-  nameWithType: int
-  fullName: int
-  nameWithType.vb: Integer
-  fullName.vb: Integer
-  name.vb: Integer
 - uid: System.Numerics
   commentId: N:System.Numerics
   isExternal: true

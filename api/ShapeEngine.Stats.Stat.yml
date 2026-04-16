@@ -36,8 +36,8 @@ items:
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
-  summary: Represents a stat that can be affected by buffs, supporting base value, current value, and locking.
-  remarks: Implements the <xref href="ShapeEngine.Stats.IStat" data-throw-if-not-resolved="false"></xref> interface and provides methods for applying and resetting buffs.
+  summary: Represents a stat that can be affected by buffs, supporting a base value, calculated current value, and locking.
+  remarks: Implements <xref href="ShapeEngine.Stats.IStat" data-throw-if-not-resolved="false"></xref> and uses a bit-mask to determine which buff tags can affect the stat.
   example: []
   syntax:
     content: 'public class Stat : IStat'
@@ -75,7 +75,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Id
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 17
+    startLine: 26
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -106,7 +106,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Name
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 21
+    startLine: 31
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -135,7 +135,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: NameAbbreviation
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 25
+    startLine: 36
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -164,11 +164,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BaseValue
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 29
+    startLine: 41
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
-  summary: The base value of the stat before buffs are applied.
+  summary: The base value of the stat before any buff values are applied.
   example: []
   syntax:
     content: public float BaseValue { get; set; }
@@ -195,11 +195,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CurValue
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 33
+    startLine: 46
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
-  summary: The current value of the stat after all buffs are applied.
+  summary: The current value of the stat after all accumulated buff values are applied.
   example: []
   syntax:
     content: public float CurValue { get; }
@@ -226,7 +226,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Locked
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 38
+    startLine: 52
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -258,7 +258,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 57
+    startLine: 72
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -299,7 +299,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Draw
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 69
+    startLine: 88
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -334,18 +334,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToString
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 75
+    startLine: 94
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
-  summary: Returns a string representation of the stat, including its name and current value.
+  summary: Returns a string representation of the stat, including its name, current value, and accumulated modifiers.
   example: []
   syntax:
-    content: public string ToString()
+    content: public override string ToString()
     return:
       type: System.String
       description: A string describing the stat.
-    content.vb: Public Function ToString() As String
+    content.vb: Public Overrides Function ToString() As String
+  overridden: System.Object.ToString
   overload: ShapeEngine.Stats.Stat.ToString*
 - uid: ShapeEngine.Stats.Stat.ToText(System.Boolean)
   commentId: M:ShapeEngine.Stats.Stat.ToText(System.Boolean)
@@ -365,11 +366,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToText
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 85
+    startLine: 104
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
-  summary: Returns a string representation of the stat, optionally abbreviated.
+  summary: Returns a string representation of the stat, optionally using the abbreviated display name.
   example: []
   syntax:
     content: public virtual string ToText(bool abbreviated)
@@ -403,7 +404,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsAffected
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 93
+    startLine: 110
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -443,7 +444,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Reset
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 95
+    startLine: 113
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -473,7 +474,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Apply
     path: ../ShapeEngine/ShapeEngine/Stats/Stat.cs
-    startLine: 103
+    startLine: 122
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
@@ -1240,6 +1241,30 @@ references:
   - uid: ShapeEngine.Geometry.RectDef
     name: RectDef
     href: ShapeEngine.Geometry.RectDef.html
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
 - uid: ShapeEngine.Stats.Stat.ToString*
   commentId: Overload:ShapeEngine.Stats.Stat.ToString
   href: ShapeEngine.Stats.Stat.html#ShapeEngine_Stats_Stat_ToString
