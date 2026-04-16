@@ -26,14 +26,17 @@ items:
   source:
     remote:
       path: ShapeEngine/Stats/BuffTimed.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BuffTimed
     path: ../ShapeEngine/ShapeEngine/Stats/BuffTimed.cs
-    startLine: 2
+    startLine: 8
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Represents a timed buff that can degrade over its duration.
+  remarks: BuffTimed extends Buff to provide duration and optional degrading behavior.
+  example: []
   syntax:
     content: 'public class BuffTimed : Buff, IBuff'
     content.vb: Public Class BuffTimed Inherits Buff Implements IBuff
@@ -51,7 +54,7 @@ items:
   - ShapeEngine.Stats.Buff.AddEffect(ShapeEngine.Stats.BuffEffect)
   - ShapeEngine.Stats.Buff.RemoveStacks(System.Int32)
   - ShapeEngine.Stats.Buff.ApplyTo(ShapeEngine.Stats.IStat)
-  - ShapeEngine.Stats.Buff.Draw(ShapeEngine.Core.Shapes.Rect)
+  - ShapeEngine.Stats.Buff.Draw(ShapeEngine.Geometry.RectDef.Rect)
   - ShapeEngine.Stats.Buff.GetEffectTexts(System.Collections.Generic.List{System.String}@)
   - System.Object.Equals(System.Object)
   - System.Object.Equals(System.Object,System.Object)
@@ -60,6 +63,10 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
 - uid: ShapeEngine.Stats.BuffTimed.Duration
   commentId: P:ShapeEngine.Stats.BuffTimed.Duration
   id: Duration
@@ -74,14 +81,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Stats/BuffTimed.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Duration
     path: ../ShapeEngine/ShapeEngine/Stats/BuffTimed.cs
-    startLine: 4
+    startLine: 13
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: The total duration of the buff in seconds.
+  example: []
   syntax:
     content: public float Duration { get; }
     parameters: []
@@ -103,14 +112,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Stats/BuffTimed.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Timer
     path: ../ShapeEngine/ShapeEngine/Stats/BuffTimed.cs
-    startLine: 5
+    startLine: 17
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: The current timer value in seconds.
+  example: []
   syntax:
     content: public float Timer { get; protected set; }
     parameters: []
@@ -132,14 +143,20 @@ items:
   source:
     remote:
       path: ShapeEngine/Stats/BuffTimed.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TimerF
     path: ../ShapeEngine/ShapeEngine/Stats/BuffTimed.cs
-    startLine: 6
+    startLine: 22
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: >-
+    The fraction of time remaining
+
+
+    <pre><code class="lang-csharp">1f - (Timer / Duration)</code></pre>
+  example: []
   syntax:
     content: public float TimerF { get; }
     parameters: []
@@ -161,14 +178,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Stats/BuffTimed.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Degrading
     path: ../ShapeEngine/ShapeEngine/Stats/BuffTimed.cs
-    startLine: 14
+    startLine: 33
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: If true, the buff's effect degrades over time.
+  example: []
   syntax:
     content: public bool Degrading
     return:
@@ -188,23 +207,28 @@ items:
   source:
     remote:
       path: ShapeEngine/Stats/BuffTimed.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Stats/BuffTimed.cs
-    startLine: 16
+    startLine: 41
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Stats.BuffTimed" data-throw-if-not-resolved="false"></xref> class with duration and degrading options.
+  example: []
   syntax:
     content: public BuffTimed(uint id, float duration, bool degrading)
     parameters:
     - id: id
       type: System.UInt32
+      description: The unique identifier for the buff.
     - id: duration
       type: System.Single
+      description: The total duration of the buff in seconds.
     - id: degrading
       type: System.Boolean
+      description: If true, the buff's effect degrades over time.
     content.vb: Public Sub New(id As UInteger, duration As Single, degrading As Boolean)
   overload: ShapeEngine.Stats.BuffTimed.#ctor*
   nameWithType.vb: BuffTimed.New(UInteger, Single, Boolean)
@@ -224,25 +248,31 @@ items:
   source:
     remote:
       path: ShapeEngine/Stats/BuffTimed.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Stats/BuffTimed.cs
-    startLine: 23
+    startLine: 55
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Initializes a new instance with effects.
+  example: []
   syntax:
     content: public BuffTimed(uint id, float duration, bool degrading, params BuffEffect[] effects)
     parameters:
     - id: id
       type: System.UInt32
+      description: The unique identifier for the buff.
     - id: duration
       type: System.Single
+      description: The total duration of the buff in seconds.
     - id: degrading
       type: System.Boolean
+      description: If true, the buff's effect degrades over time.
     - id: effects
       type: ShapeEngine.Stats.BuffEffect[]
+      description: The effects to apply.
     content.vb: Public Sub New(id As UInteger, duration As Single, degrading As Boolean, ParamArray effects As BuffEffect())
   overload: ShapeEngine.Stats.BuffTimed.#ctor*
   nameWithType.vb: BuffTimed.New(UInteger, Single, Boolean, ParamArray BuffEffect())
@@ -262,19 +292,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Stats/BuffTimed.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Clone
     path: ../ShapeEngine/ShapeEngine/Stats/BuffTimed.cs
-    startLine: 31
+    startLine: 67
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Creates a copy of this timed buff.
   example: []
   syntax:
     content: public override IBuff Clone()
     return:
       type: ShapeEngine.Stats.IBuff
+      description: A new <xref href="ShapeEngine.Stats.BuffTimed" data-throw-if-not-resolved="false"></xref> instance with the same properties.
     content.vb: Public Overrides Function Clone() As IBuff
   overridden: ShapeEngine.Stats.Buff.Clone
   overload: ShapeEngine.Stats.BuffTimed.Clone*
@@ -292,20 +324,22 @@ items:
   source:
     remote:
       path: ShapeEngine/Stats/BuffTimed.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddStacks
     path: ../ShapeEngine/ShapeEngine/Stats/BuffTimed.cs
-    startLine: 33
+    startLine: 73
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Adds stacks to this buff. Resets the timer if duration is set.
   example: []
   syntax:
     content: public override void AddStacks(int amount)
     parameters:
     - id: amount
       type: System.Int32
+      description: The number of stacks to add.
     content.vb: Public Overrides Sub AddStacks(amount As Integer)
   overridden: ShapeEngine.Stats.Buff.AddStacks(System.Int32)
   overload: ShapeEngine.Stats.BuffTimed.AddStacks*
@@ -326,20 +360,22 @@ items:
   source:
     remote:
       path: ShapeEngine/Stats/BuffTimed.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/Stats/BuffTimed.cs
-    startLine: 38
+    startLine: 82
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Updates the timer for this buff.
   example: []
   syntax:
     content: public override void Update(float dt)
     parameters:
     - id: dt
       type: System.Single
+      description: The time delta since the last update.
     content.vb: Public Overrides Sub Update(dt As Single)
   overridden: ShapeEngine.Stats.Buff.Update(System.Single)
   overload: ShapeEngine.Stats.BuffTimed.Update*
@@ -360,19 +396,24 @@ items:
   source:
     remote:
       path: ShapeEngine/Stats/BuffTimed.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsFinished
     path: ../ShapeEngine/ShapeEngine/Stats/BuffTimed.cs
-    startLine: 45
+    startLine: 94
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: >-
+    Determines whether the buff is finished and should be removed.
+
+    The buff is considered finished if its duration is greater than zero and the timer has reached zero or below.
   example: []
   syntax:
     content: public override bool IsFinished()
     return:
       type: System.Boolean
+      description: True if the buff is finished; otherwise, false.
     content.vb: Public Overrides Function IsFinished() As Boolean
   overridden: ShapeEngine.Stats.Buff.IsFinished
   overload: ShapeEngine.Stats.BuffTimed.IsFinished*
@@ -390,22 +431,25 @@ items:
   source:
     remote:
       path: ShapeEngine/Stats/BuffTimed.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetCurBuffValue
     path: ../ShapeEngine/ShapeEngine/Stats/BuffTimed.cs
-    startLine: 48
+    startLine: 101
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Stats
+  summary: Gets the current value of a buff effect, factoring in degradation if enabled.
   example: []
   syntax:
     content: protected override BuffValue GetCurBuffValue(BuffEffect effect)
     parameters:
     - id: effect
       type: ShapeEngine.Stats.BuffEffect
+      description: The effect to evaluate.
     return:
       type: ShapeEngine.Stats.BuffValue
+      description: The current <xref href="ShapeEngine.Stats.BuffValue" data-throw-if-not-resolved="false"></xref> for the effect.
     content.vb: Protected Overrides Function GetCurBuffValue(effect As BuffEffect) As BuffValue
   overridden: ShapeEngine.Stats.Buff.GetCurBuffValue(ShapeEngine.Stats.BuffEffect)
   overload: ShapeEngine.Stats.BuffTimed.GetCurBuffValue*
@@ -571,30 +615,30 @@ references:
     name: IStat
     href: ShapeEngine.Stats.IStat.html
   - name: )
-- uid: ShapeEngine.Stats.Buff.Draw(ShapeEngine.Core.Shapes.Rect)
-  commentId: M:ShapeEngine.Stats.Buff.Draw(ShapeEngine.Core.Shapes.Rect)
+- uid: ShapeEngine.Stats.Buff.Draw(ShapeEngine.Geometry.RectDef.Rect)
+  commentId: M:ShapeEngine.Stats.Buff.Draw(ShapeEngine.Geometry.RectDef.Rect)
   parent: ShapeEngine.Stats.Buff
-  href: ShapeEngine.Stats.Buff.html#ShapeEngine_Stats_Buff_Draw_ShapeEngine_Core_Shapes_Rect_
+  href: ShapeEngine.Stats.Buff.html#ShapeEngine_Stats_Buff_Draw_ShapeEngine_Geometry_RectDef_Rect_
   name: Draw(Rect)
   nameWithType: Buff.Draw(Rect)
-  fullName: ShapeEngine.Stats.Buff.Draw(ShapeEngine.Core.Shapes.Rect)
+  fullName: ShapeEngine.Stats.Buff.Draw(ShapeEngine.Geometry.RectDef.Rect)
   spec.csharp:
-  - uid: ShapeEngine.Stats.Buff.Draw(ShapeEngine.Core.Shapes.Rect)
+  - uid: ShapeEngine.Stats.Buff.Draw(ShapeEngine.Geometry.RectDef.Rect)
     name: Draw
-    href: ShapeEngine.Stats.Buff.html#ShapeEngine_Stats_Buff_Draw_ShapeEngine_Core_Shapes_Rect_
+    href: ShapeEngine.Stats.Buff.html#ShapeEngine_Stats_Buff_Draw_ShapeEngine_Geometry_RectDef_Rect_
   - name: (
-  - uid: ShapeEngine.Core.Shapes.Rect
+  - uid: ShapeEngine.Geometry.RectDef.Rect
     name: Rect
-    href: ShapeEngine.Core.Shapes.Rect.html
+    href: ShapeEngine.Geometry.RectDef.Rect.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Stats.Buff.Draw(ShapeEngine.Core.Shapes.Rect)
+  - uid: ShapeEngine.Stats.Buff.Draw(ShapeEngine.Geometry.RectDef.Rect)
     name: Draw
-    href: ShapeEngine.Stats.Buff.html#ShapeEngine_Stats_Buff_Draw_ShapeEngine_Core_Shapes_Rect_
+    href: ShapeEngine.Stats.Buff.html#ShapeEngine_Stats_Buff_Draw_ShapeEngine_Geometry_RectDef_Rect_
   - name: (
-  - uid: ShapeEngine.Core.Shapes.Rect
+  - uid: ShapeEngine.Geometry.RectDef.Rect
     name: Rect
-    href: ShapeEngine.Core.Shapes.Rect.html
+    href: ShapeEngine.Geometry.RectDef.Rect.html
   - name: )
 - uid: ShapeEngine.Stats.Buff.GetEffectTexts(System.Collections.Generic.List{System.String}@)
   commentId: M:ShapeEngine.Stats.Buff.GetEffectTexts(System.Collections.Generic.List{System.String}@)
@@ -862,6 +906,165 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -869,6 +1072,191 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
+  href: ShapeEngine.html
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
 - uid: ShapeEngine.Stats.BuffTimed.Duration*
   commentId: Overload:ShapeEngine.Stats.BuffTimed.Duration
   href: ShapeEngine.Stats.BuffTimed.html#ShapeEngine_Stats_BuffTimed_Duration
@@ -909,6 +1297,13 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
+- uid: ShapeEngine.Stats.BuffTimed
+  commentId: T:ShapeEngine.Stats.BuffTimed
+  parent: ShapeEngine.Stats
+  href: ShapeEngine.Stats.BuffTimed.html
+  name: BuffTimed
+  nameWithType: BuffTimed
+  fullName: ShapeEngine.Stats.BuffTimed
 - uid: ShapeEngine.Stats.BuffTimed.#ctor*
   commentId: Overload:ShapeEngine.Stats.BuffTimed.#ctor
   href: ShapeEngine.Stats.BuffTimed.html#ShapeEngine_Stats_BuffTimed__ctor_System_UInt32_System_Single_System_Boolean_
@@ -1085,6 +1480,13 @@ references:
   name: IsFinished
   nameWithType: BuffTimed.IsFinished
   fullName: ShapeEngine.Stats.BuffTimed.IsFinished
+- uid: ShapeEngine.Stats.BuffValue
+  commentId: T:ShapeEngine.Stats.BuffValue
+  parent: ShapeEngine.Stats
+  href: ShapeEngine.Stats.BuffValue.html
+  name: BuffValue
+  nameWithType: BuffValue
+  fullName: ShapeEngine.Stats.BuffValue
 - uid: ShapeEngine.Stats.Buff.GetCurBuffValue(ShapeEngine.Stats.BuffEffect)
   commentId: M:ShapeEngine.Stats.Buff.GetCurBuffValue(ShapeEngine.Stats.BuffEffect)
   parent: ShapeEngine.Stats.Buff
@@ -1123,10 +1525,3 @@ references:
   name: BuffEffect
   nameWithType: BuffEffect
   fullName: ShapeEngine.Stats.BuffEffect
-- uid: ShapeEngine.Stats.BuffValue
-  commentId: T:ShapeEngine.Stats.BuffValue
-  parent: ShapeEngine.Stats
-  href: ShapeEngine.Stats.BuffValue.html
-  name: BuffValue
-  nameWithType: BuffValue
-  fullName: ShapeEngine.Stats.BuffValue

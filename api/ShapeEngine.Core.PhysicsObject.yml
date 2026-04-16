@@ -6,21 +6,23 @@ items:
   parent: ShapeEngine.Core
   children:
   - ShapeEngine.Core.PhysicsObject.AccumulatedForce
+  - ShapeEngine.Core.PhysicsObject.AccumulatedImpulses
   - ShapeEngine.Core.PhysicsObject.AddForce(System.Numerics.Vector2)
+  - ShapeEngine.Core.PhysicsObject.AddForceRaw(System.Numerics.Vector2)
   - ShapeEngine.Core.PhysicsObject.AddImpulse(System.Numerics.Vector2)
-  - ShapeEngine.Core.PhysicsObject.ApplyDragForce(System.Numerics.Vector2,System.Single,System.Single)
-  - ShapeEngine.Core.PhysicsObject.ApplyDragForce(System.Single,System.Single,System.Single)
-  - ShapeEngine.Core.PhysicsObject.Attraction(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Single,System.Single,System.Single)
   - ShapeEngine.Core.PhysicsObject.ClearAccumulatedForce
+  - ShapeEngine.Core.PhysicsObject.ClearAccumulatedImpulses
   - ShapeEngine.Core.PhysicsObject.ConstAcceleration
-  - ShapeEngine.Core.PhysicsObject.Drag
-  - ShapeEngine.Core.PhysicsObject.ElasticCollision1D(System.Numerics.Vector2,System.Single,System.Numerics.Vector2,System.Single)
-  - ShapeEngine.Core.PhysicsObject.ElasticCollision2D(System.Numerics.Vector2,System.Numerics.Vector2,System.Single,System.Numerics.Vector2,System.Numerics.Vector2,System.Single,System.Single)
-  - ShapeEngine.Core.PhysicsObject.GetDragForce(System.Numerics.Vector2,System.Single,System.Single)
-  - ShapeEngine.Core.PhysicsObject.GetDragForce(System.Single,System.Single,System.Single)
+  - ShapeEngine.Core.PhysicsObject.CurVelocityDirection
+  - ShapeEngine.Core.PhysicsObject.CurVelocityMagnitude
+  - ShapeEngine.Core.PhysicsObject.CurVelocityMagnitudeSquared
+  - ShapeEngine.Core.PhysicsObject.DragCoefficient
+  - ShapeEngine.Core.PhysicsObject.IsInMotion
+  - ShapeEngine.Core.PhysicsObject.KineticEnergy
   - ShapeEngine.Core.PhysicsObject.Mass
+  - ShapeEngine.Core.PhysicsObject.Momentum
   - ShapeEngine.Core.PhysicsObject.OnPhysicsStateUpdated(System.Single)
-  - ShapeEngine.Core.PhysicsObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  - ShapeEngine.Core.PhysicsObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
   - ShapeEngine.Core.PhysicsObject.Velocity
   langs:
   - csharp
@@ -32,14 +34,20 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/PhysicsObject.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PhysicsObject
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 6
+    startLine: 13
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: >-
+    Represents a game object with physics properties and simulation logic.
+
+    Inherits from <xref href="ShapeEngine.Core.GameObject" data-throw-if-not-resolved="false"></xref> and adds velocity, mass, drag, and force/impulse accumulation.
+  remarks: PhysicsObject provides a simple physics simulation model for 2D games, including drag, momentum, and energy calculations.
+  example: []
   syntax:
     content: 'public abstract class PhysicsObject : GameObject, IUpdateable, IDrawable'
     content.vb: Public MustInherit Class PhysicsObject Inherits GameObject Implements IUpdateable, IDrawable
@@ -47,10 +55,10 @@ items:
   - System.Object
   - ShapeEngine.Core.GameObject
   derivedClasses:
-  - ShapeEngine.Core.CollisionObject
+  - ShapeEngine.Geometry.CollisionSystem.CollisionObject
   implements:
-  - ShapeEngine.Core.Interfaces.IUpdateable
-  - ShapeEngine.Core.Interfaces.IDrawable
+  - ShapeEngine.Core.IUpdateable
+  - ShapeEngine.Core.IDrawable
   inheritedMembers:
   - ShapeEngine.Core.GameObject.OnKilled
   - ShapeEngine.Core.GameObject.OnRevived
@@ -59,14 +67,14 @@ items:
   - ShapeEngine.Core.GameObject.GetBoundingBox
   - ShapeEngine.Core.GameObject.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
   - ShapeEngine.Core.GameObject.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
-  - ShapeEngine.Core.GameObject.IsDrawingToGame(ShapeEngine.Core.Shapes.Rect)
-  - ShapeEngine.Core.GameObject.IsDrawingToGameUI(ShapeEngine.Core.Shapes.Rect)
+  - ShapeEngine.Core.GameObject.IsDrawingToGame(ShapeEngine.Geometry.RectDef.Rect)
+  - ShapeEngine.Core.GameObject.IsDrawingToGameUI(ShapeEngine.Geometry.RectDef.Rect)
   - ShapeEngine.Core.GameObject.Layer
   - ShapeEngine.Core.GameObject.UpdateParallaxe(System.Numerics.Vector2)
   - ShapeEngine.Core.GameObject.IsInLayer(System.UInt32)
   - ShapeEngine.Core.GameObject.OnSpawned(ShapeEngine.Core.SpawnArea)
   - ShapeEngine.Core.GameObject.OnDespawned(ShapeEngine.Core.SpawnArea)
-  - ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Core.Shapes.Rect)
+  - ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Geometry.RectDef.Rect)
   - ShapeEngine.Core.GameObject.Kill(System.String,ShapeEngine.Core.GameObject)
   - ShapeEngine.Core.GameObject.WasKilled(System.String,ShapeEngine.Core.GameObject)
   - ShapeEngine.Core.GameObject.TryKill(System.String,ShapeEngine.Core.GameObject)
@@ -80,6 +88,113 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
+  extensionMethods:
+  - ShapeEngine.Core.PhysicsObject.ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject)
+  - ShapeEngine.Core.PhysicsObject.ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(System.Numerics.Vector2,System.Single)
+  - ShapeEngine.Core.PhysicsObject.ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(System.Numerics.Vector2,System.Single,System.Numerics.Vector2)
+  - ShapeEngine.Core.PhysicsObject.ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(System.Numerics.Vector2,System.Single,System.Single)
+  - ShapeEngine.Core.PhysicsObject.ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollision(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+  - ShapeEngine.Core.PhysicsObject.ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionCircleSelf(ShapeEngine.Core.PhysicsObject,System.Single)
+  - ShapeEngine.Core.PhysicsObject.ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionSelf(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+  - ShapeEngine.Core.PhysicsObject.ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(System.Numerics.Vector2,System.Single)
+  - ShapeEngine.Core.PhysicsObject.ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(System.Numerics.Vector2,System.Single,System.Numerics.Vector2)
+  - ShapeEngine.Core.PhysicsObject.ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(System.Numerics.Vector2,System.Single,System.Single)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+- uid: ShapeEngine.Core.PhysicsObject.CurVelocityMagnitudeSquared
+  commentId: P:ShapeEngine.Core.PhysicsObject.CurVelocityMagnitudeSquared
+  id: CurVelocityMagnitudeSquared
+  parent: ShapeEngine.Core.PhysicsObject
+  langs:
+  - csharp
+  - vb
+  name: CurVelocityMagnitudeSquared
+  nameWithType: PhysicsObject.CurVelocityMagnitudeSquared
+  fullName: ShapeEngine.Core.PhysicsObject.CurVelocityMagnitudeSquared
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/PhysicsObject.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: CurVelocityMagnitudeSquared
+    path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
+    startLine: 18
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Gets the squared magnitude of the current velocity vector.
+  example: []
+  syntax:
+    content: public float CurVelocityMagnitudeSquared { get; }
+    parameters: []
+    return:
+      type: System.Single
+    content.vb: Public Property CurVelocityMagnitudeSquared As Single
+  overload: ShapeEngine.Core.PhysicsObject.CurVelocityMagnitudeSquared*
+- uid: ShapeEngine.Core.PhysicsObject.CurVelocityMagnitude
+  commentId: P:ShapeEngine.Core.PhysicsObject.CurVelocityMagnitude
+  id: CurVelocityMagnitude
+  parent: ShapeEngine.Core.PhysicsObject
+  langs:
+  - csharp
+  - vb
+  name: CurVelocityMagnitude
+  nameWithType: PhysicsObject.CurVelocityMagnitude
+  fullName: ShapeEngine.Core.PhysicsObject.CurVelocityMagnitude
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/PhysicsObject.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: CurVelocityMagnitude
+    path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
+    startLine: 22
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Gets the magnitude (length) of the current velocity vector.
+  example: []
+  syntax:
+    content: public float CurVelocityMagnitude { get; }
+    parameters: []
+    return:
+      type: System.Single
+    content.vb: Public Property CurVelocityMagnitude As Single
+  overload: ShapeEngine.Core.PhysicsObject.CurVelocityMagnitude*
+- uid: ShapeEngine.Core.PhysicsObject.CurVelocityDirection
+  commentId: P:ShapeEngine.Core.PhysicsObject.CurVelocityDirection
+  id: CurVelocityDirection
+  parent: ShapeEngine.Core.PhysicsObject
+  langs:
+  - csharp
+  - vb
+  name: CurVelocityDirection
+  nameWithType: PhysicsObject.CurVelocityDirection
+  fullName: ShapeEngine.Core.PhysicsObject.CurVelocityDirection
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/PhysicsObject.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: CurVelocityDirection
+    path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
+    startLine: 26
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Gets the normalized direction of the current velocity vector.
+  example: []
+  syntax:
+    content: public Vector2 CurVelocityDirection { get; }
+    parameters: []
+    return:
+      type: System.Numerics.Vector2
+    content.vb: Public Property CurVelocityDirection As Vector2
+  overload: ShapeEngine.Core.PhysicsObject.CurVelocityDirection*
 - uid: ShapeEngine.Core.PhysicsObject.Velocity
   commentId: P:ShapeEngine.Core.PhysicsObject.Velocity
   id: Velocity
@@ -94,14 +209,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/PhysicsObject.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Velocity
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 8
+    startLine: 30
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Gets or sets the current velocity vector.
+  example: []
   syntax:
     content: public Vector2 Velocity { get; set; }
     parameters: []
@@ -123,14 +240,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/PhysicsObject.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Mass
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 9
+    startLine: 34
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Gets or sets the mass of the object. Used for force/impulse calculations.
+  example: []
   syntax:
     content: public float Mass { get; set; }
     parameters: []
@@ -138,35 +257,42 @@ items:
       type: System.Single
     content.vb: Public Property Mass As Single
   overload: ShapeEngine.Core.PhysicsObject.Mass*
-- uid: ShapeEngine.Core.PhysicsObject.Drag
-  commentId: P:ShapeEngine.Core.PhysicsObject.Drag
-  id: Drag
+- uid: ShapeEngine.Core.PhysicsObject.DragCoefficient
+  commentId: P:ShapeEngine.Core.PhysicsObject.DragCoefficient
+  id: DragCoefficient
   parent: ShapeEngine.Core.PhysicsObject
   langs:
   - csharp
   - vb
-  name: Drag
-  nameWithType: PhysicsObject.Drag
-  fullName: ShapeEngine.Core.PhysicsObject.Drag
+  name: DragCoefficient
+  nameWithType: PhysicsObject.DragCoefficient
+  fullName: ShapeEngine.Core.PhysicsObject.DragCoefficient
   type: Property
   source:
     remote:
       path: ShapeEngine/Core/PhysicsObject.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: Drag
+    id: DragCoefficient
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 10
+    startLine: 43
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: >-
+    Gets or sets the drag coefficient <code>(0-1)</code>.
+
+
+    <ul><li>0 = no drag</li><li>1 = full drag</li></ul>
+  remarks: Determines the percentage of velocity lost per second.
+  example: []
   syntax:
-    content: public float Drag { get; set; }
+    content: public float DragCoefficient { get; set; }
     parameters: []
     return:
       type: System.Single
-    content.vb: Public Property Drag As Single
-  overload: ShapeEngine.Core.PhysicsObject.Drag*
+    content.vb: Public Property DragCoefficient As Single
+  overload: ShapeEngine.Core.PhysicsObject.DragCoefficient*
 - uid: ShapeEngine.Core.PhysicsObject.ConstAcceleration
   commentId: P:ShapeEngine.Core.PhysicsObject.ConstAcceleration
   id: ConstAcceleration
@@ -181,14 +307,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/PhysicsObject.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ConstAcceleration
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 11
+    startLine: 47
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Gets or sets the constant acceleration applied every update (e.g., gravity).
+  example: []
   syntax:
     content: public Vector2 ConstAcceleration { get; set; }
     parameters: []
@@ -210,14 +338,22 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/PhysicsObject.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AccumulatedForce
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 12
+    startLine: 56
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Gets the accumulated force to be applied on the next update.
+  remarks: >-
+    Calling <xref href="ShapeEngine.Core.PhysicsObject.AddForce(System.Numerics.Vector2)" data-throw-if-not-resolved="false"></xref> or <xref href="ShapeEngine.Core.PhysicsObject.AddForceRaw(System.Numerics.Vector2)" data-throw-if-not-resolved="false"></xref> changes <xref href="ShapeEngine.Core.PhysicsObject.AccumulatedForce" data-throw-if-not-resolved="false"></xref>.
+
+    Use this to add constant forces each frame.
+
+    <xref href="ShapeEngine.Core.PhysicsObject.AccumulatedForce" data-throw-if-not-resolved="false"></xref> will be added to <xref href="ShapeEngine.Core.PhysicsObject.Velocity" data-throw-if-not-resolved="false"></xref> with delta time applied in the physics step.
+  example: []
   syntax:
     content: public Vector2 AccumulatedForce { get; }
     parameters: []
@@ -225,6 +361,136 @@ items:
       type: System.Numerics.Vector2
     content.vb: Public Property AccumulatedForce As Vector2
   overload: ShapeEngine.Core.PhysicsObject.AccumulatedForce*
+- uid: ShapeEngine.Core.PhysicsObject.AccumulatedImpulses
+  commentId: P:ShapeEngine.Core.PhysicsObject.AccumulatedImpulses
+  id: AccumulatedImpulses
+  parent: ShapeEngine.Core.PhysicsObject
+  langs:
+  - csharp
+  - vb
+  name: AccumulatedImpulses
+  nameWithType: PhysicsObject.AccumulatedImpulses
+  fullName: ShapeEngine.Core.PhysicsObject.AccumulatedImpulses
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/PhysicsObject.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: AccumulatedImpulses
+    path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
+    startLine: 65
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Gets the accumulated impulses to be applied on the next update.
+  remarks: >-
+    Calling <xref href="ShapeEngine.Core.PhysicsObject.AddImpulse(System.Numerics.Vector2)" data-throw-if-not-resolved="false"></xref> changes <xref href="ShapeEngine.Core.PhysicsObject.AccumulatedImpulses" data-throw-if-not-resolved="false"></xref>.
+
+    <xref href="ShapeEngine.Core.PhysicsObject.AccumulatedImpulses" data-throw-if-not-resolved="false"></xref> are added as is to the <xref href="ShapeEngine.Core.PhysicsObject.Velocity" data-throw-if-not-resolved="false"></xref> in the physics step.
+
+    Use this for one-time impulses, not for constant forces!.
+  example: []
+  syntax:
+    content: public Vector2 AccumulatedImpulses { get; }
+    parameters: []
+    return:
+      type: System.Numerics.Vector2
+    content.vb: Public Property AccumulatedImpulses As Vector2
+  overload: ShapeEngine.Core.PhysicsObject.AccumulatedImpulses*
+- uid: ShapeEngine.Core.PhysicsObject.Momentum
+  commentId: P:ShapeEngine.Core.PhysicsObject.Momentum
+  id: Momentum
+  parent: ShapeEngine.Core.PhysicsObject
+  langs:
+  - csharp
+  - vb
+  name: Momentum
+  nameWithType: PhysicsObject.Momentum
+  fullName: ShapeEngine.Core.PhysicsObject.Momentum
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/PhysicsObject.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Momentum
+    path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
+    startLine: 70
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Gets the current momentum <code>(mass * velocity magnitude)</code>.
+  example: []
+  syntax:
+    content: public float Momentum { get; }
+    parameters: []
+    return:
+      type: System.Single
+    content.vb: Public ReadOnly Property Momentum As Single
+  overload: ShapeEngine.Core.PhysicsObject.Momentum*
+- uid: ShapeEngine.Core.PhysicsObject.KineticEnergy
+  commentId: P:ShapeEngine.Core.PhysicsObject.KineticEnergy
+  id: KineticEnergy
+  parent: ShapeEngine.Core.PhysicsObject
+  langs:
+  - csharp
+  - vb
+  name: KineticEnergy
+  nameWithType: PhysicsObject.KineticEnergy
+  fullName: ShapeEngine.Core.PhysicsObject.KineticEnergy
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/PhysicsObject.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: KineticEnergy
+    path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
+    startLine: 74
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Gets the current kinetic energy <code>(0.5 * mass * velocity^2)</code>.
+  example: []
+  syntax:
+    content: public float KineticEnergy { get; }
+    parameters: []
+    return:
+      type: System.Single
+    content.vb: Public ReadOnly Property KineticEnergy As Single
+  overload: ShapeEngine.Core.PhysicsObject.KineticEnergy*
+- uid: ShapeEngine.Core.PhysicsObject.IsInMotion
+  commentId: P:ShapeEngine.Core.PhysicsObject.IsInMotion
+  id: IsInMotion
+  parent: ShapeEngine.Core.PhysicsObject
+  langs:
+  - csharp
+  - vb
+  name: IsInMotion
+  nameWithType: PhysicsObject.IsInMotion
+  fullName: ShapeEngine.Core.PhysicsObject.IsInMotion
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/PhysicsObject.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: IsInMotion
+    path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
+    startLine: 78
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Gets whether the object is currently in motion <code>(velocity is nonzero)</code>.
+  example: []
+  syntax:
+    content: public bool IsInMotion { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property IsInMotion As Boolean
+  overload: ShapeEngine.Core.PhysicsObject.IsInMotion*
 - uid: ShapeEngine.Core.PhysicsObject.ClearAccumulatedForce
   commentId: M:ShapeEngine.Core.PhysicsObject.ClearAccumulatedForce
   id: ClearAccumulatedForce
@@ -239,18 +505,48 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/PhysicsObject.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ClearAccumulatedForce
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 15
+    startLine: 83
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Clears the accumulated force for the next update.
+  example: []
   syntax:
     content: public void ClearAccumulatedForce()
     content.vb: Public Sub ClearAccumulatedForce()
   overload: ShapeEngine.Core.PhysicsObject.ClearAccumulatedForce*
+- uid: ShapeEngine.Core.PhysicsObject.ClearAccumulatedImpulses
+  commentId: M:ShapeEngine.Core.PhysicsObject.ClearAccumulatedImpulses
+  id: ClearAccumulatedImpulses
+  parent: ShapeEngine.Core.PhysicsObject
+  langs:
+  - csharp
+  - vb
+  name: ClearAccumulatedImpulses()
+  nameWithType: PhysicsObject.ClearAccumulatedImpulses()
+  fullName: ShapeEngine.Core.PhysicsObject.ClearAccumulatedImpulses()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/PhysicsObject.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: ClearAccumulatedImpulses
+    path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
+    startLine: 87
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Clears the accumulated impulses for the next update.
+  example: []
+  syntax:
+    content: public void ClearAccumulatedImpulses()
+    content.vb: Public Sub ClearAccumulatedImpulses()
+  overload: ShapeEngine.Core.PhysicsObject.ClearAccumulatedImpulses*
 - uid: ShapeEngine.Core.PhysicsObject.AddForce(System.Numerics.Vector2)
   commentId: M:ShapeEngine.Core.PhysicsObject.AddForce(System.Numerics.Vector2)
   id: AddForce(System.Numerics.Vector2)
@@ -265,21 +561,64 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/PhysicsObject.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddForce
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 16
+    startLine: 95
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Adds a force to be applied on the next update.
+  remarks: >-
+    Uses this to add constant forces each frame.
+        <xref href="ShapeEngine.Core.PhysicsObject.AccumulatedForce" data-throw-if-not-resolved="false"></xref> will be added to <xref href="ShapeEngine.Core.PhysicsObject.Velocity" data-throw-if-not-resolved="false"></xref> with delta time applied in the physics step.
+  example: []
   syntax:
     content: public void AddForce(Vector2 force)
     parameters:
     - id: force
       type: System.Numerics.Vector2
+      description: >-
+        The force vector to add.
+            If mass is positive, divides <code class="paramref">force</code> by mass.
     content.vb: Public Sub AddForce(force As Vector2)
   overload: ShapeEngine.Core.PhysicsObject.AddForce*
+- uid: ShapeEngine.Core.PhysicsObject.AddForceRaw(System.Numerics.Vector2)
+  commentId: M:ShapeEngine.Core.PhysicsObject.AddForceRaw(System.Numerics.Vector2)
+  id: AddForceRaw(System.Numerics.Vector2)
+  parent: ShapeEngine.Core.PhysicsObject
+  langs:
+  - csharp
+  - vb
+  name: AddForceRaw(Vector2)
+  nameWithType: PhysicsObject.AddForceRaw(Vector2)
+  fullName: ShapeEngine.Core.PhysicsObject.AddForceRaw(System.Numerics.Vector2)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/PhysicsObject.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: AddForceRaw
+    path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
+    startLine: 106
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Adds a force to be applied on the next update, without dividing by mass.
+  remarks: >-
+    Use this to add constant forces each frame.
+        <xref href="ShapeEngine.Core.PhysicsObject.AccumulatedForce" data-throw-if-not-resolved="false"></xref> will be added to <xref href="ShapeEngine.Core.PhysicsObject.Velocity" data-throw-if-not-resolved="false"></xref> with delta time applied in the physics step.
+  example: []
+  syntax:
+    content: public void AddForceRaw(Vector2 force)
+    parameters:
+    - id: force
+      type: System.Numerics.Vector2
+      description: The force vector to add.
+    content.vb: Public Sub AddForceRaw(force As Vector2)
+  overload: ShapeEngine.Core.PhysicsObject.AddForceRaw*
 - uid: ShapeEngine.Core.PhysicsObject.AddImpulse(System.Numerics.Vector2)
   commentId: M:ShapeEngine.Core.PhysicsObject.AddImpulse(System.Numerics.Vector2)
   id: AddImpulse(System.Numerics.Vector2)
@@ -294,55 +633,69 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/PhysicsObject.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddImpulse
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 21
+    startLine: 118
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Adds an impulse to be applied on the next update. If mass is positive, divides by mass.
+  remarks: >-
+    <xref href="ShapeEngine.Core.PhysicsObject.AccumulatedImpulses" data-throw-if-not-resolved="false"></xref> are added as is to the <xref href="ShapeEngine.Core.PhysicsObject.Velocity" data-throw-if-not-resolved="false"></xref> in the physics step.
+
+    Use this for one-time impulses, not for constant forces!.
+  example: []
   syntax:
     content: public void AddImpulse(Vector2 force)
     parameters:
     - id: force
       type: System.Numerics.Vector2
+      description: The impulse vector to add.
     content.vb: Public Sub AddImpulse(force As Vector2)
   overload: ShapeEngine.Core.PhysicsObject.AddImpulse*
-- uid: ShapeEngine.Core.PhysicsObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  commentId: M:ShapeEngine.Core.PhysicsObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  id: Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+- uid: ShapeEngine.Core.PhysicsObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  commentId: M:ShapeEngine.Core.PhysicsObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  id: Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
   parent: ShapeEngine.Core.PhysicsObject
   langs:
   - csharp
   - vb
-  name: Update(GameTime, ScreenInfo, ScreenInfo)
-  nameWithType: PhysicsObject.Update(GameTime, ScreenInfo, ScreenInfo)
-  fullName: ShapeEngine.Core.PhysicsObject.Update(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
+  name: Update(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
+  nameWithType: PhysicsObject.Update(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
+  fullName: ShapeEngine.Core.PhysicsObject.Update(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
   type: Method
   source:
     remote:
       path: ShapeEngine/Core/PhysicsObject.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 27
+    startLine: 131
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Updates the physics state of the object. Called every frame.
   example: []
   syntax:
-    content: public override void Update(GameTime time, ScreenInfo game, ScreenInfo ui)
+    content: public override void Update(GameTime time, ScreenInfo game, ScreenInfo gameUi, ScreenInfo ui)
     parameters:
     - id: time
       type: ShapeEngine.Core.Structs.GameTime
+      description: The current game time.
     - id: game
       type: ShapeEngine.Core.Structs.ScreenInfo
+      description: Game screen info.
+    - id: gameUi
+      type: ShapeEngine.Core.Structs.ScreenInfo
+      description: Game UI screen info.
     - id: ui
       type: ShapeEngine.Core.Structs.ScreenInfo
-    content.vb: Public Overrides Sub Update(time As GameTime, game As ScreenInfo, ui As ScreenInfo)
-  overridden: ShapeEngine.Core.GameObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+      description: UI screen info.
+    content.vb: Public Overrides Sub Update(time As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo)
+  overridden: ShapeEngine.Core.GameObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
   overload: ShapeEngine.Core.PhysicsObject.Update*
 - uid: ShapeEngine.Core.PhysicsObject.OnPhysicsStateUpdated(System.Single)
   commentId: M:ShapeEngine.Core.PhysicsObject.OnPhysicsStateUpdated(System.Single)
@@ -358,323 +711,35 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/PhysicsObject.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnPhysicsStateUpdated
     path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 32
+    startLine: 140
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Called after the physics state is updated. Override for custom logic.
+  example: []
   syntax:
     content: protected virtual void OnPhysicsStateUpdated(float dt)
     parameters:
     - id: dt
       type: System.Single
+      description: Delta time in seconds.
     content.vb: Protected Overridable Sub OnPhysicsStateUpdated(dt As Single)
   overload: ShapeEngine.Core.PhysicsObject.OnPhysicsStateUpdated*
   nameWithType.vb: PhysicsObject.OnPhysicsStateUpdated(Single)
   fullName.vb: ShapeEngine.Core.PhysicsObject.OnPhysicsStateUpdated(Single)
   name.vb: OnPhysicsStateUpdated(Single)
-- uid: ShapeEngine.Core.PhysicsObject.ApplyDragForce(System.Single,System.Single,System.Single)
-  commentId: M:ShapeEngine.Core.PhysicsObject.ApplyDragForce(System.Single,System.Single,System.Single)
-  id: ApplyDragForce(System.Single,System.Single,System.Single)
-  parent: ShapeEngine.Core.PhysicsObject
-  langs:
-  - csharp
-  - vb
-  name: ApplyDragForce(float, float, float)
-  nameWithType: PhysicsObject.ApplyDragForce(float, float, float)
-  fullName: ShapeEngine.Core.PhysicsObject.ApplyDragForce(float, float, float)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Core/PhysicsObject.cs
-      branch: copilot/update-docs-publishing-pipeline
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: ApplyDragForce
-    path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 68
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core
-  summary: Apply drag to the given value.
-  example: []
-  syntax:
-    content: public static float ApplyDragForce(float value, float dragCoefficient, float dt)
-    parameters:
-    - id: value
-      type: System.Single
-      description: The value that is affected by the drag.
-    - id: dragCoefficient
-      type: System.Single
-      description: >-
-        The drag coefficient for calculating the drag force. Has to be positive.
-            1 / drag coefficient = seconds until stop. DC of 4 means object stops in 0.25s.
-    - id: dt
-      type: System.Single
-      description: The delta time of the current frame.
-    return:
-      type: System.Single
-      description: ''
-    content.vb: Public Shared Function ApplyDragForce(value As Single, dragCoefficient As Single, dt As Single) As Single
-  overload: ShapeEngine.Core.PhysicsObject.ApplyDragForce*
-  nameWithType.vb: PhysicsObject.ApplyDragForce(Single, Single, Single)
-  fullName.vb: ShapeEngine.Core.PhysicsObject.ApplyDragForce(Single, Single, Single)
-  name.vb: ApplyDragForce(Single, Single, Single)
-- uid: ShapeEngine.Core.PhysicsObject.ApplyDragForce(System.Numerics.Vector2,System.Single,System.Single)
-  commentId: M:ShapeEngine.Core.PhysicsObject.ApplyDragForce(System.Numerics.Vector2,System.Single,System.Single)
-  id: ApplyDragForce(System.Numerics.Vector2,System.Single,System.Single)
-  parent: ShapeEngine.Core.PhysicsObject
-  langs:
-  - csharp
-  - vb
-  name: ApplyDragForce(Vector2, float, float)
-  nameWithType: PhysicsObject.ApplyDragForce(Vector2, float, float)
-  fullName: ShapeEngine.Core.PhysicsObject.ApplyDragForce(System.Numerics.Vector2, float, float)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Core/PhysicsObject.cs
-      branch: copilot/update-docs-publishing-pipeline
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: ApplyDragForce
-    path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 83
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core
-  summary: Apply drag to the given velocity.
-  example: []
-  syntax:
-    content: public static Vector2 ApplyDragForce(Vector2 vel, float dragCoefficient, float dt)
-    parameters:
-    - id: vel
-      type: System.Numerics.Vector2
-      description: The velocity that is affected by the drag.
-    - id: dragCoefficient
-      type: System.Single
-      description: >-
-        The drag coefficient for calculating the drag force. Has to be positive.
-            1 / drag coefficient = seconds until stop. DC of 4 means object stops in 0.25s.
-    - id: dt
-      type: System.Single
-      description: The delta time of the current frame.
-    return:
-      type: System.Numerics.Vector2
-      description: Returns the new velocity.
-    content.vb: Public Shared Function ApplyDragForce(vel As Vector2, dragCoefficient As Single, dt As Single) As Vector2
-  overload: ShapeEngine.Core.PhysicsObject.ApplyDragForce*
-  nameWithType.vb: PhysicsObject.ApplyDragForce(Vector2, Single, Single)
-  fullName.vb: ShapeEngine.Core.PhysicsObject.ApplyDragForce(System.Numerics.Vector2, Single, Single)
-  name.vb: ApplyDragForce(Vector2, Single, Single)
-- uid: ShapeEngine.Core.PhysicsObject.GetDragForce(System.Single,System.Single,System.Single)
-  commentId: M:ShapeEngine.Core.PhysicsObject.GetDragForce(System.Single,System.Single,System.Single)
-  id: GetDragForce(System.Single,System.Single,System.Single)
-  parent: ShapeEngine.Core.PhysicsObject
-  langs:
-  - csharp
-  - vb
-  name: GetDragForce(float, float, float)
-  nameWithType: PhysicsObject.GetDragForce(float, float, float)
-  fullName: ShapeEngine.Core.PhysicsObject.GetDragForce(float, float, float)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Core/PhysicsObject.cs
-      branch: copilot/update-docs-publishing-pipeline
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: GetDragForce
-    path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 90
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core
-  syntax:
-    content: public static float GetDragForce(float value, float dragCoefficient, float dt)
-    parameters:
-    - id: value
-      type: System.Single
-    - id: dragCoefficient
-      type: System.Single
-    - id: dt
-      type: System.Single
-    return:
-      type: System.Single
-    content.vb: Public Shared Function GetDragForce(value As Single, dragCoefficient As Single, dt As Single) As Single
-  overload: ShapeEngine.Core.PhysicsObject.GetDragForce*
-  nameWithType.vb: PhysicsObject.GetDragForce(Single, Single, Single)
-  fullName.vb: ShapeEngine.Core.PhysicsObject.GetDragForce(Single, Single, Single)
-  name.vb: GetDragForce(Single, Single, Single)
-- uid: ShapeEngine.Core.PhysicsObject.GetDragForce(System.Numerics.Vector2,System.Single,System.Single)
-  commentId: M:ShapeEngine.Core.PhysicsObject.GetDragForce(System.Numerics.Vector2,System.Single,System.Single)
-  id: GetDragForce(System.Numerics.Vector2,System.Single,System.Single)
-  parent: ShapeEngine.Core.PhysicsObject
-  langs:
-  - csharp
-  - vb
-  name: GetDragForce(Vector2, float, float)
-  nameWithType: PhysicsObject.GetDragForce(Vector2, float, float)
-  fullName: ShapeEngine.Core.PhysicsObject.GetDragForce(System.Numerics.Vector2, float, float)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Core/PhysicsObject.cs
-      branch: copilot/update-docs-publishing-pipeline
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: GetDragForce
-    path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 97
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core
-  syntax:
-    content: public static Vector2 GetDragForce(Vector2 vel, float dragCoefficient, float dt)
-    parameters:
-    - id: vel
-      type: System.Numerics.Vector2
-    - id: dragCoefficient
-      type: System.Single
-    - id: dt
-      type: System.Single
-    return:
-      type: System.Numerics.Vector2
-    content.vb: Public Shared Function GetDragForce(vel As Vector2, dragCoefficient As Single, dt As Single) As Vector2
-  overload: ShapeEngine.Core.PhysicsObject.GetDragForce*
-  nameWithType.vb: PhysicsObject.GetDragForce(Vector2, Single, Single)
-  fullName.vb: ShapeEngine.Core.PhysicsObject.GetDragForce(System.Numerics.Vector2, Single, Single)
-  name.vb: GetDragForce(Vector2, Single, Single)
-- uid: ShapeEngine.Core.PhysicsObject.Attraction(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Single,System.Single,System.Single)
-  commentId: M:ShapeEngine.Core.PhysicsObject.Attraction(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Single,System.Single,System.Single)
-  id: Attraction(System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Single,System.Single,System.Single)
-  parent: ShapeEngine.Core.PhysicsObject
-  langs:
-  - csharp
-  - vb
-  name: Attraction(Vector2, Vector2, Vector2, float, float, float)
-  nameWithType: PhysicsObject.Attraction(Vector2, Vector2, Vector2, float, float, float)
-  fullName: ShapeEngine.Core.PhysicsObject.Attraction(System.Numerics.Vector2, System.Numerics.Vector2, System.Numerics.Vector2, float, float, float)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Core/PhysicsObject.cs
-      branch: copilot/update-docs-publishing-pipeline
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: Attraction
-    path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 105
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core
-  syntax:
-    content: public static Vector2 Attraction(Vector2 center, Vector2 otherPos, Vector2 otherVel, float r, float strength, float friction)
-    parameters:
-    - id: center
-      type: System.Numerics.Vector2
-    - id: otherPos
-      type: System.Numerics.Vector2
-    - id: otherVel
-      type: System.Numerics.Vector2
-    - id: r
-      type: System.Single
-    - id: strength
-      type: System.Single
-    - id: friction
-      type: System.Single
-    return:
-      type: System.Numerics.Vector2
-    content.vb: Public Shared Function Attraction(center As Vector2, otherPos As Vector2, otherVel As Vector2, r As Single, strength As Single, friction As Single) As Vector2
-  overload: ShapeEngine.Core.PhysicsObject.Attraction*
-  nameWithType.vb: PhysicsObject.Attraction(Vector2, Vector2, Vector2, Single, Single, Single)
-  fullName.vb: ShapeEngine.Core.PhysicsObject.Attraction(System.Numerics.Vector2, System.Numerics.Vector2, System.Numerics.Vector2, Single, Single, Single)
-  name.vb: Attraction(Vector2, Vector2, Vector2, Single, Single, Single)
-- uid: ShapeEngine.Core.PhysicsObject.ElasticCollision1D(System.Numerics.Vector2,System.Single,System.Numerics.Vector2,System.Single)
-  commentId: M:ShapeEngine.Core.PhysicsObject.ElasticCollision1D(System.Numerics.Vector2,System.Single,System.Numerics.Vector2,System.Single)
-  id: ElasticCollision1D(System.Numerics.Vector2,System.Single,System.Numerics.Vector2,System.Single)
-  parent: ShapeEngine.Core.PhysicsObject
-  langs:
-  - csharp
-  - vb
-  name: ElasticCollision1D(Vector2, float, Vector2, float)
-  nameWithType: PhysicsObject.ElasticCollision1D(Vector2, float, Vector2, float)
-  fullName: ShapeEngine.Core.PhysicsObject.ElasticCollision1D(System.Numerics.Vector2, float, System.Numerics.Vector2, float)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Core/PhysicsObject.cs
-      branch: copilot/update-docs-publishing-pipeline
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: ElasticCollision1D
-    path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 114
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core
-  syntax:
-    content: public static Vector2 ElasticCollision1D(Vector2 vel1, float mass1, Vector2 vel2, float mass2)
-    parameters:
-    - id: vel1
-      type: System.Numerics.Vector2
-    - id: mass1
-      type: System.Single
-    - id: vel2
-      type: System.Numerics.Vector2
-    - id: mass2
-      type: System.Single
-    return:
-      type: System.Numerics.Vector2
-    content.vb: Public Shared Function ElasticCollision1D(vel1 As Vector2, mass1 As Single, vel2 As Vector2, mass2 As Single) As Vector2
-  overload: ShapeEngine.Core.PhysicsObject.ElasticCollision1D*
-  nameWithType.vb: PhysicsObject.ElasticCollision1D(Vector2, Single, Vector2, Single)
-  fullName.vb: ShapeEngine.Core.PhysicsObject.ElasticCollision1D(System.Numerics.Vector2, Single, System.Numerics.Vector2, Single)
-  name.vb: ElasticCollision1D(Vector2, Single, Vector2, Single)
-- uid: ShapeEngine.Core.PhysicsObject.ElasticCollision2D(System.Numerics.Vector2,System.Numerics.Vector2,System.Single,System.Numerics.Vector2,System.Numerics.Vector2,System.Single,System.Single)
-  commentId: M:ShapeEngine.Core.PhysicsObject.ElasticCollision2D(System.Numerics.Vector2,System.Numerics.Vector2,System.Single,System.Numerics.Vector2,System.Numerics.Vector2,System.Single,System.Single)
-  id: ElasticCollision2D(System.Numerics.Vector2,System.Numerics.Vector2,System.Single,System.Numerics.Vector2,System.Numerics.Vector2,System.Single,System.Single)
-  parent: ShapeEngine.Core.PhysicsObject
-  langs:
-  - csharp
-  - vb
-  name: ElasticCollision2D(Vector2, Vector2, float, Vector2, Vector2, float, float)
-  nameWithType: PhysicsObject.ElasticCollision2D(Vector2, Vector2, float, Vector2, Vector2, float, float)
-  fullName: ShapeEngine.Core.PhysicsObject.ElasticCollision2D(System.Numerics.Vector2, System.Numerics.Vector2, float, System.Numerics.Vector2, System.Numerics.Vector2, float, float)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Core/PhysicsObject.cs
-      branch: copilot/update-docs-publishing-pipeline
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: ElasticCollision2D
-    path: ../ShapeEngine/ShapeEngine/Core/PhysicsObject.cs
-    startLine: 119
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core
-  syntax:
-    content: public static Vector2 ElasticCollision2D(Vector2 p1, Vector2 v1, float m1, Vector2 p2, Vector2 v2, float m2, float R)
-    parameters:
-    - id: p1
-      type: System.Numerics.Vector2
-    - id: v1
-      type: System.Numerics.Vector2
-    - id: m1
-      type: System.Single
-    - id: p2
-      type: System.Numerics.Vector2
-    - id: v2
-      type: System.Numerics.Vector2
-    - id: m2
-      type: System.Single
-    - id: R
-      type: System.Single
-    return:
-      type: System.Numerics.Vector2
-    content.vb: Public Shared Function ElasticCollision2D(p1 As Vector2, v1 As Vector2, m1 As Single, p2 As Vector2, v2 As Vector2, m2 As Single, R As Single) As Vector2
-  overload: ShapeEngine.Core.PhysicsObject.ElasticCollision2D*
-  nameWithType.vb: PhysicsObject.ElasticCollision2D(Vector2, Vector2, Single, Vector2, Vector2, Single, Single)
-  fullName.vb: ShapeEngine.Core.PhysicsObject.ElasticCollision2D(System.Numerics.Vector2, System.Numerics.Vector2, Single, System.Numerics.Vector2, System.Numerics.Vector2, Single, Single)
-  name.vb: ElasticCollision2D(Vector2, Vector2, Single, Vector2, Vector2, Single, Single)
 references:
+- uid: ShapeEngine.Core.GameObject
+  commentId: T:ShapeEngine.Core.GameObject
+  parent: ShapeEngine.Core
+  href: ShapeEngine.Core.GameObject.html
+  name: GameObject
+  nameWithType: GameObject
+  fullName: ShapeEngine.Core.GameObject
 - uid: ShapeEngine.Core
   commentId: N:ShapeEngine.Core
   href: ShapeEngine.html
@@ -708,27 +773,20 @@ references:
   nameWithType.vb: Object
   fullName.vb: Object
   name.vb: Object
-- uid: ShapeEngine.Core.GameObject
-  commentId: T:ShapeEngine.Core.GameObject
+- uid: ShapeEngine.Core.IUpdateable
+  commentId: T:ShapeEngine.Core.IUpdateable
   parent: ShapeEngine.Core
-  href: ShapeEngine.Core.GameObject.html
-  name: GameObject
-  nameWithType: GameObject
-  fullName: ShapeEngine.Core.GameObject
-- uid: ShapeEngine.Core.Interfaces.IUpdateable
-  commentId: T:ShapeEngine.Core.Interfaces.IUpdateable
-  parent: ShapeEngine.Core.Interfaces
-  href: ShapeEngine.Core.Interfaces.IUpdateable.html
+  href: ShapeEngine.Core.IUpdateable.html
   name: IUpdateable
   nameWithType: IUpdateable
-  fullName: ShapeEngine.Core.Interfaces.IUpdateable
-- uid: ShapeEngine.Core.Interfaces.IDrawable
-  commentId: T:ShapeEngine.Core.Interfaces.IDrawable
-  parent: ShapeEngine.Core.Interfaces
-  href: ShapeEngine.Core.Interfaces.IDrawable.html
+  fullName: ShapeEngine.Core.IUpdateable
+- uid: ShapeEngine.Core.IDrawable
+  commentId: T:ShapeEngine.Core.IDrawable
+  parent: ShapeEngine.Core
+  href: ShapeEngine.Core.IDrawable.html
   name: IDrawable
   nameWithType: IDrawable
-  fullName: ShapeEngine.Core.Interfaces.IDrawable
+  fullName: ShapeEngine.Core.IDrawable
 - uid: ShapeEngine.Core.GameObject.OnKilled
   commentId: E:ShapeEngine.Core.GameObject.OnKilled
   parent: ShapeEngine.Core.GameObject
@@ -826,55 +884,55 @@ references:
     name: ScreenInfo
     href: ShapeEngine.Core.Structs.ScreenInfo.html
   - name: )
-- uid: ShapeEngine.Core.GameObject.IsDrawingToGame(ShapeEngine.Core.Shapes.Rect)
-  commentId: M:ShapeEngine.Core.GameObject.IsDrawingToGame(ShapeEngine.Core.Shapes.Rect)
+- uid: ShapeEngine.Core.GameObject.IsDrawingToGame(ShapeEngine.Geometry.RectDef.Rect)
+  commentId: M:ShapeEngine.Core.GameObject.IsDrawingToGame(ShapeEngine.Geometry.RectDef.Rect)
   parent: ShapeEngine.Core.GameObject
-  href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_IsDrawingToGame_ShapeEngine_Core_Shapes_Rect_
+  href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_IsDrawingToGame_ShapeEngine_Geometry_RectDef_Rect_
   name: IsDrawingToGame(Rect)
   nameWithType: GameObject.IsDrawingToGame(Rect)
-  fullName: ShapeEngine.Core.GameObject.IsDrawingToGame(ShapeEngine.Core.Shapes.Rect)
+  fullName: ShapeEngine.Core.GameObject.IsDrawingToGame(ShapeEngine.Geometry.RectDef.Rect)
   spec.csharp:
-  - uid: ShapeEngine.Core.GameObject.IsDrawingToGame(ShapeEngine.Core.Shapes.Rect)
+  - uid: ShapeEngine.Core.GameObject.IsDrawingToGame(ShapeEngine.Geometry.RectDef.Rect)
     name: IsDrawingToGame
-    href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_IsDrawingToGame_ShapeEngine_Core_Shapes_Rect_
+    href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_IsDrawingToGame_ShapeEngine_Geometry_RectDef_Rect_
   - name: (
-  - uid: ShapeEngine.Core.Shapes.Rect
+  - uid: ShapeEngine.Geometry.RectDef.Rect
     name: Rect
-    href: ShapeEngine.Core.Shapes.Rect.html
+    href: ShapeEngine.Geometry.RectDef.Rect.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.GameObject.IsDrawingToGame(ShapeEngine.Core.Shapes.Rect)
+  - uid: ShapeEngine.Core.GameObject.IsDrawingToGame(ShapeEngine.Geometry.RectDef.Rect)
     name: IsDrawingToGame
-    href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_IsDrawingToGame_ShapeEngine_Core_Shapes_Rect_
+    href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_IsDrawingToGame_ShapeEngine_Geometry_RectDef_Rect_
   - name: (
-  - uid: ShapeEngine.Core.Shapes.Rect
+  - uid: ShapeEngine.Geometry.RectDef.Rect
     name: Rect
-    href: ShapeEngine.Core.Shapes.Rect.html
+    href: ShapeEngine.Geometry.RectDef.Rect.html
   - name: )
-- uid: ShapeEngine.Core.GameObject.IsDrawingToGameUI(ShapeEngine.Core.Shapes.Rect)
-  commentId: M:ShapeEngine.Core.GameObject.IsDrawingToGameUI(ShapeEngine.Core.Shapes.Rect)
+- uid: ShapeEngine.Core.GameObject.IsDrawingToGameUI(ShapeEngine.Geometry.RectDef.Rect)
+  commentId: M:ShapeEngine.Core.GameObject.IsDrawingToGameUI(ShapeEngine.Geometry.RectDef.Rect)
   parent: ShapeEngine.Core.GameObject
-  href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_IsDrawingToGameUI_ShapeEngine_Core_Shapes_Rect_
+  href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_IsDrawingToGameUI_ShapeEngine_Geometry_RectDef_Rect_
   name: IsDrawingToGameUI(Rect)
   nameWithType: GameObject.IsDrawingToGameUI(Rect)
-  fullName: ShapeEngine.Core.GameObject.IsDrawingToGameUI(ShapeEngine.Core.Shapes.Rect)
+  fullName: ShapeEngine.Core.GameObject.IsDrawingToGameUI(ShapeEngine.Geometry.RectDef.Rect)
   spec.csharp:
-  - uid: ShapeEngine.Core.GameObject.IsDrawingToGameUI(ShapeEngine.Core.Shapes.Rect)
+  - uid: ShapeEngine.Core.GameObject.IsDrawingToGameUI(ShapeEngine.Geometry.RectDef.Rect)
     name: IsDrawingToGameUI
-    href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_IsDrawingToGameUI_ShapeEngine_Core_Shapes_Rect_
+    href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_IsDrawingToGameUI_ShapeEngine_Geometry_RectDef_Rect_
   - name: (
-  - uid: ShapeEngine.Core.Shapes.Rect
+  - uid: ShapeEngine.Geometry.RectDef.Rect
     name: Rect
-    href: ShapeEngine.Core.Shapes.Rect.html
+    href: ShapeEngine.Geometry.RectDef.Rect.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.GameObject.IsDrawingToGameUI(ShapeEngine.Core.Shapes.Rect)
+  - uid: ShapeEngine.Core.GameObject.IsDrawingToGameUI(ShapeEngine.Geometry.RectDef.Rect)
     name: IsDrawingToGameUI
-    href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_IsDrawingToGameUI_ShapeEngine_Core_Shapes_Rect_
+    href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_IsDrawingToGameUI_ShapeEngine_Geometry_RectDef_Rect_
   - name: (
-  - uid: ShapeEngine.Core.Shapes.Rect
+  - uid: ShapeEngine.Geometry.RectDef.Rect
     name: Rect
-    href: ShapeEngine.Core.Shapes.Rect.html
+    href: ShapeEngine.Geometry.RectDef.Rect.html
   - name: )
 - uid: ShapeEngine.Core.GameObject.Layer
   commentId: P:ShapeEngine.Core.GameObject.Layer
@@ -992,30 +1050,30 @@ references:
     name: SpawnArea
     href: ShapeEngine.Core.SpawnArea.html
   - name: )
-- uid: ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Core.Shapes.Rect)
-  commentId: M:ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Core.Shapes.Rect)
+- uid: ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Geometry.RectDef.Rect)
+  commentId: M:ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Geometry.RectDef.Rect)
   parent: ShapeEngine.Core.GameObject
-  href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_HasLeftBounds_ShapeEngine_Core_Shapes_Rect_
+  href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_HasLeftBounds_ShapeEngine_Geometry_RectDef_Rect_
   name: HasLeftBounds(Rect)
   nameWithType: GameObject.HasLeftBounds(Rect)
-  fullName: ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Core.Shapes.Rect)
+  fullName: ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Geometry.RectDef.Rect)
   spec.csharp:
-  - uid: ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Core.Shapes.Rect)
+  - uid: ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Geometry.RectDef.Rect)
     name: HasLeftBounds
-    href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_HasLeftBounds_ShapeEngine_Core_Shapes_Rect_
+    href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_HasLeftBounds_ShapeEngine_Geometry_RectDef_Rect_
   - name: (
-  - uid: ShapeEngine.Core.Shapes.Rect
+  - uid: ShapeEngine.Geometry.RectDef.Rect
     name: Rect
-    href: ShapeEngine.Core.Shapes.Rect.html
+    href: ShapeEngine.Geometry.RectDef.Rect.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Core.Shapes.Rect)
+  - uid: ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Geometry.RectDef.Rect)
     name: HasLeftBounds
-    href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_HasLeftBounds_ShapeEngine_Core_Shapes_Rect_
+    href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_HasLeftBounds_ShapeEngine_Geometry_RectDef_Rect_
   - name: (
-  - uid: ShapeEngine.Core.Shapes.Rect
+  - uid: ShapeEngine.Geometry.RectDef.Rect
     name: Rect
-    href: ShapeEngine.Core.Shapes.Rect.html
+    href: ShapeEngine.Geometry.RectDef.Rect.html
   - name: )
 - uid: ShapeEngine.Core.GameObject.Kill(System.String,ShapeEngine.Core.GameObject)
   commentId: M:ShapeEngine.Core.GameObject.Kill(System.String,ShapeEngine.Core.GameObject)
@@ -1482,6 +1540,744 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
+- uid: ShapeEngine.Core.PhysicsObject.ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject)
+  commentId: M:ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject)
+  parent: ShapeEngine.StaticLib.ShapePhysics
+  definition: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject)
+  href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyAttraction_ShapeEngine_Core_PhysicsObject_ShapeEngine_Core_PhysicsObject_
+  name: ApplyAttraction(PhysicsObject, PhysicsObject)
+  nameWithType: ShapePhysics.ApplyAttraction(PhysicsObject, PhysicsObject)
+  fullName: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject, ShapeEngine.Core.PhysicsObject)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject)
+    name: ApplyAttraction
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyAttraction_ShapeEngine_Core_PhysicsObject_ShapeEngine_Core_PhysicsObject_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject)
+    name: ApplyAttraction
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyAttraction_ShapeEngine_Core_PhysicsObject_ShapeEngine_Core_PhysicsObject_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: )
+- uid: ShapeEngine.Core.PhysicsObject.ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(System.Numerics.Vector2,System.Single)
+  commentId: M:ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+  parent: ShapeEngine.StaticLib.ShapePhysics
+  definition: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+  href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyAttraction_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_
+  name: ApplyAttraction(PhysicsObject, Vector2, float)
+  nameWithType: ShapePhysics.ApplyAttraction(PhysicsObject, Vector2, float)
+  fullName: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, float)
+  nameWithType.vb: ShapePhysics.ApplyAttraction(PhysicsObject, Vector2, Single)
+  fullName.vb: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, Single)
+  name.vb: ApplyAttraction(PhysicsObject, Vector2, Single)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+    name: ApplyAttraction
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyAttraction_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+    name: ApplyAttraction
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyAttraction_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ShapeEngine.Core.PhysicsObject.ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(System.Numerics.Vector2,System.Single,System.Numerics.Vector2)
+  commentId: M:ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Numerics.Vector2)
+  parent: ShapeEngine.StaticLib.ShapePhysics
+  definition: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Numerics.Vector2)
+  href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyAttraction_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_System_Numerics_Vector2_
+  name: ApplyAttraction(PhysicsObject, Vector2, float, Vector2)
+  nameWithType: ShapePhysics.ApplyAttraction(PhysicsObject, Vector2, float, Vector2)
+  fullName: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, float, System.Numerics.Vector2)
+  nameWithType.vb: ShapePhysics.ApplyAttraction(PhysicsObject, Vector2, Single, Vector2)
+  fullName.vb: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, Single, System.Numerics.Vector2)
+  name.vb: ApplyAttraction(PhysicsObject, Vector2, Single, Vector2)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Numerics.Vector2)
+    name: ApplyAttraction
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyAttraction_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_System_Numerics_Vector2_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Numerics.Vector2)
+    name: ApplyAttraction
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyAttraction_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_System_Numerics_Vector2_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: )
+- uid: ShapeEngine.Core.PhysicsObject.ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(System.Numerics.Vector2,System.Single,System.Single)
+  commentId: M:ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Single)
+  parent: ShapeEngine.StaticLib.ShapePhysics
+  definition: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Single)
+  href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyAttraction_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_System_Single_
+  name: ApplyAttraction(PhysicsObject, Vector2, float, float)
+  nameWithType: ShapePhysics.ApplyAttraction(PhysicsObject, Vector2, float, float)
+  fullName: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, float, float)
+  nameWithType.vb: ShapePhysics.ApplyAttraction(PhysicsObject, Vector2, Single, Single)
+  fullName.vb: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, Single, Single)
+  name.vb: ApplyAttraction(PhysicsObject, Vector2, Single, Single)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Single)
+    name: ApplyAttraction
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyAttraction_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Single)
+    name: ApplyAttraction
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyAttraction_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ShapeEngine.Core.PhysicsObject.ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollision(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+  commentId: M:ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollision(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+  parent: ShapeEngine.StaticLib.ShapePhysics
+  definition: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollision(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+  href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyElasticCollision_ShapeEngine_Core_PhysicsObject_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_
+  name: ApplyElasticCollision(PhysicsObject, PhysicsObject, Vector2, float)
+  nameWithType: ShapePhysics.ApplyElasticCollision(PhysicsObject, PhysicsObject, Vector2, float)
+  fullName: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollision(ShapeEngine.Core.PhysicsObject, ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, float)
+  nameWithType.vb: ShapePhysics.ApplyElasticCollision(PhysicsObject, PhysicsObject, Vector2, Single)
+  fullName.vb: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollision(ShapeEngine.Core.PhysicsObject, ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, Single)
+  name.vb: ApplyElasticCollision(PhysicsObject, PhysicsObject, Vector2, Single)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollision(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+    name: ApplyElasticCollision
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyElasticCollision_ShapeEngine_Core_PhysicsObject_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollision(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+    name: ApplyElasticCollision
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyElasticCollision_ShapeEngine_Core_PhysicsObject_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ShapeEngine.Core.PhysicsObject.ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionCircleSelf(ShapeEngine.Core.PhysicsObject,System.Single)
+  commentId: M:ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionCircleSelf(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject,System.Single)
+  parent: ShapeEngine.StaticLib.ShapePhysics
+  definition: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionCircleSelf(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject,System.Single)
+  href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyElasticCollisionCircleSelf_ShapeEngine_Core_PhysicsObject_ShapeEngine_Core_PhysicsObject_System_Single_
+  name: ApplyElasticCollisionCircleSelf(PhysicsObject, PhysicsObject, float)
+  nameWithType: ShapePhysics.ApplyElasticCollisionCircleSelf(PhysicsObject, PhysicsObject, float)
+  fullName: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionCircleSelf(ShapeEngine.Core.PhysicsObject, ShapeEngine.Core.PhysicsObject, float)
+  nameWithType.vb: ShapePhysics.ApplyElasticCollisionCircleSelf(PhysicsObject, PhysicsObject, Single)
+  fullName.vb: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionCircleSelf(ShapeEngine.Core.PhysicsObject, ShapeEngine.Core.PhysicsObject, Single)
+  name.vb: ApplyElasticCollisionCircleSelf(PhysicsObject, PhysicsObject, Single)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionCircleSelf(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject,System.Single)
+    name: ApplyElasticCollisionCircleSelf
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyElasticCollisionCircleSelf_ShapeEngine_Core_PhysicsObject_ShapeEngine_Core_PhysicsObject_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionCircleSelf(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject,System.Single)
+    name: ApplyElasticCollisionCircleSelf
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyElasticCollisionCircleSelf_ShapeEngine_Core_PhysicsObject_ShapeEngine_Core_PhysicsObject_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ShapeEngine.Core.PhysicsObject.ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionSelf(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+  commentId: M:ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionSelf(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+  parent: ShapeEngine.StaticLib.ShapePhysics
+  definition: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionSelf(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+  href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyElasticCollisionSelf_ShapeEngine_Core_PhysicsObject_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_
+  name: ApplyElasticCollisionSelf(PhysicsObject, PhysicsObject, Vector2, float)
+  nameWithType: ShapePhysics.ApplyElasticCollisionSelf(PhysicsObject, PhysicsObject, Vector2, float)
+  fullName: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionSelf(ShapeEngine.Core.PhysicsObject, ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, float)
+  nameWithType.vb: ShapePhysics.ApplyElasticCollisionSelf(PhysicsObject, PhysicsObject, Vector2, Single)
+  fullName.vb: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionSelf(ShapeEngine.Core.PhysicsObject, ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, Single)
+  name.vb: ApplyElasticCollisionSelf(PhysicsObject, PhysicsObject, Vector2, Single)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionSelf(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+    name: ApplyElasticCollisionSelf
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyElasticCollisionSelf_ShapeEngine_Core_PhysicsObject_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionSelf(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+    name: ApplyElasticCollisionSelf
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyElasticCollisionSelf_ShapeEngine_Core_PhysicsObject_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ShapeEngine.Core.PhysicsObject.ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(System.Numerics.Vector2,System.Single)
+  commentId: M:ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+  parent: ShapeEngine.StaticLib.ShapePhysics
+  definition: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+  href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyRepulsion_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_
+  name: ApplyRepulsion(PhysicsObject, Vector2, float)
+  nameWithType: ShapePhysics.ApplyRepulsion(PhysicsObject, Vector2, float)
+  fullName: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, float)
+  nameWithType.vb: ShapePhysics.ApplyRepulsion(PhysicsObject, Vector2, Single)
+  fullName.vb: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, Single)
+  name.vb: ApplyRepulsion(PhysicsObject, Vector2, Single)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+    name: ApplyRepulsion
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyRepulsion_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+    name: ApplyRepulsion
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyRepulsion_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ShapeEngine.Core.PhysicsObject.ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(System.Numerics.Vector2,System.Single,System.Numerics.Vector2)
+  commentId: M:ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Numerics.Vector2)
+  parent: ShapeEngine.StaticLib.ShapePhysics
+  definition: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Numerics.Vector2)
+  href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyRepulsion_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_System_Numerics_Vector2_
+  name: ApplyRepulsion(PhysicsObject, Vector2, float, Vector2)
+  nameWithType: ShapePhysics.ApplyRepulsion(PhysicsObject, Vector2, float, Vector2)
+  fullName: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, float, System.Numerics.Vector2)
+  nameWithType.vb: ShapePhysics.ApplyRepulsion(PhysicsObject, Vector2, Single, Vector2)
+  fullName.vb: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, Single, System.Numerics.Vector2)
+  name.vb: ApplyRepulsion(PhysicsObject, Vector2, Single, Vector2)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Numerics.Vector2)
+    name: ApplyRepulsion
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyRepulsion_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_System_Numerics_Vector2_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Numerics.Vector2)
+    name: ApplyRepulsion
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyRepulsion_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_System_Numerics_Vector2_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: )
+- uid: ShapeEngine.Core.PhysicsObject.ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(System.Numerics.Vector2,System.Single,System.Single)
+  commentId: M:ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Single)
+  parent: ShapeEngine.StaticLib.ShapePhysics
+  definition: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Single)
+  href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyRepulsion_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_System_Single_
+  name: ApplyRepulsion(PhysicsObject, Vector2, float, float)
+  nameWithType: ShapePhysics.ApplyRepulsion(PhysicsObject, Vector2, float, float)
+  fullName: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, float, float)
+  nameWithType.vb: ShapePhysics.ApplyRepulsion(PhysicsObject, Vector2, Single, Single)
+  fullName.vb: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, Single, Single)
+  name.vb: ApplyRepulsion(PhysicsObject, Vector2, Single, Single)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Single)
+    name: ApplyRepulsion
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyRepulsion_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Single)
+    name: ApplyRepulsion
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyRepulsion_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -1489,42 +2285,795 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: ShapeEngine.Core.Interfaces
-  commentId: N:ShapeEngine.Core.Interfaces
+- uid: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject)
+  commentId: M:ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject)
+  href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyAttraction_ShapeEngine_Core_PhysicsObject_ShapeEngine_Core_PhysicsObject_
+  name: ApplyAttraction(PhysicsObject, PhysicsObject)
+  nameWithType: ShapePhysics.ApplyAttraction(PhysicsObject, PhysicsObject)
+  fullName: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject, ShapeEngine.Core.PhysicsObject)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject)
+    name: ApplyAttraction
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyAttraction_ShapeEngine_Core_PhysicsObject_ShapeEngine_Core_PhysicsObject_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject)
+    name: ApplyAttraction
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyAttraction_ShapeEngine_Core_PhysicsObject_ShapeEngine_Core_PhysicsObject_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapePhysics
+  commentId: T:ShapeEngine.StaticLib.ShapePhysics
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapePhysics.html
+  name: ShapePhysics
+  nameWithType: ShapePhysics
+  fullName: ShapeEngine.StaticLib.ShapePhysics
+- uid: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+  commentId: M:ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyAttraction_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_
+  name: ApplyAttraction(PhysicsObject, Vector2, float)
+  nameWithType: ShapePhysics.ApplyAttraction(PhysicsObject, Vector2, float)
+  fullName: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, float)
+  nameWithType.vb: ShapePhysics.ApplyAttraction(PhysicsObject, Vector2, Single)
+  fullName.vb: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, Single)
+  name.vb: ApplyAttraction(PhysicsObject, Vector2, Single)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+    name: ApplyAttraction
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyAttraction_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+    name: ApplyAttraction
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyAttraction_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Numerics.Vector2)
+  commentId: M:ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Numerics.Vector2)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyAttraction_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_System_Numerics_Vector2_
+  name: ApplyAttraction(PhysicsObject, Vector2, float, Vector2)
+  nameWithType: ShapePhysics.ApplyAttraction(PhysicsObject, Vector2, float, Vector2)
+  fullName: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, float, System.Numerics.Vector2)
+  nameWithType.vb: ShapePhysics.ApplyAttraction(PhysicsObject, Vector2, Single, Vector2)
+  fullName.vb: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, Single, System.Numerics.Vector2)
+  name.vb: ApplyAttraction(PhysicsObject, Vector2, Single, Vector2)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Numerics.Vector2)
+    name: ApplyAttraction
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyAttraction_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_System_Numerics_Vector2_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Numerics.Vector2)
+    name: ApplyAttraction
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyAttraction_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_System_Numerics_Vector2_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Single)
+  commentId: M:ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Single)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyAttraction_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_System_Single_
+  name: ApplyAttraction(PhysicsObject, Vector2, float, float)
+  nameWithType: ShapePhysics.ApplyAttraction(PhysicsObject, Vector2, float, float)
+  fullName: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, float, float)
+  nameWithType.vb: ShapePhysics.ApplyAttraction(PhysicsObject, Vector2, Single, Single)
+  fullName.vb: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, Single, Single)
+  name.vb: ApplyAttraction(PhysicsObject, Vector2, Single, Single)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Single)
+    name: ApplyAttraction
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyAttraction_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyAttraction(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Single)
+    name: ApplyAttraction
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyAttraction_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollision(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+  commentId: M:ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollision(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyElasticCollision_ShapeEngine_Core_PhysicsObject_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_
+  name: ApplyElasticCollision(PhysicsObject, PhysicsObject, Vector2, float)
+  nameWithType: ShapePhysics.ApplyElasticCollision(PhysicsObject, PhysicsObject, Vector2, float)
+  fullName: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollision(ShapeEngine.Core.PhysicsObject, ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, float)
+  nameWithType.vb: ShapePhysics.ApplyElasticCollision(PhysicsObject, PhysicsObject, Vector2, Single)
+  fullName.vb: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollision(ShapeEngine.Core.PhysicsObject, ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, Single)
+  name.vb: ApplyElasticCollision(PhysicsObject, PhysicsObject, Vector2, Single)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollision(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+    name: ApplyElasticCollision
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyElasticCollision_ShapeEngine_Core_PhysicsObject_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollision(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+    name: ApplyElasticCollision
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyElasticCollision_ShapeEngine_Core_PhysicsObject_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionCircleSelf(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject,System.Single)
+  commentId: M:ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionCircleSelf(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject,System.Single)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyElasticCollisionCircleSelf_ShapeEngine_Core_PhysicsObject_ShapeEngine_Core_PhysicsObject_System_Single_
+  name: ApplyElasticCollisionCircleSelf(PhysicsObject, PhysicsObject, float)
+  nameWithType: ShapePhysics.ApplyElasticCollisionCircleSelf(PhysicsObject, PhysicsObject, float)
+  fullName: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionCircleSelf(ShapeEngine.Core.PhysicsObject, ShapeEngine.Core.PhysicsObject, float)
+  nameWithType.vb: ShapePhysics.ApplyElasticCollisionCircleSelf(PhysicsObject, PhysicsObject, Single)
+  fullName.vb: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionCircleSelf(ShapeEngine.Core.PhysicsObject, ShapeEngine.Core.PhysicsObject, Single)
+  name.vb: ApplyElasticCollisionCircleSelf(PhysicsObject, PhysicsObject, Single)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionCircleSelf(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject,System.Single)
+    name: ApplyElasticCollisionCircleSelf
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyElasticCollisionCircleSelf_ShapeEngine_Core_PhysicsObject_ShapeEngine_Core_PhysicsObject_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionCircleSelf(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject,System.Single)
+    name: ApplyElasticCollisionCircleSelf
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyElasticCollisionCircleSelf_ShapeEngine_Core_PhysicsObject_ShapeEngine_Core_PhysicsObject_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionSelf(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+  commentId: M:ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionSelf(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyElasticCollisionSelf_ShapeEngine_Core_PhysicsObject_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_
+  name: ApplyElasticCollisionSelf(PhysicsObject, PhysicsObject, Vector2, float)
+  nameWithType: ShapePhysics.ApplyElasticCollisionSelf(PhysicsObject, PhysicsObject, Vector2, float)
+  fullName: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionSelf(ShapeEngine.Core.PhysicsObject, ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, float)
+  nameWithType.vb: ShapePhysics.ApplyElasticCollisionSelf(PhysicsObject, PhysicsObject, Vector2, Single)
+  fullName.vb: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionSelf(ShapeEngine.Core.PhysicsObject, ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, Single)
+  name.vb: ApplyElasticCollisionSelf(PhysicsObject, PhysicsObject, Vector2, Single)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionSelf(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+    name: ApplyElasticCollisionSelf
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyElasticCollisionSelf_ShapeEngine_Core_PhysicsObject_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyElasticCollisionSelf(ShapeEngine.Core.PhysicsObject,ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+    name: ApplyElasticCollisionSelf
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyElasticCollisionSelf_ShapeEngine_Core_PhysicsObject_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+  commentId: M:ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyRepulsion_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_
+  name: ApplyRepulsion(PhysicsObject, Vector2, float)
+  nameWithType: ShapePhysics.ApplyRepulsion(PhysicsObject, Vector2, float)
+  fullName: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, float)
+  nameWithType.vb: ShapePhysics.ApplyRepulsion(PhysicsObject, Vector2, Single)
+  fullName.vb: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, Single)
+  name.vb: ApplyRepulsion(PhysicsObject, Vector2, Single)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+    name: ApplyRepulsion
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyRepulsion_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single)
+    name: ApplyRepulsion
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyRepulsion_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Numerics.Vector2)
+  commentId: M:ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Numerics.Vector2)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyRepulsion_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_System_Numerics_Vector2_
+  name: ApplyRepulsion(PhysicsObject, Vector2, float, Vector2)
+  nameWithType: ShapePhysics.ApplyRepulsion(PhysicsObject, Vector2, float, Vector2)
+  fullName: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, float, System.Numerics.Vector2)
+  nameWithType.vb: ShapePhysics.ApplyRepulsion(PhysicsObject, Vector2, Single, Vector2)
+  fullName.vb: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, Single, System.Numerics.Vector2)
+  name.vb: ApplyRepulsion(PhysicsObject, Vector2, Single, Vector2)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Numerics.Vector2)
+    name: ApplyRepulsion
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyRepulsion_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_System_Numerics_Vector2_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Numerics.Vector2)
+    name: ApplyRepulsion
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyRepulsion_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_System_Numerics_Vector2_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Single)
+  commentId: M:ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Single)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyRepulsion_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_System_Single_
+  name: ApplyRepulsion(PhysicsObject, Vector2, float, float)
+  nameWithType: ShapePhysics.ApplyRepulsion(PhysicsObject, Vector2, float, float)
+  fullName: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, float, float)
+  nameWithType.vb: ShapePhysics.ApplyRepulsion(PhysicsObject, Vector2, Single, Single)
+  fullName.vb: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject, System.Numerics.Vector2, Single, Single)
+  name.vb: ApplyRepulsion(PhysicsObject, Vector2, Single, Single)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Single)
+    name: ApplyRepulsion
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyRepulsion_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapePhysics.ApplyRepulsion(ShapeEngine.Core.PhysicsObject,System.Numerics.Vector2,System.Single,System.Single)
+    name: ApplyRepulsion
+    href: ShapeEngine.StaticLib.ShapePhysics.html#ShapeEngine_StaticLib_ShapePhysics_ApplyRepulsion_ShapeEngine_Core_PhysicsObject_System_Numerics_Vector2_System_Single_System_Single_
+  - name: (
+  - uid: ShapeEngine.Core.PhysicsObject
+    name: PhysicsObject
+    href: ShapeEngine.Core.PhysicsObject.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
   href: ShapeEngine.html
-  name: ShapeEngine.Core.Interfaces
-  nameWithType: ShapeEngine.Core.Interfaces
-  fullName: ShapeEngine.Core.Interfaces
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
   spec.csharp:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.Core
-    name: Core
-    href: ShapeEngine.Core.html
-  - name: .
-  - uid: ShapeEngine.Core.Interfaces
-    name: Interfaces
-    href: ShapeEngine.Core.Interfaces.html
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
   spec.vb:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.Core
-    name: Core
-    href: ShapeEngine.Core.html
-  - name: .
-  - uid: ShapeEngine.Core.Interfaces
-    name: Interfaces
-    href: ShapeEngine.Core.Interfaces.html
-- uid: ShapeEngine.Core.PhysicsObject.Velocity*
-  commentId: Overload:ShapeEngine.Core.PhysicsObject.Velocity
-  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_Velocity
-  name: Velocity
-  nameWithType: PhysicsObject.Velocity
-  fullName: ShapeEngine.Core.PhysicsObject.Velocity
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+- uid: ShapeEngine.Core.PhysicsObject.CurVelocityMagnitudeSquared*
+  commentId: Overload:ShapeEngine.Core.PhysicsObject.CurVelocityMagnitudeSquared
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_CurVelocityMagnitudeSquared
+  name: CurVelocityMagnitudeSquared
+  nameWithType: PhysicsObject.CurVelocityMagnitudeSquared
+  fullName: ShapeEngine.Core.PhysicsObject.CurVelocityMagnitudeSquared
+- uid: System.Single
+  commentId: T:System.Single
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.single
+  name: float
+  nameWithType: float
+  fullName: float
+  nameWithType.vb: Single
+  fullName.vb: Single
+  name.vb: Single
+- uid: ShapeEngine.Core.PhysicsObject.CurVelocityMagnitude*
+  commentId: Overload:ShapeEngine.Core.PhysicsObject.CurVelocityMagnitude
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_CurVelocityMagnitude
+  name: CurVelocityMagnitude
+  nameWithType: PhysicsObject.CurVelocityMagnitude
+  fullName: ShapeEngine.Core.PhysicsObject.CurVelocityMagnitude
+- uid: ShapeEngine.Core.PhysicsObject.CurVelocityDirection*
+  commentId: Overload:ShapeEngine.Core.PhysicsObject.CurVelocityDirection
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_CurVelocityDirection
+  name: CurVelocityDirection
+  nameWithType: PhysicsObject.CurVelocityDirection
+  fullName: ShapeEngine.Core.PhysicsObject.CurVelocityDirection
 - uid: System.Numerics.Vector2
   commentId: T:System.Numerics.Vector2
   parent: System.Numerics
@@ -1560,74 +3109,233 @@ references:
     name: Numerics
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.numerics
+- uid: ShapeEngine.Core.PhysicsObject.Velocity*
+  commentId: Overload:ShapeEngine.Core.PhysicsObject.Velocity
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_Velocity
+  name: Velocity
+  nameWithType: PhysicsObject.Velocity
+  fullName: ShapeEngine.Core.PhysicsObject.Velocity
 - uid: ShapeEngine.Core.PhysicsObject.Mass*
   commentId: Overload:ShapeEngine.Core.PhysicsObject.Mass
   href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_Mass
   name: Mass
   nameWithType: PhysicsObject.Mass
   fullName: ShapeEngine.Core.PhysicsObject.Mass
-- uid: System.Single
-  commentId: T:System.Single
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.single
-  name: float
-  nameWithType: float
-  fullName: float
-  nameWithType.vb: Single
-  fullName.vb: Single
-  name.vb: Single
-- uid: ShapeEngine.Core.PhysicsObject.Drag*
-  commentId: Overload:ShapeEngine.Core.PhysicsObject.Drag
-  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_Drag
-  name: Drag
-  nameWithType: PhysicsObject.Drag
-  fullName: ShapeEngine.Core.PhysicsObject.Drag
+- uid: ShapeEngine.Core.PhysicsObject.DragCoefficient*
+  commentId: Overload:ShapeEngine.Core.PhysicsObject.DragCoefficient
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_DragCoefficient
+  name: DragCoefficient
+  nameWithType: PhysicsObject.DragCoefficient
+  fullName: ShapeEngine.Core.PhysicsObject.DragCoefficient
 - uid: ShapeEngine.Core.PhysicsObject.ConstAcceleration*
   commentId: Overload:ShapeEngine.Core.PhysicsObject.ConstAcceleration
   href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_ConstAcceleration
   name: ConstAcceleration
   nameWithType: PhysicsObject.ConstAcceleration
   fullName: ShapeEngine.Core.PhysicsObject.ConstAcceleration
+- uid: ShapeEngine.Core.PhysicsObject.AddForce(System.Numerics.Vector2)
+  commentId: M:ShapeEngine.Core.PhysicsObject.AddForce(System.Numerics.Vector2)
+  parent: ShapeEngine.Core.PhysicsObject
+  isExternal: true
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddForce_System_Numerics_Vector2_
+  name: AddForce(Vector2)
+  nameWithType: PhysicsObject.AddForce(Vector2)
+  fullName: ShapeEngine.Core.PhysicsObject.AddForce(System.Numerics.Vector2)
+  spec.csharp:
+  - uid: ShapeEngine.Core.PhysicsObject.AddForce(System.Numerics.Vector2)
+    name: AddForce
+    href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddForce_System_Numerics_Vector2_
+  - name: (
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.PhysicsObject.AddForce(System.Numerics.Vector2)
+    name: AddForce
+    href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddForce_System_Numerics_Vector2_
+  - name: (
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: )
+- uid: ShapeEngine.Core.PhysicsObject.AddForceRaw(System.Numerics.Vector2)
+  commentId: M:ShapeEngine.Core.PhysicsObject.AddForceRaw(System.Numerics.Vector2)
+  parent: ShapeEngine.Core.PhysicsObject
+  isExternal: true
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddForceRaw_System_Numerics_Vector2_
+  name: AddForceRaw(Vector2)
+  nameWithType: PhysicsObject.AddForceRaw(Vector2)
+  fullName: ShapeEngine.Core.PhysicsObject.AddForceRaw(System.Numerics.Vector2)
+  spec.csharp:
+  - uid: ShapeEngine.Core.PhysicsObject.AddForceRaw(System.Numerics.Vector2)
+    name: AddForceRaw
+    href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddForceRaw_System_Numerics_Vector2_
+  - name: (
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.PhysicsObject.AddForceRaw(System.Numerics.Vector2)
+    name: AddForceRaw
+    href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddForceRaw_System_Numerics_Vector2_
+  - name: (
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: )
+- uid: ShapeEngine.Core.PhysicsObject.AccumulatedForce
+  commentId: P:ShapeEngine.Core.PhysicsObject.AccumulatedForce
+  parent: ShapeEngine.Core.PhysicsObject
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AccumulatedForce
+  name: AccumulatedForce
+  nameWithType: PhysicsObject.AccumulatedForce
+  fullName: ShapeEngine.Core.PhysicsObject.AccumulatedForce
+- uid: ShapeEngine.Core.PhysicsObject.Velocity
+  commentId: P:ShapeEngine.Core.PhysicsObject.Velocity
+  parent: ShapeEngine.Core.PhysicsObject
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_Velocity
+  name: Velocity
+  nameWithType: PhysicsObject.Velocity
+  fullName: ShapeEngine.Core.PhysicsObject.Velocity
 - uid: ShapeEngine.Core.PhysicsObject.AccumulatedForce*
   commentId: Overload:ShapeEngine.Core.PhysicsObject.AccumulatedForce
   href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AccumulatedForce
   name: AccumulatedForce
   nameWithType: PhysicsObject.AccumulatedForce
   fullName: ShapeEngine.Core.PhysicsObject.AccumulatedForce
+- uid: ShapeEngine.Core.PhysicsObject
+  commentId: T:ShapeEngine.Core.PhysicsObject
+  parent: ShapeEngine.Core
+  href: ShapeEngine.Core.PhysicsObject.html
+  name: PhysicsObject
+  nameWithType: PhysicsObject
+  fullName: ShapeEngine.Core.PhysicsObject
+- uid: ShapeEngine.Core.PhysicsObject.AddImpulse(System.Numerics.Vector2)
+  commentId: M:ShapeEngine.Core.PhysicsObject.AddImpulse(System.Numerics.Vector2)
+  parent: ShapeEngine.Core.PhysicsObject
+  isExternal: true
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddImpulse_System_Numerics_Vector2_
+  name: AddImpulse(Vector2)
+  nameWithType: PhysicsObject.AddImpulse(Vector2)
+  fullName: ShapeEngine.Core.PhysicsObject.AddImpulse(System.Numerics.Vector2)
+  spec.csharp:
+  - uid: ShapeEngine.Core.PhysicsObject.AddImpulse(System.Numerics.Vector2)
+    name: AddImpulse
+    href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddImpulse_System_Numerics_Vector2_
+  - name: (
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.PhysicsObject.AddImpulse(System.Numerics.Vector2)
+    name: AddImpulse
+    href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddImpulse_System_Numerics_Vector2_
+  - name: (
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: )
+- uid: ShapeEngine.Core.PhysicsObject.AccumulatedImpulses
+  commentId: P:ShapeEngine.Core.PhysicsObject.AccumulatedImpulses
+  parent: ShapeEngine.Core.PhysicsObject
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AccumulatedImpulses
+  name: AccumulatedImpulses
+  nameWithType: PhysicsObject.AccumulatedImpulses
+  fullName: ShapeEngine.Core.PhysicsObject.AccumulatedImpulses
+- uid: ShapeEngine.Core.PhysicsObject.AccumulatedImpulses*
+  commentId: Overload:ShapeEngine.Core.PhysicsObject.AccumulatedImpulses
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AccumulatedImpulses
+  name: AccumulatedImpulses
+  nameWithType: PhysicsObject.AccumulatedImpulses
+  fullName: ShapeEngine.Core.PhysicsObject.AccumulatedImpulses
+- uid: ShapeEngine.Core.PhysicsObject.Momentum*
+  commentId: Overload:ShapeEngine.Core.PhysicsObject.Momentum
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_Momentum
+  name: Momentum
+  nameWithType: PhysicsObject.Momentum
+  fullName: ShapeEngine.Core.PhysicsObject.Momentum
+- uid: ShapeEngine.Core.PhysicsObject.KineticEnergy*
+  commentId: Overload:ShapeEngine.Core.PhysicsObject.KineticEnergy
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_KineticEnergy
+  name: KineticEnergy
+  nameWithType: PhysicsObject.KineticEnergy
+  fullName: ShapeEngine.Core.PhysicsObject.KineticEnergy
+- uid: ShapeEngine.Core.PhysicsObject.IsInMotion*
+  commentId: Overload:ShapeEngine.Core.PhysicsObject.IsInMotion
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_IsInMotion
+  name: IsInMotion
+  nameWithType: PhysicsObject.IsInMotion
+  fullName: ShapeEngine.Core.PhysicsObject.IsInMotion
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
 - uid: ShapeEngine.Core.PhysicsObject.ClearAccumulatedForce*
   commentId: Overload:ShapeEngine.Core.PhysicsObject.ClearAccumulatedForce
   href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_ClearAccumulatedForce
   name: ClearAccumulatedForce
   nameWithType: PhysicsObject.ClearAccumulatedForce
   fullName: ShapeEngine.Core.PhysicsObject.ClearAccumulatedForce
+- uid: ShapeEngine.Core.PhysicsObject.ClearAccumulatedImpulses*
+  commentId: Overload:ShapeEngine.Core.PhysicsObject.ClearAccumulatedImpulses
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_ClearAccumulatedImpulses
+  name: ClearAccumulatedImpulses
+  nameWithType: PhysicsObject.ClearAccumulatedImpulses
+  fullName: ShapeEngine.Core.PhysicsObject.ClearAccumulatedImpulses
 - uid: ShapeEngine.Core.PhysicsObject.AddForce*
   commentId: Overload:ShapeEngine.Core.PhysicsObject.AddForce
   href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddForce_System_Numerics_Vector2_
   name: AddForce
   nameWithType: PhysicsObject.AddForce
   fullName: ShapeEngine.Core.PhysicsObject.AddForce
+- uid: ShapeEngine.Core.PhysicsObject.AddForceRaw*
+  commentId: Overload:ShapeEngine.Core.PhysicsObject.AddForceRaw
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddForceRaw_System_Numerics_Vector2_
+  name: AddForceRaw
+  nameWithType: PhysicsObject.AddForceRaw
+  fullName: ShapeEngine.Core.PhysicsObject.AddForceRaw
 - uid: ShapeEngine.Core.PhysicsObject.AddImpulse*
   commentId: Overload:ShapeEngine.Core.PhysicsObject.AddImpulse
   href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_AddImpulse_System_Numerics_Vector2_
   name: AddImpulse
   nameWithType: PhysicsObject.AddImpulse
   fullName: ShapeEngine.Core.PhysicsObject.AddImpulse
-- uid: ShapeEngine.Core.GameObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  commentId: M:ShapeEngine.Core.GameObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+- uid: ShapeEngine.Core.GameObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  commentId: M:ShapeEngine.Core.GameObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
   parent: ShapeEngine.Core.GameObject
-  href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
-  name: Update(GameTime, ScreenInfo, ScreenInfo)
-  nameWithType: GameObject.Update(GameTime, ScreenInfo, ScreenInfo)
-  fullName: ShapeEngine.Core.GameObject.Update(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
+  href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
+  name: Update(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
+  nameWithType: GameObject.Update(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
+  fullName: ShapeEngine.Core.GameObject.Update(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
   spec.csharp:
-  - uid: ShapeEngine.Core.GameObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  - uid: ShapeEngine.Core.GameObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
     name: Update
-    href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
+    href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
   - name: (
   - uid: ShapeEngine.Core.Structs.GameTime
     name: GameTime
     href: ShapeEngine.Core.Structs.GameTime.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
   - name: ','
   - name: " "
   - uid: ShapeEngine.Core.Structs.ScreenInfo
@@ -1640,13 +3348,18 @@ references:
     href: ShapeEngine.Core.Structs.ScreenInfo.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.GameObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  - uid: ShapeEngine.Core.GameObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
     name: Update
-    href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
+    href: ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
   - name: (
   - uid: ShapeEngine.Core.Structs.GameTime
     name: GameTime
     href: ShapeEngine.Core.Structs.GameTime.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
   - name: ','
   - name: " "
   - uid: ShapeEngine.Core.Structs.ScreenInfo
@@ -1660,7 +3373,7 @@ references:
   - name: )
 - uid: ShapeEngine.Core.PhysicsObject.Update*
   commentId: Overload:ShapeEngine.Core.PhysicsObject.Update
-  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
+  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
   name: Update
   nameWithType: PhysicsObject.Update
   fullName: ShapeEngine.Core.PhysicsObject.Update
@@ -1714,33 +3427,3 @@ references:
   name: OnPhysicsStateUpdated
   nameWithType: PhysicsObject.OnPhysicsStateUpdated
   fullName: ShapeEngine.Core.PhysicsObject.OnPhysicsStateUpdated
-- uid: ShapeEngine.Core.PhysicsObject.ApplyDragForce*
-  commentId: Overload:ShapeEngine.Core.PhysicsObject.ApplyDragForce
-  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_ApplyDragForce_System_Single_System_Single_System_Single_
-  name: ApplyDragForce
-  nameWithType: PhysicsObject.ApplyDragForce
-  fullName: ShapeEngine.Core.PhysicsObject.ApplyDragForce
-- uid: ShapeEngine.Core.PhysicsObject.GetDragForce*
-  commentId: Overload:ShapeEngine.Core.PhysicsObject.GetDragForce
-  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_GetDragForce_System_Single_System_Single_System_Single_
-  name: GetDragForce
-  nameWithType: PhysicsObject.GetDragForce
-  fullName: ShapeEngine.Core.PhysicsObject.GetDragForce
-- uid: ShapeEngine.Core.PhysicsObject.Attraction*
-  commentId: Overload:ShapeEngine.Core.PhysicsObject.Attraction
-  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_Attraction_System_Numerics_Vector2_System_Numerics_Vector2_System_Numerics_Vector2_System_Single_System_Single_System_Single_
-  name: Attraction
-  nameWithType: PhysicsObject.Attraction
-  fullName: ShapeEngine.Core.PhysicsObject.Attraction
-- uid: ShapeEngine.Core.PhysicsObject.ElasticCollision1D*
-  commentId: Overload:ShapeEngine.Core.PhysicsObject.ElasticCollision1D
-  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_ElasticCollision1D_System_Numerics_Vector2_System_Single_System_Numerics_Vector2_System_Single_
-  name: ElasticCollision1D
-  nameWithType: PhysicsObject.ElasticCollision1D
-  fullName: ShapeEngine.Core.PhysicsObject.ElasticCollision1D
-- uid: ShapeEngine.Core.PhysicsObject.ElasticCollision2D*
-  commentId: Overload:ShapeEngine.Core.PhysicsObject.ElasticCollision2D
-  href: ShapeEngine.Core.PhysicsObject.html#ShapeEngine_Core_PhysicsObject_ElasticCollision2D_System_Numerics_Vector2_System_Numerics_Vector2_System_Single_System_Numerics_Vector2_System_Numerics_Vector2_System_Single_System_Single_
-  name: ElasticCollision2D
-  nameWithType: PhysicsObject.ElasticCollision2D
-  fullName: ShapeEngine.Core.PhysicsObject.ElasticCollision2D

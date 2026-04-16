@@ -25,14 +25,20 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/CollisionSystem/PolyCollider.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PolyCollider
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/PolyCollider.cs
-    startLine: 7
+    startLine: 12
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Represents a polygon collider for collision detection, using a set of relative points.
+  remarks: >-
+    The polygon shape is recalculated based on the current transform.
+
+    The relative points define the shape in local space.
+  example: []
   syntax:
     content: 'public class PolyCollider : Collider, IShape'
     content.vb: Public Class PolyCollider Inherits Collider Implements IShape
@@ -45,7 +51,7 @@ items:
   inheritedMembers:
   - ShapeEngine.Core.CollisionSystem.Collider.OnIntersected
   - ShapeEngine.Core.CollisionSystem.Collider.OnOverlapped
-  - ShapeEngine.Core.CollisionSystem.Collider.OnCollisionEnded
+  - ShapeEngine.Core.CollisionSystem.Collider.OnContactEnded
   - ShapeEngine.Core.CollisionSystem.Collider.Parent
   - ShapeEngine.Core.CollisionSystem.Collider.Enabled
   - ShapeEngine.Core.CollisionSystem.Collider.Velocity
@@ -55,25 +61,26 @@ items:
   - ShapeEngine.Core.CollisionSystem.Collider.ComputeIntersections
   - ShapeEngine.Core.CollisionSystem.Collider.Intersected(ShapeEngine.Core.CollisionSystem.Collision)
   - ShapeEngine.Core.CollisionSystem.Collider.Overlapped(ShapeEngine.Core.CollisionSystem.Overlap)
-  - ShapeEngine.Core.CollisionSystem.Collider.CollisionEnded(ShapeEngine.Core.CollisionSystem.Collider)
+  - ShapeEngine.Core.CollisionSystem.Collider.ContactEnded(ShapeEngine.Core.CollisionSystem.Collider)
   - ShapeEngine.Core.CollisionSystem.Collider.InitializeShape(ShapeEngine.Core.Structs.Transform2D)
   - ShapeEngine.Core.CollisionSystem.Collider.UpdateShape(System.Single,ShapeEngine.Core.Structs.Transform2D)
   - ShapeEngine.Core.CollisionSystem.Collider.DrawShape
   - ShapeEngine.Core.CollisionSystem.Collider.OnUpdate(System.Single)
   - ShapeEngine.Core.CollisionSystem.Collider.OnDraw
-  - ShapeEngine.Core.CollisionSystem.Collider.OnAddedToCollisionBody(ShapeEngine.Core.CollisionObject)
-  - ShapeEngine.Core.CollisionSystem.Collider.OnRemovedFromCollisionBody(ShapeEngine.Core.CollisionObject)
+  - ShapeEngine.Core.CollisionSystem.Collider.OnAddedToCollisionBody(ShapeEngine.Core.CollisionSystem.CollisionObject)
+  - ShapeEngine.Core.CollisionSystem.Collider.OnRemovedFromCollisionBody(ShapeEngine.Core.CollisionSystem.CollisionObject)
   - ShapeEngine.Core.CollisionSystem.Collider.Project(System.Numerics.Vector2)
-  - ShapeEngine.Core.CollisionSystem.Collider.GetClosestCollisionPoint(System.Numerics.Vector2)
-  - ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.CollisionSystem.IShape)
-  - ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(System.Numerics.Vector2)
-  - ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Segment)
-  - ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Circle)
-  - ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Triangle)
-  - ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Quad)
-  - ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Rect)
-  - ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Polygon)
-  - ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Polyline)
+  - ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.CollisionSystem.IShape)
+  - ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(System.Numerics.Vector2,System.Single@)
+  - ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Segment)
+  - ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Line)
+  - ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Ray)
+  - ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Circle)
+  - ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Triangle)
+  - ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Quad)
+  - ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Rect)
+  - ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Polygon)
+  - ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Polyline)
   - ShapeEngine.Core.CollisionSystem.Collider.ContainsPoint(System.Numerics.Vector2)
   - ShapeEngine.Core.CollisionSystem.Collider.ContainsShape(ShapeEngine.Core.CollisionSystem.IShape)
   - ShapeEngine.Core.CollisionSystem.Collider.ContainsShape(ShapeEngine.Core.Shapes.Segment)
@@ -83,19 +90,23 @@ items:
   - ShapeEngine.Core.CollisionSystem.Collider.ContainsShape(ShapeEngine.Core.Shapes.Rect)
   - ShapeEngine.Core.CollisionSystem.Collider.ContainsShape(ShapeEngine.Core.Shapes.Polygon)
   - ShapeEngine.Core.CollisionSystem.Collider.ContainsShape(ShapeEngine.Core.Shapes.Polyline)
-  - ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.CollisionObject)
+  - ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.CollisionSystem.CollisionObject)
   - ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.CollisionSystem.Collider)
   - ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.CollisionSystem.IShape)
   - ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.Shapes.Segment)
+  - ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.Shapes.Line)
+  - ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.Shapes.Ray)
   - ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.Shapes.Triangle)
   - ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.Shapes.Circle)
   - ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.Shapes.Rect)
   - ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.Shapes.Quad)
   - ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.Shapes.Polygon)
   - ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.Shapes.Polyline)
-  - ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionObject)
+  - ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.CollisionObject)
   - ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.Collider)
   - ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.IShape)
+  - ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Ray)
+  - ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Line)
   - ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Segment)
   - ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Triangle)
   - ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Circle)
@@ -103,6 +114,18 @@ items:
   - ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Quad)
   - ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Polygon)
   - ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Polyline)
+  - ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.CollisionObject,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  - ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.Collider,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  - ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.IShape,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  - ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Ray,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  - ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Line,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  - ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Segment,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  - ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Triangle,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  - ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Circle,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  - ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Rect,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  - ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Quad,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  - ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Polygon,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  - ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Polyline,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
   - ShapeEngine.Core.Shapes.Shape.Moves
   - ShapeEngine.Core.Shapes.Shape.Rotates
   - ShapeEngine.Core.Shapes.Shape.Scales
@@ -110,8 +133,10 @@ items:
   - ShapeEngine.Core.Shapes.Shape.CurTransform
   - ShapeEngine.Core.Shapes.Shape.PrevTransform
   - ShapeEngine.Core.Shapes.Shape.UpdateTransform(ShapeEngine.Core.Structs.Transform2D)
-  - ShapeEngine.Core.Shapes.Shape.GetCircleShape
+  - ShapeEngine.Core.Shapes.Shape.GetRayShape
+  - ShapeEngine.Core.Shapes.Shape.GetLineShape
   - ShapeEngine.Core.Shapes.Shape.GetSegmentShape
+  - ShapeEngine.Core.Shapes.Shape.GetCircleShape
   - ShapeEngine.Core.Shapes.Shape.GetTriangleShape
   - ShapeEngine.Core.Shapes.Shape.GetQuadShape
   - ShapeEngine.Core.Shapes.Shape.GetRectShape
@@ -137,14 +162,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/CollisionSystem/PolyCollider.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RelativeShape
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/PolyCollider.cs
-    startLine: 9
+    startLine: 17
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: The polygon shape defined in local (relative) space.
+  example: []
   syntax:
     content: public Polygon RelativeShape
     return:
@@ -164,21 +191,25 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/CollisionSystem/PolyCollider.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/PolyCollider.cs
-    startLine: 13
+    startLine: 29
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Initializes a new instance of <xref href="ShapeEngine.Core.CollisionSystem.PolyCollider" data-throw-if-not-resolved="false"></xref> with a set of relative points.
+  example: []
   syntax:
     content: public PolyCollider(Transform2D offset, Points relativePoints)
     parameters:
     - id: offset
       type: ShapeEngine.Core.Structs.Transform2D
+      description: The transform offset for the collider.
     - id: relativePoints
       type: ShapeEngine.Core.Shapes.Points
+      description: The points defining the polygon in local space.
     content.vb: Public Sub New(offset As Transform2D, relativePoints As Points)
   overload: ShapeEngine.Core.CollisionSystem.PolyCollider.#ctor*
   nameWithType.vb: PolyCollider.New(Transform2D, Points)
@@ -198,21 +229,25 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/CollisionSystem/PolyCollider.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/PolyCollider.cs
-    startLine: 19
+    startLine: 39
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Initializes a new instance of <xref href="ShapeEngine.Core.CollisionSystem.PolyCollider" data-throw-if-not-resolved="false"></xref> with a relative polygon.
+  example: []
   syntax:
     content: public PolyCollider(Transform2D offset, Polygon relativePoints)
     parameters:
     - id: offset
       type: ShapeEngine.Core.Structs.Transform2D
+      description: The transform offset for the collider.
     - id: relativePoints
       type: ShapeEngine.Core.Shapes.Polygon
+      description: The polygon in local space.
     content.vb: Public Sub New(offset As Transform2D, relativePoints As Polygon)
   overload: ShapeEngine.Core.CollisionSystem.PolyCollider.#ctor*
   nameWithType.vb: PolyCollider.New(Transform2D, Polygon)
@@ -232,25 +267,31 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/CollisionSystem/PolyCollider.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/PolyCollider.cs
-    startLine: 24
+    startLine: 51
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Initializes a new instance of <xref href="ShapeEngine.Core.CollisionSystem.PolyCollider" data-throw-if-not-resolved="false"></xref> from a segment, inflating it to a polygon.
+  example: []
   syntax:
     content: public PolyCollider(Transform2D offset, Segment s, float inflation, float alignement = 0.5)
     parameters:
     - id: offset
       type: ShapeEngine.Core.Structs.Transform2D
+      description: The transform offset for the collider.
     - id: s
       type: ShapeEngine.Core.Shapes.Segment
+      description: The segment to inflate.
     - id: inflation
       type: System.Single
+      description: The amount to inflate the segment.
     - id: alignement
       type: System.Single
+      description: The alignment of the inflated polygon (0=start, 1=end, 0.5=center).
     content.vb: Public Sub New(offset As Transform2D, s As Segment, inflation As Single, alignement As Single = 0.5)
   overload: ShapeEngine.Core.CollisionSystem.PolyCollider.#ctor*
   nameWithType.vb: PolyCollider.New(Transform2D, Segment, Single, Single)
@@ -270,14 +311,15 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/CollisionSystem/PolyCollider.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnInitialized
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/PolyCollider.cs
-    startLine: 30
+    startLine: 59
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Called when the collider is initialized.
   example: []
   syntax:
     content: protected override void OnInitialized()
@@ -298,14 +340,15 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/CollisionSystem/PolyCollider.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RecalculateShape
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/PolyCollider.cs
-    startLine: 39
+    startLine: 70
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Recalculates the absolute polygon shape based on the current transform.
   example: []
   syntax:
     content: public override void RecalculateShape()
@@ -326,22 +369,22 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/CollisionSystem/PolyCollider.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnShapeTransformChanged
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/PolyCollider.cs
-    startLine: 55
+    startLine: 89
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Called each frame after the transform was actualized from the parents
+  summary: Called when the shape's transform changes.
   example: []
   syntax:
     content: protected override void OnShapeTransformChanged(bool transformChanged)
     parameters:
     - id: transformChanged
       type: System.Boolean
-      description: ''
+      description: Indicates if the transform has changed.
     content.vb: Protected Overrides Sub OnShapeTransformChanged(transformChanged As Boolean)
   overridden: ShapeEngine.Core.Shapes.Shape.OnShapeTransformChanged(System.Boolean)
   overload: ShapeEngine.Core.CollisionSystem.PolyCollider.OnShapeTransformChanged*
@@ -362,19 +405,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/CollisionSystem/PolyCollider.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetBoundingBox
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/PolyCollider.cs
-    startLine: 62
+    startLine: 98
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the bounding box of the polygon collider.
   example: []
   syntax:
     content: public override Rect GetBoundingBox()
     return:
       type: ShapeEngine.Core.Shapes.Rect
+      description: The bounding <xref href="ShapeEngine.Core.Shapes.Rect" data-throw-if-not-resolved="false"></xref>.
     content.vb: Public Overrides Function GetBoundingBox() As Rect
   overridden: ShapeEngine.Core.CollisionSystem.Collider.GetBoundingBox
   overload: ShapeEngine.Core.CollisionSystem.PolyCollider.GetBoundingBox*
@@ -392,19 +437,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/CollisionSystem/PolyCollider.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetShapeType
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/PolyCollider.cs
-    startLine: 64
+    startLine: 103
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the shape type for this collider.
   example: []
   syntax:
     content: public override ShapeType GetShapeType()
     return:
       type: ShapeEngine.Core.CollisionSystem.ShapeType
+      description: <xref href="ShapeEngine.Core.CollisionSystem.ShapeType.Poly" data-throw-if-not-resolved="false"></xref>
     content.vb: Public Overrides Function GetShapeType() As ShapeType
   overridden: ShapeEngine.Core.Shapes.Shape.GetShapeType
   overload: ShapeEngine.Core.CollisionSystem.PolyCollider.GetShapeType*
@@ -422,19 +469,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/CollisionSystem/PolyCollider.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetPolygonShape
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/PolyCollider.cs
-    startLine: 65
+    startLine: 108
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
+  summary: Gets the polygon shape in world (absolute) space.
   example: []
   syntax:
     content: public override Polygon GetPolygonShape()
     return:
       type: ShapeEngine.Core.Shapes.Polygon
+      description: The <xref href="ShapeEngine.Core.Shapes.Polygon" data-throw-if-not-resolved="false"></xref> shape.
     content.vb: Public Overrides Function GetPolygonShape() As Polygon
   overridden: ShapeEngine.Core.Shapes.Shape.GetPolygonShape
   overload: ShapeEngine.Core.CollisionSystem.PolyCollider.GetPolygonShape*
@@ -515,13 +564,13 @@ references:
   name: OnOverlapped
   nameWithType: Collider.OnOverlapped
   fullName: ShapeEngine.Core.CollisionSystem.Collider.OnOverlapped
-- uid: ShapeEngine.Core.CollisionSystem.Collider.OnCollisionEnded
-  commentId: E:ShapeEngine.Core.CollisionSystem.Collider.OnCollisionEnded
+- uid: ShapeEngine.Core.CollisionSystem.Collider.OnContactEnded
+  commentId: E:ShapeEngine.Core.CollisionSystem.Collider.OnContactEnded
   parent: ShapeEngine.Core.CollisionSystem.Collider
-  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_OnCollisionEnded
-  name: OnCollisionEnded
-  nameWithType: Collider.OnCollisionEnded
-  fullName: ShapeEngine.Core.CollisionSystem.Collider.OnCollisionEnded
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_OnContactEnded
+  name: OnContactEnded
+  nameWithType: Collider.OnContactEnded
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.OnContactEnded
 - uid: ShapeEngine.Core.CollisionSystem.Collider.Parent
   commentId: P:ShapeEngine.Core.CollisionSystem.Collider.Parent
   parent: ShapeEngine.Core.CollisionSystem.Collider
@@ -621,26 +670,26 @@ references:
     name: Overlap
     href: ShapeEngine.Core.CollisionSystem.Overlap.html
   - name: )
-- uid: ShapeEngine.Core.CollisionSystem.Collider.CollisionEnded(ShapeEngine.Core.CollisionSystem.Collider)
-  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.CollisionEnded(ShapeEngine.Core.CollisionSystem.Collider)
+- uid: ShapeEngine.Core.CollisionSystem.Collider.ContactEnded(ShapeEngine.Core.CollisionSystem.Collider)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.ContactEnded(ShapeEngine.Core.CollisionSystem.Collider)
   parent: ShapeEngine.Core.CollisionSystem.Collider
-  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_CollisionEnded_ShapeEngine_Core_CollisionSystem_Collider_
-  name: CollisionEnded(Collider)
-  nameWithType: Collider.CollisionEnded(Collider)
-  fullName: ShapeEngine.Core.CollisionSystem.Collider.CollisionEnded(ShapeEngine.Core.CollisionSystem.Collider)
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_ContactEnded_ShapeEngine_Core_CollisionSystem_Collider_
+  name: ContactEnded(Collider)
+  nameWithType: Collider.ContactEnded(Collider)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.ContactEnded(ShapeEngine.Core.CollisionSystem.Collider)
   spec.csharp:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.CollisionEnded(ShapeEngine.Core.CollisionSystem.Collider)
-    name: CollisionEnded
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_CollisionEnded_ShapeEngine_Core_CollisionSystem_Collider_
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.ContactEnded(ShapeEngine.Core.CollisionSystem.Collider)
+    name: ContactEnded
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_ContactEnded_ShapeEngine_Core_CollisionSystem_Collider_
   - name: (
   - uid: ShapeEngine.Core.CollisionSystem.Collider
     name: Collider
     href: ShapeEngine.Core.CollisionSystem.Collider.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.CollisionEnded(ShapeEngine.Core.CollisionSystem.Collider)
-    name: CollisionEnded
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_CollisionEnded_ShapeEngine_Core_CollisionSystem_Collider_
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.ContactEnded(ShapeEngine.Core.CollisionSystem.Collider)
+    name: ContactEnded
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_ContactEnded_ShapeEngine_Core_CollisionSystem_Collider_
   - name: (
   - uid: ShapeEngine.Core.CollisionSystem.Collider
     name: Collider
@@ -781,55 +830,55 @@ references:
     href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_OnDraw
   - name: (
   - name: )
-- uid: ShapeEngine.Core.CollisionSystem.Collider.OnAddedToCollisionBody(ShapeEngine.Core.CollisionObject)
-  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.OnAddedToCollisionBody(ShapeEngine.Core.CollisionObject)
+- uid: ShapeEngine.Core.CollisionSystem.Collider.OnAddedToCollisionBody(ShapeEngine.Core.CollisionSystem.CollisionObject)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.OnAddedToCollisionBody(ShapeEngine.Core.CollisionSystem.CollisionObject)
   parent: ShapeEngine.Core.CollisionSystem.Collider
-  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_OnAddedToCollisionBody_ShapeEngine_Core_CollisionObject_
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_OnAddedToCollisionBody_ShapeEngine_Core_CollisionSystem_CollisionObject_
   name: OnAddedToCollisionBody(CollisionObject)
   nameWithType: Collider.OnAddedToCollisionBody(CollisionObject)
-  fullName: ShapeEngine.Core.CollisionSystem.Collider.OnAddedToCollisionBody(ShapeEngine.Core.CollisionObject)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.OnAddedToCollisionBody(ShapeEngine.Core.CollisionSystem.CollisionObject)
   spec.csharp:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.OnAddedToCollisionBody(ShapeEngine.Core.CollisionObject)
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.OnAddedToCollisionBody(ShapeEngine.Core.CollisionSystem.CollisionObject)
     name: OnAddedToCollisionBody
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_OnAddedToCollisionBody_ShapeEngine_Core_CollisionObject_
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_OnAddedToCollisionBody_ShapeEngine_Core_CollisionSystem_CollisionObject_
   - name: (
-  - uid: ShapeEngine.Core.CollisionObject
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionObject
     name: CollisionObject
-    href: ShapeEngine.Core.CollisionObject.html
+    href: ShapeEngine.Core.CollisionSystem.CollisionObject.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.OnAddedToCollisionBody(ShapeEngine.Core.CollisionObject)
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.OnAddedToCollisionBody(ShapeEngine.Core.CollisionSystem.CollisionObject)
     name: OnAddedToCollisionBody
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_OnAddedToCollisionBody_ShapeEngine_Core_CollisionObject_
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_OnAddedToCollisionBody_ShapeEngine_Core_CollisionSystem_CollisionObject_
   - name: (
-  - uid: ShapeEngine.Core.CollisionObject
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionObject
     name: CollisionObject
-    href: ShapeEngine.Core.CollisionObject.html
+    href: ShapeEngine.Core.CollisionSystem.CollisionObject.html
   - name: )
-- uid: ShapeEngine.Core.CollisionSystem.Collider.OnRemovedFromCollisionBody(ShapeEngine.Core.CollisionObject)
-  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.OnRemovedFromCollisionBody(ShapeEngine.Core.CollisionObject)
+- uid: ShapeEngine.Core.CollisionSystem.Collider.OnRemovedFromCollisionBody(ShapeEngine.Core.CollisionSystem.CollisionObject)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.OnRemovedFromCollisionBody(ShapeEngine.Core.CollisionSystem.CollisionObject)
   parent: ShapeEngine.Core.CollisionSystem.Collider
-  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_OnRemovedFromCollisionBody_ShapeEngine_Core_CollisionObject_
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_OnRemovedFromCollisionBody_ShapeEngine_Core_CollisionSystem_CollisionObject_
   name: OnRemovedFromCollisionBody(CollisionObject)
   nameWithType: Collider.OnRemovedFromCollisionBody(CollisionObject)
-  fullName: ShapeEngine.Core.CollisionSystem.Collider.OnRemovedFromCollisionBody(ShapeEngine.Core.CollisionObject)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.OnRemovedFromCollisionBody(ShapeEngine.Core.CollisionSystem.CollisionObject)
   spec.csharp:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.OnRemovedFromCollisionBody(ShapeEngine.Core.CollisionObject)
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.OnRemovedFromCollisionBody(ShapeEngine.Core.CollisionSystem.CollisionObject)
     name: OnRemovedFromCollisionBody
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_OnRemovedFromCollisionBody_ShapeEngine_Core_CollisionObject_
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_OnRemovedFromCollisionBody_ShapeEngine_Core_CollisionSystem_CollisionObject_
   - name: (
-  - uid: ShapeEngine.Core.CollisionObject
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionObject
     name: CollisionObject
-    href: ShapeEngine.Core.CollisionObject.html
+    href: ShapeEngine.Core.CollisionSystem.CollisionObject.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.OnRemovedFromCollisionBody(ShapeEngine.Core.CollisionObject)
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.OnRemovedFromCollisionBody(ShapeEngine.Core.CollisionSystem.CollisionObject)
     name: OnRemovedFromCollisionBody
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_OnRemovedFromCollisionBody_ShapeEngine_Core_CollisionObject_
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_OnRemovedFromCollisionBody_ShapeEngine_Core_CollisionSystem_CollisionObject_
   - name: (
-  - uid: ShapeEngine.Core.CollisionObject
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionObject
     name: CollisionObject
-    href: ShapeEngine.Core.CollisionObject.html
+    href: ShapeEngine.Core.CollisionSystem.CollisionObject.html
   - name: )
 - uid: ShapeEngine.Core.CollisionSystem.Collider.Project(System.Numerics.Vector2)
   commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Project(System.Numerics.Vector2)
@@ -859,257 +908,296 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
   - name: )
-- uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestCollisionPoint(System.Numerics.Vector2)
-  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetClosestCollisionPoint(System.Numerics.Vector2)
+- uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.CollisionSystem.IShape)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.CollisionSystem.IShape)
   parent: ShapeEngine.Core.CollisionSystem.Collider
-  isExternal: true
-  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestCollisionPoint_System_Numerics_Vector2_
-  name: GetClosestCollisionPoint(Vector2)
-  nameWithType: Collider.GetClosestCollisionPoint(Vector2)
-  fullName: ShapeEngine.Core.CollisionSystem.Collider.GetClosestCollisionPoint(System.Numerics.Vector2)
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_CollisionSystem_IShape_
+  name: GetClosestPoint(IShape)
+  nameWithType: Collider.GetClosestPoint(IShape)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.CollisionSystem.IShape)
   spec.csharp:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestCollisionPoint(System.Numerics.Vector2)
-    name: GetClosestCollisionPoint
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestCollisionPoint_System_Numerics_Vector2_
-  - name: (
-  - uid: System.Numerics.Vector2
-    name: Vector2
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestCollisionPoint(System.Numerics.Vector2)
-    name: GetClosestCollisionPoint
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestCollisionPoint_System_Numerics_Vector2_
-  - name: (
-  - uid: System.Numerics.Vector2
-    name: Vector2
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
-  - name: )
-- uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.CollisionSystem.IShape)
-  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.CollisionSystem.IShape)
-  parent: ShapeEngine.Core.CollisionSystem.Collider
-  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_ShapeEngine_Core_CollisionSystem_IShape_
-  name: GetClosestDistanceTo(IShape)
-  nameWithType: Collider.GetClosestDistanceTo(IShape)
-  fullName: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.CollisionSystem.IShape)
-  spec.csharp:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.CollisionSystem.IShape)
-    name: GetClosestDistanceTo
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_ShapeEngine_Core_CollisionSystem_IShape_
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.CollisionSystem.IShape)
+    name: GetClosestPoint
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_CollisionSystem_IShape_
   - name: (
   - uid: ShapeEngine.Core.CollisionSystem.IShape
     name: IShape
     href: ShapeEngine.Core.CollisionSystem.IShape.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.CollisionSystem.IShape)
-    name: GetClosestDistanceTo
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_ShapeEngine_Core_CollisionSystem_IShape_
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.CollisionSystem.IShape)
+    name: GetClosestPoint
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_CollisionSystem_IShape_
   - name: (
   - uid: ShapeEngine.Core.CollisionSystem.IShape
     name: IShape
     href: ShapeEngine.Core.CollisionSystem.IShape.html
   - name: )
-- uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(System.Numerics.Vector2)
-  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(System.Numerics.Vector2)
+- uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(System.Numerics.Vector2,System.Single@)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(System.Numerics.Vector2,System.Single@)
   parent: ShapeEngine.Core.CollisionSystem.Collider
   isExternal: true
-  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_System_Numerics_Vector2_
-  name: GetClosestDistanceTo(Vector2)
-  nameWithType: Collider.GetClosestDistanceTo(Vector2)
-  fullName: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(System.Numerics.Vector2)
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_System_Numerics_Vector2_System_Single__
+  name: GetClosestPoint(Vector2, out float)
+  nameWithType: Collider.GetClosestPoint(Vector2, out float)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(System.Numerics.Vector2, out float)
+  nameWithType.vb: Collider.GetClosestPoint(Vector2, Single)
+  fullName.vb: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(System.Numerics.Vector2, Single)
+  name.vb: GetClosestPoint(Vector2, Single)
   spec.csharp:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(System.Numerics.Vector2)
-    name: GetClosestDistanceTo
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_System_Numerics_Vector2_
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(System.Numerics.Vector2,System.Single@)
+    name: GetClosestPoint
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_System_Numerics_Vector2_System_Single__
   - name: (
   - uid: System.Numerics.Vector2
     name: Vector2
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(System.Numerics.Vector2)
-    name: GetClosestDistanceTo
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_System_Numerics_Vector2_
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(System.Numerics.Vector2,System.Single@)
+    name: GetClosestPoint
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_System_Numerics_Vector2_System_Single__
   - name: (
   - uid: System.Numerics.Vector2
     name: Vector2
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
   - name: )
-- uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Segment)
-  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Segment)
+- uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Segment)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Segment)
   parent: ShapeEngine.Core.CollisionSystem.Collider
-  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_ShapeEngine_Core_Shapes_Segment_
-  name: GetClosestDistanceTo(Segment)
-  nameWithType: Collider.GetClosestDistanceTo(Segment)
-  fullName: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Segment)
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Segment_
+  name: GetClosestPoint(Segment)
+  nameWithType: Collider.GetClosestPoint(Segment)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Segment)
   spec.csharp:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Segment)
-    name: GetClosestDistanceTo
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_ShapeEngine_Core_Shapes_Segment_
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Segment)
+    name: GetClosestPoint
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Segment_
   - name: (
   - uid: ShapeEngine.Core.Shapes.Segment
     name: Segment
     href: ShapeEngine.Core.Shapes.Segment.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Segment)
-    name: GetClosestDistanceTo
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_ShapeEngine_Core_Shapes_Segment_
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Segment)
+    name: GetClosestPoint
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Segment_
   - name: (
   - uid: ShapeEngine.Core.Shapes.Segment
     name: Segment
     href: ShapeEngine.Core.Shapes.Segment.html
   - name: )
-- uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Circle)
-  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Circle)
+- uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Line)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Line)
   parent: ShapeEngine.Core.CollisionSystem.Collider
-  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_ShapeEngine_Core_Shapes_Circle_
-  name: GetClosestDistanceTo(Circle)
-  nameWithType: Collider.GetClosestDistanceTo(Circle)
-  fullName: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Circle)
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Line_
+  name: GetClosestPoint(Line)
+  nameWithType: Collider.GetClosestPoint(Line)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Line)
   spec.csharp:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Circle)
-    name: GetClosestDistanceTo
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_ShapeEngine_Core_Shapes_Circle_
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Line)
+    name: GetClosestPoint
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Line_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Line
+    name: Line
+    href: ShapeEngine.Core.Shapes.Line.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Line)
+    name: GetClosestPoint
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Line_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Line
+    name: Line
+    href: ShapeEngine.Core.Shapes.Line.html
+  - name: )
+- uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Ray)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Ray)
+  parent: ShapeEngine.Core.CollisionSystem.Collider
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Ray_
+  name: GetClosestPoint(Ray)
+  nameWithType: Collider.GetClosestPoint(Ray)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Ray)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Ray)
+    name: GetClosestPoint
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Ray_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Ray
+    name: Ray
+    href: ShapeEngine.Core.Shapes.Ray.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Ray)
+    name: GetClosestPoint
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Ray_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Ray
+    name: Ray
+    href: ShapeEngine.Core.Shapes.Ray.html
+  - name: )
+- uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Circle)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Circle)
+  parent: ShapeEngine.Core.CollisionSystem.Collider
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Circle_
+  name: GetClosestPoint(Circle)
+  nameWithType: Collider.GetClosestPoint(Circle)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Circle)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Circle)
+    name: GetClosestPoint
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Circle_
   - name: (
   - uid: ShapeEngine.Core.Shapes.Circle
     name: Circle
     href: ShapeEngine.Core.Shapes.Circle.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Circle)
-    name: GetClosestDistanceTo
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_ShapeEngine_Core_Shapes_Circle_
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Circle)
+    name: GetClosestPoint
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Circle_
   - name: (
   - uid: ShapeEngine.Core.Shapes.Circle
     name: Circle
     href: ShapeEngine.Core.Shapes.Circle.html
   - name: )
-- uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Triangle)
-  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Triangle)
+- uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Triangle)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Triangle)
   parent: ShapeEngine.Core.CollisionSystem.Collider
-  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_ShapeEngine_Core_Shapes_Triangle_
-  name: GetClosestDistanceTo(Triangle)
-  nameWithType: Collider.GetClosestDistanceTo(Triangle)
-  fullName: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Triangle)
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Triangle_
+  name: GetClosestPoint(Triangle)
+  nameWithType: Collider.GetClosestPoint(Triangle)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Triangle)
   spec.csharp:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Triangle)
-    name: GetClosestDistanceTo
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_ShapeEngine_Core_Shapes_Triangle_
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Triangle)
+    name: GetClosestPoint
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Triangle_
   - name: (
   - uid: ShapeEngine.Core.Shapes.Triangle
     name: Triangle
     href: ShapeEngine.Core.Shapes.Triangle.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Triangle)
-    name: GetClosestDistanceTo
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_ShapeEngine_Core_Shapes_Triangle_
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Triangle)
+    name: GetClosestPoint
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Triangle_
   - name: (
   - uid: ShapeEngine.Core.Shapes.Triangle
     name: Triangle
     href: ShapeEngine.Core.Shapes.Triangle.html
   - name: )
-- uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Quad)
-  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Quad)
+- uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Quad)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Quad)
   parent: ShapeEngine.Core.CollisionSystem.Collider
-  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_ShapeEngine_Core_Shapes_Quad_
-  name: GetClosestDistanceTo(Quad)
-  nameWithType: Collider.GetClosestDistanceTo(Quad)
-  fullName: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Quad)
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Quad_
+  name: GetClosestPoint(Quad)
+  nameWithType: Collider.GetClosestPoint(Quad)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Quad)
   spec.csharp:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Quad)
-    name: GetClosestDistanceTo
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_ShapeEngine_Core_Shapes_Quad_
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Quad)
+    name: GetClosestPoint
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Quad_
   - name: (
   - uid: ShapeEngine.Core.Shapes.Quad
     name: Quad
     href: ShapeEngine.Core.Shapes.Quad.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Quad)
-    name: GetClosestDistanceTo
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_ShapeEngine_Core_Shapes_Quad_
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Quad)
+    name: GetClosestPoint
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Quad_
   - name: (
   - uid: ShapeEngine.Core.Shapes.Quad
     name: Quad
     href: ShapeEngine.Core.Shapes.Quad.html
   - name: )
-- uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Rect)
-  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Rect)
+- uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Rect)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Rect)
   parent: ShapeEngine.Core.CollisionSystem.Collider
-  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_ShapeEngine_Core_Shapes_Rect_
-  name: GetClosestDistanceTo(Rect)
-  nameWithType: Collider.GetClosestDistanceTo(Rect)
-  fullName: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Rect)
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Rect_
+  name: GetClosestPoint(Rect)
+  nameWithType: Collider.GetClosestPoint(Rect)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Rect)
   spec.csharp:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Rect)
-    name: GetClosestDistanceTo
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_ShapeEngine_Core_Shapes_Rect_
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Rect)
+    name: GetClosestPoint
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Rect_
   - name: (
   - uid: ShapeEngine.Core.Shapes.Rect
     name: Rect
     href: ShapeEngine.Core.Shapes.Rect.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Rect)
-    name: GetClosestDistanceTo
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_ShapeEngine_Core_Shapes_Rect_
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Rect)
+    name: GetClosestPoint
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Rect_
   - name: (
   - uid: ShapeEngine.Core.Shapes.Rect
     name: Rect
     href: ShapeEngine.Core.Shapes.Rect.html
   - name: )
-- uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Polygon)
-  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Polygon)
+- uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Polygon)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Polygon)
   parent: ShapeEngine.Core.CollisionSystem.Collider
-  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_ShapeEngine_Core_Shapes_Polygon_
-  name: GetClosestDistanceTo(Polygon)
-  nameWithType: Collider.GetClosestDistanceTo(Polygon)
-  fullName: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Polygon)
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Polygon_
+  name: GetClosestPoint(Polygon)
+  nameWithType: Collider.GetClosestPoint(Polygon)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Polygon)
   spec.csharp:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Polygon)
-    name: GetClosestDistanceTo
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_ShapeEngine_Core_Shapes_Polygon_
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Polygon)
+    name: GetClosestPoint
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Polygon_
   - name: (
   - uid: ShapeEngine.Core.Shapes.Polygon
     name: Polygon
     href: ShapeEngine.Core.Shapes.Polygon.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Polygon)
-    name: GetClosestDistanceTo
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_ShapeEngine_Core_Shapes_Polygon_
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Polygon)
+    name: GetClosestPoint
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Polygon_
   - name: (
   - uid: ShapeEngine.Core.Shapes.Polygon
     name: Polygon
     href: ShapeEngine.Core.Shapes.Polygon.html
   - name: )
-- uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Polyline)
-  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Polyline)
+- uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Polyline)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Polyline)
   parent: ShapeEngine.Core.CollisionSystem.Collider
-  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_ShapeEngine_Core_Shapes_Polyline_
-  name: GetClosestDistanceTo(Polyline)
-  nameWithType: Collider.GetClosestDistanceTo(Polyline)
-  fullName: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Polyline)
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Polyline_
+  name: GetClosestPoint(Polyline)
+  nameWithType: Collider.GetClosestPoint(Polyline)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Polyline)
   spec.csharp:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Polyline)
-    name: GetClosestDistanceTo
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_ShapeEngine_Core_Shapes_Polyline_
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Polyline)
+    name: GetClosestPoint
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Polyline_
   - name: (
   - uid: ShapeEngine.Core.Shapes.Polyline
     name: Polyline
     href: ShapeEngine.Core.Shapes.Polyline.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestDistanceTo(ShapeEngine.Core.Shapes.Polyline)
-    name: GetClosestDistanceTo
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestDistanceTo_ShapeEngine_Core_Shapes_Polyline_
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.GetClosestPoint(ShapeEngine.Core.Shapes.Polyline)
+    name: GetClosestPoint
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_GetClosestPoint_ShapeEngine_Core_Shapes_Polyline_
   - name: (
   - uid: ShapeEngine.Core.Shapes.Polyline
     name: Polyline
@@ -1343,30 +1431,30 @@ references:
     name: Polyline
     href: ShapeEngine.Core.Shapes.Polyline.html
   - name: )
-- uid: ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.CollisionObject)
-  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.CollisionObject)
+- uid: ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.CollisionSystem.CollisionObject)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.CollisionSystem.CollisionObject)
   parent: ShapeEngine.Core.CollisionSystem.Collider
-  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Overlap_ShapeEngine_Core_CollisionObject_
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Overlap_ShapeEngine_Core_CollisionSystem_CollisionObject_
   name: Overlap(CollisionObject)
   nameWithType: Collider.Overlap(CollisionObject)
-  fullName: ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.CollisionObject)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.CollisionSystem.CollisionObject)
   spec.csharp:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.CollisionObject)
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.CollisionSystem.CollisionObject)
     name: Overlap
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Overlap_ShapeEngine_Core_CollisionObject_
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Overlap_ShapeEngine_Core_CollisionSystem_CollisionObject_
   - name: (
-  - uid: ShapeEngine.Core.CollisionObject
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionObject
     name: CollisionObject
-    href: ShapeEngine.Core.CollisionObject.html
+    href: ShapeEngine.Core.CollisionSystem.CollisionObject.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.CollisionObject)
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.CollisionSystem.CollisionObject)
     name: Overlap
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Overlap_ShapeEngine_Core_CollisionObject_
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Overlap_ShapeEngine_Core_CollisionSystem_CollisionObject_
   - name: (
-  - uid: ShapeEngine.Core.CollisionObject
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionObject
     name: CollisionObject
-    href: ShapeEngine.Core.CollisionObject.html
+    href: ShapeEngine.Core.CollisionSystem.CollisionObject.html
   - name: )
 - uid: ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.CollisionSystem.Collider)
   commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.CollisionSystem.Collider)
@@ -1442,6 +1530,56 @@ references:
   - uid: ShapeEngine.Core.Shapes.Segment
     name: Segment
     href: ShapeEngine.Core.Shapes.Segment.html
+  - name: )
+- uid: ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.Shapes.Line)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.Shapes.Line)
+  parent: ShapeEngine.Core.CollisionSystem.Collider
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Overlap_ShapeEngine_Core_Shapes_Line_
+  name: Overlap(Line)
+  nameWithType: Collider.Overlap(Line)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.Shapes.Line)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.Shapes.Line)
+    name: Overlap
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Overlap_ShapeEngine_Core_Shapes_Line_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Line
+    name: Line
+    href: ShapeEngine.Core.Shapes.Line.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.Shapes.Line)
+    name: Overlap
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Overlap_ShapeEngine_Core_Shapes_Line_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Line
+    name: Line
+    href: ShapeEngine.Core.Shapes.Line.html
+  - name: )
+- uid: ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.Shapes.Ray)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.Shapes.Ray)
+  parent: ShapeEngine.Core.CollisionSystem.Collider
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Overlap_ShapeEngine_Core_Shapes_Ray_
+  name: Overlap(Ray)
+  nameWithType: Collider.Overlap(Ray)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.Shapes.Ray)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.Shapes.Ray)
+    name: Overlap
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Overlap_ShapeEngine_Core_Shapes_Ray_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Ray
+    name: Ray
+    href: ShapeEngine.Core.Shapes.Ray.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.Shapes.Ray)
+    name: Overlap
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Overlap_ShapeEngine_Core_Shapes_Ray_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Ray
+    name: Ray
+    href: ShapeEngine.Core.Shapes.Ray.html
   - name: )
 - uid: ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.Shapes.Triangle)
   commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Overlap(ShapeEngine.Core.Shapes.Triangle)
@@ -1593,30 +1731,30 @@ references:
     name: Polyline
     href: ShapeEngine.Core.Shapes.Polyline.html
   - name: )
-- uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionObject)
-  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionObject)
+- uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.CollisionObject)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.CollisionObject)
   parent: ShapeEngine.Core.CollisionSystem.Collider
-  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_CollisionObject_
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_CollisionSystem_CollisionObject_
   name: Intersect(CollisionObject)
   nameWithType: Collider.Intersect(CollisionObject)
-  fullName: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionObject)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.CollisionObject)
   spec.csharp:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionObject)
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.CollisionObject)
     name: Intersect
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_CollisionObject_
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_CollisionSystem_CollisionObject_
   - name: (
-  - uid: ShapeEngine.Core.CollisionObject
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionObject
     name: CollisionObject
-    href: ShapeEngine.Core.CollisionObject.html
+    href: ShapeEngine.Core.CollisionSystem.CollisionObject.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionObject)
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.CollisionObject)
     name: Intersect
-    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_CollisionObject_
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_CollisionSystem_CollisionObject_
   - name: (
-  - uid: ShapeEngine.Core.CollisionObject
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionObject
     name: CollisionObject
-    href: ShapeEngine.Core.CollisionObject.html
+    href: ShapeEngine.Core.CollisionSystem.CollisionObject.html
   - name: )
 - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.Collider)
   commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.Collider)
@@ -1667,6 +1805,56 @@ references:
   - uid: ShapeEngine.Core.CollisionSystem.IShape
     name: IShape
     href: ShapeEngine.Core.CollisionSystem.IShape.html
+  - name: )
+- uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Ray)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Ray)
+  parent: ShapeEngine.Core.CollisionSystem.Collider
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Ray_
+  name: Intersect(Ray)
+  nameWithType: Collider.Intersect(Ray)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Ray)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Ray)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Ray_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Ray
+    name: Ray
+    href: ShapeEngine.Core.Shapes.Ray.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Ray)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Ray_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Ray
+    name: Ray
+    href: ShapeEngine.Core.Shapes.Ray.html
+  - name: )
+- uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Line)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Line)
+  parent: ShapeEngine.Core.CollisionSystem.Collider
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Line_
+  name: Intersect(Line)
+  nameWithType: Collider.Intersect(Line)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Line)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Line)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Line_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Line
+    name: Line
+    href: ShapeEngine.Core.Shapes.Line.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Line)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Line_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Line
+    name: Line
+    href: ShapeEngine.Core.Shapes.Line.html
   - name: )
 - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Segment)
   commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Segment)
@@ -1843,6 +2031,642 @@ references:
     name: Polyline
     href: ShapeEngine.Core.Shapes.Polyline.html
   - name: )
+- uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.CollisionObject,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.CollisionObject,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  parent: ShapeEngine.Core.CollisionSystem.Collider
+  isExternal: true
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_CollisionSystem_CollisionObject_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  name: Intersect(CollisionObject, ref CollisionPoints, bool)
+  nameWithType: Collider.Intersect(CollisionObject, ref CollisionPoints, bool)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.CollisionObject, ref ShapeEngine.Core.CollisionSystem.CollisionPoints, bool)
+  nameWithType.vb: Collider.Intersect(CollisionObject, CollisionPoints, Boolean)
+  fullName.vb: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.CollisionObject, ShapeEngine.Core.CollisionSystem.CollisionPoints, Boolean)
+  name.vb: Intersect(CollisionObject, CollisionPoints, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.CollisionObject,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_CollisionSystem_CollisionObject_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionObject
+    name: CollisionObject
+    href: ShapeEngine.Core.CollisionSystem.CollisionObject.html
+  - name: ','
+  - name: " "
+  - name: ref
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+    name: CollisionPoints
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.CollisionObject,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_CollisionSystem_CollisionObject_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionObject
+    name: CollisionObject
+    href: ShapeEngine.Core.CollisionSystem.CollisionObject.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+    name: CollisionPoints
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.Collider,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.Collider,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  parent: ShapeEngine.Core.CollisionSystem.Collider
+  isExternal: true
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_CollisionSystem_Collider_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  name: Intersect(Collider, ref CollisionPoints, bool)
+  nameWithType: Collider.Intersect(Collider, ref CollisionPoints, bool)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.Collider, ref ShapeEngine.Core.CollisionSystem.CollisionPoints, bool)
+  nameWithType.vb: Collider.Intersect(Collider, CollisionPoints, Boolean)
+  fullName.vb: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.Collider, ShapeEngine.Core.CollisionSystem.CollisionPoints, Boolean)
+  name.vb: Intersect(Collider, CollisionPoints, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.Collider,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_CollisionSystem_Collider_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Core.CollisionSystem.Collider
+    name: Collider
+    href: ShapeEngine.Core.CollisionSystem.Collider.html
+  - name: ','
+  - name: " "
+  - name: ref
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+    name: CollisionPoints
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.Collider,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_CollisionSystem_Collider_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Core.CollisionSystem.Collider
+    name: Collider
+    href: ShapeEngine.Core.CollisionSystem.Collider.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+    name: CollisionPoints
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.IShape,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.IShape,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  parent: ShapeEngine.Core.CollisionSystem.Collider
+  isExternal: true
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_CollisionSystem_IShape_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  name: Intersect(IShape, ref CollisionPoints, bool)
+  nameWithType: Collider.Intersect(IShape, ref CollisionPoints, bool)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.IShape, ref ShapeEngine.Core.CollisionSystem.CollisionPoints, bool)
+  nameWithType.vb: Collider.Intersect(IShape, CollisionPoints, Boolean)
+  fullName.vb: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.IShape, ShapeEngine.Core.CollisionSystem.CollisionPoints, Boolean)
+  name.vb: Intersect(IShape, CollisionPoints, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.IShape,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_CollisionSystem_IShape_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Core.CollisionSystem.IShape
+    name: IShape
+    href: ShapeEngine.Core.CollisionSystem.IShape.html
+  - name: ','
+  - name: " "
+  - name: ref
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+    name: CollisionPoints
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.CollisionSystem.IShape,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_CollisionSystem_IShape_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Core.CollisionSystem.IShape
+    name: IShape
+    href: ShapeEngine.Core.CollisionSystem.IShape.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+    name: CollisionPoints
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Ray,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Ray,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  parent: ShapeEngine.Core.CollisionSystem.Collider
+  isExternal: true
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Ray_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  name: Intersect(Ray, ref CollisionPoints, bool)
+  nameWithType: Collider.Intersect(Ray, ref CollisionPoints, bool)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Ray, ref ShapeEngine.Core.CollisionSystem.CollisionPoints, bool)
+  nameWithType.vb: Collider.Intersect(Ray, CollisionPoints, Boolean)
+  fullName.vb: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Ray, ShapeEngine.Core.CollisionSystem.CollisionPoints, Boolean)
+  name.vb: Intersect(Ray, CollisionPoints, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Ray,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Ray_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Ray
+    name: Ray
+    href: ShapeEngine.Core.Shapes.Ray.html
+  - name: ','
+  - name: " "
+  - name: ref
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+    name: CollisionPoints
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Ray,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Ray_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Ray
+    name: Ray
+    href: ShapeEngine.Core.Shapes.Ray.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+    name: CollisionPoints
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Line,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Line,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  parent: ShapeEngine.Core.CollisionSystem.Collider
+  isExternal: true
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Line_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  name: Intersect(Line, ref CollisionPoints, bool)
+  nameWithType: Collider.Intersect(Line, ref CollisionPoints, bool)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Line, ref ShapeEngine.Core.CollisionSystem.CollisionPoints, bool)
+  nameWithType.vb: Collider.Intersect(Line, CollisionPoints, Boolean)
+  fullName.vb: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Line, ShapeEngine.Core.CollisionSystem.CollisionPoints, Boolean)
+  name.vb: Intersect(Line, CollisionPoints, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Line,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Line_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Line
+    name: Line
+    href: ShapeEngine.Core.Shapes.Line.html
+  - name: ','
+  - name: " "
+  - name: ref
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+    name: CollisionPoints
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Line,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Line_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Line
+    name: Line
+    href: ShapeEngine.Core.Shapes.Line.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+    name: CollisionPoints
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Segment,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Segment,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  parent: ShapeEngine.Core.CollisionSystem.Collider
+  isExternal: true
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Segment_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  name: Intersect(Segment, ref CollisionPoints, bool)
+  nameWithType: Collider.Intersect(Segment, ref CollisionPoints, bool)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Segment, ref ShapeEngine.Core.CollisionSystem.CollisionPoints, bool)
+  nameWithType.vb: Collider.Intersect(Segment, CollisionPoints, Boolean)
+  fullName.vb: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Segment, ShapeEngine.Core.CollisionSystem.CollisionPoints, Boolean)
+  name.vb: Intersect(Segment, CollisionPoints, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Segment,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Segment_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Segment
+    name: Segment
+    href: ShapeEngine.Core.Shapes.Segment.html
+  - name: ','
+  - name: " "
+  - name: ref
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+    name: CollisionPoints
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Segment,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Segment_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Segment
+    name: Segment
+    href: ShapeEngine.Core.Shapes.Segment.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+    name: CollisionPoints
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Triangle,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Triangle,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  parent: ShapeEngine.Core.CollisionSystem.Collider
+  isExternal: true
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Triangle_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  name: Intersect(Triangle, ref CollisionPoints, bool)
+  nameWithType: Collider.Intersect(Triangle, ref CollisionPoints, bool)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Triangle, ref ShapeEngine.Core.CollisionSystem.CollisionPoints, bool)
+  nameWithType.vb: Collider.Intersect(Triangle, CollisionPoints, Boolean)
+  fullName.vb: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Triangle, ShapeEngine.Core.CollisionSystem.CollisionPoints, Boolean)
+  name.vb: Intersect(Triangle, CollisionPoints, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Triangle,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Triangle_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Triangle
+    name: Triangle
+    href: ShapeEngine.Core.Shapes.Triangle.html
+  - name: ','
+  - name: " "
+  - name: ref
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+    name: CollisionPoints
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Triangle,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Triangle_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Triangle
+    name: Triangle
+    href: ShapeEngine.Core.Shapes.Triangle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+    name: CollisionPoints
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Circle,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Circle,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  parent: ShapeEngine.Core.CollisionSystem.Collider
+  isExternal: true
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Circle_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  name: Intersect(Circle, ref CollisionPoints, bool)
+  nameWithType: Collider.Intersect(Circle, ref CollisionPoints, bool)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Circle, ref ShapeEngine.Core.CollisionSystem.CollisionPoints, bool)
+  nameWithType.vb: Collider.Intersect(Circle, CollisionPoints, Boolean)
+  fullName.vb: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Circle, ShapeEngine.Core.CollisionSystem.CollisionPoints, Boolean)
+  name.vb: Intersect(Circle, CollisionPoints, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Circle,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Circle_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Circle
+    name: Circle
+    href: ShapeEngine.Core.Shapes.Circle.html
+  - name: ','
+  - name: " "
+  - name: ref
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+    name: CollisionPoints
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Circle,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Circle_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Circle
+    name: Circle
+    href: ShapeEngine.Core.Shapes.Circle.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+    name: CollisionPoints
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Rect,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Rect,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  parent: ShapeEngine.Core.CollisionSystem.Collider
+  isExternal: true
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Rect_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  name: Intersect(Rect, ref CollisionPoints, bool)
+  nameWithType: Collider.Intersect(Rect, ref CollisionPoints, bool)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Rect, ref ShapeEngine.Core.CollisionSystem.CollisionPoints, bool)
+  nameWithType.vb: Collider.Intersect(Rect, CollisionPoints, Boolean)
+  fullName.vb: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Rect, ShapeEngine.Core.CollisionSystem.CollisionPoints, Boolean)
+  name.vb: Intersect(Rect, CollisionPoints, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Rect,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Rect_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Rect
+    name: Rect
+    href: ShapeEngine.Core.Shapes.Rect.html
+  - name: ','
+  - name: " "
+  - name: ref
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+    name: CollisionPoints
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Rect,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Rect_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Rect
+    name: Rect
+    href: ShapeEngine.Core.Shapes.Rect.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+    name: CollisionPoints
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Quad,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Quad,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  parent: ShapeEngine.Core.CollisionSystem.Collider
+  isExternal: true
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Quad_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  name: Intersect(Quad, ref CollisionPoints, bool)
+  nameWithType: Collider.Intersect(Quad, ref CollisionPoints, bool)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Quad, ref ShapeEngine.Core.CollisionSystem.CollisionPoints, bool)
+  nameWithType.vb: Collider.Intersect(Quad, CollisionPoints, Boolean)
+  fullName.vb: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Quad, ShapeEngine.Core.CollisionSystem.CollisionPoints, Boolean)
+  name.vb: Intersect(Quad, CollisionPoints, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Quad,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Quad_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Quad
+    name: Quad
+    href: ShapeEngine.Core.Shapes.Quad.html
+  - name: ','
+  - name: " "
+  - name: ref
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+    name: CollisionPoints
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Quad,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Quad_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Quad
+    name: Quad
+    href: ShapeEngine.Core.Shapes.Quad.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+    name: CollisionPoints
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Polygon,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Polygon,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  parent: ShapeEngine.Core.CollisionSystem.Collider
+  isExternal: true
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Polygon_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  name: Intersect(Polygon, ref CollisionPoints, bool)
+  nameWithType: Collider.Intersect(Polygon, ref CollisionPoints, bool)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Polygon, ref ShapeEngine.Core.CollisionSystem.CollisionPoints, bool)
+  nameWithType.vb: Collider.Intersect(Polygon, CollisionPoints, Boolean)
+  fullName.vb: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Polygon, ShapeEngine.Core.CollisionSystem.CollisionPoints, Boolean)
+  name.vb: Intersect(Polygon, CollisionPoints, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Polygon,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Polygon_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Polygon
+    name: Polygon
+    href: ShapeEngine.Core.Shapes.Polygon.html
+  - name: ','
+  - name: " "
+  - name: ref
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+    name: CollisionPoints
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Polygon,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Polygon_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Polygon
+    name: Polygon
+    href: ShapeEngine.Core.Shapes.Polygon.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+    name: CollisionPoints
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Polyline,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  commentId: M:ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Polyline,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+  parent: ShapeEngine.Core.CollisionSystem.Collider
+  isExternal: true
+  href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Polyline_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  name: Intersect(Polyline, ref CollisionPoints, bool)
+  nameWithType: Collider.Intersect(Polyline, ref CollisionPoints, bool)
+  fullName: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Polyline, ref ShapeEngine.Core.CollisionSystem.CollisionPoints, bool)
+  nameWithType.vb: Collider.Intersect(Polyline, CollisionPoints, Boolean)
+  fullName.vb: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Polyline, ShapeEngine.Core.CollisionSystem.CollisionPoints, Boolean)
+  name.vb: Intersect(Polyline, CollisionPoints, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Polyline,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Polyline_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Polyline
+    name: Polyline
+    href: ShapeEngine.Core.Shapes.Polyline.html
+  - name: ','
+  - name: " "
+  - name: ref
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+    name: CollisionPoints
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.Collider.Intersect(ShapeEngine.Core.Shapes.Polyline,ShapeEngine.Core.CollisionSystem.CollisionPoints@,System.Boolean)
+    name: Intersect
+    href: ShapeEngine.Core.CollisionSystem.Collider.html#ShapeEngine_Core_CollisionSystem_Collider_Intersect_ShapeEngine_Core_Shapes_Polyline_ShapeEngine_Core_CollisionSystem_CollisionPoints__System_Boolean_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Polyline
+    name: Polyline
+    href: ShapeEngine.Core.Shapes.Polyline.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+    name: CollisionPoints
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
 - uid: ShapeEngine.Core.Shapes.Shape.Moves
   commentId: F:ShapeEngine.Core.Shapes.Shape.Moves
   parent: ShapeEngine.Core.Shapes.Shape
@@ -1910,23 +2734,42 @@ references:
     name: Transform2D
     href: ShapeEngine.Core.Structs.Transform2D.html
   - name: )
-- uid: ShapeEngine.Core.Shapes.Shape.GetCircleShape
-  commentId: M:ShapeEngine.Core.Shapes.Shape.GetCircleShape
+- uid: ShapeEngine.Core.Shapes.Shape.GetRayShape
+  commentId: M:ShapeEngine.Core.Shapes.Shape.GetRayShape
   parent: ShapeEngine.Core.Shapes.Shape
-  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetCircleShape
-  name: GetCircleShape()
-  nameWithType: Shape.GetCircleShape()
-  fullName: ShapeEngine.Core.Shapes.Shape.GetCircleShape()
+  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetRayShape
+  name: GetRayShape()
+  nameWithType: Shape.GetRayShape()
+  fullName: ShapeEngine.Core.Shapes.Shape.GetRayShape()
   spec.csharp:
-  - uid: ShapeEngine.Core.Shapes.Shape.GetCircleShape
-    name: GetCircleShape
-    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetCircleShape
+  - uid: ShapeEngine.Core.Shapes.Shape.GetRayShape
+    name: GetRayShape
+    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetRayShape
   - name: (
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.Shapes.Shape.GetCircleShape
-    name: GetCircleShape
-    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetCircleShape
+  - uid: ShapeEngine.Core.Shapes.Shape.GetRayShape
+    name: GetRayShape
+    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetRayShape
+  - name: (
+  - name: )
+- uid: ShapeEngine.Core.Shapes.Shape.GetLineShape
+  commentId: M:ShapeEngine.Core.Shapes.Shape.GetLineShape
+  parent: ShapeEngine.Core.Shapes.Shape
+  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetLineShape
+  name: GetLineShape()
+  nameWithType: Shape.GetLineShape()
+  fullName: ShapeEngine.Core.Shapes.Shape.GetLineShape()
+  spec.csharp:
+  - uid: ShapeEngine.Core.Shapes.Shape.GetLineShape
+    name: GetLineShape
+    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetLineShape
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Shapes.Shape.GetLineShape
+    name: GetLineShape
+    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetLineShape
   - name: (
   - name: )
 - uid: ShapeEngine.Core.Shapes.Shape.GetSegmentShape
@@ -1946,6 +2789,25 @@ references:
   - uid: ShapeEngine.Core.Shapes.Shape.GetSegmentShape
     name: GetSegmentShape
     href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetSegmentShape
+  - name: (
+  - name: )
+- uid: ShapeEngine.Core.Shapes.Shape.GetCircleShape
+  commentId: M:ShapeEngine.Core.Shapes.Shape.GetCircleShape
+  parent: ShapeEngine.Core.Shapes.Shape
+  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetCircleShape
+  name: GetCircleShape()
+  nameWithType: Shape.GetCircleShape()
+  fullName: ShapeEngine.Core.Shapes.Shape.GetCircleShape()
+  spec.csharp:
+  - uid: ShapeEngine.Core.Shapes.Shape.GetCircleShape
+    name: GetCircleShape
+    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetCircleShape
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Shapes.Shape.GetCircleShape
+    name: GetCircleShape
+    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetCircleShape
   - name: (
   - name: )
 - uid: ShapeEngine.Core.Shapes.Shape.GetTriangleShape
@@ -2287,6 +3149,12 @@ references:
   name: Polygon
   nameWithType: Polygon
   fullName: ShapeEngine.Core.Shapes.Polygon
+- uid: ShapeEngine.Core.CollisionSystem.PolyCollider
+  commentId: T:ShapeEngine.Core.CollisionSystem.PolyCollider
+  href: ShapeEngine.Core.CollisionSystem.PolyCollider.html
+  name: PolyCollider
+  nameWithType: PolyCollider
+  fullName: ShapeEngine.Core.CollisionSystem.PolyCollider
 - uid: ShapeEngine.Core.CollisionSystem.PolyCollider.#ctor*
   commentId: Overload:ShapeEngine.Core.CollisionSystem.PolyCollider.#ctor
   href: ShapeEngine.Core.CollisionSystem.PolyCollider.html#ShapeEngine_Core_CollisionSystem_PolyCollider__ctor_ShapeEngine_Core_Structs_Transform2D_ShapeEngine_Core_Shapes_Points_
@@ -2456,6 +3324,13 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
+- uid: ShapeEngine.Core.Shapes.Rect
+  commentId: T:ShapeEngine.Core.Shapes.Rect
+  parent: ShapeEngine.Core.Shapes
+  href: ShapeEngine.Core.Shapes.Rect.html
+  name: Rect
+  nameWithType: Rect
+  fullName: ShapeEngine.Core.Shapes.Rect
 - uid: ShapeEngine.Core.CollisionSystem.Collider.GetBoundingBox
   commentId: M:ShapeEngine.Core.CollisionSystem.Collider.GetBoundingBox
   parent: ShapeEngine.Core.CollisionSystem.Collider
@@ -2481,13 +3356,12 @@ references:
   name: GetBoundingBox
   nameWithType: PolyCollider.GetBoundingBox
   fullName: ShapeEngine.Core.CollisionSystem.PolyCollider.GetBoundingBox
-- uid: ShapeEngine.Core.Shapes.Rect
-  commentId: T:ShapeEngine.Core.Shapes.Rect
-  parent: ShapeEngine.Core.Shapes
-  href: ShapeEngine.Core.Shapes.Rect.html
-  name: Rect
-  nameWithType: Rect
-  fullName: ShapeEngine.Core.Shapes.Rect
+- uid: ShapeEngine.Core.CollisionSystem.ShapeType.Poly
+  commentId: F:ShapeEngine.Core.CollisionSystem.ShapeType.Poly
+  href: ShapeEngine.Core.CollisionSystem.ShapeType.html#ShapeEngine_Core_CollisionSystem_ShapeType_Poly
+  name: Poly
+  nameWithType: ShapeType.Poly
+  fullName: ShapeEngine.Core.CollisionSystem.ShapeType.Poly
 - uid: ShapeEngine.Core.Shapes.Shape.GetShapeType
   commentId: M:ShapeEngine.Core.Shapes.Shape.GetShapeType
   parent: ShapeEngine.Core.Shapes.Shape

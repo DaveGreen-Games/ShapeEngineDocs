@@ -6,18 +6,17 @@ items:
   parent: ShapeEngine.Core.Structs
   children:
   - ShapeEngine.Core.Structs.WindowSettings.Default
-  - ShapeEngine.Core.Structs.WindowSettings.Focused
-  - ShapeEngine.Core.Structs.WindowSettings.FrameRateLimit
-  - ShapeEngine.Core.Structs.WindowSettings.MaxFramerate
-  - ShapeEngine.Core.Structs.WindowSettings.MinFramerate
+  - ShapeEngine.Core.Structs.WindowSettings.FramebufferTransparent
+  - ShapeEngine.Core.Structs.WindowSettings.FullscreenAutoRestoring
+  - ShapeEngine.Core.Structs.WindowSettings.HighDPI
   - ShapeEngine.Core.Structs.WindowSettings.Monitor
   - ShapeEngine.Core.Structs.WindowSettings.MouseEnabled
   - ShapeEngine.Core.Structs.WindowSettings.MouseVisible
+  - ShapeEngine.Core.Structs.WindowSettings.Msaa4x
   - ShapeEngine.Core.Structs.WindowSettings.Title
-  - ShapeEngine.Core.Structs.WindowSettings.Undecorated
+  - ShapeEngine.Core.Structs.WindowSettings.Topmost
   - ShapeEngine.Core.Structs.WindowSettings.Vsync
   - ShapeEngine.Core.Structs.WindowSettings.WindowBorder
-  - ShapeEngine.Core.Structs.WindowSettings.WindowDisplayState
   - ShapeEngine.Core.Structs.WindowSettings.WindowMinSize
   - ShapeEngine.Core.Structs.WindowSettings.WindowOpacity
   - ShapeEngine.Core.Structs.WindowSettings.WindowSize
@@ -31,14 +30,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/WindowSettings.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: WindowSettings
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 2
+    startLine: 6
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Represents configuration settings for a game window in Shape Engine.
+  example: []
   syntax:
     content: public struct WindowSettings
     content.vb: Public Structure WindowSettings
@@ -49,6 +50,10 @@ items:
   - System.Object.Equals(System.Object,System.Object)
   - System.Object.GetType
   - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
 - uid: ShapeEngine.Core.Structs.WindowSettings.Default
   commentId: P:ShapeEngine.Core.Structs.WindowSettings.Default
   id: Default
@@ -63,19 +68,50 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/WindowSettings.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Default
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 4
+    startLine: 28
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets the default window settings configuration.
+  remarks: >-
+    Title = "Shape Engine Window",
+
+    FullscreenAutoRestoring = true,
+
+    Topmost = false,
+
+    WindowBorder = WindowBorder.Resizabled,
+
+    WindowMinSize = new(480, 270),
+
+    WindowSize = new(960, 540),
+
+    Monitor = 0,
+
+    Vsync = VsyncMode.Disabled,
+
+    WindowOpacity = 1f,
+
+    MouseEnabled = true,
+
+    MouseVisible = true,
+
+    Msaa4x = true,
+
+    HighDPI = false,
+
+    FramebufferTransparent = false
+  example: []
   syntax:
     content: public static WindowSettings Default { get; }
     parameters: []
     return:
       type: ShapeEngine.Core.Structs.WindowSettings
+      description: A WindowSettings instance with predefined default values.
     content.vb: Public Shared ReadOnly Property [Default] As WindowSettings
   overload: ShapeEngine.Core.Structs.WindowSettings.Default*
 - uid: ShapeEngine.Core.Structs.WindowSettings.WindowSize
@@ -92,14 +128,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/WindowSettings.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: WindowSize
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 25
+    startLine: 55
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: The dimensions of the window in pixels.
+  example: []
   syntax:
     content: public Dimensions WindowSize
     return:
@@ -119,14 +157,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/WindowSettings.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: WindowMinSize
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 26
+    startLine: 60
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: The minimum allowed dimensions of the window in pixels.
+  example: []
   syntax:
     content: public Dimensions WindowMinSize
     return:
@@ -146,100 +186,82 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/WindowSettings.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Title
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 28
+    startLine: 65
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: The title displayed in the window's title bar.
+  example: []
   syntax:
     content: public string Title
     return:
       type: System.String
     content.vb: Public Title As String
-- uid: ShapeEngine.Core.Structs.WindowSettings.Undecorated
-  commentId: F:ShapeEngine.Core.Structs.WindowSettings.Undecorated
-  id: Undecorated
+- uid: ShapeEngine.Core.Structs.WindowSettings.Topmost
+  commentId: F:ShapeEngine.Core.Structs.WindowSettings.Topmost
+  id: Topmost
   parent: ShapeEngine.Core.Structs.WindowSettings
   langs:
   - csharp
   - vb
-  name: Undecorated
-  nameWithType: WindowSettings.Undecorated
-  fullName: ShapeEngine.Core.Structs.WindowSettings.Undecorated
+  name: Topmost
+  nameWithType: WindowSettings.Topmost
+  fullName: ShapeEngine.Core.Structs.WindowSettings.Topmost
   type: Field
   source:
     remote:
       path: ShapeEngine/Core/Structs/WindowSettings.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: Undecorated
+    id: Topmost
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 29
+    startLine: 70
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Determines whether the window should stay on top of other windows.
+  example: []
   syntax:
-    content: public bool Undecorated
+    content: public bool Topmost
     return:
       type: System.Boolean
-    content.vb: Public Undecorated As Boolean
-- uid: ShapeEngine.Core.Structs.WindowSettings.Focused
-  commentId: F:ShapeEngine.Core.Structs.WindowSettings.Focused
-  id: Focused
+    content.vb: Public Topmost As Boolean
+- uid: ShapeEngine.Core.Structs.WindowSettings.FullscreenAutoRestoring
+  commentId: F:ShapeEngine.Core.Structs.WindowSettings.FullscreenAutoRestoring
+  id: FullscreenAutoRestoring
   parent: ShapeEngine.Core.Structs.WindowSettings
   langs:
   - csharp
   - vb
-  name: Focused
-  nameWithType: WindowSettings.Focused
-  fullName: ShapeEngine.Core.Structs.WindowSettings.Focused
+  name: FullscreenAutoRestoring
+  nameWithType: WindowSettings.FullscreenAutoRestoring
+  fullName: ShapeEngine.Core.Structs.WindowSettings.FullscreenAutoRestoring
   type: Field
   source:
     remote:
       path: ShapeEngine/Core/Structs/WindowSettings.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: Focused
+    id: FullscreenAutoRestoring
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 30
+    startLine: 76
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: >-
+    Should fullscreen be automatically left when window loses focus and should the window be restored to
+
+    fullscreen when window gains focus again.
+  example: []
   syntax:
-    content: public bool Focused
+    content: public bool FullscreenAutoRestoring
     return:
       type: System.Boolean
-    content.vb: Public Focused As Boolean
-- uid: ShapeEngine.Core.Structs.WindowSettings.WindowDisplayState
-  commentId: F:ShapeEngine.Core.Structs.WindowSettings.WindowDisplayState
-  id: WindowDisplayState
-  parent: ShapeEngine.Core.Structs.WindowSettings
-  langs:
-  - csharp
-  - vb
-  name: WindowDisplayState
-  nameWithType: WindowSettings.WindowDisplayState
-  fullName: ShapeEngine.Core.Structs.WindowSettings.WindowDisplayState
-  type: Field
-  source:
-    remote:
-      path: ShapeEngine/Core/Structs/WindowSettings.cs
-      branch: copilot/update-docs-publishing-pipeline
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: WindowDisplayState
-    path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 32
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core.Structs
-  syntax:
-    content: public WindowDisplayState WindowDisplayState
-    return:
-      type: ShapeEngine.Core.WindowDisplayState
-    content.vb: Public WindowDisplayState As WindowDisplayState
+    content.vb: Public FullscreenAutoRestoring As Boolean
 - uid: ShapeEngine.Core.Structs.WindowSettings.WindowBorder
   commentId: F:ShapeEngine.Core.Structs.WindowSettings.WindowBorder
   id: WindowBorder
@@ -254,14 +276,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/WindowSettings.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: WindowBorder
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 33
+    startLine: 81
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: The border style of the window.
+  example: []
   syntax:
     content: public WindowBorder WindowBorder
     return:
@@ -281,100 +305,25 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/WindowSettings.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Vsync
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 35
+    startLine: 90
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: >-
+    Vertical synchronization (VSync) mode for the window.
+
+    Controls whether rendering is synchronized to the display's refresh rate to reduce screen tearing.
+  remarks: Values are defined by the <xref href="ShapeEngine.Core.VsyncMode" data-throw-if-not-resolved="false"></xref> enum.
+  example: []
   syntax:
-    content: public bool Vsync
+    content: public VsyncMode Vsync
     return:
-      type: System.Boolean
-    content.vb: Public Vsync As Boolean
-- uid: ShapeEngine.Core.Structs.WindowSettings.FrameRateLimit
-  commentId: F:ShapeEngine.Core.Structs.WindowSettings.FrameRateLimit
-  id: FrameRateLimit
-  parent: ShapeEngine.Core.Structs.WindowSettings
-  langs:
-  - csharp
-  - vb
-  name: FrameRateLimit
-  nameWithType: WindowSettings.FrameRateLimit
-  fullName: ShapeEngine.Core.Structs.WindowSettings.FrameRateLimit
-  type: Field
-  source:
-    remote:
-      path: ShapeEngine/Core/Structs/WindowSettings.cs
-      branch: copilot/update-docs-publishing-pipeline
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: FrameRateLimit
-    path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 36
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core.Structs
-  syntax:
-    content: public int FrameRateLimit
-    return:
-      type: System.Int32
-    content.vb: Public FrameRateLimit As Integer
-- uid: ShapeEngine.Core.Structs.WindowSettings.MinFramerate
-  commentId: F:ShapeEngine.Core.Structs.WindowSettings.MinFramerate
-  id: MinFramerate
-  parent: ShapeEngine.Core.Structs.WindowSettings
-  langs:
-  - csharp
-  - vb
-  name: MinFramerate
-  nameWithType: WindowSettings.MinFramerate
-  fullName: ShapeEngine.Core.Structs.WindowSettings.MinFramerate
-  type: Field
-  source:
-    remote:
-      path: ShapeEngine/Core/Structs/WindowSettings.cs
-      branch: copilot/update-docs-publishing-pipeline
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: MinFramerate
-    path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 37
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core.Structs
-  syntax:
-    content: public int MinFramerate
-    return:
-      type: System.Int32
-    content.vb: Public MinFramerate As Integer
-- uid: ShapeEngine.Core.Structs.WindowSettings.MaxFramerate
-  commentId: F:ShapeEngine.Core.Structs.WindowSettings.MaxFramerate
-  id: MaxFramerate
-  parent: ShapeEngine.Core.Structs.WindowSettings
-  langs:
-  - csharp
-  - vb
-  name: MaxFramerate
-  nameWithType: WindowSettings.MaxFramerate
-  fullName: ShapeEngine.Core.Structs.WindowSettings.MaxFramerate
-  type: Field
-  source:
-    remote:
-      path: ShapeEngine/Core/Structs/WindowSettings.cs
-      branch: copilot/update-docs-publishing-pipeline
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: MaxFramerate
-    path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 38
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core.Structs
-  syntax:
-    content: public int MaxFramerate
-    return:
-      type: System.Int32
-    content.vb: Public MaxFramerate As Integer
+      type: ShapeEngine.Core.VsyncMode
+    content.vb: Public Vsync As VsyncMode
 - uid: ShapeEngine.Core.Structs.WindowSettings.WindowOpacity
   commentId: F:ShapeEngine.Core.Structs.WindowSettings.WindowOpacity
   id: WindowOpacity
@@ -389,14 +338,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/WindowSettings.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: WindowOpacity
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 39
+    startLine: 95
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: The opacity of the window, ranging from 0.0 (completely transparent) to 1.0 (completely opaque).
+  example: []
   syntax:
     content: public float WindowOpacity
     return:
@@ -416,14 +367,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/WindowSettings.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Monitor
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 41
+    startLine: 100
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: The index of the monitor on which to display the window.
+  example: []
   syntax:
     content: public int Monitor
     return:
@@ -443,14 +396,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/WindowSettings.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MouseVisible
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 42
+    startLine: 105
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Determines whether the mouse cursor is visible within the window.
+  example: []
   syntax:
     content: public bool MouseVisible
     return:
@@ -470,19 +425,108 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/WindowSettings.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MouseEnabled
     path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
-    startLine: 43
+    startLine: 110
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Determines whether mouse input is enabled for the window.
+  example: []
   syntax:
     content: public bool MouseEnabled
     return:
       type: System.Boolean
     content.vb: Public MouseEnabled As Boolean
+- uid: ShapeEngine.Core.Structs.WindowSettings.Msaa4x
+  commentId: F:ShapeEngine.Core.Structs.WindowSettings.Msaa4x
+  id: Msaa4x
+  parent: ShapeEngine.Core.Structs.WindowSettings
+  langs:
+  - csharp
+  - vb
+  name: Msaa4x
+  nameWithType: WindowSettings.Msaa4x
+  fullName: ShapeEngine.Core.Structs.WindowSettings.Msaa4x
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/WindowSettings.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Msaa4x
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
+    startLine: 115
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Determines whether 4x Multi-Sample Anti-Aliasing is enabled.
+  example: []
+  syntax:
+    content: public bool Msaa4x
+    return:
+      type: System.Boolean
+    content.vb: Public Msaa4x As Boolean
+- uid: ShapeEngine.Core.Structs.WindowSettings.HighDPI
+  commentId: F:ShapeEngine.Core.Structs.WindowSettings.HighDPI
+  id: HighDPI
+  parent: ShapeEngine.Core.Structs.WindowSettings
+  langs:
+  - csharp
+  - vb
+  name: HighDPI
+  nameWithType: WindowSettings.HighDPI
+  fullName: ShapeEngine.Core.Structs.WindowSettings.HighDPI
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/WindowSettings.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: HighDPI
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
+    startLine: 120
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Currently High DPI mode does not work correctly in raylib and until it is fixed it should be set to false!
+  example: []
+  syntax:
+    content: public bool HighDPI
+    return:
+      type: System.Boolean
+    content.vb: Public HighDPI As Boolean
+- uid: ShapeEngine.Core.Structs.WindowSettings.FramebufferTransparent
+  commentId: F:ShapeEngine.Core.Structs.WindowSettings.FramebufferTransparent
+  id: FramebufferTransparent
+  parent: ShapeEngine.Core.Structs.WindowSettings
+  langs:
+  - csharp
+  - vb
+  name: FramebufferTransparent
+  nameWithType: WindowSettings.FramebufferTransparent
+  fullName: ShapeEngine.Core.Structs.WindowSettings.FramebufferTransparent
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/WindowSettings.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: FramebufferTransparent
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/WindowSettings.cs
+    startLine: 125
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Determines whether the framebuffer supports transparency.
+  example: []
+  syntax:
+    content: public bool FramebufferTransparent
+    return:
+      type: System.Boolean
+    content.vb: Public FramebufferTransparent As Boolean
 references:
 - uid: ShapeEngine.Core.Structs
   commentId: N:ShapeEngine.Core.Structs
@@ -705,6 +749,165 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System.ValueType
   commentId: T:System.ValueType
   parent: System
@@ -724,6 +927,169 @@ references:
   nameWithType.vb: Object
   fullName.vb: Object
   name.vb: Object
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -731,6 +1097,28 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
+  href: ShapeEngine.html
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
 - uid: ShapeEngine.Core.Structs.WindowSettings.Default*
   commentId: Overload:ShapeEngine.Core.Structs.WindowSettings.Default
   href: ShapeEngine.Core.Structs.WindowSettings.html#ShapeEngine_Core_Structs_WindowSettings_Default
@@ -773,13 +1161,13 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
-- uid: ShapeEngine.Core.WindowDisplayState
-  commentId: T:ShapeEngine.Core.WindowDisplayState
+- uid: ShapeEngine.Core.WindowBorder
+  commentId: T:ShapeEngine.Core.WindowBorder
   parent: ShapeEngine.Core
-  href: ShapeEngine.Core.WindowDisplayState.html
-  name: WindowDisplayState
-  nameWithType: WindowDisplayState
-  fullName: ShapeEngine.Core.WindowDisplayState
+  href: ShapeEngine.Core.WindowBorder.html
+  name: WindowBorder
+  nameWithType: WindowBorder
+  fullName: ShapeEngine.Core.WindowBorder
 - uid: ShapeEngine.Core
   commentId: N:ShapeEngine.Core
   href: ShapeEngine.html
@@ -802,24 +1190,13 @@ references:
   - uid: ShapeEngine.Core
     name: Core
     href: ShapeEngine.Core.html
-- uid: ShapeEngine.Core.WindowBorder
-  commentId: T:ShapeEngine.Core.WindowBorder
+- uid: ShapeEngine.Core.VsyncMode
+  commentId: T:ShapeEngine.Core.VsyncMode
   parent: ShapeEngine.Core
-  href: ShapeEngine.Core.WindowBorder.html
-  name: WindowBorder
-  nameWithType: WindowBorder
-  fullName: ShapeEngine.Core.WindowBorder
-- uid: System.Int32
-  commentId: T:System.Int32
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.int32
-  name: int
-  nameWithType: int
-  fullName: int
-  nameWithType.vb: Integer
-  fullName.vb: Integer
-  name.vb: Integer
+  href: ShapeEngine.Core.VsyncMode.html
+  name: VsyncMode
+  nameWithType: VsyncMode
+  fullName: ShapeEngine.Core.VsyncMode
 - uid: System.Single
   commentId: T:System.Single
   parent: System
@@ -831,3 +1208,14 @@ references:
   nameWithType.vb: Single
   fullName.vb: Single
   name.vb: Single
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer

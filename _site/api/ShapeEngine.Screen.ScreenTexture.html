@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class ScreenTexture | ShapeEngine </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class ScreenTexture | ShapeEngine ">
+      
+      <meta name="description" content="Manages a renderable screen texture with support for multiple modes (stretch, anchor, pixelation, fixed, nearest fixed, custom), camera integration, shader application, and events for drawing and resizing. Handles mouse position scaling, texture reloading, and provides utility functions for screen-to-texture and texture-to-screen conversions.">
+      <link rel="icon" href="../media/shape-engine.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/DaveGreen-Games/ShapeEngine/new/main/apiSpec/new?filename=ShapeEngine_Screen_ScreenTexture.md&amp;value=---%0Auid%3A%20ShapeEngine.Screen.ScreenTexture%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="https://davegreen-games.github.io/ShapeEngineDocs/">
+            <img id="logo" class="svg" src="../media/shape-engine.ico" alt="ShapeEngine">
+            ShapeEngine
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="ShapeEngine.Screen.ScreenTexture">
+
+
+
+  <h1 id="ShapeEngine_Screen_ScreenTexture" data-uid="ShapeEngine.Screen.ScreenTexture" class="text-break">
+Class ScreenTexture  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="ShapeEngine.html">ShapeEngine</a>.<a class="xref" href="ShapeEngine.Screen.html">Screen</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>ShapeEngine.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Manages a renderable screen texture with support for multiple modes (stretch, anchor, pixelation, fixed, nearest fixed, custom),
+camera integration, shader application, and events for drawing and resizing. Handles mouse position scaling, texture reloading,
+and provides utility functions for screen-to-texture and texture-to-screen conversions.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class ScreenTexture</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">ScreenTexture</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_">ShapeLogger.Log(object, string, LogLevel)</a>
+  </div>
+  <div>
+      <a class="xref" href="ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_">ShapeLogger.LogConsole(object, string, LogLevel)</a>
+  </div>
+  <div>
+      <a class="xref" href="ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_">ShapeLogger.LogFile(object, string, LogLevel)</a>
+  </div>
+  </dd></dl>
+
+
+
+  <h2 id="ShapeEngine_Screen_ScreenTexture_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>Use this class to encapsulate all logic for drawing to an off-screen texture, applying shaders, and rendering the result to the screen.
+Supports integration with <a class="xref" href="ShapeEngine.Screen.ShapeCamera.html">ShapeCamera</a> for world/screen coordinate conversion and custom drawing logic via events.</p>
+</div>
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture__ctor_" data-uid="ShapeEngine.Screen.ScreenTexture.#ctor*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture__ctor_ShapeEngine_Core_Structs_Dimensions_ShapeEngine_Screen_CustomScreenTextureHandler_ShapeEngine_Screen_ShaderSupportType_Raylib_cs_TextureFilter_" data-uid="ShapeEngine.Screen.ScreenTexture.#ctor(ShapeEngine.Core.Structs.Dimensions,ShapeEngine.Screen.CustomScreenTextureHandler,ShapeEngine.Screen.ShaderSupportType,Raylib_cs.TextureFilter)">
+  ScreenTexture(Dimensions, CustomScreenTextureHandler, ShaderSupportType, TextureFilter)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L317"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Create a screen texture in custom mode.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ScreenTexture(Dimensions customDimensions, CustomScreenTextureHandler handler, ShaderSupportType shaderSupportType, TextureFilter textureFilter = TextureFilter.Bilinear)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>customDimensions</code> <a class="xref" href="ShapeEngine.Core.Structs.Dimensions.html">Dimensions</a></dt>
+    <dd><p>The width and height of the screen texture. Has to be positive otherwise screen texture will be
+created in stretch mode. Can be changed with ChangeCustomTextureSize function later.</p>
+</dd>
+    <dt><code>handler</code> <a class="xref" href="ShapeEngine.Screen.CustomScreenTextureHandler.html">CustomScreenTextureHandler</a></dt>
+    <dd></dd>
+    <dt><code>shaderSupportType</code> <a class="xref" href="ShapeEngine.Screen.ShaderSupportType.html">ShaderSupportType</a></dt>
+    <dd></dd>
+    <dt><code>textureFilter</code> <span class="xref">TextureFilter</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture__ctor_" data-uid="ShapeEngine.Screen.ScreenTexture.#ctor*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture__ctor_ShapeEngine_Core_Structs_Dimensions_ShapeEngine_Screen_ShaderSupportType_Raylib_cs_TextureFilter_System_Boolean_" data-uid="ShapeEngine.Screen.ScreenTexture.#ctor(ShapeEngine.Core.Structs.Dimensions,ShapeEngine.Screen.ShaderSupportType,Raylib_cs.TextureFilter,System.Boolean)">
+  ScreenTexture(Dimensions, ShaderSupportType, TextureFilter, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L267"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Create a screen texture in fixed mode or nearest fixed mode.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ScreenTexture(Dimensions fixedDimensions, ShaderSupportType shaderSupportType, TextureFilter textureFilter = TextureFilter.Bilinear, bool nearest = false)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>fixedDimensions</code> <a class="xref" href="ShapeEngine.Core.Structs.Dimensions.html">Dimensions</a></dt>
+    <dd><p>The fixed dimensions to use for the screen texture. Dimensions have to be valid.</p>
+</dd>
+    <dt><code>shaderSupportType</code> <a class="xref" href="ShapeEngine.Screen.ShaderSupportType.html">ShaderSupportType</a></dt>
+    <dd></dd>
+    <dt><code>textureFilter</code> <span class="xref">TextureFilter</span></dt>
+    <dd></dd>
+    <dt><code>nearest</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>If true nearest fixed mode is used.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture__ctor_" data-uid="ShapeEngine.Screen.ScreenTexture.#ctor*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture__ctor_ShapeEngine_Screen_ShaderSupportType_Raylib_cs_TextureFilter_" data-uid="ShapeEngine.Screen.ScreenTexture.#ctor(ShapeEngine.Screen.ShaderSupportType,Raylib_cs.TextureFilter)">
+  ScreenTexture(ShaderSupportType, TextureFilter)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L176"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Create a screen texture in stretch mode.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ScreenTexture(ShaderSupportType shaderSupportType, TextureFilter textureFilter = TextureFilter.Bilinear)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>shaderSupportType</code> <a class="xref" href="ShapeEngine.Screen.ShaderSupportType.html">ShaderSupportType</a></dt>
+    <dd></dd>
+    <dt><code>textureFilter</code> <span class="xref">TextureFilter</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture__ctor_" data-uid="ShapeEngine.Screen.ScreenTexture.#ctor*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture__ctor_System_Numerics_Vector2_System_Numerics_Vector2_ShapeEngine_Screen_ShaderSupportType_Raylib_cs_TextureFilter_" data-uid="ShapeEngine.Screen.ScreenTexture.#ctor(System.Numerics.Vector2,System.Numerics.Vector2,ShapeEngine.Screen.ShaderSupportType,Raylib_cs.TextureFilter)">
+  ScreenTexture(Vector2, Vector2, ShaderSupportType, TextureFilter)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L203"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Create a screen texture in anchor mode.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ScreenTexture(Vector2 anchorStretch, Vector2 anchorPosition, ShaderSupportType shaderSupportType, TextureFilter textureFilter = TextureFilter.Bilinear)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>anchorStretch</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
+    <dd><p>The factors for the size of the resulting screen texture. 0.5/0.5 would result
+in a screen texture with half the width and half the height of the screen.</p>
+</dd>
+    <dt><code>anchorPosition</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
+    <dd><p>The factors for the position of the screen texture on the screen.
+0/0 is the topleft corner, 1/1 is the bottom right corner.</p>
+</dd>
+    <dt><code>shaderSupportType</code> <a class="xref" href="ShapeEngine.Screen.ShaderSupportType.html">ShaderSupportType</a></dt>
+    <dd></dd>
+    <dt><code>textureFilter</code> <span class="xref">TextureFilter</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture__ctor_" data-uid="ShapeEngine.Screen.ScreenTexture.#ctor*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture__ctor_System_Single_ShapeEngine_Screen_ShaderSupportType_Raylib_cs_TextureFilter_" data-uid="ShapeEngine.Screen.ScreenTexture.#ctor(System.Single,ShapeEngine.Screen.ShaderSupportType,Raylib_cs.TextureFilter)">
+  ScreenTexture(float, ShaderSupportType, TextureFilter)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L238"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Create a screen texture in pixelation mode.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ScreenTexture(float pixelationFactor, ShaderSupportType shaderSupportType, TextureFilter textureFilter = TextureFilter.Bilinear)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>pixelationFactor</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>The pixelation factor has to be bigger than 0 and smaller than 1 otherwise
+the screen texture will be create in stretch mode!</p>
+</dd>
+    <dt><code>shaderSupportType</code> <a class="xref" href="ShapeEngine.Screen.ShaderSupportType.html">ShaderSupportType</a></dt>
+    <dd></dd>
+    <dt><code>textureFilter</code> <span class="xref">TextureFilter</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_BackgroundColor" data-uid="ShapeEngine.Screen.ScreenTexture.BackgroundColor">
+  BackgroundColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L77"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The background color used when clearing the render texture.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ColorRgba BackgroundColor</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ShapeEngine.Color.ColorRgba.html">ColorRgba</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_Camera" data-uid="ShapeEngine.Screen.ScreenTexture.Camera">
+  Camera
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L112"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The camera used for world-to-screen and screen-to-world conversions. Optional.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ShapeCamera? Camera</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ShapeEngine.Screen.ShapeCamera.html">ShapeCamera</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_FixedDimensions" data-uid="ShapeEngine.Screen.ScreenTexture.FixedDimensions">
+  FixedDimensions
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L124"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The fixed dimensions for the texture, if in fixed mode.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public readonly Dimensions FixedDimensions</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ShapeEngine.Core.Structs.Dimensions.html">Dimensions</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_Mode" data-uid="ShapeEngine.Screen.ScreenTexture.Mode">
+  Mode
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L120"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The mode in which this screen texture operates (stretch, anchor, pixelation, fixed, nearest fixed, custom).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public readonly ScreenTextureMode Mode</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ShapeEngine.Screen.ScreenTextureMode.html">ScreenTextureMode</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_ShaderSupport" data-uid="ShapeEngine.Screen.ScreenTexture.ShaderSupport">
+  ShaderSupport
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L145"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The type of shader support (none, single, multiple).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public readonly ShaderSupportType ShaderSupport</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ShapeEngine.Screen.ShaderSupportType.html">ShaderSupportType</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_Shaders" data-uid="ShapeEngine.Screen.ScreenTexture.Shaders">
+  Shaders
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L149"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The container for shaders applied to this texture, if shader support is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public readonly ShaderContainer? Shaders</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ShapeEngine.Screen.ShaderContainer.html">ShaderContainer</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_TextureFilter" data-uid="ShapeEngine.Screen.ScreenTexture.TextureFilter">
+  TextureFilter
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L141"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The texture filter used for the render texture.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public readonly TextureFilter TextureFilter</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TextureFilter</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_Tint" data-uid="ShapeEngine.Screen.ScreenTexture.Tint">
+  Tint
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L116"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The tint color applied when drawing the texture to the screen.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ColorRgba Tint</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ShapeEngine.Color.ColorRgba.html">ColorRgba</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture_AnchorPosition_" data-uid="ShapeEngine.Screen.ScreenTexture.AnchorPosition*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_AnchorPosition" data-uid="ShapeEngine.Screen.ScreenTexture.AnchorPosition">
+  AnchorPosition
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L136"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The anchor position for anchor mode (0-1).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector2 AnchorPosition { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture_AnchorStretch_" data-uid="ShapeEngine.Screen.ScreenTexture.AnchorStretch*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_AnchorStretch" data-uid="ShapeEngine.Screen.ScreenTexture.AnchorStretch">
+  AnchorStretch
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L132"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The stretch factors for anchor mode (0-1).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector2 AnchorStretch { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture_CustomClearBackgroundFunction_" data-uid="ShapeEngine.Screen.ScreenTexture.CustomClearBackgroundFunction*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_CustomClearBackgroundFunction" data-uid="ShapeEngine.Screen.ScreenTexture.CustomClearBackgroundFunction">
+  CustomClearBackgroundFunction
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L63"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>This is set automatically if custom mode is used!</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Func&lt;(ColorRgba color, bool clear)&gt;? CustomClearBackgroundFunction { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;(<a class="xref" href="ShapeEngine.Color.ColorRgba.html">ColorRgba</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-shapeengine.color.colorrgba,system.boolean-.color">color</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-shapeengine.color.colorrgba,system.boolean-.clear">clear</a>)&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture_DrawToScreenOrder_" data-uid="ShapeEngine.Screen.ScreenTexture.DrawToScreenOrder*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_DrawToScreenOrder" data-uid="ShapeEngine.Screen.ScreenTexture.DrawToScreenOrder">
+  DrawToScreenOrder
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L92"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The order in which screen textures are drawn to the screen each frame. Lower numbers will be draw first.
+Negative draw orders will be drawn to screen before the game texture.
+Positive draw orders will be drawn to screen after the game texture (this includes 0).
+If the draw order is the same the order in which the screen textures were added is taken into account.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int DrawToScreenOrder { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture_DrawToTextureEnabled_" data-uid="ShapeEngine.Screen.ScreenTexture.DrawToTextureEnabled*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_DrawToTextureEnabled" data-uid="ShapeEngine.Screen.ScreenTexture.DrawToTextureEnabled">
+  DrawToTextureEnabled
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L96"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Enables or disables drawing to the texture. If disabled, OnDrawGame and OnDrawUI events will not fire.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool DrawToTextureEnabled { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture_GameScreenInfo_" data-uid="ShapeEngine.Screen.ScreenTexture.GameScreenInfo*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_GameScreenInfo" data-uid="ShapeEngine.Screen.ScreenTexture.GameScreenInfo">
+  GameScreenInfo
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L81"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Information about the game area and mouse position in world coordinates.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ScreenInfo GameScreenInfo { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ShapeEngine.Core.Structs.ScreenInfo.html">ScreenInfo</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture_GameUiScreenInfo_" data-uid="ShapeEngine.Screen.ScreenTexture.GameUiScreenInfo*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_GameUiScreenInfo" data-uid="ShapeEngine.Screen.ScreenTexture.GameUiScreenInfo">
+  GameUiScreenInfo
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L85"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Information about the UI area and mouse position in texture coordinates.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ScreenInfo GameUiScreenInfo { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ShapeEngine.Core.Structs.ScreenInfo.html">ScreenInfo</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture_Height_" data-uid="ShapeEngine.Screen.ScreenTexture.Height*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_Height" data-uid="ShapeEngine.Screen.ScreenTexture.Height">
+  Height
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L108"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The height of the render texture in pixels.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Height { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture_Initialized_" data-uid="ShapeEngine.Screen.ScreenTexture.Initialized*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_Initialized" data-uid="ShapeEngine.Screen.ScreenTexture.Initialized">
+  Initialized
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L153"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Indicates whether the texture has been initialized.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Initialized { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture_Loaded_" data-uid="ShapeEngine.Screen.ScreenTexture.Loaded*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_Loaded" data-uid="ShapeEngine.Screen.ScreenTexture.Loaded">
+  Loaded
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L100"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Indicates whether the texture is currently loaded.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Loaded { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture_PixelationFactor_" data-uid="ShapeEngine.Screen.ScreenTexture.PixelationFactor*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_PixelationFactor" data-uid="ShapeEngine.Screen.ScreenTexture.PixelationFactor">
+  PixelationFactor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L128"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The pixelation factor for pixelation mode (0-1).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float PixelationFactor { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture_Width_" data-uid="ShapeEngine.Screen.ScreenTexture.Width*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_Width" data-uid="ShapeEngine.Screen.ScreenTexture.Width">
+  Width
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L104"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The width of the render texture in pixels.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Width { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture_ChangeAnchorPosition_" data-uid="ShapeEngine.Screen.ScreenTexture.ChangeAnchorPosition*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_ChangeAnchorPosition_System_Numerics_Vector2_" data-uid="ShapeEngine.Screen.ScreenTexture.ChangeAnchorPosition(System.Numerics.Vector2)">
+  ChangeAnchorPosition(Vector2)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L662"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Changes the anchor position for anchor mode. Only valid in anchor mode.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ChangeAnchorPosition(Vector2 newAnchorPosition)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>newAnchorPosition</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
+    <dd><p>The new anchor position (0-1).</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if changed successfully; otherwise, false.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture_ChangeAnchorStretch_" data-uid="ShapeEngine.Screen.ScreenTexture.ChangeAnchorStretch*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_ChangeAnchorStretch_System_Numerics_Vector2_" data-uid="ShapeEngine.Screen.ScreenTexture.ChangeAnchorStretch(System.Numerics.Vector2)">
+  ChangeAnchorStretch(Vector2)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L680"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Requires a reload of the texture!
+Reloads happens next frame!</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ChangeAnchorStretch(Vector2 newAnchorStretch)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>newAnchorStretch</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
+    <dd><p>Value Range: Bigger than 0, 0 and smaller than 1, 1.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture_ChangeCustomTextureSize_" data-uid="ShapeEngine.Screen.ScreenTexture.ChangeCustomTextureSize*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_ChangeCustomTextureSize_ShapeEngine_Core_Structs_Dimensions_" data-uid="ShapeEngine.Screen.ScreenTexture.ChangeCustomTextureSize(ShapeEngine.Core.Structs.Dimensions)">
+  ChangeCustomTextureSize(Dimensions)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L718"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Change the dimensions of the screen texture. This functions only works in custom mode!</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ChangeCustomTextureSize(Dimensions newDimensions)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>newDimensions</code> <a class="xref" href="ShapeEngine.Core.Structs.Dimensions.html">Dimensions</a></dt>
+    <dd><p>The new dimensions to use. Only works if newDimensions are different
+than the current dimensions and if the newDimensions are valid!.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture_ChangePixelationFactor_" data-uid="ShapeEngine.Screen.ScreenTexture.ChangePixelationFactor*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_ChangePixelationFactor_System_Single_" data-uid="ShapeEngine.Screen.ScreenTexture.ChangePixelationFactor(System.Single)">
+  ChangePixelationFactor(float)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L699"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Requires a reload of the texture!
+Reloads happens next frame!</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ChangePixelationFactor(float newPixelationFactor)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>newPixelationFactor</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>Value Range: Bigger than 0 and smaller than 1!</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture_DrawOnTexture_" data-uid="ShapeEngine.Screen.ScreenTexture.DrawOnTexture*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_DrawOnTexture" data-uid="ShapeEngine.Screen.ScreenTexture.DrawOnTexture">
+  DrawOnTexture()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L528"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Invokes events to draw to the texture via OnDrawGame and OnDrawUI. Applies shaders if enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void DrawOnTexture()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture_DrawToScreen_" data-uid="ShapeEngine.Screen.ScreenTexture.DrawToScreen*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_DrawToScreen" data-uid="ShapeEngine.Screen.ScreenTexture.DrawToScreen">
+  DrawToScreen()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L597"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Draws the texture to the screen. Should only be called by the game class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void DrawToScreen()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture_GetDestinationRect_" data-uid="ShapeEngine.Screen.ScreenTexture.GetDestinationRect*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_GetDestinationRect" data-uid="ShapeEngine.Screen.ScreenTexture.GetDestinationRect">
+  GetDestinationRect()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L615"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the destination rectangle for drawing the texture to the screen, based on the current mode and screen size.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Rect GetDestinationRect()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ShapeEngine.Geometry.RectDef.Rect.html">Rect</a></dt>
+    <dd><p>The destination rectangle.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture_GetTextureRect_" data-uid="ShapeEngine.Screen.ScreenTexture.GetTextureRect*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_GetTextureRect" data-uid="ShapeEngine.Screen.ScreenTexture.GetTextureRect">
+  GetTextureRect()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L655"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the rectangle representing the texture area.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Rect GetTextureRect()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ShapeEngine.Geometry.RectDef.Rect.html">Rect</a></dt>
+    <dd><p>The texture rectangle.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture_Initialize_" data-uid="ShapeEngine.Screen.ScreenTexture.Initialize*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_Initialize_ShapeEngine_Core_Structs_Dimensions_System_Numerics_Vector2_ShapeEngine_Screen_ShapeCamera_" data-uid="ShapeEngine.Screen.ScreenTexture.Initialize(ShapeEngine.Core.Structs.Dimensions,System.Numerics.Vector2,ShapeEngine.Screen.ShapeCamera)">
+  Initialize(Dimensions, Vector2, ShapeCamera?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L365"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initializes the screen texture with the given screen size, mouse position, and optional camera.
+Calculates scaled mouse positions and sets up camera and texture rectangles.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Initialize(Dimensions screenSize, Vector2 mousePosition, ShapeCamera? camera = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>screenSize</code> <a class="xref" href="ShapeEngine.Core.Structs.Dimensions.html">Dimensions</a></dt>
+    <dd><p>The dimensions of the screen.</p>
+</dd>
+    <dt><code>mousePosition</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
+    <dd><p>The mouse position in screen coordinates.</p>
+</dd>
+    <dt><code>camera</code> <a class="xref" href="ShapeEngine.Screen.ShapeCamera.html">ShapeCamera</a></dt>
+    <dd><p>The camera to use for world-to-screen conversion (optional).</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture_Unload_" data-uid="ShapeEngine.Screen.ScreenTexture.Unload*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_Unload" data-uid="ShapeEngine.Screen.ScreenTexture.Unload">
+  Unload()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L604"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Unloads the render texture and associated resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Unload()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Screen_ScreenTexture_Update_" data-uid="ShapeEngine.Screen.ScreenTexture.Update*"></a>
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_Update_System_Single_ShapeEngine_Core_Structs_Dimensions_System_Numerics_Vector2_System_Boolean_" data-uid="ShapeEngine.Screen.ScreenTexture.Update(System.Single,ShapeEngine.Core.Structs.Dimensions,System.Numerics.Vector2,System.Boolean)">
+  Update(float, Dimensions, Vector2, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L447"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Updates the screen texture state, including camera and mouse position, and reloads the texture if needed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Update(float dt, Dimensions screenSize, Vector2 mousePosition, bool paused)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>dt</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>Delta time in seconds.</p>
+</dd>
+    <dt><code>screenSize</code> <a class="xref" href="ShapeEngine.Core.Structs.Dimensions.html">Dimensions</a></dt>
+    <dd><p>The dimensions of the screen.</p>
+</dd>
+    <dt><code>mousePosition</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.numerics.vector2">Vector2</a></dt>
+    <dd><p>The mouse position in screen coordinates.</p>
+</dd>
+    <dt><code>paused</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>Whether the update is paused.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="events">Events
+</h2>
+
+
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_OnDrawGame" data-uid="ShapeEngine.Screen.ScreenTexture.OnDrawGame">
+  OnDrawGame
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L42"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Event triggered to draw to the render texture before shaders are applied.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event ScreenTexture.DrawToRenderTexture? OnDrawGame</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ShapeEngine.Screen.ScreenTexture.html">ScreenTexture</a>.<a class="xref" href="ShapeEngine.Screen.ScreenTexture.DrawToRenderTexture.html">DrawToRenderTexture</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_OnDrawUI" data-uid="ShapeEngine.Screen.ScreenTexture.OnDrawUI">
+  OnDrawUI
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L47"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Event triggered to draw to the render texture after shaders are applied.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event ScreenTexture.DrawToRenderTexture? OnDrawUI</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ShapeEngine.Screen.ScreenTexture.html">ScreenTexture</a>.<a class="xref" href="ShapeEngine.Screen.ScreenTexture.DrawToRenderTexture.html">DrawToRenderTexture</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="ShapeEngine_Screen_ScreenTexture_OnTextureResized" data-uid="ShapeEngine.Screen.ScreenTexture.OnTextureResized">
+  OnTextureResized
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Event triggered when the texture is resized.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event ScreenTexture.TextureResized? OnTextureResized</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="ShapeEngine.Screen.ScreenTexture.html">ScreenTexture</a>.<a class="xref" href="ShapeEngine.Screen.ScreenTexture.TextureResized.html">TextureResized</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Screen/ScreenTexture.cs/#L20" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

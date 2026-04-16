@@ -11,9 +11,11 @@ items:
   - ShapeEngine.Core.Shapes.Shape.CurTransform
   - ShapeEngine.Core.Shapes.Shape.DrawShape
   - ShapeEngine.Core.Shapes.Shape.GetCircleShape
+  - ShapeEngine.Core.Shapes.Shape.GetLineShape
   - ShapeEngine.Core.Shapes.Shape.GetPolygonShape
   - ShapeEngine.Core.Shapes.Shape.GetPolylineShape
   - ShapeEngine.Core.Shapes.Shape.GetQuadShape
+  - ShapeEngine.Core.Shapes.Shape.GetRayShape
   - ShapeEngine.Core.Shapes.Shape.GetRectShape
   - ShapeEngine.Core.Shapes.Shape.GetSegmentShape
   - ShapeEngine.Core.Shapes.Shape.GetShapeType
@@ -41,24 +43,30 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Shape
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 7
+    startLine: 13
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Abstract base class for all 2D shapes in Shape Engine.
+  remarks: >-
+    Provides transformation, initialization, update, and drawing logic for derived shape types. 
+
+    Shapes can be configured to move, rotate, and scale independently of their parent transform.
+  example: []
   syntax:
     content: 'public abstract class Shape : IShape'
     content.vb: Public MustInherit Class Shape Implements IShape
   inheritance:
   - System.Object
   derivedClasses:
-  - ShapeEngine.Core.Collision.Collider
+  - ShapeEngine.Core.CollisionSystem.Collider
   - ShapeEngine.Core.Shapes.ShapeContainer
   implements:
-  - ShapeEngine.Core.Collision.IShape
+  - ShapeEngine.Core.CollisionSystem.IShape
   inheritedMembers:
   - System.Object.Equals(System.Object)
   - System.Object.Equals(System.Object,System.Object)
@@ -81,14 +89,17 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Moves
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 9
+    startLine: 21
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Indicates whether the shape's position is affected by its offset.
+  remarks: If false, the shape will not move relative to its parent transform.
+  example: []
   syntax:
     content: public bool Moves
     return:
@@ -108,14 +119,17 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Rotates
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 10
+    startLine: 29
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Indicates whether the shape's rotation is affected by its offset.
+  remarks: If false, the shape will not rotate relative to its parent transform.
+  example: []
   syntax:
     content: public bool Rotates
     return:
@@ -135,14 +149,17 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Scales
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 11
+    startLine: 37
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Indicates whether the shape's scale is affected by its offset.
+  remarks: If false, the shape will not scale relative to its parent transform.
+  example: []
   syntax:
     content: public bool Scales
     return:
@@ -162,14 +179,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Offset
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 13
+    startLine: 42
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: The local transform offset applied to the shape relative to its parent.
+  example: []
   syntax:
     content: public Transform2D Offset { get; set; }
     parameters: []
@@ -191,14 +210,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CurTransform
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 14
+    startLine: 47
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: The current world transform of the shape after applying parent and offset transforms.
+  example: []
   syntax:
     content: public Transform2D CurTransform { get; }
     parameters: []
@@ -220,14 +241,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PrevTransform
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 15
+    startLine: 52
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: The previous world transform of the shape from the last update.
+  example: []
   syntax:
     content: public Transform2D PrevTransform { get; }
     parameters: []
@@ -249,14 +272,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 18
+    startLine: 57
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.Shapes.Shape" data-throw-if-not-resolved="false"></xref> class with a default offset.
+  example: []
   syntax:
     content: protected Shape()
     content.vb: Protected Sub New()
@@ -278,19 +303,22 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 22
+    startLine: 65
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.Shapes.Shape" data-throw-if-not-resolved="false"></xref> class with a specified offset vector.
+  example: []
   syntax:
     content: protected Shape(Vector2 offset)
     parameters:
     - id: offset
       type: System.Numerics.Vector2
+      description: The local position offset.
     content.vb: Protected Sub New(offset As Vector2)
   overload: ShapeEngine.Core.Shapes.Shape.#ctor*
   nameWithType.vb: Shape.New(Vector2)
@@ -310,19 +338,22 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 26
+    startLine: 73
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.Shapes.Shape" data-throw-if-not-resolved="false"></xref> class with a specified transform offset.
+  example: []
   syntax:
     content: protected Shape(Transform2D offset)
     parameters:
     - id: offset
       type: ShapeEngine.Core.Structs.Transform2D
+      description: The local transform offset.
     content.vb: Protected Sub New(offset As Transform2D)
   overload: ShapeEngine.Core.Shapes.Shape.#ctor*
   nameWithType.vb: Shape.New(Transform2D)
@@ -342,19 +373,22 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InitializeShape
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 32
+    startLine: 82
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Called when the shape is initialized. Override to perform custom initialization logic.
+  example: []
   syntax:
     content: public virtual void InitializeShape(Transform2D parentTransform)
     parameters:
     - id: parentTransform
       type: ShapeEngine.Core.Structs.Transform2D
+      description: The parent transform to initialize with.
     content.vb: Public Overridable Sub InitializeShape(parentTransform As Transform2D)
   overload: ShapeEngine.Core.Shapes.Shape.InitializeShape*
 - uid: ShapeEngine.Core.Shapes.Shape.UpdateShape(System.Single,ShapeEngine.Core.Structs.Transform2D)
@@ -371,21 +405,25 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: UpdateShape
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 33
+    startLine: 89
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Updates the shape each frame. Override to implement custom update logic.
+  example: []
   syntax:
     content: public virtual void UpdateShape(float dt, Transform2D parentTransform)
     parameters:
     - id: dt
       type: System.Single
+      description: Delta time since last update.
     - id: parentTransform
       type: ShapeEngine.Core.Structs.Transform2D
+      description: The parent transform to update with.
     content.vb: Public Overridable Sub UpdateShape(dt As Single, parentTransform As Transform2D)
   overload: ShapeEngine.Core.Shapes.Shape.UpdateShape*
   nameWithType.vb: Shape.UpdateShape(Single, Transform2D)
@@ -405,14 +443,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawShape
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 34
+    startLine: 94
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Draws the shape. Override to implement custom drawing logic.
+  example: []
   syntax:
     content: public virtual void DrawShape()
     content.vb: Public Overridable Sub DrawShape()
@@ -431,14 +471,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RecalculateShape
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 35
+    startLine: 99
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Recalculates the shape's geometry or cached data. Override as needed.
+  example: []
   syntax:
     content: public virtual void RecalculateShape()
     content.vb: Public Overridable Sub RecalculateShape()
@@ -457,14 +499,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnInitialized
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 37
+    startLine: 104
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Called after the shape is initialized. Override for custom logic.
+  example: []
   syntax:
     content: protected virtual void OnInitialized()
     content.vb: Protected Overridable Sub OnInitialized()
@@ -483,19 +527,22 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnUpdate
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 38
+    startLine: 110
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Called during the shape's update. Override for custom logic.
+  example: []
   syntax:
     content: protected virtual void OnUpdate(float dt)
     parameters:
     - id: dt
       type: System.Single
+      description: Delta time since last update.
     content.vb: Protected Overridable Sub OnUpdate(dt As Single)
   overload: ShapeEngine.Core.Shapes.Shape.OnUpdate*
   nameWithType.vb: Shape.OnUpdate(Single)
@@ -515,14 +562,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnDraw
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 39
+    startLine: 115
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Called when the shape is drawn. Override for custom logic.
+  example: []
   syntax:
     content: protected virtual void OnDraw()
     content.vb: Protected Overridable Sub OnDraw()
@@ -541,22 +590,23 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnShapeTransformChanged
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 46
+    startLine: 124
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
-  summary: Called each frame after the transform was actualized from the parents
+  summary: Called each frame after the transform was actualized from the parents.
+  remarks: This method is called after <xref href="ShapeEngine.Core.Shapes.Shape.UpdateTransform(ShapeEngine.Core.Structs.Transform2D)" data-throw-if-not-resolved="false"></xref> is executed.
   example: []
   syntax:
     content: protected virtual void OnShapeTransformChanged(bool transformChanged)
     parameters:
     - id: transformChanged
       type: System.Boolean
-      description: ''
+      description: True if the transform changed since the last frame; otherwise, false.
     content.vb: Protected Overridable Sub OnShapeTransformChanged(transformChanged As Boolean)
   overload: ShapeEngine.Core.Shapes.Shape.OnShapeTransformChanged*
   nameWithType.vb: Shape.OnShapeTransformChanged(Boolean)
@@ -576,19 +626,22 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: UpdateTransform
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 47
+    startLine: 130
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Updates the current and previous transforms based on the parent transform and offset.
+  example: []
   syntax:
     content: protected void UpdateTransform(Transform2D parentTransform)
     parameters:
     - id: parentTransform
       type: ShapeEngine.Core.Structs.Transform2D
+      description: The parent transform to update from.
     content.vb: Protected Sub UpdateTransform(parentTransform As Transform2D)
   overload: ShapeEngine.Core.Shapes.Shape.UpdateTransform*
 - uid: ShapeEngine.Core.Shapes.Shape.GetShapeType
@@ -605,54 +658,91 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetShapeType
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 60
+    startLine: 143
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Gets the type of the shape.
   example: []
   syntax:
     content: public abstract ShapeType GetShapeType()
     return:
-      type: ShapeEngine.Core.Collision.ShapeType
+      type: ShapeEngine.Core.CollisionSystem.ShapeType
+      description: The <xref href="ShapeEngine.Core.CollisionSystem.ShapeType" data-throw-if-not-resolved="false"></xref> of this shape.
     content.vb: Public MustOverride Function GetShapeType() As ShapeType
   overload: ShapeEngine.Core.Shapes.Shape.GetShapeType*
   implements:
-  - ShapeEngine.Core.Collision.IShape.GetShapeType
-- uid: ShapeEngine.Core.Shapes.Shape.GetCircleShape
-  commentId: M:ShapeEngine.Core.Shapes.Shape.GetCircleShape
-  id: GetCircleShape
+  - ShapeEngine.Core.CollisionSystem.IShape.GetShapeType
+- uid: ShapeEngine.Core.Shapes.Shape.GetRayShape
+  commentId: M:ShapeEngine.Core.Shapes.Shape.GetRayShape
+  id: GetRayShape
   parent: ShapeEngine.Core.Shapes.Shape
   langs:
   - csharp
   - vb
-  name: GetCircleShape()
-  nameWithType: Shape.GetCircleShape()
-  fullName: ShapeEngine.Core.Shapes.Shape.GetCircleShape()
+  name: GetRayShape()
+  nameWithType: Shape.GetRayShape()
+  fullName: ShapeEngine.Core.Shapes.Shape.GetRayShape()
   type: Method
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: GetCircleShape
+    id: GetRayShape
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 61
+    startLine: 146
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Gets the shape as a <xref href="ShapeEngine.Core.Shapes.Ray" data-throw-if-not-resolved="false"></xref>.
   example: []
   syntax:
-    content: public virtual Circle GetCircleShape()
+    content: public virtual Ray GetRayShape()
     return:
-      type: ShapeEngine.Core.Shapes.Circle
-    content.vb: Public Overridable Function GetCircleShape() As Circle
-  overload: ShapeEngine.Core.Shapes.Shape.GetCircleShape*
+      type: ShapeEngine.Core.Shapes.Ray
+      description: A <xref href="ShapeEngine.Core.Shapes.Ray" data-throw-if-not-resolved="false"></xref> representation of the shape.
+    content.vb: Public Overridable Function GetRayShape() As Ray
+  overload: ShapeEngine.Core.Shapes.Shape.GetRayShape*
   implements:
-  - ShapeEngine.Core.Collision.IShape.GetCircleShape
+  - ShapeEngine.Core.CollisionSystem.IShape.GetRayShape
+- uid: ShapeEngine.Core.Shapes.Shape.GetLineShape
+  commentId: M:ShapeEngine.Core.Shapes.Shape.GetLineShape
+  id: GetLineShape
+  parent: ShapeEngine.Core.Shapes.Shape
+  langs:
+  - csharp
+  - vb
+  name: GetLineShape()
+  nameWithType: Shape.GetLineShape()
+  fullName: ShapeEngine.Core.Shapes.Shape.GetLineShape()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Shapes/Shape.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetLineShape
+    path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
+    startLine: 149
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Shapes
+  summary: Gets the shape as a <xref href="ShapeEngine.Core.Shapes.Line" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public virtual Line GetLineShape()
+    return:
+      type: ShapeEngine.Core.Shapes.Line
+      description: A <xref href="ShapeEngine.Core.Shapes.Line" data-throw-if-not-resolved="false"></xref> representation of the shape.
+    content.vb: Public Overridable Function GetLineShape() As Line
+  overload: ShapeEngine.Core.Shapes.Shape.GetLineShape*
+  implements:
+  - ShapeEngine.Core.CollisionSystem.IShape.GetLineShape
 - uid: ShapeEngine.Core.Shapes.Shape.GetSegmentShape
   commentId: M:ShapeEngine.Core.Shapes.Shape.GetSegmentShape
   id: GetSegmentShape
@@ -667,23 +757,58 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetSegmentShape
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 62
+    startLine: 152
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Gets the shape as a <xref href="ShapeEngine.Core.Shapes.Segment" data-throw-if-not-resolved="false"></xref>.
   example: []
   syntax:
     content: public virtual Segment GetSegmentShape()
     return:
       type: ShapeEngine.Core.Shapes.Segment
+      description: A <xref href="ShapeEngine.Core.Shapes.Segment" data-throw-if-not-resolved="false"></xref> representation of the shape.
     content.vb: Public Overridable Function GetSegmentShape() As Segment
   overload: ShapeEngine.Core.Shapes.Shape.GetSegmentShape*
   implements:
-  - ShapeEngine.Core.Collision.IShape.GetSegmentShape
+  - ShapeEngine.Core.CollisionSystem.IShape.GetSegmentShape
+- uid: ShapeEngine.Core.Shapes.Shape.GetCircleShape
+  commentId: M:ShapeEngine.Core.Shapes.Shape.GetCircleShape
+  id: GetCircleShape
+  parent: ShapeEngine.Core.Shapes.Shape
+  langs:
+  - csharp
+  - vb
+  name: GetCircleShape()
+  nameWithType: Shape.GetCircleShape()
+  fullName: ShapeEngine.Core.Shapes.Shape.GetCircleShape()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Shapes/Shape.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetCircleShape
+    path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
+    startLine: 155
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Shapes
+  summary: Gets the shape as a <xref href="ShapeEngine.Core.Shapes.Circle" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public virtual Circle GetCircleShape()
+    return:
+      type: ShapeEngine.Core.Shapes.Circle
+      description: A <xref href="ShapeEngine.Core.Shapes.Circle" data-throw-if-not-resolved="false"></xref> representation of the shape.
+    content.vb: Public Overridable Function GetCircleShape() As Circle
+  overload: ShapeEngine.Core.Shapes.Shape.GetCircleShape*
+  implements:
+  - ShapeEngine.Core.CollisionSystem.IShape.GetCircleShape
 - uid: ShapeEngine.Core.Shapes.Shape.GetTriangleShape
   commentId: M:ShapeEngine.Core.Shapes.Shape.GetTriangleShape
   id: GetTriangleShape
@@ -698,23 +823,25 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetTriangleShape
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 63
+    startLine: 158
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Gets the shape as a <xref href="ShapeEngine.Core.Shapes.Triangle" data-throw-if-not-resolved="false"></xref>.
   example: []
   syntax:
     content: public virtual Triangle GetTriangleShape()
     return:
       type: ShapeEngine.Core.Shapes.Triangle
+      description: A <xref href="ShapeEngine.Core.Shapes.Triangle" data-throw-if-not-resolved="false"></xref> representation of the shape.
     content.vb: Public Overridable Function GetTriangleShape() As Triangle
   overload: ShapeEngine.Core.Shapes.Shape.GetTriangleShape*
   implements:
-  - ShapeEngine.Core.Collision.IShape.GetTriangleShape
+  - ShapeEngine.Core.CollisionSystem.IShape.GetTriangleShape
 - uid: ShapeEngine.Core.Shapes.Shape.GetQuadShape
   commentId: M:ShapeEngine.Core.Shapes.Shape.GetQuadShape
   id: GetQuadShape
@@ -729,23 +856,25 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetQuadShape
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 64
+    startLine: 161
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Gets the shape as a <xref href="ShapeEngine.Core.Shapes.Quad" data-throw-if-not-resolved="false"></xref>.
   example: []
   syntax:
     content: public virtual Quad GetQuadShape()
     return:
       type: ShapeEngine.Core.Shapes.Quad
+      description: A <xref href="ShapeEngine.Core.Shapes.Quad" data-throw-if-not-resolved="false"></xref> representation of the shape.
     content.vb: Public Overridable Function GetQuadShape() As Quad
   overload: ShapeEngine.Core.Shapes.Shape.GetQuadShape*
   implements:
-  - ShapeEngine.Core.Collision.IShape.GetQuadShape
+  - ShapeEngine.Core.CollisionSystem.IShape.GetQuadShape
 - uid: ShapeEngine.Core.Shapes.Shape.GetRectShape
   commentId: M:ShapeEngine.Core.Shapes.Shape.GetRectShape
   id: GetRectShape
@@ -760,23 +889,25 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetRectShape
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 65
+    startLine: 164
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Gets the shape as a <xref href="ShapeEngine.Core.Shapes.Rect" data-throw-if-not-resolved="false"></xref>.
   example: []
   syntax:
     content: public virtual Rect GetRectShape()
     return:
       type: ShapeEngine.Core.Shapes.Rect
+      description: A <xref href="ShapeEngine.Core.Shapes.Rect" data-throw-if-not-resolved="false"></xref> representation of the shape.
     content.vb: Public Overridable Function GetRectShape() As Rect
   overload: ShapeEngine.Core.Shapes.Shape.GetRectShape*
   implements:
-  - ShapeEngine.Core.Collision.IShape.GetRectShape
+  - ShapeEngine.Core.CollisionSystem.IShape.GetRectShape
 - uid: ShapeEngine.Core.Shapes.Shape.GetPolygonShape
   commentId: M:ShapeEngine.Core.Shapes.Shape.GetPolygonShape
   id: GetPolygonShape
@@ -791,23 +922,25 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetPolygonShape
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 66
+    startLine: 167
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Gets the shape as a <xref href="ShapeEngine.Core.Shapes.Polygon" data-throw-if-not-resolved="false"></xref>.
   example: []
   syntax:
     content: public virtual Polygon GetPolygonShape()
     return:
       type: ShapeEngine.Core.Shapes.Polygon
+      description: A <xref href="ShapeEngine.Core.Shapes.Polygon" data-throw-if-not-resolved="false"></xref> representation of the shape.
     content.vb: Public Overridable Function GetPolygonShape() As Polygon
   overload: ShapeEngine.Core.Shapes.Shape.GetPolygonShape*
   implements:
-  - ShapeEngine.Core.Collision.IShape.GetPolygonShape
+  - ShapeEngine.Core.CollisionSystem.IShape.GetPolygonShape
 - uid: ShapeEngine.Core.Shapes.Shape.GetPolylineShape
   commentId: M:ShapeEngine.Core.Shapes.Shape.GetPolylineShape
   id: GetPolylineShape
@@ -822,23 +955,25 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/Shape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetPolylineShape
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/Shape.cs
-    startLine: 67
+    startLine: 170
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Gets the shape as a <xref href="ShapeEngine.Core.Shapes.Polyline" data-throw-if-not-resolved="false"></xref>.
   example: []
   syntax:
     content: public virtual Polyline GetPolylineShape()
     return:
       type: ShapeEngine.Core.Shapes.Polyline
+      description: A <xref href="ShapeEngine.Core.Shapes.Polyline" data-throw-if-not-resolved="false"></xref> representation of the shape.
     content.vb: Public Overridable Function GetPolylineShape() As Polyline
   overload: ShapeEngine.Core.Shapes.Shape.GetPolylineShape*
   implements:
-  - ShapeEngine.Core.Collision.IShape.GetPolylineShape
+  - ShapeEngine.Core.CollisionSystem.IShape.GetPolylineShape
 references:
 - uid: ShapeEngine.Core.Shapes
   commentId: N:ShapeEngine.Core.Shapes
@@ -881,13 +1016,13 @@ references:
   nameWithType.vb: Object
   fullName.vb: Object
   name.vb: Object
-- uid: ShapeEngine.Core.Collision.IShape
-  commentId: T:ShapeEngine.Core.Collision.IShape
-  parent: ShapeEngine.Core.Collision
-  href: ShapeEngine.Core.Collision.IShape.html
+- uid: ShapeEngine.Core.CollisionSystem.IShape
+  commentId: T:ShapeEngine.Core.CollisionSystem.IShape
+  parent: ShapeEngine.Core.CollisionSystem
+  href: ShapeEngine.Core.CollisionSystem.IShape.html
   name: IShape
   nameWithType: IShape
-  fullName: ShapeEngine.Core.Collision.IShape
+  fullName: ShapeEngine.Core.CollisionSystem.IShape
 - uid: System.Object.Equals(System.Object)
   commentId: M:System.Object.Equals(System.Object)
   parent: System.Object
@@ -1114,12 +1249,12 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: ShapeEngine.Core.Collision
-  commentId: N:ShapeEngine.Core.Collision
+- uid: ShapeEngine.Core.CollisionSystem
+  commentId: N:ShapeEngine.Core.CollisionSystem
   href: ShapeEngine.html
-  name: ShapeEngine.Core.Collision
-  nameWithType: ShapeEngine.Core.Collision
-  fullName: ShapeEngine.Core.Collision
+  name: ShapeEngine.Core.CollisionSystem
+  nameWithType: ShapeEngine.Core.CollisionSystem
+  fullName: ShapeEngine.Core.CollisionSystem
   spec.csharp:
   - uid: ShapeEngine
     name: ShapeEngine
@@ -1129,9 +1264,9 @@ references:
     name: Core
     href: ShapeEngine.Core.html
   - name: .
-  - uid: ShapeEngine.Core.Collision
-    name: Collision
-    href: ShapeEngine.Core.Collision.html
+  - uid: ShapeEngine.Core.CollisionSystem
+    name: CollisionSystem
+    href: ShapeEngine.Core.CollisionSystem.html
   spec.vb:
   - uid: ShapeEngine
     name: ShapeEngine
@@ -1141,9 +1276,9 @@ references:
     name: Core
     href: ShapeEngine.Core.html
   - name: .
-  - uid: ShapeEngine.Core.Collision
-    name: Collision
-    href: ShapeEngine.Core.Collision.html
+  - uid: ShapeEngine.Core.CollisionSystem
+    name: CollisionSystem
+    href: ShapeEngine.Core.CollisionSystem.html
 - uid: System.Boolean
   commentId: T:System.Boolean
   parent: System
@@ -1210,6 +1345,13 @@ references:
   name: PrevTransform
   nameWithType: Shape.PrevTransform
   fullName: ShapeEngine.Core.Shapes.Shape.PrevTransform
+- uid: ShapeEngine.Core.Shapes.Shape
+  commentId: T:ShapeEngine.Core.Shapes.Shape
+  parent: ShapeEngine.Core.Shapes
+  href: ShapeEngine.Core.Shapes.Shape.html
+  name: Shape
+  nameWithType: Shape
+  fullName: ShapeEngine.Core.Shapes.Shape
 - uid: ShapeEngine.Core.Shapes.Shape.#ctor*
   commentId: Overload:ShapeEngine.Core.Shapes.Shape.#ctor
   href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape__ctor
@@ -1307,6 +1449,31 @@ references:
   name: OnDraw
   nameWithType: Shape.OnDraw
   fullName: ShapeEngine.Core.Shapes.Shape.OnDraw
+- uid: ShapeEngine.Core.Shapes.Shape.UpdateTransform(ShapeEngine.Core.Structs.Transform2D)
+  commentId: M:ShapeEngine.Core.Shapes.Shape.UpdateTransform(ShapeEngine.Core.Structs.Transform2D)
+  parent: ShapeEngine.Core.Shapes.Shape
+  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_UpdateTransform_ShapeEngine_Core_Structs_Transform2D_
+  name: UpdateTransform(Transform2D)
+  nameWithType: Shape.UpdateTransform(Transform2D)
+  fullName: ShapeEngine.Core.Shapes.Shape.UpdateTransform(ShapeEngine.Core.Structs.Transform2D)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Shapes.Shape.UpdateTransform(ShapeEngine.Core.Structs.Transform2D)
+    name: UpdateTransform
+    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_UpdateTransform_ShapeEngine_Core_Structs_Transform2D_
+  - name: (
+  - uid: ShapeEngine.Core.Structs.Transform2D
+    name: Transform2D
+    href: ShapeEngine.Core.Structs.Transform2D.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Shapes.Shape.UpdateTransform(ShapeEngine.Core.Structs.Transform2D)
+    name: UpdateTransform
+    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_UpdateTransform_ShapeEngine_Core_Structs_Transform2D_
+  - name: (
+  - uid: ShapeEngine.Core.Structs.Transform2D
+    name: Transform2D
+    href: ShapeEngine.Core.Structs.Transform2D.html
+  - name: )
 - uid: ShapeEngine.Core.Shapes.Shape.OnShapeTransformChanged*
   commentId: Overload:ShapeEngine.Core.Shapes.Shape.OnShapeTransformChanged
   href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_OnShapeTransformChanged_System_Boolean_
@@ -1319,93 +1486,100 @@ references:
   name: UpdateTransform
   nameWithType: Shape.UpdateTransform
   fullName: ShapeEngine.Core.Shapes.Shape.UpdateTransform
+- uid: ShapeEngine.Core.CollisionSystem.ShapeType
+  commentId: T:ShapeEngine.Core.CollisionSystem.ShapeType
+  parent: ShapeEngine.Core.CollisionSystem
+  href: ShapeEngine.Core.CollisionSystem.ShapeType.html
+  name: ShapeType
+  nameWithType: ShapeType
+  fullName: ShapeEngine.Core.CollisionSystem.ShapeType
 - uid: ShapeEngine.Core.Shapes.Shape.GetShapeType*
   commentId: Overload:ShapeEngine.Core.Shapes.Shape.GetShapeType
   href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetShapeType
   name: GetShapeType
   nameWithType: Shape.GetShapeType
   fullName: ShapeEngine.Core.Shapes.Shape.GetShapeType
-- uid: ShapeEngine.Core.Collision.IShape.GetShapeType
-  commentId: M:ShapeEngine.Core.Collision.IShape.GetShapeType
-  parent: ShapeEngine.Core.Collision.IShape
-  href: ShapeEngine.Core.Collision.IShape.html#ShapeEngine_Core_Collision_IShape_GetShapeType
+- uid: ShapeEngine.Core.CollisionSystem.IShape.GetShapeType
+  commentId: M:ShapeEngine.Core.CollisionSystem.IShape.GetShapeType
+  parent: ShapeEngine.Core.CollisionSystem.IShape
+  href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetShapeType
   name: GetShapeType()
   nameWithType: IShape.GetShapeType()
-  fullName: ShapeEngine.Core.Collision.IShape.GetShapeType()
+  fullName: ShapeEngine.Core.CollisionSystem.IShape.GetShapeType()
   spec.csharp:
-  - uid: ShapeEngine.Core.Collision.IShape.GetShapeType
+  - uid: ShapeEngine.Core.CollisionSystem.IShape.GetShapeType
     name: GetShapeType
-    href: ShapeEngine.Core.Collision.IShape.html#ShapeEngine_Core_Collision_IShape_GetShapeType
+    href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetShapeType
   - name: (
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.Collision.IShape.GetShapeType
+  - uid: ShapeEngine.Core.CollisionSystem.IShape.GetShapeType
     name: GetShapeType
-    href: ShapeEngine.Core.Collision.IShape.html#ShapeEngine_Core_Collision_IShape_GetShapeType
+    href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetShapeType
   - name: (
   - name: )
-- uid: ShapeEngine.Core.Collision.ShapeType
-  commentId: T:ShapeEngine.Core.Collision.ShapeType
-  parent: ShapeEngine.Core.Collision
-  href: ShapeEngine.Core.Collision.ShapeType.html
-  name: ShapeType
-  nameWithType: ShapeType
-  fullName: ShapeEngine.Core.Collision.ShapeType
-- uid: ShapeEngine.Core.Shapes.Shape.GetCircleShape*
-  commentId: Overload:ShapeEngine.Core.Shapes.Shape.GetCircleShape
-  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetCircleShape
-  name: GetCircleShape
-  nameWithType: Shape.GetCircleShape
-  fullName: ShapeEngine.Core.Shapes.Shape.GetCircleShape
-- uid: ShapeEngine.Core.Collision.IShape.GetCircleShape
-  commentId: M:ShapeEngine.Core.Collision.IShape.GetCircleShape
-  parent: ShapeEngine.Core.Collision.IShape
-  href: ShapeEngine.Core.Collision.IShape.html#ShapeEngine_Core_Collision_IShape_GetCircleShape
-  name: GetCircleShape()
-  nameWithType: IShape.GetCircleShape()
-  fullName: ShapeEngine.Core.Collision.IShape.GetCircleShape()
-  spec.csharp:
-  - uid: ShapeEngine.Core.Collision.IShape.GetCircleShape
-    name: GetCircleShape
-    href: ShapeEngine.Core.Collision.IShape.html#ShapeEngine_Core_Collision_IShape_GetCircleShape
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.Collision.IShape.GetCircleShape
-    name: GetCircleShape
-    href: ShapeEngine.Core.Collision.IShape.html#ShapeEngine_Core_Collision_IShape_GetCircleShape
-  - name: (
-  - name: )
-- uid: ShapeEngine.Core.Shapes.Circle
-  commentId: T:ShapeEngine.Core.Shapes.Circle
+- uid: ShapeEngine.Core.Shapes.Ray
+  commentId: T:ShapeEngine.Core.Shapes.Ray
   parent: ShapeEngine.Core.Shapes
-  href: ShapeEngine.Core.Shapes.Circle.html
-  name: Circle
-  nameWithType: Circle
-  fullName: ShapeEngine.Core.Shapes.Circle
-- uid: ShapeEngine.Core.Shapes.Shape.GetSegmentShape*
-  commentId: Overload:ShapeEngine.Core.Shapes.Shape.GetSegmentShape
-  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetSegmentShape
-  name: GetSegmentShape
-  nameWithType: Shape.GetSegmentShape
-  fullName: ShapeEngine.Core.Shapes.Shape.GetSegmentShape
-- uid: ShapeEngine.Core.Collision.IShape.GetSegmentShape
-  commentId: M:ShapeEngine.Core.Collision.IShape.GetSegmentShape
-  parent: ShapeEngine.Core.Collision.IShape
-  href: ShapeEngine.Core.Collision.IShape.html#ShapeEngine_Core_Collision_IShape_GetSegmentShape
-  name: GetSegmentShape()
-  nameWithType: IShape.GetSegmentShape()
-  fullName: ShapeEngine.Core.Collision.IShape.GetSegmentShape()
+  href: ShapeEngine.Core.Shapes.Ray.html
+  name: Ray
+  nameWithType: Ray
+  fullName: ShapeEngine.Core.Shapes.Ray
+- uid: ShapeEngine.Core.Shapes.Shape.GetRayShape*
+  commentId: Overload:ShapeEngine.Core.Shapes.Shape.GetRayShape
+  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetRayShape
+  name: GetRayShape
+  nameWithType: Shape.GetRayShape
+  fullName: ShapeEngine.Core.Shapes.Shape.GetRayShape
+- uid: ShapeEngine.Core.CollisionSystem.IShape.GetRayShape
+  commentId: M:ShapeEngine.Core.CollisionSystem.IShape.GetRayShape
+  parent: ShapeEngine.Core.CollisionSystem.IShape
+  href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetRayShape
+  name: GetRayShape()
+  nameWithType: IShape.GetRayShape()
+  fullName: ShapeEngine.Core.CollisionSystem.IShape.GetRayShape()
   spec.csharp:
-  - uid: ShapeEngine.Core.Collision.IShape.GetSegmentShape
-    name: GetSegmentShape
-    href: ShapeEngine.Core.Collision.IShape.html#ShapeEngine_Core_Collision_IShape_GetSegmentShape
+  - uid: ShapeEngine.Core.CollisionSystem.IShape.GetRayShape
+    name: GetRayShape
+    href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetRayShape
   - name: (
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.Collision.IShape.GetSegmentShape
-    name: GetSegmentShape
-    href: ShapeEngine.Core.Collision.IShape.html#ShapeEngine_Core_Collision_IShape_GetSegmentShape
+  - uid: ShapeEngine.Core.CollisionSystem.IShape.GetRayShape
+    name: GetRayShape
+    href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetRayShape
+  - name: (
+  - name: )
+- uid: ShapeEngine.Core.Shapes.Line
+  commentId: T:ShapeEngine.Core.Shapes.Line
+  parent: ShapeEngine.Core.Shapes
+  href: ShapeEngine.Core.Shapes.Line.html
+  name: Line
+  nameWithType: Line
+  fullName: ShapeEngine.Core.Shapes.Line
+- uid: ShapeEngine.Core.Shapes.Shape.GetLineShape*
+  commentId: Overload:ShapeEngine.Core.Shapes.Shape.GetLineShape
+  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetLineShape
+  name: GetLineShape
+  nameWithType: Shape.GetLineShape
+  fullName: ShapeEngine.Core.Shapes.Shape.GetLineShape
+- uid: ShapeEngine.Core.CollisionSystem.IShape.GetLineShape
+  commentId: M:ShapeEngine.Core.CollisionSystem.IShape.GetLineShape
+  parent: ShapeEngine.Core.CollisionSystem.IShape
+  href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetLineShape
+  name: GetLineShape()
+  nameWithType: IShape.GetLineShape()
+  fullName: ShapeEngine.Core.CollisionSystem.IShape.GetLineShape()
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.IShape.GetLineShape
+    name: GetLineShape
+    href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetLineShape
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.IShape.GetLineShape
+    name: GetLineShape
+    href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetLineShape
   - name: (
   - name: )
 - uid: ShapeEngine.Core.Shapes.Segment
@@ -1415,29 +1589,61 @@ references:
   name: Segment
   nameWithType: Segment
   fullName: ShapeEngine.Core.Shapes.Segment
-- uid: ShapeEngine.Core.Shapes.Shape.GetTriangleShape*
-  commentId: Overload:ShapeEngine.Core.Shapes.Shape.GetTriangleShape
-  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetTriangleShape
-  name: GetTriangleShape
-  nameWithType: Shape.GetTriangleShape
-  fullName: ShapeEngine.Core.Shapes.Shape.GetTriangleShape
-- uid: ShapeEngine.Core.Collision.IShape.GetTriangleShape
-  commentId: M:ShapeEngine.Core.Collision.IShape.GetTriangleShape
-  parent: ShapeEngine.Core.Collision.IShape
-  href: ShapeEngine.Core.Collision.IShape.html#ShapeEngine_Core_Collision_IShape_GetTriangleShape
-  name: GetTriangleShape()
-  nameWithType: IShape.GetTriangleShape()
-  fullName: ShapeEngine.Core.Collision.IShape.GetTriangleShape()
+- uid: ShapeEngine.Core.Shapes.Shape.GetSegmentShape*
+  commentId: Overload:ShapeEngine.Core.Shapes.Shape.GetSegmentShape
+  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetSegmentShape
+  name: GetSegmentShape
+  nameWithType: Shape.GetSegmentShape
+  fullName: ShapeEngine.Core.Shapes.Shape.GetSegmentShape
+- uid: ShapeEngine.Core.CollisionSystem.IShape.GetSegmentShape
+  commentId: M:ShapeEngine.Core.CollisionSystem.IShape.GetSegmentShape
+  parent: ShapeEngine.Core.CollisionSystem.IShape
+  href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetSegmentShape
+  name: GetSegmentShape()
+  nameWithType: IShape.GetSegmentShape()
+  fullName: ShapeEngine.Core.CollisionSystem.IShape.GetSegmentShape()
   spec.csharp:
-  - uid: ShapeEngine.Core.Collision.IShape.GetTriangleShape
-    name: GetTriangleShape
-    href: ShapeEngine.Core.Collision.IShape.html#ShapeEngine_Core_Collision_IShape_GetTriangleShape
+  - uid: ShapeEngine.Core.CollisionSystem.IShape.GetSegmentShape
+    name: GetSegmentShape
+    href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetSegmentShape
   - name: (
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.Collision.IShape.GetTriangleShape
-    name: GetTriangleShape
-    href: ShapeEngine.Core.Collision.IShape.html#ShapeEngine_Core_Collision_IShape_GetTriangleShape
+  - uid: ShapeEngine.Core.CollisionSystem.IShape.GetSegmentShape
+    name: GetSegmentShape
+    href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetSegmentShape
+  - name: (
+  - name: )
+- uid: ShapeEngine.Core.Shapes.Circle
+  commentId: T:ShapeEngine.Core.Shapes.Circle
+  parent: ShapeEngine.Core.Shapes
+  href: ShapeEngine.Core.Shapes.Circle.html
+  name: Circle
+  nameWithType: Circle
+  fullName: ShapeEngine.Core.Shapes.Circle
+- uid: ShapeEngine.Core.Shapes.Shape.GetCircleShape*
+  commentId: Overload:ShapeEngine.Core.Shapes.Shape.GetCircleShape
+  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetCircleShape
+  name: GetCircleShape
+  nameWithType: Shape.GetCircleShape
+  fullName: ShapeEngine.Core.Shapes.Shape.GetCircleShape
+- uid: ShapeEngine.Core.CollisionSystem.IShape.GetCircleShape
+  commentId: M:ShapeEngine.Core.CollisionSystem.IShape.GetCircleShape
+  parent: ShapeEngine.Core.CollisionSystem.IShape
+  href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetCircleShape
+  name: GetCircleShape()
+  nameWithType: IShape.GetCircleShape()
+  fullName: ShapeEngine.Core.CollisionSystem.IShape.GetCircleShape()
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.IShape.GetCircleShape
+    name: GetCircleShape
+    href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetCircleShape
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.IShape.GetCircleShape
+    name: GetCircleShape
+    href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetCircleShape
   - name: (
   - name: )
 - uid: ShapeEngine.Core.Shapes.Triangle
@@ -1447,29 +1653,29 @@ references:
   name: Triangle
   nameWithType: Triangle
   fullName: ShapeEngine.Core.Shapes.Triangle
-- uid: ShapeEngine.Core.Shapes.Shape.GetQuadShape*
-  commentId: Overload:ShapeEngine.Core.Shapes.Shape.GetQuadShape
-  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetQuadShape
-  name: GetQuadShape
-  nameWithType: Shape.GetQuadShape
-  fullName: ShapeEngine.Core.Shapes.Shape.GetQuadShape
-- uid: ShapeEngine.Core.Collision.IShape.GetQuadShape
-  commentId: M:ShapeEngine.Core.Collision.IShape.GetQuadShape
-  parent: ShapeEngine.Core.Collision.IShape
-  href: ShapeEngine.Core.Collision.IShape.html#ShapeEngine_Core_Collision_IShape_GetQuadShape
-  name: GetQuadShape()
-  nameWithType: IShape.GetQuadShape()
-  fullName: ShapeEngine.Core.Collision.IShape.GetQuadShape()
+- uid: ShapeEngine.Core.Shapes.Shape.GetTriangleShape*
+  commentId: Overload:ShapeEngine.Core.Shapes.Shape.GetTriangleShape
+  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetTriangleShape
+  name: GetTriangleShape
+  nameWithType: Shape.GetTriangleShape
+  fullName: ShapeEngine.Core.Shapes.Shape.GetTriangleShape
+- uid: ShapeEngine.Core.CollisionSystem.IShape.GetTriangleShape
+  commentId: M:ShapeEngine.Core.CollisionSystem.IShape.GetTriangleShape
+  parent: ShapeEngine.Core.CollisionSystem.IShape
+  href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetTriangleShape
+  name: GetTriangleShape()
+  nameWithType: IShape.GetTriangleShape()
+  fullName: ShapeEngine.Core.CollisionSystem.IShape.GetTriangleShape()
   spec.csharp:
-  - uid: ShapeEngine.Core.Collision.IShape.GetQuadShape
-    name: GetQuadShape
-    href: ShapeEngine.Core.Collision.IShape.html#ShapeEngine_Core_Collision_IShape_GetQuadShape
+  - uid: ShapeEngine.Core.CollisionSystem.IShape.GetTriangleShape
+    name: GetTriangleShape
+    href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetTriangleShape
   - name: (
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.Collision.IShape.GetQuadShape
-    name: GetQuadShape
-    href: ShapeEngine.Core.Collision.IShape.html#ShapeEngine_Core_Collision_IShape_GetQuadShape
+  - uid: ShapeEngine.Core.CollisionSystem.IShape.GetTriangleShape
+    name: GetTriangleShape
+    href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetTriangleShape
   - name: (
   - name: )
 - uid: ShapeEngine.Core.Shapes.Quad
@@ -1479,29 +1685,29 @@ references:
   name: Quad
   nameWithType: Quad
   fullName: ShapeEngine.Core.Shapes.Quad
-- uid: ShapeEngine.Core.Shapes.Shape.GetRectShape*
-  commentId: Overload:ShapeEngine.Core.Shapes.Shape.GetRectShape
-  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetRectShape
-  name: GetRectShape
-  nameWithType: Shape.GetRectShape
-  fullName: ShapeEngine.Core.Shapes.Shape.GetRectShape
-- uid: ShapeEngine.Core.Collision.IShape.GetRectShape
-  commentId: M:ShapeEngine.Core.Collision.IShape.GetRectShape
-  parent: ShapeEngine.Core.Collision.IShape
-  href: ShapeEngine.Core.Collision.IShape.html#ShapeEngine_Core_Collision_IShape_GetRectShape
-  name: GetRectShape()
-  nameWithType: IShape.GetRectShape()
-  fullName: ShapeEngine.Core.Collision.IShape.GetRectShape()
+- uid: ShapeEngine.Core.Shapes.Shape.GetQuadShape*
+  commentId: Overload:ShapeEngine.Core.Shapes.Shape.GetQuadShape
+  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetQuadShape
+  name: GetQuadShape
+  nameWithType: Shape.GetQuadShape
+  fullName: ShapeEngine.Core.Shapes.Shape.GetQuadShape
+- uid: ShapeEngine.Core.CollisionSystem.IShape.GetQuadShape
+  commentId: M:ShapeEngine.Core.CollisionSystem.IShape.GetQuadShape
+  parent: ShapeEngine.Core.CollisionSystem.IShape
+  href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetQuadShape
+  name: GetQuadShape()
+  nameWithType: IShape.GetQuadShape()
+  fullName: ShapeEngine.Core.CollisionSystem.IShape.GetQuadShape()
   spec.csharp:
-  - uid: ShapeEngine.Core.Collision.IShape.GetRectShape
-    name: GetRectShape
-    href: ShapeEngine.Core.Collision.IShape.html#ShapeEngine_Core_Collision_IShape_GetRectShape
+  - uid: ShapeEngine.Core.CollisionSystem.IShape.GetQuadShape
+    name: GetQuadShape
+    href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetQuadShape
   - name: (
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.Collision.IShape.GetRectShape
-    name: GetRectShape
-    href: ShapeEngine.Core.Collision.IShape.html#ShapeEngine_Core_Collision_IShape_GetRectShape
+  - uid: ShapeEngine.Core.CollisionSystem.IShape.GetQuadShape
+    name: GetQuadShape
+    href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetQuadShape
   - name: (
   - name: )
 - uid: ShapeEngine.Core.Shapes.Rect
@@ -1511,29 +1717,29 @@ references:
   name: Rect
   nameWithType: Rect
   fullName: ShapeEngine.Core.Shapes.Rect
-- uid: ShapeEngine.Core.Shapes.Shape.GetPolygonShape*
-  commentId: Overload:ShapeEngine.Core.Shapes.Shape.GetPolygonShape
-  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetPolygonShape
-  name: GetPolygonShape
-  nameWithType: Shape.GetPolygonShape
-  fullName: ShapeEngine.Core.Shapes.Shape.GetPolygonShape
-- uid: ShapeEngine.Core.Collision.IShape.GetPolygonShape
-  commentId: M:ShapeEngine.Core.Collision.IShape.GetPolygonShape
-  parent: ShapeEngine.Core.Collision.IShape
-  href: ShapeEngine.Core.Collision.IShape.html#ShapeEngine_Core_Collision_IShape_GetPolygonShape
-  name: GetPolygonShape()
-  nameWithType: IShape.GetPolygonShape()
-  fullName: ShapeEngine.Core.Collision.IShape.GetPolygonShape()
+- uid: ShapeEngine.Core.Shapes.Shape.GetRectShape*
+  commentId: Overload:ShapeEngine.Core.Shapes.Shape.GetRectShape
+  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetRectShape
+  name: GetRectShape
+  nameWithType: Shape.GetRectShape
+  fullName: ShapeEngine.Core.Shapes.Shape.GetRectShape
+- uid: ShapeEngine.Core.CollisionSystem.IShape.GetRectShape
+  commentId: M:ShapeEngine.Core.CollisionSystem.IShape.GetRectShape
+  parent: ShapeEngine.Core.CollisionSystem.IShape
+  href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetRectShape
+  name: GetRectShape()
+  nameWithType: IShape.GetRectShape()
+  fullName: ShapeEngine.Core.CollisionSystem.IShape.GetRectShape()
   spec.csharp:
-  - uid: ShapeEngine.Core.Collision.IShape.GetPolygonShape
-    name: GetPolygonShape
-    href: ShapeEngine.Core.Collision.IShape.html#ShapeEngine_Core_Collision_IShape_GetPolygonShape
+  - uid: ShapeEngine.Core.CollisionSystem.IShape.GetRectShape
+    name: GetRectShape
+    href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetRectShape
   - name: (
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.Collision.IShape.GetPolygonShape
-    name: GetPolygonShape
-    href: ShapeEngine.Core.Collision.IShape.html#ShapeEngine_Core_Collision_IShape_GetPolygonShape
+  - uid: ShapeEngine.Core.CollisionSystem.IShape.GetRectShape
+    name: GetRectShape
+    href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetRectShape
   - name: (
   - name: )
 - uid: ShapeEngine.Core.Shapes.Polygon
@@ -1543,29 +1749,29 @@ references:
   name: Polygon
   nameWithType: Polygon
   fullName: ShapeEngine.Core.Shapes.Polygon
-- uid: ShapeEngine.Core.Shapes.Shape.GetPolylineShape*
-  commentId: Overload:ShapeEngine.Core.Shapes.Shape.GetPolylineShape
-  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetPolylineShape
-  name: GetPolylineShape
-  nameWithType: Shape.GetPolylineShape
-  fullName: ShapeEngine.Core.Shapes.Shape.GetPolylineShape
-- uid: ShapeEngine.Core.Collision.IShape.GetPolylineShape
-  commentId: M:ShapeEngine.Core.Collision.IShape.GetPolylineShape
-  parent: ShapeEngine.Core.Collision.IShape
-  href: ShapeEngine.Core.Collision.IShape.html#ShapeEngine_Core_Collision_IShape_GetPolylineShape
-  name: GetPolylineShape()
-  nameWithType: IShape.GetPolylineShape()
-  fullName: ShapeEngine.Core.Collision.IShape.GetPolylineShape()
+- uid: ShapeEngine.Core.Shapes.Shape.GetPolygonShape*
+  commentId: Overload:ShapeEngine.Core.Shapes.Shape.GetPolygonShape
+  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetPolygonShape
+  name: GetPolygonShape
+  nameWithType: Shape.GetPolygonShape
+  fullName: ShapeEngine.Core.Shapes.Shape.GetPolygonShape
+- uid: ShapeEngine.Core.CollisionSystem.IShape.GetPolygonShape
+  commentId: M:ShapeEngine.Core.CollisionSystem.IShape.GetPolygonShape
+  parent: ShapeEngine.Core.CollisionSystem.IShape
+  href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetPolygonShape
+  name: GetPolygonShape()
+  nameWithType: IShape.GetPolygonShape()
+  fullName: ShapeEngine.Core.CollisionSystem.IShape.GetPolygonShape()
   spec.csharp:
-  - uid: ShapeEngine.Core.Collision.IShape.GetPolylineShape
-    name: GetPolylineShape
-    href: ShapeEngine.Core.Collision.IShape.html#ShapeEngine_Core_Collision_IShape_GetPolylineShape
+  - uid: ShapeEngine.Core.CollisionSystem.IShape.GetPolygonShape
+    name: GetPolygonShape
+    href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetPolygonShape
   - name: (
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.Collision.IShape.GetPolylineShape
-    name: GetPolylineShape
-    href: ShapeEngine.Core.Collision.IShape.html#ShapeEngine_Core_Collision_IShape_GetPolylineShape
+  - uid: ShapeEngine.Core.CollisionSystem.IShape.GetPolygonShape
+    name: GetPolygonShape
+    href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetPolygonShape
   - name: (
   - name: )
 - uid: ShapeEngine.Core.Shapes.Polyline
@@ -1575,3 +1781,28 @@ references:
   name: Polyline
   nameWithType: Polyline
   fullName: ShapeEngine.Core.Shapes.Polyline
+- uid: ShapeEngine.Core.Shapes.Shape.GetPolylineShape*
+  commentId: Overload:ShapeEngine.Core.Shapes.Shape.GetPolylineShape
+  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetPolylineShape
+  name: GetPolylineShape
+  nameWithType: Shape.GetPolylineShape
+  fullName: ShapeEngine.Core.Shapes.Shape.GetPolylineShape
+- uid: ShapeEngine.Core.CollisionSystem.IShape.GetPolylineShape
+  commentId: M:ShapeEngine.Core.CollisionSystem.IShape.GetPolylineShape
+  parent: ShapeEngine.Core.CollisionSystem.IShape
+  href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetPolylineShape
+  name: GetPolylineShape()
+  nameWithType: IShape.GetPolylineShape()
+  fullName: ShapeEngine.Core.CollisionSystem.IShape.GetPolylineShape()
+  spec.csharp:
+  - uid: ShapeEngine.Core.CollisionSystem.IShape.GetPolylineShape
+    name: GetPolylineShape
+    href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetPolylineShape
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.CollisionSystem.IShape.GetPolylineShape
+    name: GetPolylineShape
+    href: ShapeEngine.Core.CollisionSystem.IShape.html#ShapeEngine_Core_CollisionSystem_IShape_GetPolylineShape
+  - name: (
+  - name: )

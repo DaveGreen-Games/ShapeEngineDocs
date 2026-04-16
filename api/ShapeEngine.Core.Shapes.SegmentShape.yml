@@ -26,14 +26,17 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/SegmentShape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SegmentShape
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/SegmentShape.cs
-    startLine: 7
+    startLine: 13
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Represents a line segment shape that can be transformed and recalculated based on direction and origin offset.
+  remarks: This class is used to define a segment in a transformed space. The segment can be aligned using the <xref href="ShapeEngine.Core.Shapes.SegmentShape.OriginOffset" data-throw-if-not-resolved="false"></xref> property.
+  example: []
   syntax:
     content: 'public class SegmentShape : ShapeContainer, IShape'
     content.vb: Public Class SegmentShape Inherits ShapeContainer Implements IShape
@@ -42,7 +45,7 @@ items:
   - ShapeEngine.Core.Shapes.Shape
   - ShapeEngine.Core.Shapes.ShapeContainer
   implements:
-  - ShapeEngine.Core.Collision.IShape
+  - ShapeEngine.Core.CollisionSystem.IShape
   inheritedMembers:
   - ShapeEngine.Core.Shapes.ShapeContainer.Parent
   - ShapeEngine.Core.Shapes.ShapeContainer.ChangeParent(ShapeEngine.Core.Shapes.ShapeContainer)
@@ -68,6 +71,8 @@ items:
   - ShapeEngine.Core.Shapes.Shape.OnDraw
   - ShapeEngine.Core.Shapes.Shape.OnShapeTransformChanged(System.Boolean)
   - ShapeEngine.Core.Shapes.Shape.UpdateTransform(ShapeEngine.Core.Structs.Transform2D)
+  - ShapeEngine.Core.Shapes.Shape.GetRayShape
+  - ShapeEngine.Core.Shapes.Shape.GetLineShape
   - ShapeEngine.Core.Shapes.Shape.GetSegmentShape
   - ShapeEngine.Core.Shapes.Shape.GetTriangleShape
   - ShapeEngine.Core.Shapes.Shape.GetQuadShape
@@ -95,15 +100,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/SegmentShape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OriginOffset
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/SegmentShape.cs
-    startLine: 15
+    startLine: 30
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
-  summary: 0 Start = Position / 0.5 Center = Position / 1 End = Position
+  summary: >-
+    <xref href="ShapeEngine.Core.Shapes.SegmentShape.OriginOffset" data-throw-if-not-resolved="false"></xref> defines where the origin / pivot point lies on the segment: Range: <code>0 - 1</code>
+
+    The segments position will be on the origin / pivot point.
+
+    <ul><li><code>0</code> represents the <xref href="ShapeEngine.Core.Shapes.SegmentShape.Start" data-throw-if-not-resolved="false"></xref> of the Segment.</li><li><code>0.5</code> represents the <xref href="ShapeEngine.Core.Shapes.SegmentShape.Center" data-throw-if-not-resolved="false"></xref> of the Segment.</li><li><code>1</code> represents the <xref href="ShapeEngine.Core.Shapes.SegmentShape.End" data-throw-if-not-resolved="false"></xref> of the Segment.</li></ul>
+  remarks: Adjusts where the segment is anchored relative to its transform.
   example: []
   syntax:
     content: public float OriginOffset { get; set; }
@@ -126,14 +137,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/SegmentShape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Dir
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/SegmentShape.cs
-    startLine: 24
+    startLine: 42
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Gets or sets the direction vector for the segment.
+  example: []
   syntax:
     content: public Vector2 Dir { get; set; }
     parameters: []
@@ -155,14 +168,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/SegmentShape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Start
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/SegmentShape.cs
-    startLine: 35
+    startLine: 55
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Gets the start point of the segment in world coordinates.
+  example: []
   syntax:
     content: public Vector2 Start { get; }
     parameters: []
@@ -184,14 +199,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/SegmentShape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: End
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/SegmentShape.cs
-    startLine: 36
+    startLine: 59
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Gets the end point of the segment in world coordinates.
+  example: []
   syntax:
     content: public Vector2 End { get; }
     parameters: []
@@ -213,14 +230,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/SegmentShape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Center
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/SegmentShape.cs
-    startLine: 38
+    startLine: 63
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Gets the center point of the segment in world coordinates.
+  example: []
   syntax:
     content: public Vector2 Center { get; }
     parameters: []
@@ -242,14 +261,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/SegmentShape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Displacement
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/SegmentShape.cs
-    startLine: 40
+    startLine: 67
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Gets the displacement vector from start to end.
+  example: []
   syntax:
     content: public Vector2 Displacement { get; }
     parameters: []
@@ -271,23 +292,32 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/SegmentShape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/SegmentShape.cs
-    startLine: 42
+    startLine: 82
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.Shapes.SegmentShape" data-throw-if-not-resolved="false"></xref> class.
+  remarks: >-
+    Origin offset defines where the origin / pivot point lies on the segment:
+
+    <ul><li><code>0</code> represents the <xref href="ShapeEngine.Core.Shapes.SegmentShape.Start" data-throw-if-not-resolved="false"></xref> of the Segment.</li><li><code>0.5</code> represents the <xref href="ShapeEngine.Core.Shapes.SegmentShape.Center" data-throw-if-not-resolved="false"></xref> of the Segment.</li><li><code>1</code> represents the <xref href="ShapeEngine.Core.Shapes.SegmentShape.End" data-throw-if-not-resolved="false"></xref> of the Segment.</li></ul>
+  example: []
   syntax:
     content: public SegmentShape(Transform2D offset, Vector2 dir, float originOffset = 0)
     parameters:
     - id: offset
       type: ShapeEngine.Core.Structs.Transform2D
+      description: The transform offset to apply to the shape.
     - id: dir
       type: System.Numerics.Vector2
+      description: The direction vector for the segment.
     - id: originOffset
       type: System.Single
+      description: 'The origin offset for the segment. Range: <code>0 - 1</code> (default is 0).'
     content.vb: Public Sub New(offset As Transform2D, dir As Vector2, originOffset As Single = 0)
   overload: ShapeEngine.Core.Shapes.SegmentShape.#ctor*
   nameWithType.vb: SegmentShape.New(Transform2D, Vector2, Single)
@@ -307,19 +337,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/SegmentShape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetShapeType
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/SegmentShape.cs
-    startLine: 49
+    startLine: 89
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Gets the type of the shape.
   example: []
   syntax:
     content: public override ShapeType GetShapeType()
     return:
-      type: ShapeEngine.Core.Collision.ShapeType
+      type: ShapeEngine.Core.CollisionSystem.ShapeType
+      description: The <xref href="ShapeEngine.Core.CollisionSystem.ShapeType" data-throw-if-not-resolved="false"></xref> of this shape.
     content.vb: Public Overrides Function GetShapeType() As ShapeType
   overridden: ShapeEngine.Core.Shapes.Shape.GetShapeType
   overload: ShapeEngine.Core.Shapes.SegmentShape.GetShapeType*
@@ -337,19 +369,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/SegmentShape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetCircleShape
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/SegmentShape.cs
-    startLine: 50
+    startLine: 91
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Gets the shape as a <xref href="ShapeEngine.Core.Shapes.Circle" data-throw-if-not-resolved="false"></xref>.
   example: []
   syntax:
     content: public override Circle GetCircleShape()
     return:
       type: ShapeEngine.Core.Shapes.Circle
+      description: A <xref href="ShapeEngine.Core.Shapes.Circle" data-throw-if-not-resolved="false"></xref> representation of the shape.
     content.vb: Public Overrides Function GetCircleShape() As Circle
   overridden: ShapeEngine.Core.Shapes.Shape.GetCircleShape
   overload: ShapeEngine.Core.Shapes.SegmentShape.GetCircleShape*
@@ -367,14 +401,15 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/SegmentShape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RecalculateShape
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/SegmentShape.cs
-    startLine: 53
+    startLine: 93
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Recalculates the shape's geometry or cached data. Override as needed.
   example: []
   syntax:
     content: public override void RecalculateShape()
@@ -395,14 +430,15 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/SegmentShape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnInitialized
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/SegmentShape.cs
-    startLine: 58
+    startLine: 99
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Called after the shape is initialized. Override for custom logic.
   example: []
   syntax:
     content: protected override void OnInitialized()
@@ -410,6 +446,12 @@ items:
   overridden: ShapeEngine.Core.Shapes.Shape.OnInitialized
   overload: ShapeEngine.Core.Shapes.SegmentShape.OnInitialized*
 references:
+- uid: ShapeEngine.Core.Shapes.SegmentShape.OriginOffset
+  commentId: P:ShapeEngine.Core.Shapes.SegmentShape.OriginOffset
+  href: ShapeEngine.Core.Shapes.SegmentShape.html#ShapeEngine_Core_Shapes_SegmentShape_OriginOffset
+  name: OriginOffset
+  nameWithType: SegmentShape.OriginOffset
+  fullName: ShapeEngine.Core.Shapes.SegmentShape.OriginOffset
 - uid: ShapeEngine.Core.Shapes
   commentId: N:ShapeEngine.Core.Shapes
   href: ShapeEngine.html
@@ -465,13 +507,13 @@ references:
   name: ShapeContainer
   nameWithType: ShapeContainer
   fullName: ShapeEngine.Core.Shapes.ShapeContainer
-- uid: ShapeEngine.Core.Collision.IShape
-  commentId: T:ShapeEngine.Core.Collision.IShape
-  parent: ShapeEngine.Core.Collision
-  href: ShapeEngine.Core.Collision.IShape.html
+- uid: ShapeEngine.Core.CollisionSystem.IShape
+  commentId: T:ShapeEngine.Core.CollisionSystem.IShape
+  parent: ShapeEngine.Core.CollisionSystem
+  href: ShapeEngine.Core.CollisionSystem.IShape.html
   name: IShape
   nameWithType: IShape
-  fullName: ShapeEngine.Core.Collision.IShape
+  fullName: ShapeEngine.Core.CollisionSystem.IShape
 - uid: ShapeEngine.Core.Shapes.ShapeContainer.Parent
   commentId: P:ShapeEngine.Core.Shapes.ShapeContainer.Parent
   parent: ShapeEngine.Core.Shapes.ShapeContainer
@@ -950,6 +992,44 @@ references:
     name: Transform2D
     href: ShapeEngine.Core.Structs.Transform2D.html
   - name: )
+- uid: ShapeEngine.Core.Shapes.Shape.GetRayShape
+  commentId: M:ShapeEngine.Core.Shapes.Shape.GetRayShape
+  parent: ShapeEngine.Core.Shapes.Shape
+  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetRayShape
+  name: GetRayShape()
+  nameWithType: Shape.GetRayShape()
+  fullName: ShapeEngine.Core.Shapes.Shape.GetRayShape()
+  spec.csharp:
+  - uid: ShapeEngine.Core.Shapes.Shape.GetRayShape
+    name: GetRayShape
+    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetRayShape
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Shapes.Shape.GetRayShape
+    name: GetRayShape
+    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetRayShape
+  - name: (
+  - name: )
+- uid: ShapeEngine.Core.Shapes.Shape.GetLineShape
+  commentId: M:ShapeEngine.Core.Shapes.Shape.GetLineShape
+  parent: ShapeEngine.Core.Shapes.Shape
+  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetLineShape
+  name: GetLineShape()
+  nameWithType: Shape.GetLineShape()
+  fullName: ShapeEngine.Core.Shapes.Shape.GetLineShape()
+  spec.csharp:
+  - uid: ShapeEngine.Core.Shapes.Shape.GetLineShape
+    name: GetLineShape
+    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetLineShape
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Shapes.Shape.GetLineShape
+    name: GetLineShape
+    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetLineShape
+  - name: (
+  - name: )
 - uid: ShapeEngine.Core.Shapes.Shape.GetSegmentShape
   commentId: M:ShapeEngine.Core.Shapes.Shape.GetSegmentShape
   parent: ShapeEngine.Core.Shapes.Shape
@@ -1290,12 +1370,12 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: ShapeEngine.Core.Collision
-  commentId: N:ShapeEngine.Core.Collision
+- uid: ShapeEngine.Core.CollisionSystem
+  commentId: N:ShapeEngine.Core.CollisionSystem
   href: ShapeEngine.html
-  name: ShapeEngine.Core.Collision
-  nameWithType: ShapeEngine.Core.Collision
-  fullName: ShapeEngine.Core.Collision
+  name: ShapeEngine.Core.CollisionSystem
+  nameWithType: ShapeEngine.Core.CollisionSystem
+  fullName: ShapeEngine.Core.CollisionSystem
   spec.csharp:
   - uid: ShapeEngine
     name: ShapeEngine
@@ -1305,9 +1385,9 @@ references:
     name: Core
     href: ShapeEngine.Core.html
   - name: .
-  - uid: ShapeEngine.Core.Collision
-    name: Collision
-    href: ShapeEngine.Core.Collision.html
+  - uid: ShapeEngine.Core.CollisionSystem
+    name: CollisionSystem
+    href: ShapeEngine.Core.CollisionSystem.html
   spec.vb:
   - uid: ShapeEngine
     name: ShapeEngine
@@ -1317,9 +1397,27 @@ references:
     name: Core
     href: ShapeEngine.Core.html
   - name: .
-  - uid: ShapeEngine.Core.Collision
-    name: Collision
-    href: ShapeEngine.Core.Collision.html
+  - uid: ShapeEngine.Core.CollisionSystem
+    name: CollisionSystem
+    href: ShapeEngine.Core.CollisionSystem.html
+- uid: ShapeEngine.Core.Shapes.SegmentShape.Start
+  commentId: P:ShapeEngine.Core.Shapes.SegmentShape.Start
+  href: ShapeEngine.Core.Shapes.SegmentShape.html#ShapeEngine_Core_Shapes_SegmentShape_Start
+  name: Start
+  nameWithType: SegmentShape.Start
+  fullName: ShapeEngine.Core.Shapes.SegmentShape.Start
+- uid: ShapeEngine.Core.Shapes.SegmentShape.Center
+  commentId: P:ShapeEngine.Core.Shapes.SegmentShape.Center
+  href: ShapeEngine.Core.Shapes.SegmentShape.html#ShapeEngine_Core_Shapes_SegmentShape_Center
+  name: Center
+  nameWithType: SegmentShape.Center
+  fullName: ShapeEngine.Core.Shapes.SegmentShape.Center
+- uid: ShapeEngine.Core.Shapes.SegmentShape.End
+  commentId: P:ShapeEngine.Core.Shapes.SegmentShape.End
+  href: ShapeEngine.Core.Shapes.SegmentShape.html#ShapeEngine_Core_Shapes_SegmentShape_End
+  name: End
+  nameWithType: SegmentShape.End
+  fullName: ShapeEngine.Core.Shapes.SegmentShape.End
 - uid: ShapeEngine.Core.Shapes.SegmentShape.OriginOffset*
   commentId: Overload:ShapeEngine.Core.Shapes.SegmentShape.OriginOffset
   href: ShapeEngine.Core.Shapes.SegmentShape.html#ShapeEngine_Core_Shapes_SegmentShape_OriginOffset
@@ -1402,6 +1500,12 @@ references:
   name: Displacement
   nameWithType: SegmentShape.Displacement
   fullName: ShapeEngine.Core.Shapes.SegmentShape.Displacement
+- uid: ShapeEngine.Core.Shapes.SegmentShape
+  commentId: T:ShapeEngine.Core.Shapes.SegmentShape
+  href: ShapeEngine.Core.Shapes.SegmentShape.html
+  name: SegmentShape
+  nameWithType: SegmentShape
+  fullName: ShapeEngine.Core.Shapes.SegmentShape
 - uid: ShapeEngine.Core.Shapes.SegmentShape.#ctor*
   commentId: Overload:ShapeEngine.Core.Shapes.SegmentShape.#ctor
   href: ShapeEngine.Core.Shapes.SegmentShape.html#ShapeEngine_Core_Shapes_SegmentShape__ctor_ShapeEngine_Core_Structs_Transform2D_System_Numerics_Vector2_System_Single_
@@ -1448,6 +1552,13 @@ references:
   - uid: ShapeEngine.Core.Structs
     name: Structs
     href: ShapeEngine.Core.Structs.html
+- uid: ShapeEngine.Core.CollisionSystem.ShapeType
+  commentId: T:ShapeEngine.Core.CollisionSystem.ShapeType
+  parent: ShapeEngine.Core.CollisionSystem
+  href: ShapeEngine.Core.CollisionSystem.ShapeType.html
+  name: ShapeType
+  nameWithType: ShapeType
+  fullName: ShapeEngine.Core.CollisionSystem.ShapeType
 - uid: ShapeEngine.Core.Shapes.Shape.GetShapeType
   commentId: M:ShapeEngine.Core.Shapes.Shape.GetShapeType
   parent: ShapeEngine.Core.Shapes.Shape
@@ -1473,13 +1584,13 @@ references:
   name: GetShapeType
   nameWithType: SegmentShape.GetShapeType
   fullName: ShapeEngine.Core.Shapes.SegmentShape.GetShapeType
-- uid: ShapeEngine.Core.Collision.ShapeType
-  commentId: T:ShapeEngine.Core.Collision.ShapeType
-  parent: ShapeEngine.Core.Collision
-  href: ShapeEngine.Core.Collision.ShapeType.html
-  name: ShapeType
-  nameWithType: ShapeType
-  fullName: ShapeEngine.Core.Collision.ShapeType
+- uid: ShapeEngine.Core.Shapes.Circle
+  commentId: T:ShapeEngine.Core.Shapes.Circle
+  parent: ShapeEngine.Core.Shapes
+  href: ShapeEngine.Core.Shapes.Circle.html
+  name: Circle
+  nameWithType: Circle
+  fullName: ShapeEngine.Core.Shapes.Circle
 - uid: ShapeEngine.Core.Shapes.Shape.GetCircleShape
   commentId: M:ShapeEngine.Core.Shapes.Shape.GetCircleShape
   parent: ShapeEngine.Core.Shapes.Shape
@@ -1505,13 +1616,6 @@ references:
   name: GetCircleShape
   nameWithType: SegmentShape.GetCircleShape
   fullName: ShapeEngine.Core.Shapes.SegmentShape.GetCircleShape
-- uid: ShapeEngine.Core.Shapes.Circle
-  commentId: T:ShapeEngine.Core.Shapes.Circle
-  parent: ShapeEngine.Core.Shapes
-  href: ShapeEngine.Core.Shapes.Circle.html
-  name: Circle
-  nameWithType: Circle
-  fullName: ShapeEngine.Core.Shapes.Circle
 - uid: ShapeEngine.Core.Shapes.Shape.RecalculateShape
   commentId: M:ShapeEngine.Core.Shapes.Shape.RecalculateShape
   parent: ShapeEngine.Core.Shapes.Shape

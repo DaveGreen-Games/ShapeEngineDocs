@@ -5,7 +5,9 @@ items:
   id: IUpdateable
   parent: ShapeEngine.Core.Interfaces
   children:
-  - ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  - ShapeEngine.Core.Interfaces.IUpdateable.FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  - ShapeEngine.Core.Interfaces.IUpdateable.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Single)
+  - ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
   langs:
   - csharp
   - vb
@@ -16,61 +18,158 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Interfaces/IUpdateable.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IUpdateable
     path: ../ShapeEngine/ShapeEngine/Core/Interfaces/IUpdateable.cs
-    startLine: 4
+    startLine: 11
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Interfaces
+  summary: Interface for objects that require update logic in the game loop.
+  remarks: >-
+    Implement this interface to receive update, fixed update, and interpolation calls from the engine.
+
+    Useful for game objects, systems, or managers that need to update their state every frame or at fixed intervals.
+  example: []
   syntax:
     content: public interface IUpdateable
     content.vb: Public Interface IUpdateable
-  derivedClasses:
-  - ShapeEngine.Core.CollisionObject
-  - ShapeEngine.Core.GameObject
-  - ShapeEngine.Core.PhysicsObject
-  - ShapeEngine.Core.Scene
-  - ShapeEngine.Core.SceneEmpty
-  - ShapeEngine.Core.SpawnArea
-  - ShapeEngine.Effects.Effect
-  - ShapeEngine.Effects.EffectObject
-  - ShapeEngine.Effects.Particle
-  - ShapeEngine.Effects.TextEffect
-- uid: ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  commentId: M:ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  id: Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+- uid: ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  commentId: M:ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  id: Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
   parent: ShapeEngine.Core.Interfaces.IUpdateable
   langs:
   - csharp
   - vb
-  name: Update(GameTime, ScreenInfo, ScreenInfo)
-  nameWithType: IUpdateable.Update(GameTime, ScreenInfo, ScreenInfo)
-  fullName: ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
+  name: Update(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
+  nameWithType: IUpdateable.Update(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
+  fullName: ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
   type: Method
   source:
     remote:
       path: ShapeEngine/Core/Interfaces/IUpdateable.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/Core/Interfaces/IUpdateable.cs
-    startLine: 6
+    startLine: 23
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Interfaces
+  summary: Called every frame before <xref href="ShapeEngine.Core.Interfaces.IUpdateable.FixedUpdate(ShapeEngine.Core.Structs.GameTime%2cShapeEngine.Core.Structs.ScreenInfo%2cShapeEngine.Core.Structs.ScreenInfo%2cShapeEngine.Core.Structs.ScreenInfo)" data-throw-if-not-resolved="false"></xref>.
+  remarks: Use this method to update logic that should run every frame, such as input handling, animations, or non-physics updates.
+  example: []
   syntax:
-    content: void Update(GameTime time, ScreenInfo game, ScreenInfo ui)
+    content: void Update(GameTime time, ScreenInfo game, ScreenInfo gameUi, ScreenInfo ui)
     parameters:
     - id: time
       type: ShapeEngine.Core.Structs.GameTime
+      description: The current game time for this frame.
     - id: game
       type: ShapeEngine.Core.Structs.ScreenInfo
+      description: Screen information for the main game view.
+    - id: gameUi
+      type: ShapeEngine.Core.Structs.ScreenInfo
+      description: Screen information for the game UI overlay.
     - id: ui
       type: ShapeEngine.Core.Structs.ScreenInfo
-    content.vb: Sub Update(time As GameTime, game As ScreenInfo, ui As ScreenInfo)
+      description: Screen information for the global UI.
+    content.vb: Sub Update(time As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo)
   overload: ShapeEngine.Core.Interfaces.IUpdateable.Update*
+- uid: ShapeEngine.Core.Interfaces.IUpdateable.FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  commentId: M:ShapeEngine.Core.Interfaces.IUpdateable.FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  id: FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  parent: ShapeEngine.Core.Interfaces.IUpdateable
+  langs:
+  - csharp
+  - vb
+  name: FixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
+  nameWithType: IUpdateable.FixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
+  fullName: ShapeEngine.Core.Interfaces.IUpdateable.FixedUpdate(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Interfaces/IUpdateable.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: FixedUpdate
+    path: ../ShapeEngine/ShapeEngine/Core/Interfaces/IUpdateable.cs
+    startLine: 35
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Interfaces
+  summary: Called at a fixed interval when <xref href="ShapeEngine.Core.Game.FixedPhysicsFramerate" data-throw-if-not-resolved="false"></xref> is enabled.
+  remarks: Use this method for physics or other time-sensitive logic that requires consistent updates regardless of frame rate.
+  example: []
+  syntax:
+    content: void FixedUpdate(GameTime fixedTime, ScreenInfo game, ScreenInfo gameUi, ScreenInfo ui)
+    parameters:
+    - id: fixedTime
+      type: ShapeEngine.Core.Structs.GameTime
+      description: The fixed time step for this update.
+    - id: game
+      type: ShapeEngine.Core.Structs.ScreenInfo
+      description: Screen information for the main game view.
+    - id: gameUi
+      type: ShapeEngine.Core.Structs.ScreenInfo
+      description: Screen information for the game UI overlay.
+    - id: ui
+      type: ShapeEngine.Core.Structs.ScreenInfo
+      description: Screen information for the global UI.
+    content.vb: Sub FixedUpdate(fixedTime As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo)
+  overload: ShapeEngine.Core.Interfaces.IUpdateable.FixedUpdate*
+- uid: ShapeEngine.Core.Interfaces.IUpdateable.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Single)
+  commentId: M:ShapeEngine.Core.Interfaces.IUpdateable.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Single)
+  id: InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,System.Single)
+  parent: ShapeEngine.Core.Interfaces.IUpdateable
+  langs:
+  - csharp
+  - vb
+  name: InterpolateFixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo, float)
+  nameWithType: IUpdateable.InterpolateFixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo, float)
+  fullName: ShapeEngine.Core.Interfaces.IUpdateable.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, float)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Interfaces/IUpdateable.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: InterpolateFixedUpdate
+    path: ../ShapeEngine/ShapeEngine/Core/Interfaces/IUpdateable.cs
+    startLine: 49
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Interfaces
+  summary: >-
+    Called every frame after <xref href="ShapeEngine.Core.Interfaces.IUpdateable.FixedUpdate(ShapeEngine.Core.Structs.GameTime%2cShapeEngine.Core.Structs.ScreenInfo%2cShapeEngine.Core.Structs.ScreenInfo%2cShapeEngine.Core.Structs.ScreenInfo)" data-throw-if-not-resolved="false"></xref> when <xref href="ShapeEngine.Core.Game.FixedPhysicsFramerate" data-throw-if-not-resolved="false"></xref> is enabled,
+
+    to interpolate between fixed updates.
+  remarks: Use this method to interpolate visual state for smooth rendering between fixed updates.
+  example: []
+  syntax:
+    content: void InterpolateFixedUpdate(GameTime time, ScreenInfo game, ScreenInfo gameUi, ScreenInfo ui, float f)
+    parameters:
+    - id: time
+      type: ShapeEngine.Core.Structs.GameTime
+      description: The current game time for this frame.
+    - id: game
+      type: ShapeEngine.Core.Structs.ScreenInfo
+      description: Screen information for the main game view.
+    - id: gameUi
+      type: ShapeEngine.Core.Structs.ScreenInfo
+      description: Screen information for the game UI overlay.
+    - id: ui
+      type: ShapeEngine.Core.Structs.ScreenInfo
+      description: Screen information for the global UI.
+    - id: f
+      type: System.Single
+      description: The interpolation factor between the last and next fixed update (0.0 to 1.0).
+    content.vb: Sub InterpolateFixedUpdate(time As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo, f As Single)
+  overload: ShapeEngine.Core.Interfaces.IUpdateable.InterpolateFixedUpdate*
+  nameWithType.vb: IUpdateable.InterpolateFixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo, Single)
+  fullName.vb: ShapeEngine.Core.Interfaces.IUpdateable.InterpolateFixedUpdate(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, Single)
+  name.vb: InterpolateFixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo, Single)
 references:
 - uid: ShapeEngine.Core.Interfaces
   commentId: N:ShapeEngine.Core.Interfaces
@@ -102,9 +201,64 @@ references:
   - uid: ShapeEngine.Core.Interfaces
     name: Interfaces
     href: ShapeEngine.Core.Interfaces.html
+- uid: ShapeEngine.Core.Interfaces.IUpdateable.FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  commentId: M:ShapeEngine.Core.Interfaces.IUpdateable.FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  parent: ShapeEngine.Core.Interfaces.IUpdateable
+  href: ShapeEngine.Core.Interfaces.IUpdateable.html#ShapeEngine_Core_Interfaces_IUpdateable_FixedUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
+  name: FixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
+  nameWithType: IUpdateable.FixedUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
+  fullName: ShapeEngine.Core.Interfaces.IUpdateable.FixedUpdate(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Interfaces.IUpdateable.FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+    name: FixedUpdate
+    href: ShapeEngine.Core.Interfaces.IUpdateable.html#ShapeEngine_Core_Interfaces_IUpdateable_FixedUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
+  - name: (
+  - uid: ShapeEngine.Core.Structs.GameTime
+    name: GameTime
+    href: ShapeEngine.Core.Structs.GameTime.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Interfaces.IUpdateable.FixedUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+    name: FixedUpdate
+    href: ShapeEngine.Core.Interfaces.IUpdateable.html#ShapeEngine_Core_Interfaces_IUpdateable_FixedUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
+  - name: (
+  - uid: ShapeEngine.Core.Structs.GameTime
+    name: GameTime
+    href: ShapeEngine.Core.Structs.GameTime.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
+  - name: )
 - uid: ShapeEngine.Core.Interfaces.IUpdateable.Update*
   commentId: Overload:ShapeEngine.Core.Interfaces.IUpdateable.Update
-  href: ShapeEngine.Core.Interfaces.IUpdateable.html#ShapeEngine_Core_Interfaces_IUpdateable_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
+  href: ShapeEngine.Core.Interfaces.IUpdateable.html#ShapeEngine_Core_Interfaces_IUpdateable_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
   name: Update
   nameWithType: IUpdateable.Update
   fullName: ShapeEngine.Core.Interfaces.IUpdateable.Update
@@ -122,6 +276,13 @@ references:
   name: ScreenInfo
   nameWithType: ScreenInfo
   fullName: ShapeEngine.Core.Structs.ScreenInfo
+- uid: ShapeEngine.Core.Interfaces.IUpdateable
+  commentId: T:ShapeEngine.Core.Interfaces.IUpdateable
+  parent: ShapeEngine.Core.Interfaces
+  href: ShapeEngine.Core.Interfaces.IUpdateable.html
+  name: IUpdateable
+  nameWithType: IUpdateable
+  fullName: ShapeEngine.Core.Interfaces.IUpdateable
 - uid: ShapeEngine.Core.Structs
   commentId: N:ShapeEngine.Core.Structs
   href: ShapeEngine.html
@@ -152,3 +313,39 @@ references:
   - uid: ShapeEngine.Core.Structs
     name: Structs
     href: ShapeEngine.Core.Structs.html
+- uid: ShapeEngine.Core.Game.FixedPhysicsFramerate
+  commentId: P:ShapeEngine.Core.Game.FixedPhysicsFramerate
+  href: ShapeEngine.Core.Game.html#ShapeEngine_Core_Game_FixedPhysicsFramerate
+  name: FixedPhysicsFramerate
+  nameWithType: Game.FixedPhysicsFramerate
+  fullName: ShapeEngine.Core.Game.FixedPhysicsFramerate
+- uid: ShapeEngine.Core.Interfaces.IUpdateable.FixedUpdate*
+  commentId: Overload:ShapeEngine.Core.Interfaces.IUpdateable.FixedUpdate
+  href: ShapeEngine.Core.Interfaces.IUpdateable.html#ShapeEngine_Core_Interfaces_IUpdateable_FixedUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
+  name: FixedUpdate
+  nameWithType: IUpdateable.FixedUpdate
+  fullName: ShapeEngine.Core.Interfaces.IUpdateable.FixedUpdate
+- uid: ShapeEngine.Core.Interfaces.IUpdateable.InterpolateFixedUpdate*
+  commentId: Overload:ShapeEngine.Core.Interfaces.IUpdateable.InterpolateFixedUpdate
+  href: ShapeEngine.Core.Interfaces.IUpdateable.html#ShapeEngine_Core_Interfaces_IUpdateable_InterpolateFixedUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_System_Single_
+  name: InterpolateFixedUpdate
+  nameWithType: IUpdateable.InterpolateFixedUpdate
+  fullName: ShapeEngine.Core.Interfaces.IUpdateable.InterpolateFixedUpdate
+- uid: System.Single
+  commentId: T:System.Single
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.single
+  name: float
+  nameWithType: float
+  fullName: float
+  nameWithType.vb: Single
+  fullName.vb: Single
+  name.vb: Single
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System

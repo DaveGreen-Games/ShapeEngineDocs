@@ -30,18 +30,24 @@ items:
   source:
     remote:
       path: ShapeEngine/Timing/Sequencer.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Sequencer
     path: ../ShapeEngine/ShapeEngine/Timing/Sequencer.cs
-    startLine: 34
+    startLine: 21
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: >-
+    Manages and updates sequences of items implementing <xref href="ShapeEngine.Timing.ISequenceable" data-throw-if-not-resolved="false"></xref>.
+
+    Supports starting, updating, cancelling, and restoring sequences.
+  example: []
   syntax:
     content: 'public class Sequencer<T> where T : ISequenceable'
     typeParameters:
     - id: T
+      description: Type of sequence item, must implement <xref href="ShapeEngine.Timing.ISequenceable" data-throw-if-not-resolved="false"></xref>.
     content.vb: Public Class Sequencer(Of T As ISequenceable)
   inheritance:
   - System.Object
@@ -55,6 +61,10 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
   nameWithType.vb: Sequencer(Of T)
   fullName.vb: ShapeEngine.Timing.Sequencer(Of T)
   name.vb: Sequencer(Of T)
@@ -72,14 +82,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Timing/Sequencer.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnSequenceFinished
     path: ../ShapeEngine/ShapeEngine/Timing/Sequencer.cs
-    startLine: 39
+    startLine: 27
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Event triggered when a sequence finishes.
+  example: []
   syntax:
     content: public event Action<uint>? OnSequenceFinished
     return:
@@ -101,14 +113,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Timing/Sequencer.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnItemUpdated
     path: ../ShapeEngine/ShapeEngine/Timing/Sequencer.cs
-    startLine: 40
+    startLine: 32
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Event triggered when a sequence item is updated.
+  example: []
   syntax:
     content: public event Action<T>? OnItemUpdated
     return:
@@ -130,14 +144,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Timing/Sequencer.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Timing/Sequencer.cs
-    startLine: 44
+    startLine: 42
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Timing.Sequencer%601" data-throw-if-not-resolved="false"></xref> class.
+  example: []
   syntax:
     content: public Sequencer()
     content.vb: Public Sub New()
@@ -159,18 +175,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Timing/Sequencer.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetState
     path: ../ShapeEngine/ShapeEngine/Timing/Sequencer.cs
-    startLine: 46
+    startLine: 48
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Gets the current state of the sequencer.
+  example: []
   syntax:
     content: public SequencerState<T> GetState()
     return:
       type: ShapeEngine.Timing.SequencerState{{T}}
+      description: A <xref href="ShapeEngine.Timing.SequencerState%601" data-throw-if-not-resolved="false"></xref> representing the current state.
     content.vb: Public Function GetState() As SequencerState(Of T)
   overload: ShapeEngine.Timing.Sequencer`1.GetState*
   nameWithType.vb: Sequencer(Of T).GetState()
@@ -189,18 +208,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Timing/Sequencer.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Clear
     path: ../ShapeEngine/ShapeEngine/Timing/Sequencer.cs
-    startLine: 47
+    startLine: 54
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Clears all sequences and returns the previous state.
+  example: []
   syntax:
     content: public SequencerState<T> Clear()
     return:
       type: ShapeEngine.Timing.SequencerState{{T}}
+      description: The state before clearing.
     content.vb: Public Function Clear() As SequencerState(Of T)
   overload: ShapeEngine.Timing.Sequencer`1.Clear*
   nameWithType.vb: Sequencer(Of T).Clear()
@@ -219,19 +241,22 @@ items:
   source:
     remote:
       path: ShapeEngine/Timing/Sequencer.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyState
     path: ../ShapeEngine/ShapeEngine/Timing/Sequencer.cs
-    startLine: 54
+    startLine: 65
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Applies a previously saved sequencer state.
+  example: []
   syntax:
     content: public void ApplyState(SequencerState<T> state)
     parameters:
     - id: state
       type: ShapeEngine.Timing.SequencerState{{T}}
+      description: The state to apply.
     content.vb: Public Sub ApplyState(state As SequencerState(Of T))
   overload: ShapeEngine.Timing.Sequencer`1.ApplyState*
   nameWithType.vb: Sequencer(Of T).ApplyState(SequencerState(Of T))
@@ -251,18 +276,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Timing/Sequencer.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HasSequences
     path: ../ShapeEngine/ShapeEngine/Timing/Sequencer.cs
-    startLine: 59
+    startLine: 74
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Checks if there are any active sequences.
+  example: []
   syntax:
     content: public bool HasSequences()
     return:
       type: System.Boolean
+      description: True if there are sequences, otherwise false.
     content.vb: Public Function HasSequences() As Boolean
   overload: ShapeEngine.Timing.Sequencer`1.HasSequences*
   nameWithType.vb: Sequencer(Of T).HasSequences()
@@ -281,21 +309,25 @@ items:
   source:
     remote:
       path: ShapeEngine/Timing/Sequencer.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HasSequence
     path: ../ShapeEngine/ShapeEngine/Timing/Sequencer.cs
-    startLine: 60
+    startLine: 81
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Checks if a sequence with the given ID exists.
+  example: []
   syntax:
     content: public bool HasSequence(uint id)
     parameters:
     - id: id
       type: System.UInt32
+      description: The sequence ID.
     return:
       type: System.Boolean
+      description: True if the sequence exists, otherwise false.
     content.vb: Public Function HasSequence(id As UInteger) As Boolean
   overload: ShapeEngine.Timing.Sequencer`1.HasSequence*
   nameWithType.vb: Sequencer(Of T).HasSequence(UInteger)
@@ -315,21 +347,25 @@ items:
   source:
     remote:
       path: ShapeEngine/Timing/Sequencer.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: StartSequence
     path: ../ShapeEngine/ShapeEngine/Timing/Sequencer.cs
-    startLine: 61
+    startLine: 88
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Starts a new sequence with the provided items.
+  example: []
   syntax:
     content: public uint StartSequence(params T[] items)
     parameters:
     - id: items
       type: '{T}[]'
+      description: The sequence items.
     return:
       type: System.UInt32
+      description: The unique ID of the new sequence.
     content.vb: Public Function StartSequence(ParamArray items As T()) As UInteger
   overload: ShapeEngine.Timing.Sequencer`1.StartSequence*
   nameWithType.vb: Sequencer(Of T).StartSequence(ParamArray T())
@@ -349,19 +385,22 @@ items:
   source:
     remote:
       path: ShapeEngine/Timing/Sequencer.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CancelSequence
     path: ../ShapeEngine/ShapeEngine/Timing/Sequencer.cs
-    startLine: 67
+    startLine: 101
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Cancels the sequence with the specified ID.
+  example: []
   syntax:
     content: public void CancelSequence(uint id)
     parameters:
     - id: id
       type: System.UInt32
+      description: The sequence ID.
     content.vb: Public Sub CancelSequence(id As UInteger)
   overload: ShapeEngine.Timing.Sequencer`1.CancelSequence*
   nameWithType.vb: Sequencer(Of T).CancelSequence(UInteger)
@@ -381,14 +420,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Timing/Sequencer.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Stop
     path: ../ShapeEngine/ShapeEngine/Timing/Sequencer.cs
-    startLine: 71
+    startLine: 109
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Stops all sequences.
+  example: []
   syntax:
     content: public void Stop()
     content.vb: Public Sub [Stop]()
@@ -409,19 +450,22 @@ items:
   source:
     remote:
       path: ShapeEngine/Timing/Sequencer.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/Timing/Sequencer.cs
-    startLine: 73
+    startLine: 115
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Updates all active sequences.
+  example: []
   syntax:
     content: public void Update(float dt)
     parameters:
     - id: dt
       type: System.Single
+      description: Delta time since last update.
     content.vb: Public Sub Update(dt As Single)
   overload: ShapeEngine.Timing.Sequencer`1.Update*
   nameWithType.vb: Sequencer(Of T).Update(Single)
@@ -441,23 +485,28 @@ items:
   source:
     remote:
       path: ShapeEngine/Timing/Sequencer.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: UpdateSequence
     path: ../ShapeEngine/ShapeEngine/Timing/Sequencer.cs
-    startLine: 98
+    startLine: 146
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Updates a single sequence item. Can be overridden for custom behavior.
+  example: []
   syntax:
     content: protected virtual bool UpdateSequence(T sequence, float dt)
     parameters:
     - id: sequence
       type: '{T}'
+      description: The sequence item.
     - id: dt
       type: System.Single
+      description: Delta time.
     return:
       type: System.Boolean
+      description: True if the sequence item is finished, otherwise false.
     content.vb: Protected Overridable Function UpdateSequence(sequence As T, dt As Single) As Boolean
   overload: ShapeEngine.Timing.Sequencer`1.UpdateSequence*
   nameWithType.vb: Sequencer(Of T).UpdateSequence(T, Single)
@@ -477,14 +526,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Timing/Sequencer.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: StartUpdate
     path: ../ShapeEngine/ShapeEngine/Timing/Sequencer.cs
-    startLine: 99
+    startLine: 151
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Called before updating all sequences. Can be overridden for custom behavior.
+  example: []
   syntax:
     content: protected virtual void StartUpdate()
     content.vb: Protected Overridable Sub StartUpdate()
@@ -505,14 +556,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Timing/Sequencer.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: EndUpdate
     path: ../ShapeEngine/ShapeEngine/Timing/Sequencer.cs
-    startLine: 100
+    startLine: 156
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Called after updating all sequences. Can be overridden for custom behavior.
+  example: []
   syntax:
     content: protected virtual void EndUpdate()
     content.vb: Protected Overridable Sub EndUpdate()
@@ -520,6 +573,13 @@ items:
   nameWithType.vb: Sequencer(Of T).EndUpdate()
   fullName.vb: ShapeEngine.Timing.Sequencer(Of T).EndUpdate()
 references:
+- uid: ShapeEngine.Timing.ISequenceable
+  commentId: T:ShapeEngine.Timing.ISequenceable
+  parent: ShapeEngine.Timing
+  href: ShapeEngine.Timing.ISequenceable.html
+  name: ISequenceable
+  nameWithType: ISequenceable
+  fullName: ShapeEngine.Timing.ISequenceable
 - uid: ShapeEngine.Timing
   commentId: N:ShapeEngine.Timing
   href: ShapeEngine.html
@@ -772,6 +832,165 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -779,6 +998,191 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
+  href: ShapeEngine.html
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
 - uid: System.Action{System.UInt32}
   commentId: T:System.Action{System.UInt32}
   parent: System
@@ -871,6 +1275,31 @@ references:
   - name: " "
   - name: T
   - name: )
+- uid: ShapeEngine.Timing.Sequencer`1
+  commentId: T:ShapeEngine.Timing.Sequencer`1
+  href: ShapeEngine.Timing.Sequencer-1.html
+  name: Sequencer<T>
+  nameWithType: Sequencer<T>
+  fullName: ShapeEngine.Timing.Sequencer<T>
+  nameWithType.vb: Sequencer(Of T)
+  fullName.vb: ShapeEngine.Timing.Sequencer(Of T)
+  name.vb: Sequencer(Of T)
+  spec.csharp:
+  - uid: ShapeEngine.Timing.Sequencer`1
+    name: Sequencer
+    href: ShapeEngine.Timing.Sequencer-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: ShapeEngine.Timing.Sequencer`1
+    name: Sequencer
+    href: ShapeEngine.Timing.Sequencer-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
 - uid: ShapeEngine.Timing.Sequencer`1.#ctor*
   commentId: Overload:ShapeEngine.Timing.Sequencer`1.#ctor
   href: ShapeEngine.Timing.Sequencer-1.html#ShapeEngine_Timing_Sequencer_1__ctor
@@ -880,18 +1309,8 @@ references:
   nameWithType.vb: Sequencer(Of T).New
   fullName.vb: ShapeEngine.Timing.Sequencer(Of T).New
   name.vb: New
-- uid: ShapeEngine.Timing.Sequencer`1.GetState*
-  commentId: Overload:ShapeEngine.Timing.Sequencer`1.GetState
-  href: ShapeEngine.Timing.Sequencer-1.html#ShapeEngine_Timing_Sequencer_1_GetState
-  name: GetState
-  nameWithType: Sequencer<T>.GetState
-  fullName: ShapeEngine.Timing.Sequencer<T>.GetState
-  nameWithType.vb: Sequencer(Of T).GetState
-  fullName.vb: ShapeEngine.Timing.Sequencer(Of T).GetState
-- uid: ShapeEngine.Timing.SequencerState{{T}}
-  commentId: T:ShapeEngine.Timing.SequencerState{`0}
-  parent: ShapeEngine.Timing
-  definition: ShapeEngine.Timing.SequencerState`1
+- uid: ShapeEngine.Timing.SequencerState`1
+  commentId: T:ShapeEngine.Timing.SequencerState`1
   href: ShapeEngine.Timing.SequencerState-1.html
   name: SequencerState<T>
   nameWithType: SequencerState<T>
@@ -915,8 +1334,18 @@ references:
   - name: " "
   - name: T
   - name: )
-- uid: ShapeEngine.Timing.SequencerState`1
-  commentId: T:ShapeEngine.Timing.SequencerState`1
+- uid: ShapeEngine.Timing.Sequencer`1.GetState*
+  commentId: Overload:ShapeEngine.Timing.Sequencer`1.GetState
+  href: ShapeEngine.Timing.Sequencer-1.html#ShapeEngine_Timing_Sequencer_1_GetState
+  name: GetState
+  nameWithType: Sequencer<T>.GetState
+  fullName: ShapeEngine.Timing.Sequencer<T>.GetState
+  nameWithType.vb: Sequencer(Of T).GetState
+  fullName.vb: ShapeEngine.Timing.Sequencer(Of T).GetState
+- uid: ShapeEngine.Timing.SequencerState{{T}}
+  commentId: T:ShapeEngine.Timing.SequencerState{`0}
+  parent: ShapeEngine.Timing
+  definition: ShapeEngine.Timing.SequencerState`1
   href: ShapeEngine.Timing.SequencerState-1.html
   name: SequencerState<T>
   nameWithType: SequencerState<T>

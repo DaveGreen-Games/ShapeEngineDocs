@@ -14,6 +14,7 @@ items:
   - ShapeEngine.Core.Shapes.ShapeList`1.GetRandomItem
   - ShapeEngine.Core.Shapes.ShapeList`1.GetRandomItems(System.Int32)
   - ShapeEngine.Core.Shapes.ShapeList`1.IsIndexValid(System.Int32)
+  - ShapeEngine.Core.Shapes.ShapeList`1.TakeRandomItem
   langs:
   - csharp
   - vb
@@ -24,24 +25,28 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/ShapeList.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ShapeList
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeList.cs
-    startLine: 4
+    startLine: 11
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: A strongly-typed list for shapes, providing utility methods for copying, random access, and index validation.
+  remarks: ShapeList does not perform deep copies in its <xref href="ShapeEngine.Core.Shapes.ShapeList%601.Copy" data-throw-if-not-resolved="false"></xref> method.
+  example: []
   syntax:
     content: 'public class ShapeList<T> : List<T>, IList<T>, ICollection<T>, IReadOnlyList<T>, IReadOnlyCollection<T>, IEnumerable<T>, IList, ICollection, IEnumerable'
     typeParameters:
     - id: T
+      description: The type of elements in the list.
     content.vb: Public Class ShapeList(Of T) Inherits List(Of T) Implements IList(Of T), ICollection(Of T), IReadOnlyList(Of T), IReadOnlyCollection(Of T), IEnumerable(Of T), IList, ICollection, IEnumerable
   inheritance:
   - System.Object
   - System.Collections.Generic.List{{T}}
   derivedClasses:
-  - ShapeEngine.Core.Collision.CollisionPoints
+  - ShapeEngine.Core.CollisionSystem.CollisionPoints
   - ShapeEngine.Core.Shapes.Points
   - ShapeEngine.Core.Shapes.Segments
   - ShapeEngine.Core.Shapes.Triangulation
@@ -95,6 +100,7 @@ items:
   - System.Collections.Generic.List{{T}}.RemoveRange(System.Int32,System.Int32)
   - System.Collections.Generic.List{{T}}.Reverse
   - System.Collections.Generic.List{{T}}.Reverse(System.Int32,System.Int32)
+  - System.Collections.Generic.List{{T}}.Slice(System.Int32,System.Int32)
   - System.Collections.Generic.List{{T}}.Sort
   - System.Collections.Generic.List{{T}}.Sort(System.Collections.Generic.IComparer{{T}})
   - System.Collections.Generic.List{{T}}.Sort(System.Comparison{{T}})
@@ -128,14 +134,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/ShapeList.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeList.cs
-    startLine: 6
+    startLine: 16
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.Shapes.ShapeList%601" data-throw-if-not-resolved="false"></xref> class.
+  example: []
   syntax:
     content: public ShapeList()
     content.vb: Public Sub New()
@@ -157,19 +165,22 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/ShapeList.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeList.cs
-    startLine: 8
+    startLine: 22
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.Shapes.ShapeList%601" data-throw-if-not-resolved="false"></xref> class with the specified capacity.
+  example: []
   syntax:
     content: public ShapeList(int capacity)
     parameters:
     - id: capacity
       type: System.Int32
+      description: The number of elements the list can initially store.
     content.vb: Public Sub New(capacity As Integer)
   overload: ShapeEngine.Core.Shapes.ShapeList`1.#ctor*
   nameWithType.vb: ShapeList(Of T).New(Integer)
@@ -189,19 +200,22 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/ShapeList.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddRange
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeList.cs
-    startLine: 12
+    startLine: 30
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Adds a range of items to the list.
+  example: []
   syntax:
     content: public void AddRange(params T[] items)
     parameters:
     - id: items
       type: '{T}[]'
+      description: The items to add.
     content.vb: Public Sub AddRange(ParamArray items As T())
   overload: ShapeEngine.Core.Shapes.ShapeList`1.AddRange*
   nameWithType.vb: ShapeList(Of T).AddRange(ParamArray T())
@@ -221,19 +235,23 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/ShapeList.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Copy
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeList.cs
-    startLine: 13
+    startLine: 39
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Creates a shallow copy of this list.
+  remarks: This method does not perform a deep copy of the elements.
+  example: []
   syntax:
-    content: public ShapeList<T> Copy()
+    content: public virtual ShapeList<T> Copy()
     return:
       type: ShapeEngine.Core.Shapes.ShapeList`1
-    content.vb: Public Function Copy() As ShapeList(Of T)
+      description: A new <xref href="ShapeEngine.Core.Shapes.ShapeList%601" data-throw-if-not-resolved="false"></xref> containing the same elements.
+    content.vb: Public Overridable Function Copy() As ShapeList(Of T)
   overload: ShapeEngine.Core.Shapes.ShapeList`1.Copy*
   nameWithType.vb: ShapeList(Of T).Copy()
   fullName.vb: ShapeEngine.Core.Shapes.ShapeList(Of T).Copy()
@@ -251,21 +269,25 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/ShapeList.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsIndexValid
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeList.cs
-    startLine: 19
+    startLine: 50
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Determines whether the specified index is valid for this list.
+  example: []
   syntax:
     content: public bool IsIndexValid(int index)
     parameters:
     - id: index
       type: System.Int32
+      description: The index to check.
     return:
       type: System.Boolean
+      description: True if the index is valid; otherwise, false.
     content.vb: Public Function IsIndexValid(index As Integer) As Boolean
   overload: ShapeEngine.Core.Shapes.ShapeList`1.IsIndexValid*
   nameWithType.vb: ShapeList(Of T).IsIndexValid(Integer)
@@ -285,21 +307,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/ShapeList.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetHashCode
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeList.cs
-    startLine: 23
+    startLine: 58
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
-  summary: Serves as the default hash function.
+  summary: Returns a hash code for the list based on its elements.
   example: []
   syntax:
     content: public override int GetHashCode()
     return:
       type: System.Int32
-      description: A hash code for the current object.
+      description: The hash code for the list.
     content.vb: Public Overrides Function GetHashCode() As Integer
   overridden: System.Object.GetHashCode
   overload: ShapeEngine.Core.Shapes.ShapeList`1.GetHashCode*
@@ -319,18 +341,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/ShapeList.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetRandomItem
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeList.cs
-    startLine: 33
+    startLine: 72
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Gets a random item from the list, or null if the list is empty.
+  example: []
   syntax:
     content: public T? GetRandomItem()
     return:
       type: '{T}'
+      description: A random item, or null if the list is empty.
     content.vb: Public Function GetRandomItem() As T
   overload: ShapeEngine.Core.Shapes.ShapeList`1.GetRandomItem*
   nameWithType.vb: ShapeList(Of T).GetRandomItem()
@@ -349,21 +374,25 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/ShapeList.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetRandomItems
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeList.cs
-    startLine: 35
+    startLine: 79
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Gets a list of random items from the list.
+  example: []
   syntax:
     content: public List<T> GetRandomItems(int amount)
     parameters:
     - id: amount
       type: System.Int32
+      description: The number of random items to retrieve.
     return:
       type: System.Collections.Generic.List{{T}}
+      description: A list of random items.
     content.vb: Public Function GetRandomItems(amount As Integer) As List(Of T)
   overload: ShapeEngine.Core.Shapes.ShapeList`1.GetRandomItems*
   nameWithType.vb: ShapeList(Of T).GetRandomItems(Integer)
@@ -383,27 +412,84 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/ShapeList.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetItem
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeList.cs
-    startLine: 36
+    startLine: 85
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Gets the item at the specified index, wrapping the index if necessary.
+  example: []
   syntax:
     content: public T? GetItem(int index)
     parameters:
     - id: index
       type: System.Int32
+      description: The index of the item to retrieve.
     return:
       type: '{T}'
+      description: The item at the wrapped index, or the default value if the list is empty.
     content.vb: Public Function GetItem(index As Integer) As T
   overload: ShapeEngine.Core.Shapes.ShapeList`1.GetItem*
   nameWithType.vb: ShapeList(Of T).GetItem(Integer)
   fullName.vb: ShapeEngine.Core.Shapes.ShapeList(Of T).GetItem(Integer)
   name.vb: GetItem(Integer)
+- uid: ShapeEngine.Core.Shapes.ShapeList`1.TakeRandomItem
+  commentId: M:ShapeEngine.Core.Shapes.ShapeList`1.TakeRandomItem
+  id: TakeRandomItem
+  parent: ShapeEngine.Core.Shapes.ShapeList`1
+  langs:
+  - csharp
+  - vb
+  name: TakeRandomItem()
+  nameWithType: ShapeList<T>.TakeRandomItem()
+  fullName: ShapeEngine.Core.Shapes.ShapeList<T>.TakeRandomItem()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Shapes/ShapeList.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: TakeRandomItem
+    path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeList.cs
+    startLine: 91
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Shapes
+  summary: Retrieves and removes a random item from the list.
+  example: []
+  syntax:
+    content: public T? TakeRandomItem()
+    return:
+      type: '{T}'
+      description: The removed random item, or the default value if the list is empty.
+    content.vb: Public Function TakeRandomItem() As T
+  overload: ShapeEngine.Core.Shapes.ShapeList`1.TakeRandomItem*
+  nameWithType.vb: ShapeList(Of T).TakeRandomItem()
+  fullName.vb: ShapeEngine.Core.Shapes.ShapeList(Of T).TakeRandomItem()
 references:
+- uid: ShapeEngine.Core.Shapes.ShapeList`1.Copy
+  commentId: M:ShapeEngine.Core.Shapes.ShapeList`1.Copy
+  href: ShapeEngine.Core.Shapes.ShapeList-1.html#ShapeEngine_Core_Shapes_ShapeList_1_Copy
+  name: Copy()
+  nameWithType: ShapeList<T>.Copy()
+  fullName: ShapeEngine.Core.Shapes.ShapeList<T>.Copy()
+  nameWithType.vb: ShapeList(Of T).Copy()
+  fullName.vb: ShapeEngine.Core.Shapes.ShapeList(Of T).Copy()
+  spec.csharp:
+  - uid: ShapeEngine.Core.Shapes.ShapeList`1.Copy
+    name: Copy
+    href: ShapeEngine.Core.Shapes.ShapeList-1.html#ShapeEngine_Core_Shapes_ShapeList_1_Copy
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Shapes.ShapeList`1.Copy
+    name: Copy
+    href: ShapeEngine.Core.Shapes.ShapeList-1.html#ShapeEngine_Core_Shapes_ShapeList_1_Copy
+  - name: (
+  - name: )
 - uid: ShapeEngine.Core.Shapes
   commentId: N:ShapeEngine.Core.Shapes
   href: ShapeEngine.html
@@ -2275,6 +2361,51 @@ references:
     name: Reverse
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1.reverse#system-collections-generic-list-1-reverse(system-int32-system-int32)
+  - name: (
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: System.Collections.Generic.List{{T}}.Slice(System.Int32,System.Int32)
+  commentId: M:System.Collections.Generic.List{`0}.Slice(System.Int32,System.Int32)
+  parent: System.Collections.Generic.List{{T}}
+  definition: System.Collections.Generic.List`1.Slice(System.Int32,System.Int32)
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1.slice
+  name: Slice(int, int)
+  nameWithType: List<T>.Slice(int, int)
+  fullName: System.Collections.Generic.List<T>.Slice(int, int)
+  nameWithType.vb: List(Of T).Slice(Integer, Integer)
+  fullName.vb: System.Collections.Generic.List(Of T).Slice(Integer, Integer)
+  name.vb: Slice(Integer, Integer)
+  spec.csharp:
+  - uid: System.Collections.Generic.List{`0}.Slice(System.Int32,System.Int32)
+    name: Slice
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1.slice
+  - name: (
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: System.Collections.Generic.List{`0}.Slice(System.Int32,System.Int32)
+    name: Slice
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1.slice
   - name: (
   - uid: System.Int32
     name: Integer
@@ -4635,6 +4766,50 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.int32
   - name: )
+- uid: System.Collections.Generic.List`1.Slice(System.Int32,System.Int32)
+  commentId: M:System.Collections.Generic.List`1.Slice(System.Int32,System.Int32)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1.slice
+  name: Slice(int, int)
+  nameWithType: List<T>.Slice(int, int)
+  fullName: System.Collections.Generic.List<T>.Slice(int, int)
+  nameWithType.vb: List(Of T).Slice(Integer, Integer)
+  fullName.vb: System.Collections.Generic.List(Of T).Slice(Integer, Integer)
+  name.vb: Slice(Integer, Integer)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1.Slice(System.Int32,System.Int32)
+    name: Slice
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1.slice
+  - name: (
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: System.Collections.Generic.List`1.Slice(System.Int32,System.Int32)
+    name: Slice
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1.slice
+  - name: (
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
 - uid: System.Collections.Generic.List`1.Sort
   commentId: M:System.Collections.Generic.List`1.Sort
   isExternal: true
@@ -4935,6 +5110,32 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.int32
   - name: )
+- uid: ShapeEngine.Core.Shapes.ShapeList`1
+  commentId: T:ShapeEngine.Core.Shapes.ShapeList`1
+  parent: ShapeEngine.Core.Shapes
+  href: ShapeEngine.Core.Shapes.ShapeList-1.html
+  name: ShapeList<T>
+  nameWithType: ShapeList<T>
+  fullName: ShapeEngine.Core.Shapes.ShapeList<T>
+  nameWithType.vb: ShapeList(Of T)
+  fullName.vb: ShapeEngine.Core.Shapes.ShapeList(Of T)
+  name.vb: ShapeList(Of T)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Shapes.ShapeList`1
+    name: ShapeList
+    href: ShapeEngine.Core.Shapes.ShapeList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: ShapeEngine.Core.Shapes.ShapeList`1
+    name: ShapeList
+    href: ShapeEngine.Core.Shapes.ShapeList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
 - uid: ShapeEngine.Core.Shapes.ShapeList`1.#ctor*
   commentId: Overload:ShapeEngine.Core.Shapes.ShapeList`1.#ctor
   href: ShapeEngine.Core.Shapes.ShapeList-1.html#ShapeEngine_Core_Shapes_ShapeList_1__ctor
@@ -4987,32 +5188,6 @@ references:
   fullName: ShapeEngine.Core.Shapes.ShapeList<T>.Copy
   nameWithType.vb: ShapeList(Of T).Copy
   fullName.vb: ShapeEngine.Core.Shapes.ShapeList(Of T).Copy
-- uid: ShapeEngine.Core.Shapes.ShapeList`1
-  commentId: T:ShapeEngine.Core.Shapes.ShapeList`1
-  parent: ShapeEngine.Core.Shapes
-  href: ShapeEngine.Core.Shapes.ShapeList-1.html
-  name: ShapeList<T>
-  nameWithType: ShapeList<T>
-  fullName: ShapeEngine.Core.Shapes.ShapeList<T>
-  nameWithType.vb: ShapeList(Of T)
-  fullName.vb: ShapeEngine.Core.Shapes.ShapeList(Of T)
-  name.vb: ShapeList(Of T)
-  spec.csharp:
-  - uid: ShapeEngine.Core.Shapes.ShapeList`1
-    name: ShapeList
-    href: ShapeEngine.Core.Shapes.ShapeList-1.html
-  - name: <
-  - name: T
-  - name: '>'
-  spec.vb:
-  - uid: ShapeEngine.Core.Shapes.ShapeList`1
-    name: ShapeList
-    href: ShapeEngine.Core.Shapes.ShapeList-1.html
-  - name: (
-  - name: Of
-  - name: " "
-  - name: T
-  - name: )
 - uid: ShapeEngine.Core.Shapes.ShapeList`1.IsIndexValid*
   commentId: Overload:ShapeEngine.Core.Shapes.ShapeList`1.IsIndexValid
   href: ShapeEngine.Core.Shapes.ShapeList-1.html#ShapeEngine_Core_Shapes_ShapeList_1_IsIndexValid_System_Int32_
@@ -5098,3 +5273,11 @@ references:
   fullName: ShapeEngine.Core.Shapes.ShapeList<T>.GetItem
   nameWithType.vb: ShapeList(Of T).GetItem
   fullName.vb: ShapeEngine.Core.Shapes.ShapeList(Of T).GetItem
+- uid: ShapeEngine.Core.Shapes.ShapeList`1.TakeRandomItem*
+  commentId: Overload:ShapeEngine.Core.Shapes.ShapeList`1.TakeRandomItem
+  href: ShapeEngine.Core.Shapes.ShapeList-1.html#ShapeEngine_Core_Shapes_ShapeList_1_TakeRandomItem
+  name: TakeRandomItem
+  nameWithType: ShapeList<T>.TakeRandomItem
+  fullName: ShapeEngine.Core.Shapes.ShapeList<T>.TakeRandomItem
+  nameWithType.vb: ShapeList(Of T).TakeRandomItem
+  fullName.vb: ShapeEngine.Core.Shapes.ShapeList(Of T).TakeRandomItem

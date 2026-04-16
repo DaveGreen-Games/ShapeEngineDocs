@@ -20,14 +20,20 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/RectShape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RectShape
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/RectShape.cs
-    startLine: 5
+    startLine: 12
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Represents a rectangle shape that can be transformed and aligned using an anchor point.
+  remarks: >-
+    This class is used to define a rectangle in a transformed space.
+
+    The alignment can be customized using an <xref href="ShapeEngine.Core.Structs.AnchorPoint" data-throw-if-not-resolved="false"></xref>.
+  example: []
   syntax:
     content: 'public class RectShape : ShapeContainer, IShape'
     content.vb: Public Class RectShape Inherits ShapeContainer Implements IShape
@@ -36,7 +42,7 @@ items:
   - ShapeEngine.Core.Shapes.Shape
   - ShapeEngine.Core.Shapes.ShapeContainer
   implements:
-  - ShapeEngine.Core.Collision.IShape
+  - ShapeEngine.Core.CollisionSystem.IShape
   inheritedMembers:
   - ShapeEngine.Core.Shapes.ShapeContainer.Parent
   - ShapeEngine.Core.Shapes.ShapeContainer.ChangeParent(ShapeEngine.Core.Shapes.ShapeContainer)
@@ -64,8 +70,10 @@ items:
   - ShapeEngine.Core.Shapes.Shape.OnDraw
   - ShapeEngine.Core.Shapes.Shape.OnShapeTransformChanged(System.Boolean)
   - ShapeEngine.Core.Shapes.Shape.UpdateTransform(ShapeEngine.Core.Structs.Transform2D)
-  - ShapeEngine.Core.Shapes.Shape.GetCircleShape
+  - ShapeEngine.Core.Shapes.Shape.GetRayShape
+  - ShapeEngine.Core.Shapes.Shape.GetLineShape
   - ShapeEngine.Core.Shapes.Shape.GetSegmentShape
+  - ShapeEngine.Core.Shapes.Shape.GetCircleShape
   - ShapeEngine.Core.Shapes.Shape.GetTriangleShape
   - ShapeEngine.Core.Shapes.Shape.GetQuadShape
   - ShapeEngine.Core.Shapes.Shape.GetPolygonShape
@@ -91,14 +99,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/RectShape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Alignement
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/RectShape.cs
-    startLine: 7
+    startLine: 17
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Gets or sets the alignment anchor point for the rectangle.
+  example: []
   syntax:
     content: public AnchorPoint Alignement { get; set; }
     parameters: []
@@ -120,19 +130,22 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/RectShape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/RectShape.cs
-    startLine: 9
+    startLine: 23
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.Shapes.RectShape" data-throw-if-not-resolved="false"></xref> class with a default alignment.
+  example: []
   syntax:
     content: public RectShape(Transform2D offset)
     parameters:
     - id: offset
       type: ShapeEngine.Core.Structs.Transform2D
+      description: The transform offset to apply to the shape.
     content.vb: Public Sub New(offset As Transform2D)
   overload: ShapeEngine.Core.Shapes.RectShape.#ctor*
   nameWithType.vb: RectShape.New(Transform2D)
@@ -152,21 +165,25 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/RectShape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/RectShape.cs
-    startLine: 14
+    startLine: 33
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.Shapes.RectShape" data-throw-if-not-resolved="false"></xref> class with a specified alignment.
+  example: []
   syntax:
     content: public RectShape(Transform2D offset, AnchorPoint alignement)
     parameters:
     - id: offset
       type: ShapeEngine.Core.Structs.Transform2D
+      description: The transform offset to apply to the shape.
     - id: alignement
       type: ShapeEngine.Core.Structs.AnchorPoint
+      description: The anchor point for alignment.
     content.vb: Public Sub New(offset As Transform2D, alignement As AnchorPoint)
   overload: ShapeEngine.Core.Shapes.RectShape.#ctor*
   nameWithType.vb: RectShape.New(Transform2D, AnchorPoint)
@@ -186,19 +203,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/RectShape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetShapeType
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/RectShape.cs
-    startLine: 20
+    startLine: 39
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Gets the type of the shape.
   example: []
   syntax:
     content: public override ShapeType GetShapeType()
     return:
-      type: ShapeEngine.Core.Collision.ShapeType
+      type: ShapeEngine.Core.CollisionSystem.ShapeType
+      description: The <xref href="ShapeEngine.Core.CollisionSystem.ShapeType" data-throw-if-not-resolved="false"></xref> of this shape.
     content.vb: Public Overrides Function GetShapeType() As ShapeType
   overridden: ShapeEngine.Core.Shapes.Shape.GetShapeType
   overload: ShapeEngine.Core.Shapes.RectShape.GetShapeType*
@@ -216,23 +235,32 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Shapes/RectShape.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetRectShape
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/RectShape.cs
-    startLine: 21
+    startLine: 41
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
+  summary: Gets the shape as a <xref href="ShapeEngine.Core.Shapes.Rect" data-throw-if-not-resolved="false"></xref>.
   example: []
   syntax:
     content: public override Rect GetRectShape()
     return:
       type: ShapeEngine.Core.Shapes.Rect
+      description: A <xref href="ShapeEngine.Core.Shapes.Rect" data-throw-if-not-resolved="false"></xref> representation of the shape.
     content.vb: Public Overrides Function GetRectShape() As Rect
   overridden: ShapeEngine.Core.Shapes.Shape.GetRectShape
   overload: ShapeEngine.Core.Shapes.RectShape.GetRectShape*
 references:
+- uid: ShapeEngine.Core.Structs.AnchorPoint
+  commentId: T:ShapeEngine.Core.Structs.AnchorPoint
+  parent: ShapeEngine.Core.Structs
+  href: ShapeEngine.Core.Structs.AnchorPoint.html
+  name: AnchorPoint
+  nameWithType: AnchorPoint
+  fullName: ShapeEngine.Core.Structs.AnchorPoint
 - uid: ShapeEngine.Core.Shapes
   commentId: N:ShapeEngine.Core.Shapes
   href: ShapeEngine.html
@@ -288,13 +316,13 @@ references:
   name: ShapeContainer
   nameWithType: ShapeContainer
   fullName: ShapeEngine.Core.Shapes.ShapeContainer
-- uid: ShapeEngine.Core.Collision.IShape
-  commentId: T:ShapeEngine.Core.Collision.IShape
-  parent: ShapeEngine.Core.Collision
-  href: ShapeEngine.Core.Collision.IShape.html
+- uid: ShapeEngine.Core.CollisionSystem.IShape
+  commentId: T:ShapeEngine.Core.CollisionSystem.IShape
+  parent: ShapeEngine.Core.CollisionSystem
+  href: ShapeEngine.Core.CollisionSystem.IShape.html
   name: IShape
   nameWithType: IShape
-  fullName: ShapeEngine.Core.Collision.IShape
+  fullName: ShapeEngine.Core.CollisionSystem.IShape
 - uid: ShapeEngine.Core.Shapes.ShapeContainer.Parent
   commentId: P:ShapeEngine.Core.Shapes.ShapeContainer.Parent
   parent: ShapeEngine.Core.Shapes.ShapeContainer
@@ -811,23 +839,42 @@ references:
     name: Transform2D
     href: ShapeEngine.Core.Structs.Transform2D.html
   - name: )
-- uid: ShapeEngine.Core.Shapes.Shape.GetCircleShape
-  commentId: M:ShapeEngine.Core.Shapes.Shape.GetCircleShape
+- uid: ShapeEngine.Core.Shapes.Shape.GetRayShape
+  commentId: M:ShapeEngine.Core.Shapes.Shape.GetRayShape
   parent: ShapeEngine.Core.Shapes.Shape
-  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetCircleShape
-  name: GetCircleShape()
-  nameWithType: Shape.GetCircleShape()
-  fullName: ShapeEngine.Core.Shapes.Shape.GetCircleShape()
+  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetRayShape
+  name: GetRayShape()
+  nameWithType: Shape.GetRayShape()
+  fullName: ShapeEngine.Core.Shapes.Shape.GetRayShape()
   spec.csharp:
-  - uid: ShapeEngine.Core.Shapes.Shape.GetCircleShape
-    name: GetCircleShape
-    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetCircleShape
+  - uid: ShapeEngine.Core.Shapes.Shape.GetRayShape
+    name: GetRayShape
+    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetRayShape
   - name: (
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.Shapes.Shape.GetCircleShape
-    name: GetCircleShape
-    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetCircleShape
+  - uid: ShapeEngine.Core.Shapes.Shape.GetRayShape
+    name: GetRayShape
+    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetRayShape
+  - name: (
+  - name: )
+- uid: ShapeEngine.Core.Shapes.Shape.GetLineShape
+  commentId: M:ShapeEngine.Core.Shapes.Shape.GetLineShape
+  parent: ShapeEngine.Core.Shapes.Shape
+  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetLineShape
+  name: GetLineShape()
+  nameWithType: Shape.GetLineShape()
+  fullName: ShapeEngine.Core.Shapes.Shape.GetLineShape()
+  spec.csharp:
+  - uid: ShapeEngine.Core.Shapes.Shape.GetLineShape
+    name: GetLineShape
+    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetLineShape
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Shapes.Shape.GetLineShape
+    name: GetLineShape
+    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetLineShape
   - name: (
   - name: )
 - uid: ShapeEngine.Core.Shapes.Shape.GetSegmentShape
@@ -847,6 +894,25 @@ references:
   - uid: ShapeEngine.Core.Shapes.Shape.GetSegmentShape
     name: GetSegmentShape
     href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetSegmentShape
+  - name: (
+  - name: )
+- uid: ShapeEngine.Core.Shapes.Shape.GetCircleShape
+  commentId: M:ShapeEngine.Core.Shapes.Shape.GetCircleShape
+  parent: ShapeEngine.Core.Shapes.Shape
+  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetCircleShape
+  name: GetCircleShape()
+  nameWithType: Shape.GetCircleShape()
+  fullName: ShapeEngine.Core.Shapes.Shape.GetCircleShape()
+  spec.csharp:
+  - uid: ShapeEngine.Core.Shapes.Shape.GetCircleShape
+    name: GetCircleShape
+    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetCircleShape
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Shapes.Shape.GetCircleShape
+    name: GetCircleShape
+    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetCircleShape
   - name: (
   - name: )
 - uid: ShapeEngine.Core.Shapes.Shape.GetTriangleShape
@@ -1144,56 +1210,6 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
-- uid: System
-  commentId: N:System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system
-  name: System
-  nameWithType: System
-  fullName: System
-- uid: ShapeEngine.Core.Collision
-  commentId: N:ShapeEngine.Core.Collision
-  href: ShapeEngine.html
-  name: ShapeEngine.Core.Collision
-  nameWithType: ShapeEngine.Core.Collision
-  fullName: ShapeEngine.Core.Collision
-  spec.csharp:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Core
-    name: Core
-    href: ShapeEngine.Core.html
-  - name: .
-  - uid: ShapeEngine.Core.Collision
-    name: Collision
-    href: ShapeEngine.Core.Collision.html
-  spec.vb:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Core
-    name: Core
-    href: ShapeEngine.Core.html
-  - name: .
-  - uid: ShapeEngine.Core.Collision
-    name: Collision
-    href: ShapeEngine.Core.Collision.html
-- uid: ShapeEngine.Core.Shapes.RectShape.Alignement*
-  commentId: Overload:ShapeEngine.Core.Shapes.RectShape.Alignement
-  href: ShapeEngine.Core.Shapes.RectShape.html#ShapeEngine_Core_Shapes_RectShape_Alignement
-  name: Alignement
-  nameWithType: RectShape.Alignement
-  fullName: ShapeEngine.Core.Shapes.RectShape.Alignement
-- uid: ShapeEngine.Core.Structs.AnchorPoint
-  commentId: T:ShapeEngine.Core.Structs.AnchorPoint
-  parent: ShapeEngine.Core.Structs
-  href: ShapeEngine.Core.Structs.AnchorPoint.html
-  name: AnchorPoint
-  nameWithType: AnchorPoint
-  fullName: ShapeEngine.Core.Structs.AnchorPoint
 - uid: ShapeEngine.Core.Structs
   commentId: N:ShapeEngine.Core.Structs
   href: ShapeEngine.html
@@ -1224,6 +1240,55 @@ references:
   - uid: ShapeEngine.Core.Structs
     name: Structs
     href: ShapeEngine.Core.Structs.html
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: ShapeEngine.Core.CollisionSystem
+  commentId: N:ShapeEngine.Core.CollisionSystem
+  href: ShapeEngine.html
+  name: ShapeEngine.Core.CollisionSystem
+  nameWithType: ShapeEngine.Core.CollisionSystem
+  fullName: ShapeEngine.Core.CollisionSystem
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+  - name: .
+  - uid: ShapeEngine.Core.CollisionSystem
+    name: CollisionSystem
+    href: ShapeEngine.Core.CollisionSystem.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+  - name: .
+  - uid: ShapeEngine.Core.CollisionSystem
+    name: CollisionSystem
+    href: ShapeEngine.Core.CollisionSystem.html
+- uid: ShapeEngine.Core.Shapes.RectShape.Alignement*
+  commentId: Overload:ShapeEngine.Core.Shapes.RectShape.Alignement
+  href: ShapeEngine.Core.Shapes.RectShape.html#ShapeEngine_Core_Shapes_RectShape_Alignement
+  name: Alignement
+  nameWithType: RectShape.Alignement
+  fullName: ShapeEngine.Core.Shapes.RectShape.Alignement
+- uid: ShapeEngine.Core.Shapes.RectShape
+  commentId: T:ShapeEngine.Core.Shapes.RectShape
+  href: ShapeEngine.Core.Shapes.RectShape.html
+  name: RectShape
+  nameWithType: RectShape
+  fullName: ShapeEngine.Core.Shapes.RectShape
 - uid: ShapeEngine.Core.Shapes.RectShape.#ctor*
   commentId: Overload:ShapeEngine.Core.Shapes.RectShape.#ctor
   href: ShapeEngine.Core.Shapes.RectShape.html#ShapeEngine_Core_Shapes_RectShape__ctor_ShapeEngine_Core_Structs_Transform2D_
@@ -1240,6 +1305,13 @@ references:
   name: Transform2D
   nameWithType: Transform2D
   fullName: ShapeEngine.Core.Structs.Transform2D
+- uid: ShapeEngine.Core.CollisionSystem.ShapeType
+  commentId: T:ShapeEngine.Core.CollisionSystem.ShapeType
+  parent: ShapeEngine.Core.CollisionSystem
+  href: ShapeEngine.Core.CollisionSystem.ShapeType.html
+  name: ShapeType
+  nameWithType: ShapeType
+  fullName: ShapeEngine.Core.CollisionSystem.ShapeType
 - uid: ShapeEngine.Core.Shapes.Shape.GetShapeType
   commentId: M:ShapeEngine.Core.Shapes.Shape.GetShapeType
   parent: ShapeEngine.Core.Shapes.Shape
@@ -1265,13 +1337,13 @@ references:
   name: GetShapeType
   nameWithType: RectShape.GetShapeType
   fullName: ShapeEngine.Core.Shapes.RectShape.GetShapeType
-- uid: ShapeEngine.Core.Collision.ShapeType
-  commentId: T:ShapeEngine.Core.Collision.ShapeType
-  parent: ShapeEngine.Core.Collision
-  href: ShapeEngine.Core.Collision.ShapeType.html
-  name: ShapeType
-  nameWithType: ShapeType
-  fullName: ShapeEngine.Core.Collision.ShapeType
+- uid: ShapeEngine.Core.Shapes.Rect
+  commentId: T:ShapeEngine.Core.Shapes.Rect
+  parent: ShapeEngine.Core.Shapes
+  href: ShapeEngine.Core.Shapes.Rect.html
+  name: Rect
+  nameWithType: Rect
+  fullName: ShapeEngine.Core.Shapes.Rect
 - uid: ShapeEngine.Core.Shapes.Shape.GetRectShape
   commentId: M:ShapeEngine.Core.Shapes.Shape.GetRectShape
   parent: ShapeEngine.Core.Shapes.Shape
@@ -1297,10 +1369,3 @@ references:
   name: GetRectShape
   nameWithType: RectShape.GetRectShape
   fullName: ShapeEngine.Core.Shapes.RectShape.GetRectShape
-- uid: ShapeEngine.Core.Shapes.Rect
-  commentId: T:ShapeEngine.Core.Shapes.Rect
-  parent: ShapeEngine.Core.Shapes
-  href: ShapeEngine.Core.Shapes.Rect.html
-  name: Rect
-  nameWithType: Rect
-  fullName: ShapeEngine.Core.Shapes.Rect

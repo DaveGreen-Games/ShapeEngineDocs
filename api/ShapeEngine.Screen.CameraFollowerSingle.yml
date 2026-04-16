@@ -7,17 +7,17 @@ items:
   children:
   - ShapeEngine.Screen.CameraFollowerSingle.#ctor(System.Single,System.Single,System.Single)
   - ShapeEngine.Screen.CameraFollowerSingle.BoundaryDis
-  - ShapeEngine.Screen.CameraFollowerSingle.ChangeTarget(ShapeEngine.Core.Interfaces.ICameraFollowTarget,System.Single)
+  - ShapeEngine.Screen.CameraFollowerSingle.ChangeTarget(ShapeEngine.Core.ICameraFollowTarget,System.Single)
   - ShapeEngine.Screen.CameraFollowerSingle.ClearTarget
   - ShapeEngine.Screen.CameraFollowerSingle.IsFollowing
   - ShapeEngine.Screen.CameraFollowerSingle.NewTarget
   - ShapeEngine.Screen.CameraFollowerSingle.OnCameraAttached
   - ShapeEngine.Screen.CameraFollowerSingle.OnCameraDetached
   - ShapeEngine.Screen.CameraFollowerSingle.Reset
-  - ShapeEngine.Screen.CameraFollowerSingle.SetTarget(ShapeEngine.Core.Interfaces.ICameraFollowTarget)
+  - ShapeEngine.Screen.CameraFollowerSingle.SetTarget(ShapeEngine.Core.ICameraFollowTarget)
   - ShapeEngine.Screen.CameraFollowerSingle.Speed
   - ShapeEngine.Screen.CameraFollowerSingle.Target
-  - ShapeEngine.Screen.CameraFollowerSingle.Update(System.Single,ShapeEngine.Core.Shapes.Rect)
+  - ShapeEngine.Screen.CameraFollowerSingle.Update(System.Single,ShapeEngine.Geometry.RectDef.Rect)
   langs:
   - csharp
   - vb
@@ -28,14 +28,27 @@ items:
   source:
     remote:
       path: ShapeEngine/Screen/CameraFollowerSingle.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CameraFollowerSingle
     path: ../ShapeEngine/ShapeEngine/Screen/CameraFollowerSingle.cs
-    startLine: 8
+    startLine: 18
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: >-
+    Implements a camera follower that tracks a single target,
+
+    smoothly moving the camera towards the target's position with optional boundary and speed constraints.
+
+    Supports changing targets with smooth transitions and clearing the current target.
+  remarks: >-
+    Use this class to follow a single object in a scene,
+
+    with configurable speed and boundary distance for smooth camera movement.
+
+    Supports instant or timed target changes.
+  example: []
   syntax:
     content: 'public class CameraFollowerSingle : ICameraFollower'
     content.vb: Public Class CameraFollowerSingle Implements ICameraFollower
@@ -51,6 +64,10 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
 - uid: ShapeEngine.Screen.CameraFollowerSingle.IsFollowing
   commentId: P:ShapeEngine.Screen.CameraFollowerSingle.IsFollowing
   id: IsFollowing
@@ -65,14 +82,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Screen/CameraFollowerSingle.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsFollowing
     path: ../ShapeEngine/ShapeEngine/Screen/CameraFollowerSingle.cs
-    startLine: 10
+    startLine: 23
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Indicates whether the follower is currently following a target.
+  example: []
   syntax:
     content: public bool IsFollowing { get; }
     parameters: []
@@ -94,19 +113,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Screen/CameraFollowerSingle.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Target
     path: ../ShapeEngine/ShapeEngine/Screen/CameraFollowerSingle.cs
-    startLine: 11
+    startLine: 27
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: The current target being followed.
+  example: []
   syntax:
     content: public ICameraFollowTarget? Target { get; }
     parameters: []
     return:
-      type: ShapeEngine.Core.Interfaces.ICameraFollowTarget
+      type: ShapeEngine.Core.ICameraFollowTarget
     content.vb: Public Property Target As ICameraFollowTarget
   overload: ShapeEngine.Screen.CameraFollowerSingle.Target*
 - uid: ShapeEngine.Screen.CameraFollowerSingle.NewTarget
@@ -123,19 +144,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Screen/CameraFollowerSingle.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: NewTarget
     path: ../ShapeEngine/ShapeEngine/Screen/CameraFollowerSingle.cs
-    startLine: 12
+    startLine: 31
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: The new target to transition to, if changing targets.
+  example: []
   syntax:
     content: public ICameraFollowTarget? NewTarget { get; }
     parameters: []
     return:
-      type: ShapeEngine.Core.Interfaces.ICameraFollowTarget
+      type: ShapeEngine.Core.ICameraFollowTarget
     content.vb: Public Property NewTarget As ICameraFollowTarget
   overload: ShapeEngine.Screen.CameraFollowerSingle.NewTarget*
 - uid: ShapeEngine.Screen.CameraFollowerSingle.BoundaryDis
@@ -152,19 +175,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Screen/CameraFollowerSingle.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BoundaryDis
     path: ../ShapeEngine/ShapeEngine/Screen/CameraFollowerSingle.cs
-    startLine: 14
+    startLine: 36
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: The range of boundary distances used to determine how far the camera can move from the target before following.
+  example: []
   syntax:
-    content: public RangeFloat BoundaryDis
+    content: public ValueRange BoundaryDis
     return:
-      type: ShapeEngine.Core.RangeFloat
-    content.vb: Public BoundaryDis As RangeFloat
+      type: ShapeEngine.Core.Structs.ValueRange
+    content.vb: Public BoundaryDis As ValueRange
 - uid: ShapeEngine.Screen.CameraFollowerSingle.Speed
   commentId: F:ShapeEngine.Screen.CameraFollowerSingle.Speed
   id: Speed
@@ -179,14 +204,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Screen/CameraFollowerSingle.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Speed
     path: ../ShapeEngine/ShapeEngine/Screen/CameraFollowerSingle.cs
-    startLine: 15
+    startLine: 40
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: The speed at which the camera follows the target.
+  example: []
   syntax:
     content: public float Speed
     return:
@@ -206,66 +233,78 @@ items:
   source:
     remote:
       path: ShapeEngine/Screen/CameraFollowerSingle.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Screen/CameraFollowerSingle.cs
-    startLine: 22
+    startLine: 53
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Screen.CameraFollowerSingle" data-throw-if-not-resolved="false"></xref> class with the specified speed and boundary.
+  example: []
   syntax:
     content: public CameraFollowerSingle(float speed, float minBoundary, float maxBoundary)
     parameters:
     - id: speed
       type: System.Single
+      description: The speed at which to follow the target.
     - id: minBoundary
       type: System.Single
+      description: The minimum boundary distance.
     - id: maxBoundary
       type: System.Single
+      description: The maximum boundary distance.
     content.vb: Public Sub New(speed As Single, minBoundary As Single, maxBoundary As Single)
   overload: ShapeEngine.Screen.CameraFollowerSingle.#ctor*
   nameWithType.vb: CameraFollowerSingle.New(Single, Single, Single)
   fullName.vb: ShapeEngine.Screen.CameraFollowerSingle.New(Single, Single, Single)
   name.vb: New(Single, Single, Single)
-- uid: ShapeEngine.Screen.CameraFollowerSingle.Update(System.Single,ShapeEngine.Core.Shapes.Rect)
-  commentId: M:ShapeEngine.Screen.CameraFollowerSingle.Update(System.Single,ShapeEngine.Core.Shapes.Rect)
-  id: Update(System.Single,ShapeEngine.Core.Shapes.Rect)
+- uid: ShapeEngine.Screen.CameraFollowerSingle.Update(System.Single,ShapeEngine.Geometry.RectDef.Rect)
+  commentId: M:ShapeEngine.Screen.CameraFollowerSingle.Update(System.Single,ShapeEngine.Geometry.RectDef.Rect)
+  id: Update(System.Single,ShapeEngine.Geometry.RectDef.Rect)
   parent: ShapeEngine.Screen.CameraFollowerSingle
   langs:
   - csharp
   - vb
   name: Update(float, Rect)
   nameWithType: CameraFollowerSingle.Update(float, Rect)
-  fullName: ShapeEngine.Screen.CameraFollowerSingle.Update(float, ShapeEngine.Core.Shapes.Rect)
+  fullName: ShapeEngine.Screen.CameraFollowerSingle.Update(float, ShapeEngine.Geometry.RectDef.Rect)
   type: Method
   source:
     remote:
       path: ShapeEngine/Screen/CameraFollowerSingle.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/Screen/CameraFollowerSingle.cs
-    startLine: 28
+    startLine: 66
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: >-
+    Updates the camera rectangle to follow the target, applying speed and boundary constraints.
+
+    Handles smooth transitions when changing targets.
   example: []
   syntax:
     content: public Rect Update(float dt, Rect cameraRect)
     parameters:
     - id: dt
       type: System.Single
+      description: Delta time in seconds.
     - id: cameraRect
-      type: ShapeEngine.Core.Shapes.Rect
+      type: ShapeEngine.Geometry.RectDef.Rect
+      description: The current camera rectangle.
     return:
-      type: ShapeEngine.Core.Shapes.Rect
+      type: ShapeEngine.Geometry.RectDef.Rect
+      description: The updated camera rectangle.
     content.vb: Public Function Update(dt As Single, cameraRect As Rect) As Rect
   overload: ShapeEngine.Screen.CameraFollowerSingle.Update*
   implements:
-  - ShapeEngine.Screen.ICameraFollower.Update(System.Single,ShapeEngine.Core.Shapes.Rect)
+  - ShapeEngine.Screen.ICameraFollower.Update(System.Single,ShapeEngine.Geometry.RectDef.Rect)
   nameWithType.vb: CameraFollowerSingle.Update(Single, Rect)
-  fullName.vb: ShapeEngine.Screen.CameraFollowerSingle.Update(Single, ShapeEngine.Core.Shapes.Rect)
+  fullName.vb: ShapeEngine.Screen.CameraFollowerSingle.Update(Single, ShapeEngine.Geometry.RectDef.Rect)
   name.vb: Update(Single, Rect)
 - uid: ShapeEngine.Screen.CameraFollowerSingle.Reset
   commentId: M:ShapeEngine.Screen.CameraFollowerSingle.Reset
@@ -281,14 +320,15 @@ items:
   source:
     remote:
       path: ShapeEngine/Screen/CameraFollowerSingle.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Reset
     path: ../ShapeEngine/ShapeEngine/Screen/CameraFollowerSingle.cs
-    startLine: 85
+    startLine: 121
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Resets the follower, clearing the current and new targets and resetting state.
   example: []
   syntax:
     content: public void Reset()
@@ -310,14 +350,15 @@ items:
   source:
     remote:
       path: ShapeEngine/Screen/CameraFollowerSingle.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnCameraAttached
     path: ../ShapeEngine/ShapeEngine/Screen/CameraFollowerSingle.cs
-    startLine: 95
+    startLine: 134
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Called when the follower is attached to a camera.
   example: []
   syntax:
     content: public void OnCameraAttached()
@@ -339,14 +380,15 @@ items:
   source:
     remote:
       path: ShapeEngine/Screen/CameraFollowerSingle.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnCameraDetached
     path: ../ShapeEngine/ShapeEngine/Screen/CameraFollowerSingle.cs
-    startLine: 97
+    startLine: 138
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Called when the follower is detached from a camera.
   example: []
   syntax:
     content: public void OnCameraDetached()
@@ -354,68 +396,75 @@ items:
   overload: ShapeEngine.Screen.CameraFollowerSingle.OnCameraDetached*
   implements:
   - ShapeEngine.Screen.ICameraFollower.OnCameraDetached
-- uid: ShapeEngine.Screen.CameraFollowerSingle.SetTarget(ShapeEngine.Core.Interfaces.ICameraFollowTarget)
-  commentId: M:ShapeEngine.Screen.CameraFollowerSingle.SetTarget(ShapeEngine.Core.Interfaces.ICameraFollowTarget)
-  id: SetTarget(ShapeEngine.Core.Interfaces.ICameraFollowTarget)
+- uid: ShapeEngine.Screen.CameraFollowerSingle.SetTarget(ShapeEngine.Core.ICameraFollowTarget)
+  commentId: M:ShapeEngine.Screen.CameraFollowerSingle.SetTarget(ShapeEngine.Core.ICameraFollowTarget)
+  id: SetTarget(ShapeEngine.Core.ICameraFollowTarget)
   parent: ShapeEngine.Screen.CameraFollowerSingle
   langs:
   - csharp
   - vb
   name: SetTarget(ICameraFollowTarget)
   nameWithType: CameraFollowerSingle.SetTarget(ICameraFollowTarget)
-  fullName: ShapeEngine.Screen.CameraFollowerSingle.SetTarget(ShapeEngine.Core.Interfaces.ICameraFollowTarget)
+  fullName: ShapeEngine.Screen.CameraFollowerSingle.SetTarget(ShapeEngine.Core.ICameraFollowTarget)
   type: Method
   source:
     remote:
       path: ShapeEngine/Screen/CameraFollowerSingle.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SetTarget
     path: ../ShapeEngine/ShapeEngine/Screen/CameraFollowerSingle.cs
-    startLine: 100
+    startLine: 143
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Sets the current target to follow and immediately starts following it.
+  example: []
   syntax:
     content: public void SetTarget(ICameraFollowTarget target)
     parameters:
     - id: target
-      type: ShapeEngine.Core.Interfaces.ICameraFollowTarget
+      type: ShapeEngine.Core.ICameraFollowTarget
+      description: The target to follow.
     content.vb: Public Sub SetTarget(target As ICameraFollowTarget)
   overload: ShapeEngine.Screen.CameraFollowerSingle.SetTarget*
-- uid: ShapeEngine.Screen.CameraFollowerSingle.ChangeTarget(ShapeEngine.Core.Interfaces.ICameraFollowTarget,System.Single)
-  commentId: M:ShapeEngine.Screen.CameraFollowerSingle.ChangeTarget(ShapeEngine.Core.Interfaces.ICameraFollowTarget,System.Single)
-  id: ChangeTarget(ShapeEngine.Core.Interfaces.ICameraFollowTarget,System.Single)
+- uid: ShapeEngine.Screen.CameraFollowerSingle.ChangeTarget(ShapeEngine.Core.ICameraFollowTarget,System.Single)
+  commentId: M:ShapeEngine.Screen.CameraFollowerSingle.ChangeTarget(ShapeEngine.Core.ICameraFollowTarget,System.Single)
+  id: ChangeTarget(ShapeEngine.Core.ICameraFollowTarget,System.Single)
   parent: ShapeEngine.Screen.CameraFollowerSingle
   langs:
   - csharp
   - vb
   name: ChangeTarget(ICameraFollowTarget, float)
   nameWithType: CameraFollowerSingle.ChangeTarget(ICameraFollowTarget, float)
-  fullName: ShapeEngine.Screen.CameraFollowerSingle.ChangeTarget(ShapeEngine.Core.Interfaces.ICameraFollowTarget, float)
+  fullName: ShapeEngine.Screen.CameraFollowerSingle.ChangeTarget(ShapeEngine.Core.ICameraFollowTarget, float)
   type: Method
   source:
     remote:
       path: ShapeEngine/Screen/CameraFollowerSingle.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ChangeTarget
     path: ../ShapeEngine/ShapeEngine/Screen/CameraFollowerSingle.cs
-    startLine: 106
+    startLine: 154
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Changes the target to follow, optionally with a smooth transition over a specified duration.
+  example: []
   syntax:
     content: public void ChangeTarget(ICameraFollowTarget newTarget, float changeDuration = 1)
     parameters:
     - id: newTarget
-      type: ShapeEngine.Core.Interfaces.ICameraFollowTarget
+      type: ShapeEngine.Core.ICameraFollowTarget
+      description: The new target to follow.
     - id: changeDuration
       type: System.Single
+      description: The duration of the transition in seconds. If zero or less, the change is instant.
     content.vb: Public Sub ChangeTarget(newTarget As ICameraFollowTarget, changeDuration As Single = 1)
   overload: ShapeEngine.Screen.CameraFollowerSingle.ChangeTarget*
   nameWithType.vb: CameraFollowerSingle.ChangeTarget(ICameraFollowTarget, Single)
-  fullName.vb: ShapeEngine.Screen.CameraFollowerSingle.ChangeTarget(ShapeEngine.Core.Interfaces.ICameraFollowTarget, Single)
+  fullName.vb: ShapeEngine.Screen.CameraFollowerSingle.ChangeTarget(ShapeEngine.Core.ICameraFollowTarget, Single)
   name.vb: ChangeTarget(ICameraFollowTarget, Single)
 - uid: ShapeEngine.Screen.CameraFollowerSingle.ClearTarget
   commentId: M:ShapeEngine.Screen.CameraFollowerSingle.ClearTarget
@@ -431,14 +480,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Screen/CameraFollowerSingle.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ClearTarget
     path: ../ShapeEngine/ShapeEngine/Screen/CameraFollowerSingle.cs
-    startLine: 123
+    startLine: 174
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Clears the current and new targets, stopping any following behavior.
+  example: []
   syntax:
     content: public void ClearTarget()
     content.vb: Public Sub ClearTarget()
@@ -703,6 +754,165 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -710,6 +920,191 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
+  href: ShapeEngine.html
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
 - uid: ShapeEngine.Screen.CameraFollowerSingle.IsFollowing*
   commentId: Overload:ShapeEngine.Screen.CameraFollowerSingle.IsFollowing
   href: ShapeEngine.Screen.CameraFollowerSingle.html#ShapeEngine_Screen_CameraFollowerSingle_IsFollowing
@@ -733,56 +1128,13 @@ references:
   name: Target
   nameWithType: CameraFollowerSingle.Target
   fullName: ShapeEngine.Screen.CameraFollowerSingle.Target
-- uid: ShapeEngine.Core.Interfaces.ICameraFollowTarget
-  commentId: T:ShapeEngine.Core.Interfaces.ICameraFollowTarget
-  parent: ShapeEngine.Core.Interfaces
-  href: ShapeEngine.Core.Interfaces.ICameraFollowTarget.html
+- uid: ShapeEngine.Core.ICameraFollowTarget
+  commentId: T:ShapeEngine.Core.ICameraFollowTarget
+  parent: ShapeEngine.Core
+  href: ShapeEngine.Core.ICameraFollowTarget.html
   name: ICameraFollowTarget
   nameWithType: ICameraFollowTarget
-  fullName: ShapeEngine.Core.Interfaces.ICameraFollowTarget
-- uid: ShapeEngine.Core.Interfaces
-  commentId: N:ShapeEngine.Core.Interfaces
-  href: ShapeEngine.html
-  name: ShapeEngine.Core.Interfaces
-  nameWithType: ShapeEngine.Core.Interfaces
-  fullName: ShapeEngine.Core.Interfaces
-  spec.csharp:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Core
-    name: Core
-    href: ShapeEngine.Core.html
-  - name: .
-  - uid: ShapeEngine.Core.Interfaces
-    name: Interfaces
-    href: ShapeEngine.Core.Interfaces.html
-  spec.vb:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Core
-    name: Core
-    href: ShapeEngine.Core.html
-  - name: .
-  - uid: ShapeEngine.Core.Interfaces
-    name: Interfaces
-    href: ShapeEngine.Core.Interfaces.html
-- uid: ShapeEngine.Screen.CameraFollowerSingle.NewTarget*
-  commentId: Overload:ShapeEngine.Screen.CameraFollowerSingle.NewTarget
-  href: ShapeEngine.Screen.CameraFollowerSingle.html#ShapeEngine_Screen_CameraFollowerSingle_NewTarget
-  name: NewTarget
-  nameWithType: CameraFollowerSingle.NewTarget
-  fullName: ShapeEngine.Screen.CameraFollowerSingle.NewTarget
-- uid: ShapeEngine.Core.RangeFloat
-  commentId: T:ShapeEngine.Core.RangeFloat
-  parent: ShapeEngine.Core
-  href: ShapeEngine.Core.RangeFloat.html
-  name: RangeFloat
-  nameWithType: RangeFloat
-  fullName: ShapeEngine.Core.RangeFloat
+  fullName: ShapeEngine.Core.ICameraFollowTarget
 - uid: ShapeEngine.Core
   commentId: N:ShapeEngine.Core
   href: ShapeEngine.html
@@ -805,6 +1157,49 @@ references:
   - uid: ShapeEngine.Core
     name: Core
     href: ShapeEngine.Core.html
+- uid: ShapeEngine.Screen.CameraFollowerSingle.NewTarget*
+  commentId: Overload:ShapeEngine.Screen.CameraFollowerSingle.NewTarget
+  href: ShapeEngine.Screen.CameraFollowerSingle.html#ShapeEngine_Screen_CameraFollowerSingle_NewTarget
+  name: NewTarget
+  nameWithType: CameraFollowerSingle.NewTarget
+  fullName: ShapeEngine.Screen.CameraFollowerSingle.NewTarget
+- uid: ShapeEngine.Core.Structs.ValueRange
+  commentId: T:ShapeEngine.Core.Structs.ValueRange
+  parent: ShapeEngine.Core.Structs
+  href: ShapeEngine.Core.Structs.ValueRange.html
+  name: ValueRange
+  nameWithType: ValueRange
+  fullName: ShapeEngine.Core.Structs.ValueRange
+- uid: ShapeEngine.Core.Structs
+  commentId: N:ShapeEngine.Core.Structs
+  href: ShapeEngine.html
+  name: ShapeEngine.Core.Structs
+  nameWithType: ShapeEngine.Core.Structs
+  fullName: ShapeEngine.Core.Structs
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+  - name: .
+  - uid: ShapeEngine.Core.Structs
+    name: Structs
+    href: ShapeEngine.Core.Structs.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+  - name: .
+  - uid: ShapeEngine.Core.Structs
+    name: Structs
+    href: ShapeEngine.Core.Structs.html
 - uid: System.Single
   commentId: T:System.Single
   parent: System
@@ -816,6 +1211,12 @@ references:
   nameWithType.vb: Single
   fullName.vb: Single
   name.vb: Single
+- uid: ShapeEngine.Screen.CameraFollowerSingle
+  commentId: T:ShapeEngine.Screen.CameraFollowerSingle
+  href: ShapeEngine.Screen.CameraFollowerSingle.html
+  name: CameraFollowerSingle
+  nameWithType: CameraFollowerSingle
+  fullName: ShapeEngine.Screen.CameraFollowerSingle
 - uid: ShapeEngine.Screen.CameraFollowerSingle.#ctor*
   commentId: Overload:ShapeEngine.Screen.CameraFollowerSingle.#ctor
   href: ShapeEngine.Screen.CameraFollowerSingle.html#ShapeEngine_Screen_CameraFollowerSingle__ctor_System_Single_System_Single_System_Single_
@@ -827,25 +1228,25 @@ references:
   name.vb: New
 - uid: ShapeEngine.Screen.CameraFollowerSingle.Update*
   commentId: Overload:ShapeEngine.Screen.CameraFollowerSingle.Update
-  href: ShapeEngine.Screen.CameraFollowerSingle.html#ShapeEngine_Screen_CameraFollowerSingle_Update_System_Single_ShapeEngine_Core_Shapes_Rect_
+  href: ShapeEngine.Screen.CameraFollowerSingle.html#ShapeEngine_Screen_CameraFollowerSingle_Update_System_Single_ShapeEngine_Geometry_RectDef_Rect_
   name: Update
   nameWithType: CameraFollowerSingle.Update
   fullName: ShapeEngine.Screen.CameraFollowerSingle.Update
-- uid: ShapeEngine.Screen.ICameraFollower.Update(System.Single,ShapeEngine.Core.Shapes.Rect)
-  commentId: M:ShapeEngine.Screen.ICameraFollower.Update(System.Single,ShapeEngine.Core.Shapes.Rect)
+- uid: ShapeEngine.Screen.ICameraFollower.Update(System.Single,ShapeEngine.Geometry.RectDef.Rect)
+  commentId: M:ShapeEngine.Screen.ICameraFollower.Update(System.Single,ShapeEngine.Geometry.RectDef.Rect)
   parent: ShapeEngine.Screen.ICameraFollower
   isExternal: true
-  href: ShapeEngine.Screen.ICameraFollower.html#ShapeEngine_Screen_ICameraFollower_Update_System_Single_ShapeEngine_Core_Shapes_Rect_
+  href: ShapeEngine.Screen.ICameraFollower.html#ShapeEngine_Screen_ICameraFollower_Update_System_Single_ShapeEngine_Geometry_RectDef_Rect_
   name: Update(float, Rect)
   nameWithType: ICameraFollower.Update(float, Rect)
-  fullName: ShapeEngine.Screen.ICameraFollower.Update(float, ShapeEngine.Core.Shapes.Rect)
+  fullName: ShapeEngine.Screen.ICameraFollower.Update(float, ShapeEngine.Geometry.RectDef.Rect)
   nameWithType.vb: ICameraFollower.Update(Single, Rect)
-  fullName.vb: ShapeEngine.Screen.ICameraFollower.Update(Single, ShapeEngine.Core.Shapes.Rect)
+  fullName.vb: ShapeEngine.Screen.ICameraFollower.Update(Single, ShapeEngine.Geometry.RectDef.Rect)
   name.vb: Update(Single, Rect)
   spec.csharp:
-  - uid: ShapeEngine.Screen.ICameraFollower.Update(System.Single,ShapeEngine.Core.Shapes.Rect)
+  - uid: ShapeEngine.Screen.ICameraFollower.Update(System.Single,ShapeEngine.Geometry.RectDef.Rect)
     name: Update
-    href: ShapeEngine.Screen.ICameraFollower.html#ShapeEngine_Screen_ICameraFollower_Update_System_Single_ShapeEngine_Core_Shapes_Rect_
+    href: ShapeEngine.Screen.ICameraFollower.html#ShapeEngine_Screen_ICameraFollower_Update_System_Single_ShapeEngine_Geometry_RectDef_Rect_
   - name: (
   - uid: System.Single
     name: float
@@ -853,14 +1254,14 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.single
   - name: ','
   - name: " "
-  - uid: ShapeEngine.Core.Shapes.Rect
+  - uid: ShapeEngine.Geometry.RectDef.Rect
     name: Rect
-    href: ShapeEngine.Core.Shapes.Rect.html
+    href: ShapeEngine.Geometry.RectDef.Rect.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Screen.ICameraFollower.Update(System.Single,ShapeEngine.Core.Shapes.Rect)
+  - uid: ShapeEngine.Screen.ICameraFollower.Update(System.Single,ShapeEngine.Geometry.RectDef.Rect)
     name: Update
-    href: ShapeEngine.Screen.ICameraFollower.html#ShapeEngine_Screen_ICameraFollower_Update_System_Single_ShapeEngine_Core_Shapes_Rect_
+    href: ShapeEngine.Screen.ICameraFollower.html#ShapeEngine_Screen_ICameraFollower_Update_System_Single_ShapeEngine_Geometry_RectDef_Rect_
   - name: (
   - uid: System.Single
     name: Single
@@ -868,47 +1269,47 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.single
   - name: ','
   - name: " "
-  - uid: ShapeEngine.Core.Shapes.Rect
+  - uid: ShapeEngine.Geometry.RectDef.Rect
     name: Rect
-    href: ShapeEngine.Core.Shapes.Rect.html
+    href: ShapeEngine.Geometry.RectDef.Rect.html
   - name: )
-- uid: ShapeEngine.Core.Shapes.Rect
-  commentId: T:ShapeEngine.Core.Shapes.Rect
-  parent: ShapeEngine.Core.Shapes
-  href: ShapeEngine.Core.Shapes.Rect.html
+- uid: ShapeEngine.Geometry.RectDef.Rect
+  commentId: T:ShapeEngine.Geometry.RectDef.Rect
+  parent: ShapeEngine.Geometry.RectDef
+  href: ShapeEngine.Geometry.RectDef.Rect.html
   name: Rect
   nameWithType: Rect
-  fullName: ShapeEngine.Core.Shapes.Rect
-- uid: ShapeEngine.Core.Shapes
-  commentId: N:ShapeEngine.Core.Shapes
+  fullName: ShapeEngine.Geometry.RectDef.Rect
+- uid: ShapeEngine.Geometry.RectDef
+  commentId: N:ShapeEngine.Geometry.RectDef
   href: ShapeEngine.html
-  name: ShapeEngine.Core.Shapes
-  nameWithType: ShapeEngine.Core.Shapes
-  fullName: ShapeEngine.Core.Shapes
+  name: ShapeEngine.Geometry.RectDef
+  nameWithType: ShapeEngine.Geometry.RectDef
+  fullName: ShapeEngine.Geometry.RectDef
   spec.csharp:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.Core
-    name: Core
-    href: ShapeEngine.Core.html
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
   - name: .
-  - uid: ShapeEngine.Core.Shapes
-    name: Shapes
-    href: ShapeEngine.Core.Shapes.html
+  - uid: ShapeEngine.Geometry.RectDef
+    name: RectDef
+    href: ShapeEngine.Geometry.RectDef.html
   spec.vb:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.Core
-    name: Core
-    href: ShapeEngine.Core.html
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
   - name: .
-  - uid: ShapeEngine.Core.Shapes
-    name: Shapes
-    href: ShapeEngine.Core.Shapes.html
+  - uid: ShapeEngine.Geometry.RectDef
+    name: RectDef
+    href: ShapeEngine.Geometry.RectDef.html
 - uid: ShapeEngine.Screen.CameraFollowerSingle.Reset*
   commentId: Overload:ShapeEngine.Screen.CameraFollowerSingle.Reset
   href: ShapeEngine.Screen.CameraFollowerSingle.html#ShapeEngine_Screen_CameraFollowerSingle_Reset
@@ -986,13 +1387,13 @@ references:
   - name: )
 - uid: ShapeEngine.Screen.CameraFollowerSingle.SetTarget*
   commentId: Overload:ShapeEngine.Screen.CameraFollowerSingle.SetTarget
-  href: ShapeEngine.Screen.CameraFollowerSingle.html#ShapeEngine_Screen_CameraFollowerSingle_SetTarget_ShapeEngine_Core_Interfaces_ICameraFollowTarget_
+  href: ShapeEngine.Screen.CameraFollowerSingle.html#ShapeEngine_Screen_CameraFollowerSingle_SetTarget_ShapeEngine_Core_ICameraFollowTarget_
   name: SetTarget
   nameWithType: CameraFollowerSingle.SetTarget
   fullName: ShapeEngine.Screen.CameraFollowerSingle.SetTarget
 - uid: ShapeEngine.Screen.CameraFollowerSingle.ChangeTarget*
   commentId: Overload:ShapeEngine.Screen.CameraFollowerSingle.ChangeTarget
-  href: ShapeEngine.Screen.CameraFollowerSingle.html#ShapeEngine_Screen_CameraFollowerSingle_ChangeTarget_ShapeEngine_Core_Interfaces_ICameraFollowTarget_System_Single_
+  href: ShapeEngine.Screen.CameraFollowerSingle.html#ShapeEngine_Screen_CameraFollowerSingle_ChangeTarget_ShapeEngine_Core_ICameraFollowTarget_System_Single_
   name: ChangeTarget
   nameWithType: CameraFollowerSingle.ChangeTarget
   fullName: ShapeEngine.Screen.CameraFollowerSingle.ChangeTarget

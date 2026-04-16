@@ -32,6 +32,7 @@ items:
   - ShapeEngine.Core.Structs.Direction.Right
   - ShapeEngine.Core.Structs.Direction.Signed
   - ShapeEngine.Core.Structs.Direction.ToAlignement
+  - ShapeEngine.Core.Structs.Direction.ToInvertedAlignement
   - ShapeEngine.Core.Structs.Direction.ToString
   - ShapeEngine.Core.Structs.Direction.ToVector2
   - ShapeEngine.Core.Structs.Direction.Up
@@ -58,14 +59,20 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Direction
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 4
+    startLine: 11
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: >-
+    Represents a 2D direction using integer horizontal and vertical components.
+
+    Provides utility methods and operators for direction manipulation and comparison.
+  remarks: Useful for grid-based movement, direction checks, and vector math in 2D space.
+  example: []
   syntax:
     content: 'public readonly struct Direction : IEquatable<Direction>'
     content.vb: Public Structure Direction Implements IEquatable(Of Direction)
@@ -75,6 +82,10 @@ items:
   - System.Object.Equals(System.Object,System.Object)
   - System.Object.GetType
   - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
 - uid: ShapeEngine.Core.Structs.Direction.Horizontal
   commentId: F:ShapeEngine.Core.Structs.Direction.Horizontal
   id: Horizontal
@@ -89,14 +100,19 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Horizontal
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 6
+    startLine: 17
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: >-
+    The horizontal component of the direction.
+
+    -1 = left, 0 = none, 1 = right.
+  example: []
   syntax:
     content: public readonly int Horizontal
     return:
@@ -116,14 +132,19 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Vertical
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 7
+    startLine: 22
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: >-
+    The vertical component of the direction.
+
+    -1 = up, 0 = none, 1 = down.
+  example: []
   syntax:
     content: public readonly int Vertical
     return:
@@ -143,14 +164,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 9
+    startLine: 27
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.Structs.Direction" data-throw-if-not-resolved="false"></xref> struct with zero horizontal and vertical components.
+  example: []
   syntax:
     content: public Direction()
     content.vb: Public Sub New()
@@ -172,21 +195,25 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 14
+    startLine: 37
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.Structs.Direction" data-throw-if-not-resolved="false"></xref> struct with specified horizontal and vertical components.
+  example: []
   syntax:
     content: public Direction(int hor, int vert)
     parameters:
     - id: hor
       type: System.Int32
+      description: The horizontal component (-1, 0, or 1).
     - id: vert
       type: System.Int32
+      description: The vertical component (-1, 0, or 1).
     content.vb: Public Sub New(hor As Integer, vert As Integer)
   overload: ShapeEngine.Core.Structs.Direction.#ctor*
   nameWithType.vb: Direction.New(Integer, Integer)
@@ -206,19 +233,23 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 20
+    startLine: 50
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.Structs.Direction" data-throw-if-not-resolved="false"></xref> struct from a <xref href="System.Numerics.Vector2" data-throw-if-not-resolved="false"></xref>.
+  remarks: Only the integer part of the vector's X and Y are used.
+  example: []
   syntax:
     content: public Direction(Vector2 dir)
     parameters:
     - id: dir
       type: System.Numerics.Vector2
+      description: The vector whose X and Y are used as horizontal and vertical components.
     content.vb: Public Sub New(dir As Vector2)
   overload: ShapeEngine.Core.Structs.Direction.#ctor*
   nameWithType.vb: Direction.New(Vector2)
@@ -238,14 +269,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsValid
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 26
+    startLine: 59
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets a value indicating whether the direction is valid (either vertical or horizontal is non-zero).
+  example: []
   syntax:
     content: public bool IsValid { get; }
     parameters: []
@@ -267,14 +300,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsVertical
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 27
+    startLine: 63
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets a value indicating whether the direction has a non-zero vertical component.
+  example: []
   syntax:
     content: public bool IsVertical { get; }
     parameters: []
@@ -296,14 +331,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsHorizontal
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 28
+    startLine: 67
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets a value indicating whether the direction has a non-zero horizontal component.
+  example: []
   syntax:
     content: public bool IsHorizontal { get; }
     parameters: []
@@ -325,14 +362,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsUp
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 30
+    startLine: 72
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets a value indicating whether the direction is strictly up (vertical &lt; 0, horizontal == 0).
+  example: []
   syntax:
     content: public bool IsUp { get; }
     parameters: []
@@ -354,14 +393,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsDown
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 31
+    startLine: 76
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets a value indicating whether the direction is strictly down (vertical &gt; 0, horizontal == 0).
+  example: []
   syntax:
     content: public bool IsDown { get; }
     parameters: []
@@ -383,14 +424,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsLeft
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 32
+    startLine: 80
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets a value indicating whether the direction is strictly left (horizontal &lt; 0, vertical == 0).
+  example: []
   syntax:
     content: public bool IsLeft { get; }
     parameters: []
@@ -412,14 +455,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsRight
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 33
+    startLine: 84
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets a value indicating whether the direction is strictly right (horizontal &gt; 0, vertical == 0).
+  example: []
   syntax:
     content: public bool IsRight { get; }
     parameters: []
@@ -441,14 +486,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsUpLeft
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 34
+    startLine: 88
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets a value indicating whether the direction is up-left (vertical &lt; 0, horizontal &lt; 0).
+  example: []
   syntax:
     content: public bool IsUpLeft { get; }
     parameters: []
@@ -470,14 +517,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsDownLeft
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 35
+    startLine: 92
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets a value indicating whether the direction is down-left (vertical &gt; 0, horizontal &lt; 0).
+  example: []
   syntax:
     content: public bool IsDownLeft { get; }
     parameters: []
@@ -499,14 +548,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsUpRight
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 36
+    startLine: 96
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets a value indicating whether the direction is up-right (vertical &lt; 0, horizontal &gt; 0).
+  example: []
   syntax:
     content: public bool IsUpRight { get; }
     parameters: []
@@ -528,14 +579,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsDownRight
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 37
+    startLine: 100
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets a value indicating whether the direction is down-right (vertical &gt; 0, horizontal &gt; 0).
+  example: []
   syntax:
     content: public bool IsDownRight { get; }
     parameters: []
@@ -557,14 +610,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Empty
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 39
+    startLine: 105
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets an empty direction (0, 0).
+  example: []
   syntax:
     content: public static Direction Empty { get; }
     parameters: []
@@ -586,14 +641,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Right
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 40
+    startLine: 109
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets the right direction (1, 0).
+  example: []
   syntax:
     content: public static Direction Right { get; }
     parameters: []
@@ -615,14 +672,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Left
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 41
+    startLine: 113
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets the left direction (-1, 0).
+  example: []
   syntax:
     content: public static Direction Left { get; }
     parameters: []
@@ -644,14 +703,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Up
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 42
+    startLine: 117
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets the up direction (0, -1).
+  example: []
   syntax:
     content: public static Direction Up { get; }
     parameters: []
@@ -673,14 +734,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Down
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 43
+    startLine: 121
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets the down direction (0, 1).
+  example: []
   syntax:
     content: public static Direction Down { get; }
     parameters: []
@@ -702,14 +765,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: UpLeft
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 44
+    startLine: 125
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets the up-left direction (-1, -1).
+  example: []
   syntax:
     content: public static Direction UpLeft { get; }
     parameters: []
@@ -731,14 +796,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: UpRight
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 45
+    startLine: 129
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets the up-right direction (1, -1).
+  example: []
   syntax:
     content: public static Direction UpRight { get; }
     parameters: []
@@ -760,14 +827,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DownLeft
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 46
+    startLine: 133
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets the down-left direction (-1, 1).
+  example: []
   syntax:
     content: public static Direction DownLeft { get; }
     parameters: []
@@ -789,14 +858,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DownRight
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 47
+    startLine: 137
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets the down-right direction (1, 1).
+  example: []
   syntax:
     content: public static Direction DownRight { get; }
     parameters: []
@@ -818,18 +889,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToVector2
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 49
+    startLine: 143
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Converts this direction to a <xref href="System.Numerics.Vector2" data-throw-if-not-resolved="false"></xref>.
+  example: []
   syntax:
     content: public Vector2 ToVector2()
     return:
       type: System.Numerics.Vector2
+      description: A <xref href="System.Numerics.Vector2" data-throw-if-not-resolved="false"></xref> with the same horizontal and vertical values.
     content.vb: Public Function ToVector2() As Vector2
   overload: ShapeEngine.Core.Structs.Direction.ToVector2*
 - uid: ShapeEngine.Core.Structs.Direction.ToAlignement
@@ -846,20 +920,61 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToAlignement
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 50
+    startLine: 154
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Converts this direction to an <xref href="ShapeEngine.Core.Structs.AnchorPoint" data-throw-if-not-resolved="false"></xref> alignment.
+  remarks: >-
+    Translates from the value range -1 to 1 that <xref href="ShapeEngine.Core.Structs.Direction" data-throw-if-not-resolved="false"></xref> uses
+       to a value range from 0 to 1 that <xref href="ShapeEngine.Core.Structs.AnchorPoint" data-throw-if-not-resolved="false"></xref> is using.
+  example: []
   syntax:
-    content: public Vector2 ToAlignement()
+    content: public AnchorPoint ToAlignement()
     return:
-      type: System.Numerics.Vector2
-    content.vb: Public Function ToAlignement() As Vector2
+      type: ShapeEngine.Core.Structs.AnchorPoint
+      description: An <xref href="ShapeEngine.Core.Structs.AnchorPoint" data-throw-if-not-resolved="false"></xref> representing the alignment.
+    content.vb: Public Function ToAlignement() As AnchorPoint
   overload: ShapeEngine.Core.Structs.Direction.ToAlignement*
+- uid: ShapeEngine.Core.Structs.Direction.ToInvertedAlignement
+  commentId: M:ShapeEngine.Core.Structs.Direction.ToInvertedAlignement
+  id: ToInvertedAlignement
+  parent: ShapeEngine.Core.Structs.Direction
+  langs:
+  - csharp
+  - vb
+  name: ToInvertedAlignement()
+  nameWithType: Direction.ToInvertedAlignement()
+  fullName: ShapeEngine.Core.Structs.Direction.ToInvertedAlignement()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/Direction.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: ToInvertedAlignement
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
+    startLine: 169
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Inverts the direction and then calculates the alignment.
+  remarks: >-
+    Useful for UI alignment or mirroring logic.
+
+    Get more info about translating here -&gt; <xref href="ShapeEngine.Core.Structs.Direction.ToAlignement" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public AnchorPoint ToInvertedAlignement()
+    return:
+      type: ShapeEngine.Core.Structs.AnchorPoint
+      description: An <xref href="ShapeEngine.Core.Structs.AnchorPoint" data-throw-if-not-resolved="false"></xref> representing the alignment of the inverted direction.
+    content.vb: Public Function ToInvertedAlignement() As AnchorPoint
+  overload: ShapeEngine.Core.Structs.Direction.ToInvertedAlignement*
 - uid: ShapeEngine.Core.Structs.Direction.Invert
   commentId: M:ShapeEngine.Core.Structs.Direction.Invert
   id: Invert
@@ -874,18 +989,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Invert
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 51
+    startLine: 180
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Returns a new <xref href="ShapeEngine.Core.Structs.Direction" data-throw-if-not-resolved="false"></xref> with both components inverted (multiplied by -1).
+  example: []
   syntax:
     content: public Direction Invert()
     return:
       type: ShapeEngine.Core.Structs.Direction
+      description: The inverted direction.
     content.vb: Public Function Invert() As Direction
   overload: ShapeEngine.Core.Structs.Direction.Invert*
 - uid: ShapeEngine.Core.Structs.Direction.Signed
@@ -902,14 +1020,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Signed
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 53
+    startLine: 185
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets a new <xref href="ShapeEngine.Core.Structs.Direction" data-throw-if-not-resolved="false"></xref> with each component replaced by its sign (-1, 0, or 1).
+  example: []
   syntax:
     content: public Direction Signed { get; }
     parameters: []
@@ -931,23 +1051,28 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Addition
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 63
+    startLine: 201
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Adds two <xref href="ShapeEngine.Core.Structs.Direction" data-throw-if-not-resolved="false"></xref> instances component-wise.
+  example: []
   syntax:
     content: public static Direction operator +(Direction left, Direction right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.Direction
+      description: The first direction.
     - id: right
       type: ShapeEngine.Core.Structs.Direction
+      description: The second direction.
     return:
       type: ShapeEngine.Core.Structs.Direction
+      description: The sum of the two directions.
     content.vb: Public Shared Operator +(left As Direction, right As Direction) As Direction
   overload: ShapeEngine.Core.Structs.Direction.op_Addition*
   nameWithType.vb: Direction.+(Direction, Direction)
@@ -967,23 +1092,28 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Subtraction
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 73
+    startLine: 217
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Subtracts one <xref href="ShapeEngine.Core.Structs.Direction" data-throw-if-not-resolved="false"></xref> from another component-wise.
+  example: []
   syntax:
     content: public static Direction operator -(Direction left, Direction right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.Direction
+      description: The first direction.
     - id: right
       type: ShapeEngine.Core.Structs.Direction
+      description: The direction to subtract.
     return:
       type: ShapeEngine.Core.Structs.Direction
+      description: The difference of the two directions.
     content.vb: Public Shared Operator -(left As Direction, right As Direction) As Direction
   overload: ShapeEngine.Core.Structs.Direction.op_Subtraction*
   nameWithType.vb: Direction.-(Direction, Direction)
@@ -1003,23 +1133,28 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Multiply
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 82
+    startLine: 232
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Multiplies two <xref href="ShapeEngine.Core.Structs.Direction" data-throw-if-not-resolved="false"></xref> instances component-wise.
+  example: []
   syntax:
     content: public static Direction operator *(Direction left, Direction right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.Direction
+      description: The first direction.
     - id: right
       type: ShapeEngine.Core.Structs.Direction
+      description: The second direction.
     return:
       type: ShapeEngine.Core.Structs.Direction
+      description: The product of the two directions.
     content.vb: Public Shared Operator *(left As Direction, right As Direction) As Direction
   overload: ShapeEngine.Core.Structs.Direction.op_Multiply*
   nameWithType.vb: Direction.*(Direction, Direction)
@@ -1039,23 +1174,30 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Division
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 91
+    startLine: 248
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Divides two <xref href="ShapeEngine.Core.Structs.Direction" data-throw-if-not-resolved="false"></xref> instances component-wise.
+  example: []
   syntax:
     content: public static Direction operator /(Direction left, Direction right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.Direction
+      description: The dividend direction.
     - id: right
       type: ShapeEngine.Core.Structs.Direction
+      description: >-
+        The divisor direction.
+            If a component is zero, the corresponding component of <code class="paramref">left</code> is returned unchanged.
     return:
       type: ShapeEngine.Core.Structs.Direction
+      description: The quotient of the two directions.
     content.vb: Public Shared Operator /(left As Direction, right As Direction) As Direction
   overload: ShapeEngine.Core.Structs.Direction.op_Division*
   nameWithType.vb: Direction./(Direction, Direction)
@@ -1075,23 +1217,28 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Addition
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 100
+    startLine: 263
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Adds an integer to both components of a <xref href="ShapeEngine.Core.Structs.Direction" data-throw-if-not-resolved="false"></xref>.
+  example: []
   syntax:
     content: public static Direction operator +(Direction left, int right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.Direction
+      description: The direction.
     - id: right
       type: System.Int32
+      description: The integer to add.
     return:
       type: ShapeEngine.Core.Structs.Direction
+      description: The resulting direction.
     content.vb: Public Shared Operator +(left As Direction, right As Integer) As Direction
   overload: ShapeEngine.Core.Structs.Direction.op_Addition*
   nameWithType.vb: Direction.+(Direction, Integer)
@@ -1111,23 +1258,28 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Subtraction
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 109
+    startLine: 278
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Subtracts an integer from both components of a <xref href="ShapeEngine.Core.Structs.Direction" data-throw-if-not-resolved="false"></xref>.
+  example: []
   syntax:
     content: public static Direction operator -(Direction left, int right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.Direction
+      description: The direction.
     - id: right
       type: System.Int32
+      description: The integer to subtract.
     return:
       type: ShapeEngine.Core.Structs.Direction
+      description: The resulting direction.
     content.vb: Public Shared Operator -(left As Direction, right As Integer) As Direction
   overload: ShapeEngine.Core.Structs.Direction.op_Subtraction*
   nameWithType.vb: Direction.-(Direction, Integer)
@@ -1147,23 +1299,28 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Multiply
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 118
+    startLine: 293
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Multiplies both components of a <xref href="ShapeEngine.Core.Structs.Direction" data-throw-if-not-resolved="false"></xref> by an integer.
+  example: []
   syntax:
     content: public static Direction operator *(Direction left, int right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.Direction
+      description: The direction.
     - id: right
       type: System.Int32
+      description: The integer to multiply by.
     return:
       type: ShapeEngine.Core.Structs.Direction
+      description: The resulting direction.
     content.vb: Public Shared Operator *(left As Direction, right As Integer) As Direction
   overload: ShapeEngine.Core.Structs.Direction.op_Multiply*
   nameWithType.vb: Direction.*(Direction, Integer)
@@ -1183,23 +1340,28 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Division
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 127
+    startLine: 308
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Divides both components of a <xref href="ShapeEngine.Core.Structs.Direction" data-throw-if-not-resolved="false"></xref> by an integer.
+  example: []
   syntax:
     content: public static Direction operator /(Direction left, int right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.Direction
+      description: The direction.
     - id: right
       type: System.Int32
+      description: The integer to divide by. If zero, the original direction is returned.
     return:
       type: ShapeEngine.Core.Structs.Direction
+      description: The resulting direction.
     content.vb: Public Shared Operator /(left As Direction, right As Integer) As Direction
   overload: ShapeEngine.Core.Structs.Direction.op_Division*
   nameWithType.vb: Direction./(Direction, Integer)
@@ -1219,25 +1381,25 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Equals
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 137
+    startLine: 323
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
-  summary: Indicates whether the current object is equal to another object of the same type.
+  summary: Determines whether this instance and another specified <xref href="ShapeEngine.Core.Structs.Direction" data-throw-if-not-resolved="false"></xref> object have the same value.
   example: []
   syntax:
     content: public bool Equals(Direction other)
     parameters:
     - id: other
       type: ShapeEngine.Core.Structs.Direction
-      description: An object to compare with this object.
+      description: The direction to compare to this instance.
     return:
       type: System.Boolean
-      description: <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the current object is equal to the <code class="paramref">other</code> parameter; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.
+      description: <code>true</code> if the directions are equal; otherwise, <code>false</code>.
     content.vb: Public Function Equals(other As Direction) As Boolean
   overload: ShapeEngine.Core.Structs.Direction.Equals*
   implements:
@@ -1256,11 +1418,11 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Equals
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 139
+    startLine: 326
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -1295,11 +1457,11 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetHashCode
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 141
+    startLine: 329
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -1327,23 +1489,28 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Equality
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 143
+    startLine: 337
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Determines whether two <xref href="ShapeEngine.Core.Structs.Direction" data-throw-if-not-resolved="false"></xref> instances are equal.
+  example: []
   syntax:
     content: public static bool operator ==(Direction left, Direction right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.Direction
+      description: The first direction.
     - id: right
       type: ShapeEngine.Core.Structs.Direction
+      description: The second direction.
     return:
       type: System.Boolean
+      description: <code>true</code> if the directions are equal; otherwise, <code>false</code>.
     content.vb: Public Shared Operator =(left As Direction, right As Direction) As Boolean
   overload: ShapeEngine.Core.Structs.Direction.op_Equality*
   nameWithType.vb: Direction.=(Direction, Direction)
@@ -1363,23 +1530,28 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Inequality
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 145
+    startLine: 345
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Determines whether two <xref href="ShapeEngine.Core.Structs.Direction" data-throw-if-not-resolved="false"></xref> instances are not equal.
+  example: []
   syntax:
     content: public static bool operator !=(Direction left, Direction right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.Direction
+      description: The first direction.
     - id: right
       type: ShapeEngine.Core.Structs.Direction
+      description: The second direction.
     return:
       type: System.Boolean
+      description: <code>true</code> if the directions are not equal; otherwise, <code>false</code>.
     content.vb: Public Shared Operator <>(left As Direction, right As Direction) As Boolean
   overload: ShapeEngine.Core.Structs.Direction.op_Inequality*
   nameWithType.vb: Direction.<>(Direction, Direction)
@@ -1399,21 +1571,21 @@ items:
   source:
     remote:
       path: ShapeEngine/Core/Structs/Direction.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToString
     path: ../ShapeEngine/ShapeEngine/Core/Structs/Direction.cs
-    startLine: 147
+    startLine: 351
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
-  summary: Returns the fully qualified type name of this instance.
+  summary: Returns a string that represents the current direction.
   example: []
   syntax:
     content: public override string ToString()
     return:
       type: System.String
-      description: The fully qualified type name.
+      description: A string in the format (Horizontal,Vertical).
     content.vb: Public Overrides Function ToString() As String
   overridden: System.ValueType.ToString
   overload: ShapeEngine.Core.Structs.Direction.ToString*
@@ -1595,6 +1767,165 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System.IEquatable`1
   commentId: T:System.IEquatable`1
   isExternal: true
@@ -1641,6 +1972,191 @@ references:
   nameWithType.vb: Object
   fullName.vb: Object
   name.vb: Object
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
+  href: ShapeEngine.html
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
 - uid: System.Int32
   commentId: T:System.Int32
   parent: System
@@ -1652,6 +2168,13 @@ references:
   nameWithType.vb: Integer
   fullName.vb: Integer
   name.vb: Integer
+- uid: ShapeEngine.Core.Structs.Direction
+  commentId: T:ShapeEngine.Core.Structs.Direction
+  parent: ShapeEngine.Core.Structs
+  href: ShapeEngine.Core.Structs.Direction.html
+  name: Direction
+  nameWithType: Direction
+  fullName: ShapeEngine.Core.Structs.Direction
 - uid: ShapeEngine.Core.Structs.Direction.#ctor*
   commentId: Overload:ShapeEngine.Core.Structs.Direction.#ctor
   href: ShapeEngine.Core.Structs.Direction.html#ShapeEngine_Core_Structs_Direction__ctor
@@ -1779,13 +2302,6 @@ references:
   name: Empty
   nameWithType: Direction.Empty
   fullName: ShapeEngine.Core.Structs.Direction.Empty
-- uid: ShapeEngine.Core.Structs.Direction
-  commentId: T:ShapeEngine.Core.Structs.Direction
-  parent: ShapeEngine.Core.Structs
-  href: ShapeEngine.Core.Structs.Direction.html
-  name: Direction
-  nameWithType: Direction
-  fullName: ShapeEngine.Core.Structs.Direction
 - uid: ShapeEngine.Core.Structs.Direction.Right*
   commentId: Overload:ShapeEngine.Core.Structs.Direction.Right
   href: ShapeEngine.Core.Structs.Direction.html#ShapeEngine_Core_Structs_Direction_Right
@@ -1840,12 +2356,43 @@ references:
   name: ToVector2
   nameWithType: Direction.ToVector2
   fullName: ShapeEngine.Core.Structs.Direction.ToVector2
+- uid: ShapeEngine.Core.Structs.AnchorPoint
+  commentId: T:ShapeEngine.Core.Structs.AnchorPoint
+  parent: ShapeEngine.Core.Structs
+  href: ShapeEngine.Core.Structs.AnchorPoint.html
+  name: AnchorPoint
+  nameWithType: AnchorPoint
+  fullName: ShapeEngine.Core.Structs.AnchorPoint
 - uid: ShapeEngine.Core.Structs.Direction.ToAlignement*
   commentId: Overload:ShapeEngine.Core.Structs.Direction.ToAlignement
   href: ShapeEngine.Core.Structs.Direction.html#ShapeEngine_Core_Structs_Direction_ToAlignement
   name: ToAlignement
   nameWithType: Direction.ToAlignement
   fullName: ShapeEngine.Core.Structs.Direction.ToAlignement
+- uid: ShapeEngine.Core.Structs.Direction.ToAlignement
+  commentId: M:ShapeEngine.Core.Structs.Direction.ToAlignement
+  href: ShapeEngine.Core.Structs.Direction.html#ShapeEngine_Core_Structs_Direction_ToAlignement
+  name: ToAlignement()
+  nameWithType: Direction.ToAlignement()
+  fullName: ShapeEngine.Core.Structs.Direction.ToAlignement()
+  spec.csharp:
+  - uid: ShapeEngine.Core.Structs.Direction.ToAlignement
+    name: ToAlignement
+    href: ShapeEngine.Core.Structs.Direction.html#ShapeEngine_Core_Structs_Direction_ToAlignement
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Structs.Direction.ToAlignement
+    name: ToAlignement
+    href: ShapeEngine.Core.Structs.Direction.html#ShapeEngine_Core_Structs_Direction_ToAlignement
+  - name: (
+  - name: )
+- uid: ShapeEngine.Core.Structs.Direction.ToInvertedAlignement*
+  commentId: Overload:ShapeEngine.Core.Structs.Direction.ToInvertedAlignement
+  href: ShapeEngine.Core.Structs.Direction.html#ShapeEngine_Core_Structs_Direction_ToInvertedAlignement
+  name: ToInvertedAlignement
+  nameWithType: Direction.ToInvertedAlignement
+  fullName: ShapeEngine.Core.Structs.Direction.ToInvertedAlignement
 - uid: ShapeEngine.Core.Structs.Direction.Invert*
   commentId: Overload:ShapeEngine.Core.Structs.Direction.Invert
   href: ShapeEngine.Core.Structs.Direction.html#ShapeEngine_Core_Structs_Direction_Invert

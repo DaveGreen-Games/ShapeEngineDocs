@@ -6,13 +6,17 @@ items:
   parent: ShapeEngine.Audio
   children:
   - ShapeEngine.Audio.AudioDevice.#ctor
+  - ShapeEngine.Audio.AudioDevice.#ctor(System.UInt32[])
   - ShapeEngine.Audio.AudioDevice.BUS_MASTER
+  - ShapeEngine.Audio.AudioDevice.BusAdd(System.Single)
   - ShapeEngine.Audio.AudioDevice.BusAdd(System.UInt32,System.Single)
   - ShapeEngine.Audio.AudioDevice.BusChangeVolume(System.UInt32,System.Single)
   - ShapeEngine.Audio.AudioDevice.BusGetVolume(System.UInt32)
   - ShapeEngine.Audio.AudioDevice.BusSetVolume(System.UInt32,System.Single)
   - ShapeEngine.Audio.AudioDevice.BusStop(System.UInt32)
   - ShapeEngine.Audio.AudioDevice.Close
+  - ShapeEngine.Audio.AudioDevice.IdCounter
+  - ShapeEngine.Audio.AudioDevice.PlaylistAdd(System.String,System.UInt32[])
   - ShapeEngine.Audio.AudioDevice.PlaylistAdd(System.UInt32,System.String,System.UInt32[])
   - ShapeEngine.Audio.AudioDevice.PlaylistGetName
   - ShapeEngine.Audio.AudioDevice.PlaylistGetSongName
@@ -24,9 +28,18 @@ items:
   - ShapeEngine.Audio.AudioDevice.PlaylistStarted
   - ShapeEngine.Audio.AudioDevice.PlaylistStop
   - ShapeEngine.Audio.AudioDevice.PlaylistSwitch(System.UInt32)
+  - ShapeEngine.Audio.AudioDevice.SFXAdd(Raylib_cs.Sound,System.Single,System.Single,System.UInt32[])
+  - ShapeEngine.Audio.AudioDevice.SFXAdd(Raylib_cs.Sound,System.UInt32,System.Single,System.Single)
   - ShapeEngine.Audio.AudioDevice.SFXAdd(System.UInt32,Raylib_cs.Sound,System.Single,System.Single,System.UInt32[])
+  - ShapeEngine.Audio.AudioDevice.SFXAdd(System.UInt32,Raylib_cs.Sound,System.UInt32,System.Single,System.Single)
+  - ShapeEngine.Audio.AudioDevice.SFXLoopAdd(Raylib_cs.Sound,System.Single,System.Single,System.Single,System.Single,System.UInt32[])
+  - ShapeEngine.Audio.AudioDevice.SFXLoopAdd(Raylib_cs.Sound,System.Single,System.Single,System.UInt32[])
+  - ShapeEngine.Audio.AudioDevice.SFXLoopAdd(Raylib_cs.Sound,System.UInt32,System.Single,System.Single)
+  - ShapeEngine.Audio.AudioDevice.SFXLoopAdd(Raylib_cs.Sound,System.UInt32,System.Single,System.Single,System.Single,System.Single)
   - ShapeEngine.Audio.AudioDevice.SFXLoopAdd(System.UInt32,Raylib_cs.Sound,System.Single,System.Single,System.Single,System.Single,System.UInt32[])
   - ShapeEngine.Audio.AudioDevice.SFXLoopAdd(System.UInt32,Raylib_cs.Sound,System.Single,System.Single,System.UInt32[])
+  - ShapeEngine.Audio.AudioDevice.SFXLoopAdd(System.UInt32,Raylib_cs.Sound,System.UInt32,System.Single,System.Single)
+  - ShapeEngine.Audio.AudioDevice.SFXLoopAdd(System.UInt32,Raylib_cs.Sound,System.UInt32,System.Single,System.Single,System.Single,System.Single)
   - ShapeEngine.Audio.AudioDevice.SFXLoopPlay(System.UInt32,System.Numerics.Vector2,System.Single,System.Single,System.Single)
   - ShapeEngine.Audio.AudioDevice.SFXLoopPlay(System.UInt32,System.Single,System.Single,System.Single)
   - ShapeEngine.Audio.AudioDevice.SFXLoopStop(System.UInt32)
@@ -34,7 +47,10 @@ items:
   - ShapeEngine.Audio.AudioDevice.SFXPlay(System.UInt32,System.Numerics.Vector2,System.Single,System.Single,System.Single)
   - ShapeEngine.Audio.AudioDevice.SFXPlay(System.UInt32,System.Numerics.Vector2,System.Single,System.Single,System.Single,System.Single,System.Single)
   - ShapeEngine.Audio.AudioDevice.SFXPlay(System.UInt32,System.Single,System.Single,System.Single)
+  - ShapeEngine.Audio.AudioDevice.SongAdd(Raylib_cs.Music,System.String,System.Single,System.Single,System.UInt32[])
+  - ShapeEngine.Audio.AudioDevice.SongAdd(Raylib_cs.Music,System.UInt32,System.String,System.Single,System.Single)
   - ShapeEngine.Audio.AudioDevice.SongAdd(System.UInt32,Raylib_cs.Music,System.String,System.Single,System.Single,System.UInt32[])
+  - ShapeEngine.Audio.AudioDevice.SongAdd(System.UInt32,Raylib_cs.Music,System.UInt32,System.String,System.Single,System.Single)
   - ShapeEngine.Audio.AudioDevice.SpatialTargetOverride
   - ShapeEngine.Audio.AudioDevice.Update(System.Single,ShapeEngine.Screen.ShapeCamera)
   langs:
@@ -47,14 +63,23 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AudioDevice
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 11
+    startLine: 16
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: >-
+    Central manager for all audio operations in the engine, including initialization, playback, spatial audio,
+
+    bus and playlist management, and resource cleanup.
+
+    Provides a high-level API for controlling sound effects,
+
+    music, and audio buses, as well as advanced features like spatialization and sound blocking.
+  example: []
   syntax:
     content: public class AudioDevice
     content.vb: Public Class AudioDevice
@@ -68,6 +93,39 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+- uid: ShapeEngine.Audio.AudioDevice.IdCounter
+  commentId: F:ShapeEngine.Audio.AudioDevice.IdCounter
+  id: IdCounter
+  parent: ShapeEngine.Audio.AudioDevice
+  langs:
+  - csharp
+  - vb
+  name: IdCounter
+  nameWithType: AudioDevice.IdCounter
+  fullName: ShapeEngine.Audio.AudioDevice.IdCounter
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Audio/AudioDevice.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: IdCounter
+    path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
+    startLine: 28
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Audio
+  summary: Provides unique, incrementing IDs for audio resources managed by this device.
+  example: []
+  syntax:
+    content: public readonly IdCounter IdCounter
+    return:
+      type: ShapeEngine.Core.IdCounter
+    content.vb: Public ReadOnly IdCounter As IdCounter
 - uid: ShapeEngine.Audio.AudioDevice.PlaylistStarted
   commentId: E:ShapeEngine.Audio.AudioDevice.PlaylistStarted
   id: PlaylistStarted
@@ -82,14 +140,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PlaylistStarted
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 14
+    startLine: 33
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Occurs when a playlist is started via this audio device.
+  example: []
   syntax:
     content: public event Action<string>? PlaylistStarted
     return:
@@ -109,14 +169,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PlaylistSongStarted
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 15
+    startLine: 38
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Occurs when a new song begins playing in the current playlist.
+  example: []
   syntax:
     content: public event Action<string, string>? PlaylistSongStarted
     return:
@@ -136,14 +198,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BUS_MASTER
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 16
+    startLine: 43
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: The unique ID of the master audio bus, which all other buses and audio sources can be routed through.
+  example: []
   syntax:
     content: public static readonly uint BUS_MASTER
     return:
@@ -163,14 +227,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SpatialTargetOverride
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 26
+    startLine: 57
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Optional override for the spatial audio listener target. If set, spatial sounds will be centered on this object.
+  example: []
   syntax:
     content: public GameObject? SpatialTargetOverride { get; set; }
     parameters: []
@@ -192,14 +258,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 30
+    startLine: 68
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Initializes a new <xref href="ShapeEngine.Audio.AudioDevice" data-throw-if-not-resolved="false"></xref> instance, setting up the master bus and initializing the audio system if needed.
+  example: []
   syntax:
     content: public AudioDevice()
     content.vb: Public Sub New()
@@ -207,6 +275,44 @@ items:
   nameWithType.vb: AudioDevice.New()
   fullName.vb: ShapeEngine.Audio.AudioDevice.New()
   name.vb: New()
+- uid: ShapeEngine.Audio.AudioDevice.#ctor(System.UInt32[])
+  commentId: M:ShapeEngine.Audio.AudioDevice.#ctor(System.UInt32[])
+  id: '#ctor(System.UInt32[])'
+  parent: ShapeEngine.Audio.AudioDevice
+  langs:
+  - csharp
+  - vb
+  name: AudioDevice(params uint[])
+  nameWithType: AudioDevice.AudioDevice(params uint[])
+  fullName: ShapeEngine.Audio.AudioDevice.AudioDevice(params uint[])
+  type: Constructor
+  source:
+    remote:
+      path: ShapeEngine/Audio/AudioDevice.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: .ctor
+    path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
+    startLine: 83
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Audio
+  summary: >-
+    Initializes a new <xref href="ShapeEngine.Audio.AudioDevice" data-throw-if-not-resolved="false"></xref> instance, setting up the master bus and any additional buses provided.
+
+    Initializes the audio system if needed.
+  example: []
+  syntax:
+    content: public AudioDevice(params uint[] busIds)
+    parameters:
+    - id: busIds
+      type: System.UInt32[]
+      description: An array of bus IDs to create and add to the device.
+    content.vb: Public Sub New(ParamArray busIds As UInteger())
+  overload: ShapeEngine.Audio.AudioDevice.#ctor*
+  nameWithType.vb: AudioDevice.New(ParamArray UInteger())
+  fullName.vb: ShapeEngine.Audio.AudioDevice.New(ParamArray UInteger())
+  name.vb: New(ParamArray UInteger())
 - uid: ShapeEngine.Audio.AudioDevice.Close
   commentId: M:ShapeEngine.Audio.AudioDevice.Close
   id: Close
@@ -221,14 +327,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Close
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 45
+    startLine: 103
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Shuts down the audio device, releasing all resources, stopping all playback, and closing the underlying audio system.
+  example: []
   syntax:
     content: public void Close()
     content.vb: Public Sub Close()
@@ -247,21 +355,28 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 58
+    startLine: 123
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: >-
+    Updates the state of the audio device, including spatial audio calculations, playlist progression,
+
+    and sound blocker timers. Should be called once per frame.
+  example: []
   syntax:
     content: public void Update(float dt, ShapeCamera camera)
     parameters:
     - id: dt
       type: System.Single
+      description: Elapsed time in seconds since the last update.
     - id: camera
       type: ShapeEngine.Screen.ShapeCamera
+      description: The current camera, used for spatial audio calculations.
     content.vb: Public Sub Update(dt As Single, camera As ShapeCamera)
   overload: ShapeEngine.Audio.AudioDevice.Update*
   nameWithType.vb: AudioDevice.Update(Single, ShapeCamera)
@@ -281,28 +396,77 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PlaylistAdd
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 97
+    startLine: 181
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Adds a new playlist with a specific ID and a set of song IDs.
+  example: []
   syntax:
-    content: public void PlaylistAdd(uint id, string displayName, params uint[] songIDs)
+    content: public bool PlaylistAdd(uint id, string displayName, params uint[] songIDs)
     parameters:
     - id: id
       type: System.UInt32
+      description: The unique ID for the playlist.
     - id: displayName
       type: System.String
+      description: The display name for the playlist.
     - id: songIDs
       type: System.UInt32[]
-    content.vb: Public Sub PlaylistAdd(id As UInteger, displayName As String, ParamArray songIDs As UInteger())
+      description: IDs of songs to include in the playlist.
+    return:
+      type: System.Boolean
+      description: True if the playlist was added; false if the ID already exists.
+    content.vb: Public Function PlaylistAdd(id As UInteger, displayName As String, ParamArray songIDs As UInteger()) As Boolean
   overload: ShapeEngine.Audio.AudioDevice.PlaylistAdd*
   nameWithType.vb: AudioDevice.PlaylistAdd(UInteger, String, ParamArray UInteger())
   fullName.vb: ShapeEngine.Audio.AudioDevice.PlaylistAdd(UInteger, String, ParamArray UInteger())
   name.vb: PlaylistAdd(UInteger, String, ParamArray UInteger())
+- uid: ShapeEngine.Audio.AudioDevice.PlaylistAdd(System.String,System.UInt32[])
+  commentId: M:ShapeEngine.Audio.AudioDevice.PlaylistAdd(System.String,System.UInt32[])
+  id: PlaylistAdd(System.String,System.UInt32[])
+  parent: ShapeEngine.Audio.AudioDevice
+  langs:
+  - csharp
+  - vb
+  name: PlaylistAdd(string, params uint[])
+  nameWithType: AudioDevice.PlaylistAdd(string, params uint[])
+  fullName: ShapeEngine.Audio.AudioDevice.PlaylistAdd(string, params uint[])
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Audio/AudioDevice.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: PlaylistAdd
+    path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
+    startLine: 198
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Audio
+  summary: Adds a new playlist and returns its generated unique ID.
+  example: []
+  syntax:
+    content: public uint PlaylistAdd(string displayName, params uint[] songIDs)
+    parameters:
+    - id: displayName
+      type: System.String
+      description: The display name for the playlist.
+    - id: songIDs
+      type: System.UInt32[]
+      description: IDs of songs to include in the playlist.
+    return:
+      type: System.UInt32
+      description: The generated playlist ID.
+    content.vb: Public Function PlaylistAdd(displayName As String, ParamArray songIDs As UInteger()) As UInteger
+  overload: ShapeEngine.Audio.AudioDevice.PlaylistAdd*
+  nameWithType.vb: AudioDevice.PlaylistAdd(String, ParamArray UInteger())
+  fullName.vb: ShapeEngine.Audio.AudioDevice.PlaylistAdd(String, ParamArray UInteger())
+  name.vb: PlaylistAdd(String, ParamArray UInteger())
 - uid: ShapeEngine.Audio.AudioDevice.PlaylistStart
   commentId: M:ShapeEngine.Audio.AudioDevice.PlaylistStart
   id: PlaylistStart
@@ -317,17 +481,25 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PlaylistStart
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 105
+    startLine: 220
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: >-
+    Starts playback of the current playlist, if one is selected.
+
+    Triggers the <xref href="ShapeEngine.Audio.AudioDevice.PlaylistStarted" data-throw-if-not-resolved="false"></xref> event.
+  example: []
   syntax:
-    content: public void PlaylistStart()
-    content.vb: Public Sub PlaylistStart()
+    content: public bool PlaylistStart()
+    return:
+      type: System.Boolean
+      description: True if a playlist was started; otherwise, false.
+    content.vb: Public Function PlaylistStart() As Boolean
   overload: ShapeEngine.Audio.AudioDevice.PlaylistStart*
 - uid: ShapeEngine.Audio.AudioDevice.PlaylistStop
   commentId: M:ShapeEngine.Audio.AudioDevice.PlaylistStop
@@ -343,17 +515,22 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PlaylistStop
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 111
+    startLine: 233
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Stops playback of the current playlist, if one is selected.
+  example: []
   syntax:
-    content: public void PlaylistStop()
-    content.vb: Public Sub PlaylistStop()
+    content: public bool PlaylistStop()
+    return:
+      type: System.Boolean
+      description: True if a playlist was stopped; otherwise, false.
+    content.vb: Public Function PlaylistStop() As Boolean
   overload: ShapeEngine.Audio.AudioDevice.PlaylistStop*
 - uid: ShapeEngine.Audio.AudioDevice.PlaylistPause
   commentId: M:ShapeEngine.Audio.AudioDevice.PlaylistPause
@@ -369,17 +546,22 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PlaylistPause
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 116
+    startLine: 245
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Pauses playback of the current playlist, if one is selected.
+  example: []
   syntax:
-    content: public void PlaylistPause()
-    content.vb: Public Sub PlaylistPause()
+    content: public bool PlaylistPause()
+    return:
+      type: System.Boolean
+      description: True if a playlist was paused; otherwise, false.
+    content.vb: Public Function PlaylistPause() As Boolean
   overload: ShapeEngine.Audio.AudioDevice.PlaylistPause*
 - uid: ShapeEngine.Audio.AudioDevice.PlaylistResume
   commentId: M:ShapeEngine.Audio.AudioDevice.PlaylistResume
@@ -395,17 +577,22 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PlaylistResume
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 121
+    startLine: 257
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Resumes playback of the current playlist, if one is selected.
+  example: []
   syntax:
-    content: public void PlaylistResume()
-    content.vb: Public Sub PlaylistResume()
+    content: public bool PlaylistResume()
+    return:
+      type: System.Boolean
+      description: True if a playlist was resumed; otherwise, false.
+    content.vb: Public Function PlaylistResume() As Boolean
   overload: ShapeEngine.Audio.AudioDevice.PlaylistResume*
 - uid: ShapeEngine.Audio.AudioDevice.PlaylistSwitch(System.UInt32)
   commentId: M:ShapeEngine.Audio.AudioDevice.PlaylistSwitch(System.UInt32)
@@ -421,20 +608,29 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PlaylistSwitch
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 126
+    startLine: 271
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: >-
+    Switches playback to a different playlist by ID, stopping the current playlist if necessary.
+
+    Triggers the <xref href="ShapeEngine.Audio.AudioDevice.PlaylistStarted" data-throw-if-not-resolved="false"></xref> event.
+  example: []
   syntax:
-    content: public void PlaylistSwitch(uint id)
+    content: public bool PlaylistSwitch(uint id)
     parameters:
     - id: id
       type: System.UInt32
-    content.vb: Public Sub PlaylistSwitch(id As UInteger)
+      description: The ID of the playlist to switch to.
+    return:
+      type: System.Boolean
+      description: True if the switch was successful; otherwise, false.
+    content.vb: Public Function PlaylistSwitch(id As UInteger) As Boolean
   overload: ShapeEngine.Audio.AudioDevice.PlaylistSwitch*
   nameWithType.vb: AudioDevice.PlaylistSwitch(UInteger)
   fullName.vb: ShapeEngine.Audio.AudioDevice.PlaylistSwitch(UInteger)
@@ -453,14 +649,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PlaylistGetName
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 139
+    startLine: 289
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Gets the display name of the current playlist, or an empty string if none is selected.
+  example: []
   syntax:
     content: public string PlaylistGetName()
     return:
@@ -481,14 +679,16 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PlaylistGetSongName
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 140
+    startLine: 294
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Gets the display name of the current song in the playlist, or an empty string if none is playing.
+  example: []
   syntax:
     content: public string PlaylistGetSongName()
     return:
@@ -509,14 +709,19 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PlaylistGetSongPercentage
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 146
+    startLine: 305
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: >-
+    Gets the playback progress of the current song in the playlist as a percentage (0.0 to 1.0).
+
+    Returns -1 if no playlist or song is active.
+  example: []
   syntax:
     content: public float PlaylistGetSongPercentage()
     return:
@@ -537,26 +742,71 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BusAdd
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 156
+    startLine: 321
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Adds a new audio bus with a specific ID and initial volume.
+  example: []
   syntax:
-    content: public void BusAdd(uint busID, float volume)
+    content: public bool BusAdd(uint busId, float volume)
     parameters:
-    - id: busID
+    - id: busId
       type: System.UInt32
+      description: The unique bus ID.
     - id: volume
       type: System.Single
-    content.vb: Public Sub BusAdd(busID As UInteger, volume As Single)
+      description: Initial volume for the bus (0.0 to 1.0).
+    return:
+      type: System.Boolean
+      description: True if the bus was added; false if the ID already exists.
+    content.vb: Public Function BusAdd(busId As UInteger, volume As Single) As Boolean
   overload: ShapeEngine.Audio.AudioDevice.BusAdd*
   nameWithType.vb: AudioDevice.BusAdd(UInteger, Single)
   fullName.vb: ShapeEngine.Audio.AudioDevice.BusAdd(UInteger, Single)
   name.vb: BusAdd(UInteger, Single)
+- uid: ShapeEngine.Audio.AudioDevice.BusAdd(System.Single)
+  commentId: M:ShapeEngine.Audio.AudioDevice.BusAdd(System.Single)
+  id: BusAdd(System.Single)
+  parent: ShapeEngine.Audio.AudioDevice
+  langs:
+  - csharp
+  - vb
+  name: BusAdd(float)
+  nameWithType: AudioDevice.BusAdd(float)
+  fullName: ShapeEngine.Audio.AudioDevice.BusAdd(float)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Audio/AudioDevice.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: BusAdd
+    path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
+    startLine: 334
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Audio
+  summary: Adds a new audio bus and returns its generated unique ID.
+  example: []
+  syntax:
+    content: public uint BusAdd(float volume = 1)
+    parameters:
+    - id: volume
+      type: System.Single
+      description: 'Initial volume for the bus (default: 1.0).'
+    return:
+      type: System.UInt32
+      description: The generated bus ID.
+    content.vb: Public Function BusAdd(volume As Single = 1) As UInteger
+  overload: ShapeEngine.Audio.AudioDevice.BusAdd*
+  nameWithType.vb: AudioDevice.BusAdd(Single)
+  fullName.vb: ShapeEngine.Audio.AudioDevice.BusAdd(Single)
+  name.vb: BusAdd(Single)
 - uid: ShapeEngine.Audio.AudioDevice.BusSetVolume(System.UInt32,System.Single)
   commentId: M:ShapeEngine.Audio.AudioDevice.BusSetVolume(System.UInt32,System.Single)
   id: BusSetVolume(System.UInt32,System.Single)
@@ -571,22 +821,29 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BusSetVolume
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 162
+    startLine: 354
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Sets the volume of a specific bus.
+  example: []
   syntax:
-    content: public void BusSetVolume(uint busID, float volume)
+    content: public bool BusSetVolume(uint busId, float volume)
     parameters:
-    - id: busID
+    - id: busId
       type: System.UInt32
+      description: The bus ID.
     - id: volume
       type: System.Single
-    content.vb: Public Sub BusSetVolume(busID As UInteger, volume As Single)
+      description: The new volume (0.0 to 1.0).
+    return:
+      type: System.Boolean
+      description: True if the volume was set; otherwise, false.
+    content.vb: Public Function BusSetVolume(busId As UInteger, volume As Single) As Boolean
   overload: ShapeEngine.Audio.AudioDevice.BusSetVolume*
   nameWithType.vb: AudioDevice.BusSetVolume(UInteger, Single)
   fullName.vb: ShapeEngine.Audio.AudioDevice.BusSetVolume(UInteger, Single)
@@ -605,22 +862,29 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BusChangeVolume
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 169
+    startLine: 370
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Adjusts the volume of a specific bus by a given amount.
+  example: []
   syntax:
-    content: public void BusChangeVolume(uint busID, float amount)
+    content: public bool BusChangeVolume(uint busId, float amount)
     parameters:
-    - id: busID
+    - id: busId
       type: System.UInt32
+      description: The bus ID.
     - id: amount
       type: System.Single
-    content.vb: Public Sub BusChangeVolume(busID As UInteger, amount As Single)
+      description: The amount to change the volume by (can be negative).
+    return:
+      type: System.Boolean
+      description: True if the volume was changed; otherwise, false.
+    content.vb: Public Function BusChangeVolume(busId As UInteger, amount As Single) As Boolean
   overload: ShapeEngine.Audio.AudioDevice.BusChangeVolume*
   nameWithType.vb: AudioDevice.BusChangeVolume(UInteger, Single)
   fullName.vb: ShapeEngine.Audio.AudioDevice.BusChangeVolume(UInteger, Single)
@@ -639,22 +903,26 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BusGetVolume
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 175
+    startLine: 384
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Gets the current volume of a specific bus.
+  example: []
   syntax:
-    content: public float BusGetVolume(uint busID)
+    content: public float BusGetVolume(uint busId)
     parameters:
-    - id: busID
+    - id: busId
       type: System.UInt32
+      description: The bus ID.
     return:
       type: System.Single
-    content.vb: Public Function BusGetVolume(busID As UInteger) As Single
+      description: The bus volume (0.0 to 1.0), or 1.0 if the bus does not exist.
+    content.vb: Public Function BusGetVolume(busId As UInteger) As Single
   overload: ShapeEngine.Audio.AudioDevice.BusGetVolume*
   nameWithType.vb: AudioDevice.BusGetVolume(UInteger)
   fullName.vb: ShapeEngine.Audio.AudioDevice.BusGetVolume(UInteger)
@@ -673,24 +941,174 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: BusStop
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 180
+    startLine: 395
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Stops all audio routed through a specific bus.
+  example: []
   syntax:
-    content: public void BusStop(uint busID)
+    content: public bool BusStop(uint busId)
     parameters:
-    - id: busID
+    - id: busId
       type: System.UInt32
-    content.vb: Public Sub BusStop(busID As UInteger)
+      description: The bus ID.
+    return:
+      type: System.Boolean
+      description: True if the bus was found and stopped; otherwise, false.
+    content.vb: Public Function BusStop(busId As UInteger) As Boolean
   overload: ShapeEngine.Audio.AudioDevice.BusStop*
   nameWithType.vb: AudioDevice.BusStop(UInteger)
   fullName.vb: ShapeEngine.Audio.AudioDevice.BusStop(UInteger)
   name.vb: BusStop(UInteger)
+- uid: ShapeEngine.Audio.AudioDevice.SFXAdd(Raylib_cs.Sound,System.UInt32,System.Single,System.Single)
+  commentId: M:ShapeEngine.Audio.AudioDevice.SFXAdd(Raylib_cs.Sound,System.UInt32,System.Single,System.Single)
+  id: SFXAdd(Raylib_cs.Sound,System.UInt32,System.Single,System.Single)
+  parent: ShapeEngine.Audio.AudioDevice
+  langs:
+  - csharp
+  - vb
+  name: SFXAdd(Sound, uint, float, float)
+  nameWithType: AudioDevice.SFXAdd(Sound, uint, float, float)
+  fullName: ShapeEngine.Audio.AudioDevice.SFXAdd(Raylib_cs.Sound, uint, float, float)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Audio/AudioDevice.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: SFXAdd
+    path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
+    startLine: 414
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Audio
+  summary: Adds a new sound effect (SFX) to a specific bus and returns its generated unique ID.
+  example: []
+  syntax:
+    content: public uint SFXAdd(Sound sound, uint busId, float volume = 0.5, float pitch = 1)
+    parameters:
+    - id: sound
+      type: Raylib_cs.Sound
+      description: The sound resource to add.
+    - id: busId
+      type: System.UInt32
+      description: The bus ID to assign the SFX to.
+    - id: volume
+      type: System.Single
+      description: 'Base volume (default: 0.5f).'
+    - id: pitch
+      type: System.Single
+      description: 'Playback pitch (default: 1.0f).'
+    return:
+      type: System.UInt32
+      description: The generated SFX ID.
+    content.vb: Public Function SFXAdd(sound As Sound, busId As UInteger, volume As Single = 0.5, pitch As Single = 1) As UInteger
+  overload: ShapeEngine.Audio.AudioDevice.SFXAdd*
+  nameWithType.vb: AudioDevice.SFXAdd(Sound, UInteger, Single, Single)
+  fullName.vb: ShapeEngine.Audio.AudioDevice.SFXAdd(Raylib_cs.Sound, UInteger, Single, Single)
+  name.vb: SFXAdd(Sound, UInteger, Single, Single)
+- uid: ShapeEngine.Audio.AudioDevice.SFXAdd(Raylib_cs.Sound,System.Single,System.Single,System.UInt32[])
+  commentId: M:ShapeEngine.Audio.AudioDevice.SFXAdd(Raylib_cs.Sound,System.Single,System.Single,System.UInt32[])
+  id: SFXAdd(Raylib_cs.Sound,System.Single,System.Single,System.UInt32[])
+  parent: ShapeEngine.Audio.AudioDevice
+  langs:
+  - csharp
+  - vb
+  name: SFXAdd(Sound, float, float, params uint[])
+  nameWithType: AudioDevice.SFXAdd(Sound, float, float, params uint[])
+  fullName: ShapeEngine.Audio.AudioDevice.SFXAdd(Raylib_cs.Sound, float, float, params uint[])
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Audio/AudioDevice.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: SFXAdd
+    path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
+    startLine: 440
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Audio
+  summary: Adds a new sound effect (SFX) to multiple buses and returns its generated unique ID.
+  example: []
+  syntax:
+    content: public uint SFXAdd(Sound sound, float volume = 0.5, float pitch = 1, params uint[] busIDs)
+    parameters:
+    - id: sound
+      type: Raylib_cs.Sound
+      description: The sound resource to add.
+    - id: volume
+      type: System.Single
+      description: 'Base volume (default: 0.5f).'
+    - id: pitch
+      type: System.Single
+      description: 'Playback pitch (default: 1.0f).'
+    - id: busIDs
+      type: System.UInt32[]
+      description: IDs of buses to assign the SFX to.
+    return:
+      type: System.UInt32
+      description: The generated SFX ID.
+    content.vb: Public Function SFXAdd(sound As Sound, volume As Single = 0.5, pitch As Single = 1, ParamArray busIDs As UInteger()) As UInteger
+  overload: ShapeEngine.Audio.AudioDevice.SFXAdd*
+  nameWithType.vb: AudioDevice.SFXAdd(Sound, Single, Single, ParamArray UInteger())
+  fullName.vb: ShapeEngine.Audio.AudioDevice.SFXAdd(Raylib_cs.Sound, Single, Single, ParamArray UInteger())
+  name.vb: SFXAdd(Sound, Single, Single, ParamArray UInteger())
+- uid: ShapeEngine.Audio.AudioDevice.SFXAdd(System.UInt32,Raylib_cs.Sound,System.UInt32,System.Single,System.Single)
+  commentId: M:ShapeEngine.Audio.AudioDevice.SFXAdd(System.UInt32,Raylib_cs.Sound,System.UInt32,System.Single,System.Single)
+  id: SFXAdd(System.UInt32,Raylib_cs.Sound,System.UInt32,System.Single,System.Single)
+  parent: ShapeEngine.Audio.AudioDevice
+  langs:
+  - csharp
+  - vb
+  name: SFXAdd(uint, Sound, uint, float, float)
+  nameWithType: AudioDevice.SFXAdd(uint, Sound, uint, float, float)
+  fullName: ShapeEngine.Audio.AudioDevice.SFXAdd(uint, Raylib_cs.Sound, uint, float, float)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Audio/AudioDevice.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: SFXAdd
+    path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
+    startLine: 470
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Audio
+  summary: Adds a new sound effect (SFX) with a specific ID to a bus.
+  example: []
+  syntax:
+    content: public bool SFXAdd(uint id, Sound sound, uint busId, float volume = 0.5, float pitch = 1)
+    parameters:
+    - id: id
+      type: System.UInt32
+      description: The unique SFX ID.
+    - id: sound
+      type: Raylib_cs.Sound
+      description: The sound resource to add.
+    - id: busId
+      type: System.UInt32
+      description: The bus ID to assign the SFX to.
+    - id: volume
+      type: System.Single
+      description: 'Base volume (default: 0.5f).'
+    - id: pitch
+      type: System.Single
+      description: 'Playback pitch (default: 1.0f).'
+    return:
+      type: System.Boolean
+      description: True if the SFX was added; otherwise, false.
+    content.vb: Public Function SFXAdd(id As UInteger, sound As Sound, busId As UInteger, volume As Single = 0.5, pitch As Single = 1) As Boolean
+  overload: ShapeEngine.Audio.AudioDevice.SFXAdd*
+  nameWithType.vb: AudioDevice.SFXAdd(UInteger, Sound, UInteger, Single, Single)
+  fullName.vb: ShapeEngine.Audio.AudioDevice.SFXAdd(UInteger, Raylib_cs.Sound, UInteger, Single, Single)
+  name.vb: SFXAdd(UInteger, Sound, UInteger, Single, Single)
 - uid: ShapeEngine.Audio.AudioDevice.SFXAdd(System.UInt32,Raylib_cs.Sound,System.Single,System.Single,System.UInt32[])
   commentId: M:ShapeEngine.Audio.AudioDevice.SFXAdd(System.UInt32,Raylib_cs.Sound,System.Single,System.Single,System.UInt32[])
   id: SFXAdd(System.UInt32,Raylib_cs.Sound,System.Single,System.Single,System.UInt32[])
@@ -705,32 +1123,348 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SFXAdd
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 188
+    startLine: 491
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Adds a new sound effect (SFX) with a specific ID to multiple buses.
+  example: []
   syntax:
-    content: public void SFXAdd(uint id, Sound sound, float volume = 0.5, float pitch = 1, params uint[] busIDs)
+    content: public bool SFXAdd(uint id, Sound sound, float volume = 0.5, float pitch = 1, params uint[] busIDs)
     parameters:
     - id: id
       type: System.UInt32
+      description: The unique SFX ID.
     - id: sound
       type: Raylib_cs.Sound
+      description: The sound resource to add.
     - id: volume
       type: System.Single
+      description: 'Base volume (default: 0.5f).'
     - id: pitch
       type: System.Single
+      description: 'Playback pitch (default: 1.0f).'
     - id: busIDs
       type: System.UInt32[]
-    content.vb: Public Sub SFXAdd(id As UInteger, sound As Sound, volume As Single = 0.5, pitch As Single = 1, ParamArray busIDs As UInteger())
+      description: IDs of buses to assign the SFX to.
+    return:
+      type: System.Boolean
+      description: True if the SFX was added; otherwise, false.
+    content.vb: Public Function SFXAdd(id As UInteger, sound As Sound, volume As Single = 0.5, pitch As Single = 1, ParamArray busIDs As UInteger()) As Boolean
   overload: ShapeEngine.Audio.AudioDevice.SFXAdd*
   nameWithType.vb: AudioDevice.SFXAdd(UInteger, Sound, Single, Single, ParamArray UInteger())
   fullName.vb: ShapeEngine.Audio.AudioDevice.SFXAdd(UInteger, Raylib_cs.Sound, Single, Single, ParamArray UInteger())
   name.vb: SFXAdd(UInteger, Sound, Single, Single, ParamArray UInteger())
+- uid: ShapeEngine.Audio.AudioDevice.SFXLoopAdd(Raylib_cs.Sound,System.Single,System.Single,System.UInt32[])
+  commentId: M:ShapeEngine.Audio.AudioDevice.SFXLoopAdd(Raylib_cs.Sound,System.Single,System.Single,System.UInt32[])
+  id: SFXLoopAdd(Raylib_cs.Sound,System.Single,System.Single,System.UInt32[])
+  parent: ShapeEngine.Audio.AudioDevice
+  langs:
+  - csharp
+  - vb
+  name: SFXLoopAdd(Sound, float, float, params uint[])
+  nameWithType: AudioDevice.SFXLoopAdd(Sound, float, float, params uint[])
+  fullName: ShapeEngine.Audio.AudioDevice.SFXLoopAdd(Raylib_cs.Sound, float, float, params uint[])
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Audio/AudioDevice.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: SFXLoopAdd
+    path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
+    startLine: 514
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Audio
+  summary: Adds a new looping sound effect (SFXLoop) to multiple buses and returns its generated unique ID.
+  example: []
+  syntax:
+    content: public uint SFXLoopAdd(Sound sound, float volume = 0.5, float pitch = 1, params uint[] busIDs)
+    parameters:
+    - id: sound
+      type: Raylib_cs.Sound
+      description: The sound resource to loop.
+    - id: volume
+      type: System.Single
+      description: 'Base volume (default: 0.5f).'
+    - id: pitch
+      type: System.Single
+      description: 'Playback pitch (default: 1.0f).'
+    - id: busIDs
+      type: System.UInt32[]
+      description: IDs of buses to assign the loop to.
+    return:
+      type: System.UInt32
+      description: The generated SFXLoop ID.
+    content.vb: Public Function SFXLoopAdd(sound As Sound, volume As Single = 0.5, pitch As Single = 1, ParamArray busIDs As UInteger()) As UInteger
+  overload: ShapeEngine.Audio.AudioDevice.SFXLoopAdd*
+  nameWithType.vb: AudioDevice.SFXLoopAdd(Sound, Single, Single, ParamArray UInteger())
+  fullName.vb: ShapeEngine.Audio.AudioDevice.SFXLoopAdd(Raylib_cs.Sound, Single, Single, ParamArray UInteger())
+  name.vb: SFXLoopAdd(Sound, Single, Single, ParamArray UInteger())
+- uid: ShapeEngine.Audio.AudioDevice.SFXLoopAdd(Raylib_cs.Sound,System.Single,System.Single,System.Single,System.Single,System.UInt32[])
+  commentId: M:ShapeEngine.Audio.AudioDevice.SFXLoopAdd(Raylib_cs.Sound,System.Single,System.Single,System.Single,System.Single,System.UInt32[])
+  id: SFXLoopAdd(Raylib_cs.Sound,System.Single,System.Single,System.Single,System.Single,System.UInt32[])
+  parent: ShapeEngine.Audio.AudioDevice
+  langs:
+  - csharp
+  - vb
+  name: SFXLoopAdd(Sound, float, float, float, float, params uint[])
+  nameWithType: AudioDevice.SFXLoopAdd(Sound, float, float, float, float, params uint[])
+  fullName: ShapeEngine.Audio.AudioDevice.SFXLoopAdd(Raylib_cs.Sound, float, float, float, float, params uint[])
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Audio/AudioDevice.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: SFXLoopAdd
+    path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
+    startLine: 544
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Audio
+  summary: Adds a new spatial looping sound effect (SFXLoop) to multiple buses and returns its generated unique ID.
+  example: []
+  syntax:
+    content: public uint SFXLoopAdd(Sound sound, float minSpatialRange, float maxSpatialRange, float volume = 0.5, float pitch = 1, params uint[] busIDs)
+    parameters:
+    - id: sound
+      type: Raylib_cs.Sound
+      description: The sound resource to loop.
+    - id: minSpatialRange
+      type: System.Single
+      description: Minimum distance for full volume.
+    - id: maxSpatialRange
+      type: System.Single
+      description: Maximum distance for attenuation (beyond this, sound is inaudible).
+    - id: volume
+      type: System.Single
+      description: 'Base volume (default: 0.5f).'
+    - id: pitch
+      type: System.Single
+      description: 'Playback pitch (default: 1.0f).'
+    - id: busIDs
+      type: System.UInt32[]
+      description: IDs of buses to assign the loop to.
+    return:
+      type: System.UInt32
+      description: The generated SFXLoop ID.
+    content.vb: Public Function SFXLoopAdd(sound As Sound, minSpatialRange As Single, maxSpatialRange As Single, volume As Single = 0.5, pitch As Single = 1, ParamArray busIDs As UInteger()) As UInteger
+  overload: ShapeEngine.Audio.AudioDevice.SFXLoopAdd*
+  nameWithType.vb: AudioDevice.SFXLoopAdd(Sound, Single, Single, Single, Single, ParamArray UInteger())
+  fullName.vb: ShapeEngine.Audio.AudioDevice.SFXLoopAdd(Raylib_cs.Sound, Single, Single, Single, Single, ParamArray UInteger())
+  name.vb: SFXLoopAdd(Sound, Single, Single, Single, Single, ParamArray UInteger())
+- uid: ShapeEngine.Audio.AudioDevice.SFXLoopAdd(Raylib_cs.Sound,System.UInt32,System.Single,System.Single)
+  commentId: M:ShapeEngine.Audio.AudioDevice.SFXLoopAdd(Raylib_cs.Sound,System.UInt32,System.Single,System.Single)
+  id: SFXLoopAdd(Raylib_cs.Sound,System.UInt32,System.Single,System.Single)
+  parent: ShapeEngine.Audio.AudioDevice
+  langs:
+  - csharp
+  - vb
+  name: SFXLoopAdd(Sound, uint, float, float)
+  nameWithType: AudioDevice.SFXLoopAdd(Sound, uint, float, float)
+  fullName: ShapeEngine.Audio.AudioDevice.SFXLoopAdd(Raylib_cs.Sound, uint, float, float)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Audio/AudioDevice.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: SFXLoopAdd
+    path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
+    startLine: 572
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Audio
+  summary: Adds a new looping sound effect (SFXLoop) to a specific bus and returns its generated unique ID.
+  example: []
+  syntax:
+    content: public uint SFXLoopAdd(Sound sound, uint busId, float volume = 0.5, float pitch = 1)
+    parameters:
+    - id: sound
+      type: Raylib_cs.Sound
+      description: The sound resource to loop.
+    - id: busId
+      type: System.UInt32
+      description: The bus ID to assign the loop to.
+    - id: volume
+      type: System.Single
+      description: 'Base volume (default: 0.5f).'
+    - id: pitch
+      type: System.Single
+      description: 'Playback pitch (default: 1.0f).'
+    return:
+      type: System.UInt32
+      description: The generated SFXLoop ID.
+    content.vb: Public Function SFXLoopAdd(sound As Sound, busId As UInteger, volume As Single = 0.5, pitch As Single = 1) As UInteger
+  overload: ShapeEngine.Audio.AudioDevice.SFXLoopAdd*
+  nameWithType.vb: AudioDevice.SFXLoopAdd(Sound, UInteger, Single, Single)
+  fullName.vb: ShapeEngine.Audio.AudioDevice.SFXLoopAdd(Raylib_cs.Sound, UInteger, Single, Single)
+  name.vb: SFXLoopAdd(Sound, UInteger, Single, Single)
+- uid: ShapeEngine.Audio.AudioDevice.SFXLoopAdd(Raylib_cs.Sound,System.UInt32,System.Single,System.Single,System.Single,System.Single)
+  commentId: M:ShapeEngine.Audio.AudioDevice.SFXLoopAdd(Raylib_cs.Sound,System.UInt32,System.Single,System.Single,System.Single,System.Single)
+  id: SFXLoopAdd(Raylib_cs.Sound,System.UInt32,System.Single,System.Single,System.Single,System.Single)
+  parent: ShapeEngine.Audio.AudioDevice
+  langs:
+  - csharp
+  - vb
+  name: SFXLoopAdd(Sound, uint, float, float, float, float)
+  nameWithType: AudioDevice.SFXLoopAdd(Sound, uint, float, float, float, float)
+  fullName: ShapeEngine.Audio.AudioDevice.SFXLoopAdd(Raylib_cs.Sound, uint, float, float, float, float)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Audio/AudioDevice.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: SFXLoopAdd
+    path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
+    startLine: 600
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Audio
+  summary: Adds a new spatial looping sound effect (SFXLoop) to a specific bus and returns its generated unique ID.
+  example: []
+  syntax:
+    content: public uint SFXLoopAdd(Sound sound, uint busId, float minSpatialRange, float maxSpatialRange, float volume, float pitch)
+    parameters:
+    - id: sound
+      type: Raylib_cs.Sound
+      description: The sound resource to loop.
+    - id: busId
+      type: System.UInt32
+      description: The bus ID to assign the loop to.
+    - id: minSpatialRange
+      type: System.Single
+      description: Minimum distance for full volume.
+    - id: maxSpatialRange
+      type: System.Single
+      description: Maximum distance for attenuation (beyond this, sound is inaudible).
+    - id: volume
+      type: System.Single
+      description: 'Base volume (default: 0.5f).'
+    - id: pitch
+      type: System.Single
+      description: 'Playback pitch (default: 1.0f).'
+    return:
+      type: System.UInt32
+      description: The generated SFXLoop ID.
+    content.vb: Public Function SFXLoopAdd(sound As Sound, busId As UInteger, minSpatialRange As Single, maxSpatialRange As Single, volume As Single, pitch As Single) As UInteger
+  overload: ShapeEngine.Audio.AudioDevice.SFXLoopAdd*
+  nameWithType.vb: AudioDevice.SFXLoopAdd(Sound, UInteger, Single, Single, Single, Single)
+  fullName.vb: ShapeEngine.Audio.AudioDevice.SFXLoopAdd(Raylib_cs.Sound, UInteger, Single, Single, Single, Single)
+  name.vb: SFXLoopAdd(Sound, UInteger, Single, Single, Single, Single)
+- uid: ShapeEngine.Audio.AudioDevice.SFXLoopAdd(System.UInt32,Raylib_cs.Sound,System.UInt32,System.Single,System.Single)
+  commentId: M:ShapeEngine.Audio.AudioDevice.SFXLoopAdd(System.UInt32,Raylib_cs.Sound,System.UInt32,System.Single,System.Single)
+  id: SFXLoopAdd(System.UInt32,Raylib_cs.Sound,System.UInt32,System.Single,System.Single)
+  parent: ShapeEngine.Audio.AudioDevice
+  langs:
+  - csharp
+  - vb
+  name: SFXLoopAdd(uint, Sound, uint, float, float)
+  nameWithType: AudioDevice.SFXLoopAdd(uint, Sound, uint, float, float)
+  fullName: ShapeEngine.Audio.AudioDevice.SFXLoopAdd(uint, Raylib_cs.Sound, uint, float, float)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Audio/AudioDevice.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: SFXLoopAdd
+    path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
+    startLine: 627
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Audio
+  summary: Adds a new looping sound effect (SFXLoop) with a specific ID to a bus.
+  example: []
+  syntax:
+    content: public bool SFXLoopAdd(uint id, Sound sound, uint busId, float volume = 0.5, float pitch = 1)
+    parameters:
+    - id: id
+      type: System.UInt32
+      description: The unique SFXLoop ID.
+    - id: sound
+      type: Raylib_cs.Sound
+      description: The sound resource to loop.
+    - id: busId
+      type: System.UInt32
+      description: The bus ID to assign the loop to.
+    - id: volume
+      type: System.Single
+      description: 'Base volume (default: 0.5f).'
+    - id: pitch
+      type: System.Single
+      description: 'Playback pitch (default: 1.0f).'
+    return:
+      type: System.Boolean
+      description: True if the SFXLoop was added; otherwise, false.
+    content.vb: Public Function SFXLoopAdd(id As UInteger, sound As Sound, busId As UInteger, volume As Single = 0.5, pitch As Single = 1) As Boolean
+  overload: ShapeEngine.Audio.AudioDevice.SFXLoopAdd*
+  nameWithType.vb: AudioDevice.SFXLoopAdd(UInteger, Sound, UInteger, Single, Single)
+  fullName.vb: ShapeEngine.Audio.AudioDevice.SFXLoopAdd(UInteger, Raylib_cs.Sound, UInteger, Single, Single)
+  name.vb: SFXLoopAdd(UInteger, Sound, UInteger, Single, Single)
+- uid: ShapeEngine.Audio.AudioDevice.SFXLoopAdd(System.UInt32,Raylib_cs.Sound,System.UInt32,System.Single,System.Single,System.Single,System.Single)
+  commentId: M:ShapeEngine.Audio.AudioDevice.SFXLoopAdd(System.UInt32,Raylib_cs.Sound,System.UInt32,System.Single,System.Single,System.Single,System.Single)
+  id: SFXLoopAdd(System.UInt32,Raylib_cs.Sound,System.UInt32,System.Single,System.Single,System.Single,System.Single)
+  parent: ShapeEngine.Audio.AudioDevice
+  langs:
+  - csharp
+  - vb
+  name: SFXLoopAdd(uint, Sound, uint, float, float, float, float)
+  nameWithType: AudioDevice.SFXLoopAdd(uint, Sound, uint, float, float, float, float)
+  fullName: ShapeEngine.Audio.AudioDevice.SFXLoopAdd(uint, Raylib_cs.Sound, uint, float, float, float, float)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Audio/AudioDevice.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: SFXLoopAdd
+    path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
+    startLine: 650
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Audio
+  summary: Adds a new spatial looping sound effect (SFXLoop) with a specific ID to a bus.
+  example: []
+  syntax:
+    content: public bool SFXLoopAdd(uint id, Sound sound, uint busId, float minSpatialRange, float maxSpatialRange, float volume, float pitch)
+    parameters:
+    - id: id
+      type: System.UInt32
+      description: The unique SFXLoop ID.
+    - id: sound
+      type: Raylib_cs.Sound
+      description: The sound resource to loop.
+    - id: busId
+      type: System.UInt32
+      description: The bus ID to assign the loop to.
+    - id: minSpatialRange
+      type: System.Single
+      description: Minimum distance for full volume.
+    - id: maxSpatialRange
+      type: System.Single
+      description: Maximum distance for attenuation (beyond this, sound is inaudible).
+    - id: volume
+      type: System.Single
+      description: 'Base volume (default: 0.5f).'
+    - id: pitch
+      type: System.Single
+      description: 'Playback pitch (default: 1.0f).'
+    return:
+      type: System.Boolean
+      description: True if the SFXLoop was added; otherwise, false.
+    content.vb: Public Function SFXLoopAdd(id As UInteger, sound As Sound, busId As UInteger, minSpatialRange As Single, maxSpatialRange As Single, volume As Single, pitch As Single) As Boolean
+  overload: ShapeEngine.Audio.AudioDevice.SFXLoopAdd*
+  nameWithType.vb: AudioDevice.SFXLoopAdd(UInteger, Sound, UInteger, Single, Single, Single, Single)
+  fullName.vb: ShapeEngine.Audio.AudioDevice.SFXLoopAdd(UInteger, Raylib_cs.Sound, UInteger, Single, Single, Single, Single)
+  name.vb: SFXLoopAdd(UInteger, Sound, UInteger, Single, Single, Single, Single)
 - uid: ShapeEngine.Audio.AudioDevice.SFXLoopAdd(System.UInt32,Raylib_cs.Sound,System.Single,System.Single,System.UInt32[])
   commentId: M:ShapeEngine.Audio.AudioDevice.SFXLoopAdd(System.UInt32,Raylib_cs.Sound,System.Single,System.Single,System.UInt32[])
   id: SFXLoopAdd(System.UInt32,Raylib_cs.Sound,System.Single,System.Single,System.UInt32[])
@@ -745,28 +1479,38 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SFXLoopAdd
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 200
+    startLine: 671
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Adds a new looping sound effect (SFXLoop) with a specific ID to multiple buses.
+  example: []
   syntax:
-    content: public void SFXLoopAdd(uint id, Sound sound, float volume = 0.5, float pitch = 1, params uint[] busIDs)
+    content: public bool SFXLoopAdd(uint id, Sound sound, float volume = 0.5, float pitch = 1, params uint[] busIDs)
     parameters:
     - id: id
       type: System.UInt32
+      description: The unique SFXLoop ID.
     - id: sound
       type: Raylib_cs.Sound
+      description: The sound resource to loop.
     - id: volume
       type: System.Single
+      description: 'Base volume (default: 0.5f).'
     - id: pitch
       type: System.Single
+      description: 'Playback pitch (default: 1.0f).'
     - id: busIDs
       type: System.UInt32[]
-    content.vb: Public Sub SFXLoopAdd(id As UInteger, sound As Sound, volume As Single = 0.5, pitch As Single = 1, ParamArray busIDs As UInteger())
+      description: IDs of buses to assign the loop to.
+    return:
+      type: System.Boolean
+      description: True if the SFXLoop was added; otherwise, false.
+    content.vb: Public Function SFXLoopAdd(id As UInteger, sound As Sound, volume As Single = 0.5, pitch As Single = 1, ParamArray busIDs As UInteger()) As Boolean
   overload: ShapeEngine.Audio.AudioDevice.SFXLoopAdd*
   nameWithType.vb: AudioDevice.SFXLoopAdd(UInteger, Sound, Single, Single, ParamArray UInteger())
   fullName.vb: ShapeEngine.Audio.AudioDevice.SFXLoopAdd(UInteger, Raylib_cs.Sound, Single, Single, ParamArray UInteger())
@@ -785,36 +1529,201 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SFXLoopAdd
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 212
+    startLine: 697
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Adds a new spatial looping sound effect (SFXLoop) with a specific ID to multiple buses.
+  example: []
   syntax:
-    content: public void SFXLoopAdd(uint id, Sound sound, float minSpatialRange, float maxSpatialRange, float volume = 0.5, float pitch = 1, params uint[] busIDs)
+    content: public bool SFXLoopAdd(uint id, Sound sound, float minSpatialRange, float maxSpatialRange, float volume = 0.5, float pitch = 1, params uint[] busIDs)
     parameters:
     - id: id
       type: System.UInt32
+      description: The unique SFXLoop ID.
     - id: sound
       type: Raylib_cs.Sound
+      description: The sound resource to loop.
     - id: minSpatialRange
       type: System.Single
+      description: Minimum distance for full volume.
     - id: maxSpatialRange
       type: System.Single
+      description: Maximum distance for attenuation (beyond this, sound is inaudible).
     - id: volume
       type: System.Single
+      description: 'Base volume (default: 0.5f).'
     - id: pitch
       type: System.Single
+      description: 'Playback pitch (default: 1.0f).'
     - id: busIDs
       type: System.UInt32[]
-    content.vb: Public Sub SFXLoopAdd(id As UInteger, sound As Sound, minSpatialRange As Single, maxSpatialRange As Single, volume As Single = 0.5, pitch As Single = 1, ParamArray busIDs As UInteger())
+      description: IDs of buses to assign the loop to.
+    return:
+      type: System.Boolean
+      description: True if the SFXLoop was added; otherwise, false.
+    content.vb: Public Function SFXLoopAdd(id As UInteger, sound As Sound, minSpatialRange As Single, maxSpatialRange As Single, volume As Single = 0.5, pitch As Single = 1, ParamArray busIDs As UInteger()) As Boolean
   overload: ShapeEngine.Audio.AudioDevice.SFXLoopAdd*
   nameWithType.vb: AudioDevice.SFXLoopAdd(UInteger, Sound, Single, Single, Single, Single, ParamArray UInteger())
   fullName.vb: ShapeEngine.Audio.AudioDevice.SFXLoopAdd(UInteger, Raylib_cs.Sound, Single, Single, Single, Single, ParamArray UInteger())
   name.vb: SFXLoopAdd(UInteger, Sound, Single, Single, Single, Single, ParamArray UInteger())
+- uid: ShapeEngine.Audio.AudioDevice.SongAdd(Raylib_cs.Music,System.UInt32,System.String,System.Single,System.Single)
+  commentId: M:ShapeEngine.Audio.AudioDevice.SongAdd(Raylib_cs.Music,System.UInt32,System.String,System.Single,System.Single)
+  id: SongAdd(Raylib_cs.Music,System.UInt32,System.String,System.Single,System.Single)
+  parent: ShapeEngine.Audio.AudioDevice
+  langs:
+  - csharp
+  - vb
+  name: SongAdd(Music, uint, string, float, float)
+  nameWithType: AudioDevice.SongAdd(Music, uint, string, float, float)
+  fullName: ShapeEngine.Audio.AudioDevice.SongAdd(Raylib_cs.Music, uint, string, float, float)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Audio/AudioDevice.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: SongAdd
+    path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
+    startLine: 721
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Audio
+  summary: Adds a new song to a specific bus and returns its generated unique ID.
+  example: []
+  syntax:
+    content: public uint SongAdd(Music song, uint busId, string displayName, float volume = 0.5, float pitch = 1)
+    parameters:
+    - id: song
+      type: Raylib_cs.Music
+      description: The music resource to add.
+    - id: busId
+      type: System.UInt32
+      description: The bus ID to assign the song to.
+    - id: displayName
+      type: System.String
+      description: The display name for the song.
+    - id: volume
+      type: System.Single
+      description: 'Base volume (default: 0.5f).'
+    - id: pitch
+      type: System.Single
+      description: 'Playback pitch (default: 1.0f).'
+    return:
+      type: System.UInt32
+      description: The generated song ID.
+    content.vb: Public Function SongAdd(song As Music, busId As UInteger, displayName As String, volume As Single = 0.5, pitch As Single = 1) As UInteger
+  overload: ShapeEngine.Audio.AudioDevice.SongAdd*
+  nameWithType.vb: AudioDevice.SongAdd(Music, UInteger, String, Single, Single)
+  fullName.vb: ShapeEngine.Audio.AudioDevice.SongAdd(Raylib_cs.Music, UInteger, String, Single, Single)
+  name.vb: SongAdd(Music, UInteger, String, Single, Single)
+- uid: ShapeEngine.Audio.AudioDevice.SongAdd(Raylib_cs.Music,System.String,System.Single,System.Single,System.UInt32[])
+  commentId: M:ShapeEngine.Audio.AudioDevice.SongAdd(Raylib_cs.Music,System.String,System.Single,System.Single,System.UInt32[])
+  id: SongAdd(Raylib_cs.Music,System.String,System.Single,System.Single,System.UInt32[])
+  parent: ShapeEngine.Audio.AudioDevice
+  langs:
+  - csharp
+  - vb
+  name: SongAdd(Music, string, float, float, params uint[])
+  nameWithType: AudioDevice.SongAdd(Music, string, float, float, params uint[])
+  fullName: ShapeEngine.Audio.AudioDevice.SongAdd(Raylib_cs.Music, string, float, float, params uint[])
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Audio/AudioDevice.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: SongAdd
+    path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
+    startLine: 749
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Audio
+  summary: Adds a new song to multiple buses and returns its generated unique ID.
+  example: []
+  syntax:
+    content: public uint SongAdd(Music song, string displayName, float volume = 0.5, float pitch = 1, params uint[] busIDs)
+    parameters:
+    - id: song
+      type: Raylib_cs.Music
+      description: The music resource to add.
+    - id: displayName
+      type: System.String
+      description: The display name for the song.
+    - id: volume
+      type: System.Single
+      description: 'Base volume (default: 0.5f).'
+    - id: pitch
+      type: System.Single
+      description: 'Playback pitch (default: 1.0f).'
+    - id: busIDs
+      type: System.UInt32[]
+      description: IDs of buses to assign the song to.
+    return:
+      type: System.UInt32
+      description: The generated song ID.
+    content.vb: Public Function SongAdd(song As Music, displayName As String, volume As Single = 0.5, pitch As Single = 1, ParamArray busIDs As UInteger()) As UInteger
+  overload: ShapeEngine.Audio.AudioDevice.SongAdd*
+  nameWithType.vb: AudioDevice.SongAdd(Music, String, Single, Single, ParamArray UInteger())
+  fullName.vb: ShapeEngine.Audio.AudioDevice.SongAdd(Raylib_cs.Music, String, Single, Single, ParamArray UInteger())
+  name.vb: SongAdd(Music, String, Single, Single, ParamArray UInteger())
+- uid: ShapeEngine.Audio.AudioDevice.SongAdd(System.UInt32,Raylib_cs.Music,System.UInt32,System.String,System.Single,System.Single)
+  commentId: M:ShapeEngine.Audio.AudioDevice.SongAdd(System.UInt32,Raylib_cs.Music,System.UInt32,System.String,System.Single,System.Single)
+  id: SongAdd(System.UInt32,Raylib_cs.Music,System.UInt32,System.String,System.Single,System.Single)
+  parent: ShapeEngine.Audio.AudioDevice
+  langs:
+  - csharp
+  - vb
+  name: SongAdd(uint, Music, uint, string, float, float)
+  nameWithType: AudioDevice.SongAdd(uint, Music, uint, string, float, float)
+  fullName: ShapeEngine.Audio.AudioDevice.SongAdd(uint, Raylib_cs.Music, uint, string, float, float)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Audio/AudioDevice.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: SongAdd
+    path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
+    startLine: 781
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Audio
+  summary: Adds a new song with a specific ID to a bus.
+  example: []
+  syntax:
+    content: public bool SongAdd(uint id, Music song, uint busId, string displayName, float volume = 0.5, float pitch = 1)
+    parameters:
+    - id: id
+      type: System.UInt32
+      description: The unique song ID.
+    - id: song
+      type: Raylib_cs.Music
+      description: The music resource to add.
+    - id: busId
+      type: System.UInt32
+      description: The bus ID to assign the song to.
+    - id: displayName
+      type: System.String
+      description: The display name for the song.
+    - id: volume
+      type: System.Single
+      description: 'Base volume (default: 0.5f).'
+    - id: pitch
+      type: System.Single
+      description: 'Playback pitch (default: 1.0f).'
+    return:
+      type: System.Boolean
+      description: True if the song was added; otherwise, false.
+    content.vb: Public Function SongAdd(id As UInteger, song As Music, busId As UInteger, displayName As String, volume As Single = 0.5, pitch As Single = 1) As Boolean
+  overload: ShapeEngine.Audio.AudioDevice.SongAdd*
+  nameWithType.vb: AudioDevice.SongAdd(UInteger, Music, UInteger, String, Single, Single)
+  fullName.vb: ShapeEngine.Audio.AudioDevice.SongAdd(UInteger, Raylib_cs.Music, UInteger, String, Single, Single)
+  name.vb: SongAdd(UInteger, Music, UInteger, String, Single, Single)
 - uid: ShapeEngine.Audio.AudioDevice.SongAdd(System.UInt32,Raylib_cs.Music,System.String,System.Single,System.Single,System.UInt32[])
   commentId: M:ShapeEngine.Audio.AudioDevice.SongAdd(System.UInt32,Raylib_cs.Music,System.String,System.Single,System.Single,System.UInt32[])
   id: SongAdd(System.UInt32,Raylib_cs.Music,System.String,System.Single,System.Single,System.UInt32[])
@@ -829,30 +1738,41 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SongAdd
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 224
+    startLine: 804
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Adds a new song with a specific ID to multiple buses.
+  example: []
   syntax:
-    content: public void SongAdd(uint id, Music song, string displayName, float volume = 0.5, float pitch = 1, params uint[] busIDs)
+    content: public bool SongAdd(uint id, Music song, string displayName, float volume = 0.5, float pitch = 1, params uint[] busIDs)
     parameters:
     - id: id
       type: System.UInt32
+      description: The unique song ID.
     - id: song
       type: Raylib_cs.Music
+      description: The music resource to add.
     - id: displayName
       type: System.String
+      description: The display name for the song.
     - id: volume
       type: System.Single
+      description: 'Base volume (default: 0.5f).'
     - id: pitch
       type: System.Single
+      description: 'Playback pitch (default: 1.0f).'
     - id: busIDs
       type: System.UInt32[]
-    content.vb: Public Sub SongAdd(id As UInteger, song As Music, displayName As String, volume As Single = 0.5, pitch As Single = 1, ParamArray busIDs As UInteger())
+      description: IDs of buses to assign the song to.
+    return:
+      type: System.Boolean
+      description: True if the song was added; otherwise, false.
+    content.vb: Public Function SongAdd(id As UInteger, song As Music, displayName As String, volume As Single = 0.5, pitch As Single = 1, ParamArray busIDs As UInteger()) As Boolean
   overload: ShapeEngine.Audio.AudioDevice.SongAdd*
   nameWithType.vb: AudioDevice.SongAdd(UInteger, Music, String, Single, Single, ParamArray UInteger())
   fullName.vb: ShapeEngine.Audio.AudioDevice.SongAdd(UInteger, Raylib_cs.Music, String, Single, Single, ParamArray UInteger())
@@ -871,26 +1791,35 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SFXPlay
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 239
+    startLine: 829
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Plays a sound effect (SFX) by ID, with optional volume, pitch, and cooldown blocking.
+  example: []
   syntax:
-    content: public void SFXPlay(uint id, float volume = 1, float pitch = 1, float blockDuration = 0)
+    content: public bool SFXPlay(uint id, float volume = 1, float pitch = 1, float blockDuration = 0)
     parameters:
     - id: id
       type: System.UInt32
+      description: The SFX ID.
     - id: volume
       type: System.Single
+      description: 'Playback volume multiplier (default: 1.0f).'
     - id: pitch
       type: System.Single
+      description: 'Playback pitch multiplier (default: 1.0f).'
     - id: blockDuration
       type: System.Single
-    content.vb: Public Sub SFXPlay(id As UInteger, volume As Single = 1, pitch As Single = 1, blockDuration As Single = 0)
+      description: 'Optional cooldown in seconds before this SFX can play again (default: 0f).'
+    return:
+      type: System.Boolean
+      description: True if the SFX was played; otherwise, false.
+    content.vb: Public Function SFXPlay(id As UInteger, volume As Single = 1, pitch As Single = 1, blockDuration As Single = 0) As Boolean
   overload: ShapeEngine.Audio.AudioDevice.SFXPlay*
   nameWithType.vb: AudioDevice.SFXPlay(UInteger, Single, Single, Single)
   fullName.vb: ShapeEngine.Audio.AudioDevice.SFXPlay(UInteger, Single, Single, Single)
@@ -909,35 +1838,38 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SFXPlay
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 259
+    startLine: 851
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
-  summary: Play a sound. If pos is not inside the current camera area the sound is NOT played.
+  summary: Plays a sound effect (SFX) at a specific world position if inside the camera area.
   example: []
   syntax:
-    content: public void SFXPlay(uint id, Vector2 pos, float volume = 1, float pitch = 1, float blockDuration = 0)
+    content: public bool SFXPlay(uint id, Vector2 pos, float volume = 1, float pitch = 1, float blockDuration = 0)
     parameters:
     - id: id
       type: System.UInt32
-      description: ''
+      description: The SFX ID.
     - id: pos
       type: System.Numerics.Vector2
-      description: ''
+      description: World position to play the sound at.
     - id: volume
       type: System.Single
-      description: ''
+      description: 'Playback volume multiplier (default: 1.0f).'
     - id: pitch
       type: System.Single
-      description: ''
+      description: 'Playback pitch multiplier (default: 1.0f).'
     - id: blockDuration
       type: System.Single
-      description: ''
-    content.vb: Public Sub SFXPlay(id As UInteger, pos As Vector2, volume As Single = 1, pitch As Single = 1, blockDuration As Single = 0)
+      description: 'Optional cooldown in seconds before this SFX can play again (default: 0f).'
+    return:
+      type: System.Boolean
+      description: True if the SFX was played; otherwise, false.
+    content.vb: Public Function SFXPlay(id As UInteger, pos As Vector2, volume As Single = 1, pitch As Single = 1, blockDuration As Single = 0) As Boolean
   overload: ShapeEngine.Audio.AudioDevice.SFXPlay*
   nameWithType.vb: AudioDevice.SFXPlay(UInteger, Vector2, Single, Single, Single)
   fullName.vb: ShapeEngine.Audio.AudioDevice.SFXPlay(UInteger, System.Numerics.Vector2, Single, Single, Single)
@@ -956,46 +1888,44 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SFXPlay
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 285
+    startLine: 878
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
-  summary: >-
-    Play the sound. If the pos is less than minRange from the current pos of the camera (or the spatial target override) the sound is played with full volume.
-
-    If the pos is further away than minRange but less than maxRange from the pos of the camera the volume is linearly interpolated.
-
-    If the pos is futher aways than maxRange the sound is not played.
+  summary: Plays a sound effect (SFX) at a given position with spatial volume attenuation.
   example: []
   syntax:
-    content: public void SFXPlay(uint id, Vector2 pos, float minRange, float maxRange, float volume = 1, float pitch = 1, float blockDuration = 0)
+    content: public bool SFXPlay(uint id, Vector2 pos, float minRange, float maxRange, float volume, float pitch, float blockDuration)
     parameters:
     - id: id
       type: System.UInt32
-      description: ''
+      description: The SFX ID.
     - id: pos
       type: System.Numerics.Vector2
-      description: ''
+      description: World position to play the sound at.
     - id: minRange
       type: System.Single
-      description: ''
+      description: Minimum distance for full volume.
     - id: maxRange
       type: System.Single
-      description: ''
+      description: Maximum distance for attenuation (beyond this, sound is inaudible).
     - id: volume
       type: System.Single
-      description: ''
+      description: 'Base volume (default: 0.5f).'
     - id: pitch
       type: System.Single
-      description: ''
+      description: 'Playback pitch (default: 1.0f).'
     - id: blockDuration
       type: System.Single
-      description: ''
-    content.vb: Public Sub SFXPlay(id As UInteger, pos As Vector2, minRange As Single, maxRange As Single, volume As Single = 1, pitch As Single = 1, blockDuration As Single = 0)
+      description: Optional cooldown in seconds before this SFX can play again.
+    return:
+      type: System.Boolean
+      description: True if the SFX was played; otherwise, false.
+    content.vb: Public Function SFXPlay(id As UInteger, pos As Vector2, minRange As Single, maxRange As Single, volume As Single, pitch As Single, blockDuration As Single) As Boolean
   overload: ShapeEngine.Audio.AudioDevice.SFXPlay*
   nameWithType.vb: AudioDevice.SFXPlay(UInteger, Vector2, Single, Single, Single, Single, Single)
   fullName.vb: ShapeEngine.Audio.AudioDevice.SFXPlay(UInteger, System.Numerics.Vector2, Single, Single, Single, Single, Single)
@@ -1014,26 +1944,35 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SFXLoopPlay
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 319
+    startLine: 921
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Plays a looping sound effect (SFXLoop) by ID, with optional volume, pitch, and cooldown blocking.
+  example: []
   syntax:
-    content: public void SFXLoopPlay(uint id, float volume = 1, float pitch = 1, float blockDuration = 0)
+    content: public bool SFXLoopPlay(uint id, float volume = 1, float pitch = 1, float blockDuration = 0)
     parameters:
     - id: id
       type: System.UInt32
+      description: The SFXLoop ID.
     - id: volume
       type: System.Single
+      description: 'Playback volume multiplier (default: 1.0f).'
     - id: pitch
       type: System.Single
+      description: 'Playback pitch multiplier (default: 1.0f).'
     - id: blockDuration
       type: System.Single
-    content.vb: Public Sub SFXLoopPlay(id As UInteger, volume As Single = 1, pitch As Single = 1, blockDuration As Single = 0)
+      description: 'Optional cooldown in seconds before this SFXLoop can play again (default: 0f).'
+    return:
+      type: System.Boolean
+      description: True if the SFXLoop was played; otherwise, false.
+    content.vb: Public Function SFXLoopPlay(id As UInteger, volume As Single = 1, pitch As Single = 1, blockDuration As Single = 0) As Boolean
   overload: ShapeEngine.Audio.AudioDevice.SFXLoopPlay*
   nameWithType.vb: AudioDevice.SFXLoopPlay(UInteger, Single, Single, Single)
   fullName.vb: ShapeEngine.Audio.AudioDevice.SFXLoopPlay(UInteger, Single, Single, Single)
@@ -1052,28 +1991,38 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SFXLoopPlay
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 331
+    startLine: 944
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Plays a looping sound effect (SFXLoop) at a specific world position.
+  example: []
   syntax:
-    content: public void SFXLoopPlay(uint id, Vector2 pos, float volume = 1, float pitch = 1, float blockDuration = 0)
+    content: public bool SFXLoopPlay(uint id, Vector2 pos, float volume = 1, float pitch = 1, float blockDuration = 0)
     parameters:
     - id: id
       type: System.UInt32
+      description: The SFXLoop ID.
     - id: pos
       type: System.Numerics.Vector2
+      description: World position to play the loop at.
     - id: volume
       type: System.Single
+      description: 'Playback volume multiplier (default: 1.0f).'
     - id: pitch
       type: System.Single
+      description: 'Playback pitch multiplier (default: 1.0f).'
     - id: blockDuration
       type: System.Single
-    content.vb: Public Sub SFXLoopPlay(id As UInteger, pos As Vector2, volume As Single = 1, pitch As Single = 1, blockDuration As Single = 0)
+      description: 'Optional cooldown in seconds before this SFXLoop can play again (default: 0f).'
+    return:
+      type: System.Boolean
+      description: True if the SFXLoop was played; otherwise, false.
+    content.vb: Public Function SFXLoopPlay(id As UInteger, pos As Vector2, volume As Single = 1, pitch As Single = 1, blockDuration As Single = 0) As Boolean
   overload: ShapeEngine.Audio.AudioDevice.SFXLoopPlay*
   nameWithType.vb: AudioDevice.SFXLoopPlay(UInteger, Vector2, Single, Single, Single)
   fullName.vb: ShapeEngine.Audio.AudioDevice.SFXLoopPlay(UInteger, System.Numerics.Vector2, Single, Single, Single)
@@ -1092,21 +2041,25 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SFXLoopUpdateSpatialPos
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 343
+    startLine: 963
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Sets the spatial position of a looping sound effect (SFXLoop) by ID. (Deprecated)
+  example: []
   syntax:
     content: public void SFXLoopUpdateSpatialPos(uint id, Vector2 pos)
     parameters:
     - id: id
       type: System.UInt32
+      description: The SFXLoop ID.
     - id: pos
       type: System.Numerics.Vector2
+      description: The new spatial position.
     content.vb: Public Sub SFXLoopUpdateSpatialPos(id As UInteger, pos As Vector2)
   overload: ShapeEngine.Audio.AudioDevice.SFXLoopUpdateSpatialPos*
   nameWithType.vb: AudioDevice.SFXLoopUpdateSpatialPos(UInteger, Vector2)
@@ -1126,20 +2079,26 @@ items:
   source:
     remote:
       path: ShapeEngine/Audio/AudioDevice.cs
-      branch: copilot/update-docs-publishing-pipeline
+      branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SFXLoopStop
     path: ../ShapeEngine/ShapeEngine/Audio/AudioDevice.cs
-    startLine: 347
+    startLine: 973
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Audio
+  summary: Stops a looping sound effect (SFXLoop) by ID.
+  example: []
   syntax:
-    content: public void SFXLoopStop(uint id)
+    content: public bool SFXLoopStop(uint id)
     parameters:
     - id: id
       type: System.UInt32
-    content.vb: Public Sub SFXLoopStop(id As UInteger)
+      description: The SFXLoop ID.
+    return:
+      type: System.Boolean
+      description: True if the SFXLoop was stopped; otherwise, false.
+    content.vb: Public Function SFXLoopStop(id As UInteger) As Boolean
   overload: ShapeEngine.Audio.AudioDevice.SFXLoopStop*
   nameWithType.vb: AudioDevice.SFXLoopStop(UInteger)
   fullName.vb: ShapeEngine.Audio.AudioDevice.SFXLoopStop(UInteger)
@@ -1397,6 +2356,165 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -1404,6 +2522,220 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
+  href: ShapeEngine.html
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+- uid: ShapeEngine.Core.IdCounter
+  commentId: T:ShapeEngine.Core.IdCounter
+  parent: ShapeEngine.Core
+  href: ShapeEngine.Core.IdCounter.html
+  name: IdCounter
+  nameWithType: IdCounter
+  fullName: ShapeEngine.Core.IdCounter
+- uid: ShapeEngine.Core
+  commentId: N:ShapeEngine.Core
+  href: ShapeEngine.html
+  name: ShapeEngine.Core
+  nameWithType: ShapeEngine.Core
+  fullName: ShapeEngine.Core
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
 - uid: System.Action{System.String}
   commentId: T:System.Action{System.String}
   parent: System
@@ -1572,28 +2904,13 @@ references:
   name: GameObject
   nameWithType: GameObject
   fullName: ShapeEngine.Core.GameObject
-- uid: ShapeEngine.Core
-  commentId: N:ShapeEngine.Core
-  href: ShapeEngine.html
-  name: ShapeEngine.Core
-  nameWithType: ShapeEngine.Core
-  fullName: ShapeEngine.Core
-  spec.csharp:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Core
-    name: Core
-    href: ShapeEngine.Core.html
-  spec.vb:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Core
-    name: Core
-    href: ShapeEngine.Core.html
+- uid: ShapeEngine.Audio.AudioDevice
+  commentId: T:ShapeEngine.Audio.AudioDevice
+  parent: ShapeEngine.Audio
+  href: ShapeEngine.Audio.AudioDevice.html
+  name: AudioDevice
+  nameWithType: AudioDevice
+  fullName: ShapeEngine.Audio.AudioDevice
 - uid: ShapeEngine.Audio.AudioDevice.#ctor*
   commentId: Overload:ShapeEngine.Audio.AudioDevice.#ctor
   href: ShapeEngine.Audio.AudioDevice.html#ShapeEngine_Audio_AudioDevice__ctor
@@ -1603,6 +2920,29 @@ references:
   nameWithType.vb: AudioDevice.New
   fullName.vb: ShapeEngine.Audio.AudioDevice.New
   name.vb: New
+- uid: System.UInt32[]
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.uint32
+  name: uint[]
+  nameWithType: uint[]
+  fullName: uint[]
+  nameWithType.vb: UInteger()
+  fullName.vb: UInteger()
+  name.vb: UInteger()
+  spec.csharp:
+  - uid: System.UInt32
+    name: uint
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.uint32
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.UInt32
+    name: UInteger
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.uint32
+  - name: (
+  - name: )
 - uid: ShapeEngine.Audio.AudioDevice.Close*
   commentId: Overload:ShapeEngine.Audio.AudioDevice.Close
   href: ShapeEngine.Audio.AudioDevice.html#ShapeEngine_Audio_AudioDevice_Close
@@ -1672,29 +3012,23 @@ references:
   nameWithType.vb: String
   fullName.vb: String
   name.vb: String
-- uid: System.UInt32[]
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.uint32
-  name: uint[]
-  nameWithType: uint[]
-  fullName: uint[]
-  nameWithType.vb: UInteger()
-  fullName.vb: UInteger()
-  name.vb: UInteger()
-  spec.csharp:
-  - uid: System.UInt32
-    name: uint
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.uint32
-  - name: '['
-  - name: ']'
-  spec.vb:
-  - uid: System.UInt32
-    name: UInteger
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.uint32
-  - name: (
-  - name: )
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: ShapeEngine.Audio.AudioDevice.PlaylistStarted
+  commentId: E:ShapeEngine.Audio.AudioDevice.PlaylistStarted
+  href: ShapeEngine.Audio.AudioDevice.html#ShapeEngine_Audio_AudioDevice_PlaylistStarted
+  name: PlaylistStarted
+  nameWithType: AudioDevice.PlaylistStarted
+  fullName: ShapeEngine.Audio.AudioDevice.PlaylistStarted
 - uid: ShapeEngine.Audio.AudioDevice.PlaylistStart*
   commentId: Overload:ShapeEngine.Audio.AudioDevice.PlaylistStart
   href: ShapeEngine.Audio.AudioDevice.html#ShapeEngine_Audio_AudioDevice_PlaylistStart
@@ -1775,7 +3109,7 @@ references:
   fullName: ShapeEngine.Audio.AudioDevice.BusStop
 - uid: ShapeEngine.Audio.AudioDevice.SFXAdd*
   commentId: Overload:ShapeEngine.Audio.AudioDevice.SFXAdd
-  href: ShapeEngine.Audio.AudioDevice.html#ShapeEngine_Audio_AudioDevice_SFXAdd_System_UInt32_Raylib_cs_Sound_System_Single_System_Single_System_UInt32___
+  href: ShapeEngine.Audio.AudioDevice.html#ShapeEngine_Audio_AudioDevice_SFXAdd_Raylib_cs_Sound_System_UInt32_System_Single_System_Single_
   name: SFXAdd
   nameWithType: AudioDevice.SFXAdd
   fullName: ShapeEngine.Audio.AudioDevice.SFXAdd
@@ -1794,13 +3128,13 @@ references:
   fullName: Raylib_cs
 - uid: ShapeEngine.Audio.AudioDevice.SFXLoopAdd*
   commentId: Overload:ShapeEngine.Audio.AudioDevice.SFXLoopAdd
-  href: ShapeEngine.Audio.AudioDevice.html#ShapeEngine_Audio_AudioDevice_SFXLoopAdd_System_UInt32_Raylib_cs_Sound_System_Single_System_Single_System_UInt32___
+  href: ShapeEngine.Audio.AudioDevice.html#ShapeEngine_Audio_AudioDevice_SFXLoopAdd_Raylib_cs_Sound_System_Single_System_Single_System_UInt32___
   name: SFXLoopAdd
   nameWithType: AudioDevice.SFXLoopAdd
   fullName: ShapeEngine.Audio.AudioDevice.SFXLoopAdd
 - uid: ShapeEngine.Audio.AudioDevice.SongAdd*
   commentId: Overload:ShapeEngine.Audio.AudioDevice.SongAdd
-  href: ShapeEngine.Audio.AudioDevice.html#ShapeEngine_Audio_AudioDevice_SongAdd_System_UInt32_Raylib_cs_Music_System_String_System_Single_System_Single_System_UInt32___
+  href: ShapeEngine.Audio.AudioDevice.html#ShapeEngine_Audio_AudioDevice_SongAdd_Raylib_cs_Music_System_UInt32_System_String_System_Single_System_Single_
   name: SongAdd
   nameWithType: AudioDevice.SongAdd
   fullName: ShapeEngine.Audio.AudioDevice.SongAdd
