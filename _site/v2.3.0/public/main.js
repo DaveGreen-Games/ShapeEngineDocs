@@ -49,12 +49,12 @@ function createVersionDropdown(versions) {
 }
 
 function mountVersionDropdown(versions) {
-  // Try common DocFX modern-theme nav selectors
+  // Target the DocFX modern-theme navbar panel
   const target =
+    document.querySelector("#navpanel") ||
     document.querySelector("nav .navbar-nav") ||
-    document.querySelector(".navbar .container") ||
-    document.querySelector("header nav") ||
-    document.querySelector("nav");
+    document.querySelector(".navbar .container-xxl") ||
+    document.querySelector("header nav");
 
   if (!target) return;
 
@@ -62,16 +62,22 @@ function mountVersionDropdown(versions) {
   target.appendChild(dropdown);
 }
 
+async function initVersionDropdown() {
+  try {
+    const basePath = getBasePath();
+    const versions = await loadVersions(basePath);
+    mountVersionDropdown(versions);
+  } catch (err) {
+    console.warn("Version dropdown unavailable:", err.message);
+  }
+}
+
 if (typeof window !== "undefined") {
-  window.addEventListener("DOMContentLoaded", async () => {
-    try {
-      const basePath = getBasePath();
-      const versions = await loadVersions(basePath);
-      mountVersionDropdown(versions);
-    } catch (err) {
-      console.warn("Version dropdown unavailable:", err.message);
-    }
-  });
+  if (document.readyState === "loading") {
+    window.addEventListener("DOMContentLoaded", initVersionDropdown);
+  } else {
+    initVersionDropdown();
+  }
 }
 
 export default {
