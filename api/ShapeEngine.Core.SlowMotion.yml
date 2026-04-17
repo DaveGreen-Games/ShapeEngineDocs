@@ -32,16 +32,10 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SlowMotion
     path: ../ShapeEngine/ShapeEngine/Core/SlowMotion.cs
-    startLine: 11
+    startLine: 5
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Manages and applies slow motion effects using time scaling factors, organized by tags.
-  remarks: >-
-    Allows stacking and combining multiple slow motion effects, each with its own tag and duration.
-
-    Useful for gameplay mechanics such as bullet time, slow zones, or temporary slowdowns.
-  example: []
   syntax:
     content: public sealed class SlowMotion
     content.vb: Public NotInheritable Class SlowMotion
@@ -54,10 +48,6 @@ items:
   - System.Object.GetType
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
-  extensionMethods:
-  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
-  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
-  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
 - uid: ShapeEngine.Core.SlowMotion.TagDefault
   commentId: F:ShapeEngine.Core.SlowMotion.TagDefault
   id: TagDefault
@@ -76,12 +66,10 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TagDefault
     path: ../ShapeEngine/ShapeEngine/Core/SlowMotion.cs
-    startLine: 16
+    startLine: 7
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: The default tag value for slow motion effects.
-  example: []
   syntax:
     content: public const uint TagDefault = 0
     return:
@@ -105,18 +93,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/Core/SlowMotion.cs
-    startLine: 168
+    startLine: 110
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Updates all active slow motion effects, removing expired ones and recalculating total factors.
-  example: []
   syntax:
     content: public void Update(float dt)
     parameters:
     - id: dt
       type: System.Single
-      description: The time delta in seconds since the last update.
     content.vb: Public Sub Update(dt As Single)
   overload: ShapeEngine.Core.SlowMotion.Update*
   nameWithType.vb: SlowMotion.Update(Single)
@@ -140,30 +125,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Add
     path: ../ShapeEngine/ShapeEngine/Core/SlowMotion.cs
-    startLine: 187
+    startLine: 118
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Adds a new slow motion effect.
-  remarks: Use tags to independently control different slow motion sources.
-  example: []
   syntax:
     content: public uint Add(float factor, float duration, uint tag)
     parameters:
     - id: factor
       type: System.Single
-      description: The time scaling factor <code>(0 = stopped, 1 = normal speed)</code>.
     - id: duration
       type: System.Single
-      description: >-
-        The duration in seconds for the effect.
-            If 0, the effect is permanent until removed.
     - id: tag
       type: System.UInt32
-      description: The tag to group this effect under. Effects with the same tag are combined.
     return:
       type: System.UInt32
-      description: The unique ID of the created slow motion effect.
     content.vb: Public Function Add(factor As Single, duration As Single, tag As UInteger) As UInteger
   overload: ShapeEngine.Core.SlowMotion.Add*
   nameWithType.vb: SlowMotion.Add(Single, Single, UInteger)
@@ -187,26 +163,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Add
     path: ../ShapeEngine/ShapeEngine/Core/SlowMotion.cs
-    startLine: 203
+    startLine: 127
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Adds a new slow motion effect with the default tag.
-  example: []
   syntax:
     content: public uint Add(float factor, float duration)
     parameters:
     - id: factor
       type: System.Single
-      description: The time scaling factor <code>(0 = stopped, 1 = normal speed)</code>.
     - id: duration
       type: System.Single
-      description: >-
-        The duration in seconds for the effect.
-            If 0, the effect is permanent until removed.
     return:
       type: System.UInt32
-      description: The unique ID of the created slow motion effect.
     content.vb: Public Function Add(factor As Single, duration As Single) As UInteger
   overload: ShapeEngine.Core.SlowMotion.Add*
   nameWithType.vb: SlowMotion.Add(Single, Single)
@@ -230,18 +199,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Clear
     path: ../ShapeEngine/ShapeEngine/Core/SlowMotion.cs
-    startLine: 212
+    startLine: 129
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Clears all slow motion effects and returns their previous state.
-  remarks: Use <xref href="ShapeEngine.Core.SlowMotion.ApplyState(ShapeEngine.Core.SlowMotionState)" data-throw-if-not-resolved="false"></xref> to restore the cleared effects later.
-  example: []
   syntax:
     content: public SlowMotionState Clear()
     return:
       type: ShapeEngine.Core.SlowMotionState
-      description: A <xref href="ShapeEngine.Core.SlowMotionState" data-throw-if-not-resolved="false"></xref> representing the cleared effects.
     content.vb: Public Function Clear() As SlowMotionState
   overload: ShapeEngine.Core.SlowMotion.Clear*
 - uid: ShapeEngine.Core.SlowMotion.Clear(System.UInt32[])
@@ -262,22 +227,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Clear
     path: ../ShapeEngine/ShapeEngine/Core/SlowMotion.cs
-    startLine: 227
+    startLine: 136
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Clears slow motion effects for the specified tags and returns their previous state.
-  remarks: Use <xref href="ShapeEngine.Core.SlowMotion.ApplyState(ShapeEngine.Core.SlowMotionState)" data-throw-if-not-resolved="false"></xref> to restore the cleared effects later.
-  example: []
   syntax:
     content: public SlowMotionState Clear(params uint[] tags)
     parameters:
     - id: tags
       type: System.UInt32[]
-      description: The tags of the effects to clear.
     return:
       type: ShapeEngine.Core.SlowMotionState
-      description: A <xref href="ShapeEngine.Core.SlowMotionState" data-throw-if-not-resolved="false"></xref> representing the cleared effects.
     content.vb: Public Function Clear(ParamArray tags As UInteger()) As SlowMotionState
   overload: ShapeEngine.Core.SlowMotion.Clear*
   nameWithType.vb: SlowMotion.Clear(ParamArray UInteger())
@@ -301,19 +261,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ApplyState
     path: ../ShapeEngine/ShapeEngine/Core/SlowMotion.cs
-    startLine: 246
+    startLine: 148
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Applies a previously saved <xref href="ShapeEngine.Core.SlowMotionState" data-throw-if-not-resolved="false"></xref>, restoring its effects.
-  remarks: Useful for temporarily disabling slow motion and restoring it later.
-  example: []
   syntax:
     content: public void ApplyState(SlowMotionState state)
     parameters:
     - id: state
       type: ShapeEngine.Core.SlowMotionState
-      description: The state to apply.
     content.vb: Public Sub ApplyState(state As SlowMotionState)
   overload: ShapeEngine.Core.SlowMotion.ApplyState*
 - uid: ShapeEngine.Core.SlowMotion.RemoveTag(System.UInt32)
@@ -334,21 +290,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveTag
     path: ../ShapeEngine/ShapeEngine/Core/SlowMotion.cs
-    startLine: 263
+    startLine: 160
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Removes all slow motion effects with the specified tag.
-  example: []
   syntax:
     content: public bool RemoveTag(uint tag)
     parameters:
     - id: tag
       type: System.UInt32
-      description: The tag of the effects to remove.
     return:
       type: System.Boolean
-      description: True if effects were removed; otherwise, false.
     content.vb: Public Function RemoveTag(tag As UInteger) As Boolean
   overload: ShapeEngine.Core.SlowMotion.RemoveTag*
   nameWithType.vb: SlowMotion.RemoveTag(UInteger)
@@ -372,21 +324,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Remove
     path: ../ShapeEngine/ShapeEngine/Core/SlowMotion.cs
-    startLine: 270
+    startLine: 161
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Removes a slow motion effect by its unique ID and tag.
-  example: []
   syntax:
     content: public void Remove(uint id, uint tag)
     parameters:
     - id: id
       type: System.UInt32
-      description: The unique ID of the effect to remove.
     - id: tag
       type: System.UInt32
-      description: The tag of the effect to remove.
     content.vb: Public Sub Remove(id As UInteger, tag As UInteger)
   overload: ShapeEngine.Core.SlowMotion.Remove*
   nameWithType.vb: SlowMotion.Remove(UInteger, UInteger)
@@ -410,21 +358,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Remove
     path: ../ShapeEngine/ShapeEngine/Core/SlowMotion.cs
-    startLine: 280
+    startLine: 165
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Removes a slow motion effect by its unique ID, searching all tags.
-  example: []
   syntax:
     content: public bool Remove(uint id)
     parameters:
     - id: id
       type: System.UInt32
-      description: The unique ID of the effect to remove.
     return:
       type: System.Boolean
-      description: True if the effect was found and removed; otherwise, false.
     content.vb: Public Function Remove(id As UInteger) As Boolean
   overload: ShapeEngine.Core.SlowMotion.Remove*
   nameWithType.vb: SlowMotion.Remove(UInteger)
@@ -448,21 +392,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HasTag
     path: ../ShapeEngine/ShapeEngine/Core/SlowMotion.cs
-    startLine: 294
+    startLine: 174
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Checks if there are any slow motion effects with the specified tag.
-  example: []
   syntax:
     content: public bool HasTag(uint tag)
     parameters:
     - id: tag
       type: System.UInt32
-      description: The tag to check.
     return:
       type: System.Boolean
-      description: True if the tag exists; otherwise, false.
     content.vb: Public Function HasTag(tag As UInteger) As Boolean
   overload: ShapeEngine.Core.SlowMotion.HasTag*
   nameWithType.vb: SlowMotion.HasTag(UInteger)
@@ -486,21 +426,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetFactor
     path: ../ShapeEngine/ShapeEngine/Core/SlowMotion.cs
-    startLine: 301
+    startLine: 175
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Gets the combined time scaling factor for a specific tag.
-  example: []
   syntax:
     content: public float GetFactor(uint tag)
     parameters:
     - id: tag
       type: System.UInt32
-      description: The tag to query.
     return:
       type: System.Single
-      description: The combined factor <code>(1 = normal speed, &lt;1 = slowed)</code>.
     content.vb: Public Function GetFactor(tag As UInteger) As Single
   overload: ShapeEngine.Core.SlowMotion.GetFactor*
   nameWithType.vb: SlowMotion.GetFactor(UInteger)
@@ -524,21 +460,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetFactor
     path: ../ShapeEngine/ShapeEngine/Core/SlowMotion.cs
-    startLine: 311
+    startLine: 180
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Gets the combined time scaling factor for multiple tags.
-  example: []
   syntax:
     content: public float GetFactor(params uint[] tags)
     parameters:
     - id: tags
       type: System.UInt32[]
-      description: The tags to query.
     return:
       type: System.Single
-      description: The product of all tag factors <code>(1 = normal speed, &lt;1 = slowed)</code>.
     content.vb: Public Function GetFactor(ParamArray tags As UInteger()) As Single
   overload: ShapeEngine.Core.SlowMotion.GetFactor*
   nameWithType.vb: SlowMotion.GetFactor(ParamArray UInteger())
@@ -773,165 +705,6 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
-- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  parent: ShapeEngine.StaticLib.ShapeLogger
-  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: Log(object, string, LogLevel)
-  nameWithType: ShapeLogger.Log(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: Log(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  parent: ShapeEngine.StaticLib.ShapeLogger
-  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogConsole(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogConsole(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  parent: ShapeEngine.StaticLib.ShapeLogger
-  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogFile(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogFile(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -939,191 +712,6 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  isExternal: true
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: Log(object, string, LogLevel)
-  nameWithType: ShapeLogger.Log(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: Log(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.StaticLib.ShapeLogger
-  commentId: T:ShapeEngine.StaticLib.ShapeLogger
-  parent: ShapeEngine.StaticLib
-  href: ShapeEngine.StaticLib.ShapeLogger.html
-  name: ShapeLogger
-  nameWithType: ShapeLogger
-  fullName: ShapeEngine.StaticLib.ShapeLogger
-- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  isExternal: true
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogConsole(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogConsole(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  isExternal: true
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogFile(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogFile(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.StaticLib
-  commentId: N:ShapeEngine.StaticLib
-  href: ShapeEngine.html
-  name: ShapeEngine.StaticLib
-  nameWithType: ShapeEngine.StaticLib
-  fullName: ShapeEngine.StaticLib
-  spec.csharp:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.StaticLib
-    name: StaticLib
-    href: ShapeEngine.StaticLib.html
-  spec.vb:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.StaticLib
-    name: StaticLib
-    href: ShapeEngine.StaticLib.html
 - uid: System.UInt32
   commentId: T:System.UInt32
   parent: System
@@ -1158,6 +746,12 @@ references:
   name: Add
   nameWithType: SlowMotion.Add
   fullName: ShapeEngine.Core.SlowMotion.Add
+- uid: ShapeEngine.Core.SlowMotion.Clear*
+  commentId: Overload:ShapeEngine.Core.SlowMotion.Clear
+  href: ShapeEngine.Core.SlowMotion.html#ShapeEngine_Core_SlowMotion_Clear
+  name: Clear
+  nameWithType: SlowMotion.Clear
+  fullName: ShapeEngine.Core.SlowMotion.Clear
 - uid: ShapeEngine.Core.SlowMotionState
   commentId: T:ShapeEngine.Core.SlowMotionState
   parent: ShapeEngine.Core
@@ -1165,36 +759,6 @@ references:
   name: SlowMotionState
   nameWithType: SlowMotionState
   fullName: ShapeEngine.Core.SlowMotionState
-- uid: ShapeEngine.Core.SlowMotion.ApplyState(ShapeEngine.Core.SlowMotionState)
-  commentId: M:ShapeEngine.Core.SlowMotion.ApplyState(ShapeEngine.Core.SlowMotionState)
-  href: ShapeEngine.Core.SlowMotion.html#ShapeEngine_Core_SlowMotion_ApplyState_ShapeEngine_Core_SlowMotionState_
-  name: ApplyState(SlowMotionState)
-  nameWithType: SlowMotion.ApplyState(SlowMotionState)
-  fullName: ShapeEngine.Core.SlowMotion.ApplyState(ShapeEngine.Core.SlowMotionState)
-  spec.csharp:
-  - uid: ShapeEngine.Core.SlowMotion.ApplyState(ShapeEngine.Core.SlowMotionState)
-    name: ApplyState
-    href: ShapeEngine.Core.SlowMotion.html#ShapeEngine_Core_SlowMotion_ApplyState_ShapeEngine_Core_SlowMotionState_
-  - name: (
-  - uid: ShapeEngine.Core.SlowMotionState
-    name: SlowMotionState
-    href: ShapeEngine.Core.SlowMotionState.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.SlowMotion.ApplyState(ShapeEngine.Core.SlowMotionState)
-    name: ApplyState
-    href: ShapeEngine.Core.SlowMotion.html#ShapeEngine_Core_SlowMotion_ApplyState_ShapeEngine_Core_SlowMotionState_
-  - name: (
-  - uid: ShapeEngine.Core.SlowMotionState
-    name: SlowMotionState
-    href: ShapeEngine.Core.SlowMotionState.html
-  - name: )
-- uid: ShapeEngine.Core.SlowMotion.Clear*
-  commentId: Overload:ShapeEngine.Core.SlowMotion.Clear
-  href: ShapeEngine.Core.SlowMotion.html#ShapeEngine_Core_SlowMotion_Clear
-  name: Clear
-  nameWithType: SlowMotion.Clear
-  fullName: ShapeEngine.Core.SlowMotion.Clear
 - uid: System.UInt32[]
   isExternal: true
   href: https://learn.microsoft.com/dotnet/api/system.uint32

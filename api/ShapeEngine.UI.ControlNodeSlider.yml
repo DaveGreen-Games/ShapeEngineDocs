@@ -16,7 +16,6 @@ items:
   - ShapeEngine.UI.ControlNodeSlider.Fill
   - ShapeEngine.UI.ControlNodeSlider.GetDecreaseValuePressed
   - ShapeEngine.UI.ControlNodeSlider.GetIncreaseValuePressed
-  - ShapeEngine.UI.ControlNodeSlider.GetSizeFactor
   - ShapeEngine.UI.ControlNodeSlider.HandleFill(System.Numerics.Vector2)
   - ShapeEngine.UI.ControlNodeSlider.Horizontal
   - ShapeEngine.UI.ControlNodeSlider.MaxValue
@@ -42,16 +41,10 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ControlNodeSlider
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeSlider.cs
-    startLine: 13
+    startLine: 6
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
-  summary: A slider control node for UI, supporting horizontal or vertical orientation, value range, and user interaction.
-  remarks: >-
-    Supports value changes via mouse and keyboard/gamepad navigation.
-
-    The slider can be configured for snapping, step increments, and orientation.
-  example: []
   syntax:
     content: 'public class ControlNodeSlider : ControlNode'
     content.vb: Public Class ControlNodeSlider Inherits ControlNode
@@ -74,11 +67,11 @@ items:
   - ShapeEngine.UI.ControlNode.OnMouseExited
   - ShapeEngine.UI.ControlNode.OnSelectedChanged
   - ShapeEngine.UI.ControlNode.OnPressedChanged
-  - ShapeEngine.UI.ControlNode.OnIsDownChanged
   - ShapeEngine.UI.ControlNode.OnNavigableChanged
   - ShapeEngine.UI.ControlNode.OnMouseFilterChanged
   - ShapeEngine.UI.ControlNode.OnSelectionFilterChanged
   - ShapeEngine.UI.ControlNode.OnInputFilterChanged
+  - ShapeEngine.UI.ControlNode.Displayed
   - ShapeEngine.UI.ControlNode.Anchor
   - ShapeEngine.UI.ControlNode.Stretch
   - ShapeEngine.UI.ControlNode.ContainerStretch
@@ -89,7 +82,6 @@ items:
   - ShapeEngine.UI.ControlNode.MouseFilter
   - ShapeEngine.UI.ControlNode.InputFilter
   - ShapeEngine.UI.ControlNode.DisplayedChildren
-  - ShapeEngine.UI.ControlNode.Displayed
   - ShapeEngine.UI.ControlNode.Active
   - ShapeEngine.UI.ControlNode.Visible
   - ShapeEngine.UI.ControlNode.ParentVisible
@@ -101,7 +93,6 @@ items:
   - ShapeEngine.UI.ControlNode.MouseInsidePosition
   - ShapeEngine.UI.ControlNode.Selected
   - ShapeEngine.UI.ControlNode.Pressed
-  - ShapeEngine.UI.ControlNode.IsDown
   - ShapeEngine.UI.ControlNode.Parent
   - ShapeEngine.UI.ControlNode.ChildCount
   - ShapeEngine.UI.ControlNode.HasParent
@@ -128,17 +119,13 @@ items:
   - ShapeEngine.UI.ControlNode.Deselect
   - ShapeEngine.UI.ControlNode.NavigationSelect
   - ShapeEngine.UI.ControlNode.NavigationDeselect
-  - ShapeEngine.UI.ControlNode.SetRect(ShapeEngine.Geometry.RectDef.Rect)
-  - ShapeEngine.UI.ControlNode.UpdateRect(ShapeEngine.Geometry.RectDef.Rect)
+  - ShapeEngine.UI.ControlNode.SetRect(ShapeEngine.Core.Shapes.Rect)
+  - ShapeEngine.UI.ControlNode.UpdateRect(ShapeEngine.Core.Shapes.Rect)
   - ShapeEngine.UI.ControlNode.Update(System.Single,System.Numerics.Vector2)
   - ShapeEngine.UI.ControlNode.Draw
-  - ShapeEngine.UI.ControlNode.SetChildRect(ShapeEngine.UI.ControlNode,ShapeEngine.Geometry.RectDef.Rect)
-  - ShapeEngine.UI.ControlNode.GetButtonPressedState
-  - ShapeEngine.UI.ControlNode.GetMouseButtonPressedState
-  - ShapeEngine.UI.ControlNode.GetButtonReleasedState
-  - ShapeEngine.UI.ControlNode.GetMouseButtonReleasedState
-  - ShapeEngine.UI.ControlNode.GetButtonDownState
-  - ShapeEngine.UI.ControlNode.GetMouseButtonDownState
+  - ShapeEngine.UI.ControlNode.SetChildRect(ShapeEngine.UI.ControlNode,ShapeEngine.Core.Shapes.Rect)
+  - ShapeEngine.UI.ControlNode.GetPressedState
+  - ShapeEngine.UI.ControlNode.GetMousePressedState
   - ShapeEngine.UI.ControlNode.GetNavigationDirection
   - ShapeEngine.UI.ControlNode.NavigatedTo(ShapeEngine.Core.Structs.Direction)
   - ShapeEngine.UI.ControlNode.HasNavigated(ShapeEngine.Core.Structs.Direction)
@@ -159,7 +146,6 @@ items:
   - ShapeEngine.UI.ControlNode.MouseHasExited(System.Numerics.Vector2)
   - ShapeEngine.UI.ControlNode.SelectedWasChanged(System.Boolean)
   - ShapeEngine.UI.ControlNode.PressedWasChanged(System.Boolean)
-  - ShapeEngine.UI.ControlNode.IsDownWasChanged(System.Boolean)
   - ShapeEngine.UI.ControlNode.MouseFilterWasChanged(ShapeEngine.UI.MouseFilter,ShapeEngine.UI.MouseFilter)
   - ShapeEngine.UI.ControlNode.SelectionFilterWasChanged(ShapeEngine.UI.SelectFilter,ShapeEngine.UI.SelectFilter)
   - ShapeEngine.UI.ControlNode.InputFilterWasChanged(ShapeEngine.UI.InputFilter,ShapeEngine.UI.InputFilter)
@@ -174,10 +160,6 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
-  extensionMethods:
-  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
-  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
-  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
 - uid: ShapeEngine.UI.ControlNodeSlider.OnValueChanged
   commentId: E:ShapeEngine.UI.ControlNodeSlider.OnValueChanged
   id: OnValueChanged
@@ -196,12 +178,10 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnValueChanged
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeSlider.cs
-    startLine: 18
+    startLine: 8
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
-  summary: Occurs when the slider value changes.
-  example: []
   syntax:
     content: public event Action<float, float>? OnValueChanged
     return:
@@ -225,12 +205,10 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Horizontal
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeSlider.cs
-    startLine: 25
+    startLine: 10
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
-  summary: Gets or sets whether the slider is horizontal (true) or vertical (false).
-  example: []
   syntax:
     content: public bool Horizontal
     return:
@@ -254,12 +232,10 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MinValue
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeSlider.cs
-    startLine: 29
+    startLine: 11
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
-  summary: The minimum value of the slider.
-  example: []
   syntax:
     content: public float MinValue
     return:
@@ -283,12 +259,10 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MaxValue
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeSlider.cs
-    startLine: 33
+    startLine: 12
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
-  summary: The maximum value of the slider.
-  example: []
   syntax:
     content: public float MaxValue
     return:
@@ -312,12 +286,10 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CurValue
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeSlider.cs
-    startLine: 37
+    startLine: 14
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
-  summary: Gets the current value of the slider, interpolated between MinValue and MaxValue.
-  example: []
   syntax:
     content: public float CurValue { get; }
     parameters: []
@@ -343,14 +315,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CurF
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeSlider.cs
-    startLine: 41
+    startLine: 15
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
-  summary: Gets the current normalized value (0-1) of the slider.
-  example: []
   syntax:
-    content: public float CurF { get; protected set; }
+    content: public float CurF { get; }
     parameters: []
     return:
       type: System.Single
@@ -374,11 +344,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: StepF
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeSlider.cs
-    startLine: 45
+    startLine: 20
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
-  summary: The step size (normalized) for keyboard/gamepad value changes.
+  summary: How much to increase/decrease CurF if Decreased/Increased input is pressed
   example: []
   syntax:
     content: public float StepF
@@ -403,12 +373,10 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MouseSnapF
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeSlider.cs
-    startLine: 49
+    startLine: 25
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
-  summary: Snap value for mouse changes (normalized). Set to 0 or less to disable snapping.
-  example: []
   syntax:
     content: public float MouseSnapF
     return:
@@ -432,17 +400,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Fill
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeSlider.cs
-    startLine: 53
+    startLine: 27
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
-  summary: Gets the fill rectangle representing the current value.
-  example: []
   syntax:
-    content: public Rect Fill { get; protected set; }
+    content: public Rect Fill { get; }
     parameters: []
     return:
-      type: ShapeEngine.Geometry.RectDef.Rect
+      type: ShapeEngine.Core.Shapes.Rect
     content.vb: Public Property Fill As Rect
   overload: ShapeEngine.UI.ControlNodeSlider.Fill*
 - uid: ShapeEngine.UI.ControlNodeSlider.#ctor
@@ -463,12 +429,10 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeSlider.cs
-    startLine: 58
+    startLine: 29
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
-  summary: Initializes a new horizontal slider with default range 0-100.
-  example: []
   syntax:
     content: public ControlNodeSlider()
     content.vb: Public Sub New()
@@ -494,18 +458,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeSlider.cs
-    startLine: 74
+    startLine: 41
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
-  summary: Initializes a new slider with specified orientation and default range 0-100.
-  example: []
   syntax:
     content: public ControlNodeSlider(bool horizontal)
     parameters:
     - id: horizontal
       type: System.Boolean
-      description: If true, slider is horizontal; otherwise, vertical.
     content.vb: Public Sub New(horizontal As Boolean)
   overload: ShapeEngine.UI.ControlNodeSlider.#ctor*
   nameWithType.vb: ControlNodeSlider.New(Boolean)
@@ -529,21 +490,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeSlider.cs
-    startLine: 87
+    startLine: 49
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
-  summary: Initializes a new slider with specified maximum value and orientation.
-  example: []
   syntax:
     content: public ControlNodeSlider(float maxValue, bool horizontal = true)
     parameters:
     - id: maxValue
       type: System.Single
-      description: Maximum value of the slider.
     - id: horizontal
       type: System.Boolean
-      description: If true, slider is horizontal; otherwise, vertical.
     content.vb: Public Sub New(maxValue As Single, horizontal As Boolean = True)
   overload: ShapeEngine.UI.ControlNodeSlider.#ctor*
   nameWithType.vb: ControlNodeSlider.New(Single, Boolean)
@@ -567,24 +524,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeSlider.cs
-    startLine: 101
+    startLine: 57
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
-  summary: Initializes a new slider with specified minimum, maximum value and orientation.
-  example: []
   syntax:
     content: public ControlNodeSlider(float minValue, float maxValue, bool horizontal = true)
     parameters:
     - id: minValue
       type: System.Single
-      description: Minimum value of the slider.
     - id: maxValue
       type: System.Single
-      description: Maximum value of the slider.
     - id: horizontal
       type: System.Boolean
-      description: If true, slider is horizontal; otherwise, vertical.
     content.vb: Public Sub New(minValue As Single, maxValue As Single, horizontal As Boolean = True)
   overload: ShapeEngine.UI.ControlNodeSlider.#ctor*
   nameWithType.vb: ControlNodeSlider.New(Single, Single, Boolean)
@@ -608,27 +560,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeSlider.cs
-    startLine: 116
+    startLine: 65
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
-  summary: Initializes a new slider with specified start, min, max value and orientation.
-  example: []
   syntax:
     content: public ControlNodeSlider(float startValue, float minValue, float maxValue, bool horizontal = true)
     parameters:
     - id: startValue
       type: System.Single
-      description: Initial value of the slider.
     - id: minValue
       type: System.Single
-      description: Minimum value of the slider.
     - id: maxValue
       type: System.Single
-      description: Maximum value of the slider.
     - id: horizontal
       type: System.Boolean
-      description: If true, slider is horizontal; otherwise, vertical.
     content.vb: Public Sub New(startValue As Single, minValue As Single, maxValue As Single, horizontal As Boolean = True)
   overload: ShapeEngine.UI.ControlNodeSlider.#ctor*
   nameWithType.vb: ControlNodeSlider.New(Single, Single, Single, Boolean)
@@ -652,21 +598,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SetCurF
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeSlider.cs
-    startLine: 134
+    startLine: 79
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
-  summary: Sets the normalized value (0-1) of the slider.
-  example: []
   syntax:
     content: public bool SetCurF(float f)
     parameters:
     - id: f
       type: System.Single
-      description: The normalized value to set (clamped between 0 and 1).
     return:
       type: System.Boolean
-      description: True if the value was changed; otherwise, false.
     content.vb: Public Function SetCurF(f As Single) As Boolean
   overload: ShapeEngine.UI.ControlNodeSlider.SetCurF*
   nameWithType.vb: ControlNodeSlider.SetCurF(Single)
@@ -690,21 +632,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SetCurValue
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeSlider.cs
-    startLine: 153
+    startLine: 93
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
-  summary: Sets the slider value.
-  example: []
   syntax:
     content: public bool SetCurValue(float value)
     parameters:
     - id: value
       type: System.Single
-      description: The value to set (clamped between MinValue and MaxValue).
     return:
       type: System.Boolean
-      description: True if the value was changed; otherwise, false.
     content.vb: Public Function SetCurValue(value As Single) As Boolean
   overload: ShapeEngine.UI.ControlNodeSlider.SetCurValue*
   nameWithType.vb: ControlNodeSlider.SetCurValue(Single)
@@ -728,21 +666,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ChangeValue
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeSlider.cs
-    startLine: 164
+    startLine: 100
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
-  summary: Changes the slider value by a specified amount.
-  example: []
   syntax:
     content: public bool ChangeValue(float amount)
     parameters:
     - id: amount
       type: System.Single
-      description: The amount to change the value by.
     return:
       type: System.Boolean
-      description: True if the value was changed; otherwise, false.
     content.vb: Public Function ChangeValue(amount As Single) As Boolean
   overload: ShapeEngine.UI.ControlNodeSlider.ChangeValue*
   nameWithType.vb: ControlNodeSlider.ChangeValue(Single)
@@ -766,17 +700,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetDecreaseValuePressed
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeSlider.cs
-    startLine: 177
+    startLine: 110
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
-  summary: Called to check if the decrease value input is pressed. Override to provide input logic.
-  example: []
   syntax:
     content: protected virtual bool GetDecreaseValuePressed()
     return:
       type: System.Boolean
-      description: True if decrease input is pressed; otherwise, false.
     content.vb: Protected Overridable Function GetDecreaseValuePressed() As Boolean
   overload: ShapeEngine.UI.ControlNodeSlider.GetDecreaseValuePressed*
 - uid: ShapeEngine.UI.ControlNodeSlider.GetIncreaseValuePressed
@@ -797,17 +728,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetIncreaseValuePressed
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeSlider.cs
-    startLine: 182
+    startLine: 111
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
-  summary: Called to check if the increase value input is pressed. Override to provide input logic.
-  example: []
   syntax:
     content: protected virtual bool GetIncreaseValuePressed()
     return:
       type: System.Boolean
-      description: True if increase input is pressed; otherwise, false.
     content.vb: Protected Overridable Function GetIncreaseValuePressed() As Boolean
   overload: ShapeEngine.UI.ControlNodeSlider.GetIncreaseValuePressed*
 - uid: ShapeEngine.UI.ControlNodeSlider.OnUpdate(System.Single,System.Numerics.Vector2,System.Boolean)
@@ -828,24 +756,20 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnUpdate
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeSlider.cs
-    startLine: 189
+    startLine: 112
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
-  summary: Called every update to handle slider logic and fill calculation.
   example: []
   syntax:
     content: protected override void OnUpdate(float dt, Vector2 mousePos, bool mousePosValid)
     parameters:
     - id: dt
       type: System.Single
-      description: Delta time.
     - id: mousePos
       type: System.Numerics.Vector2
-      description: Current mouse position.
     - id: mousePosValid
       type: System.Boolean
-      description: Whether the mouse position is valid.
     content.vb: Protected Overrides Sub OnUpdate(dt As Single, mousePos As Vector2, mousePosValid As Boolean)
   overridden: ShapeEngine.UI.ControlNode.OnUpdate(System.Single,System.Numerics.Vector2,System.Boolean)
   overload: ShapeEngine.UI.ControlNodeSlider.OnUpdate*
@@ -870,18 +794,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HandleFill
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeSlider.cs
-    startLine: 205
+    startLine: 125
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
-  summary: Handles updating the fill rectangle based on the current value and mouse interaction.
-  example: []
   syntax:
     content: protected virtual void HandleFill(Vector2 mousePos)
     parameters:
     - id: mousePos
       type: System.Numerics.Vector2
-      description: Current mouse position.
     content.vb: Protected Overridable Sub HandleFill(mousePos As Vector2)
   overload: ShapeEngine.UI.ControlNodeSlider.HandleFill*
 - uid: ShapeEngine.UI.ControlNodeSlider.ValueHasChanged(System.Single,System.Single)
@@ -902,54 +823,22 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ValueHasChanged
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeSlider.cs
-    startLine: 232
+    startLine: 151
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
-  summary: Called when the value changes. Override to handle value change events.
-  example: []
   syntax:
     content: protected virtual void ValueHasChanged(float prevValue, float curValue)
     parameters:
     - id: prevValue
       type: System.Single
-      description: Previous value.
     - id: curValue
       type: System.Single
-      description: Current value.
     content.vb: Protected Overridable Sub ValueHasChanged(prevValue As Single, curValue As Single)
   overload: ShapeEngine.UI.ControlNodeSlider.ValueHasChanged*
   nameWithType.vb: ControlNodeSlider.ValueHasChanged(Single, Single)
   fullName.vb: ShapeEngine.UI.ControlNodeSlider.ValueHasChanged(Single, Single)
   name.vb: ValueHasChanged(Single, Single)
-- uid: ShapeEngine.UI.ControlNodeSlider.GetSizeFactor
-  commentId: M:ShapeEngine.UI.ControlNodeSlider.GetSizeFactor
-  id: GetSizeFactor
-  parent: ShapeEngine.UI.ControlNodeSlider
-  langs:
-  - csharp
-  - vb
-  name: GetSizeFactor()
-  nameWithType: ControlNodeSlider.GetSizeFactor()
-  fullName: ShapeEngine.UI.ControlNodeSlider.GetSizeFactor()
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/UI/ControlNodeSlider.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: GetSizeFactor
-    path: ../ShapeEngine/ShapeEngine/UI/ControlNodeSlider.cs
-    startLine: 240
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.UI
-  syntax:
-    content: protected Vector2 GetSizeFactor()
-    return:
-      type: System.Numerics.Vector2
-    content.vb: Protected Function GetSizeFactor() As Vector2
-  overload: ShapeEngine.UI.ControlNodeSlider.GetSizeFactor*
 references:
 - uid: ShapeEngine.UI
   commentId: N:ShapeEngine.UI
@@ -1096,13 +985,6 @@ references:
   name: OnPressedChanged
   nameWithType: ControlNode.OnPressedChanged
   fullName: ShapeEngine.UI.ControlNode.OnPressedChanged
-- uid: ShapeEngine.UI.ControlNode.OnIsDownChanged
-  commentId: E:ShapeEngine.UI.ControlNode.OnIsDownChanged
-  parent: ShapeEngine.UI.ControlNode
-  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_OnIsDownChanged
-  name: OnIsDownChanged
-  nameWithType: ControlNode.OnIsDownChanged
-  fullName: ShapeEngine.UI.ControlNode.OnIsDownChanged
 - uid: ShapeEngine.UI.ControlNode.OnNavigableChanged
   commentId: E:ShapeEngine.UI.ControlNode.OnNavigableChanged
   parent: ShapeEngine.UI.ControlNode
@@ -1131,6 +1013,13 @@ references:
   name: OnInputFilterChanged
   nameWithType: ControlNode.OnInputFilterChanged
   fullName: ShapeEngine.UI.ControlNode.OnInputFilterChanged
+- uid: ShapeEngine.UI.ControlNode.Displayed
+  commentId: P:ShapeEngine.UI.ControlNode.Displayed
+  parent: ShapeEngine.UI.ControlNode
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_Displayed
+  name: Displayed
+  nameWithType: ControlNode.Displayed
+  fullName: ShapeEngine.UI.ControlNode.Displayed
 - uid: ShapeEngine.UI.ControlNode.Anchor
   commentId: F:ShapeEngine.UI.ControlNode.Anchor
   parent: ShapeEngine.UI.ControlNode
@@ -1201,13 +1090,6 @@ references:
   name: DisplayedChildren
   nameWithType: ControlNode.DisplayedChildren
   fullName: ShapeEngine.UI.ControlNode.DisplayedChildren
-- uid: ShapeEngine.UI.ControlNode.Displayed
-  commentId: P:ShapeEngine.UI.ControlNode.Displayed
-  parent: ShapeEngine.UI.ControlNode
-  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_Displayed
-  name: Displayed
-  nameWithType: ControlNode.Displayed
-  fullName: ShapeEngine.UI.ControlNode.Displayed
 - uid: ShapeEngine.UI.ControlNode.Active
   commentId: P:ShapeEngine.UI.ControlNode.Active
   parent: ShapeEngine.UI.ControlNode
@@ -1285,13 +1167,6 @@ references:
   name: Pressed
   nameWithType: ControlNode.Pressed
   fullName: ShapeEngine.UI.ControlNode.Pressed
-- uid: ShapeEngine.UI.ControlNode.IsDown
-  commentId: P:ShapeEngine.UI.ControlNode.IsDown
-  parent: ShapeEngine.UI.ControlNode
-  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_IsDown
-  name: IsDown
-  nameWithType: ControlNode.IsDown
-  fullName: ShapeEngine.UI.ControlNode.IsDown
 - uid: ShapeEngine.UI.ControlNode.Parent
   commentId: P:ShapeEngine.UI.ControlNode.Parent
   parent: ShapeEngine.UI.ControlNode
@@ -1910,55 +1785,55 @@ references:
     href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_NavigationDeselect
   - name: (
   - name: )
-- uid: ShapeEngine.UI.ControlNode.SetRect(ShapeEngine.Geometry.RectDef.Rect)
-  commentId: M:ShapeEngine.UI.ControlNode.SetRect(ShapeEngine.Geometry.RectDef.Rect)
+- uid: ShapeEngine.UI.ControlNode.SetRect(ShapeEngine.Core.Shapes.Rect)
+  commentId: M:ShapeEngine.UI.ControlNode.SetRect(ShapeEngine.Core.Shapes.Rect)
   parent: ShapeEngine.UI.ControlNode
-  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_SetRect_ShapeEngine_Geometry_RectDef_Rect_
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_SetRect_ShapeEngine_Core_Shapes_Rect_
   name: SetRect(Rect)
   nameWithType: ControlNode.SetRect(Rect)
-  fullName: ShapeEngine.UI.ControlNode.SetRect(ShapeEngine.Geometry.RectDef.Rect)
+  fullName: ShapeEngine.UI.ControlNode.SetRect(ShapeEngine.Core.Shapes.Rect)
   spec.csharp:
-  - uid: ShapeEngine.UI.ControlNode.SetRect(ShapeEngine.Geometry.RectDef.Rect)
+  - uid: ShapeEngine.UI.ControlNode.SetRect(ShapeEngine.Core.Shapes.Rect)
     name: SetRect
-    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_SetRect_ShapeEngine_Geometry_RectDef_Rect_
+    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_SetRect_ShapeEngine_Core_Shapes_Rect_
   - name: (
-  - uid: ShapeEngine.Geometry.RectDef.Rect
+  - uid: ShapeEngine.Core.Shapes.Rect
     name: Rect
-    href: ShapeEngine.Geometry.RectDef.Rect.html
+    href: ShapeEngine.Core.Shapes.Rect.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.UI.ControlNode.SetRect(ShapeEngine.Geometry.RectDef.Rect)
+  - uid: ShapeEngine.UI.ControlNode.SetRect(ShapeEngine.Core.Shapes.Rect)
     name: SetRect
-    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_SetRect_ShapeEngine_Geometry_RectDef_Rect_
+    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_SetRect_ShapeEngine_Core_Shapes_Rect_
   - name: (
-  - uid: ShapeEngine.Geometry.RectDef.Rect
+  - uid: ShapeEngine.Core.Shapes.Rect
     name: Rect
-    href: ShapeEngine.Geometry.RectDef.Rect.html
+    href: ShapeEngine.Core.Shapes.Rect.html
   - name: )
-- uid: ShapeEngine.UI.ControlNode.UpdateRect(ShapeEngine.Geometry.RectDef.Rect)
-  commentId: M:ShapeEngine.UI.ControlNode.UpdateRect(ShapeEngine.Geometry.RectDef.Rect)
+- uid: ShapeEngine.UI.ControlNode.UpdateRect(ShapeEngine.Core.Shapes.Rect)
+  commentId: M:ShapeEngine.UI.ControlNode.UpdateRect(ShapeEngine.Core.Shapes.Rect)
   parent: ShapeEngine.UI.ControlNode
-  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_UpdateRect_ShapeEngine_Geometry_RectDef_Rect_
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_UpdateRect_ShapeEngine_Core_Shapes_Rect_
   name: UpdateRect(Rect)
   nameWithType: ControlNode.UpdateRect(Rect)
-  fullName: ShapeEngine.UI.ControlNode.UpdateRect(ShapeEngine.Geometry.RectDef.Rect)
+  fullName: ShapeEngine.UI.ControlNode.UpdateRect(ShapeEngine.Core.Shapes.Rect)
   spec.csharp:
-  - uid: ShapeEngine.UI.ControlNode.UpdateRect(ShapeEngine.Geometry.RectDef.Rect)
+  - uid: ShapeEngine.UI.ControlNode.UpdateRect(ShapeEngine.Core.Shapes.Rect)
     name: UpdateRect
-    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_UpdateRect_ShapeEngine_Geometry_RectDef_Rect_
+    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_UpdateRect_ShapeEngine_Core_Shapes_Rect_
   - name: (
-  - uid: ShapeEngine.Geometry.RectDef.Rect
+  - uid: ShapeEngine.Core.Shapes.Rect
     name: Rect
-    href: ShapeEngine.Geometry.RectDef.Rect.html
+    href: ShapeEngine.Core.Shapes.Rect.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.UI.ControlNode.UpdateRect(ShapeEngine.Geometry.RectDef.Rect)
+  - uid: ShapeEngine.UI.ControlNode.UpdateRect(ShapeEngine.Core.Shapes.Rect)
     name: UpdateRect
-    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_UpdateRect_ShapeEngine_Geometry_RectDef_Rect_
+    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_UpdateRect_ShapeEngine_Core_Shapes_Rect_
   - name: (
-  - uid: ShapeEngine.Geometry.RectDef.Rect
+  - uid: ShapeEngine.Core.Shapes.Rect
     name: Rect
-    href: ShapeEngine.Geometry.RectDef.Rect.html
+    href: ShapeEngine.Core.Shapes.Rect.html
   - name: )
 - uid: ShapeEngine.UI.ControlNode.Update(System.Single,System.Numerics.Vector2)
   commentId: M:ShapeEngine.UI.ControlNode.Update(System.Single,System.Numerics.Vector2)
@@ -2022,153 +1897,77 @@ references:
     href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_Draw
   - name: (
   - name: )
-- uid: ShapeEngine.UI.ControlNode.SetChildRect(ShapeEngine.UI.ControlNode,ShapeEngine.Geometry.RectDef.Rect)
-  commentId: M:ShapeEngine.UI.ControlNode.SetChildRect(ShapeEngine.UI.ControlNode,ShapeEngine.Geometry.RectDef.Rect)
+- uid: ShapeEngine.UI.ControlNode.SetChildRect(ShapeEngine.UI.ControlNode,ShapeEngine.Core.Shapes.Rect)
+  commentId: M:ShapeEngine.UI.ControlNode.SetChildRect(ShapeEngine.UI.ControlNode,ShapeEngine.Core.Shapes.Rect)
   parent: ShapeEngine.UI.ControlNode
-  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_SetChildRect_ShapeEngine_UI_ControlNode_ShapeEngine_Geometry_RectDef_Rect_
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_SetChildRect_ShapeEngine_UI_ControlNode_ShapeEngine_Core_Shapes_Rect_
   name: SetChildRect(ControlNode, Rect)
   nameWithType: ControlNode.SetChildRect(ControlNode, Rect)
-  fullName: ShapeEngine.UI.ControlNode.SetChildRect(ShapeEngine.UI.ControlNode, ShapeEngine.Geometry.RectDef.Rect)
+  fullName: ShapeEngine.UI.ControlNode.SetChildRect(ShapeEngine.UI.ControlNode, ShapeEngine.Core.Shapes.Rect)
   spec.csharp:
-  - uid: ShapeEngine.UI.ControlNode.SetChildRect(ShapeEngine.UI.ControlNode,ShapeEngine.Geometry.RectDef.Rect)
+  - uid: ShapeEngine.UI.ControlNode.SetChildRect(ShapeEngine.UI.ControlNode,ShapeEngine.Core.Shapes.Rect)
     name: SetChildRect
-    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_SetChildRect_ShapeEngine_UI_ControlNode_ShapeEngine_Geometry_RectDef_Rect_
+    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_SetChildRect_ShapeEngine_UI_ControlNode_ShapeEngine_Core_Shapes_Rect_
   - name: (
   - uid: ShapeEngine.UI.ControlNode
     name: ControlNode
     href: ShapeEngine.UI.ControlNode.html
   - name: ','
   - name: " "
-  - uid: ShapeEngine.Geometry.RectDef.Rect
+  - uid: ShapeEngine.Core.Shapes.Rect
     name: Rect
-    href: ShapeEngine.Geometry.RectDef.Rect.html
+    href: ShapeEngine.Core.Shapes.Rect.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.UI.ControlNode.SetChildRect(ShapeEngine.UI.ControlNode,ShapeEngine.Geometry.RectDef.Rect)
+  - uid: ShapeEngine.UI.ControlNode.SetChildRect(ShapeEngine.UI.ControlNode,ShapeEngine.Core.Shapes.Rect)
     name: SetChildRect
-    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_SetChildRect_ShapeEngine_UI_ControlNode_ShapeEngine_Geometry_RectDef_Rect_
+    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_SetChildRect_ShapeEngine_UI_ControlNode_ShapeEngine_Core_Shapes_Rect_
   - name: (
   - uid: ShapeEngine.UI.ControlNode
     name: ControlNode
     href: ShapeEngine.UI.ControlNode.html
   - name: ','
   - name: " "
-  - uid: ShapeEngine.Geometry.RectDef.Rect
+  - uid: ShapeEngine.Core.Shapes.Rect
     name: Rect
-    href: ShapeEngine.Geometry.RectDef.Rect.html
+    href: ShapeEngine.Core.Shapes.Rect.html
   - name: )
-- uid: ShapeEngine.UI.ControlNode.GetButtonPressedState
-  commentId: M:ShapeEngine.UI.ControlNode.GetButtonPressedState
+- uid: ShapeEngine.UI.ControlNode.GetPressedState
+  commentId: M:ShapeEngine.UI.ControlNode.GetPressedState
   parent: ShapeEngine.UI.ControlNode
-  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetButtonPressedState
-  name: GetButtonPressedState()
-  nameWithType: ControlNode.GetButtonPressedState()
-  fullName: ShapeEngine.UI.ControlNode.GetButtonPressedState()
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetPressedState
+  name: GetPressedState()
+  nameWithType: ControlNode.GetPressedState()
+  fullName: ShapeEngine.UI.ControlNode.GetPressedState()
   spec.csharp:
-  - uid: ShapeEngine.UI.ControlNode.GetButtonPressedState
-    name: GetButtonPressedState
-    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetButtonPressedState
+  - uid: ShapeEngine.UI.ControlNode.GetPressedState
+    name: GetPressedState
+    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetPressedState
   - name: (
   - name: )
   spec.vb:
-  - uid: ShapeEngine.UI.ControlNode.GetButtonPressedState
-    name: GetButtonPressedState
-    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetButtonPressedState
+  - uid: ShapeEngine.UI.ControlNode.GetPressedState
+    name: GetPressedState
+    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetPressedState
   - name: (
   - name: )
-- uid: ShapeEngine.UI.ControlNode.GetMouseButtonPressedState
-  commentId: M:ShapeEngine.UI.ControlNode.GetMouseButtonPressedState
+- uid: ShapeEngine.UI.ControlNode.GetMousePressedState
+  commentId: M:ShapeEngine.UI.ControlNode.GetMousePressedState
   parent: ShapeEngine.UI.ControlNode
-  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMouseButtonPressedState
-  name: GetMouseButtonPressedState()
-  nameWithType: ControlNode.GetMouseButtonPressedState()
-  fullName: ShapeEngine.UI.ControlNode.GetMouseButtonPressedState()
+  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMousePressedState
+  name: GetMousePressedState()
+  nameWithType: ControlNode.GetMousePressedState()
+  fullName: ShapeEngine.UI.ControlNode.GetMousePressedState()
   spec.csharp:
-  - uid: ShapeEngine.UI.ControlNode.GetMouseButtonPressedState
-    name: GetMouseButtonPressedState
-    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMouseButtonPressedState
+  - uid: ShapeEngine.UI.ControlNode.GetMousePressedState
+    name: GetMousePressedState
+    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMousePressedState
   - name: (
   - name: )
   spec.vb:
-  - uid: ShapeEngine.UI.ControlNode.GetMouseButtonPressedState
-    name: GetMouseButtonPressedState
-    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMouseButtonPressedState
-  - name: (
-  - name: )
-- uid: ShapeEngine.UI.ControlNode.GetButtonReleasedState
-  commentId: M:ShapeEngine.UI.ControlNode.GetButtonReleasedState
-  parent: ShapeEngine.UI.ControlNode
-  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetButtonReleasedState
-  name: GetButtonReleasedState()
-  nameWithType: ControlNode.GetButtonReleasedState()
-  fullName: ShapeEngine.UI.ControlNode.GetButtonReleasedState()
-  spec.csharp:
-  - uid: ShapeEngine.UI.ControlNode.GetButtonReleasedState
-    name: GetButtonReleasedState
-    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetButtonReleasedState
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.UI.ControlNode.GetButtonReleasedState
-    name: GetButtonReleasedState
-    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetButtonReleasedState
-  - name: (
-  - name: )
-- uid: ShapeEngine.UI.ControlNode.GetMouseButtonReleasedState
-  commentId: M:ShapeEngine.UI.ControlNode.GetMouseButtonReleasedState
-  parent: ShapeEngine.UI.ControlNode
-  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMouseButtonReleasedState
-  name: GetMouseButtonReleasedState()
-  nameWithType: ControlNode.GetMouseButtonReleasedState()
-  fullName: ShapeEngine.UI.ControlNode.GetMouseButtonReleasedState()
-  spec.csharp:
-  - uid: ShapeEngine.UI.ControlNode.GetMouseButtonReleasedState
-    name: GetMouseButtonReleasedState
-    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMouseButtonReleasedState
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.UI.ControlNode.GetMouseButtonReleasedState
-    name: GetMouseButtonReleasedState
-    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMouseButtonReleasedState
-  - name: (
-  - name: )
-- uid: ShapeEngine.UI.ControlNode.GetButtonDownState
-  commentId: M:ShapeEngine.UI.ControlNode.GetButtonDownState
-  parent: ShapeEngine.UI.ControlNode
-  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetButtonDownState
-  name: GetButtonDownState()
-  nameWithType: ControlNode.GetButtonDownState()
-  fullName: ShapeEngine.UI.ControlNode.GetButtonDownState()
-  spec.csharp:
-  - uid: ShapeEngine.UI.ControlNode.GetButtonDownState
-    name: GetButtonDownState
-    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetButtonDownState
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.UI.ControlNode.GetButtonDownState
-    name: GetButtonDownState
-    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetButtonDownState
-  - name: (
-  - name: )
-- uid: ShapeEngine.UI.ControlNode.GetMouseButtonDownState
-  commentId: M:ShapeEngine.UI.ControlNode.GetMouseButtonDownState
-  parent: ShapeEngine.UI.ControlNode
-  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMouseButtonDownState
-  name: GetMouseButtonDownState()
-  nameWithType: ControlNode.GetMouseButtonDownState()
-  fullName: ShapeEngine.UI.ControlNode.GetMouseButtonDownState()
-  spec.csharp:
-  - uid: ShapeEngine.UI.ControlNode.GetMouseButtonDownState
-    name: GetMouseButtonDownState
-    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMouseButtonDownState
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.UI.ControlNode.GetMouseButtonDownState
-    name: GetMouseButtonDownState
-    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMouseButtonDownState
+  - uid: ShapeEngine.UI.ControlNode.GetMousePressedState
+    name: GetMousePressedState
+    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_GetMousePressedState
   - name: (
   - name: )
 - uid: ShapeEngine.UI.ControlNode.GetNavigationDirection
@@ -2711,37 +2510,6 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.boolean
   - name: )
-- uid: ShapeEngine.UI.ControlNode.IsDownWasChanged(System.Boolean)
-  commentId: M:ShapeEngine.UI.ControlNode.IsDownWasChanged(System.Boolean)
-  parent: ShapeEngine.UI.ControlNode
-  isExternal: true
-  href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_IsDownWasChanged_System_Boolean_
-  name: IsDownWasChanged(bool)
-  nameWithType: ControlNode.IsDownWasChanged(bool)
-  fullName: ShapeEngine.UI.ControlNode.IsDownWasChanged(bool)
-  nameWithType.vb: ControlNode.IsDownWasChanged(Boolean)
-  fullName.vb: ShapeEngine.UI.ControlNode.IsDownWasChanged(Boolean)
-  name.vb: IsDownWasChanged(Boolean)
-  spec.csharp:
-  - uid: ShapeEngine.UI.ControlNode.IsDownWasChanged(System.Boolean)
-    name: IsDownWasChanged
-    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_IsDownWasChanged_System_Boolean_
-  - name: (
-  - uid: System.Boolean
-    name: bool
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.boolean
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.UI.ControlNode.IsDownWasChanged(System.Boolean)
-    name: IsDownWasChanged
-    href: ShapeEngine.UI.ControlNode.html#ShapeEngine_UI_ControlNode_IsDownWasChanged_System_Boolean_
-  - name: (
-  - uid: System.Boolean
-    name: Boolean
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.boolean
-  - name: )
 - uid: ShapeEngine.UI.ControlNode.MouseFilterWasChanged(ShapeEngine.UI.MouseFilter,ShapeEngine.UI.MouseFilter)
   commentId: M:ShapeEngine.UI.ControlNode.MouseFilterWasChanged(ShapeEngine.UI.MouseFilter,ShapeEngine.UI.MouseFilter)
   parent: ShapeEngine.UI.ControlNode
@@ -3190,165 +2958,6 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
-- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  parent: ShapeEngine.StaticLib.ShapeLogger
-  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: Log(object, string, LogLevel)
-  nameWithType: ShapeLogger.Log(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: Log(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  parent: ShapeEngine.StaticLib.ShapeLogger
-  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogConsole(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogConsole(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  parent: ShapeEngine.StaticLib.ShapeLogger
-  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogFile(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogFile(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -3356,191 +2965,6 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  isExternal: true
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: Log(object, string, LogLevel)
-  nameWithType: ShapeLogger.Log(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: Log(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.StaticLib.ShapeLogger
-  commentId: T:ShapeEngine.StaticLib.ShapeLogger
-  parent: ShapeEngine.StaticLib
-  href: ShapeEngine.StaticLib.ShapeLogger.html
-  name: ShapeLogger
-  nameWithType: ShapeLogger
-  fullName: ShapeEngine.StaticLib.ShapeLogger
-- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  isExternal: true
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogConsole(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogConsole(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  isExternal: true
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogFile(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogFile(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.StaticLib
-  commentId: N:ShapeEngine.StaticLib
-  href: ShapeEngine.html
-  name: ShapeEngine.StaticLib
-  nameWithType: ShapeEngine.StaticLib
-  fullName: ShapeEngine.StaticLib
-  spec.csharp:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.StaticLib
-    name: StaticLib
-    href: ShapeEngine.StaticLib.html
-  spec.vb:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.StaticLib
-    name: StaticLib
-    href: ShapeEngine.StaticLib.html
 - uid: System.Action{System.Single,System.Single}
   commentId: T:System.Action{System.Single,System.Single}
   parent: System
@@ -3662,43 +3086,43 @@ references:
   name: Fill
   nameWithType: ControlNodeSlider.Fill
   fullName: ShapeEngine.UI.ControlNodeSlider.Fill
-- uid: ShapeEngine.Geometry.RectDef.Rect
-  commentId: T:ShapeEngine.Geometry.RectDef.Rect
-  parent: ShapeEngine.Geometry.RectDef
-  href: ShapeEngine.Geometry.RectDef.Rect.html
+- uid: ShapeEngine.Core.Shapes.Rect
+  commentId: T:ShapeEngine.Core.Shapes.Rect
+  parent: ShapeEngine.Core.Shapes
+  href: ShapeEngine.Core.Shapes.Rect.html
   name: Rect
   nameWithType: Rect
-  fullName: ShapeEngine.Geometry.RectDef.Rect
-- uid: ShapeEngine.Geometry.RectDef
-  commentId: N:ShapeEngine.Geometry.RectDef
+  fullName: ShapeEngine.Core.Shapes.Rect
+- uid: ShapeEngine.Core.Shapes
+  commentId: N:ShapeEngine.Core.Shapes
   href: ShapeEngine.html
-  name: ShapeEngine.Geometry.RectDef
-  nameWithType: ShapeEngine.Geometry.RectDef
-  fullName: ShapeEngine.Geometry.RectDef
+  name: ShapeEngine.Core.Shapes
+  nameWithType: ShapeEngine.Core.Shapes
+  fullName: ShapeEngine.Core.Shapes
   spec.csharp:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.Geometry
-    name: Geometry
-    href: ShapeEngine.Geometry.html
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
   - name: .
-  - uid: ShapeEngine.Geometry.RectDef
-    name: RectDef
-    href: ShapeEngine.Geometry.RectDef.html
+  - uid: ShapeEngine.Core.Shapes
+    name: Shapes
+    href: ShapeEngine.Core.Shapes.html
   spec.vb:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.Geometry
-    name: Geometry
-    href: ShapeEngine.Geometry.html
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
   - name: .
-  - uid: ShapeEngine.Geometry.RectDef
-    name: RectDef
-    href: ShapeEngine.Geometry.RectDef.html
+  - uid: ShapeEngine.Core.Shapes
+    name: Shapes
+    href: ShapeEngine.Core.Shapes.html
 - uid: ShapeEngine.UI.ControlNodeSlider.#ctor*
   commentId: Overload:ShapeEngine.UI.ControlNodeSlider.#ctor
   href: ShapeEngine.UI.ControlNodeSlider.html#ShapeEngine_UI_ControlNodeSlider__ctor
@@ -3846,9 +3270,3 @@ references:
   name: ValueHasChanged
   nameWithType: ControlNodeSlider.ValueHasChanged
   fullName: ShapeEngine.UI.ControlNodeSlider.ValueHasChanged
-- uid: ShapeEngine.UI.ControlNodeSlider.GetSizeFactor*
-  commentId: Overload:ShapeEngine.UI.ControlNodeSlider.GetSizeFactor
-  href: ShapeEngine.UI.ControlNodeSlider.html#ShapeEngine_UI_ControlNodeSlider_GetSizeFactor
-  name: GetSizeFactor
-  nameWithType: ControlNodeSlider.GetSizeFactor
-  fullName: ShapeEngine.UI.ControlNodeSlider.GetSizeFactor

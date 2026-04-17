@@ -27,16 +27,10 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IntersectSpaceEntry
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/IntersectSpaceEntry.cs
-    startLine: 12
+    startLine: 5
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Represents an entry in the intersection space, containing collision points and information about the other collider involved in the intersection.
-  remarks: >-
-    This class extends <xref href="ShapeEngine.Core.CollisionSystem.CollisionPoints" data-throw-if-not-resolved="false"></xref> and is used to store collision points resulting from intersection tests with another collider.
-
-    It also stores the velocity of the other collider at the time of intersection.
-  example: []
   syntax:
     content: 'public class IntersectSpaceEntry : CollisionPoints, IList<CollisionPoint>, ICollection<CollisionPoint>, IReadOnlyList<CollisionPoint>, IReadOnlyCollection<CollisionPoint>, IEnumerable<CollisionPoint>, IList, ICollection, IEnumerable'
     content.vb: Public Class IntersectSpaceEntry Inherits CollisionPoints Implements IList(Of CollisionPoint), ICollection(Of CollisionPoint), IReadOnlyList(Of CollisionPoint), IReadOnlyCollection(Of CollisionPoint), IEnumerable(Of CollisionPoint), IList, ICollection, IEnumerable
@@ -70,9 +64,7 @@ items:
   - ShapeEngine.Core.CollisionSystem.CollisionPoints.FlipNormalsTowardsDirection(System.Numerics.Vector2)
   - ShapeEngine.Core.CollisionSystem.CollisionPoints.GetHashCode
   - ShapeEngine.Core.CollisionSystem.CollisionPoints.Equals(ShapeEngine.Core.CollisionSystem.CollisionPoints)
-  - ShapeEngine.Core.CollisionSystem.CollisionPoints.Filter(ShapeEngine.Core.CollisionSystem.CollisionPointsFilterType,System.Numerics.Vector2)
-  - ShapeEngine.Core.CollisionSystem.CollisionPoints.Filter(ShapeEngine.Core.CollisionSystem.CollisionPointsFilterType,System.Numerics.Vector2,System.Numerics.Vector2)
-  - ShapeEngine.Core.CollisionSystem.CollisionPoints.GetCombinedCollisionPoint
+  - ShapeEngine.Core.CollisionSystem.CollisionPoints.GetAverageCollisionPoint
   - ShapeEngine.Core.CollisionSystem.CollisionPoints.GetClosestCollisionPoint(System.Numerics.Vector2)
   - ShapeEngine.Core.CollisionSystem.CollisionPoints.GetFurthestCollisionPoint(System.Numerics.Vector2)
   - ShapeEngine.Core.CollisionSystem.CollisionPoints.GetClosestCollisionPoint(System.Numerics.Vector2,System.Single@)
@@ -82,10 +74,6 @@ items:
   - ShapeEngine.Core.CollisionSystem.CollisionPoints.Copy
   - ShapeEngine.Core.CollisionSystem.CollisionPoints.SortClosestFirst(System.Numerics.Vector2)
   - ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFurthestFirst(System.Numerics.Vector2)
-  - ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFirstLeft
-  - ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFirstRight
-  - ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFirstTop
-  - ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFirstBottom
   - ShapeEngine.Core.CollisionSystem.CollisionPoints.GetUniquePoints
   - ShapeEngine.Core.CollisionSystem.CollisionPoints.GetUniqueCollisionPoints
   - ShapeEngine.Core.Shapes.ShapeList{ShapeEngine.Core.Structs.CollisionPoint}.AddRange(ShapeEngine.Core.Structs.CollisionPoint[])
@@ -93,7 +81,6 @@ items:
   - ShapeEngine.Core.Shapes.ShapeList{ShapeEngine.Core.Structs.CollisionPoint}.GetRandomItem
   - ShapeEngine.Core.Shapes.ShapeList{ShapeEngine.Core.Structs.CollisionPoint}.GetRandomItems(System.Int32)
   - ShapeEngine.Core.Shapes.ShapeList{ShapeEngine.Core.Structs.CollisionPoint}.GetItem(System.Int32)
-  - ShapeEngine.Core.Shapes.ShapeList{ShapeEngine.Core.Structs.CollisionPoint}.TakeRandomItem
   - System.Collections.Generic.List{ShapeEngine.Core.Structs.CollisionPoint}.Add(ShapeEngine.Core.Structs.CollisionPoint)
   - System.Collections.Generic.List{ShapeEngine.Core.Structs.CollisionPoint}.AddRange(System.Collections.Generic.IEnumerable{ShapeEngine.Core.Structs.CollisionPoint})
   - System.Collections.Generic.List{ShapeEngine.Core.Structs.CollisionPoint}.AsReadOnly
@@ -152,7 +139,7 @@ items:
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
   extensionMethods:
-  - ShapeEngine.Core.CollisionSystem.CollisionPoints.ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing.Draw(System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)
+  - ShapeEngine.Core.CollisionSystem.CollisionPoints.ShapeEngine.Lib.ShapeDrawing.Draw(System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)
 - uid: ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry.OtherCollider
   commentId: F:ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry.OtherCollider
   id: OtherCollider
@@ -171,12 +158,10 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OtherCollider
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/IntersectSpaceEntry.cs
-    startLine: 17
+    startLine: 7
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: The collider that this entry represents as the other collider in the intersection.
-  example: []
   syntax:
     content: public readonly Collider OtherCollider
     return:
@@ -200,12 +185,10 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OtherVel
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/IntersectSpaceEntry.cs
-    startLine: 21
+    startLine: 8
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: The velocity of the other collider at the time of intersection.
-  example: []
   syntax:
     content: public readonly Vector2 OtherVel
     return:
@@ -229,21 +212,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/IntersectSpaceEntry.cs
-    startLine: 28
+    startLine: 10
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry" data-throw-if-not-resolved="false"></xref> class with a specified collider and capacity for collision points.
-  example: []
   syntax:
     content: public IntersectSpaceEntry(Collider otherCollider, int capacity)
     parameters:
     - id: otherCollider
       type: ShapeEngine.Core.CollisionSystem.Collider
-      description: The other collider involved in the intersection.
     - id: capacity
       type: System.Int32
-      description: The initial capacity for collision points.
     content.vb: Public Sub New(otherCollider As Collider, capacity As Integer)
   overload: ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry.#ctor*
   nameWithType.vb: IntersectSpaceEntry.New(Collider, Integer)
@@ -267,21 +246,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/IntersectSpaceEntry.cs
-    startLine: 38
+    startLine: 15
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry" data-throw-if-not-resolved="false"></xref> class with a specified collider and a list of collision points.
-  example: []
   syntax:
     content: public IntersectSpaceEntry(Collider otherCollider, List<CollisionPoint> points)
     parameters:
     - id: otherCollider
       type: ShapeEngine.Core.CollisionSystem.Collider
-      description: The other collider involved in the intersection.
     - id: points
       type: System.Collections.Generic.List{ShapeEngine.Core.Structs.CollisionPoint}
-      description: The list of collision points to add to this entry.
     content.vb: Public Sub New(otherCollider As Collider, points As List(Of CollisionPoint))
   overload: ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry.#ctor*
   nameWithType.vb: IntersectSpaceEntry.New(Collider, List(Of CollisionPoint))
@@ -305,17 +280,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetCollisionPointFacingTowardsPoint
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/IntersectSpaceEntry.cs
-    startLine: 52
+    startLine: 25
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Gets the collision point whose normal is most closely facing towards the position of the other collider.
-  example: []
   syntax:
     content: public CollisionPoint GetCollisionPointFacingTowardsPoint()
     return:
       type: ShapeEngine.Core.Structs.CollisionPoint
-      description: The <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref> facing towards the other collider's position.
     content.vb: Public Function GetCollisionPointFacingTowardsPoint() As CollisionPoint
   overload: ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry.GetCollisionPointFacingTowardsPoint*
 - uid: ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry.GetCollisionPointFacingTowardsDir
@@ -336,17 +308,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetCollisionPointFacingTowardsDir
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/IntersectSpaceEntry.cs
-    startLine: 60
+    startLine: 29
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Gets the collision point whose normal is most closely facing towards the velocity direction of the other collider.
-  example: []
   syntax:
     content: public CollisionPoint GetCollisionPointFacingTowardsDir()
     return:
       type: ShapeEngine.Core.Structs.CollisionPoint
-      description: The <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref> facing towards the other collider's velocity direction.
     content.vb: Public Function GetCollisionPointFacingTowardsDir() As CollisionPoint
   overload: ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry.GetCollisionPointFacingTowardsDir*
 - uid: ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry.ValidateByOther(ShapeEngine.Core.Structs.CollisionPoint@,ShapeEngine.Core.Structs.CollisionPoint@)
@@ -367,32 +336,33 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ValidateByOther
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/IntersectSpaceEntry.cs
-    startLine: 81
+    startLine: 48
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Validates the collision points in this entry using the other collider's velocity as the reference direction and its position as the reference point.
-  remarks: >-
+  summary: >-
     Removes:
 
-    - Invalid <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref>s
+    - invalid CollisionPoints
 
-    - Points with normals facing in the same direction as the reference direction
+    - CollisionPoints with normals facing in the same direction as the reference direction
 
-    - Points with normals facing in the opposite direction as the reference point (from <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref> towards the reference point)
+    - CollisionPoints with normals facing in the opposite direction as the reference point (from CollisionPoint towards the reference point)
+
+    - Uses Collider.Transform.Position as reference point and OtherVel as reference direction
   example: []
   syntax:
     content: public bool ValidateByOther(out CollisionPoint combined, out CollisionPoint closest)
     parameters:
     - id: combined
       type: ShapeEngine.Core.Structs.CollisionPoint
-      description: An averaged <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref> of all remaining valid collision points.
+      description: An averaged CollisionPoint of all remaining CollisionPoints.
     - id: closest
       type: ShapeEngine.Core.Structs.CollisionPoint
-      description: The <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref> that is closest to the reference point.
+      description: The CollisionPoint that is closest to the referencePoint.
     return:
       type: System.Boolean
-      description: Returns <code>true</code> if there are valid points remaining after validation; otherwise, <code>false</code>.
+      description: Returns true if there are valid points remaining
     content.vb: Public Function ValidateByOther(combined As CollisionPoint, closest As CollisionPoint) As Boolean
   overload: ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry.ValidateByOther*
   nameWithType.vb: IntersectSpaceEntry.ValidateByOther(CollisionPoint, CollisionPoint)
@@ -416,42 +386,36 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ValidateByOther
     path: ../ShapeEngine/ShapeEngine/Core/CollisionSystem/IntersectSpaceEntry.cs
-    startLine: 96
+    startLine: 61
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.CollisionSystem
-  summary: Validates the collision points in this entry using the other collider's velocity as the reference direction and its position as the reference point.
-  remarks: >-
+  summary: >-
     Removes:
 
-    - Invalid <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref>s
+    - invalid CollisionPoints
 
-    - Points with normals facing in the same direction as the reference direction
+    - CollisionPoints with normals facing in the same direction as the reference direction
 
-    - Points with normals facing in the opposite direction as the reference point (from <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref> towards the reference point)
+    - CollisionPoints with normals facing in the opposite direction as the reference point (from CollisionPoint towards the reference point)
+
+    - Uses Collider.Transform.Position as reference point and OtherVel as reference direction
   example: []
   syntax:
     content: public bool ValidateByOther(out CollisionPointValidationResult validationResult)
     parameters:
     - id: validationResult
       type: ShapeEngine.Core.Structs.CollisionPointValidationResult
-      description: The result containing the combined <xref href="ShapeEngine.Core.Structs.CollisionPoint" data-throw-if-not-resolved="false"></xref>, the closest and furthest points from the reference point, and the point with normal facing towards the reference point.
+      description: The result of the combined CollisionPoint, and the  closest/furthest collision point from the reference point, and the CollisionPoint with normal facing towards the referencePoint.
     return:
       type: System.Boolean
-      description: Returns <code>true</code> if there are valid points remaining after validation; otherwise, <code>false</code>.
+      description: Returns true if there are valid points remaining
     content.vb: Public Function ValidateByOther(validationResult As CollisionPointValidationResult) As Boolean
   overload: ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry.ValidateByOther*
   nameWithType.vb: IntersectSpaceEntry.ValidateByOther(CollisionPointValidationResult)
   fullName.vb: ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry.ValidateByOther(ShapeEngine.Core.Structs.CollisionPointValidationResult)
   name.vb: ValidateByOther(CollisionPointValidationResult)
 references:
-- uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
-  commentId: T:ShapeEngine.Core.CollisionSystem.CollisionPoints
-  parent: ShapeEngine.Core.CollisionSystem
-  href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
-  name: CollisionPoints
-  nameWithType: CollisionPoints
-  fullName: ShapeEngine.Core.CollisionSystem.CollisionPoints
 - uid: ShapeEngine.Core.CollisionSystem
   commentId: N:ShapeEngine.Core.CollisionSystem
   href: ShapeEngine.html
@@ -557,6 +521,13 @@ references:
     name: CollisionPoint
     href: ShapeEngine.Core.Structs.CollisionPoint.html
   - name: )
+- uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
+  commentId: T:ShapeEngine.Core.CollisionSystem.CollisionPoints
+  parent: ShapeEngine.Core.CollisionSystem
+  href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
+  name: CollisionPoints
+  nameWithType: CollisionPoints
+  fullName: ShapeEngine.Core.CollisionSystem.CollisionPoints
 - uid: System.Collections.Generic.IList{ShapeEngine.Core.Structs.CollisionPoint}
   commentId: T:System.Collections.Generic.IList{ShapeEngine.Core.Structs.CollisionPoint}
   parent: System.Collections.Generic
@@ -1234,111 +1205,23 @@ references:
     name: CollisionPoints
     href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html
   - name: )
-- uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.Filter(ShapeEngine.Core.CollisionSystem.CollisionPointsFilterType,System.Numerics.Vector2)
-  commentId: M:ShapeEngine.Core.CollisionSystem.CollisionPoints.Filter(ShapeEngine.Core.CollisionSystem.CollisionPointsFilterType,System.Numerics.Vector2)
+- uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.GetAverageCollisionPoint
+  commentId: M:ShapeEngine.Core.CollisionSystem.CollisionPoints.GetAverageCollisionPoint
   parent: ShapeEngine.Core.CollisionSystem.CollisionPoints
-  isExternal: true
-  href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html#ShapeEngine_Core_CollisionSystem_CollisionPoints_Filter_ShapeEngine_Core_CollisionSystem_CollisionPointsFilterType_System_Numerics_Vector2_
-  name: Filter(CollisionPointsFilterType, Vector2)
-  nameWithType: CollisionPoints.Filter(CollisionPointsFilterType, Vector2)
-  fullName: ShapeEngine.Core.CollisionSystem.CollisionPoints.Filter(ShapeEngine.Core.CollisionSystem.CollisionPointsFilterType, System.Numerics.Vector2)
+  href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html#ShapeEngine_Core_CollisionSystem_CollisionPoints_GetAverageCollisionPoint
+  name: GetAverageCollisionPoint()
+  nameWithType: CollisionPoints.GetAverageCollisionPoint()
+  fullName: ShapeEngine.Core.CollisionSystem.CollisionPoints.GetAverageCollisionPoint()
   spec.csharp:
-  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.Filter(ShapeEngine.Core.CollisionSystem.CollisionPointsFilterType,System.Numerics.Vector2)
-    name: Filter
-    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html#ShapeEngine_Core_CollisionSystem_CollisionPoints_Filter_ShapeEngine_Core_CollisionSystem_CollisionPointsFilterType_System_Numerics_Vector2_
-  - name: (
-  - uid: ShapeEngine.Core.CollisionSystem.CollisionPointsFilterType
-    name: CollisionPointsFilterType
-    href: ShapeEngine.Core.CollisionSystem.CollisionPointsFilterType.html
-  - name: ','
-  - name: " "
-  - uid: System.Numerics.Vector2
-    name: Vector2
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.Filter(ShapeEngine.Core.CollisionSystem.CollisionPointsFilterType,System.Numerics.Vector2)
-    name: Filter
-    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html#ShapeEngine_Core_CollisionSystem_CollisionPoints_Filter_ShapeEngine_Core_CollisionSystem_CollisionPointsFilterType_System_Numerics_Vector2_
-  - name: (
-  - uid: ShapeEngine.Core.CollisionSystem.CollisionPointsFilterType
-    name: CollisionPointsFilterType
-    href: ShapeEngine.Core.CollisionSystem.CollisionPointsFilterType.html
-  - name: ','
-  - name: " "
-  - uid: System.Numerics.Vector2
-    name: Vector2
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
-  - name: )
-- uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.Filter(ShapeEngine.Core.CollisionSystem.CollisionPointsFilterType,System.Numerics.Vector2,System.Numerics.Vector2)
-  commentId: M:ShapeEngine.Core.CollisionSystem.CollisionPoints.Filter(ShapeEngine.Core.CollisionSystem.CollisionPointsFilterType,System.Numerics.Vector2,System.Numerics.Vector2)
-  parent: ShapeEngine.Core.CollisionSystem.CollisionPoints
-  isExternal: true
-  href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html#ShapeEngine_Core_CollisionSystem_CollisionPoints_Filter_ShapeEngine_Core_CollisionSystem_CollisionPointsFilterType_System_Numerics_Vector2_System_Numerics_Vector2_
-  name: Filter(CollisionPointsFilterType, Vector2, Vector2)
-  nameWithType: CollisionPoints.Filter(CollisionPointsFilterType, Vector2, Vector2)
-  fullName: ShapeEngine.Core.CollisionSystem.CollisionPoints.Filter(ShapeEngine.Core.CollisionSystem.CollisionPointsFilterType, System.Numerics.Vector2, System.Numerics.Vector2)
-  spec.csharp:
-  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.Filter(ShapeEngine.Core.CollisionSystem.CollisionPointsFilterType,System.Numerics.Vector2,System.Numerics.Vector2)
-    name: Filter
-    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html#ShapeEngine_Core_CollisionSystem_CollisionPoints_Filter_ShapeEngine_Core_CollisionSystem_CollisionPointsFilterType_System_Numerics_Vector2_System_Numerics_Vector2_
-  - name: (
-  - uid: ShapeEngine.Core.CollisionSystem.CollisionPointsFilterType
-    name: CollisionPointsFilterType
-    href: ShapeEngine.Core.CollisionSystem.CollisionPointsFilterType.html
-  - name: ','
-  - name: " "
-  - uid: System.Numerics.Vector2
-    name: Vector2
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
-  - name: ','
-  - name: " "
-  - uid: System.Numerics.Vector2
-    name: Vector2
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.Filter(ShapeEngine.Core.CollisionSystem.CollisionPointsFilterType,System.Numerics.Vector2,System.Numerics.Vector2)
-    name: Filter
-    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html#ShapeEngine_Core_CollisionSystem_CollisionPoints_Filter_ShapeEngine_Core_CollisionSystem_CollisionPointsFilterType_System_Numerics_Vector2_System_Numerics_Vector2_
-  - name: (
-  - uid: ShapeEngine.Core.CollisionSystem.CollisionPointsFilterType
-    name: CollisionPointsFilterType
-    href: ShapeEngine.Core.CollisionSystem.CollisionPointsFilterType.html
-  - name: ','
-  - name: " "
-  - uid: System.Numerics.Vector2
-    name: Vector2
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
-  - name: ','
-  - name: " "
-  - uid: System.Numerics.Vector2
-    name: Vector2
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
-  - name: )
-- uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.GetCombinedCollisionPoint
-  commentId: M:ShapeEngine.Core.CollisionSystem.CollisionPoints.GetCombinedCollisionPoint
-  parent: ShapeEngine.Core.CollisionSystem.CollisionPoints
-  href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html#ShapeEngine_Core_CollisionSystem_CollisionPoints_GetCombinedCollisionPoint
-  name: GetCombinedCollisionPoint()
-  nameWithType: CollisionPoints.GetCombinedCollisionPoint()
-  fullName: ShapeEngine.Core.CollisionSystem.CollisionPoints.GetCombinedCollisionPoint()
-  spec.csharp:
-  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.GetCombinedCollisionPoint
-    name: GetCombinedCollisionPoint
-    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html#ShapeEngine_Core_CollisionSystem_CollisionPoints_GetCombinedCollisionPoint
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.GetAverageCollisionPoint
+    name: GetAverageCollisionPoint
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html#ShapeEngine_Core_CollisionSystem_CollisionPoints_GetAverageCollisionPoint
   - name: (
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.GetCombinedCollisionPoint
-    name: GetCombinedCollisionPoint
-    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html#ShapeEngine_Core_CollisionSystem_CollisionPoints_GetCombinedCollisionPoint
+  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.GetAverageCollisionPoint
+    name: GetAverageCollisionPoint
+    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html#ShapeEngine_Core_CollisionSystem_CollisionPoints_GetAverageCollisionPoint
   - name: (
   - name: )
 - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.GetClosestCollisionPoint(System.Numerics.Vector2)
@@ -1618,82 +1501,6 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
   - name: )
-- uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFirstLeft
-  commentId: M:ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFirstLeft
-  parent: ShapeEngine.Core.CollisionSystem.CollisionPoints
-  href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html#ShapeEngine_Core_CollisionSystem_CollisionPoints_SortFirstLeft
-  name: SortFirstLeft()
-  nameWithType: CollisionPoints.SortFirstLeft()
-  fullName: ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFirstLeft()
-  spec.csharp:
-  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFirstLeft
-    name: SortFirstLeft
-    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html#ShapeEngine_Core_CollisionSystem_CollisionPoints_SortFirstLeft
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFirstLeft
-    name: SortFirstLeft
-    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html#ShapeEngine_Core_CollisionSystem_CollisionPoints_SortFirstLeft
-  - name: (
-  - name: )
-- uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFirstRight
-  commentId: M:ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFirstRight
-  parent: ShapeEngine.Core.CollisionSystem.CollisionPoints
-  href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html#ShapeEngine_Core_CollisionSystem_CollisionPoints_SortFirstRight
-  name: SortFirstRight()
-  nameWithType: CollisionPoints.SortFirstRight()
-  fullName: ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFirstRight()
-  spec.csharp:
-  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFirstRight
-    name: SortFirstRight
-    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html#ShapeEngine_Core_CollisionSystem_CollisionPoints_SortFirstRight
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFirstRight
-    name: SortFirstRight
-    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html#ShapeEngine_Core_CollisionSystem_CollisionPoints_SortFirstRight
-  - name: (
-  - name: )
-- uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFirstTop
-  commentId: M:ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFirstTop
-  parent: ShapeEngine.Core.CollisionSystem.CollisionPoints
-  href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html#ShapeEngine_Core_CollisionSystem_CollisionPoints_SortFirstTop
-  name: SortFirstTop()
-  nameWithType: CollisionPoints.SortFirstTop()
-  fullName: ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFirstTop()
-  spec.csharp:
-  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFirstTop
-    name: SortFirstTop
-    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html#ShapeEngine_Core_CollisionSystem_CollisionPoints_SortFirstTop
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFirstTop
-    name: SortFirstTop
-    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html#ShapeEngine_Core_CollisionSystem_CollisionPoints_SortFirstTop
-  - name: (
-  - name: )
-- uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFirstBottom
-  commentId: M:ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFirstBottom
-  parent: ShapeEngine.Core.CollisionSystem.CollisionPoints
-  href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html#ShapeEngine_Core_CollisionSystem_CollisionPoints_SortFirstBottom
-  name: SortFirstBottom()
-  nameWithType: CollisionPoints.SortFirstBottom()
-  fullName: ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFirstBottom()
-  spec.csharp:
-  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFirstBottom
-    name: SortFirstBottom
-    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html#ShapeEngine_Core_CollisionSystem_CollisionPoints_SortFirstBottom
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.SortFirstBottom
-    name: SortFirstBottom
-    href: ShapeEngine.Core.CollisionSystem.CollisionPoints.html#ShapeEngine_Core_CollisionSystem_CollisionPoints_SortFirstBottom
-  - name: (
-  - name: )
 - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.GetUniquePoints
   commentId: M:ShapeEngine.Core.CollisionSystem.CollisionPoints.GetUniquePoints
   parent: ShapeEngine.Core.CollisionSystem.CollisionPoints
@@ -1883,28 +1690,6 @@ references:
     name: Integer
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.int32
-  - name: )
-- uid: ShapeEngine.Core.Shapes.ShapeList{ShapeEngine.Core.Structs.CollisionPoint}.TakeRandomItem
-  commentId: M:ShapeEngine.Core.Shapes.ShapeList{ShapeEngine.Core.Structs.CollisionPoint}.TakeRandomItem
-  parent: ShapeEngine.Core.Shapes.ShapeList{ShapeEngine.Core.Structs.CollisionPoint}
-  definition: ShapeEngine.Core.Shapes.ShapeList`1.TakeRandomItem
-  href: ShapeEngine.Core.Shapes.ShapeList-1.html#ShapeEngine_Core_Shapes_ShapeList_1_TakeRandomItem
-  name: TakeRandomItem()
-  nameWithType: ShapeList<CollisionPoint>.TakeRandomItem()
-  fullName: ShapeEngine.Core.Shapes.ShapeList<ShapeEngine.Core.Structs.CollisionPoint>.TakeRandomItem()
-  nameWithType.vb: ShapeList(Of CollisionPoint).TakeRandomItem()
-  fullName.vb: ShapeEngine.Core.Shapes.ShapeList(Of ShapeEngine.Core.Structs.CollisionPoint).TakeRandomItem()
-  spec.csharp:
-  - uid: ShapeEngine.Core.Shapes.ShapeList{ShapeEngine.Core.Structs.CollisionPoint}.TakeRandomItem
-    name: TakeRandomItem
-    href: ShapeEngine.Core.Shapes.ShapeList-1.html#ShapeEngine_Core_Shapes_ShapeList_1_TakeRandomItem
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.Shapes.ShapeList{ShapeEngine.Core.Structs.CollisionPoint}.TakeRandomItem
-    name: TakeRandomItem
-    href: ShapeEngine.Core.Shapes.ShapeList-1.html#ShapeEngine_Core_Shapes_ShapeList_1_TakeRandomItem
-  - name: (
   - name: )
 - uid: System.Collections.Generic.List{ShapeEngine.Core.Structs.CollisionPoint}.Add(ShapeEngine.Core.Structs.CollisionPoint)
   commentId: M:System.Collections.Generic.List{ShapeEngine.Core.Structs.CollisionPoint}.Add(ShapeEngine.Core.Structs.CollisionPoint)
@@ -4248,21 +4033,21 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
-- uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing.Draw(System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)
-  commentId: M:ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing.Draw(ShapeEngine.Core.CollisionSystem.CollisionPoints,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)
-  parent: ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing
-  definition: ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing.Draw(ShapeEngine.Core.CollisionSystem.CollisionPoints,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)
-  href: ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing.html#ShapeEngine_StaticLib_Drawing_ShapeCustomDrawing_Draw_ShapeEngine_Core_CollisionSystem_CollisionPoints_System_Single_ShapeEngine_Color_ColorRgba_ShapeEngine_Color_ColorRgba_
+- uid: ShapeEngine.Core.CollisionSystem.CollisionPoints.ShapeEngine.Lib.ShapeDrawing.Draw(System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)
+  commentId: M:ShapeEngine.Lib.ShapeDrawing.Draw(ShapeEngine.Core.CollisionSystem.CollisionPoints,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)
+  parent: ShapeEngine.Lib.ShapeDrawing
+  definition: ShapeEngine.Lib.ShapeDrawing.Draw(ShapeEngine.Core.CollisionSystem.CollisionPoints,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)
+  href: ShapeEngine.Lib.ShapeDrawing.html#ShapeEngine_Lib_ShapeDrawing_Draw_ShapeEngine_Core_CollisionSystem_CollisionPoints_System_Single_ShapeEngine_Color_ColorRgba_ShapeEngine_Color_ColorRgba_
   name: Draw(CollisionPoints, float, ColorRgba, ColorRgba)
-  nameWithType: ShapeCustomDrawing.Draw(CollisionPoints, float, ColorRgba, ColorRgba)
-  fullName: ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing.Draw(ShapeEngine.Core.CollisionSystem.CollisionPoints, float, ShapeEngine.Color.ColorRgba, ShapeEngine.Color.ColorRgba)
-  nameWithType.vb: ShapeCustomDrawing.Draw(CollisionPoints, Single, ColorRgba, ColorRgba)
-  fullName.vb: ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing.Draw(ShapeEngine.Core.CollisionSystem.CollisionPoints, Single, ShapeEngine.Color.ColorRgba, ShapeEngine.Color.ColorRgba)
+  nameWithType: ShapeDrawing.Draw(CollisionPoints, float, ColorRgba, ColorRgba)
+  fullName: ShapeEngine.Lib.ShapeDrawing.Draw(ShapeEngine.Core.CollisionSystem.CollisionPoints, float, ShapeEngine.Color.ColorRgba, ShapeEngine.Color.ColorRgba)
+  nameWithType.vb: ShapeDrawing.Draw(CollisionPoints, Single, ColorRgba, ColorRgba)
+  fullName.vb: ShapeEngine.Lib.ShapeDrawing.Draw(ShapeEngine.Core.CollisionSystem.CollisionPoints, Single, ShapeEngine.Color.ColorRgba, ShapeEngine.Color.ColorRgba)
   name.vb: Draw(CollisionPoints, Single, ColorRgba, ColorRgba)
   spec.csharp:
-  - uid: ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing.Draw(ShapeEngine.Core.CollisionSystem.CollisionPoints,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)
+  - uid: ShapeEngine.Lib.ShapeDrawing.Draw(ShapeEngine.Core.CollisionSystem.CollisionPoints,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)
     name: Draw
-    href: ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing.html#ShapeEngine_StaticLib_Drawing_ShapeCustomDrawing_Draw_ShapeEngine_Core_CollisionSystem_CollisionPoints_System_Single_ShapeEngine_Color_ColorRgba_ShapeEngine_Color_ColorRgba_
+    href: ShapeEngine.Lib.ShapeDrawing.html#ShapeEngine_Lib_ShapeDrawing_Draw_ShapeEngine_Core_CollisionSystem_CollisionPoints_System_Single_ShapeEngine_Color_ColorRgba_ShapeEngine_Color_ColorRgba_
   - name: (
   - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
     name: CollisionPoints
@@ -4285,9 +4070,9 @@ references:
     href: ShapeEngine.Color.ColorRgba.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing.Draw(ShapeEngine.Core.CollisionSystem.CollisionPoints,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)
+  - uid: ShapeEngine.Lib.ShapeDrawing.Draw(ShapeEngine.Core.CollisionSystem.CollisionPoints,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)
     name: Draw
-    href: ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing.html#ShapeEngine_StaticLib_Drawing_ShapeCustomDrawing_Draw_ShapeEngine_Core_CollisionSystem_CollisionPoints_System_Single_ShapeEngine_Color_ColorRgba_ShapeEngine_Color_ColorRgba_
+    href: ShapeEngine.Lib.ShapeDrawing.html#ShapeEngine_Lib_ShapeDrawing_Draw_ShapeEngine_Core_CollisionSystem_CollisionPoints_System_Single_ShapeEngine_Color_ColorRgba_ShapeEngine_Color_ColorRgba_
   - name: (
   - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
     name: CollisionPoints
@@ -4744,26 +4529,6 @@ references:
     name: Integer
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.int32
-  - name: )
-- uid: ShapeEngine.Core.Shapes.ShapeList`1.TakeRandomItem
-  commentId: M:ShapeEngine.Core.Shapes.ShapeList`1.TakeRandomItem
-  href: ShapeEngine.Core.Shapes.ShapeList-1.html#ShapeEngine_Core_Shapes_ShapeList_1_TakeRandomItem
-  name: TakeRandomItem()
-  nameWithType: ShapeList<T>.TakeRandomItem()
-  fullName: ShapeEngine.Core.Shapes.ShapeList<T>.TakeRandomItem()
-  nameWithType.vb: ShapeList(Of T).TakeRandomItem()
-  fullName.vb: ShapeEngine.Core.Shapes.ShapeList(Of T).TakeRandomItem()
-  spec.csharp:
-  - uid: ShapeEngine.Core.Shapes.ShapeList`1.TakeRandomItem
-    name: TakeRandomItem
-    href: ShapeEngine.Core.Shapes.ShapeList-1.html#ShapeEngine_Core_Shapes_ShapeList_1_TakeRandomItem
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.Shapes.ShapeList`1.TakeRandomItem
-    name: TakeRandomItem
-    href: ShapeEngine.Core.Shapes.ShapeList-1.html#ShapeEngine_Core_Shapes_ShapeList_1_TakeRandomItem
-  - name: (
   - name: )
 - uid: System.Collections.Generic.List`1.Add(`0)
   commentId: M:System.Collections.Generic.List`1.Add(`0)
@@ -6713,20 +6478,20 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.int32
   - name: )
-- uid: ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing.Draw(ShapeEngine.Core.CollisionSystem.CollisionPoints,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)
-  commentId: M:ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing.Draw(ShapeEngine.Core.CollisionSystem.CollisionPoints,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)
+- uid: ShapeEngine.Lib.ShapeDrawing.Draw(ShapeEngine.Core.CollisionSystem.CollisionPoints,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)
+  commentId: M:ShapeEngine.Lib.ShapeDrawing.Draw(ShapeEngine.Core.CollisionSystem.CollisionPoints,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)
   isExternal: true
-  href: ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing.html#ShapeEngine_StaticLib_Drawing_ShapeCustomDrawing_Draw_ShapeEngine_Core_CollisionSystem_CollisionPoints_System_Single_ShapeEngine_Color_ColorRgba_ShapeEngine_Color_ColorRgba_
+  href: ShapeEngine.Lib.ShapeDrawing.html#ShapeEngine_Lib_ShapeDrawing_Draw_ShapeEngine_Core_CollisionSystem_CollisionPoints_System_Single_ShapeEngine_Color_ColorRgba_ShapeEngine_Color_ColorRgba_
   name: Draw(CollisionPoints, float, ColorRgba, ColorRgba)
-  nameWithType: ShapeCustomDrawing.Draw(CollisionPoints, float, ColorRgba, ColorRgba)
-  fullName: ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing.Draw(ShapeEngine.Core.CollisionSystem.CollisionPoints, float, ShapeEngine.Color.ColorRgba, ShapeEngine.Color.ColorRgba)
-  nameWithType.vb: ShapeCustomDrawing.Draw(CollisionPoints, Single, ColorRgba, ColorRgba)
-  fullName.vb: ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing.Draw(ShapeEngine.Core.CollisionSystem.CollisionPoints, Single, ShapeEngine.Color.ColorRgba, ShapeEngine.Color.ColorRgba)
+  nameWithType: ShapeDrawing.Draw(CollisionPoints, float, ColorRgba, ColorRgba)
+  fullName: ShapeEngine.Lib.ShapeDrawing.Draw(ShapeEngine.Core.CollisionSystem.CollisionPoints, float, ShapeEngine.Color.ColorRgba, ShapeEngine.Color.ColorRgba)
+  nameWithType.vb: ShapeDrawing.Draw(CollisionPoints, Single, ColorRgba, ColorRgba)
+  fullName.vb: ShapeEngine.Lib.ShapeDrawing.Draw(ShapeEngine.Core.CollisionSystem.CollisionPoints, Single, ShapeEngine.Color.ColorRgba, ShapeEngine.Color.ColorRgba)
   name.vb: Draw(CollisionPoints, Single, ColorRgba, ColorRgba)
   spec.csharp:
-  - uid: ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing.Draw(ShapeEngine.Core.CollisionSystem.CollisionPoints,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)
+  - uid: ShapeEngine.Lib.ShapeDrawing.Draw(ShapeEngine.Core.CollisionSystem.CollisionPoints,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)
     name: Draw
-    href: ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing.html#ShapeEngine_StaticLib_Drawing_ShapeCustomDrawing_Draw_ShapeEngine_Core_CollisionSystem_CollisionPoints_System_Single_ShapeEngine_Color_ColorRgba_ShapeEngine_Color_ColorRgba_
+    href: ShapeEngine.Lib.ShapeDrawing.html#ShapeEngine_Lib_ShapeDrawing_Draw_ShapeEngine_Core_CollisionSystem_CollisionPoints_System_Single_ShapeEngine_Color_ColorRgba_ShapeEngine_Color_ColorRgba_
   - name: (
   - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
     name: CollisionPoints
@@ -6749,9 +6514,9 @@ references:
     href: ShapeEngine.Color.ColorRgba.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing.Draw(ShapeEngine.Core.CollisionSystem.CollisionPoints,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)
+  - uid: ShapeEngine.Lib.ShapeDrawing.Draw(ShapeEngine.Core.CollisionSystem.CollisionPoints,System.Single,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)
     name: Draw
-    href: ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing.html#ShapeEngine_StaticLib_Drawing_ShapeCustomDrawing_Draw_ShapeEngine_Core_CollisionSystem_CollisionPoints_System_Single_ShapeEngine_Color_ColorRgba_ShapeEngine_Color_ColorRgba_
+    href: ShapeEngine.Lib.ShapeDrawing.html#ShapeEngine_Lib_ShapeDrawing_Draw_ShapeEngine_Core_CollisionSystem_CollisionPoints_System_Single_ShapeEngine_Color_ColorRgba_ShapeEngine_Color_ColorRgba_
   - name: (
   - uid: ShapeEngine.Core.CollisionSystem.CollisionPoints
     name: CollisionPoints
@@ -6773,43 +6538,35 @@ references:
     name: ColorRgba
     href: ShapeEngine.Color.ColorRgba.html
   - name: )
-- uid: ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing
-  commentId: T:ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing
-  parent: ShapeEngine.StaticLib.Drawing
-  href: ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing.html
-  name: ShapeCustomDrawing
-  nameWithType: ShapeCustomDrawing
-  fullName: ShapeEngine.StaticLib.Drawing.ShapeCustomDrawing
-- uid: ShapeEngine.StaticLib.Drawing
-  commentId: N:ShapeEngine.StaticLib.Drawing
+- uid: ShapeEngine.Lib.ShapeDrawing
+  commentId: T:ShapeEngine.Lib.ShapeDrawing
+  parent: ShapeEngine.Lib
+  href: ShapeEngine.Lib.ShapeDrawing.html
+  name: ShapeDrawing
+  nameWithType: ShapeDrawing
+  fullName: ShapeEngine.Lib.ShapeDrawing
+- uid: ShapeEngine.Lib
+  commentId: N:ShapeEngine.Lib
   href: ShapeEngine.html
-  name: ShapeEngine.StaticLib.Drawing
-  nameWithType: ShapeEngine.StaticLib.Drawing
-  fullName: ShapeEngine.StaticLib.Drawing
+  name: ShapeEngine.Lib
+  nameWithType: ShapeEngine.Lib
+  fullName: ShapeEngine.Lib
   spec.csharp:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.StaticLib
-    name: StaticLib
-    href: ShapeEngine.StaticLib.html
-  - name: .
-  - uid: ShapeEngine.StaticLib.Drawing
-    name: Drawing
-    href: ShapeEngine.StaticLib.Drawing.html
+  - uid: ShapeEngine.Lib
+    name: Lib
+    href: ShapeEngine.Lib.html
   spec.vb:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.StaticLib
-    name: StaticLib
-    href: ShapeEngine.StaticLib.html
-  - name: .
-  - uid: ShapeEngine.StaticLib.Drawing
-    name: Drawing
-    href: ShapeEngine.StaticLib.Drawing.html
+  - uid: ShapeEngine.Lib
+    name: Lib
+    href: ShapeEngine.Lib.html
 - uid: ShapeEngine.Core.CollisionSystem.Collider
   commentId: T:ShapeEngine.Core.CollisionSystem.Collider
   parent: ShapeEngine.Core.CollisionSystem
@@ -6852,13 +6609,6 @@ references:
     name: Numerics
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.numerics
-- uid: ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry
-  commentId: T:ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry
-  parent: ShapeEngine.Core.CollisionSystem
-  href: ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry.html
-  name: IntersectSpaceEntry
-  nameWithType: IntersectSpaceEntry
-  fullName: ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry
 - uid: ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry.#ctor*
   commentId: Overload:ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry.#ctor
   href: ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry.html#ShapeEngine_Core_CollisionSystem_IntersectSpaceEntry__ctor_ShapeEngine_Core_CollisionSystem_Collider_System_Int32_
@@ -6879,6 +6629,12 @@ references:
   nameWithType.vb: Integer
   fullName.vb: Integer
   name.vb: Integer
+- uid: ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry.GetCollisionPointFacingTowardsPoint*
+  commentId: Overload:ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry.GetCollisionPointFacingTowardsPoint
+  href: ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry.html#ShapeEngine_Core_CollisionSystem_IntersectSpaceEntry_GetCollisionPointFacingTowardsPoint
+  name: GetCollisionPointFacingTowardsPoint
+  nameWithType: IntersectSpaceEntry.GetCollisionPointFacingTowardsPoint
+  fullName: ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry.GetCollisionPointFacingTowardsPoint
 - uid: ShapeEngine.Core.Structs.CollisionPoint
   commentId: T:ShapeEngine.Core.Structs.CollisionPoint
   parent: ShapeEngine.Core.Structs
@@ -6886,12 +6642,6 @@ references:
   name: CollisionPoint
   nameWithType: CollisionPoint
   fullName: ShapeEngine.Core.Structs.CollisionPoint
-- uid: ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry.GetCollisionPointFacingTowardsPoint*
-  commentId: Overload:ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry.GetCollisionPointFacingTowardsPoint
-  href: ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry.html#ShapeEngine_Core_CollisionSystem_IntersectSpaceEntry_GetCollisionPointFacingTowardsPoint
-  name: GetCollisionPointFacingTowardsPoint
-  nameWithType: IntersectSpaceEntry.GetCollisionPointFacingTowardsPoint
-  fullName: ShapeEngine.Core.CollisionSystem.IntersectSpaceEntry.GetCollisionPointFacingTowardsPoint
 - uid: ShapeEngine.Core.Structs
   commentId: N:ShapeEngine.Core.Structs
   href: ShapeEngine.html

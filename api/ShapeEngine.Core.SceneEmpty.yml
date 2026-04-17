@@ -6,8 +6,8 @@ items:
   parent: ShapeEngine.Core
   children:
   - ShapeEngine.Core.SceneEmpty.#ctor
-  - ShapeEngine.Core.SceneEmpty.OnActivate(ShapeEngine.Core.Scene)
-  - ShapeEngine.Core.SceneEmpty.OnDeactivate
+  - ShapeEngine.Core.SceneEmpty.Activate(ShapeEngine.Core.Scene)
+  - ShapeEngine.Core.SceneEmpty.Deactivate
   langs:
   - csharp
   - vb
@@ -22,38 +22,57 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SceneEmpty
     path: ../ShapeEngine/ShapeEngine/Core/SceneEmpty.cs
-    startLine: 6
+    startLine: 4
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Represents an empty scene with no additional logic.
-  example: []
   syntax:
-    content: 'public sealed class SceneEmpty : Scene'
-    content.vb: Public NotInheritable Class SceneEmpty Inherits Scene
+    content: 'public sealed class SceneEmpty : Scene, IUpdateable, IDrawable'
+    content.vb: Public NotInheritable Class SceneEmpty Inherits Scene Implements IUpdateable, IDrawable
   inheritance:
   - System.Object
   - ShapeEngine.Core.Scene
+  implements:
+  - ShapeEngine.Core.Interfaces.IUpdateable
+  - ShapeEngine.Core.Interfaces.IDrawable
   inheritedMembers:
-  - ShapeEngine.Core.Scene.Active
-  - ShapeEngine.Core.Scene.Parent
-  - ShapeEngine.Core.Scene.Input
   - ShapeEngine.Core.Scene.SpawnArea
   - ShapeEngine.Core.Scene.CollisionHandler
   - ShapeEngine.Core.Scene.Pathfinder
+  - ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Core.Shapes.Rect,System.Int32,System.Int32)
+  - ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Core.Collision.CollisionHandler)
+  - ShapeEngine.Core.Scene.RemoveCollisionHandler
+  - ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Core.Shapes.Rect,System.Int32,System.Int32)
+  - ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Pathfinding.Pathfinder)
+  - ShapeEngine.Core.Scene.RemovePathfinder
+  - ShapeEngine.Core.Scene.OnPauseChanged(System.Boolean)
   - ShapeEngine.Core.Scene.Close
-  - ShapeEngine.Core.Scene.ResolveOnButtonPressed(ShapeEngine.Input.InputEvent)
-  - ShapeEngine.Core.Scene.ResolveOnButtonReleased(ShapeEngine.Input.InputEvent)
+  - ShapeEngine.Core.Scene.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  - ShapeEngine.Core.Scene.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
+  - ShapeEngine.Core.Scene.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
+  - ShapeEngine.Core.Scene.DrawUI(ShapeEngine.Core.Structs.ScreenInfo)
+  - ShapeEngine.Core.Scene.OnWindowSizeChanged(ShapeEngine.Core.Structs.DimensionConversionFactors)
+  - ShapeEngine.Core.Scene.OnWindowPositionChanged(System.Numerics.Vector2,System.Numerics.Vector2)
+  - ShapeEngine.Core.Scene.OnMonitorChanged(ShapeEngine.Screen.MonitorInfo)
+  - ShapeEngine.Core.Scene.OnGamepadConnected(ShapeEngine.Input.ShapeGamepadDevice)
+  - ShapeEngine.Core.Scene.OnGamepadDisconnected(ShapeEngine.Input.ShapeGamepadDevice)
+  - ShapeEngine.Core.Scene.OnInputDeviceChanged(ShapeEngine.Input.InputDeviceType,ShapeEngine.Input.InputDeviceType)
+  - ShapeEngine.Core.Scene.OnPausedChanged(System.Boolean)
+  - ShapeEngine.Core.Scene.OnMouseEnteredScreen
+  - ShapeEngine.Core.Scene.OnMouseLeftScreen
+  - ShapeEngine.Core.Scene.OnMouseVisibilityChanged(System.Boolean)
+  - ShapeEngine.Core.Scene.OnMouseEnabledChanged(System.Boolean)
+  - ShapeEngine.Core.Scene.OnWindowFocusChanged(System.Boolean)
+  - ShapeEngine.Core.Scene.OnWindowFullscreenChanged(System.Boolean)
+  - ShapeEngine.Core.Scene.OnWindowMaximizeChanged(System.Boolean)
+  - ShapeEngine.Core.Scene.OnButtonPressed(ShapeEngine.Input.InputEvent)
+  - ShapeEngine.Core.Scene.OnButtonReleased(ShapeEngine.Input.InputEvent)
   - System.Object.Equals(System.Object)
   - System.Object.Equals(System.Object,System.Object)
   - System.Object.GetHashCode
   - System.Object.GetType
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
-  extensionMethods:
-  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
-  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
-  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
 - uid: ShapeEngine.Core.SceneEmpty.#ctor
   commentId: M:ShapeEngine.Core.SceneEmpty.#ctor
   id: '#ctor'
@@ -72,12 +91,10 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/SceneEmpty.cs
-    startLine: 11
+    startLine: 6
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.SceneEmpty" data-throw-if-not-resolved="false"></xref> class.
-  example: []
   syntax:
     content: public SceneEmpty()
     content.vb: Public Sub New()
@@ -85,68 +102,65 @@ items:
   nameWithType.vb: SceneEmpty.New()
   fullName.vb: ShapeEngine.Core.SceneEmpty.New()
   name.vb: New()
-- uid: ShapeEngine.Core.SceneEmpty.OnActivate(ShapeEngine.Core.Scene)
-  commentId: M:ShapeEngine.Core.SceneEmpty.OnActivate(ShapeEngine.Core.Scene)
-  id: OnActivate(ShapeEngine.Core.Scene)
+- uid: ShapeEngine.Core.SceneEmpty.Activate(ShapeEngine.Core.Scene)
+  commentId: M:ShapeEngine.Core.SceneEmpty.Activate(ShapeEngine.Core.Scene)
+  id: Activate(ShapeEngine.Core.Scene)
   parent: ShapeEngine.Core.SceneEmpty
   langs:
   - csharp
   - vb
-  name: OnActivate(Scene)
-  nameWithType: SceneEmpty.OnActivate(Scene)
-  fullName: ShapeEngine.Core.SceneEmpty.OnActivate(ShapeEngine.Core.Scene)
+  name: Activate(Scene)
+  nameWithType: SceneEmpty.Activate(Scene)
+  fullName: ShapeEngine.Core.SceneEmpty.Activate(ShapeEngine.Core.Scene)
   type: Method
   source:
     remote:
       path: ShapeEngine/Core/SceneEmpty.cs
       branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: OnActivate
+    id: Activate
     path: ../ShapeEngine/ShapeEngine/Core/SceneEmpty.cs
-    startLine: 17
+    startLine: 7
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Called when the scene is activated.
   example: []
   syntax:
-    content: protected override void OnActivate(Scene oldScene)
+    content: public override void Activate(Scene oldScene)
     parameters:
     - id: oldScene
       type: ShapeEngine.Core.Scene
-      description: The previously active scene.
-    content.vb: Protected Overrides Sub OnActivate(oldScene As Scene)
-  overridden: ShapeEngine.Core.Scene.OnActivate(ShapeEngine.Core.Scene)
-  overload: ShapeEngine.Core.SceneEmpty.OnActivate*
-- uid: ShapeEngine.Core.SceneEmpty.OnDeactivate
-  commentId: M:ShapeEngine.Core.SceneEmpty.OnDeactivate
-  id: OnDeactivate
+    content.vb: Public Overrides Sub Activate(oldScene As Scene)
+  overridden: ShapeEngine.Core.Scene.Activate(ShapeEngine.Core.Scene)
+  overload: ShapeEngine.Core.SceneEmpty.Activate*
+- uid: ShapeEngine.Core.SceneEmpty.Deactivate
+  commentId: M:ShapeEngine.Core.SceneEmpty.Deactivate
+  id: Deactivate
   parent: ShapeEngine.Core.SceneEmpty
   langs:
   - csharp
   - vb
-  name: OnDeactivate()
-  nameWithType: SceneEmpty.OnDeactivate()
-  fullName: ShapeEngine.Core.SceneEmpty.OnDeactivate()
+  name: Deactivate()
+  nameWithType: SceneEmpty.Deactivate()
+  fullName: ShapeEngine.Core.SceneEmpty.Deactivate()
   type: Method
   source:
     remote:
       path: ShapeEngine/Core/SceneEmpty.cs
       branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: OnDeactivate
+    id: Deactivate
     path: ../ShapeEngine/ShapeEngine/Core/SceneEmpty.cs
-    startLine: 24
+    startLine: 11
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Called when the scene is deactivated.
   example: []
   syntax:
-    content: protected override void OnDeactivate()
-    content.vb: Protected Overrides Sub OnDeactivate()
-  overridden: ShapeEngine.Core.Scene.OnDeactivate
-  overload: ShapeEngine.Core.SceneEmpty.OnDeactivate*
+    content: public override void Deactivate()
+    content.vb: Public Overrides Sub Deactivate()
+  overridden: ShapeEngine.Core.Scene.Deactivate
+  overload: ShapeEngine.Core.SceneEmpty.Deactivate*
 references:
 - uid: ShapeEngine.Core
   commentId: N:ShapeEngine.Core
@@ -188,27 +202,20 @@ references:
   name: Scene
   nameWithType: Scene
   fullName: ShapeEngine.Core.Scene
-- uid: ShapeEngine.Core.Scene.Active
-  commentId: P:ShapeEngine.Core.Scene.Active
-  parent: ShapeEngine.Core.Scene
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_Active
-  name: Active
-  nameWithType: Scene.Active
-  fullName: ShapeEngine.Core.Scene.Active
-- uid: ShapeEngine.Core.Scene.Parent
-  commentId: P:ShapeEngine.Core.Scene.Parent
-  parent: ShapeEngine.Core.Scene
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_Parent
-  name: Parent
-  nameWithType: Scene.Parent
-  fullName: ShapeEngine.Core.Scene.Parent
-- uid: ShapeEngine.Core.Scene.Input
-  commentId: P:ShapeEngine.Core.Scene.Input
-  parent: ShapeEngine.Core.Scene
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_Input
-  name: Input
-  nameWithType: Scene.Input
-  fullName: ShapeEngine.Core.Scene.Input
+- uid: ShapeEngine.Core.Interfaces.IUpdateable
+  commentId: T:ShapeEngine.Core.Interfaces.IUpdateable
+  parent: ShapeEngine.Core.Interfaces
+  href: ShapeEngine.Core.Interfaces.IUpdateable.html
+  name: IUpdateable
+  nameWithType: IUpdateable
+  fullName: ShapeEngine.Core.Interfaces.IUpdateable
+- uid: ShapeEngine.Core.Interfaces.IDrawable
+  commentId: T:ShapeEngine.Core.Interfaces.IDrawable
+  parent: ShapeEngine.Core.Interfaces
+  href: ShapeEngine.Core.Interfaces.IDrawable.html
+  name: IDrawable
+  nameWithType: IDrawable
+  fullName: ShapeEngine.Core.Interfaces.IDrawable
 - uid: ShapeEngine.Core.Scene.SpawnArea
   commentId: P:ShapeEngine.Core.Scene.SpawnArea
   parent: ShapeEngine.Core.Scene
@@ -230,6 +237,231 @@ references:
   name: Pathfinder
   nameWithType: Scene.Pathfinder
   fullName: ShapeEngine.Core.Scene.Pathfinder
+- uid: ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Core.Shapes.Rect,System.Int32,System.Int32)
+  commentId: M:ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Core.Shapes.Rect,System.Int32,System.Int32)
+  parent: ShapeEngine.Core.Scene
+  isExternal: true
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_InitCollisionHandler_ShapeEngine_Core_Shapes_Rect_System_Int32_System_Int32_
+  name: InitCollisionHandler(Rect, int, int)
+  nameWithType: Scene.InitCollisionHandler(Rect, int, int)
+  fullName: ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Core.Shapes.Rect, int, int)
+  nameWithType.vb: Scene.InitCollisionHandler(Rect, Integer, Integer)
+  fullName.vb: ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Core.Shapes.Rect, Integer, Integer)
+  name.vb: InitCollisionHandler(Rect, Integer, Integer)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Core.Shapes.Rect,System.Int32,System.Int32)
+    name: InitCollisionHandler
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_InitCollisionHandler_ShapeEngine_Core_Shapes_Rect_System_Int32_System_Int32_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Rect
+    name: Rect
+    href: ShapeEngine.Core.Shapes.Rect.html
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Core.Shapes.Rect,System.Int32,System.Int32)
+    name: InitCollisionHandler
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_InitCollisionHandler_ShapeEngine_Core_Shapes_Rect_System_Int32_System_Int32_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Rect
+    name: Rect
+    href: ShapeEngine.Core.Shapes.Rect.html
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Core.Collision.CollisionHandler)
+  commentId: M:ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Core.Collision.CollisionHandler)
+  parent: ShapeEngine.Core.Scene
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_InitCollisionHandler_ShapeEngine_Core_Collision_CollisionHandler_
+  name: InitCollisionHandler(CollisionHandler)
+  nameWithType: Scene.InitCollisionHandler(CollisionHandler)
+  fullName: ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Core.Collision.CollisionHandler)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Core.Collision.CollisionHandler)
+    name: InitCollisionHandler
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_InitCollisionHandler_ShapeEngine_Core_Collision_CollisionHandler_
+  - name: (
+  - uid: ShapeEngine.Core.Collision.CollisionHandler
+    name: CollisionHandler
+    href: ShapeEngine.Core.Collision.CollisionHandler.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Core.Collision.CollisionHandler)
+    name: InitCollisionHandler
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_InitCollisionHandler_ShapeEngine_Core_Collision_CollisionHandler_
+  - name: (
+  - uid: ShapeEngine.Core.Collision.CollisionHandler
+    name: CollisionHandler
+    href: ShapeEngine.Core.Collision.CollisionHandler.html
+  - name: )
+- uid: ShapeEngine.Core.Scene.RemoveCollisionHandler
+  commentId: M:ShapeEngine.Core.Scene.RemoveCollisionHandler
+  parent: ShapeEngine.Core.Scene
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_RemoveCollisionHandler
+  name: RemoveCollisionHandler()
+  nameWithType: Scene.RemoveCollisionHandler()
+  fullName: ShapeEngine.Core.Scene.RemoveCollisionHandler()
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.RemoveCollisionHandler
+    name: RemoveCollisionHandler
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_RemoveCollisionHandler
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.RemoveCollisionHandler
+    name: RemoveCollisionHandler
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_RemoveCollisionHandler
+  - name: (
+  - name: )
+- uid: ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Core.Shapes.Rect,System.Int32,System.Int32)
+  commentId: M:ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Core.Shapes.Rect,System.Int32,System.Int32)
+  parent: ShapeEngine.Core.Scene
+  isExternal: true
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_InitPathfinder_ShapeEngine_Core_Shapes_Rect_System_Int32_System_Int32_
+  name: InitPathfinder(Rect, int, int)
+  nameWithType: Scene.InitPathfinder(Rect, int, int)
+  fullName: ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Core.Shapes.Rect, int, int)
+  nameWithType.vb: Scene.InitPathfinder(Rect, Integer, Integer)
+  fullName.vb: ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Core.Shapes.Rect, Integer, Integer)
+  name.vb: InitPathfinder(Rect, Integer, Integer)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Core.Shapes.Rect,System.Int32,System.Int32)
+    name: InitPathfinder
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_InitPathfinder_ShapeEngine_Core_Shapes_Rect_System_Int32_System_Int32_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Rect
+    name: Rect
+    href: ShapeEngine.Core.Shapes.Rect.html
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Core.Shapes.Rect,System.Int32,System.Int32)
+    name: InitPathfinder
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_InitPathfinder_ShapeEngine_Core_Shapes_Rect_System_Int32_System_Int32_
+  - name: (
+  - uid: ShapeEngine.Core.Shapes.Rect
+    name: Rect
+    href: ShapeEngine.Core.Shapes.Rect.html
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Pathfinding.Pathfinder)
+  commentId: M:ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Pathfinding.Pathfinder)
+  parent: ShapeEngine.Core.Scene
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_InitPathfinder_ShapeEngine_Pathfinding_Pathfinder_
+  name: InitPathfinder(Pathfinder)
+  nameWithType: Scene.InitPathfinder(Pathfinder)
+  fullName: ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Pathfinding.Pathfinder)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Pathfinding.Pathfinder)
+    name: InitPathfinder
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_InitPathfinder_ShapeEngine_Pathfinding_Pathfinder_
+  - name: (
+  - uid: ShapeEngine.Pathfinding.Pathfinder
+    name: Pathfinder
+    href: ShapeEngine.Pathfinding.Pathfinder.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Pathfinding.Pathfinder)
+    name: InitPathfinder
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_InitPathfinder_ShapeEngine_Pathfinding_Pathfinder_
+  - name: (
+  - uid: ShapeEngine.Pathfinding.Pathfinder
+    name: Pathfinder
+    href: ShapeEngine.Pathfinding.Pathfinder.html
+  - name: )
+- uid: ShapeEngine.Core.Scene.RemovePathfinder
+  commentId: M:ShapeEngine.Core.Scene.RemovePathfinder
+  parent: ShapeEngine.Core.Scene
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_RemovePathfinder
+  name: RemovePathfinder()
+  nameWithType: Scene.RemovePathfinder()
+  fullName: ShapeEngine.Core.Scene.RemovePathfinder()
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.RemovePathfinder
+    name: RemovePathfinder
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_RemovePathfinder
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.RemovePathfinder
+    name: RemovePathfinder
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_RemovePathfinder
+  - name: (
+  - name: )
+- uid: ShapeEngine.Core.Scene.OnPauseChanged(System.Boolean)
+  commentId: M:ShapeEngine.Core.Scene.OnPauseChanged(System.Boolean)
+  parent: ShapeEngine.Core.Scene
+  isExternal: true
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnPauseChanged_System_Boolean_
+  name: OnPauseChanged(bool)
+  nameWithType: Scene.OnPauseChanged(bool)
+  fullName: ShapeEngine.Core.Scene.OnPauseChanged(bool)
+  nameWithType.vb: Scene.OnPauseChanged(Boolean)
+  fullName.vb: ShapeEngine.Core.Scene.OnPauseChanged(Boolean)
+  name.vb: OnPauseChanged(Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.OnPauseChanged(System.Boolean)
+    name: OnPauseChanged
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnPauseChanged_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.OnPauseChanged(System.Boolean)
+    name: OnPauseChanged
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnPauseChanged_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
 - uid: ShapeEngine.Core.Scene.Close
   commentId: M:ShapeEngine.Core.Scene.Close
   parent: ShapeEngine.Core.Scene
@@ -249,51 +481,570 @@ references:
     href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_Close
   - name: (
   - name: )
-- uid: ShapeEngine.Core.Scene.ResolveOnButtonPressed(ShapeEngine.Input.InputEvent)
-  commentId: M:ShapeEngine.Core.Scene.ResolveOnButtonPressed(ShapeEngine.Input.InputEvent)
+- uid: ShapeEngine.Core.Scene.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  commentId: M:ShapeEngine.Core.Scene.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
   parent: ShapeEngine.Core.Scene
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_ResolveOnButtonPressed_ShapeEngine_Input_InputEvent_
-  name: ResolveOnButtonPressed(InputEvent)
-  nameWithType: Scene.ResolveOnButtonPressed(InputEvent)
-  fullName: ShapeEngine.Core.Scene.ResolveOnButtonPressed(ShapeEngine.Input.InputEvent)
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
+  name: Update(GameTime, ScreenInfo, ScreenInfo)
+  nameWithType: Scene.Update(GameTime, ScreenInfo, ScreenInfo)
+  fullName: ShapeEngine.Core.Scene.Update(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
   spec.csharp:
-  - uid: ShapeEngine.Core.Scene.ResolveOnButtonPressed(ShapeEngine.Input.InputEvent)
-    name: ResolveOnButtonPressed
-    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_ResolveOnButtonPressed_ShapeEngine_Input_InputEvent_
+  - uid: ShapeEngine.Core.Scene.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+    name: Update
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
+  - name: (
+  - uid: ShapeEngine.Core.Structs.GameTime
+    name: GameTime
+    href: ShapeEngine.Core.Structs.GameTime.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+    name: Update
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
+  - name: (
+  - uid: ShapeEngine.Core.Structs.GameTime
+    name: GameTime
+    href: ShapeEngine.Core.Structs.GameTime.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
+  - name: )
+- uid: ShapeEngine.Core.Scene.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
+  commentId: M:ShapeEngine.Core.Scene.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
+  parent: ShapeEngine.Core.Scene
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_DrawGame_ShapeEngine_Core_Structs_ScreenInfo_
+  name: DrawGame(ScreenInfo)
+  nameWithType: Scene.DrawGame(ScreenInfo)
+  fullName: ShapeEngine.Core.Scene.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
+    name: DrawGame
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_DrawGame_ShapeEngine_Core_Structs_ScreenInfo_
+  - name: (
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
+    name: DrawGame
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_DrawGame_ShapeEngine_Core_Structs_ScreenInfo_
+  - name: (
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
+  - name: )
+- uid: ShapeEngine.Core.Scene.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
+  commentId: M:ShapeEngine.Core.Scene.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
+  parent: ShapeEngine.Core.Scene
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_DrawGameUI_ShapeEngine_Core_Structs_ScreenInfo_
+  name: DrawGameUI(ScreenInfo)
+  nameWithType: Scene.DrawGameUI(ScreenInfo)
+  fullName: ShapeEngine.Core.Scene.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
+    name: DrawGameUI
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_DrawGameUI_ShapeEngine_Core_Structs_ScreenInfo_
+  - name: (
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
+    name: DrawGameUI
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_DrawGameUI_ShapeEngine_Core_Structs_ScreenInfo_
+  - name: (
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
+  - name: )
+- uid: ShapeEngine.Core.Scene.DrawUI(ShapeEngine.Core.Structs.ScreenInfo)
+  commentId: M:ShapeEngine.Core.Scene.DrawUI(ShapeEngine.Core.Structs.ScreenInfo)
+  parent: ShapeEngine.Core.Scene
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_DrawUI_ShapeEngine_Core_Structs_ScreenInfo_
+  name: DrawUI(ScreenInfo)
+  nameWithType: Scene.DrawUI(ScreenInfo)
+  fullName: ShapeEngine.Core.Scene.DrawUI(ShapeEngine.Core.Structs.ScreenInfo)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.DrawUI(ShapeEngine.Core.Structs.ScreenInfo)
+    name: DrawUI
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_DrawUI_ShapeEngine_Core_Structs_ScreenInfo_
+  - name: (
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.DrawUI(ShapeEngine.Core.Structs.ScreenInfo)
+    name: DrawUI
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_DrawUI_ShapeEngine_Core_Structs_ScreenInfo_
+  - name: (
+  - uid: ShapeEngine.Core.Structs.ScreenInfo
+    name: ScreenInfo
+    href: ShapeEngine.Core.Structs.ScreenInfo.html
+  - name: )
+- uid: ShapeEngine.Core.Scene.OnWindowSizeChanged(ShapeEngine.Core.Structs.DimensionConversionFactors)
+  commentId: M:ShapeEngine.Core.Scene.OnWindowSizeChanged(ShapeEngine.Core.Structs.DimensionConversionFactors)
+  parent: ShapeEngine.Core.Scene
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnWindowSizeChanged_ShapeEngine_Core_Structs_DimensionConversionFactors_
+  name: OnWindowSizeChanged(DimensionConversionFactors)
+  nameWithType: Scene.OnWindowSizeChanged(DimensionConversionFactors)
+  fullName: ShapeEngine.Core.Scene.OnWindowSizeChanged(ShapeEngine.Core.Structs.DimensionConversionFactors)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.OnWindowSizeChanged(ShapeEngine.Core.Structs.DimensionConversionFactors)
+    name: OnWindowSizeChanged
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnWindowSizeChanged_ShapeEngine_Core_Structs_DimensionConversionFactors_
+  - name: (
+  - uid: ShapeEngine.Core.Structs.DimensionConversionFactors
+    name: DimensionConversionFactors
+    href: ShapeEngine.Core.Structs.DimensionConversionFactors.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.OnWindowSizeChanged(ShapeEngine.Core.Structs.DimensionConversionFactors)
+    name: OnWindowSizeChanged
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnWindowSizeChanged_ShapeEngine_Core_Structs_DimensionConversionFactors_
+  - name: (
+  - uid: ShapeEngine.Core.Structs.DimensionConversionFactors
+    name: DimensionConversionFactors
+    href: ShapeEngine.Core.Structs.DimensionConversionFactors.html
+  - name: )
+- uid: ShapeEngine.Core.Scene.OnWindowPositionChanged(System.Numerics.Vector2,System.Numerics.Vector2)
+  commentId: M:ShapeEngine.Core.Scene.OnWindowPositionChanged(System.Numerics.Vector2,System.Numerics.Vector2)
+  parent: ShapeEngine.Core.Scene
+  isExternal: true
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnWindowPositionChanged_System_Numerics_Vector2_System_Numerics_Vector2_
+  name: OnWindowPositionChanged(Vector2, Vector2)
+  nameWithType: Scene.OnWindowPositionChanged(Vector2, Vector2)
+  fullName: ShapeEngine.Core.Scene.OnWindowPositionChanged(System.Numerics.Vector2, System.Numerics.Vector2)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.OnWindowPositionChanged(System.Numerics.Vector2,System.Numerics.Vector2)
+    name: OnWindowPositionChanged
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnWindowPositionChanged_System_Numerics_Vector2_System_Numerics_Vector2_
+  - name: (
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.OnWindowPositionChanged(System.Numerics.Vector2,System.Numerics.Vector2)
+    name: OnWindowPositionChanged
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnWindowPositionChanged_System_Numerics_Vector2_System_Numerics_Vector2_
+  - name: (
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: )
+- uid: ShapeEngine.Core.Scene.OnMonitorChanged(ShapeEngine.Screen.MonitorInfo)
+  commentId: M:ShapeEngine.Core.Scene.OnMonitorChanged(ShapeEngine.Screen.MonitorInfo)
+  parent: ShapeEngine.Core.Scene
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnMonitorChanged_ShapeEngine_Screen_MonitorInfo_
+  name: OnMonitorChanged(MonitorInfo)
+  nameWithType: Scene.OnMonitorChanged(MonitorInfo)
+  fullName: ShapeEngine.Core.Scene.OnMonitorChanged(ShapeEngine.Screen.MonitorInfo)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.OnMonitorChanged(ShapeEngine.Screen.MonitorInfo)
+    name: OnMonitorChanged
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnMonitorChanged_ShapeEngine_Screen_MonitorInfo_
+  - name: (
+  - uid: ShapeEngine.Screen.MonitorInfo
+    name: MonitorInfo
+    href: ShapeEngine.Screen.MonitorInfo.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.OnMonitorChanged(ShapeEngine.Screen.MonitorInfo)
+    name: OnMonitorChanged
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnMonitorChanged_ShapeEngine_Screen_MonitorInfo_
+  - name: (
+  - uid: ShapeEngine.Screen.MonitorInfo
+    name: MonitorInfo
+    href: ShapeEngine.Screen.MonitorInfo.html
+  - name: )
+- uid: ShapeEngine.Core.Scene.OnGamepadConnected(ShapeEngine.Input.ShapeGamepadDevice)
+  commentId: M:ShapeEngine.Core.Scene.OnGamepadConnected(ShapeEngine.Input.ShapeGamepadDevice)
+  parent: ShapeEngine.Core.Scene
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnGamepadConnected_ShapeEngine_Input_ShapeGamepadDevice_
+  name: OnGamepadConnected(ShapeGamepadDevice)
+  nameWithType: Scene.OnGamepadConnected(ShapeGamepadDevice)
+  fullName: ShapeEngine.Core.Scene.OnGamepadConnected(ShapeEngine.Input.ShapeGamepadDevice)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.OnGamepadConnected(ShapeEngine.Input.ShapeGamepadDevice)
+    name: OnGamepadConnected
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnGamepadConnected_ShapeEngine_Input_ShapeGamepadDevice_
+  - name: (
+  - uid: ShapeEngine.Input.ShapeGamepadDevice
+    name: ShapeGamepadDevice
+    href: ShapeEngine.Input.ShapeGamepadDevice.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.OnGamepadConnected(ShapeEngine.Input.ShapeGamepadDevice)
+    name: OnGamepadConnected
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnGamepadConnected_ShapeEngine_Input_ShapeGamepadDevice_
+  - name: (
+  - uid: ShapeEngine.Input.ShapeGamepadDevice
+    name: ShapeGamepadDevice
+    href: ShapeEngine.Input.ShapeGamepadDevice.html
+  - name: )
+- uid: ShapeEngine.Core.Scene.OnGamepadDisconnected(ShapeEngine.Input.ShapeGamepadDevice)
+  commentId: M:ShapeEngine.Core.Scene.OnGamepadDisconnected(ShapeEngine.Input.ShapeGamepadDevice)
+  parent: ShapeEngine.Core.Scene
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnGamepadDisconnected_ShapeEngine_Input_ShapeGamepadDevice_
+  name: OnGamepadDisconnected(ShapeGamepadDevice)
+  nameWithType: Scene.OnGamepadDisconnected(ShapeGamepadDevice)
+  fullName: ShapeEngine.Core.Scene.OnGamepadDisconnected(ShapeEngine.Input.ShapeGamepadDevice)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.OnGamepadDisconnected(ShapeEngine.Input.ShapeGamepadDevice)
+    name: OnGamepadDisconnected
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnGamepadDisconnected_ShapeEngine_Input_ShapeGamepadDevice_
+  - name: (
+  - uid: ShapeEngine.Input.ShapeGamepadDevice
+    name: ShapeGamepadDevice
+    href: ShapeEngine.Input.ShapeGamepadDevice.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.OnGamepadDisconnected(ShapeEngine.Input.ShapeGamepadDevice)
+    name: OnGamepadDisconnected
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnGamepadDisconnected_ShapeEngine_Input_ShapeGamepadDevice_
+  - name: (
+  - uid: ShapeEngine.Input.ShapeGamepadDevice
+    name: ShapeGamepadDevice
+    href: ShapeEngine.Input.ShapeGamepadDevice.html
+  - name: )
+- uid: ShapeEngine.Core.Scene.OnInputDeviceChanged(ShapeEngine.Input.InputDeviceType,ShapeEngine.Input.InputDeviceType)
+  commentId: M:ShapeEngine.Core.Scene.OnInputDeviceChanged(ShapeEngine.Input.InputDeviceType,ShapeEngine.Input.InputDeviceType)
+  parent: ShapeEngine.Core.Scene
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnInputDeviceChanged_ShapeEngine_Input_InputDeviceType_ShapeEngine_Input_InputDeviceType_
+  name: OnInputDeviceChanged(InputDeviceType, InputDeviceType)
+  nameWithType: Scene.OnInputDeviceChanged(InputDeviceType, InputDeviceType)
+  fullName: ShapeEngine.Core.Scene.OnInputDeviceChanged(ShapeEngine.Input.InputDeviceType, ShapeEngine.Input.InputDeviceType)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.OnInputDeviceChanged(ShapeEngine.Input.InputDeviceType,ShapeEngine.Input.InputDeviceType)
+    name: OnInputDeviceChanged
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnInputDeviceChanged_ShapeEngine_Input_InputDeviceType_ShapeEngine_Input_InputDeviceType_
+  - name: (
+  - uid: ShapeEngine.Input.InputDeviceType
+    name: InputDeviceType
+    href: ShapeEngine.Input.InputDeviceType.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Input.InputDeviceType
+    name: InputDeviceType
+    href: ShapeEngine.Input.InputDeviceType.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.OnInputDeviceChanged(ShapeEngine.Input.InputDeviceType,ShapeEngine.Input.InputDeviceType)
+    name: OnInputDeviceChanged
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnInputDeviceChanged_ShapeEngine_Input_InputDeviceType_ShapeEngine_Input_InputDeviceType_
+  - name: (
+  - uid: ShapeEngine.Input.InputDeviceType
+    name: InputDeviceType
+    href: ShapeEngine.Input.InputDeviceType.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Input.InputDeviceType
+    name: InputDeviceType
+    href: ShapeEngine.Input.InputDeviceType.html
+  - name: )
+- uid: ShapeEngine.Core.Scene.OnPausedChanged(System.Boolean)
+  commentId: M:ShapeEngine.Core.Scene.OnPausedChanged(System.Boolean)
+  parent: ShapeEngine.Core.Scene
+  isExternal: true
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnPausedChanged_System_Boolean_
+  name: OnPausedChanged(bool)
+  nameWithType: Scene.OnPausedChanged(bool)
+  fullName: ShapeEngine.Core.Scene.OnPausedChanged(bool)
+  nameWithType.vb: Scene.OnPausedChanged(Boolean)
+  fullName.vb: ShapeEngine.Core.Scene.OnPausedChanged(Boolean)
+  name.vb: OnPausedChanged(Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.OnPausedChanged(System.Boolean)
+    name: OnPausedChanged
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnPausedChanged_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.OnPausedChanged(System.Boolean)
+    name: OnPausedChanged
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnPausedChanged_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Core.Scene.OnMouseEnteredScreen
+  commentId: M:ShapeEngine.Core.Scene.OnMouseEnteredScreen
+  parent: ShapeEngine.Core.Scene
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnMouseEnteredScreen
+  name: OnMouseEnteredScreen()
+  nameWithType: Scene.OnMouseEnteredScreen()
+  fullName: ShapeEngine.Core.Scene.OnMouseEnteredScreen()
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.OnMouseEnteredScreen
+    name: OnMouseEnteredScreen
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnMouseEnteredScreen
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.OnMouseEnteredScreen
+    name: OnMouseEnteredScreen
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnMouseEnteredScreen
+  - name: (
+  - name: )
+- uid: ShapeEngine.Core.Scene.OnMouseLeftScreen
+  commentId: M:ShapeEngine.Core.Scene.OnMouseLeftScreen
+  parent: ShapeEngine.Core.Scene
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnMouseLeftScreen
+  name: OnMouseLeftScreen()
+  nameWithType: Scene.OnMouseLeftScreen()
+  fullName: ShapeEngine.Core.Scene.OnMouseLeftScreen()
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.OnMouseLeftScreen
+    name: OnMouseLeftScreen
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnMouseLeftScreen
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.OnMouseLeftScreen
+    name: OnMouseLeftScreen
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnMouseLeftScreen
+  - name: (
+  - name: )
+- uid: ShapeEngine.Core.Scene.OnMouseVisibilityChanged(System.Boolean)
+  commentId: M:ShapeEngine.Core.Scene.OnMouseVisibilityChanged(System.Boolean)
+  parent: ShapeEngine.Core.Scene
+  isExternal: true
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnMouseVisibilityChanged_System_Boolean_
+  name: OnMouseVisibilityChanged(bool)
+  nameWithType: Scene.OnMouseVisibilityChanged(bool)
+  fullName: ShapeEngine.Core.Scene.OnMouseVisibilityChanged(bool)
+  nameWithType.vb: Scene.OnMouseVisibilityChanged(Boolean)
+  fullName.vb: ShapeEngine.Core.Scene.OnMouseVisibilityChanged(Boolean)
+  name.vb: OnMouseVisibilityChanged(Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.OnMouseVisibilityChanged(System.Boolean)
+    name: OnMouseVisibilityChanged
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnMouseVisibilityChanged_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.OnMouseVisibilityChanged(System.Boolean)
+    name: OnMouseVisibilityChanged
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnMouseVisibilityChanged_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Core.Scene.OnMouseEnabledChanged(System.Boolean)
+  commentId: M:ShapeEngine.Core.Scene.OnMouseEnabledChanged(System.Boolean)
+  parent: ShapeEngine.Core.Scene
+  isExternal: true
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnMouseEnabledChanged_System_Boolean_
+  name: OnMouseEnabledChanged(bool)
+  nameWithType: Scene.OnMouseEnabledChanged(bool)
+  fullName: ShapeEngine.Core.Scene.OnMouseEnabledChanged(bool)
+  nameWithType.vb: Scene.OnMouseEnabledChanged(Boolean)
+  fullName.vb: ShapeEngine.Core.Scene.OnMouseEnabledChanged(Boolean)
+  name.vb: OnMouseEnabledChanged(Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.OnMouseEnabledChanged(System.Boolean)
+    name: OnMouseEnabledChanged
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnMouseEnabledChanged_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.OnMouseEnabledChanged(System.Boolean)
+    name: OnMouseEnabledChanged
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnMouseEnabledChanged_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Core.Scene.OnWindowFocusChanged(System.Boolean)
+  commentId: M:ShapeEngine.Core.Scene.OnWindowFocusChanged(System.Boolean)
+  parent: ShapeEngine.Core.Scene
+  isExternal: true
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnWindowFocusChanged_System_Boolean_
+  name: OnWindowFocusChanged(bool)
+  nameWithType: Scene.OnWindowFocusChanged(bool)
+  fullName: ShapeEngine.Core.Scene.OnWindowFocusChanged(bool)
+  nameWithType.vb: Scene.OnWindowFocusChanged(Boolean)
+  fullName.vb: ShapeEngine.Core.Scene.OnWindowFocusChanged(Boolean)
+  name.vb: OnWindowFocusChanged(Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.OnWindowFocusChanged(System.Boolean)
+    name: OnWindowFocusChanged
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnWindowFocusChanged_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.OnWindowFocusChanged(System.Boolean)
+    name: OnWindowFocusChanged
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnWindowFocusChanged_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Core.Scene.OnWindowFullscreenChanged(System.Boolean)
+  commentId: M:ShapeEngine.Core.Scene.OnWindowFullscreenChanged(System.Boolean)
+  parent: ShapeEngine.Core.Scene
+  isExternal: true
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnWindowFullscreenChanged_System_Boolean_
+  name: OnWindowFullscreenChanged(bool)
+  nameWithType: Scene.OnWindowFullscreenChanged(bool)
+  fullName: ShapeEngine.Core.Scene.OnWindowFullscreenChanged(bool)
+  nameWithType.vb: Scene.OnWindowFullscreenChanged(Boolean)
+  fullName.vb: ShapeEngine.Core.Scene.OnWindowFullscreenChanged(Boolean)
+  name.vb: OnWindowFullscreenChanged(Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.OnWindowFullscreenChanged(System.Boolean)
+    name: OnWindowFullscreenChanged
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnWindowFullscreenChanged_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.OnWindowFullscreenChanged(System.Boolean)
+    name: OnWindowFullscreenChanged
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnWindowFullscreenChanged_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Core.Scene.OnWindowMaximizeChanged(System.Boolean)
+  commentId: M:ShapeEngine.Core.Scene.OnWindowMaximizeChanged(System.Boolean)
+  parent: ShapeEngine.Core.Scene
+  isExternal: true
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnWindowMaximizeChanged_System_Boolean_
+  name: OnWindowMaximizeChanged(bool)
+  nameWithType: Scene.OnWindowMaximizeChanged(bool)
+  fullName: ShapeEngine.Core.Scene.OnWindowMaximizeChanged(bool)
+  nameWithType.vb: Scene.OnWindowMaximizeChanged(Boolean)
+  fullName.vb: ShapeEngine.Core.Scene.OnWindowMaximizeChanged(Boolean)
+  name.vb: OnWindowMaximizeChanged(Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.OnWindowMaximizeChanged(System.Boolean)
+    name: OnWindowMaximizeChanged
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnWindowMaximizeChanged_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Scene.OnWindowMaximizeChanged(System.Boolean)
+    name: OnWindowMaximizeChanged
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnWindowMaximizeChanged_System_Boolean_
+  - name: (
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Core.Scene.OnButtonPressed(ShapeEngine.Input.InputEvent)
+  commentId: M:ShapeEngine.Core.Scene.OnButtonPressed(ShapeEngine.Input.InputEvent)
+  parent: ShapeEngine.Core.Scene
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnButtonPressed_ShapeEngine_Input_InputEvent_
+  name: OnButtonPressed(InputEvent)
+  nameWithType: Scene.OnButtonPressed(InputEvent)
+  fullName: ShapeEngine.Core.Scene.OnButtonPressed(ShapeEngine.Input.InputEvent)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Scene.OnButtonPressed(ShapeEngine.Input.InputEvent)
+    name: OnButtonPressed
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnButtonPressed_ShapeEngine_Input_InputEvent_
   - name: (
   - uid: ShapeEngine.Input.InputEvent
     name: InputEvent
     href: ShapeEngine.Input.InputEvent.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.Scene.ResolveOnButtonPressed(ShapeEngine.Input.InputEvent)
-    name: ResolveOnButtonPressed
-    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_ResolveOnButtonPressed_ShapeEngine_Input_InputEvent_
+  - uid: ShapeEngine.Core.Scene.OnButtonPressed(ShapeEngine.Input.InputEvent)
+    name: OnButtonPressed
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnButtonPressed_ShapeEngine_Input_InputEvent_
   - name: (
   - uid: ShapeEngine.Input.InputEvent
     name: InputEvent
     href: ShapeEngine.Input.InputEvent.html
   - name: )
-- uid: ShapeEngine.Core.Scene.ResolveOnButtonReleased(ShapeEngine.Input.InputEvent)
-  commentId: M:ShapeEngine.Core.Scene.ResolveOnButtonReleased(ShapeEngine.Input.InputEvent)
+- uid: ShapeEngine.Core.Scene.OnButtonReleased(ShapeEngine.Input.InputEvent)
+  commentId: M:ShapeEngine.Core.Scene.OnButtonReleased(ShapeEngine.Input.InputEvent)
   parent: ShapeEngine.Core.Scene
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_ResolveOnButtonReleased_ShapeEngine_Input_InputEvent_
-  name: ResolveOnButtonReleased(InputEvent)
-  nameWithType: Scene.ResolveOnButtonReleased(InputEvent)
-  fullName: ShapeEngine.Core.Scene.ResolveOnButtonReleased(ShapeEngine.Input.InputEvent)
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnButtonReleased_ShapeEngine_Input_InputEvent_
+  name: OnButtonReleased(InputEvent)
+  nameWithType: Scene.OnButtonReleased(InputEvent)
+  fullName: ShapeEngine.Core.Scene.OnButtonReleased(ShapeEngine.Input.InputEvent)
   spec.csharp:
-  - uid: ShapeEngine.Core.Scene.ResolveOnButtonReleased(ShapeEngine.Input.InputEvent)
-    name: ResolveOnButtonReleased
-    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_ResolveOnButtonReleased_ShapeEngine_Input_InputEvent_
+  - uid: ShapeEngine.Core.Scene.OnButtonReleased(ShapeEngine.Input.InputEvent)
+    name: OnButtonReleased
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnButtonReleased_ShapeEngine_Input_InputEvent_
   - name: (
   - uid: ShapeEngine.Input.InputEvent
     name: InputEvent
     href: ShapeEngine.Input.InputEvent.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.Scene.ResolveOnButtonReleased(ShapeEngine.Input.InputEvent)
-    name: ResolveOnButtonReleased
-    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_ResolveOnButtonReleased_ShapeEngine_Input_InputEvent_
+  - uid: ShapeEngine.Core.Scene.OnButtonReleased(ShapeEngine.Input.InputEvent)
+    name: OnButtonReleased
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnButtonReleased_ShapeEngine_Input_InputEvent_
   - name: (
   - uid: ShapeEngine.Input.InputEvent
     name: InputEvent
@@ -494,165 +1245,6 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
-- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  parent: ShapeEngine.StaticLib.ShapeLogger
-  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: Log(object, string, LogLevel)
-  nameWithType: ShapeLogger.Log(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: Log(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  parent: ShapeEngine.StaticLib.ShapeLogger
-  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogConsole(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogConsole(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  parent: ShapeEngine.StaticLib.ShapeLogger
-  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogFile(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogFile(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -660,197 +1252,36 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  isExternal: true
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: Log(object, string, LogLevel)
-  nameWithType: ShapeLogger.Log(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: Log(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: Log
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.StaticLib.ShapeLogger
-  commentId: T:ShapeEngine.StaticLib.ShapeLogger
-  parent: ShapeEngine.StaticLib
-  href: ShapeEngine.StaticLib.ShapeLogger.html
-  name: ShapeLogger
-  nameWithType: ShapeLogger
-  fullName: ShapeEngine.StaticLib.ShapeLogger
-- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  isExternal: true
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogConsole(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogConsole(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogConsole
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-  isExternal: true
-  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  name: LogFile(object, string, LogLevel)
-  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
-  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
-  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
-  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
-  name.vb: LogFile(Object, String, LogLevel)
-  spec.csharp:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: string
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
-    name: LogFile
-    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
-  - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: ','
-  - name: " "
-  - uid: System.String
-    name: String
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.string
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Logging.LogLevel
-    name: LogLevel
-    href: ShapeEngine.Core.Logging.LogLevel.html
-  - name: )
-- uid: ShapeEngine.StaticLib
-  commentId: N:ShapeEngine.StaticLib
+- uid: ShapeEngine.Core.Interfaces
+  commentId: N:ShapeEngine.Core.Interfaces
   href: ShapeEngine.html
-  name: ShapeEngine.StaticLib
-  nameWithType: ShapeEngine.StaticLib
-  fullName: ShapeEngine.StaticLib
+  name: ShapeEngine.Core.Interfaces
+  nameWithType: ShapeEngine.Core.Interfaces
+  fullName: ShapeEngine.Core.Interfaces
   spec.csharp:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.StaticLib
-    name: StaticLib
-    href: ShapeEngine.StaticLib.html
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+  - name: .
+  - uid: ShapeEngine.Core.Interfaces
+    name: Interfaces
+    href: ShapeEngine.Core.Interfaces.html
   spec.vb:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.StaticLib
-    name: StaticLib
-    href: ShapeEngine.StaticLib.html
-- uid: ShapeEngine.Core.SceneEmpty
-  commentId: T:ShapeEngine.Core.SceneEmpty
-  href: ShapeEngine.Core.SceneEmpty.html
-  name: SceneEmpty
-  nameWithType: SceneEmpty
-  fullName: ShapeEngine.Core.SceneEmpty
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+  - name: .
+  - uid: ShapeEngine.Core.Interfaces
+    name: Interfaces
+    href: ShapeEngine.Core.Interfaces.html
 - uid: ShapeEngine.Core.SceneEmpty.#ctor*
   commentId: Overload:ShapeEngine.Core.SceneEmpty.#ctor
   href: ShapeEngine.Core.SceneEmpty.html#ShapeEngine_Core_SceneEmpty__ctor
@@ -860,59 +1291,59 @@ references:
   nameWithType.vb: SceneEmpty.New
   fullName.vb: ShapeEngine.Core.SceneEmpty.New
   name.vb: New
-- uid: ShapeEngine.Core.Scene.OnActivate(ShapeEngine.Core.Scene)
-  commentId: M:ShapeEngine.Core.Scene.OnActivate(ShapeEngine.Core.Scene)
+- uid: ShapeEngine.Core.Scene.Activate(ShapeEngine.Core.Scene)
+  commentId: M:ShapeEngine.Core.Scene.Activate(ShapeEngine.Core.Scene)
   parent: ShapeEngine.Core.Scene
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnActivate_ShapeEngine_Core_Scene_
-  name: OnActivate(Scene)
-  nameWithType: Scene.OnActivate(Scene)
-  fullName: ShapeEngine.Core.Scene.OnActivate(ShapeEngine.Core.Scene)
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_Activate_ShapeEngine_Core_Scene_
+  name: Activate(Scene)
+  nameWithType: Scene.Activate(Scene)
+  fullName: ShapeEngine.Core.Scene.Activate(ShapeEngine.Core.Scene)
   spec.csharp:
-  - uid: ShapeEngine.Core.Scene.OnActivate(ShapeEngine.Core.Scene)
-    name: OnActivate
-    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnActivate_ShapeEngine_Core_Scene_
+  - uid: ShapeEngine.Core.Scene.Activate(ShapeEngine.Core.Scene)
+    name: Activate
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_Activate_ShapeEngine_Core_Scene_
   - name: (
   - uid: ShapeEngine.Core.Scene
     name: Scene
     href: ShapeEngine.Core.Scene.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.Scene.OnActivate(ShapeEngine.Core.Scene)
-    name: OnActivate
-    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnActivate_ShapeEngine_Core_Scene_
+  - uid: ShapeEngine.Core.Scene.Activate(ShapeEngine.Core.Scene)
+    name: Activate
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_Activate_ShapeEngine_Core_Scene_
   - name: (
   - uid: ShapeEngine.Core.Scene
     name: Scene
     href: ShapeEngine.Core.Scene.html
   - name: )
-- uid: ShapeEngine.Core.SceneEmpty.OnActivate*
-  commentId: Overload:ShapeEngine.Core.SceneEmpty.OnActivate
-  href: ShapeEngine.Core.SceneEmpty.html#ShapeEngine_Core_SceneEmpty_OnActivate_ShapeEngine_Core_Scene_
-  name: OnActivate
-  nameWithType: SceneEmpty.OnActivate
-  fullName: ShapeEngine.Core.SceneEmpty.OnActivate
-- uid: ShapeEngine.Core.Scene.OnDeactivate
-  commentId: M:ShapeEngine.Core.Scene.OnDeactivate
+- uid: ShapeEngine.Core.SceneEmpty.Activate*
+  commentId: Overload:ShapeEngine.Core.SceneEmpty.Activate
+  href: ShapeEngine.Core.SceneEmpty.html#ShapeEngine_Core_SceneEmpty_Activate_ShapeEngine_Core_Scene_
+  name: Activate
+  nameWithType: SceneEmpty.Activate
+  fullName: ShapeEngine.Core.SceneEmpty.Activate
+- uid: ShapeEngine.Core.Scene.Deactivate
+  commentId: M:ShapeEngine.Core.Scene.Deactivate
   parent: ShapeEngine.Core.Scene
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnDeactivate
-  name: OnDeactivate()
-  nameWithType: Scene.OnDeactivate()
-  fullName: ShapeEngine.Core.Scene.OnDeactivate()
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_Deactivate
+  name: Deactivate()
+  nameWithType: Scene.Deactivate()
+  fullName: ShapeEngine.Core.Scene.Deactivate()
   spec.csharp:
-  - uid: ShapeEngine.Core.Scene.OnDeactivate
-    name: OnDeactivate
-    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnDeactivate
+  - uid: ShapeEngine.Core.Scene.Deactivate
+    name: Deactivate
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_Deactivate
   - name: (
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.Scene.OnDeactivate
-    name: OnDeactivate
-    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnDeactivate
+  - uid: ShapeEngine.Core.Scene.Deactivate
+    name: Deactivate
+    href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_Deactivate
   - name: (
   - name: )
-- uid: ShapeEngine.Core.SceneEmpty.OnDeactivate*
-  commentId: Overload:ShapeEngine.Core.SceneEmpty.OnDeactivate
-  href: ShapeEngine.Core.SceneEmpty.html#ShapeEngine_Core_SceneEmpty_OnDeactivate
-  name: OnDeactivate
-  nameWithType: SceneEmpty.OnDeactivate
-  fullName: ShapeEngine.Core.SceneEmpty.OnDeactivate
+- uid: ShapeEngine.Core.SceneEmpty.Deactivate*
+  commentId: Overload:ShapeEngine.Core.SceneEmpty.Deactivate
+  href: ShapeEngine.Core.SceneEmpty.html#ShapeEngine_Core_SceneEmpty_Deactivate
+  name: Deactivate
+  nameWithType: SceneEmpty.Deactivate
+  fullName: ShapeEngine.Core.SceneEmpty.Deactivate

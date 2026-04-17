@@ -33,16 +33,10 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ShapeContainer
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeContainer.cs
-    startLine: 11
+    startLine: 4
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
-  summary: >-
-    Represents a container for shapes that can have a parent and multiple children,
-
-    supporting hierarchical transformations and updates.
-  remarks: ShapeContainer enables composite shape structures, allowing for parent-child relationships and recursive updates/draws.
-  example: []
   syntax:
     content: 'public abstract class ShapeContainer : Shape, IShape'
     content.vb: Public MustInherit Class ShapeContainer Inherits Shape Implements IShape
@@ -58,7 +52,7 @@ items:
   - ShapeEngine.Core.Shapes.SegmentShape
   - ShapeEngine.Core.Shapes.TriangleShape
   implements:
-  - ShapeEngine.Core.CollisionSystem.IShape
+  - ShapeEngine.Core.Collision.IShape
   inheritedMembers:
   - ShapeEngine.Core.Shapes.Shape.Moves
   - ShapeEngine.Core.Shapes.Shape.Rotates
@@ -73,10 +67,8 @@ items:
   - ShapeEngine.Core.Shapes.Shape.OnShapeTransformChanged(System.Boolean)
   - ShapeEngine.Core.Shapes.Shape.UpdateTransform(ShapeEngine.Core.Structs.Transform2D)
   - ShapeEngine.Core.Shapes.Shape.GetShapeType
-  - ShapeEngine.Core.Shapes.Shape.GetRayShape
-  - ShapeEngine.Core.Shapes.Shape.GetLineShape
-  - ShapeEngine.Core.Shapes.Shape.GetSegmentShape
   - ShapeEngine.Core.Shapes.Shape.GetCircleShape
+  - ShapeEngine.Core.Shapes.Shape.GetSegmentShape
   - ShapeEngine.Core.Shapes.Shape.GetTriangleShape
   - ShapeEngine.Core.Shapes.Shape.GetQuadShape
   - ShapeEngine.Core.Shapes.Shape.GetRectShape
@@ -107,12 +99,10 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Parent
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeContainer.cs
-    startLine: 18
+    startLine: 8
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
-  summary: Gets or sets the parent of this shape container.
-  example: []
   syntax:
     content: public ShapeContainer? Parent { get; set; }
     parameters: []
@@ -138,22 +128,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ChangeParent
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeContainer.cs
-    startLine: 35
+    startLine: 15
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
-  summary: Changes the parent of this shape container to a new parent.
-  remarks: This will add the current shape to the new parent's children and update the parent reference.
-  example: []
   syntax:
     content: public bool ChangeParent(ShapeContainer newParent)
     parameters:
     - id: newParent
       type: ShapeEngine.Core.Shapes.ShapeContainer
-      description: The new parent to assign.
     return:
       type: System.Boolean
-      description: True if the parent was changed; false if already assigned to the new parent.
     content.vb: Public Function ChangeParent(newParent As ShapeContainer) As Boolean
   overload: ShapeEngine.Core.Shapes.ShapeContainer.ChangeParent*
 - uid: ShapeEngine.Core.Shapes.ShapeContainer.AddChild(ShapeEngine.Core.Shapes.ShapeContainer)
@@ -174,22 +159,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddChild
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeContainer.cs
-    startLine: 54
+    startLine: 21
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
-  summary: Adds a child shape container to this container.
-  remarks: <ul><li>If the child already has a parent, it will be removed from that parent first.</li><li>The child's parent will be set to this container.</li><li>The child will be initialized with the current transform.</li></ul>
-  example: []
   syntax:
     content: public bool AddChild(ShapeContainer child)
     parameters:
     - id: child
       type: ShapeEngine.Core.Shapes.ShapeContainer
-      description: The child shape container to add.
     return:
       type: System.Boolean
-      description: True if the child was added; false if it was already a child.
     content.vb: Public Function AddChild(child As ShapeContainer) As Boolean
   overload: ShapeEngine.Core.Shapes.ShapeContainer.AddChild*
 - uid: ShapeEngine.Core.Shapes.ShapeContainer.RemoveChild(ShapeEngine.Core.Shapes.ShapeContainer)
@@ -210,22 +190,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveChild
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeContainer.cs
-    startLine: 84
+    startLine: 39
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
-  summary: Removes a child shape container from this container.
-  remarks: <ul><li>The child's parent will be set to <code>null</code>.</li><li>The child will be notified of removal.</li></ul>
-  example: []
   syntax:
     content: public bool RemoveChild(ShapeContainer child)
     parameters:
     - id: child
       type: ShapeEngine.Core.Shapes.ShapeContainer
-      description: The child shape container to remove.
     return:
       type: System.Boolean
-      description: True if the child was removed; false if it was not a child of this container.
     content.vb: Public Function RemoveChild(child As ShapeContainer) As Boolean
   overload: ShapeEngine.Core.Shapes.ShapeContainer.RemoveChild*
 - uid: ShapeEngine.Core.Shapes.ShapeContainer.InitializeShape(ShapeEngine.Core.Structs.Transform2D)
@@ -246,19 +221,16 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InitializeShape
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeContainer.cs
-    startLine: 101
+    startLine: 49
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
-  summary: Initializes this shape and all child shapes with the given parent transform.
-  remarks: Recursively initializes all children and calls <xref href="ShapeEngine.Core.Shapes.ShapeContainer.OnChildInitialized(ShapeEngine.Core.Shapes.ShapeContainer)" data-throw-if-not-resolved="false"></xref> for each child.
   example: []
   syntax:
     content: public override void InitializeShape(Transform2D parentTransform)
     parameters:
     - id: parentTransform
       type: ShapeEngine.Core.Structs.Transform2D
-      description: The transform of the parent shape.
     content.vb: Public Overrides Sub InitializeShape(parentTransform As Transform2D)
   overridden: ShapeEngine.Core.Shapes.Shape.InitializeShape(ShapeEngine.Core.Structs.Transform2D)
   overload: ShapeEngine.Core.Shapes.ShapeContainer.InitializeShape*
@@ -280,22 +252,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: UpdateShape
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeContainer.cs
-    startLine: 120
+    startLine: 59
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
-  summary: Updates this shape and all child shapes.
-  remarks: Recursively updates all children and calls <xref href="ShapeEngine.Core.Shapes.ShapeContainer.OnChildUpdated(ShapeEngine.Core.Shapes.ShapeContainer)" data-throw-if-not-resolved="false"></xref> for each child.
   example: []
   syntax:
     content: public override void UpdateShape(float dt, Transform2D parentTransform)
     parameters:
     - id: dt
       type: System.Single
-      description: The delta time since the last update.
     - id: parentTransform
       type: ShapeEngine.Core.Structs.Transform2D
-      description: The transform of the parent shape.
     content.vb: Public Overrides Sub UpdateShape(dt As Single, parentTransform As Transform2D)
   overridden: ShapeEngine.Core.Shapes.Shape.UpdateShape(System.Single,ShapeEngine.Core.Structs.Transform2D)
   overload: ShapeEngine.Core.Shapes.ShapeContainer.UpdateShape*
@@ -320,12 +288,10 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawShape
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeContainer.cs
-    startLine: 139
+    startLine: 71
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
-  summary: Draws this shape and all child shapes.
-  remarks: Recursively draws all children and calls <xref href="ShapeEngine.Core.Shapes.ShapeContainer.OnChildDrawn(ShapeEngine.Core.Shapes.ShapeContainer)" data-throw-if-not-resolved="false"></xref> for each child.
   example: []
   syntax:
     content: public override void DrawShape()
@@ -350,18 +316,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnChildInitialized
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeContainer.cs
-    startLine: 158
+    startLine: 86
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
-  summary: Called when a child shape has been initialized.
-  example: []
   syntax:
     content: protected virtual void OnChildInitialized(ShapeContainer child)
     parameters:
     - id: child
       type: ShapeEngine.Core.Shapes.ShapeContainer
-      description: The child that was initialized.
     content.vb: Protected Overridable Sub OnChildInitialized(child As ShapeContainer)
   overload: ShapeEngine.Core.Shapes.ShapeContainer.OnChildInitialized*
 - uid: ShapeEngine.Core.Shapes.ShapeContainer.OnChildUpdated(ShapeEngine.Core.Shapes.ShapeContainer)
@@ -382,18 +345,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnChildUpdated
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeContainer.cs
-    startLine: 163
+    startLine: 87
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
-  summary: Called when a child shape has been updated.
-  example: []
   syntax:
     content: protected virtual void OnChildUpdated(ShapeContainer child)
     parameters:
     - id: child
       type: ShapeEngine.Core.Shapes.ShapeContainer
-      description: The child that was updated.
     content.vb: Protected Overridable Sub OnChildUpdated(child As ShapeContainer)
   overload: ShapeEngine.Core.Shapes.ShapeContainer.OnChildUpdated*
 - uid: ShapeEngine.Core.Shapes.ShapeContainer.OnChildDrawn(ShapeEngine.Core.Shapes.ShapeContainer)
@@ -414,18 +374,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnChildDrawn
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeContainer.cs
-    startLine: 168
+    startLine: 88
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
-  summary: Called when a child shape has been drawn.
-  example: []
   syntax:
     content: protected virtual void OnChildDrawn(ShapeContainer child)
     parameters:
     - id: child
       type: ShapeEngine.Core.Shapes.ShapeContainer
-      description: The child that was drawn.
     content.vb: Protected Overridable Sub OnChildDrawn(child As ShapeContainer)
   overload: ShapeEngine.Core.Shapes.ShapeContainer.OnChildDrawn*
 - uid: ShapeEngine.Core.Shapes.ShapeContainer.OnUpdateFinished
@@ -446,12 +403,10 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnUpdateFinished
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeContainer.cs
-    startLine: 173
+    startLine: 90
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
-  summary: Called after all updates for this shape and its children are finished.
-  example: []
   syntax:
     content: protected virtual void OnUpdateFinished()
     content.vb: Protected Overridable Sub OnUpdateFinished()
@@ -474,12 +429,10 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnDrawFinished
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeContainer.cs
-    startLine: 177
+    startLine: 91
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
-  summary: Called after all drawing for this shape and its children is finished.
-  example: []
   syntax:
     content: protected virtual void OnDrawFinished()
     content.vb: Protected Overridable Sub OnDrawFinished()
@@ -502,18 +455,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnAddedToParent
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeContainer.cs
-    startLine: 183
+    startLine: 93
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
-  summary: Called when this shape is added to a parent container.
-  example: []
   syntax:
     content: protected virtual void OnAddedToParent(ShapeContainer parent)
     parameters:
     - id: parent
       type: ShapeEngine.Core.Shapes.ShapeContainer
-      description: The parent container this shape was added to.
     content.vb: Protected Overridable Sub OnAddedToParent(parent As ShapeContainer)
   overload: ShapeEngine.Core.Shapes.ShapeContainer.OnAddedToParent*
 - uid: ShapeEngine.Core.Shapes.ShapeContainer.OnRemovedFromParent(ShapeEngine.Core.Shapes.ShapeContainer)
@@ -534,18 +484,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnRemovedFromParent
     path: ../ShapeEngine/ShapeEngine/Core/Shapes/ShapeContainer.cs
-    startLine: 188
+    startLine: 94
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Shapes
-  summary: Called when this shape is removed from a parent container.
-  example: []
   syntax:
     content: protected virtual void OnRemovedFromParent(ShapeContainer parent)
     parameters:
     - id: parent
       type: ShapeEngine.Core.Shapes.ShapeContainer
-      description: The parent container this shape was removed from.
     content.vb: Protected Overridable Sub OnRemovedFromParent(parent As ShapeContainer)
   overload: ShapeEngine.Core.Shapes.ShapeContainer.OnRemovedFromParent*
 references:
@@ -597,13 +544,13 @@ references:
   name: Shape
   nameWithType: Shape
   fullName: ShapeEngine.Core.Shapes.Shape
-- uid: ShapeEngine.Core.CollisionSystem.IShape
-  commentId: T:ShapeEngine.Core.CollisionSystem.IShape
-  parent: ShapeEngine.Core.CollisionSystem
-  href: ShapeEngine.Core.CollisionSystem.IShape.html
+- uid: ShapeEngine.Core.Collision.IShape
+  commentId: T:ShapeEngine.Core.Collision.IShape
+  parent: ShapeEngine.Core.Collision
+  href: ShapeEngine.Core.Collision.IShape.html
   name: IShape
   nameWithType: IShape
-  fullName: ShapeEngine.Core.CollisionSystem.IShape
+  fullName: ShapeEngine.Core.Collision.IShape
 - uid: ShapeEngine.Core.Shapes.Shape.Moves
   commentId: F:ShapeEngine.Core.Shapes.Shape.Moves
   parent: ShapeEngine.Core.Shapes.Shape
@@ -809,42 +756,23 @@ references:
     href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetShapeType
   - name: (
   - name: )
-- uid: ShapeEngine.Core.Shapes.Shape.GetRayShape
-  commentId: M:ShapeEngine.Core.Shapes.Shape.GetRayShape
+- uid: ShapeEngine.Core.Shapes.Shape.GetCircleShape
+  commentId: M:ShapeEngine.Core.Shapes.Shape.GetCircleShape
   parent: ShapeEngine.Core.Shapes.Shape
-  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetRayShape
-  name: GetRayShape()
-  nameWithType: Shape.GetRayShape()
-  fullName: ShapeEngine.Core.Shapes.Shape.GetRayShape()
+  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetCircleShape
+  name: GetCircleShape()
+  nameWithType: Shape.GetCircleShape()
+  fullName: ShapeEngine.Core.Shapes.Shape.GetCircleShape()
   spec.csharp:
-  - uid: ShapeEngine.Core.Shapes.Shape.GetRayShape
-    name: GetRayShape
-    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetRayShape
+  - uid: ShapeEngine.Core.Shapes.Shape.GetCircleShape
+    name: GetCircleShape
+    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetCircleShape
   - name: (
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Core.Shapes.Shape.GetRayShape
-    name: GetRayShape
-    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetRayShape
-  - name: (
-  - name: )
-- uid: ShapeEngine.Core.Shapes.Shape.GetLineShape
-  commentId: M:ShapeEngine.Core.Shapes.Shape.GetLineShape
-  parent: ShapeEngine.Core.Shapes.Shape
-  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetLineShape
-  name: GetLineShape()
-  nameWithType: Shape.GetLineShape()
-  fullName: ShapeEngine.Core.Shapes.Shape.GetLineShape()
-  spec.csharp:
-  - uid: ShapeEngine.Core.Shapes.Shape.GetLineShape
-    name: GetLineShape
-    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetLineShape
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.Shapes.Shape.GetLineShape
-    name: GetLineShape
-    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetLineShape
+  - uid: ShapeEngine.Core.Shapes.Shape.GetCircleShape
+    name: GetCircleShape
+    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetCircleShape
   - name: (
   - name: )
 - uid: ShapeEngine.Core.Shapes.Shape.GetSegmentShape
@@ -864,25 +792,6 @@ references:
   - uid: ShapeEngine.Core.Shapes.Shape.GetSegmentShape
     name: GetSegmentShape
     href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetSegmentShape
-  - name: (
-  - name: )
-- uid: ShapeEngine.Core.Shapes.Shape.GetCircleShape
-  commentId: M:ShapeEngine.Core.Shapes.Shape.GetCircleShape
-  parent: ShapeEngine.Core.Shapes.Shape
-  href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetCircleShape
-  name: GetCircleShape()
-  nameWithType: Shape.GetCircleShape()
-  fullName: ShapeEngine.Core.Shapes.Shape.GetCircleShape()
-  spec.csharp:
-  - uid: ShapeEngine.Core.Shapes.Shape.GetCircleShape
-    name: GetCircleShape
-    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetCircleShape
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.Shapes.Shape.GetCircleShape
-    name: GetCircleShape
-    href: ShapeEngine.Core.Shapes.Shape.html#ShapeEngine_Core_Shapes_Shape_GetCircleShape
   - name: (
   - name: )
 - uid: ShapeEngine.Core.Shapes.Shape.GetTriangleShape
@@ -1206,12 +1115,12 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: ShapeEngine.Core.CollisionSystem
-  commentId: N:ShapeEngine.Core.CollisionSystem
+- uid: ShapeEngine.Core.Collision
+  commentId: N:ShapeEngine.Core.Collision
   href: ShapeEngine.html
-  name: ShapeEngine.Core.CollisionSystem
-  nameWithType: ShapeEngine.Core.CollisionSystem
-  fullName: ShapeEngine.Core.CollisionSystem
+  name: ShapeEngine.Core.Collision
+  nameWithType: ShapeEngine.Core.Collision
+  fullName: ShapeEngine.Core.Collision
   spec.csharp:
   - uid: ShapeEngine
     name: ShapeEngine
@@ -1221,9 +1130,9 @@ references:
     name: Core
     href: ShapeEngine.Core.html
   - name: .
-  - uid: ShapeEngine.Core.CollisionSystem
-    name: CollisionSystem
-    href: ShapeEngine.Core.CollisionSystem.html
+  - uid: ShapeEngine.Core.Collision
+    name: Collision
+    href: ShapeEngine.Core.Collision.html
   spec.vb:
   - uid: ShapeEngine
     name: ShapeEngine
@@ -1233,9 +1142,9 @@ references:
     name: Core
     href: ShapeEngine.Core.html
   - name: .
-  - uid: ShapeEngine.Core.CollisionSystem
-    name: CollisionSystem
-    href: ShapeEngine.Core.CollisionSystem.html
+  - uid: ShapeEngine.Core.Collision
+    name: Collision
+    href: ShapeEngine.Core.Collision.html
 - uid: ShapeEngine.Core.Shapes.ShapeContainer.Parent*
   commentId: Overload:ShapeEngine.Core.Shapes.ShapeContainer.Parent
   href: ShapeEngine.Core.Shapes.ShapeContainer.html#ShapeEngine_Core_Shapes_ShapeContainer_Parent
@@ -1278,31 +1187,6 @@ references:
   name: RemoveChild
   nameWithType: ShapeContainer.RemoveChild
   fullName: ShapeEngine.Core.Shapes.ShapeContainer.RemoveChild
-- uid: ShapeEngine.Core.Shapes.ShapeContainer.OnChildInitialized(ShapeEngine.Core.Shapes.ShapeContainer)
-  commentId: M:ShapeEngine.Core.Shapes.ShapeContainer.OnChildInitialized(ShapeEngine.Core.Shapes.ShapeContainer)
-  parent: ShapeEngine.Core.Shapes.ShapeContainer
-  href: ShapeEngine.Core.Shapes.ShapeContainer.html#ShapeEngine_Core_Shapes_ShapeContainer_OnChildInitialized_ShapeEngine_Core_Shapes_ShapeContainer_
-  name: OnChildInitialized(ShapeContainer)
-  nameWithType: ShapeContainer.OnChildInitialized(ShapeContainer)
-  fullName: ShapeEngine.Core.Shapes.ShapeContainer.OnChildInitialized(ShapeEngine.Core.Shapes.ShapeContainer)
-  spec.csharp:
-  - uid: ShapeEngine.Core.Shapes.ShapeContainer.OnChildInitialized(ShapeEngine.Core.Shapes.ShapeContainer)
-    name: OnChildInitialized
-    href: ShapeEngine.Core.Shapes.ShapeContainer.html#ShapeEngine_Core_Shapes_ShapeContainer_OnChildInitialized_ShapeEngine_Core_Shapes_ShapeContainer_
-  - name: (
-  - uid: ShapeEngine.Core.Shapes.ShapeContainer
-    name: ShapeContainer
-    href: ShapeEngine.Core.Shapes.ShapeContainer.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.Shapes.ShapeContainer.OnChildInitialized(ShapeEngine.Core.Shapes.ShapeContainer)
-    name: OnChildInitialized
-    href: ShapeEngine.Core.Shapes.ShapeContainer.html#ShapeEngine_Core_Shapes_ShapeContainer_OnChildInitialized_ShapeEngine_Core_Shapes_ShapeContainer_
-  - name: (
-  - uid: ShapeEngine.Core.Shapes.ShapeContainer
-    name: ShapeContainer
-    href: ShapeEngine.Core.Shapes.ShapeContainer.html
-  - name: )
 - uid: ShapeEngine.Core.Shapes.Shape.InitializeShape(ShapeEngine.Core.Structs.Transform2D)
   commentId: M:ShapeEngine.Core.Shapes.Shape.InitializeShape(ShapeEngine.Core.Structs.Transform2D)
   parent: ShapeEngine.Core.Shapes.Shape
@@ -1371,31 +1255,6 @@ references:
   - uid: ShapeEngine.Core.Structs
     name: Structs
     href: ShapeEngine.Core.Structs.html
-- uid: ShapeEngine.Core.Shapes.ShapeContainer.OnChildUpdated(ShapeEngine.Core.Shapes.ShapeContainer)
-  commentId: M:ShapeEngine.Core.Shapes.ShapeContainer.OnChildUpdated(ShapeEngine.Core.Shapes.ShapeContainer)
-  parent: ShapeEngine.Core.Shapes.ShapeContainer
-  href: ShapeEngine.Core.Shapes.ShapeContainer.html#ShapeEngine_Core_Shapes_ShapeContainer_OnChildUpdated_ShapeEngine_Core_Shapes_ShapeContainer_
-  name: OnChildUpdated(ShapeContainer)
-  nameWithType: ShapeContainer.OnChildUpdated(ShapeContainer)
-  fullName: ShapeEngine.Core.Shapes.ShapeContainer.OnChildUpdated(ShapeEngine.Core.Shapes.ShapeContainer)
-  spec.csharp:
-  - uid: ShapeEngine.Core.Shapes.ShapeContainer.OnChildUpdated(ShapeEngine.Core.Shapes.ShapeContainer)
-    name: OnChildUpdated
-    href: ShapeEngine.Core.Shapes.ShapeContainer.html#ShapeEngine_Core_Shapes_ShapeContainer_OnChildUpdated_ShapeEngine_Core_Shapes_ShapeContainer_
-  - name: (
-  - uid: ShapeEngine.Core.Shapes.ShapeContainer
-    name: ShapeContainer
-    href: ShapeEngine.Core.Shapes.ShapeContainer.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.Shapes.ShapeContainer.OnChildUpdated(ShapeEngine.Core.Shapes.ShapeContainer)
-    name: OnChildUpdated
-    href: ShapeEngine.Core.Shapes.ShapeContainer.html#ShapeEngine_Core_Shapes_ShapeContainer_OnChildUpdated_ShapeEngine_Core_Shapes_ShapeContainer_
-  - name: (
-  - uid: ShapeEngine.Core.Shapes.ShapeContainer
-    name: ShapeContainer
-    href: ShapeEngine.Core.Shapes.ShapeContainer.html
-  - name: )
 - uid: ShapeEngine.Core.Shapes.Shape.UpdateShape(System.Single,ShapeEngine.Core.Structs.Transform2D)
   commentId: M:ShapeEngine.Core.Shapes.Shape.UpdateShape(System.Single,ShapeEngine.Core.Structs.Transform2D)
   parent: ShapeEngine.Core.Shapes.Shape
@@ -1454,31 +1313,6 @@ references:
   nameWithType.vb: Single
   fullName.vb: Single
   name.vb: Single
-- uid: ShapeEngine.Core.Shapes.ShapeContainer.OnChildDrawn(ShapeEngine.Core.Shapes.ShapeContainer)
-  commentId: M:ShapeEngine.Core.Shapes.ShapeContainer.OnChildDrawn(ShapeEngine.Core.Shapes.ShapeContainer)
-  parent: ShapeEngine.Core.Shapes.ShapeContainer
-  href: ShapeEngine.Core.Shapes.ShapeContainer.html#ShapeEngine_Core_Shapes_ShapeContainer_OnChildDrawn_ShapeEngine_Core_Shapes_ShapeContainer_
-  name: OnChildDrawn(ShapeContainer)
-  nameWithType: ShapeContainer.OnChildDrawn(ShapeContainer)
-  fullName: ShapeEngine.Core.Shapes.ShapeContainer.OnChildDrawn(ShapeEngine.Core.Shapes.ShapeContainer)
-  spec.csharp:
-  - uid: ShapeEngine.Core.Shapes.ShapeContainer.OnChildDrawn(ShapeEngine.Core.Shapes.ShapeContainer)
-    name: OnChildDrawn
-    href: ShapeEngine.Core.Shapes.ShapeContainer.html#ShapeEngine_Core_Shapes_ShapeContainer_OnChildDrawn_ShapeEngine_Core_Shapes_ShapeContainer_
-  - name: (
-  - uid: ShapeEngine.Core.Shapes.ShapeContainer
-    name: ShapeContainer
-    href: ShapeEngine.Core.Shapes.ShapeContainer.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.Shapes.ShapeContainer.OnChildDrawn(ShapeEngine.Core.Shapes.ShapeContainer)
-    name: OnChildDrawn
-    href: ShapeEngine.Core.Shapes.ShapeContainer.html#ShapeEngine_Core_Shapes_ShapeContainer_OnChildDrawn_ShapeEngine_Core_Shapes_ShapeContainer_
-  - name: (
-  - uid: ShapeEngine.Core.Shapes.ShapeContainer
-    name: ShapeContainer
-    href: ShapeEngine.Core.Shapes.ShapeContainer.html
-  - name: )
 - uid: ShapeEngine.Core.Shapes.Shape.DrawShape
   commentId: M:ShapeEngine.Core.Shapes.Shape.DrawShape
   parent: ShapeEngine.Core.Shapes.Shape
