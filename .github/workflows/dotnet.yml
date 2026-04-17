@@ -23,6 +23,7 @@ concurrency:
 
 jobs:
   build-and-update-docs:
+    if: github.event_name != 'pull_request'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -30,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout docs repo
         uses: actions/checkout@v4
         with:
           persist-credentials: false
@@ -38,19 +39,112 @@ jobs:
       - name: Clone ShapeEngine repository
         run: |
           git clone https://github.com/DaveGreen-Games/ShapeEngine.git ../ShapeEngine
+          cd ../ShapeEngine
+          git fetch --tags --force
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "8.x" # Use the version matching your DocFX
+          dotnet-version: "8.x"
 
       - name: Install DocFX
-        run: |
-          dotnet tool update -g docfx
+        run: dotnet tool update -g docfx
 
-      - name: Generate Documentation
+      - name: Build docs for main and all releases
+        shell: bash
         run: |
-          docfx docfx.json
+          set -euo pipefail
+
+          export PATH="$PATH:$HOME/.dotnet/tools"
+
+          rm -rf _site
+          mkdir -p _site
+
+          # Collect tags from the engine repo, newest first
+          mapfile -t TAGS < <(cd ../ShapeEngine && git tag --sort=-version:refname)
+
+          REPO_NAME="${{ github.event.repository.name }}"
+          # Accumulate version entries as newline-separated JSON objects; jq merges them
+          VERSIONS_ENTRIES=""
+
+          build_version() {
+            local REF="$1"
+            local LABEL="$2"
+            local IS_LATEST="$3"
+
+            echo "==> Building docs for ${LABEL} (ref: ${REF})"
+
+            pushd ../ShapeEngine >/dev/null
+            git checkout --force "$REF"
+            popd >/dev/null
+
+            # Generate a per-version docfx config from the base one
+            python3 - "$LABEL" "$REPO_NAME" <<'PY'
+          import json, sys
+          label, repo = sys.argv[1], sys.argv[2]
+          with open("docfx.json", encoding="utf-8") as f:
+              data = json.load(f)
+          data["build"]["output"] = f"_site/{label}"
+          data["build"].setdefault("globalMetadata", {})
+          data["build"]["globalMetadata"]["docfx_version"] = label
+          data["build"]["globalMetadata"]["docfx_versions_file"] = f"/{repo}/versions.json"
+          with open("docfx.version.json", "w", encoding="utf-8") as f:
+              json.dump(data, f, indent=2)
+          PY
+
+            docfx metadata docfx.version.json
+            docfx build    docfx.version.json
+
+            # Append a JSON object for this version using jq for safe encoding
+            local ENTRY
+            ENTRY=$(jq -n \
+              --arg label  "$LABEL" \
+              --arg path   "/${REPO_NAME}/${LABEL}/" \
+              --argjson latest "$IS_LATEST" \
+              '{label: $label, path: $path, latest: $latest}')
+            VERSIONS_ENTRIES="${VERSIONS_ENTRIES}${ENTRY}"$'\n'
+          }
+
+          # Always build main first
+          build_version "main" "main" "false"
+
+          # Build each release tag; mark the very first (newest) as latest
+          LATEST_RELEASE=true
+          for TAG in "${TAGS[@]}"; do
+            if [ "$LATEST_RELEASE" = true ]; then
+              build_version "$TAG" "$TAG" "true"
+              LATEST_RELEASE=false
+            else
+              build_version "$TAG" "$TAG" "false"
+            fi
+          done
+
+          # Merge all entries into a JSON array with jq
+          echo "$VERSIONS_ENTRIES" | jq -s '.' > _site/versions.json
+          echo "Generated versions.json: $(cat _site/versions.json)"
+
+          # Root redirect to the latest stable release (or main if no tags)
+          REDIRECT_TARGET="/${REPO_NAME}/main/"
+          if [ "${#TAGS[@]}" -gt 0 ]; then
+            REDIRECT_TARGET="/${REPO_NAME}/${TAGS[0]}/"
+          fi
+
+          cat > _site/index.html <<EOF
+          <!doctype html>
+          <html>
+            <head>
+              <meta charset="utf-8">
+              <meta http-equiv="refresh" content="0; url=${REDIRECT_TARGET}">
+              <title>ShapeEngine Docs</title>
+            </head>
+            <body>
+              <p>Redirecting to <a href="${REDIRECT_TARGET}">${REDIRECT_TARGET}</a>…</p>
+            </body>
+          </html>
+          EOF
+
+          # Clean up temporary config
+          rm -f docfx.version.json
 
       - name: Commit & Push Changes
         run: |
