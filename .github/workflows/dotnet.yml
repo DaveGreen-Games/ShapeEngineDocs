@@ -67,6 +67,10 @@ jobs:
           # Accumulate version entries as newline-separated JSON objects; jq merges them
           VERSIONS_ENTRIES=""
 
+          # Back up the tracked index.md; restore it on exit (success or failure)
+          cp index.md index.md.original.backup
+          trap '{ [ -f index.md.original.backup ] && mv index.md.original.backup index.md; } || echo "Warning: could not restore index.md from backup"' EXIT
+
           build_version() {
             local REF="$1"
             local LABEL="$2"
@@ -77,6 +81,14 @@ jobs:
             pushd ../ShapeEngine >/dev/null
             git checkout --force "$REF"
             popd >/dev/null
+
+            # Use this version's README.md as the docs landing page.
+            # Fall back to the original index.md if README.md doesn't exist for the ref.
+            if [ -f "../ShapeEngine/README.md" ]; then
+              cp ../ShapeEngine/README.md index.md
+            else
+              cp index.md.original.backup index.md
+            fi
 
             # Generate a per-version docfx config from the base one
             python3 - "$LABEL" "$REPO_NAME" <<'PY'
