@@ -40,7 +40,7 @@
 
   </head>
 
-  <body class="tex2jax_ignore" data-layout="landing" data-yaml-mime="">
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
     <header class="bg-body border-bottom">
       <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
         <div class="container-xxl flex-nowrap">
@@ -73,12 +73,11 @@
 
         <article data-uid="">
 
-
 <p><img src="https://github.com/user-attachments/assets/00bdcbb9-3f24-43a8-b665-9befdc16d593" alt="ShapeEngine 4 0 Release Banner reddit (1920 x 384 px)"></p>
 <p>My custom-made engine based on the great <a href="https://www.raylib.com/examples.html">Raylib Framework</a>. The Main focus is being performant and only using draw functions instead of textures.</p>
 <p>When using Shape Engine everything from Raylib is available as well. (<a href="https://www.raylib.com/examples.html">Raylib Examples</a>, <a href="https://www.raylib.com/cheatsheet/raylib_cheatsheet_v4.0.pdf">Raylib Cheatsheet</a>)</p>
 <blockquote>
-<p>Shape Engine´s examples are available on <a href="https://solobytegames.itch.io/shape-engine">Itch</a> as well and it is a great way to support me :)</p>
+<p>Shape Engine´s examples are available on <a href="https://solobytegames.itch.io/shape-engine">Itch</a> as well and it is a great way to support me ;)</p>
 </blockquote>
 <blockquote>
 <p>More examples are available in the <a href="https://github.com/DaveGreen-Games/ShapeEngineDemos">ShapeEngineDemos repository</a>. Most of the bigger examples will be available here, like a small asteroids game.</p>
@@ -104,9 +103,7 @@
 <ol>
 <li><strong>Create a new solution &amp; project and download Shape Engine from the Nuget manager.</strong> (Recommended)</li>
 </ol>
-<pre><code class="lang-sh">dotnet new console -n ShapeEngineProject
-cd ./ShapeEngineProject
-dotnet add package DaveGreen.ShapeEngine
+<pre><code class="lang-sh">dotnet add package DaveGreen.ShapeEngine
 </code></pre>
 <ol start="2">
 <li>Clone or fork the repository and add new projects to the solution. You then can reference the Shape Engine project and start working on your game. The advantages are that you can easily change things in Shape Engine and everything updates automatically in your own project.</li>
@@ -119,12 +116,13 @@ dotnet add package DaveGreen.ShapeEngine
 <li>Create a new solution &amp; project and just add the Shape Engine Core DLL to your project and reference it. Now you need to download the right version of the Raylib_CsLo &amp; Clipper2 Nuget packages. The releases on GitHub will state which versions were used.</li>
 </ol>
 <h2 id="minimal-project-setup">Minimal Project Setup</h2>
-<pre><code class="lang-c#">// Program.cs
+<pre><code class="lang-c#">
 using System.Drawing;
 using ShapeEngine.Color;
 using ShapeEngine.Core;
 using ShapeEngine.Core.Structs;
-using ShapeEngine.StaticLib.Drawing;
+using ShapeEngine.Geometry;
+using ShapeEngine.Geometry.RectDef;
 
 namespace ShapeEngineProject;
 
@@ -132,15 +130,32 @@ public static class Program
 {
     public static void Main(string[] args)
     {
-    var game = new MyGameClass(GameSettings.StretchMode, WindowSettings.Default);
-    game.Run();
+	    var game = new MyGameClass
+		(
+			GameSettings.StretchMode(&quot;Shape Engine Game&quot;),
+			WindowSettings.Default,
+			FramerateSettings.Default,
+			InputSettings.Default
+		);
+	    game.Run();
     }
 }
 
 public class MyGameClass : Game
 {
-    public MyGameClass(GameSettings gameSettings, WindowSettings windowSettings) : base(gameSettings, windowSettings) { }
-
+    //Gives you static access to the instance of MyGameClass - If you do not need/want this, you can remove it.
+    public new static MyGameClass Instance  =&gt; myInstance?? throw new NullReferenceException(&quot;Instance is not initialized! You need to create a MyGameClass instance before accessing this property!&quot;);
+    private static MyGameClass? myInstance;
+    
+    public MyGameClass(
+		GameSettings gameSettings, WindowSettings windowSettings,
+		FramerateSettings framerateSettings, InputSettings inputSettings)
+		: base(gameSettings, windowSettings, framerateSettings, inputSettings)
+    {
+        //Game.Instance is already checked to never be instantiated twice, so this is safe
+        myInstance = GetInstanceAs&lt;MyGameClass&gt;();
+    }
+    
     protected override void DrawGame(ScreenInfo game)
     {
         game.Area.Draw(new ColorRgba(Color.DarkOliveGreen));
@@ -148,7 +163,21 @@ public class MyGameClass : Game
         game.MousePos.Draw(24f, new ColorRgba(Color.Lime), 36);
     }
 }
+
 </code></pre>
+<h2 id="getting-started--documentation">Getting Started &amp; Documentation</h2>
+<p>This repository includes an <strong>Examples Project</strong> to showcase the capabilities of ShapeEngine and help you get started quickly. Explore the examples to see what’s possible and how to implement different features.</p>
+<ul>
+<li><p><strong>Documentation:</strong><br>
+Documentation is available <a href="https://davegreen-games.github.io/ShapeEngineDocs/">here</a>.</p>
+</li>
+<li><p><strong>Documentation Source:</strong><br>
+You can find the documentation repository <a href="https://github.com/DaveGreen-Games/ShapeEngineDocs">here</a>.</p>
+</li>
+</ul>
+<blockquote>
+<p>For any issues, suggestions, or questions about the docs, please open an issue in the ShapeEngineDocs repository.</p>
+</blockquote>
 <h2 id="development-process">Development Process</h2>
 <p>The Main Branch contains the current development stage. You can follow the development process here:</p>
 <ul>
