@@ -17,7 +17,7 @@ items:
   - ShapeEngine.Content.ContentPack.HasFile(System.String)
   - ShapeEngine.Content.ContentPack.IsLoaded
   - ShapeEngine.Content.ContentPack.IsTextPack
-  - ShapeEngine.Content.ContentPack.LoadAllFonts(System.Boolean@,System.Int32)
+  - ShapeEngine.Content.ContentPack.LoadAllFonts(System.Boolean@,System.Int32,Raylib_cs.TextureFilter)
   - ShapeEngine.Content.ContentPack.LoadAllFragmentShaders(System.Boolean@)
   - ShapeEngine.Content.ContentPack.LoadAllImages(System.Boolean@)
   - ShapeEngine.Content.ContentPack.LoadAllMusic(System.Boolean@)
@@ -26,7 +26,7 @@ items:
   - ShapeEngine.Content.ContentPack.LoadAllTextures(System.Boolean@)
   - ShapeEngine.Content.ContentPack.LoadAllVertexShaders(System.Boolean@)
   - ShapeEngine.Content.ContentPack.LoadAllWaves(System.Boolean@)
-  - ShapeEngine.Content.ContentPack.LoadFont(System.String,System.Int32)
+  - ShapeEngine.Content.ContentPack.LoadFont(System.String,System.Int32,Raylib_cs.TextureFilter)
   - ShapeEngine.Content.ContentPack.LoadFragmentShader(System.String)
   - ShapeEngine.Content.ContentPack.LoadImage(System.String)
   - ShapeEngine.Content.ContentPack.LoadMusic(System.String)
@@ -37,7 +37,7 @@ items:
   - ShapeEngine.Content.ContentPack.LoadWave(System.String)
   - ShapeEngine.Content.ContentPack.OnAsyncCacheLoaded
   - ShapeEngine.Content.ContentPack.SourceFilePath
-  - ShapeEngine.Content.ContentPack.TryLoadFont(System.String,Raylib_cs.Font@,System.Int32)
+  - ShapeEngine.Content.ContentPack.TryLoadFont(System.String,Raylib_cs.Font@,System.Int32,Raylib_cs.TextureFilter)
   - ShapeEngine.Content.ContentPack.TryLoadFragmentShader(System.String,Raylib_cs.Shader@)
   - ShapeEngine.Content.ContentPack.TryLoadImage(System.String,Raylib_cs.Image@)
   - ShapeEngine.Content.ContentPack.TryLoadMusic(System.String,Raylib_cs.Music@)
@@ -1287,16 +1287,16 @@ items:
   nameWithType.vb: ContentPack.LoadImage(String)
   fullName.vb: ShapeEngine.Content.ContentPack.LoadImage(String)
   name.vb: LoadImage(String)
-- uid: ShapeEngine.Content.ContentPack.LoadFont(System.String,System.Int32)
-  commentId: M:ShapeEngine.Content.ContentPack.LoadFont(System.String,System.Int32)
-  id: LoadFont(System.String,System.Int32)
+- uid: ShapeEngine.Content.ContentPack.LoadFont(System.String,System.Int32,Raylib_cs.TextureFilter)
+  commentId: M:ShapeEngine.Content.ContentPack.LoadFont(System.String,System.Int32,Raylib_cs.TextureFilter)
+  id: LoadFont(System.String,System.Int32,Raylib_cs.TextureFilter)
   parent: ShapeEngine.Content.ContentPack
   langs:
   - csharp
   - vb
-  name: LoadFont(string, int)
-  nameWithType: ContentPack.LoadFont(string, int)
-  fullName: ShapeEngine.Content.ContentPack.LoadFont(string, int)
+  name: LoadFont(string, int, TextureFilter)
+  nameWithType: ContentPack.LoadFont(string, int, TextureFilter)
+  fullName: ShapeEngine.Content.ContentPack.LoadFont(string, int, Raylib_cs.TextureFilter)
   type: Method
   source:
     remote:
@@ -1305,7 +1305,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LoadFont
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 1508
+    startLine: 1509
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -1318,7 +1318,7 @@ items:
     Use <xref href="ShapeEngine.Content.ContentPack.CreateCache(System.Boolean%2cSystem.Collections.Generic.List%7bSystem.String%7d%2cSystem.String%2cSystem.Int32)" data-throw-if-not-resolved="false"></xref> or <xref href="ShapeEngine.Content.ContentPack.CreateIndex" data-throw-if-not-resolved="false"></xref> to load the content pack first.
   example: []
   syntax:
-    content: public Font LoadFont(string filePath, int fontSize = 100)
+    content: public Font LoadFont(string filePath, int fontSize = 100, TextureFilter textureFilter = TextureFilter.Trilinear)
     parameters:
     - id: filePath
       type: System.String
@@ -1326,14 +1326,17 @@ items:
     - id: fontSize
       type: System.Int32
       description: The desired font size. Default is 100.
+    - id: textureFilter
+      type: Raylib_cs.TextureFilter
+      description: The texture filter to apply to the font texture. Default is Trilinear.
     return:
       type: Raylib_cs.Font
       description: The loaded <xref href="Raylib_cs.Font" data-throw-if-not-resolved="false"></xref> instance.
-    content.vb: Public Function LoadFont(filePath As String, fontSize As Integer = 100) As Font
+    content.vb: Public Function LoadFont(filePath As String, fontSize As Integer = 100, textureFilter As TextureFilter = TextureFilter.Trilinear) As Font
   overload: ShapeEngine.Content.ContentPack.LoadFont*
-  nameWithType.vb: ContentPack.LoadFont(String, Integer)
-  fullName.vb: ShapeEngine.Content.ContentPack.LoadFont(String, Integer)
-  name.vb: LoadFont(String, Integer)
+  nameWithType.vb: ContentPack.LoadFont(String, Integer, TextureFilter)
+  fullName.vb: ShapeEngine.Content.ContentPack.LoadFont(String, Integer, Raylib_cs.TextureFilter)
+  name.vb: LoadFont(String, Integer, TextureFilter)
 - uid: ShapeEngine.Content.ContentPack.LoadWave(System.String)
   commentId: M:ShapeEngine.Content.ContentPack.LoadWave(System.String)
   id: LoadWave(System.String)
@@ -1352,7 +1355,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LoadWave
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 1524
+    startLine: 1528
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -1396,7 +1399,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LoadSound
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 1540
+    startLine: 1544
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -1440,7 +1443,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LoadMusic
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 1556
+    startLine: 1560
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -1484,7 +1487,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LoadFragmentShader
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 1572
+    startLine: 1576
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -1528,7 +1531,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LoadVertexShader
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 1588
+    startLine: 1592
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -1572,7 +1575,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LoadText
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 1604
+    startLine: 1608
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -1616,7 +1619,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TryLoadTexture
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 1623
+    startLine: 1627
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -1665,7 +1668,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TryLoadImage
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 1654
+    startLine: 1659
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -1694,16 +1697,16 @@ items:
   nameWithType.vb: ContentPack.TryLoadImage(String, Image)
   fullName.vb: ShapeEngine.Content.ContentPack.TryLoadImage(String, Raylib_cs.Image)
   name.vb: TryLoadImage(String, Image)
-- uid: ShapeEngine.Content.ContentPack.TryLoadFont(System.String,Raylib_cs.Font@,System.Int32)
-  commentId: M:ShapeEngine.Content.ContentPack.TryLoadFont(System.String,Raylib_cs.Font@,System.Int32)
-  id: TryLoadFont(System.String,Raylib_cs.Font@,System.Int32)
+- uid: ShapeEngine.Content.ContentPack.TryLoadFont(System.String,Raylib_cs.Font@,System.Int32,Raylib_cs.TextureFilter)
+  commentId: M:ShapeEngine.Content.ContentPack.TryLoadFont(System.String,Raylib_cs.Font@,System.Int32,Raylib_cs.TextureFilter)
+  id: TryLoadFont(System.String,Raylib_cs.Font@,System.Int32,Raylib_cs.TextureFilter)
   parent: ShapeEngine.Content.ContentPack
   langs:
   - csharp
   - vb
-  name: TryLoadFont(string, out Font, int)
-  nameWithType: ContentPack.TryLoadFont(string, out Font, int)
-  fullName: ShapeEngine.Content.ContentPack.TryLoadFont(string, out Raylib_cs.Font, int)
+  name: TryLoadFont(string, out Font, int, TextureFilter)
+  nameWithType: ContentPack.TryLoadFont(string, out Font, int, TextureFilter)
+  fullName: ShapeEngine.Content.ContentPack.TryLoadFont(string, out Raylib_cs.Font, int, Raylib_cs.TextureFilter)
   type: Method
   source:
     remote:
@@ -1712,7 +1715,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TryLoadFont
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 1686
+    startLine: 1693
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -1726,7 +1729,7 @@ items:
     Use <xref href="ShapeEngine.Content.ContentPack.CreateCache(System.Boolean%2cSystem.Collections.Generic.List%7bSystem.String%7d%2cSystem.String%2cSystem.Int32)" data-throw-if-not-resolved="false"></xref> or <xref href="ShapeEngine.Content.ContentPack.CreateIndex" data-throw-if-not-resolved="false"></xref> to load the content pack first.
   example: []
   syntax:
-    content: public bool TryLoadFont(string filePath, out Font font, int fontSize = 100)
+    content: public bool TryLoadFont(string filePath, out Font font, int fontSize = 100, TextureFilter textureFilter = TextureFilter.Trilinear)
     parameters:
     - id: filePath
       type: System.String
@@ -1737,13 +1740,16 @@ items:
     - id: fontSize
       type: System.Int32
       description: The desired font size. Default is 100.
+    - id: textureFilter
+      type: Raylib_cs.TextureFilter
+      description: The texture filter to use for the loaded font texture.
     return:
       type: System.Boolean
-    content.vb: Public Function TryLoadFont(filePath As String, font As Font, fontSize As Integer = 100) As Boolean
+    content.vb: Public Function TryLoadFont(filePath As String, font As Font, fontSize As Integer = 100, textureFilter As TextureFilter = TextureFilter.Trilinear) As Boolean
   overload: ShapeEngine.Content.ContentPack.TryLoadFont*
-  nameWithType.vb: ContentPack.TryLoadFont(String, Font, Integer)
-  fullName.vb: ShapeEngine.Content.ContentPack.TryLoadFont(String, Raylib_cs.Font, Integer)
-  name.vb: TryLoadFont(String, Font, Integer)
+  nameWithType.vb: ContentPack.TryLoadFont(String, Font, Integer, TextureFilter)
+  fullName.vb: ShapeEngine.Content.ContentPack.TryLoadFont(String, Raylib_cs.Font, Integer, Raylib_cs.TextureFilter)
+  name.vb: TryLoadFont(String, Font, Integer, TextureFilter)
 - uid: ShapeEngine.Content.ContentPack.TryLoadWave(System.String,Raylib_cs.Wave@)
   commentId: M:ShapeEngine.Content.ContentPack.TryLoadWave(System.String,Raylib_cs.Wave@)
   id: TryLoadWave(System.String,Raylib_cs.Wave@)
@@ -1762,7 +1768,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TryLoadWave
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 1717
+    startLine: 1724
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -1809,7 +1815,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TryLoadSound
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 1748
+    startLine: 1756
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -1856,7 +1862,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TryLoadMusic
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 1781
+    startLine: 1789
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -1903,7 +1909,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TryLoadFragmentShader
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 1812
+    startLine: 1821
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -1950,7 +1956,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TryLoadVertexShader
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 1843
+    startLine: 1852
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -1997,7 +2003,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TryLoadText
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 1874
+    startLine: 1883
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -2044,7 +2050,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LoadAllTextures
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 1909
+    startLine: 1918
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -2091,7 +2097,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LoadAllImages
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 1950
+    startLine: 1960
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -2120,16 +2126,16 @@ items:
   nameWithType.vb: ContentPack.LoadAllImages(Boolean)
   fullName.vb: ShapeEngine.Content.ContentPack.LoadAllImages(Boolean)
   name.vb: LoadAllImages(Boolean)
-- uid: ShapeEngine.Content.ContentPack.LoadAllFonts(System.Boolean@,System.Int32)
-  commentId: M:ShapeEngine.Content.ContentPack.LoadAllFonts(System.Boolean@,System.Int32)
-  id: LoadAllFonts(System.Boolean@,System.Int32)
+- uid: ShapeEngine.Content.ContentPack.LoadAllFonts(System.Boolean@,System.Int32,Raylib_cs.TextureFilter)
+  commentId: M:ShapeEngine.Content.ContentPack.LoadAllFonts(System.Boolean@,System.Int32,Raylib_cs.TextureFilter)
+  id: LoadAllFonts(System.Boolean@,System.Int32,Raylib_cs.TextureFilter)
   parent: ShapeEngine.Content.ContentPack
   langs:
   - csharp
   - vb
-  name: LoadAllFonts(out bool, int)
-  nameWithType: ContentPack.LoadAllFonts(out bool, int)
-  fullName: ShapeEngine.Content.ContentPack.LoadAllFonts(out bool, int)
+  name: LoadAllFonts(out bool, int, TextureFilter)
+  nameWithType: ContentPack.LoadAllFonts(out bool, int, TextureFilter)
+  fullName: ShapeEngine.Content.ContentPack.LoadAllFonts(out bool, int, Raylib_cs.TextureFilter)
   type: Method
   source:
     remote:
@@ -2138,7 +2144,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LoadAllFonts
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 1992
+    startLine: 2004
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -2154,7 +2160,7 @@ items:
     Use <xref href="ShapeEngine.Content.ContentPack.CreateCache(System.Boolean%2cSystem.Collections.Generic.List%7bSystem.String%7d%2cSystem.String%2cSystem.Int32)" data-throw-if-not-resolved="false"></xref> or <xref href="ShapeEngine.Content.ContentPack.CreateIndex" data-throw-if-not-resolved="false"></xref> to load the content pack first.
   example: []
   syntax:
-    content: public Dictionary<string, Font> LoadAllFonts(out bool success, int fontSize = 100)
+    content: public Dictionary<string, Font> LoadAllFonts(out bool success, int fontSize = 100, TextureFilter textureFilter = TextureFilter.Trilinear)
     parameters:
     - id: success
       type: System.Boolean
@@ -2162,14 +2168,17 @@ items:
     - id: fontSize
       type: System.Int32
       description: The desired font size. Default is 100.
+    - id: textureFilter
+      type: Raylib_cs.TextureFilter
+      description: The texture filter to apply to the font texture. Default is Trilinear.
     return:
       type: System.Collections.Generic.Dictionary{System.String,Raylib_cs.Font}
       description: Dictionary of file paths and their corresponding <xref href="Raylib_cs.Font" data-throw-if-not-resolved="false"></xref> instances.
-    content.vb: Public Function LoadAllFonts(success As Boolean, fontSize As Integer = 100) As Dictionary(Of String, Font)
+    content.vb: Public Function LoadAllFonts(success As Boolean, fontSize As Integer = 100, textureFilter As TextureFilter = TextureFilter.Trilinear) As Dictionary(Of String, Font)
   overload: ShapeEngine.Content.ContentPack.LoadAllFonts*
-  nameWithType.vb: ContentPack.LoadAllFonts(Boolean, Integer)
-  fullName.vb: ShapeEngine.Content.ContentPack.LoadAllFonts(Boolean, Integer)
-  name.vb: LoadAllFonts(Boolean, Integer)
+  nameWithType.vb: ContentPack.LoadAllFonts(Boolean, Integer, TextureFilter)
+  fullName.vb: ShapeEngine.Content.ContentPack.LoadAllFonts(Boolean, Integer, Raylib_cs.TextureFilter)
+  name.vb: LoadAllFonts(Boolean, Integer, TextureFilter)
 - uid: ShapeEngine.Content.ContentPack.LoadAllWaves(System.Boolean@)
   commentId: M:ShapeEngine.Content.ContentPack.LoadAllWaves(System.Boolean@)
   id: LoadAllWaves(System.Boolean@)
@@ -2188,7 +2197,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LoadAllWaves
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 2033
+    startLine: 2046
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -2235,7 +2244,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LoadAllSounds
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 2074
+    startLine: 2088
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -2282,7 +2291,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LoadAllMusic
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 2115
+    startLine: 2130
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -2329,7 +2338,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LoadAllFragmentShaders
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 2156
+    startLine: 2172
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -2376,7 +2385,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LoadAllVertexShaders
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 2197
+    startLine: 2214
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -2423,7 +2432,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: LoadAllText
     path: ../ShapeEngine/ShapeEngine/Content/ContentPack.cs
-    startLine: 2234
+    startLine: 2252
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Content
@@ -3917,10 +3926,17 @@ references:
   fullName: Raylib_cs.Font
 - uid: ShapeEngine.Content.ContentPack.LoadFont*
   commentId: Overload:ShapeEngine.Content.ContentPack.LoadFont
-  href: ShapeEngine.Content.ContentPack.html#ShapeEngine_Content_ContentPack_LoadFont_System_String_System_Int32_
+  href: ShapeEngine.Content.ContentPack.html#ShapeEngine_Content_ContentPack_LoadFont_System_String_System_Int32_Raylib_cs_TextureFilter_
   name: LoadFont
   nameWithType: ContentPack.LoadFont
   fullName: ShapeEngine.Content.ContentPack.LoadFont
+- uid: Raylib_cs.TextureFilter
+  commentId: T:Raylib_cs.TextureFilter
+  parent: Raylib_cs
+  isExternal: true
+  name: TextureFilter
+  nameWithType: TextureFilter
+  fullName: Raylib_cs.TextureFilter
 - uid: Raylib_cs.Wave
   commentId: T:Raylib_cs.Wave
   parent: Raylib_cs
@@ -3999,7 +4015,7 @@ references:
   fullName: ShapeEngine.Content.ContentPack.TryLoadImage
 - uid: ShapeEngine.Content.ContentPack.TryLoadFont*
   commentId: Overload:ShapeEngine.Content.ContentPack.TryLoadFont
-  href: ShapeEngine.Content.ContentPack.html#ShapeEngine_Content_ContentPack_TryLoadFont_System_String_Raylib_cs_Font__System_Int32_
+  href: ShapeEngine.Content.ContentPack.html#ShapeEngine_Content_ContentPack_TryLoadFont_System_String_Raylib_cs_Font__System_Int32_Raylib_cs_TextureFilter_
   name: TryLoadFont
   nameWithType: ContentPack.TryLoadFont
   fullName: ShapeEngine.Content.ContentPack.TryLoadFont
@@ -4143,7 +4159,7 @@ references:
   - name: )
 - uid: ShapeEngine.Content.ContentPack.LoadAllFonts*
   commentId: Overload:ShapeEngine.Content.ContentPack.LoadAllFonts
-  href: ShapeEngine.Content.ContentPack.html#ShapeEngine_Content_ContentPack_LoadAllFonts_System_Boolean__System_Int32_
+  href: ShapeEngine.Content.ContentPack.html#ShapeEngine_Content_ContentPack_LoadAllFonts_System_Boolean__System_Int32_Raylib_cs_TextureFilter_
   name: LoadAllFonts
   nameWithType: ContentPack.LoadAllFonts
   fullName: ShapeEngine.Content.ContentPack.LoadAllFonts
