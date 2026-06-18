@@ -1,0 +1,2372 @@
+### YamlMime:ManagedReference
+items:
+- uid: ShapeEngine.Stats.StatSet
+  commentId: T:ShapeEngine.Stats.StatSet
+  id: StatSet
+  parent: ShapeEngine.Stats
+  children:
+  - ShapeEngine.Stats.StatSet.AddSource(ShapeEngine.Stats.IStatModifierSource)
+  - ShapeEngine.Stats.StatSet.AddStacks(System.UInt32,System.Int32)
+  - ShapeEngine.Stats.StatSet.AddStat(ShapeEngine.Stats.Stat)
+  - ShapeEngine.Stats.StatSet.Batch
+  - ShapeEngine.Stats.StatSet.BeginUpdate
+  - ShapeEngine.Stats.StatSet.Clear
+  - ShapeEngine.Stats.StatSet.ClearSources
+  - ShapeEngine.Stats.StatSet.ClearStats
+  - ShapeEngine.Stats.StatSet.EndUpdate
+  - ShapeEngine.Stats.StatSet.GetDirtyStats
+  - ShapeEngine.Stats.StatSet.OnSourceAdded
+  - ShapeEngine.Stats.StatSet.OnSourceRemoved
+  - ShapeEngine.Stats.StatSet.OnSourceStacksAdded
+  - ShapeEngine.Stats.StatSet.OnSourceStacksRemoved
+  - ShapeEngine.Stats.StatSet.OnStatAdded
+  - ShapeEngine.Stats.StatSet.OnStatChanged
+  - ShapeEngine.Stats.StatSet.OnStatRemoved
+  - ShapeEngine.Stats.StatSet.Recalculate
+  - ShapeEngine.Stats.StatSet.RemoveSource(System.UInt32)
+  - ShapeEngine.Stats.StatSet.RemoveStacks(System.UInt32,System.Int32)
+  - ShapeEngine.Stats.StatSet.RemoveStat(ShapeEngine.Stats.StatId)
+  - ShapeEngine.Stats.StatSet.Sources
+  - ShapeEngine.Stats.StatSet.Stats
+  - ShapeEngine.Stats.StatSet.TryGetSource(System.UInt32,ShapeEngine.Stats.IStatModifierSource@)
+  - ShapeEngine.Stats.StatSet.TryGetStat(ShapeEngine.Stats.StatId,ShapeEngine.Stats.Stat@)
+  - ShapeEngine.Stats.StatSet.TryGetValue(ShapeEngine.Stats.StatId,System.Single@)
+  - ShapeEngine.Stats.StatSet.Update(System.Single)
+  langs:
+  - csharp
+  - vb
+  name: StatSet
+  nameWithType: StatSet
+  fullName: ShapeEngine.Stats.StatSet
+  type: Class
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: StatSet
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 57
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: >-
+    Manages stats and their active modifier sources. This is the new entry point of the stat system.
+
+    You create stats, add modifier sources, call Update(dt) each frame if you have timed effects, and read the final stat values back out.
+
+
+    <ul><li>Holds <xref href="ShapeEngine.Stats.Stat" data-throw-if-not-resolved="false"></xref> objects and <xref href="ShapeEngine.Stats.IStatModifierSource" data-throw-if-not-resolved="false"></xref> (like <xref href="ShapeEngine.Stats.StatModifierSource" data-throw-if-not-resolved="false"></xref>, <xref href="ShapeEngine.Stats.TimedStatModifierSource" data-throw-if-not-resolved="false"></xref>, <xref href="ShapeEngine.Stats.StackableStatModifierSource" data-throw-if-not-resolved="false"></xref>)</li><li>Formula: ((Base + Flat) * (1 + AdditivePercent)) * MultiplicativeFactor</li></ul>
+  remarks: >-
+    Main flow:
+
+
+    <ul><li>You define a stat with new Stat(...).</li><li>You register it in StatSet.AddStat(...).</li><li>You register one or more sources with StatSet.AddSource(...).</li><li>StatSet recalculates all stats from all active sources.</li><li>If you have timed sources, you call StatSet.Update(dt) each frame.</li><li>You read the result with StatSet.GetValue(statId) or stat.Value.</li></ul>
+
+
+    What each class is for
+
+
+    <ul><li><xref href="ShapeEngine.Stats.StatId" data-throw-if-not-resolved="false"></xref>: a lightweight wrapper around uint, used as the stable key for stats.</li><li><xref href="ShapeEngine.Stats.Stat" data-throw-if-not-resolved="false"></xref>: one actual stat definition plus its current computed value, name, base value, optional min/max, and optional tags.</li><li><xref href="ShapeEngine.Stats.StatModifier" data-throw-if-not-resolved="false"></xref>: one contribution to one stat, like “+5 flat” or “+20% multiplicative”.</li><li><xref href="ShapeEngine.Stats.StatModifierKind" data-throw-if-not-resolved="false"></xref>: says how the modifier participates in the calculation pipeline.</li><li><xref href="ShapeEngine.Stats.StatModifierSource" data-throw-if-not-resolved="false"></xref>: a permanent or manually removed source, like an item affix or passive.</li><li><xref href="ShapeEngine.Stats.TimedStatModifierSource" data-throw-if-not-resolved="false"></xref>: a source with duration and expiry.</li><li><xref href="ShapeEngine.Stats.StackableStatModifierSource" data-throw-if-not-resolved="false"></xref>: a timed source whose modifiers scale by stack count.</li><li><xref href="ShapeEngine.Stats.StatSet" data-throw-if-not-resolved="false"></xref>: the manager that holds everything, updates timed sources, and recalculates values.</li></ul>
+
+
+    How stacking works:
+
+
+    <ul><li>Sources have a stable Id.</li><li>If you add a source with an id that already exists, StatSet does not add a second copy.</li><li>Instead, it calls Reapply(...) on the existing source.</li><li>For timed sources, Reapply(...) refreshes duration.</li><li>For stackable sources, Reapply(...) adds stacks and refreshes duration by default.</li><li><xref href="ShapeEngine.Stats.StatSet.AddStacks(System.UInt32%2cSystem.Int32)" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Stats.StatSet.RemoveStacks(System.UInt32%2cSystem.Int32)" data-throw-if-not-resolved="false"></xref> let you manipulate an existing source directly.</li></ul>
+  example: []
+  syntax:
+    content: public class StatSet
+    content.vb: Public Class StatSet
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+- uid: ShapeEngine.Stats.StatSet.OnStatChanged
+  commentId: E:ShapeEngine.Stats.StatSet.OnStatChanged
+  id: OnStatChanged
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: OnStatChanged
+  nameWithType: StatSet.OnStatChanged
+  fullName: ShapeEngine.Stats.StatSet.OnStatChanged
+  type: Event
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnStatChanged
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 77
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: Raised when a stat value changes after recalculation.
+  example: []
+  syntax:
+    content: public event Action<Stat, float, float>? OnStatChanged
+    return:
+      type: System.Action{ShapeEngine.Stats.Stat,System.Single,System.Single}
+    content.vb: Public Event OnStatChanged As Action(Of Stat, Single, Single)
+- uid: ShapeEngine.Stats.StatSet.OnSourceAdded
+  commentId: E:ShapeEngine.Stats.StatSet.OnSourceAdded
+  id: OnSourceAdded
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: OnSourceAdded
+  nameWithType: StatSet.OnSourceAdded
+  fullName: ShapeEngine.Stats.StatSet.OnSourceAdded
+  type: Event
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnSourceAdded
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 82
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: Raised when a modifier source is added.
+  example: []
+  syntax:
+    content: public event Action<IStatModifierSource>? OnSourceAdded
+    return:
+      type: System.Action{ShapeEngine.Stats.IStatModifierSource}
+    content.vb: Public Event OnSourceAdded As Action(Of IStatModifierSource)
+- uid: ShapeEngine.Stats.StatSet.OnSourceRemoved
+  commentId: E:ShapeEngine.Stats.StatSet.OnSourceRemoved
+  id: OnSourceRemoved
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: OnSourceRemoved
+  nameWithType: StatSet.OnSourceRemoved
+  fullName: ShapeEngine.Stats.StatSet.OnSourceRemoved
+  type: Event
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnSourceRemoved
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 87
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: Raised when a modifier source is removed.
+  example: []
+  syntax:
+    content: public event Action<IStatModifierSource>? OnSourceRemoved
+    return:
+      type: System.Action{ShapeEngine.Stats.IStatModifierSource}
+    content.vb: Public Event OnSourceRemoved As Action(Of IStatModifierSource)
+- uid: ShapeEngine.Stats.StatSet.OnSourceStacksAdded
+  commentId: E:ShapeEngine.Stats.StatSet.OnSourceStacksAdded
+  id: OnSourceStacksAdded
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: OnSourceStacksAdded
+  nameWithType: StatSet.OnSourceStacksAdded
+  fullName: ShapeEngine.Stats.StatSet.OnSourceStacksAdded
+  type: Event
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnSourceStacksAdded
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 92
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: Raised when a source receives stacks.
+  example: []
+  syntax:
+    content: public event Action<IStatModifierSource, int>? OnSourceStacksAdded
+    return:
+      type: System.Action{ShapeEngine.Stats.IStatModifierSource,System.Int32}
+    content.vb: Public Event OnSourceStacksAdded As Action(Of IStatModifierSource, Integer)
+- uid: ShapeEngine.Stats.StatSet.OnSourceStacksRemoved
+  commentId: E:ShapeEngine.Stats.StatSet.OnSourceStacksRemoved
+  id: OnSourceStacksRemoved
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: OnSourceStacksRemoved
+  nameWithType: StatSet.OnSourceStacksRemoved
+  fullName: ShapeEngine.Stats.StatSet.OnSourceStacksRemoved
+  type: Event
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnSourceStacksRemoved
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 97
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: Raised when stacks are removed from a source.
+  example: []
+  syntax:
+    content: public event Action<IStatModifierSource, int>? OnSourceStacksRemoved
+    return:
+      type: System.Action{ShapeEngine.Stats.IStatModifierSource,System.Int32}
+    content.vb: Public Event OnSourceStacksRemoved As Action(Of IStatModifierSource, Integer)
+- uid: ShapeEngine.Stats.StatSet.OnStatAdded
+  commentId: E:ShapeEngine.Stats.StatSet.OnStatAdded
+  id: OnStatAdded
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: OnStatAdded
+  nameWithType: StatSet.OnStatAdded
+  fullName: ShapeEngine.Stats.StatSet.OnStatAdded
+  type: Event
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnStatAdded
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 102
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: Raised when a new stat is added to the set.
+  example: []
+  syntax:
+    content: public event Action<Stat>? OnStatAdded
+    return:
+      type: System.Action{ShapeEngine.Stats.Stat}
+    content.vb: Public Event OnStatAdded As Action(Of Stat)
+- uid: ShapeEngine.Stats.StatSet.OnStatRemoved
+  commentId: E:ShapeEngine.Stats.StatSet.OnStatRemoved
+  id: OnStatRemoved
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: OnStatRemoved
+  nameWithType: StatSet.OnStatRemoved
+  fullName: ShapeEngine.Stats.StatSet.OnStatRemoved
+  type: Event
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnStatRemoved
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 107
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: Raised when a stat is removed from the set.
+  example: []
+  syntax:
+    content: public event Action<Stat>? OnStatRemoved
+    return:
+      type: System.Action{ShapeEngine.Stats.Stat}
+    content.vb: Public Event OnStatRemoved As Action(Of Stat)
+- uid: ShapeEngine.Stats.StatSet.Stats
+  commentId: P:ShapeEngine.Stats.StatSet.Stats
+  id: Stats
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: Stats
+  nameWithType: StatSet.Stats
+  fullName: ShapeEngine.Stats.StatSet.Stats
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Stats
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 115
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: The registered stats.
+  example: []
+  syntax:
+    content: public IReadOnlyCollection<Stat> Stats { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IReadOnlyCollection{ShapeEngine.Stats.Stat}
+    content.vb: Public ReadOnly Property Stats As IReadOnlyCollection(Of Stat)
+  overload: ShapeEngine.Stats.StatSet.Stats*
+- uid: ShapeEngine.Stats.StatSet.Sources
+  commentId: P:ShapeEngine.Stats.StatSet.Sources
+  id: Sources
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: Sources
+  nameWithType: StatSet.Sources
+  fullName: ShapeEngine.Stats.StatSet.Sources
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Sources
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 120
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: The active modifier sources.
+  example: []
+  syntax:
+    content: public IReadOnlyCollection<IStatModifierSource> Sources { get; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IReadOnlyCollection{ShapeEngine.Stats.IStatModifierSource}
+    content.vb: Public ReadOnly Property Sources As IReadOnlyCollection(Of IStatModifierSource)
+  overload: ShapeEngine.Stats.StatSet.Sources*
+- uid: ShapeEngine.Stats.StatSet.GetDirtyStats
+  commentId: M:ShapeEngine.Stats.StatSet.GetDirtyStats
+  id: GetDirtyStats
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: GetDirtyStats()
+  nameWithType: StatSet.GetDirtyStats()
+  fullName: ShapeEngine.Stats.StatSet.GetDirtyStats()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetDirtyStats
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 125
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: The stats that are marked "dirty" and need to be recalculated.
+  example: []
+  syntax:
+    content: public IReadOnlyCollection<StatId> GetDirtyStats()
+    return:
+      type: System.Collections.Generic.IReadOnlyCollection{ShapeEngine.Stats.StatId}
+    content.vb: Public Function GetDirtyStats() As IReadOnlyCollection(Of StatId)
+  overload: ShapeEngine.Stats.StatSet.GetDirtyStats*
+- uid: ShapeEngine.Stats.StatSet.Update(System.Single)
+  commentId: M:ShapeEngine.Stats.StatSet.Update(System.Single)
+  id: Update(System.Single)
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: Update(float)
+  nameWithType: StatSet.Update(float)
+  fullName: ShapeEngine.Stats.StatSet.Update(float)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Update
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 145
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: Advances all sources, removes expired sources, and recalculates stats.
+  example: []
+  syntax:
+    content: public void Update(float dt)
+    parameters:
+    - id: dt
+      type: System.Single
+      description: The elapsed time in seconds.
+    content.vb: Public Sub Update(dt As Single)
+  overload: ShapeEngine.Stats.StatSet.Update*
+  nameWithType.vb: StatSet.Update(Single)
+  fullName.vb: ShapeEngine.Stats.StatSet.Update(Single)
+  name.vb: Update(Single)
+- uid: ShapeEngine.Stats.StatSet.Recalculate
+  commentId: M:ShapeEngine.Stats.StatSet.Recalculate
+  id: Recalculate
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: Recalculate()
+  nameWithType: StatSet.Recalculate()
+  fullName: ShapeEngine.Stats.StatSet.Recalculate()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Recalculate
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 180
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: Recalculates all stats from the currently active sources.
+  example: []
+  syntax:
+    content: public void Recalculate()
+    content.vb: Public Sub Recalculate()
+  overload: ShapeEngine.Stats.StatSet.Recalculate*
+- uid: ShapeEngine.Stats.StatSet.Clear
+  commentId: M:ShapeEngine.Stats.StatSet.Clear
+  id: Clear
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: Clear()
+  nameWithType: StatSet.Clear()
+  fullName: ShapeEngine.Stats.StatSet.Clear()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Clear
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 210
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: Clears all stats and modifier sources from the set and recalculates values.
+  remarks: Raises <xref href="ShapeEngine.Stats.StatSet.OnStatRemoved" data-throw-if-not-resolved="false"></xref> for each removed stat and <xref href="ShapeEngine.Stats.StatSet.OnSourceRemoved" data-throw-if-not-resolved="false"></xref> for each removed source.
+  example: []
+  syntax:
+    content: public void Clear()
+    content.vb: Public Sub Clear()
+  overload: ShapeEngine.Stats.StatSet.Clear*
+- uid: ShapeEngine.Stats.StatSet.Batch
+  commentId: M:ShapeEngine.Stats.StatSet.Batch
+  id: Batch
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: Batch()
+  nameWithType: StatSet.Batch()
+  fullName: ShapeEngine.Stats.StatSet.Batch()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Batch
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 260
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: >-
+    Creates a disposable scope for batching multiple stat changes.
+
+    When the scope is disposed, all pending recalculations are performed at once.
+
+    Supports nesting: each Batch() call must be paired with Dispose().
+  example: []
+  syntax:
+    content: public IDisposable Batch()
+    return:
+      type: System.IDisposable
+      description: An IDisposable that ends the batch when disposed.
+    content.vb: Public Function Batch() As IDisposable
+  overload: ShapeEngine.Stats.StatSet.Batch*
+- uid: ShapeEngine.Stats.StatSet.BeginUpdate
+  commentId: M:ShapeEngine.Stats.StatSet.BeginUpdate
+  id: BeginUpdate
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: BeginUpdate()
+  nameWithType: StatSet.BeginUpdate()
+  fullName: ShapeEngine.Stats.StatSet.BeginUpdate()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: BeginUpdate
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 275
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: Begins a batch update. Multiple changes can be made without triggering recalculation until <xref href="ShapeEngine.Stats.StatSet.EndUpdate" data-throw-if-not-resolved="false"></xref> is called.
+  remarks: >-
+    Supports nesting: each BeginUpdate must be paired with an EndUpdate.
+
+    Recalculation happens only when the outermost EndUpdate is called.
+  example: []
+  syntax:
+    content: public void BeginUpdate()
+    content.vb: Public Sub BeginUpdate()
+  overload: ShapeEngine.Stats.StatSet.BeginUpdate*
+- uid: ShapeEngine.Stats.StatSet.EndUpdate
+  commentId: M:ShapeEngine.Stats.StatSet.EndUpdate
+  id: EndUpdate
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: EndUpdate()
+  nameWithType: StatSet.EndUpdate()
+  fullName: ShapeEngine.Stats.StatSet.EndUpdate()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: EndUpdate
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 283
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: Ends a batch update. If this is the outermost EndUpdate, recalculates all dirty stats.
+  example: []
+  syntax:
+    content: public void EndUpdate()
+    content.vb: Public Sub EndUpdate()
+  overload: ShapeEngine.Stats.StatSet.EndUpdate*
+- uid: ShapeEngine.Stats.StatSet.AddStat(ShapeEngine.Stats.Stat)
+  commentId: M:ShapeEngine.Stats.StatSet.AddStat(ShapeEngine.Stats.Stat)
+  id: AddStat(ShapeEngine.Stats.Stat)
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: AddStat(Stat)
+  nameWithType: StatSet.AddStat(Stat)
+  fullName: ShapeEngine.Stats.StatSet.AddStat(ShapeEngine.Stats.Stat)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: AddStat
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 306
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: Adds or replaces a stat.
+  example: []
+  syntax:
+    content: public void AddStat(Stat stat)
+    parameters:
+    - id: stat
+      type: ShapeEngine.Stats.Stat
+      description: The stat to register.
+    content.vb: Public Sub AddStat(stat As Stat)
+  overload: ShapeEngine.Stats.StatSet.AddStat*
+- uid: ShapeEngine.Stats.StatSet.RemoveStat(ShapeEngine.Stats.StatId)
+  commentId: M:ShapeEngine.Stats.StatSet.RemoveStat(ShapeEngine.Stats.StatId)
+  id: RemoveStat(ShapeEngine.Stats.StatId)
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: RemoveStat(StatId)
+  nameWithType: StatSet.RemoveStat(StatId)
+  fullName: ShapeEngine.Stats.StatSet.RemoveStat(ShapeEngine.Stats.StatId)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: RemoveStat
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 328
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: Removes a stat by id.
+  example: []
+  syntax:
+    content: public bool RemoveStat(StatId id)
+    parameters:
+    - id: id
+      type: ShapeEngine.Stats.StatId
+      description: The stat id to remove.
+    return:
+      type: System.Boolean
+      description: True if a stat was removed.
+    content.vb: Public Function RemoveStat(id As StatId) As Boolean
+  overload: ShapeEngine.Stats.StatSet.RemoveStat*
+- uid: ShapeEngine.Stats.StatSet.TryGetStat(ShapeEngine.Stats.StatId,ShapeEngine.Stats.Stat@)
+  commentId: M:ShapeEngine.Stats.StatSet.TryGetStat(ShapeEngine.Stats.StatId,ShapeEngine.Stats.Stat@)
+  id: TryGetStat(ShapeEngine.Stats.StatId,ShapeEngine.Stats.Stat@)
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: TryGetStat(StatId, out Stat)
+  nameWithType: StatSet.TryGetStat(StatId, out Stat)
+  fullName: ShapeEngine.Stats.StatSet.TryGetStat(ShapeEngine.Stats.StatId, out ShapeEngine.Stats.Stat)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: TryGetStat
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 356
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: Attempts to get a stat by id.
+  example: []
+  syntax:
+    content: public bool TryGetStat(StatId id, out Stat stat)
+    parameters:
+    - id: id
+      type: ShapeEngine.Stats.StatId
+      description: The stat id.
+    - id: stat
+      type: ShapeEngine.Stats.Stat
+      description: The found stat.
+    return:
+      type: System.Boolean
+      description: True if the stat exists.
+    content.vb: Public Function TryGetStat(id As StatId, stat As Stat) As Boolean
+  overload: ShapeEngine.Stats.StatSet.TryGetStat*
+  nameWithType.vb: StatSet.TryGetStat(StatId, Stat)
+  fullName.vb: ShapeEngine.Stats.StatSet.TryGetStat(ShapeEngine.Stats.StatId, ShapeEngine.Stats.Stat)
+  name.vb: TryGetStat(StatId, Stat)
+- uid: ShapeEngine.Stats.StatSet.TryGetValue(ShapeEngine.Stats.StatId,System.Single@)
+  commentId: M:ShapeEngine.Stats.StatSet.TryGetValue(ShapeEngine.Stats.StatId,System.Single@)
+  id: TryGetValue(ShapeEngine.Stats.StatId,System.Single@)
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: TryGetValue(StatId, out float)
+  nameWithType: StatSet.TryGetValue(StatId, out float)
+  fullName: ShapeEngine.Stats.StatSet.TryGetValue(ShapeEngine.Stats.StatId, out float)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: TryGetValue
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 364
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: Attempts to get a stat value by id.
+  example: []
+  syntax:
+    content: public bool TryGetValue(StatId id, out float value)
+    parameters:
+    - id: id
+      type: ShapeEngine.Stats.StatId
+      description: The stat id.
+    - id: value
+      type: System.Single
+      description: The value of the found stat.
+    return:
+      type: System.Boolean
+      description: True if the stat exists.
+    content.vb: Public Function TryGetValue(id As StatId, value As Single) As Boolean
+  overload: ShapeEngine.Stats.StatSet.TryGetValue*
+  nameWithType.vb: StatSet.TryGetValue(StatId, Single)
+  fullName.vb: ShapeEngine.Stats.StatSet.TryGetValue(ShapeEngine.Stats.StatId, Single)
+  name.vb: TryGetValue(StatId, Single)
+- uid: ShapeEngine.Stats.StatSet.ClearStats
+  commentId: M:ShapeEngine.Stats.StatSet.ClearStats
+  id: ClearStats
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: ClearStats()
+  nameWithType: StatSet.ClearStats()
+  fullName: ShapeEngine.Stats.StatSet.ClearStats()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: ClearStats
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 382
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: Removes all stats from the set and recalculates values.
+  remarks: Raises <xref href="ShapeEngine.Stats.StatSet.OnStatRemoved" data-throw-if-not-resolved="false"></xref> for each removed stat.
+  example: []
+  syntax:
+    content: public void ClearStats()
+    content.vb: Public Sub ClearStats()
+  overload: ShapeEngine.Stats.StatSet.ClearStats*
+- uid: ShapeEngine.Stats.StatSet.AddSource(ShapeEngine.Stats.IStatModifierSource)
+  commentId: M:ShapeEngine.Stats.StatSet.AddSource(ShapeEngine.Stats.IStatModifierSource)
+  id: AddSource(ShapeEngine.Stats.IStatModifierSource)
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: AddSource(IStatModifierSource)
+  nameWithType: StatSet.AddSource(IStatModifierSource)
+  fullName: ShapeEngine.Stats.StatSet.AddSource(ShapeEngine.Stats.IStatModifierSource)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: AddSource
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 413
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: Adds a modifier source. If a source with the same id already exists, it is reapplied instead.
+  example: []
+  syntax:
+    content: public bool AddSource(IStatModifierSource source)
+    parameters:
+    - id: source
+      type: ShapeEngine.Stats.IStatModifierSource
+      description: The source to add or reapply.
+    return:
+      type: System.Boolean
+      description: True if the source was newly added; false if an existing source was reapplied.
+    content.vb: Public Function AddSource(source As IStatModifierSource) As Boolean
+  overload: ShapeEngine.Stats.StatSet.AddSource*
+- uid: ShapeEngine.Stats.StatSet.RemoveSource(System.UInt32)
+  commentId: M:ShapeEngine.Stats.StatSet.RemoveSource(System.UInt32)
+  id: RemoveSource(System.UInt32)
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: RemoveSource(uint)
+  nameWithType: StatSet.RemoveSource(uint)
+  fullName: ShapeEngine.Stats.StatSet.RemoveSource(uint)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: RemoveSource
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 462
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: Removes a modifier source by id.
+  example: []
+  syntax:
+    content: public bool RemoveSource(uint sourceId)
+    parameters:
+    - id: sourceId
+      type: System.UInt32
+      description: The source id.
+    return:
+      type: System.Boolean
+      description: True if a source was removed.
+    content.vb: Public Function RemoveSource(sourceId As UInteger) As Boolean
+  overload: ShapeEngine.Stats.StatSet.RemoveSource*
+  nameWithType.vb: StatSet.RemoveSource(UInteger)
+  fullName.vb: ShapeEngine.Stats.StatSet.RemoveSource(UInteger)
+  name.vb: RemoveSource(UInteger)
+- uid: ShapeEngine.Stats.StatSet.TryGetSource(System.UInt32,ShapeEngine.Stats.IStatModifierSource@)
+  commentId: M:ShapeEngine.Stats.StatSet.TryGetSource(System.UInt32,ShapeEngine.Stats.IStatModifierSource@)
+  id: TryGetSource(System.UInt32,ShapeEngine.Stats.IStatModifierSource@)
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: TryGetSource(uint, out IStatModifierSource)
+  nameWithType: StatSet.TryGetSource(uint, out IStatModifierSource)
+  fullName: ShapeEngine.Stats.StatSet.TryGetSource(uint, out ShapeEngine.Stats.IStatModifierSource)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: TryGetSource
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 488
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: Attempts to get a modifier source by id.
+  example: []
+  syntax:
+    content: public bool TryGetSource(uint sourceId, out IStatModifierSource source)
+    parameters:
+    - id: sourceId
+      type: System.UInt32
+      description: The source id.
+    - id: source
+      type: ShapeEngine.Stats.IStatModifierSource
+      description: The found source.
+    return:
+      type: System.Boolean
+      description: True if the source exists.
+    content.vb: Public Function TryGetSource(sourceId As UInteger, source As IStatModifierSource) As Boolean
+  overload: ShapeEngine.Stats.StatSet.TryGetSource*
+  nameWithType.vb: StatSet.TryGetSource(UInteger, IStatModifierSource)
+  fullName.vb: ShapeEngine.Stats.StatSet.TryGetSource(UInteger, ShapeEngine.Stats.IStatModifierSource)
+  name.vb: TryGetSource(UInteger, IStatModifierSource)
+- uid: ShapeEngine.Stats.StatSet.AddStacks(System.UInt32,System.Int32)
+  commentId: M:ShapeEngine.Stats.StatSet.AddStacks(System.UInt32,System.Int32)
+  id: AddStacks(System.UInt32,System.Int32)
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: AddStacks(uint, int)
+  nameWithType: StatSet.AddStacks(uint, int)
+  fullName: ShapeEngine.Stats.StatSet.AddStacks(uint, int)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: AddStacks
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 496
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: Adds stacks to an existing source.
+  example: []
+  syntax:
+    content: public int AddStacks(uint sourceId, int amount)
+    parameters:
+    - id: sourceId
+      type: System.UInt32
+      description: The source id.
+    - id: amount
+      type: System.Int32
+      description: The number of stacks to add.
+    return:
+      type: System.Int32
+      description: The number of stacks actually added.
+    content.vb: Public Function AddStacks(sourceId As UInteger, amount As Integer) As Integer
+  overload: ShapeEngine.Stats.StatSet.AddStacks*
+  nameWithType.vb: StatSet.AddStacks(UInteger, Integer)
+  fullName.vb: ShapeEngine.Stats.StatSet.AddStacks(UInteger, Integer)
+  name.vb: AddStacks(UInteger, Integer)
+- uid: ShapeEngine.Stats.StatSet.RemoveStacks(System.UInt32,System.Int32)
+  commentId: M:ShapeEngine.Stats.StatSet.RemoveStacks(System.UInt32,System.Int32)
+  id: RemoveStacks(System.UInt32,System.Int32)
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: RemoveStacks(uint, int)
+  nameWithType: StatSet.RemoveStacks(uint, int)
+  fullName: ShapeEngine.Stats.StatSet.RemoveStacks(uint, int)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: RemoveStacks
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 526
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: Removes stacks from an existing source.
+  example: []
+  syntax:
+    content: public int RemoveStacks(uint sourceId, int amount)
+    parameters:
+    - id: sourceId
+      type: System.UInt32
+      description: The source id.
+    - id: amount
+      type: System.Int32
+      description: The number of stacks to remove.
+    return:
+      type: System.Int32
+      description: The number of stacks actually removed.
+    content.vb: Public Function RemoveStacks(sourceId As UInteger, amount As Integer) As Integer
+  overload: ShapeEngine.Stats.StatSet.RemoveStacks*
+  nameWithType.vb: StatSet.RemoveStacks(UInteger, Integer)
+  fullName.vb: ShapeEngine.Stats.StatSet.RemoveStacks(UInteger, Integer)
+  name.vb: RemoveStacks(UInteger, Integer)
+- uid: ShapeEngine.Stats.StatSet.ClearSources
+  commentId: M:ShapeEngine.Stats.StatSet.ClearSources
+  id: ClearSources
+  parent: ShapeEngine.Stats.StatSet
+  langs:
+  - csharp
+  - vb
+  name: ClearSources()
+  nameWithType: StatSet.ClearSources()
+  fullName: ShapeEngine.Stats.StatSet.ClearSources()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Stats/StatSet.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: ClearSources
+    path: ../ShapeEngine/ShapeEngine/Stats/StatSet.cs
+    startLine: 563
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Stats
+  summary: Removes all modifier sources from the set and recalculates values.
+  remarks: Raises <xref href="ShapeEngine.Stats.StatSet.OnSourceRemoved" data-throw-if-not-resolved="false"></xref> for each removed source.
+  example: []
+  syntax:
+    content: public void ClearSources()
+    content.vb: Public Sub ClearSources()
+  overload: ShapeEngine.Stats.StatSet.ClearSources*
+references:
+- uid: ShapeEngine.Stats.Stat
+  commentId: T:ShapeEngine.Stats.Stat
+  parent: ShapeEngine.Stats
+  href: ShapeEngine.Stats.Stat.html
+  name: Stat
+  nameWithType: Stat
+  fullName: ShapeEngine.Stats.Stat
+- uid: ShapeEngine.Stats.IStatModifierSource
+  commentId: T:ShapeEngine.Stats.IStatModifierSource
+  parent: ShapeEngine.Stats
+  href: ShapeEngine.Stats.IStatModifierSource.html
+  name: IStatModifierSource
+  nameWithType: IStatModifierSource
+  fullName: ShapeEngine.Stats.IStatModifierSource
+- uid: ShapeEngine.Stats.StatModifierSource
+  commentId: T:ShapeEngine.Stats.StatModifierSource
+  parent: ShapeEngine.Stats
+  href: ShapeEngine.Stats.StatModifierSource.html
+  name: StatModifierSource
+  nameWithType: StatModifierSource
+  fullName: ShapeEngine.Stats.StatModifierSource
+- uid: ShapeEngine.Stats.TimedStatModifierSource
+  commentId: T:ShapeEngine.Stats.TimedStatModifierSource
+  parent: ShapeEngine.Stats
+  href: ShapeEngine.Stats.TimedStatModifierSource.html
+  name: TimedStatModifierSource
+  nameWithType: TimedStatModifierSource
+  fullName: ShapeEngine.Stats.TimedStatModifierSource
+- uid: ShapeEngine.Stats.StackableStatModifierSource
+  commentId: T:ShapeEngine.Stats.StackableStatModifierSource
+  href: ShapeEngine.Stats.StackableStatModifierSource.html
+  name: StackableStatModifierSource
+  nameWithType: StackableStatModifierSource
+  fullName: ShapeEngine.Stats.StackableStatModifierSource
+- uid: ShapeEngine.Stats.StatSet
+  commentId: T:ShapeEngine.Stats.StatSet
+  href: ShapeEngine.Stats.StatSet.html
+  name: StatSet
+  nameWithType: StatSet
+  fullName: ShapeEngine.Stats.StatSet
+- uid: ShapeEngine.Stats.SimpleStat
+  commentId: T:ShapeEngine.Stats.SimpleStat
+  parent: ShapeEngine.Stats
+  href: ShapeEngine.Stats.SimpleStat.html
+  name: SimpleStat
+  nameWithType: SimpleStat
+  fullName: ShapeEngine.Stats.SimpleStat
+- uid: ShapeEngine.Stats.StatId
+  commentId: T:ShapeEngine.Stats.StatId
+  parent: ShapeEngine.Stats
+  href: ShapeEngine.Stats.StatId.html
+  name: StatId
+  nameWithType: StatId
+  fullName: ShapeEngine.Stats.StatId
+- uid: ShapeEngine.Stats.StatModifier
+  commentId: T:ShapeEngine.Stats.StatModifier
+  parent: ShapeEngine.Stats
+  href: ShapeEngine.Stats.StatModifier.html
+  name: StatModifier
+  nameWithType: StatModifier
+  fullName: ShapeEngine.Stats.StatModifier
+- uid: ShapeEngine.Stats.StatModifierKind
+  commentId: T:ShapeEngine.Stats.StatModifierKind
+  parent: ShapeEngine.Stats
+  href: ShapeEngine.Stats.StatModifierKind.html
+  name: StatModifierKind
+  nameWithType: StatModifierKind
+  fullName: ShapeEngine.Stats.StatModifierKind
+- uid: ShapeEngine.Stats.StatSet.AddStacks(System.UInt32,System.Int32)
+  commentId: M:ShapeEngine.Stats.StatSet.AddStacks(System.UInt32,System.Int32)
+  isExternal: true
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_AddStacks_System_UInt32_System_Int32_
+  name: AddStacks(uint, int)
+  nameWithType: StatSet.AddStacks(uint, int)
+  fullName: ShapeEngine.Stats.StatSet.AddStacks(uint, int)
+  nameWithType.vb: StatSet.AddStacks(UInteger, Integer)
+  fullName.vb: ShapeEngine.Stats.StatSet.AddStacks(UInteger, Integer)
+  name.vb: AddStacks(UInteger, Integer)
+  spec.csharp:
+  - uid: ShapeEngine.Stats.StatSet.AddStacks(System.UInt32,System.Int32)
+    name: AddStacks
+    href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_AddStacks_System_UInt32_System_Int32_
+  - name: (
+  - uid: System.UInt32
+    name: uint
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.uint32
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Stats.StatSet.AddStacks(System.UInt32,System.Int32)
+    name: AddStacks
+    href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_AddStacks_System_UInt32_System_Int32_
+  - name: (
+  - uid: System.UInt32
+    name: UInteger
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.uint32
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: ShapeEngine.Stats.StatSet.RemoveStacks(System.UInt32,System.Int32)
+  commentId: M:ShapeEngine.Stats.StatSet.RemoveStacks(System.UInt32,System.Int32)
+  isExternal: true
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_RemoveStacks_System_UInt32_System_Int32_
+  name: RemoveStacks(uint, int)
+  nameWithType: StatSet.RemoveStacks(uint, int)
+  fullName: ShapeEngine.Stats.StatSet.RemoveStacks(uint, int)
+  nameWithType.vb: StatSet.RemoveStacks(UInteger, Integer)
+  fullName.vb: ShapeEngine.Stats.StatSet.RemoveStacks(UInteger, Integer)
+  name.vb: RemoveStacks(UInteger, Integer)
+  spec.csharp:
+  - uid: ShapeEngine.Stats.StatSet.RemoveStacks(System.UInt32,System.Int32)
+    name: RemoveStacks
+    href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_RemoveStacks_System_UInt32_System_Int32_
+  - name: (
+  - uid: System.UInt32
+    name: uint
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.uint32
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Stats.StatSet.RemoveStacks(System.UInt32,System.Int32)
+    name: RemoveStacks
+    href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_RemoveStacks_System_UInt32_System_Int32_
+  - name: (
+  - uid: System.UInt32
+    name: UInteger
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.uint32
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: ShapeEngine.Stats
+  commentId: N:ShapeEngine.Stats
+  href: ShapeEngine.html
+  name: ShapeEngine.Stats
+  nameWithType: ShapeEngine.Stats
+  fullName: ShapeEngine.Stats
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Stats
+    name: Stats
+    href: ShapeEngine.Stats.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Stats
+    name: Stats
+    href: ShapeEngine.Stats.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
+  href: ShapeEngine.html
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+- uid: System.Action{ShapeEngine.Stats.Stat,System.Single,System.Single}
+  commentId: T:System.Action{ShapeEngine.Stats.Stat,System.Single,System.Single}
+  parent: System
+  definition: System.Action`3
+  href: https://learn.microsoft.com/dotnet/api/system.action-3
+  name: Action<Stat, float, float>
+  nameWithType: Action<Stat, float, float>
+  fullName: System.Action<ShapeEngine.Stats.Stat, float, float>
+  nameWithType.vb: Action(Of Stat, Single, Single)
+  fullName.vb: System.Action(Of ShapeEngine.Stats.Stat, Single, Single)
+  name.vb: Action(Of Stat, Single, Single)
+  spec.csharp:
+  - uid: System.Action`3
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-3
+  - name: <
+  - uid: ShapeEngine.Stats.Stat
+    name: Stat
+    href: ShapeEngine.Stats.Stat.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`3
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-3
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ShapeEngine.Stats.Stat
+    name: Stat
+    href: ShapeEngine.Stats.Stat.html
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+- uid: System.Action`3
+  commentId: T:System.Action`3
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.action-3
+  name: Action<T1, T2, T3>
+  nameWithType: Action<T1, T2, T3>
+  fullName: System.Action<T1, T2, T3>
+  nameWithType.vb: Action(Of T1, T2, T3)
+  fullName.vb: System.Action(Of T1, T2, T3)
+  name.vb: Action(Of T1, T2, T3)
+  spec.csharp:
+  - uid: System.Action`3
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-3
+  - name: <
+  - name: T1
+  - name: ','
+  - name: " "
+  - name: T2
+  - name: ','
+  - name: " "
+  - name: T3
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`3
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-3
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T1
+  - name: ','
+  - name: " "
+  - name: T2
+  - name: ','
+  - name: " "
+  - name: T3
+  - name: )
+- uid: System.Action{ShapeEngine.Stats.IStatModifierSource}
+  commentId: T:System.Action{ShapeEngine.Stats.IStatModifierSource}
+  parent: System
+  definition: System.Action`1
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<IStatModifierSource>
+  nameWithType: Action<IStatModifierSource>
+  fullName: System.Action<ShapeEngine.Stats.IStatModifierSource>
+  nameWithType.vb: Action(Of IStatModifierSource)
+  fullName.vb: System.Action(Of ShapeEngine.Stats.IStatModifierSource)
+  name.vb: Action(Of IStatModifierSource)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - uid: ShapeEngine.Stats.IStatModifierSource
+    name: IStatModifierSource
+    href: ShapeEngine.Stats.IStatModifierSource.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ShapeEngine.Stats.IStatModifierSource
+    name: IStatModifierSource
+    href: ShapeEngine.Stats.IStatModifierSource.html
+  - name: )
+- uid: System.Action`1
+  commentId: T:System.Action`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Action{ShapeEngine.Stats.IStatModifierSource,System.Int32}
+  commentId: T:System.Action{ShapeEngine.Stats.IStatModifierSource,System.Int32}
+  parent: System
+  definition: System.Action`2
+  href: https://learn.microsoft.com/dotnet/api/system.action-2
+  name: Action<IStatModifierSource, int>
+  nameWithType: Action<IStatModifierSource, int>
+  fullName: System.Action<ShapeEngine.Stats.IStatModifierSource, int>
+  nameWithType.vb: Action(Of IStatModifierSource, Integer)
+  fullName.vb: System.Action(Of ShapeEngine.Stats.IStatModifierSource, Integer)
+  name.vb: Action(Of IStatModifierSource, Integer)
+  spec.csharp:
+  - uid: System.Action`2
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-2
+  - name: <
+  - uid: ShapeEngine.Stats.IStatModifierSource
+    name: IStatModifierSource
+    href: ShapeEngine.Stats.IStatModifierSource.html
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`2
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ShapeEngine.Stats.IStatModifierSource
+    name: IStatModifierSource
+    href: ShapeEngine.Stats.IStatModifierSource.html
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: System.Action`2
+  commentId: T:System.Action`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.action-2
+  name: Action<T1, T2>
+  nameWithType: Action<T1, T2>
+  fullName: System.Action<T1, T2>
+  nameWithType.vb: Action(Of T1, T2)
+  fullName.vb: System.Action(Of T1, T2)
+  name.vb: Action(Of T1, T2)
+  spec.csharp:
+  - uid: System.Action`2
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-2
+  - name: <
+  - name: T1
+  - name: ','
+  - name: " "
+  - name: T2
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`2
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T1
+  - name: ','
+  - name: " "
+  - name: T2
+  - name: )
+- uid: System.Action{ShapeEngine.Stats.Stat}
+  commentId: T:System.Action{ShapeEngine.Stats.Stat}
+  parent: System
+  definition: System.Action`1
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<Stat>
+  nameWithType: Action<Stat>
+  fullName: System.Action<ShapeEngine.Stats.Stat>
+  nameWithType.vb: Action(Of Stat)
+  fullName.vb: System.Action(Of ShapeEngine.Stats.Stat)
+  name.vb: Action(Of Stat)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - uid: ShapeEngine.Stats.Stat
+    name: Stat
+    href: ShapeEngine.Stats.Stat.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ShapeEngine.Stats.Stat
+    name: Stat
+    href: ShapeEngine.Stats.Stat.html
+  - name: )
+- uid: ShapeEngine.Stats.StatSet.Stats*
+  commentId: Overload:ShapeEngine.Stats.StatSet.Stats
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_Stats
+  name: Stats
+  nameWithType: StatSet.Stats
+  fullName: ShapeEngine.Stats.StatSet.Stats
+- uid: System.Collections.Generic.IReadOnlyCollection{ShapeEngine.Stats.Stat}
+  commentId: T:System.Collections.Generic.IReadOnlyCollection{ShapeEngine.Stats.Stat}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyCollection`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  name: IReadOnlyCollection<Stat>
+  nameWithType: IReadOnlyCollection<Stat>
+  fullName: System.Collections.Generic.IReadOnlyCollection<ShapeEngine.Stats.Stat>
+  nameWithType.vb: IReadOnlyCollection(Of Stat)
+  fullName.vb: System.Collections.Generic.IReadOnlyCollection(Of ShapeEngine.Stats.Stat)
+  name.vb: IReadOnlyCollection(Of Stat)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  - name: <
+  - uid: ShapeEngine.Stats.Stat
+    name: Stat
+    href: ShapeEngine.Stats.Stat.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ShapeEngine.Stats.Stat
+    name: Stat
+    href: ShapeEngine.Stats.Stat.html
+  - name: )
+- uid: System.Collections.Generic.IReadOnlyCollection`1
+  commentId: T:System.Collections.Generic.IReadOnlyCollection`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  name: IReadOnlyCollection<T>
+  nameWithType: IReadOnlyCollection<T>
+  fullName: System.Collections.Generic.IReadOnlyCollection<T>
+  nameWithType.vb: IReadOnlyCollection(Of T)
+  fullName.vb: System.Collections.Generic.IReadOnlyCollection(Of T)
+  name.vb: IReadOnlyCollection(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: ShapeEngine.Stats.StatSet.Sources*
+  commentId: Overload:ShapeEngine.Stats.StatSet.Sources
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_Sources
+  name: Sources
+  nameWithType: StatSet.Sources
+  fullName: ShapeEngine.Stats.StatSet.Sources
+- uid: System.Collections.Generic.IReadOnlyCollection{ShapeEngine.Stats.IStatModifierSource}
+  commentId: T:System.Collections.Generic.IReadOnlyCollection{ShapeEngine.Stats.IStatModifierSource}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyCollection`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  name: IReadOnlyCollection<IStatModifierSource>
+  nameWithType: IReadOnlyCollection<IStatModifierSource>
+  fullName: System.Collections.Generic.IReadOnlyCollection<ShapeEngine.Stats.IStatModifierSource>
+  nameWithType.vb: IReadOnlyCollection(Of IStatModifierSource)
+  fullName.vb: System.Collections.Generic.IReadOnlyCollection(Of ShapeEngine.Stats.IStatModifierSource)
+  name.vb: IReadOnlyCollection(Of IStatModifierSource)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  - name: <
+  - uid: ShapeEngine.Stats.IStatModifierSource
+    name: IStatModifierSource
+    href: ShapeEngine.Stats.IStatModifierSource.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ShapeEngine.Stats.IStatModifierSource
+    name: IStatModifierSource
+    href: ShapeEngine.Stats.IStatModifierSource.html
+  - name: )
+- uid: ShapeEngine.Stats.StatSet.GetDirtyStats*
+  commentId: Overload:ShapeEngine.Stats.StatSet.GetDirtyStats
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_GetDirtyStats
+  name: GetDirtyStats
+  nameWithType: StatSet.GetDirtyStats
+  fullName: ShapeEngine.Stats.StatSet.GetDirtyStats
+- uid: System.Collections.Generic.IReadOnlyCollection{ShapeEngine.Stats.StatId}
+  commentId: T:System.Collections.Generic.IReadOnlyCollection{ShapeEngine.Stats.StatId}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyCollection`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  name: IReadOnlyCollection<StatId>
+  nameWithType: IReadOnlyCollection<StatId>
+  fullName: System.Collections.Generic.IReadOnlyCollection<ShapeEngine.Stats.StatId>
+  nameWithType.vb: IReadOnlyCollection(Of StatId)
+  fullName.vb: System.Collections.Generic.IReadOnlyCollection(Of ShapeEngine.Stats.StatId)
+  name.vb: IReadOnlyCollection(Of StatId)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  - name: <
+  - uid: ShapeEngine.Stats.StatId
+    name: StatId
+    href: ShapeEngine.Stats.StatId.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyCollection`1
+    name: IReadOnlyCollection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ShapeEngine.Stats.StatId
+    name: StatId
+    href: ShapeEngine.Stats.StatId.html
+  - name: )
+- uid: ShapeEngine.Stats.StatSet.Update*
+  commentId: Overload:ShapeEngine.Stats.StatSet.Update
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_Update_System_Single_
+  name: Update
+  nameWithType: StatSet.Update
+  fullName: ShapeEngine.Stats.StatSet.Update
+- uid: System.Single
+  commentId: T:System.Single
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.single
+  name: float
+  nameWithType: float
+  fullName: float
+  nameWithType.vb: Single
+  fullName.vb: Single
+  name.vb: Single
+- uid: ShapeEngine.Stats.StatSet.Recalculate*
+  commentId: Overload:ShapeEngine.Stats.StatSet.Recalculate
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_Recalculate
+  name: Recalculate
+  nameWithType: StatSet.Recalculate
+  fullName: ShapeEngine.Stats.StatSet.Recalculate
+- uid: ShapeEngine.Stats.StatSet.OnStatRemoved
+  commentId: E:ShapeEngine.Stats.StatSet.OnStatRemoved
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_OnStatRemoved
+  name: OnStatRemoved
+  nameWithType: StatSet.OnStatRemoved
+  fullName: ShapeEngine.Stats.StatSet.OnStatRemoved
+- uid: ShapeEngine.Stats.StatSet.OnSourceRemoved
+  commentId: E:ShapeEngine.Stats.StatSet.OnSourceRemoved
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_OnSourceRemoved
+  name: OnSourceRemoved
+  nameWithType: StatSet.OnSourceRemoved
+  fullName: ShapeEngine.Stats.StatSet.OnSourceRemoved
+- uid: ShapeEngine.Stats.StatSet.Clear*
+  commentId: Overload:ShapeEngine.Stats.StatSet.Clear
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_Clear
+  name: Clear
+  nameWithType: StatSet.Clear
+  fullName: ShapeEngine.Stats.StatSet.Clear
+- uid: ShapeEngine.Stats.StatSet.Batch*
+  commentId: Overload:ShapeEngine.Stats.StatSet.Batch
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_Batch
+  name: Batch
+  nameWithType: StatSet.Batch
+  fullName: ShapeEngine.Stats.StatSet.Batch
+- uid: System.IDisposable
+  commentId: T:System.IDisposable
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.idisposable
+  name: IDisposable
+  nameWithType: IDisposable
+  fullName: System.IDisposable
+- uid: ShapeEngine.Stats.StatSet.EndUpdate
+  commentId: M:ShapeEngine.Stats.StatSet.EndUpdate
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_EndUpdate
+  name: EndUpdate()
+  nameWithType: StatSet.EndUpdate()
+  fullName: ShapeEngine.Stats.StatSet.EndUpdate()
+  spec.csharp:
+  - uid: ShapeEngine.Stats.StatSet.EndUpdate
+    name: EndUpdate
+    href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_EndUpdate
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Stats.StatSet.EndUpdate
+    name: EndUpdate
+    href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_EndUpdate
+  - name: (
+  - name: )
+- uid: ShapeEngine.Stats.StatSet.BeginUpdate*
+  commentId: Overload:ShapeEngine.Stats.StatSet.BeginUpdate
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_BeginUpdate
+  name: BeginUpdate
+  nameWithType: StatSet.BeginUpdate
+  fullName: ShapeEngine.Stats.StatSet.BeginUpdate
+- uid: ShapeEngine.Stats.StatSet.EndUpdate*
+  commentId: Overload:ShapeEngine.Stats.StatSet.EndUpdate
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_EndUpdate
+  name: EndUpdate
+  nameWithType: StatSet.EndUpdate
+  fullName: ShapeEngine.Stats.StatSet.EndUpdate
+- uid: ShapeEngine.Stats.StatSet.AddStat*
+  commentId: Overload:ShapeEngine.Stats.StatSet.AddStat
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_AddStat_ShapeEngine_Stats_Stat_
+  name: AddStat
+  nameWithType: StatSet.AddStat
+  fullName: ShapeEngine.Stats.StatSet.AddStat
+- uid: ShapeEngine.Stats.StatSet.RemoveStat*
+  commentId: Overload:ShapeEngine.Stats.StatSet.RemoveStat
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_RemoveStat_ShapeEngine_Stats_StatId_
+  name: RemoveStat
+  nameWithType: StatSet.RemoveStat
+  fullName: ShapeEngine.Stats.StatSet.RemoveStat
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: ShapeEngine.Stats.StatSet.TryGetStat*
+  commentId: Overload:ShapeEngine.Stats.StatSet.TryGetStat
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_TryGetStat_ShapeEngine_Stats_StatId_ShapeEngine_Stats_Stat__
+  name: TryGetStat
+  nameWithType: StatSet.TryGetStat
+  fullName: ShapeEngine.Stats.StatSet.TryGetStat
+- uid: ShapeEngine.Stats.StatSet.TryGetValue*
+  commentId: Overload:ShapeEngine.Stats.StatSet.TryGetValue
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_TryGetValue_ShapeEngine_Stats_StatId_System_Single__
+  name: TryGetValue
+  nameWithType: StatSet.TryGetValue
+  fullName: ShapeEngine.Stats.StatSet.TryGetValue
+- uid: ShapeEngine.Stats.StatSet.ClearStats*
+  commentId: Overload:ShapeEngine.Stats.StatSet.ClearStats
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_ClearStats
+  name: ClearStats
+  nameWithType: StatSet.ClearStats
+  fullName: ShapeEngine.Stats.StatSet.ClearStats
+- uid: ShapeEngine.Stats.StatSet.AddSource*
+  commentId: Overload:ShapeEngine.Stats.StatSet.AddSource
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_AddSource_ShapeEngine_Stats_IStatModifierSource_
+  name: AddSource
+  nameWithType: StatSet.AddSource
+  fullName: ShapeEngine.Stats.StatSet.AddSource
+- uid: ShapeEngine.Stats.StatSet.RemoveSource*
+  commentId: Overload:ShapeEngine.Stats.StatSet.RemoveSource
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_RemoveSource_System_UInt32_
+  name: RemoveSource
+  nameWithType: StatSet.RemoveSource
+  fullName: ShapeEngine.Stats.StatSet.RemoveSource
+- uid: System.UInt32
+  commentId: T:System.UInt32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.uint32
+  name: uint
+  nameWithType: uint
+  fullName: uint
+  nameWithType.vb: UInteger
+  fullName.vb: UInteger
+  name.vb: UInteger
+- uid: ShapeEngine.Stats.StatSet.TryGetSource*
+  commentId: Overload:ShapeEngine.Stats.StatSet.TryGetSource
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_TryGetSource_System_UInt32_ShapeEngine_Stats_IStatModifierSource__
+  name: TryGetSource
+  nameWithType: StatSet.TryGetSource
+  fullName: ShapeEngine.Stats.StatSet.TryGetSource
+- uid: ShapeEngine.Stats.StatSet.AddStacks*
+  commentId: Overload:ShapeEngine.Stats.StatSet.AddStacks
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_AddStacks_System_UInt32_System_Int32_
+  name: AddStacks
+  nameWithType: StatSet.AddStacks
+  fullName: ShapeEngine.Stats.StatSet.AddStacks
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: ShapeEngine.Stats.StatSet.RemoveStacks*
+  commentId: Overload:ShapeEngine.Stats.StatSet.RemoveStacks
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_RemoveStacks_System_UInt32_System_Int32_
+  name: RemoveStacks
+  nameWithType: StatSet.RemoveStacks
+  fullName: ShapeEngine.Stats.StatSet.RemoveStacks
+- uid: ShapeEngine.Stats.StatSet.ClearSources*
+  commentId: Overload:ShapeEngine.Stats.StatSet.ClearSources
+  href: ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_ClearSources
+  name: ClearSources
+  nameWithType: StatSet.ClearSources
+  fullName: ShapeEngine.Stats.StatSet.ClearSources

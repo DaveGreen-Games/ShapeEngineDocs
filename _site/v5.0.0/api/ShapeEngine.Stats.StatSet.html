@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class StatSet | ShapeEngine </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class StatSet | ShapeEngine ">
+      
+      <meta name="description" content="Manages stats and their active modifier sources. This is the new entry point of the stat system. You create stats, add modifier sources, call Update(dt) each frame if you have timed effects, and read the final stat values back out. Holds  objects and  (like , , )Formula: ((Base + Flat) * (1 + AdditivePercent)) * MultiplicativeFactor">
+      <link rel="icon" href="../media/shape-engine.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/DaveGreen-Games/ShapeEngine/new/main/apiSpec/new?filename=ShapeEngine_Stats_StatSet.md&amp;value=---%0Auid%3A%20ShapeEngine.Stats.StatSet%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+      <script type="module" src="./../public/main.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="https://davegreen-games.github.io/ShapeEngineDocs/">
+            <img id="logo" class="svg" src="../media/shape-engine.ico" alt="ShapeEngine">
+            ShapeEngine
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="ShapeEngine.Stats.StatSet">
+
+
+
+  <h1 id="ShapeEngine_Stats_StatSet" data-uid="ShapeEngine.Stats.StatSet" class="text-break">
+Class StatSet  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L58"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="ShapeEngine.html">ShapeEngine</a>.<a class="xref" href="ShapeEngine.Stats.html">Stats</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>ShapeEngine.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Manages stats and their active modifier sources. This is the new entry point of the stat system.
+You create stats, add modifier sources, call Update(dt) each frame if you have timed effects, and read the final stat values back out.</p>
+<ul><li>Holds <a class="xref" href="ShapeEngine.Stats.Stat.html">Stat</a> objects and <a class="xref" href="ShapeEngine.Stats.IStatModifierSource.html">IStatModifierSource</a> (like <a class="xref" href="ShapeEngine.Stats.StatModifierSource.html">StatModifierSource</a>, <a class="xref" href="ShapeEngine.Stats.TimedStatModifierSource.html">TimedStatModifierSource</a>, <a class="xref" href="ShapeEngine.Stats.StackableStatModifierSource.html">StackableStatModifierSource</a>)</li><li>Formula: ((Base + Flat) * (1 + AdditivePercent)) * MultiplicativeFactor</li></ul>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class StatSet</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">StatSet</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_">ShapeLogger.Log(object, string, LogLevel)</a>
+  </div>
+  <div>
+      <a class="xref" href="ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_">ShapeLogger.LogConsole(object, string, LogLevel)</a>
+  </div>
+  <div>
+      <a class="xref" href="ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_">ShapeLogger.LogFile(object, string, LogLevel)</a>
+  </div>
+  </dd></dl>
+
+
+
+  <h2 id="ShapeEngine_Stats_StatSet_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>Main flow:</p>
+<ul><li>You define a stat with new Stat(...).</li><li>You register it in StatSet.AddStat(...).</li><li>You register one or more sources with StatSet.AddSource(...).</li><li>StatSet recalculates all stats from all active sources.</li><li>If you have timed sources, you call StatSet.Update(dt) each frame.</li><li>You read the result with StatSet.GetValue(statId) or stat.Value.</li></ul>
+<p>What each class is for</p>
+<ul><li><a class="xref" href="ShapeEngine.Stats.StatId.html">StatId</a>: a lightweight wrapper around uint, used as the stable key for stats.</li><li><a class="xref" href="ShapeEngine.Stats.Stat.html">Stat</a>: one actual stat definition plus its current computed value, name, base value, optional min/max, and optional tags.</li><li><a class="xref" href="ShapeEngine.Stats.StatModifier.html">StatModifier</a>: one contribution to one stat, like “+5 flat” or “+20% multiplicative”.</li><li><a class="xref" href="ShapeEngine.Stats.StatModifierKind.html">StatModifierKind</a>: says how the modifier participates in the calculation pipeline.</li><li><a class="xref" href="ShapeEngine.Stats.StatModifierSource.html">StatModifierSource</a>: a permanent or manually removed source, like an item affix or passive.</li><li><a class="xref" href="ShapeEngine.Stats.TimedStatModifierSource.html">TimedStatModifierSource</a>: a source with duration and expiry.</li><li><a class="xref" href="ShapeEngine.Stats.StackableStatModifierSource.html">StackableStatModifierSource</a>: a timed source whose modifiers scale by stack count.</li><li><a class="xref" href="ShapeEngine.Stats.StatSet.html">StatSet</a>: the manager that holds everything, updates timed sources, and recalculates values.</li></ul>
+<p>How stacking works:</p>
+<ul><li>Sources have a stable Id.</li><li>If you add a source with an id that already exists, StatSet does not add a second copy.</li><li>Instead, it calls Reapply(...) on the existing source.</li><li>For timed sources, Reapply(...) refreshes duration.</li><li>For stackable sources, Reapply(...) adds stacks and refreshes duration by default.</li><li><a class="xref" href="ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_AddStacks_System_UInt32_System_Int32_">AddStacks(uint, int)</a> and <a class="xref" href="ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_RemoveStacks_System_UInt32_System_Int32_">RemoveStacks(uint, int)</a> let you manipulate an existing source directly.</li></ul>
+</div>
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="ShapeEngine_Stats_StatSet_Sources_" data-uid="ShapeEngine.Stats.StatSet.Sources*"></a>
+
+  <h3 id="ShapeEngine_Stats_StatSet_Sources" data-uid="ShapeEngine.Stats.StatSet.Sources">
+  Sources
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L121"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The active modifier sources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyCollection&lt;IStatModifierSource&gt; Sources { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="ShapeEngine.Stats.IStatModifierSource.html">IStatModifierSource</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Stats_StatSet_Stats_" data-uid="ShapeEngine.Stats.StatSet.Stats*"></a>
+
+  <h3 id="ShapeEngine_Stats_StatSet_Stats" data-uid="ShapeEngine.Stats.StatSet.Stats">
+  Stats
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L116"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The registered stats.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyCollection&lt;Stat&gt; Stats { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="ShapeEngine.Stats.Stat.html">Stat</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="ShapeEngine_Stats_StatSet_AddSource_" data-uid="ShapeEngine.Stats.StatSet.AddSource*"></a>
+
+  <h3 id="ShapeEngine_Stats_StatSet_AddSource_ShapeEngine_Stats_IStatModifierSource_" data-uid="ShapeEngine.Stats.StatSet.AddSource(ShapeEngine.Stats.IStatModifierSource)">
+  AddSource(IStatModifierSource)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L414"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a modifier source. If a source with the same id already exists, it is reapplied instead.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool AddSource(IStatModifierSource source)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>source</code> <a class="xref" href="ShapeEngine.Stats.IStatModifierSource.html">IStatModifierSource</a></dt>
+    <dd><p>The source to add or reapply.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the source was newly added; false if an existing source was reapplied.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Stats_StatSet_AddStacks_" data-uid="ShapeEngine.Stats.StatSet.AddStacks*"></a>
+
+  <h3 id="ShapeEngine_Stats_StatSet_AddStacks_System_UInt32_System_Int32_" data-uid="ShapeEngine.Stats.StatSet.AddStacks(System.UInt32,System.Int32)">
+  AddStacks(uint, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L497"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds stacks to an existing source.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int AddStacks(uint sourceId, int amount)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sourceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
+    <dd><p>The source id.</p>
+</dd>
+    <dt><code>amount</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The number of stacks to add.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The number of stacks actually added.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Stats_StatSet_AddStat_" data-uid="ShapeEngine.Stats.StatSet.AddStat*"></a>
+
+  <h3 id="ShapeEngine_Stats_StatSet_AddStat_ShapeEngine_Stats_Stat_" data-uid="ShapeEngine.Stats.StatSet.AddStat(ShapeEngine.Stats.Stat)">
+  AddStat(Stat)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L307"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds or replaces a stat.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddStat(Stat stat)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>stat</code> <a class="xref" href="ShapeEngine.Stats.Stat.html">Stat</a></dt>
+    <dd><p>The stat to register.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Stats_StatSet_Batch_" data-uid="ShapeEngine.Stats.StatSet.Batch*"></a>
+
+  <h3 id="ShapeEngine_Stats_StatSet_Batch" data-uid="ShapeEngine.Stats.StatSet.Batch">
+  Batch()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L261"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a disposable scope for batching multiple stat changes.
+When the scope is disposed, all pending recalculations are performed at once.
+Supports nesting: each Batch() call must be paired with Dispose().</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IDisposable Batch()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></dt>
+    <dd><p>An IDisposable that ends the batch when disposed.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Stats_StatSet_BeginUpdate_" data-uid="ShapeEngine.Stats.StatSet.BeginUpdate*"></a>
+
+  <h3 id="ShapeEngine_Stats_StatSet_BeginUpdate" data-uid="ShapeEngine.Stats.StatSet.BeginUpdate">
+  BeginUpdate()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L276"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Begins a batch update. Multiple changes can be made without triggering recalculation until <a class="xref" href="ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_EndUpdate">EndUpdate()</a> is called.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void BeginUpdate()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Stats_StatSet_BeginUpdate_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Supports nesting: each BeginUpdate must be paired with an EndUpdate.
+Recalculation happens only when the outermost EndUpdate is called.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Stats_StatSet_Clear_" data-uid="ShapeEngine.Stats.StatSet.Clear*"></a>
+
+  <h3 id="ShapeEngine_Stats_StatSet_Clear" data-uid="ShapeEngine.Stats.StatSet.Clear">
+  Clear()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L211"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Clears all stats and modifier sources from the set and recalculates values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Clear()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Stats_StatSet_Clear_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Raises <a class="xref" href="ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_OnStatRemoved">OnStatRemoved</a> for each removed stat and <a class="xref" href="ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_OnSourceRemoved">OnSourceRemoved</a> for each removed source.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Stats_StatSet_ClearSources_" data-uid="ShapeEngine.Stats.StatSet.ClearSources*"></a>
+
+  <h3 id="ShapeEngine_Stats_StatSet_ClearSources" data-uid="ShapeEngine.Stats.StatSet.ClearSources">
+  ClearSources()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L564"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes all modifier sources from the set and recalculates values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClearSources()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Stats_StatSet_ClearSources_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Raises <a class="xref" href="ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_OnSourceRemoved">OnSourceRemoved</a> for each removed source.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Stats_StatSet_ClearStats_" data-uid="ShapeEngine.Stats.StatSet.ClearStats*"></a>
+
+  <h3 id="ShapeEngine_Stats_StatSet_ClearStats" data-uid="ShapeEngine.Stats.StatSet.ClearStats">
+  ClearStats()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L383"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes all stats from the set and recalculates values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClearStats()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Stats_StatSet_ClearStats_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Raises <a class="xref" href="ShapeEngine.Stats.StatSet.html#ShapeEngine_Stats_StatSet_OnStatRemoved">OnStatRemoved</a> for each removed stat.</p>
+</div>
+
+
+
+
+  <a id="ShapeEngine_Stats_StatSet_EndUpdate_" data-uid="ShapeEngine.Stats.StatSet.EndUpdate*"></a>
+
+  <h3 id="ShapeEngine_Stats_StatSet_EndUpdate" data-uid="ShapeEngine.Stats.StatSet.EndUpdate">
+  EndUpdate()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L284"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Ends a batch update. If this is the outermost EndUpdate, recalculates all dirty stats.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void EndUpdate()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Stats_StatSet_GetDirtyStats_" data-uid="ShapeEngine.Stats.StatSet.GetDirtyStats*"></a>
+
+  <h3 id="ShapeEngine_Stats_StatSet_GetDirtyStats" data-uid="ShapeEngine.Stats.StatSet.GetDirtyStats">
+  GetDirtyStats()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L126"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The stats that are marked &quot;dirty&quot; and need to be recalculated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyCollection&lt;StatId&gt; GetDirtyStats()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="ShapeEngine.Stats.StatId.html">StatId</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Stats_StatSet_Recalculate_" data-uid="ShapeEngine.Stats.StatSet.Recalculate*"></a>
+
+  <h3 id="ShapeEngine_Stats_StatSet_Recalculate" data-uid="ShapeEngine.Stats.StatSet.Recalculate">
+  Recalculate()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L181"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Recalculates all stats from the currently active sources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Recalculate()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Stats_StatSet_RemoveSource_" data-uid="ShapeEngine.Stats.StatSet.RemoveSource*"></a>
+
+  <h3 id="ShapeEngine_Stats_StatSet_RemoveSource_System_UInt32_" data-uid="ShapeEngine.Stats.StatSet.RemoveSource(System.UInt32)">
+  RemoveSource(uint)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L463"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes a modifier source by id.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool RemoveSource(uint sourceId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sourceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
+    <dd><p>The source id.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if a source was removed.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Stats_StatSet_RemoveStacks_" data-uid="ShapeEngine.Stats.StatSet.RemoveStacks*"></a>
+
+  <h3 id="ShapeEngine_Stats_StatSet_RemoveStacks_System_UInt32_System_Int32_" data-uid="ShapeEngine.Stats.StatSet.RemoveStacks(System.UInt32,System.Int32)">
+  RemoveStacks(uint, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L527"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes stacks from an existing source.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int RemoveStacks(uint sourceId, int amount)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sourceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
+    <dd><p>The source id.</p>
+</dd>
+    <dt><code>amount</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The number of stacks to remove.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The number of stacks actually removed.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Stats_StatSet_RemoveStat_" data-uid="ShapeEngine.Stats.StatSet.RemoveStat*"></a>
+
+  <h3 id="ShapeEngine_Stats_StatSet_RemoveStat_ShapeEngine_Stats_StatId_" data-uid="ShapeEngine.Stats.StatSet.RemoveStat(ShapeEngine.Stats.StatId)">
+  RemoveStat(StatId)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L329"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes a stat by id.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool RemoveStat(StatId id)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>id</code> <a class="xref" href="ShapeEngine.Stats.StatId.html">StatId</a></dt>
+    <dd><p>The stat id to remove.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if a stat was removed.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Stats_StatSet_TryGetSource_" data-uid="ShapeEngine.Stats.StatSet.TryGetSource*"></a>
+
+  <h3 id="ShapeEngine_Stats_StatSet_TryGetSource_System_UInt32_ShapeEngine_Stats_IStatModifierSource__" data-uid="ShapeEngine.Stats.StatSet.TryGetSource(System.UInt32,ShapeEngine.Stats.IStatModifierSource@)">
+  TryGetSource(uint, out IStatModifierSource)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L489"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Attempts to get a modifier source by id.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetSource(uint sourceId, out IStatModifierSource source)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sourceId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></dt>
+    <dd><p>The source id.</p>
+</dd>
+    <dt><code>source</code> <a class="xref" href="ShapeEngine.Stats.IStatModifierSource.html">IStatModifierSource</a></dt>
+    <dd><p>The found source.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the source exists.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Stats_StatSet_TryGetStat_" data-uid="ShapeEngine.Stats.StatSet.TryGetStat*"></a>
+
+  <h3 id="ShapeEngine_Stats_StatSet_TryGetStat_ShapeEngine_Stats_StatId_ShapeEngine_Stats_Stat__" data-uid="ShapeEngine.Stats.StatSet.TryGetStat(ShapeEngine.Stats.StatId,ShapeEngine.Stats.Stat@)">
+  TryGetStat(StatId, out Stat)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L357"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Attempts to get a stat by id.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetStat(StatId id, out Stat stat)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>id</code> <a class="xref" href="ShapeEngine.Stats.StatId.html">StatId</a></dt>
+    <dd><p>The stat id.</p>
+</dd>
+    <dt><code>stat</code> <a class="xref" href="ShapeEngine.Stats.Stat.html">Stat</a></dt>
+    <dd><p>The found stat.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the stat exists.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Stats_StatSet_TryGetValue_" data-uid="ShapeEngine.Stats.StatSet.TryGetValue*"></a>
+
+  <h3 id="ShapeEngine_Stats_StatSet_TryGetValue_ShapeEngine_Stats_StatId_System_Single__" data-uid="ShapeEngine.Stats.StatSet.TryGetValue(ShapeEngine.Stats.StatId,System.Single@)">
+  TryGetValue(StatId, out float)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L365"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Attempts to get a stat value by id.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetValue(StatId id, out float value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>id</code> <a class="xref" href="ShapeEngine.Stats.StatId.html">StatId</a></dt>
+    <dd><p>The stat id.</p>
+</dd>
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>The value of the found stat.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if the stat exists.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="ShapeEngine_Stats_StatSet_Update_" data-uid="ShapeEngine.Stats.StatSet.Update*"></a>
+
+  <h3 id="ShapeEngine_Stats_StatSet_Update_System_Single_" data-uid="ShapeEngine.Stats.StatSet.Update(System.Single)">
+  Update(float)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L146"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Advances all sources, removes expired sources, and recalculates stats.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Update(float dt)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>dt</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>The elapsed time in seconds.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="events">Events
+</h2>
+
+
+
+  <h3 id="ShapeEngine_Stats_StatSet_OnSourceAdded" data-uid="ShapeEngine.Stats.StatSet.OnSourceAdded">
+  OnSourceAdded
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L83"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when a modifier source is added.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event Action&lt;IStatModifierSource&gt;? OnSourceAdded</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="ShapeEngine.Stats.IStatModifierSource.html">IStatModifierSource</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="ShapeEngine_Stats_StatSet_OnSourceRemoved" data-uid="ShapeEngine.Stats.StatSet.OnSourceRemoved">
+  OnSourceRemoved
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L88"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when a modifier source is removed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event Action&lt;IStatModifierSource&gt;? OnSourceRemoved</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="ShapeEngine.Stats.IStatModifierSource.html">IStatModifierSource</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="ShapeEngine_Stats_StatSet_OnSourceStacksAdded" data-uid="ShapeEngine.Stats.StatSet.OnSourceStacksAdded">
+  OnSourceStacksAdded
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L93"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when a source receives stacks.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event Action&lt;IStatModifierSource, int&gt;? OnSourceStacksAdded</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-2">Action</a>&lt;<a class="xref" href="ShapeEngine.Stats.IStatModifierSource.html">IStatModifierSource</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="ShapeEngine_Stats_StatSet_OnSourceStacksRemoved" data-uid="ShapeEngine.Stats.StatSet.OnSourceStacksRemoved">
+  OnSourceStacksRemoved
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L98"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when stacks are removed from a source.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event Action&lt;IStatModifierSource, int&gt;? OnSourceStacksRemoved</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-2">Action</a>&lt;<a class="xref" href="ShapeEngine.Stats.IStatModifierSource.html">IStatModifierSource</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="ShapeEngine_Stats_StatSet_OnStatAdded" data-uid="ShapeEngine.Stats.StatSet.OnStatAdded">
+  OnStatAdded
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L103"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when a new stat is added to the set.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event Action&lt;Stat&gt;? OnStatAdded</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="ShapeEngine.Stats.Stat.html">Stat</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="ShapeEngine_Stats_StatSet_OnStatChanged" data-uid="ShapeEngine.Stats.StatSet.OnStatChanged">
+  OnStatChanged
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when a stat value changes after recalculation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event Action&lt;Stat, float, float&gt;? OnStatChanged</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-3">Action</a>&lt;<a class="xref" href="ShapeEngine.Stats.Stat.html">Stat</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="ShapeEngine_Stats_StatSet_OnStatRemoved" data-uid="ShapeEngine.Stats.StatSet.OnStatRemoved">
+  OnStatRemoved
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L108"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when a stat is removed from the set.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event Action&lt;Stat&gt;? OnStatRemoved</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="ShapeEngine.Stats.Stat.html">Stat</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Stats/StatSet.cs/#L58" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
