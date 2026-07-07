@@ -90,7 +90,7 @@
 
 
   <h1 id="ShapeEngine_Core_GameObject" data-uid="ShapeEngine.Core.GameObject" class="text-break">
-Class GameObject  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L14"><i class="bi bi-code-slash"></i></a>
+Class GameObject  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L15"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -189,7 +189,7 @@ Provides lifecycle management, update/draw hooks, and layer/bounds logic.</p>
 
   <h3 id="ShapeEngine_Core_GameObject_IsDead" data-uid="ShapeEngine.Core.GameObject.IsDead">
   IsDead
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L42"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L51"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets whether this object is dead (killed).</p>
@@ -217,14 +217,54 @@ Provides lifecycle management, update/draw hooks, and layer/bounds logic.</p>
 
 
 
+  <a id="ShapeEngine_Core_GameObject_IsSpawned_" data-uid="ShapeEngine.Core.GameObject.IsSpawned*"></a>
+
+  <h3 id="ShapeEngine_Core_GameObject_IsSpawned" data-uid="ShapeEngine.Core.GameObject.IsSpawned">
+  IsSpawned
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L66"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this object is currently managed by a <a class="xref" href="ShapeEngine.Core.SpawnArea.html">SpawnArea</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsSpawned { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the object has been added to and is actively managed by a <a class="xref" href="ShapeEngine.Core.SpawnArea.html">SpawnArea</a>; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+  <h4 class="section" id="ShapeEngine_Core_GameObject_IsSpawned_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>
+<b>Deferred Processing:</b> Because <a class="xref" href="ShapeEngine.Core.SpawnArea.html">SpawnArea</a> processes additions and removals using deferred logic,
+this state may not change immediately upon calling <a class="xref" href="ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_AddGameObject_ShapeEngine_Core_GameObject_">AddGameObject(GameObject)</a> or <a class="xref" href="ShapeEngine.Core.SpawnArea.html#ShapeEngine_Core_SpawnArea_RemoveGameObject_ShapeEngine_Core_GameObject_">RemoveGameObject(GameObject)</a>.
+Instead, the value is updated once the object is actually processed (which can be delayed until the end of the current frame).
+</p>
+</div>
+
+
+
+
   <a id="ShapeEngine_Core_GameObject_Layer_" data-uid="ShapeEngine.Core.GameObject.Layer*"></a>
 
   <h3 id="ShapeEngine_Core_GameObject_Layer" data-uid="ShapeEngine.Core.GameObject.Layer">
   Layer
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L87"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L83"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"><p>Gets or sets the area layer this object is stored in. Higher layers are drawn on top of lower layers.</p>
+  <div class="markdown level1 summary"><p>Gets or sets the area layer in which this object is stored and drawn. Higher layers are rendered on top of lower layers.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -245,7 +285,22 @@ Provides lifecycle management, update/draw hooks, and layer/bounds logic.</p>
 
 
 
+  <h4 class="section" id="ShapeEngine_Core_GameObject_Layer_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>
+<b>Restriction:</b> The layer <b>cannot</b> be changed while the object is spawned (i.e., when <a class="xref" href="ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_IsSpawned">IsSpawned</a> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>).
+</p>
+<p>
+You must check that <a class="xref" href="ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_IsSpawned">IsSpawned</a> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a> (or remove the object from its <a class="xref" href="ShapeEngine.Core.SpawnArea.html">SpawnArea</a>)
+before setting this value. Attempting to modify the layer while spawned throws an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a>.
+</p>
+</div>
 
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></dt>
+    <dd><p>Thrown when attempting to set the layer while <a class="xref" href="ShapeEngine.Core.GameObject.html#ShapeEngine_Core_GameObject_IsSpawned">IsSpawned</a> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>.</p>
+</dd>
+  </dl>
 
 
 
@@ -253,7 +308,7 @@ Provides lifecycle management, update/draw hooks, and layer/bounds logic.</p>
 
   <h3 id="ShapeEngine_Core_GameObject_Transform" data-uid="ShapeEngine.Core.GameObject.Transform">
   Transform
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L46"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets or sets the transform (position, rotation, scale) of this object.</p>
@@ -289,7 +344,7 @@ Provides lifecycle management, update/draw hooks, and layer/bounds logic.</p>
 
   <h3 id="ShapeEngine_Core_GameObject_DrawGame_ShapeEngine_Core_Structs_ScreenInfo_" data-uid="ShapeEngine.Core.GameObject.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)">
   DrawGame(ScreenInfo)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L63"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L120"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Draws this object to the game world.</p>
@@ -322,7 +377,7 @@ Provides lifecycle management, update/draw hooks, and layer/bounds logic.</p>
 
   <h3 id="ShapeEngine_Core_GameObject_DrawGameUI_ShapeEngine_Core_Structs_ScreenInfo_" data-uid="ShapeEngine.Core.GameObject.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)">
   DrawGameUI(ScreenInfo)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L69"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L126"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Draws this object to the game UI.</p>
@@ -355,7 +410,7 @@ Provides lifecycle management, update/draw hooks, and layer/bounds logic.</p>
 
   <h3 id="ShapeEngine_Core_GameObject_GetBoundingBox" data-uid="ShapeEngine.Core.GameObject.GetBoundingBox">
   GetBoundingBox()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L105"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Gets the bounding box of this object in world space.</p>
@@ -388,7 +443,7 @@ Provides lifecycle management, update/draw hooks, and layer/bounds logic.</p>
 
   <h3 id="ShapeEngine_Core_GameObject_HasLeftBounds_ShapeEngine_Geometry_RectDef_Rect_" data-uid="ShapeEngine.Core.GameObject.HasLeftBounds(ShapeEngine.Geometry.RectDef.Rect)">
   HasLeftBounds(Rect)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L117"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L172"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Checks if this object should be removed from the spawn area based on bounds.</p>
@@ -427,7 +482,7 @@ Provides lifecycle management, update/draw hooks, and layer/bounds logic.</p>
 
   <h3 id="ShapeEngine_Core_GameObject_IsDrawingToGame_ShapeEngine_Geometry_RectDef_Rect_" data-uid="ShapeEngine.Core.GameObject.IsDrawingToGame(ShapeEngine.Geometry.RectDef.Rect)">
   IsDrawingToGame(Rect)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L76"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L133"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Determines if this object should be drawn to the game world. (default = true)</p>
@@ -466,7 +521,7 @@ Provides lifecycle management, update/draw hooks, and layer/bounds logic.</p>
 
   <h3 id="ShapeEngine_Core_GameObject_IsDrawingToGameUI_ShapeEngine_Geometry_RectDef_Rect_" data-uid="ShapeEngine.Core.GameObject.IsDrawingToGameUI(ShapeEngine.Geometry.RectDef.Rect)">
   IsDrawingToGameUI(Rect)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L82"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L140"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Determines if this object should be drawn to the game UI. (default = false)</p>
@@ -505,7 +560,7 @@ Provides lifecycle management, update/draw hooks, and layer/bounds logic.</p>
 
   <h3 id="ShapeEngine_Core_GameObject_IsInLayer_System_UInt32_" data-uid="ShapeEngine.Core.GameObject.IsInLayer(System.UInt32)">
   IsInLayer(uint)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L99"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L153"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Checks if the object is in a specific layer.</p>
@@ -544,7 +599,7 @@ Provides lifecycle management, update/draw hooks, and layer/bounds logic.</p>
 
   <h3 id="ShapeEngine_Core_GameObject_Kill_System_String_ShapeEngine_Core_GameObject_" data-uid="ShapeEngine.Core.GameObject.Kill(System.String,ShapeEngine.Core.GameObject)">
   Kill(string?, GameObject?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L125"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L180"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Tries to kill this game object.</p>
@@ -586,7 +641,7 @@ Provides lifecycle management, update/draw hooks, and layer/bounds logic.</p>
 
   <h3 id="ShapeEngine_Core_GameObject_OnDespawned_ShapeEngine_Core_SpawnArea_" data-uid="ShapeEngine.Core.GameObject.OnDespawned(ShapeEngine.Core.SpawnArea)">
   OnDespawned(SpawnArea)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L110"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L165"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Called by the area once a game object is removed or dead.</p>
@@ -619,7 +674,7 @@ Provides lifecycle management, update/draw hooks, and layer/bounds logic.</p>
 
   <h3 id="ShapeEngine_Core_GameObject_OnSpawned_ShapeEngine_Core_SpawnArea_" data-uid="ShapeEngine.Core.GameObject.OnSpawned(ShapeEngine.Core.SpawnArea)">
   OnSpawned(SpawnArea)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L105"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L159"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Called when the game object is added to an area.</p>
@@ -652,7 +707,7 @@ Provides lifecycle management, update/draw hooks, and layer/bounds logic.</p>
 
   <h3 id="ShapeEngine_Core_GameObject_Revive_System_String_ShapeEngine_Core_GameObject_" data-uid="ShapeEngine.Core.GameObject.Revive(System.String,ShapeEngine.Core.GameObject)">
   Revive(string?, GameObject?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L159"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L201"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Tries to revive this game object.</p>
@@ -694,7 +749,7 @@ Provides lifecycle management, update/draw hooks, and layer/bounds logic.</p>
 
   <h3 id="ShapeEngine_Core_GameObject_TryKill_System_String_ShapeEngine_Core_GameObject_" data-uid="ShapeEngine.Core.GameObject.TryKill(System.String,ShapeEngine.Core.GameObject)">
   TryKill(string?, GameObject?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L151"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L233"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Called before the object is killed. Override to prevent kill by returning false.</p>
@@ -736,7 +791,7 @@ Provides lifecycle management, update/draw hooks, and layer/bounds logic.</p>
 
   <h3 id="ShapeEngine_Core_GameObject_TryRevive_System_String_ShapeEngine_Core_GameObject_" data-uid="ShapeEngine.Core.GameObject.TryRevive(System.String,ShapeEngine.Core.GameObject)">
   TryRevive(string?, GameObject?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L185"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L248"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Called before the object is revived. Override to prevent revive by returning false.</p>
@@ -778,7 +833,7 @@ Provides lifecycle management, update/draw hooks, and layer/bounds logic.</p>
 
   <h3 id="ShapeEngine_Core_GameObject_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_" data-uid="ShapeEngine.Core.GameObject.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)">
   Update(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L57"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L114"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Updates this object. Called every frame.</p>
@@ -820,7 +875,7 @@ Provides lifecycle management, update/draw hooks, and layer/bounds logic.</p>
 
   <h3 id="ShapeEngine_Core_GameObject_UpdateParallaxe_System_Numerics_Vector2_" data-uid="ShapeEngine.Core.GameObject.UpdateParallaxe(System.Numerics.Vector2)">
   UpdateParallaxe(Vector2)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L92"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L146"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Called by the area to update the object's position based on the new parallax position.</p>
@@ -853,7 +908,7 @@ Provides lifecycle management, update/draw hooks, and layer/bounds logic.</p>
 
   <h3 id="ShapeEngine_Core_GameObject_WasKilled_System_String_ShapeEngine_Core_GameObject_" data-uid="ShapeEngine.Core.GameObject.WasKilled(System.String,ShapeEngine.Core.GameObject)">
   WasKilled(string?, GameObject?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L144"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L225"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Called after the object is killed. Override for custom logic.</p>
@@ -889,7 +944,7 @@ Provides lifecycle management, update/draw hooks, and layer/bounds logic.</p>
 
   <h3 id="ShapeEngine_Core_GameObject_WasRevived_System_String_ShapeEngine_Core_GameObject_" data-uid="ShapeEngine.Core.GameObject.WasRevived(System.String,ShapeEngine.Core.GameObject)">
   WasRevived(string?, GameObject?)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L178"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L240"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Called after the object is revived. Override for custom logic.</p>
@@ -928,7 +983,7 @@ Provides lifecycle management, update/draw hooks, and layer/bounds logic.</p>
 
   <h3 id="ShapeEngine_Core_GameObject_OnKilled" data-uid="ShapeEngine.Core.GameObject.OnKilled">
   OnKilled
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L27"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Occurs when this object is killed.</p>
@@ -960,7 +1015,7 @@ Provides lifecycle management, update/draw hooks, and layer/bounds logic.</p>
 
   <h3 id="ShapeEngine_Core_GameObject_OnRevived" data-uid="ShapeEngine.Core.GameObject.OnRevived">
   OnRevived
-  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L37"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Occurs when this object is revived.</p>
@@ -993,7 +1048,7 @@ Provides lifecycle management, update/draw hooks, and layer/bounds logic.</p>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L14" class="edit-link">Edit this page</a>
+          <a href="https://github.com/DaveGreen-Games/ShapeEngine/blob/main/ShapeEngine/Core/GameObject.cs/#L15" class="edit-link">Edit this page</a>
         </div>
 
 
