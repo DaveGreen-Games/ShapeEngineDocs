@@ -6,8 +6,14 @@ items:
   parent: ShapeEngine.Timing
   children:
   - ShapeEngine.Timing.TweenFloat.#ctor(ShapeEngine.Timing.TweenFloat)
-  - ShapeEngine.Timing.TweenFloat.#ctor(ShapeEngine.Timing.TweenFloat.TweenFunc,System.Single,System.Single,System.Single,ShapeEngine.Lib.TweenType)
+  - ShapeEngine.Timing.TweenFloat.#ctor(ShapeEngine.Timing.TweenFloat.TweenFunc,System.Single,System.Single,System.Single,ShapeEngine.Core.TweenType)
   - ShapeEngine.Timing.TweenFloat.Copy
+  - ShapeEngine.Timing.TweenFloat.Duration
+  - ShapeEngine.Timing.TweenFloat.From
+  - ShapeEngine.Timing.TweenFloat.Func
+  - ShapeEngine.Timing.TweenFloat.Timer
+  - ShapeEngine.Timing.TweenFloat.To
+  - ShapeEngine.Timing.TweenFloat.TweenType
   - ShapeEngine.Timing.TweenFloat.Update(System.Single)
   langs:
   - csharp
@@ -23,10 +29,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TweenFloat
     path: ../ShapeEngine/ShapeEngine/Timing/TweenFloat.cs
-    startLine: 4
+    startLine: 8
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Tween for interpolating between two float values over time.
+  example: []
   syntax:
     content: 'public class TweenFloat : ISequenceable'
     content.vb: Public Class TweenFloat Implements ISequenceable
@@ -42,16 +50,20 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
-- uid: ShapeEngine.Timing.TweenFloat.#ctor(ShapeEngine.Timing.TweenFloat.TweenFunc,System.Single,System.Single,System.Single,ShapeEngine.Lib.TweenType)
-  commentId: M:ShapeEngine.Timing.TweenFloat.#ctor(ShapeEngine.Timing.TweenFloat.TweenFunc,System.Single,System.Single,System.Single,ShapeEngine.Lib.TweenType)
-  id: '#ctor(ShapeEngine.Timing.TweenFloat.TweenFunc,System.Single,System.Single,System.Single,ShapeEngine.Lib.TweenType)'
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+- uid: ShapeEngine.Timing.TweenFloat.#ctor(ShapeEngine.Timing.TweenFloat.TweenFunc,System.Single,System.Single,System.Single,ShapeEngine.Core.TweenType)
+  commentId: M:ShapeEngine.Timing.TweenFloat.#ctor(ShapeEngine.Timing.TweenFloat.TweenFunc,System.Single,System.Single,System.Single,ShapeEngine.Core.TweenType)
+  id: '#ctor(ShapeEngine.Timing.TweenFloat.TweenFunc,System.Single,System.Single,System.Single,ShapeEngine.Core.TweenType)'
   parent: ShapeEngine.Timing.TweenFloat
   langs:
   - csharp
   - vb
   name: TweenFloat(TweenFunc, float, float, float, TweenType)
   nameWithType: TweenFloat.TweenFloat(TweenFloat.TweenFunc, float, float, float, TweenType)
-  fullName: ShapeEngine.Timing.TweenFloat.TweenFloat(ShapeEngine.Timing.TweenFloat.TweenFunc, float, float, float, ShapeEngine.Lib.TweenType)
+  fullName: ShapeEngine.Timing.TweenFloat.TweenFloat(ShapeEngine.Timing.TweenFloat.TweenFunc, float, float, float, ShapeEngine.Core.TweenType)
   type: Constructor
   source:
     remote:
@@ -60,27 +72,34 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Timing/TweenFloat.cs
-    startLine: 15
+    startLine: 32
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Timing.TweenFloat" data-throw-if-not-resolved="false"></xref> class.
+  example: []
   syntax:
     content: public TweenFloat(TweenFloat.TweenFunc tweenFunc, float from, float to, float duration, TweenType tweenType)
     parameters:
     - id: tweenFunc
       type: ShapeEngine.Timing.TweenFloat.TweenFunc
+      description: The function to call with the tweened value.
     - id: from
       type: System.Single
+      description: The starting value.
     - id: to
       type: System.Single
+      description: The ending value.
     - id: duration
       type: System.Single
+      description: The duration of the tween in seconds.
     - id: tweenType
-      type: ShapeEngine.Lib.TweenType
+      type: ShapeEngine.Core.TweenType
+      description: The type of tweening to use.
     content.vb: Public Sub New(tweenFunc As TweenFloat.TweenFunc, from As Single, [to] As Single, duration As Single, tweenType As TweenType)
   overload: ShapeEngine.Timing.TweenFloat.#ctor*
   nameWithType.vb: TweenFloat.New(TweenFloat.TweenFunc, Single, Single, Single, TweenType)
-  fullName.vb: ShapeEngine.Timing.TweenFloat.New(ShapeEngine.Timing.TweenFloat.TweenFunc, Single, Single, Single, ShapeEngine.Lib.TweenType)
+  fullName.vb: ShapeEngine.Timing.TweenFloat.New(ShapeEngine.Timing.TweenFloat.TweenFunc, Single, Single, Single, ShapeEngine.Core.TweenType)
   name.vb: New(TweenFunc, Single, Single, Single, TweenType)
 - uid: ShapeEngine.Timing.TweenFloat.#ctor(ShapeEngine.Timing.TweenFloat)
   commentId: M:ShapeEngine.Timing.TweenFloat.#ctor(ShapeEngine.Timing.TweenFloat)
@@ -100,15 +119,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Timing/TweenFloat.cs
-    startLine: 24
+    startLine: 46
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Timing.TweenFloat" data-throw-if-not-resolved="false"></xref> class by copying another instance.
+  example: []
   syntax:
     content: public TweenFloat(TweenFloat tween)
     parameters:
     - id: tween
       type: ShapeEngine.Timing.TweenFloat
+      description: The tween to copy.
     content.vb: Public Sub New(tween As TweenFloat)
   overload: ShapeEngine.Timing.TweenFloat.#ctor*
   nameWithType.vb: TweenFloat.New(TweenFloat)
@@ -132,15 +154,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Copy
     path: ../ShapeEngine/ShapeEngine/Timing/TweenFloat.cs
-    startLine: 34
+    startLine: 60
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
+  summary: Creates a copy of this tween.
   example: []
   syntax:
     content: public ISequenceable Copy()
     return:
       type: ShapeEngine.Timing.ISequenceable
+      description: A new <xref href="ShapeEngine.Timing.TweenFloat" data-throw-if-not-resolved="false"></xref> instance with the same parameters.
     content.vb: Public Function Copy() As ISequenceable
   overload: ShapeEngine.Timing.TweenFloat.Copy*
   implements:
@@ -163,21 +187,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/Timing/TweenFloat.cs
-    startLine: 35
+    startLine: 67
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Timing
-  summary: ''
+  summary: Updates the tween by the given delta time.
   example: []
   syntax:
     content: public bool Update(float dt)
     parameters:
     - id: dt
       type: System.Single
-      description: ''
+      description: The time in seconds since the last update.
     return:
       type: System.Boolean
-      description: Returns if finished.
+      description: True if the tween is finished or if the timer exceeds the duration, otherwise false.
     content.vb: Public Function Update(dt As Single) As Boolean
   overload: ShapeEngine.Timing.TweenFloat.Update*
   implements:
@@ -185,6 +209,192 @@ items:
   nameWithType.vb: TweenFloat.Update(Single)
   fullName.vb: ShapeEngine.Timing.TweenFloat.Update(Single)
   name.vb: Update(Single)
+- uid: ShapeEngine.Timing.TweenFloat.Func
+  commentId: P:ShapeEngine.Timing.TweenFloat.Func
+  id: Func
+  parent: ShapeEngine.Timing.TweenFloat
+  langs:
+  - csharp
+  - vb
+  name: Func
+  nameWithType: TweenFloat.Func
+  fullName: ShapeEngine.Timing.TweenFloat.Func
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Timing/TweenFloat.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Func
+    path: ../ShapeEngine/ShapeEngine/Timing/TweenFloat.cs
+    startLine: 80
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Timing
+  summary: Gets the tween function delegate.
+  example: []
+  syntax:
+    content: public TweenFloat.TweenFunc Func { get; }
+    parameters: []
+    return:
+      type: ShapeEngine.Timing.TweenFloat.TweenFunc
+    content.vb: Public ReadOnly Property Func As TweenFloat.TweenFunc
+  overload: ShapeEngine.Timing.TweenFloat.Func*
+- uid: ShapeEngine.Timing.TweenFloat.Duration
+  commentId: P:ShapeEngine.Timing.TweenFloat.Duration
+  id: Duration
+  parent: ShapeEngine.Timing.TweenFloat
+  langs:
+  - csharp
+  - vb
+  name: Duration
+  nameWithType: TweenFloat.Duration
+  fullName: ShapeEngine.Timing.TweenFloat.Duration
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Timing/TweenFloat.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Duration
+    path: ../ShapeEngine/ShapeEngine/Timing/TweenFloat.cs
+    startLine: 85
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Timing
+  summary: Gets the duration of the tween in seconds.
+  example: []
+  syntax:
+    content: public float Duration { get; }
+    parameters: []
+    return:
+      type: System.Single
+    content.vb: Public ReadOnly Property Duration As Single
+  overload: ShapeEngine.Timing.TweenFloat.Duration*
+- uid: ShapeEngine.Timing.TweenFloat.TweenType
+  commentId: P:ShapeEngine.Timing.TweenFloat.TweenType
+  id: TweenType
+  parent: ShapeEngine.Timing.TweenFloat
+  langs:
+  - csharp
+  - vb
+  name: TweenType
+  nameWithType: TweenFloat.TweenType
+  fullName: ShapeEngine.Timing.TweenFloat.TweenType
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Timing/TweenFloat.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: TweenType
+    path: ../ShapeEngine/ShapeEngine/Timing/TweenFloat.cs
+    startLine: 90
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Timing
+  summary: Gets the tween type.
+  example: []
+  syntax:
+    content: public TweenType TweenType { get; }
+    parameters: []
+    return:
+      type: ShapeEngine.Core.TweenType
+    content.vb: Public ReadOnly Property TweenType As TweenType
+  overload: ShapeEngine.Timing.TweenFloat.TweenType*
+- uid: ShapeEngine.Timing.TweenFloat.From
+  commentId: P:ShapeEngine.Timing.TweenFloat.From
+  id: From
+  parent: ShapeEngine.Timing.TweenFloat
+  langs:
+  - csharp
+  - vb
+  name: From
+  nameWithType: TweenFloat.From
+  fullName: ShapeEngine.Timing.TweenFloat.From
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Timing/TweenFloat.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: From
+    path: ../ShapeEngine/ShapeEngine/Timing/TweenFloat.cs
+    startLine: 95
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Timing
+  summary: Gets the starting value.
+  example: []
+  syntax:
+    content: public float From { get; }
+    parameters: []
+    return:
+      type: System.Single
+    content.vb: Public ReadOnly Property From As Single
+  overload: ShapeEngine.Timing.TweenFloat.From*
+- uid: ShapeEngine.Timing.TweenFloat.To
+  commentId: P:ShapeEngine.Timing.TweenFloat.To
+  id: To
+  parent: ShapeEngine.Timing.TweenFloat
+  langs:
+  - csharp
+  - vb
+  name: To
+  nameWithType: TweenFloat.To
+  fullName: ShapeEngine.Timing.TweenFloat.To
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Timing/TweenFloat.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: To
+    path: ../ShapeEngine/ShapeEngine/Timing/TweenFloat.cs
+    startLine: 100
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Timing
+  summary: Gets the ending value.
+  example: []
+  syntax:
+    content: public float To { get; }
+    parameters: []
+    return:
+      type: System.Single
+    content.vb: Public ReadOnly Property [To] As Single
+  overload: ShapeEngine.Timing.TweenFloat.To*
+- uid: ShapeEngine.Timing.TweenFloat.Timer
+  commentId: P:ShapeEngine.Timing.TweenFloat.Timer
+  id: Timer
+  parent: ShapeEngine.Timing.TweenFloat
+  langs:
+  - csharp
+  - vb
+  name: Timer
+  nameWithType: TweenFloat.Timer
+  fullName: ShapeEngine.Timing.TweenFloat.Timer
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Timing/TweenFloat.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Timer
+    path: ../ShapeEngine/ShapeEngine/Timing/TweenFloat.cs
+    startLine: 105
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Timing
+  summary: Gets the current timer value.
+  example: []
+  syntax:
+    content: public float Timer { get; }
+    parameters: []
+    return:
+      type: System.Single
+    content.vb: Public ReadOnly Property Timer As Single
+  overload: ShapeEngine.Timing.TweenFloat.Timer*
 references:
 - uid: ShapeEngine.Timing
   commentId: N:ShapeEngine.Timing
@@ -445,6 +655,165 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -452,9 +821,201 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
+  href: ShapeEngine.html
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+- uid: ShapeEngine.Timing.TweenFloat
+  commentId: T:ShapeEngine.Timing.TweenFloat
+  parent: ShapeEngine.Timing
+  href: ShapeEngine.Timing.TweenFloat.html
+  name: TweenFloat
+  nameWithType: TweenFloat
+  fullName: ShapeEngine.Timing.TweenFloat
 - uid: ShapeEngine.Timing.TweenFloat.#ctor*
   commentId: Overload:ShapeEngine.Timing.TweenFloat.#ctor
-  href: ShapeEngine.Timing.TweenFloat.html#ShapeEngine_Timing_TweenFloat__ctor_ShapeEngine_Timing_TweenFloat_TweenFunc_System_Single_System_Single_System_Single_ShapeEngine_Lib_TweenType_
+  href: ShapeEngine.Timing.TweenFloat.html#ShapeEngine_Timing_TweenFloat__ctor_ShapeEngine_Timing_TweenFloat_TweenFunc_System_Single_System_Single_System_Single_ShapeEngine_Core_TweenType_
   name: TweenFloat
   nameWithType: TweenFloat.TweenFloat
   fullName: ShapeEngine.Timing.TweenFloat.TweenFloat
@@ -495,42 +1056,35 @@ references:
   nameWithType.vb: Single
   fullName.vb: Single
   name.vb: Single
-- uid: ShapeEngine.Lib.TweenType
-  commentId: T:ShapeEngine.Lib.TweenType
-  parent: ShapeEngine.Lib
-  href: ShapeEngine.Lib.TweenType.html
+- uid: ShapeEngine.Core.TweenType
+  commentId: T:ShapeEngine.Core.TweenType
+  parent: ShapeEngine.Core
+  href: ShapeEngine.Core.TweenType.html
   name: TweenType
   nameWithType: TweenType
-  fullName: ShapeEngine.Lib.TweenType
-- uid: ShapeEngine.Lib
-  commentId: N:ShapeEngine.Lib
+  fullName: ShapeEngine.Core.TweenType
+- uid: ShapeEngine.Core
+  commentId: N:ShapeEngine.Core
   href: ShapeEngine.html
-  name: ShapeEngine.Lib
-  nameWithType: ShapeEngine.Lib
-  fullName: ShapeEngine.Lib
+  name: ShapeEngine.Core
+  nameWithType: ShapeEngine.Core
+  fullName: ShapeEngine.Core
   spec.csharp:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.Lib
-    name: Lib
-    href: ShapeEngine.Lib.html
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
   spec.vb:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.Lib
-    name: Lib
-    href: ShapeEngine.Lib.html
-- uid: ShapeEngine.Timing.TweenFloat
-  commentId: T:ShapeEngine.Timing.TweenFloat
-  parent: ShapeEngine.Timing
-  href: ShapeEngine.Timing.TweenFloat.html
-  name: TweenFloat
-  nameWithType: TweenFloat
-  fullName: ShapeEngine.Timing.TweenFloat
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
 - uid: ShapeEngine.Timing.TweenFloat.Copy*
   commentId: Overload:ShapeEngine.Timing.TweenFloat.Copy
   href: ShapeEngine.Timing.TweenFloat.html#ShapeEngine_Timing_TweenFloat_Copy
@@ -604,3 +1158,39 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
+- uid: ShapeEngine.Timing.TweenFloat.Func*
+  commentId: Overload:ShapeEngine.Timing.TweenFloat.Func
+  href: ShapeEngine.Timing.TweenFloat.html#ShapeEngine_Timing_TweenFloat_Func
+  name: Func
+  nameWithType: TweenFloat.Func
+  fullName: ShapeEngine.Timing.TweenFloat.Func
+- uid: ShapeEngine.Timing.TweenFloat.Duration*
+  commentId: Overload:ShapeEngine.Timing.TweenFloat.Duration
+  href: ShapeEngine.Timing.TweenFloat.html#ShapeEngine_Timing_TweenFloat_Duration
+  name: Duration
+  nameWithType: TweenFloat.Duration
+  fullName: ShapeEngine.Timing.TweenFloat.Duration
+- uid: ShapeEngine.Timing.TweenFloat.TweenType*
+  commentId: Overload:ShapeEngine.Timing.TweenFloat.TweenType
+  href: ShapeEngine.Timing.TweenFloat.html#ShapeEngine_Timing_TweenFloat_TweenType
+  name: TweenType
+  nameWithType: TweenFloat.TweenType
+  fullName: ShapeEngine.Timing.TweenFloat.TweenType
+- uid: ShapeEngine.Timing.TweenFloat.From*
+  commentId: Overload:ShapeEngine.Timing.TweenFloat.From
+  href: ShapeEngine.Timing.TweenFloat.html#ShapeEngine_Timing_TweenFloat_From
+  name: From
+  nameWithType: TweenFloat.From
+  fullName: ShapeEngine.Timing.TweenFloat.From
+- uid: ShapeEngine.Timing.TweenFloat.To*
+  commentId: Overload:ShapeEngine.Timing.TweenFloat.To
+  href: ShapeEngine.Timing.TweenFloat.html#ShapeEngine_Timing_TweenFloat_To
+  name: To
+  nameWithType: TweenFloat.To
+  fullName: ShapeEngine.Timing.TweenFloat.To
+- uid: ShapeEngine.Timing.TweenFloat.Timer*
+  commentId: Overload:ShapeEngine.Timing.TweenFloat.Timer
+  href: ShapeEngine.Timing.TweenFloat.html#ShapeEngine_Timing_TweenFloat_Timer
+  name: Timer
+  nameWithType: TweenFloat.Timer
+  fullName: ShapeEngine.Timing.TweenFloat.Timer

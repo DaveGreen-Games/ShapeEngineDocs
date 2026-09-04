@@ -5,49 +5,54 @@ items:
   id: Scene
   parent: ShapeEngine.Core
   children:
-  - ShapeEngine.Core.Scene.Activate(ShapeEngine.Core.Scene)
+  - ShapeEngine.Core.Scene.Active
   - ShapeEngine.Core.Scene.Close
   - ShapeEngine.Core.Scene.CollisionHandler
-  - ShapeEngine.Core.Scene.Deactivate
-  - ShapeEngine.Core.Scene.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
-  - ShapeEngine.Core.Scene.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
-  - ShapeEngine.Core.Scene.DrawUI(ShapeEngine.Core.Structs.ScreenInfo)
-  - ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Core.Collision.CollisionHandler)
-  - ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Core.Shapes.Rect,System.Int32,System.Int32)
-  - ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Core.Shapes.Rect,System.Int32,System.Int32)
+  - ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef.CollisionHandler)
+  - ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Geometry.CollisionSystem.IBroadphase,System.Int32)
+  - ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Geometry.RectDef.Rect,System.Int32,System.Int32)
   - ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Pathfinding.Pathfinder)
-  - ShapeEngine.Core.Scene.InitSpawnArea(ShapeEngine.Core.Shapes.Rect)
   - ShapeEngine.Core.Scene.InitSpawnArea(ShapeEngine.Core.SpawnArea)
+  - ShapeEngine.Core.Scene.InitSpawnArea(ShapeEngine.Geometry.RectDef.Rect)
   - ShapeEngine.Core.Scene.InitSpawnArea(System.Single,System.Single,System.Single,System.Single)
+  - ShapeEngine.Core.Scene.Input
+  - ShapeEngine.Core.Scene.OnActivate(ShapeEngine.Core.Scene)
   - ShapeEngine.Core.Scene.OnButtonPressed(ShapeEngine.Input.InputEvent)
   - ShapeEngine.Core.Scene.OnButtonReleased(ShapeEngine.Input.InputEvent)
+  - ShapeEngine.Core.Scene.OnClose
+  - ShapeEngine.Core.Scene.OnDeactivate
   - ShapeEngine.Core.Scene.OnDrawGame(ShapeEngine.Core.Structs.ScreenInfo)
   - ShapeEngine.Core.Scene.OnDrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
   - ShapeEngine.Core.Scene.OnDrawUI(ShapeEngine.Core.Structs.ScreenInfo)
-  - ShapeEngine.Core.Scene.OnGamepadConnected(ShapeEngine.Input.ShapeGamepadDevice)
-  - ShapeEngine.Core.Scene.OnGamepadDisconnected(ShapeEngine.Input.ShapeGamepadDevice)
+  - ShapeEngine.Core.Scene.OnGameTextureResized(System.Int32,System.Int32)
+  - ShapeEngine.Core.Scene.OnGamepadClaimed(ShapeEngine.Input.GamepadDevice)
+  - ShapeEngine.Core.Scene.OnGamepadConnected(ShapeEngine.Input.GamepadDevice)
+  - ShapeEngine.Core.Scene.OnGamepadDisconnected(ShapeEngine.Input.GamepadDevice)
+  - ShapeEngine.Core.Scene.OnGamepadFreed(ShapeEngine.Input.GamepadDevice)
+  - ShapeEngine.Core.Scene.OnHandleInput(ShapeEngine.Core.Structs.GameTime,System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2)
   - ShapeEngine.Core.Scene.OnInputDeviceChanged(ShapeEngine.Input.InputDeviceType,ShapeEngine.Input.InputDeviceType)
   - ShapeEngine.Core.Scene.OnMonitorChanged(ShapeEngine.Screen.MonitorInfo)
   - ShapeEngine.Core.Scene.OnMouseEnabledChanged(System.Boolean)
   - ShapeEngine.Core.Scene.OnMouseEnteredScreen
   - ShapeEngine.Core.Scene.OnMouseLeftScreen
   - ShapeEngine.Core.Scene.OnMouseVisibilityChanged(System.Boolean)
-  - ShapeEngine.Core.Scene.OnPauseChanged(System.Boolean)
   - ShapeEngine.Core.Scene.OnPausedChanged(System.Boolean)
   - ShapeEngine.Core.Scene.OnPreDrawGame(ShapeEngine.Core.Structs.ScreenInfo)
   - ShapeEngine.Core.Scene.OnPreDrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
-  - ShapeEngine.Core.Scene.OnUpdateGame(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  - ShapeEngine.Core.Scene.OnUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
   - ShapeEngine.Core.Scene.OnWindowFocusChanged(System.Boolean)
   - ShapeEngine.Core.Scene.OnWindowFullscreenChanged(System.Boolean)
+  - ShapeEngine.Core.Scene.OnWindowHiddenChanged(System.Boolean)
   - ShapeEngine.Core.Scene.OnWindowMaximizeChanged(System.Boolean)
+  - ShapeEngine.Core.Scene.OnWindowMinimizedChanged(System.Boolean)
   - ShapeEngine.Core.Scene.OnWindowPositionChanged(System.Numerics.Vector2,System.Numerics.Vector2)
   - ShapeEngine.Core.Scene.OnWindowSizeChanged(ShapeEngine.Core.Structs.DimensionConversionFactors)
+  - ShapeEngine.Core.Scene.OnWindowTopmostChanged(System.Boolean)
+  - ShapeEngine.Core.Scene.Parent
   - ShapeEngine.Core.Scene.Pathfinder
-  - ShapeEngine.Core.Scene.RemoveCollisionHandler
-  - ShapeEngine.Core.Scene.RemovePathfinder
-  - ShapeEngine.Core.Scene.RemoveSpawnArea
+  - ShapeEngine.Core.Scene.ResolveOnButtonPressed(ShapeEngine.Input.InputEvent)
+  - ShapeEngine.Core.Scene.ResolveOnButtonReleased(ShapeEngine.Input.InputEvent)
   - ShapeEngine.Core.Scene.SpawnArea
-  - ShapeEngine.Core.Scene.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
   langs:
   - csharp
   - vb
@@ -62,20 +67,28 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Scene
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 11
+    startLine: 19
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: >-
+    A scene is the core object for your game logic.
+
+    A scene can be a level, a main menu, a pause screen, etc.
+
+    Only one scene can be active at a time.
+
+    Use "Game.GoToScene()" method to switch scenes.
+
+    Use "Game.CurScene" property to get the current active scene.
+  example: []
   syntax:
-    content: 'public abstract class Scene : IUpdateable, IDrawable'
-    content.vb: Public MustInherit Class Scene Implements IUpdateable, IDrawable
+    content: public abstract class Scene
+    content.vb: Public MustInherit Class Scene
   inheritance:
   - System.Object
   derivedClasses:
   - ShapeEngine.Core.SceneEmpty
-  implements:
-  - ShapeEngine.Core.Interfaces.IUpdateable
-  - ShapeEngine.Core.Interfaces.IDrawable
   inheritedMembers:
   - System.Object.Equals(System.Object)
   - System.Object.Equals(System.Object,System.Object)
@@ -84,6 +97,108 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+- uid: ShapeEngine.Core.Scene.Active
+  commentId: P:ShapeEngine.Core.Scene.Active
+  id: Active
+  parent: ShapeEngine.Core.Scene
+  langs:
+  - csharp
+  - vb
+  name: Active
+  nameWithType: Scene.Active
+  fullName: ShapeEngine.Core.Scene.Active
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/Scene.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Active
+    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
+    startLine: 29
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: >-
+    Is true when the scene is the current active scene of the game class.
+
+    If "Game.CurScene" equals this scene, active will be true, otherwise active will be false.
+
+    Use "Game.GoToScene()" method to switch scenes.
+  example: []
+  syntax:
+    content: public bool Active { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property Active As Boolean
+  overload: ShapeEngine.Core.Scene.Active*
+- uid: ShapeEngine.Core.Scene.Parent
+  commentId: P:ShapeEngine.Core.Scene.Parent
+  id: Parent
+  parent: ShapeEngine.Core.Scene
+  langs:
+  - csharp
+  - vb
+  name: Parent
+  nameWithType: Scene.Parent
+  fullName: ShapeEngine.Core.Scene.Parent
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/Scene.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Parent
+    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
+    startLine: 33
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Is set to the current game instance.
+  example: []
+  syntax:
+    content: public Game Parent { get; }
+    parameters: []
+    return:
+      type: ShapeEngine.Core.GameDef.Game
+    content.vb: Public ReadOnly Property Parent As Game
+  overload: ShapeEngine.Core.Scene.Parent*
+- uid: ShapeEngine.Core.Scene.Input
+  commentId: P:ShapeEngine.Core.Scene.Input
+  id: Input
+  parent: ShapeEngine.Core.Scene
+  langs:
+  - csharp
+  - vb
+  name: Input
+  nameWithType: Scene.Input
+  fullName: ShapeEngine.Core.Scene.Input
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/Scene.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Input
+    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
+    startLine: 38
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Provides access to the <xref href="ShapeEngine.Input.InputSystem" data-throw-if-not-resolved="false"></xref> instance from the parent <xref href="ShapeEngine.Core.GameDef.Game" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public InputSystem Input { get; }
+    parameters: []
+    return:
+      type: ShapeEngine.Input.InputSystem
+    content.vb: Public ReadOnly Property Input As InputSystem
+  overload: ShapeEngine.Core.Scene.Input*
 - uid: ShapeEngine.Core.Scene.SpawnArea
   commentId: P:ShapeEngine.Core.Scene.SpawnArea
   id: SpawnArea
@@ -102,10 +217,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SpawnArea
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 13
+    startLine: 46
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: >-
+    The current SpawnArea of this scene.
+
+    SpawnArea handles game objects.
+
+    SpawnArea is null per default.
+
+    Call "InitSpawnArea()" to set SpawnArea.
+  example: []
   syntax:
     content: public SpawnArea? SpawnArea { get; }
     parameters: []
@@ -131,15 +255,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CollisionHandler
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 14
+    startLine: 53
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: >-
+    The current CollisionHandler of this scene.
+
+    CollisionHandler handles collision objects and reports overlaps/intersections..
+
+    CollisionHandler is null per default.
+
+    Call "InitCollisionHandler()" to set CollisionHandler.
+  example: []
   syntax:
     content: public CollisionHandler? CollisionHandler { get; }
     parameters: []
     return:
-      type: ShapeEngine.Core.Collision.CollisionHandler
+      type: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef.CollisionHandler
     content.vb: Public Property CollisionHandler As CollisionHandler
   overload: ShapeEngine.Core.Scene.CollisionHandler*
 - uid: ShapeEngine.Core.Scene.Pathfinder
@@ -160,10 +293,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Pathfinder
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 15
+    startLine: 60
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: >-
+    The current Pathfinder of this scene.
+
+    Pathfinder handles pathfinding on a 2d grid.
+
+    Pathfinder is null per default.
+
+    Call "InitPathfinder()" to set Pathfinder.
+  example: []
   syntax:
     content: public Pathfinder? Pathfinder { get; }
     parameters: []
@@ -171,16 +313,16 @@ items:
       type: ShapeEngine.Pathfinding.Pathfinder
     content.vb: Public Property Pathfinder As Pathfinder
   overload: ShapeEngine.Core.Scene.Pathfinder*
-- uid: ShapeEngine.Core.Scene.InitSpawnArea(ShapeEngine.Core.Shapes.Rect)
-  commentId: M:ShapeEngine.Core.Scene.InitSpawnArea(ShapeEngine.Core.Shapes.Rect)
-  id: InitSpawnArea(ShapeEngine.Core.Shapes.Rect)
+- uid: ShapeEngine.Core.Scene.InitSpawnArea(ShapeEngine.Geometry.RectDef.Rect)
+  commentId: M:ShapeEngine.Core.Scene.InitSpawnArea(ShapeEngine.Geometry.RectDef.Rect)
+  id: InitSpawnArea(ShapeEngine.Geometry.RectDef.Rect)
   parent: ShapeEngine.Core.Scene
   langs:
   - csharp
   - vb
   name: InitSpawnArea(Rect)
   nameWithType: Scene.InitSpawnArea(Rect)
-  fullName: ShapeEngine.Core.Scene.InitSpawnArea(ShapeEngine.Core.Shapes.Rect)
+  fullName: ShapeEngine.Core.Scene.InitSpawnArea(ShapeEngine.Geometry.RectDef.Rect)
   type: Method
   source:
     remote:
@@ -189,17 +331,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InitSpawnArea
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 17
+    startLine: 71
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: >-
+    Initializes a new SpawnArea.
+
+    Only creates a new SpawnArea if one  doesn't exist.
+  example: []
   syntax:
     content: protected bool InitSpawnArea(Rect bounds)
     parameters:
     - id: bounds
-      type: ShapeEngine.Core.Shapes.Rect
+      type: ShapeEngine.Geometry.RectDef.Rect
+      description: The bounds of the area.
     return:
       type: System.Boolean
+      description: Returns if a new SpawnArea was created.
     content.vb: Protected Function InitSpawnArea(bounds As Rect) As Boolean
   overload: ShapeEngine.Core.Scene.InitSpawnArea*
 - uid: ShapeEngine.Core.Scene.InitSpawnArea(System.Single,System.Single,System.Single,System.Single)
@@ -220,23 +369,33 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InitSpawnArea
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 25
+    startLine: 89
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: >-
+    Initializes a new SpawnArea.
+
+    Only creates a new SpawnArea if one  doesn't exist.
+  example: []
   syntax:
     content: protected bool InitSpawnArea(float x, float y, float w, float h)
     parameters:
     - id: x
       type: System.Single
+      description: The x coordinate of the top left corner of the bounds rect.
     - id: y
       type: System.Single
+      description: The y coordinate of the top left corner of the bounds rect.
     - id: w
       type: System.Single
+      description: The width of the bounds.
     - id: h
       type: System.Single
+      description: The height of the bounds.
     return:
       type: System.Boolean
+      description: Returns if a new SpawnArea was created.
     content.vb: Protected Function InitSpawnArea(x As Single, y As Single, w As Single, h As Single) As Boolean
   overload: ShapeEngine.Core.Scene.InitSpawnArea*
   nameWithType.vb: Scene.InitSpawnArea(Single, Single, Single, Single)
@@ -260,57 +419,36 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InitSpawnArea
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 33
+    startLine: 104
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: >-
+    Initializes a new SpawnArea.
+
+    Only creates a new SpawnArea if one  doesn't exist.
+  example: []
   syntax:
     content: protected bool InitSpawnArea(SpawnArea area)
     parameters:
     - id: area
       type: ShapeEngine.Core.SpawnArea
+      description: An already created spawn area.
     return:
       type: System.Boolean
+      description: Returns if a new SpawnArea was created.
     content.vb: Protected Function InitSpawnArea(area As SpawnArea) As Boolean
   overload: ShapeEngine.Core.Scene.InitSpawnArea*
-- uid: ShapeEngine.Core.Scene.RemoveSpawnArea
-  commentId: M:ShapeEngine.Core.Scene.RemoveSpawnArea
-  id: RemoveSpawnArea
+- uid: ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Geometry.CollisionSystem.IBroadphase,System.Int32)
+  commentId: M:ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Geometry.CollisionSystem.IBroadphase,System.Int32)
+  id: InitCollisionHandler(ShapeEngine.Geometry.CollisionSystem.IBroadphase,System.Int32)
   parent: ShapeEngine.Core.Scene
   langs:
   - csharp
   - vb
-  name: RemoveSpawnArea()
-  nameWithType: Scene.RemoveSpawnArea()
-  fullName: ShapeEngine.Core.Scene.RemoveSpawnArea()
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Core/Scene.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: RemoveSpawnArea
-    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 42
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core
-  syntax:
-    content: protected bool RemoveSpawnArea()
-    return:
-      type: System.Boolean
-    content.vb: Protected Function RemoveSpawnArea() As Boolean
-  overload: ShapeEngine.Core.Scene.RemoveSpawnArea*
-- uid: ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Core.Shapes.Rect,System.Int32,System.Int32)
-  commentId: M:ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Core.Shapes.Rect,System.Int32,System.Int32)
-  id: InitCollisionHandler(ShapeEngine.Core.Shapes.Rect,System.Int32,System.Int32)
-  parent: ShapeEngine.Core.Scene
-  langs:
-  - csharp
-  - vb
-  name: InitCollisionHandler(Rect, int, int)
-  nameWithType: Scene.InitCollisionHandler(Rect, int, int)
-  fullName: ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Core.Shapes.Rect, int, int)
+  name: InitCollisionHandler(IBroadphase, int)
+  nameWithType: Scene.InitCollisionHandler(IBroadphase, int)
+  fullName: ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Geometry.CollisionSystem.IBroadphase, int)
   type: Method
   source:
     remote:
@@ -319,36 +457,42 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InitCollisionHandler
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 52
+    startLine: 130
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: >-
+    Initializes a new <xref href="ShapeEngine.Core.Scene.CollisionHandler" data-throw-if-not-resolved="false"></xref> for this scene using the specified broadphase algorithm and starting capacity.
+
+    Only creates a new <xref href="ShapeEngine.Core.Scene.CollisionHandler" data-throw-if-not-resolved="false"></xref> if one does not already exist.
+  example: []
   syntax:
-    content: public bool InitCollisionHandler(Rect bounds, int rows, int cols)
+    content: protected bool InitCollisionHandler(IBroadphase broadphase, int startingCapacity = 1024)
     parameters:
-    - id: bounds
-      type: ShapeEngine.Core.Shapes.Rect
-    - id: rows
+    - id: broadphase
+      type: ShapeEngine.Geometry.CollisionSystem.IBroadphase
+      description: The broadphase algorithm to use for collision detection.
+    - id: startingCapacity
       type: System.Int32
-    - id: cols
-      type: System.Int32
+      description: The initial capacity for the collision handler. Default is 1024.
     return:
       type: System.Boolean
-    content.vb: Public Function InitCollisionHandler(bounds As Rect, rows As Integer, cols As Integer) As Boolean
+      description: Returns true if a new <xref href="ShapeEngine.Core.Scene.CollisionHandler" data-throw-if-not-resolved="false"></xref> was created; false if one already exists.
+    content.vb: Protected Function InitCollisionHandler(broadphase As IBroadphase, startingCapacity As Integer = 1024) As Boolean
   overload: ShapeEngine.Core.Scene.InitCollisionHandler*
-  nameWithType.vb: Scene.InitCollisionHandler(Rect, Integer, Integer)
-  fullName.vb: ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Core.Shapes.Rect, Integer, Integer)
-  name.vb: InitCollisionHandler(Rect, Integer, Integer)
-- uid: ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Core.Collision.CollisionHandler)
-  commentId: M:ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Core.Collision.CollisionHandler)
-  id: InitCollisionHandler(ShapeEngine.Core.Collision.CollisionHandler)
+  nameWithType.vb: Scene.InitCollisionHandler(IBroadphase, Integer)
+  fullName.vb: ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Geometry.CollisionSystem.IBroadphase, Integer)
+  name.vb: InitCollisionHandler(IBroadphase, Integer)
+- uid: ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef.CollisionHandler)
+  commentId: M:ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef.CollisionHandler)
+  id: InitCollisionHandler(ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef.CollisionHandler)
   parent: ShapeEngine.Core.Scene
   langs:
   - csharp
   - vb
   name: InitCollisionHandler(CollisionHandler)
   nameWithType: Scene.InitCollisionHandler(CollisionHandler)
-  fullName: ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Core.Collision.CollisionHandler)
+  fullName: ShapeEngine.Core.Scene.InitCollisionHandler(ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef.CollisionHandler)
   type: Method
   source:
     remote:
@@ -357,57 +501,36 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InitCollisionHandler
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 58
+    startLine: 145
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Initializes a new CollisionHandler with the provided CollisionHandler instance.
+  example: []
   syntax:
-    content: public bool InitCollisionHandler(CollisionHandler collisionHandler)
+    content: protected bool InitCollisionHandler(CollisionHandler collisionHandler)
     parameters:
     - id: collisionHandler
-      type: ShapeEngine.Core.Collision.CollisionHandler
+      type: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef.CollisionHandler
+      description: The CollisionHandler instance to be used for this scene.
     return:
       type: System.Boolean
-    content.vb: Public Function InitCollisionHandler(collisionHandler As CollisionHandler) As Boolean
+      description: >-
+        Returns true if a new CollisionHandler was successfully assigned to this scene.
+
+        Returns false if a CollisionHandler already exists, in which case no new CollisionHandler is assigned.
+    content.vb: Protected Function InitCollisionHandler(collisionHandler As CollisionHandler) As Boolean
   overload: ShapeEngine.Core.Scene.InitCollisionHandler*
-- uid: ShapeEngine.Core.Scene.RemoveCollisionHandler
-  commentId: M:ShapeEngine.Core.Scene.RemoveCollisionHandler
-  id: RemoveCollisionHandler
-  parent: ShapeEngine.Core.Scene
-  langs:
-  - csharp
-  - vb
-  name: RemoveCollisionHandler()
-  nameWithType: Scene.RemoveCollisionHandler()
-  fullName: ShapeEngine.Core.Scene.RemoveCollisionHandler()
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Core/Scene.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: RemoveCollisionHandler
-    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 65
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core
-  syntax:
-    content: public bool RemoveCollisionHandler()
-    return:
-      type: System.Boolean
-    content.vb: Public Function RemoveCollisionHandler() As Boolean
-  overload: ShapeEngine.Core.Scene.RemoveCollisionHandler*
-- uid: ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Core.Shapes.Rect,System.Int32,System.Int32)
-  commentId: M:ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Core.Shapes.Rect,System.Int32,System.Int32)
-  id: InitPathfinder(ShapeEngine.Core.Shapes.Rect,System.Int32,System.Int32)
+- uid: ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Geometry.RectDef.Rect,System.Int32,System.Int32)
+  commentId: M:ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Geometry.RectDef.Rect,System.Int32,System.Int32)
+  id: InitPathfinder(ShapeEngine.Geometry.RectDef.Rect,System.Int32,System.Int32)
   parent: ShapeEngine.Core.Scene
   langs:
   - csharp
   - vb
   name: InitPathfinder(Rect, int, int)
   nameWithType: Scene.InitPathfinder(Rect, int, int)
-  fullName: ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Core.Shapes.Rect, int, int)
+  fullName: ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Geometry.RectDef.Rect, int, int)
   type: Method
   source:
     remote:
@@ -416,25 +539,34 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InitPathfinder
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 73
+    startLine: 169
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Initializes a new Pathfinder with the specified grid dimensions.
+  example: []
   syntax:
-    content: public bool InitPathfinder(Rect bounds, int rows, int cols)
+    content: protected bool InitPathfinder(Rect bounds, int rows, int cols)
     parameters:
     - id: bounds
-      type: ShapeEngine.Core.Shapes.Rect
+      type: ShapeEngine.Geometry.RectDef.Rect
+      description: The bounds of the pathfinding grid.
     - id: rows
       type: System.Int32
+      description: The number of rows in the grid.
     - id: cols
       type: System.Int32
+      description: The number of columns in the grid.
     return:
       type: System.Boolean
-    content.vb: Public Function InitPathfinder(bounds As Rect, rows As Integer, cols As Integer) As Boolean
+      description: >-
+        Returns true if a new Pathfinder was created successfully.
+
+        Returns false if a Pathfinder already exists, in which case no new Pathfinder is created.
+    content.vb: Protected Function InitPathfinder(bounds As Rect, rows As Integer, cols As Integer) As Boolean
   overload: ShapeEngine.Core.Scene.InitPathfinder*
   nameWithType.vb: Scene.InitPathfinder(Rect, Integer, Integer)
-  fullName.vb: ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Core.Shapes.Rect, Integer, Integer)
+  fullName.vb: ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Geometry.RectDef.Rect, Integer, Integer)
   name.vb: InitPathfinder(Rect, Integer, Integer)
 - uid: ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Pathfinding.Pathfinder)
   commentId: M:ShapeEngine.Core.Scene.InitPathfinder(ShapeEngine.Pathfinding.Pathfinder)
@@ -454,134 +586,26 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InitPathfinder
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 79
+    startLine: 183
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Initializes a new Pathfinder with the provided Pathfinder instance.
+  example: []
   syntax:
-    content: public bool InitPathfinder(Pathfinder pathfinder)
+    content: protected bool InitPathfinder(Pathfinder pathfinder)
     parameters:
     - id: pathfinder
       type: ShapeEngine.Pathfinding.Pathfinder
+      description: The Pathfinder instance to be used for this scene.
     return:
       type: System.Boolean
-    content.vb: Public Function InitPathfinder(pathfinder As Pathfinder) As Boolean
+      description: >-
+        Returns true if a new Pathfinder was successfully assigned to this scene.
+
+        Returns false if a Pathfinder already exists, in which case no new Pathfinder is assigned.
+    content.vb: Protected Function InitPathfinder(pathfinder As Pathfinder) As Boolean
   overload: ShapeEngine.Core.Scene.InitPathfinder*
-- uid: ShapeEngine.Core.Scene.RemovePathfinder
-  commentId: M:ShapeEngine.Core.Scene.RemovePathfinder
-  id: RemovePathfinder
-  parent: ShapeEngine.Core.Scene
-  langs:
-  - csharp
-  - vb
-  name: RemovePathfinder()
-  nameWithType: Scene.RemovePathfinder()
-  fullName: ShapeEngine.Core.Scene.RemovePathfinder()
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Core/Scene.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: RemovePathfinder
-    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 86
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core
-  syntax:
-    content: public bool RemovePathfinder()
-    return:
-      type: System.Boolean
-    content.vb: Public Function RemovePathfinder() As Boolean
-  overload: ShapeEngine.Core.Scene.RemovePathfinder*
-- uid: ShapeEngine.Core.Scene.Activate(ShapeEngine.Core.Scene)
-  commentId: M:ShapeEngine.Core.Scene.Activate(ShapeEngine.Core.Scene)
-  id: Activate(ShapeEngine.Core.Scene)
-  parent: ShapeEngine.Core.Scene
-  langs:
-  - csharp
-  - vb
-  name: Activate(Scene)
-  nameWithType: Scene.Activate(Scene)
-  fullName: ShapeEngine.Core.Scene.Activate(ShapeEngine.Core.Scene)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Core/Scene.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: Activate
-    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 96
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core
-  syntax:
-    content: public abstract void Activate(Scene oldScene)
-    parameters:
-    - id: oldScene
-      type: ShapeEngine.Core.Scene
-    content.vb: Public MustOverride Sub Activate(oldScene As Scene)
-  overload: ShapeEngine.Core.Scene.Activate*
-- uid: ShapeEngine.Core.Scene.Deactivate
-  commentId: M:ShapeEngine.Core.Scene.Deactivate
-  id: Deactivate
-  parent: ShapeEngine.Core.Scene
-  langs:
-  - csharp
-  - vb
-  name: Deactivate()
-  nameWithType: Scene.Deactivate()
-  fullName: ShapeEngine.Core.Scene.Deactivate()
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Core/Scene.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: Deactivate
-    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 97
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core
-  syntax:
-    content: public abstract void Deactivate()
-    content.vb: Public MustOverride Sub Deactivate()
-  overload: ShapeEngine.Core.Scene.Deactivate*
-- uid: ShapeEngine.Core.Scene.OnPauseChanged(System.Boolean)
-  commentId: M:ShapeEngine.Core.Scene.OnPauseChanged(System.Boolean)
-  id: OnPauseChanged(System.Boolean)
-  parent: ShapeEngine.Core.Scene
-  langs:
-  - csharp
-  - vb
-  name: OnPauseChanged(bool)
-  nameWithType: Scene.OnPauseChanged(bool)
-  fullName: ShapeEngine.Core.Scene.OnPauseChanged(bool)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Core/Scene.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: OnPauseChanged
-    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 98
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core
-  syntax:
-    content: public virtual void OnPauseChanged(bool paused)
-    parameters:
-    - id: paused
-      type: System.Boolean
-    content.vb: Public Overridable Sub OnPauseChanged(paused As Boolean)
-  overload: ShapeEngine.Core.Scene.OnPauseChanged*
-  nameWithType.vb: Scene.OnPauseChanged(Boolean)
-  fullName.vb: ShapeEngine.Core.Scene.OnPauseChanged(Boolean)
-  name.vb: OnPauseChanged(Boolean)
 - uid: ShapeEngine.Core.Scene.Close
   commentId: M:ShapeEngine.Core.Scene.Close
   id: Close
@@ -600,182 +624,309 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Close
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 103
+    startLine: 217
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
   summary: Used for cleanup. Should be called once right before the scene gets deleted.
   example: []
   syntax:
-    content: public virtual void Close()
-    content.vb: Public Overridable Sub Close()
+    content: public void Close()
+    content.vb: Public Sub Close()
   overload: ShapeEngine.Core.Scene.Close*
-- uid: ShapeEngine.Core.Scene.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  commentId: M:ShapeEngine.Core.Scene.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  id: Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+- uid: ShapeEngine.Core.Scene.ResolveOnButtonPressed(ShapeEngine.Input.InputEvent)
+  commentId: M:ShapeEngine.Core.Scene.ResolveOnButtonPressed(ShapeEngine.Input.InputEvent)
+  id: ResolveOnButtonPressed(ShapeEngine.Input.InputEvent)
   parent: ShapeEngine.Core.Scene
   langs:
   - csharp
   - vb
-  name: Update(GameTime, ScreenInfo, ScreenInfo)
-  nameWithType: Scene.Update(GameTime, ScreenInfo, ScreenInfo)
-  fullName: ShapeEngine.Core.Scene.Update(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
+  name: ResolveOnButtonPressed(InputEvent)
+  nameWithType: Scene.ResolveOnButtonPressed(InputEvent)
+  fullName: ShapeEngine.Core.Scene.ResolveOnButtonPressed(ShapeEngine.Input.InputEvent)
   type: Method
   source:
     remote:
       path: ShapeEngine/Core/Scene.cs
       branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: Update
+    id: ResolveOnButtonPressed
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 111
+    startLine: 343
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: >-
+    Resolves the OnButtonPressed event by calling the protected virtual OnButtonPressed method.
+
+    The game class calls this if necessary.
+
+    You can call this function, but it is not recommended.
   example: []
   syntax:
-    content: public void Update(GameTime time, ScreenInfo game, ScreenInfo ui)
+    content: public void ResolveOnButtonPressed(InputEvent e)
+    parameters:
+    - id: e
+      type: ShapeEngine.Input.InputEvent
+      description: The InputEvent object containing information about the button press event.
+    content.vb: Public Sub ResolveOnButtonPressed(e As InputEvent)
+  overload: ShapeEngine.Core.Scene.ResolveOnButtonPressed*
+- uid: ShapeEngine.Core.Scene.ResolveOnButtonReleased(ShapeEngine.Input.InputEvent)
+  commentId: M:ShapeEngine.Core.Scene.ResolveOnButtonReleased(ShapeEngine.Input.InputEvent)
+  id: ResolveOnButtonReleased(ShapeEngine.Input.InputEvent)
+  parent: ShapeEngine.Core.Scene
+  langs:
+  - csharp
+  - vb
+  name: ResolveOnButtonReleased(InputEvent)
+  nameWithType: Scene.ResolveOnButtonReleased(InputEvent)
+  fullName: ShapeEngine.Core.Scene.ResolveOnButtonReleased(ShapeEngine.Input.InputEvent)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Scene.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: ResolveOnButtonReleased
+    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
+    startLine: 353
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: >-
+    Resolves the OnButtonReleased event by calling the protected virtual OnButtonReleased method.
+
+    The game class calls this if necessary.
+
+    You can call this function, but it is not recommended.
+  example: []
+  syntax:
+    content: public void ResolveOnButtonReleased(InputEvent e)
+    parameters:
+    - id: e
+      type: ShapeEngine.Input.InputEvent
+      description: The InputEvent object containing information about the button release event.
+    content.vb: Public Sub ResolveOnButtonReleased(e As InputEvent)
+  overload: ShapeEngine.Core.Scene.ResolveOnButtonReleased*
+- uid: ShapeEngine.Core.Scene.OnActivate(ShapeEngine.Core.Scene)
+  commentId: M:ShapeEngine.Core.Scene.OnActivate(ShapeEngine.Core.Scene)
+  id: OnActivate(ShapeEngine.Core.Scene)
+  parent: ShapeEngine.Core.Scene
+  langs:
+  - csharp
+  - vb
+  name: OnActivate(Scene)
+  nameWithType: Scene.OnActivate(Scene)
+  fullName: ShapeEngine.Core.Scene.OnActivate(ShapeEngine.Core.Scene)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Scene.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnActivate
+    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
+    startLine: 365
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Called when the scene becomes active.
+  example: []
+  syntax:
+    content: protected abstract void OnActivate(Scene oldScene)
+    parameters:
+    - id: oldScene
+      type: ShapeEngine.Core.Scene
+      description: The scene that was previously active.
+    content.vb: Protected MustOverride Sub OnActivate(oldScene As Scene)
+  overload: ShapeEngine.Core.Scene.OnActivate*
+- uid: ShapeEngine.Core.Scene.OnDeactivate
+  commentId: M:ShapeEngine.Core.Scene.OnDeactivate
+  id: OnDeactivate
+  parent: ShapeEngine.Core.Scene
+  langs:
+  - csharp
+  - vb
+  name: OnDeactivate()
+  nameWithType: Scene.OnDeactivate()
+  fullName: ShapeEngine.Core.Scene.OnDeactivate()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Scene.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnDeactivate
+    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
+    startLine: 370
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Called when the scene becomes inactive.
+  example: []
+  syntax:
+    content: protected abstract void OnDeactivate()
+    content.vb: Protected MustOverride Sub OnDeactivate()
+  overload: ShapeEngine.Core.Scene.OnDeactivate*
+- uid: ShapeEngine.Core.Scene.OnClose
+  commentId: M:ShapeEngine.Core.Scene.OnClose
+  id: OnClose
+  parent: ShapeEngine.Core.Scene
+  langs:
+  - csharp
+  - vb
+  name: OnClose()
+  nameWithType: Scene.OnClose()
+  fullName: ShapeEngine.Core.Scene.OnClose()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Scene.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnClose
+    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
+    startLine: 375
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Used for cleanup. Should be called once right before the scene gets deleted.
+  example: []
+  syntax:
+    content: protected virtual void OnClose()
+    content.vb: Protected Overridable Sub OnClose()
+  overload: ShapeEngine.Core.Scene.OnClose*
+- uid: ShapeEngine.Core.Scene.OnGameTextureResized(System.Int32,System.Int32)
+  commentId: M:ShapeEngine.Core.Scene.OnGameTextureResized(System.Int32,System.Int32)
+  id: OnGameTextureResized(System.Int32,System.Int32)
+  parent: ShapeEngine.Core.Scene
+  langs:
+  - csharp
+  - vb
+  name: OnGameTextureResized(int, int)
+  nameWithType: Scene.OnGameTextureResized(int, int)
+  fullName: ShapeEngine.Core.Scene.OnGameTextureResized(int, int)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Scene.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnGameTextureResized
+    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
+    startLine: 385
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Called when the game texture is resized.
+  example: []
+  syntax:
+    content: protected virtual void OnGameTextureResized(int w, int h)
+    parameters:
+    - id: w
+      type: System.Int32
+      description: The new width of the game texture.
+    - id: h
+      type: System.Int32
+      description: The new height of the game texture.
+    content.vb: Protected Overridable Sub OnGameTextureResized(w As Integer, h As Integer)
+  overload: ShapeEngine.Core.Scene.OnGameTextureResized*
+  nameWithType.vb: Scene.OnGameTextureResized(Integer, Integer)
+  fullName.vb: ShapeEngine.Core.Scene.OnGameTextureResized(Integer, Integer)
+  name.vb: OnGameTextureResized(Integer, Integer)
+- uid: ShapeEngine.Core.Scene.OnHandleInput(ShapeEngine.Core.Structs.GameTime,System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2)
+  commentId: M:ShapeEngine.Core.Scene.OnHandleInput(ShapeEngine.Core.Structs.GameTime,System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2)
+  id: OnHandleInput(ShapeEngine.Core.Structs.GameTime,System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2)
+  parent: ShapeEngine.Core.Scene
+  langs:
+  - csharp
+  - vb
+  name: OnHandleInput(GameTime, Vector2, Vector2, Vector2)
+  nameWithType: Scene.OnHandleInput(GameTime, Vector2, Vector2, Vector2)
+  fullName: ShapeEngine.Core.Scene.OnHandleInput(ShapeEngine.Core.Structs.GameTime, System.Numerics.Vector2, System.Numerics.Vector2, System.Numerics.Vector2)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Scene.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnHandleInput
+    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
+    startLine: 396
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: >-
+    Handle input for the scene. Override to process per-frame input using the provided timing
+
+    information and mouse coordinates in three coordinate spaces.
+
+    Default implementation does nothing.
+  example: []
+  syntax:
+    content: protected virtual void OnHandleInput(GameTime time, Vector2 mousePosGame, Vector2 mousePosGameUi, Vector2 mousePosUi)
     parameters:
     - id: time
       type: ShapeEngine.Core.Structs.GameTime
-    - id: game
-      type: ShapeEngine.Core.Structs.ScreenInfo
-    - id: ui
-      type: ShapeEngine.Core.Structs.ScreenInfo
-    content.vb: Public Sub Update(time As GameTime, game As ScreenInfo, ui As ScreenInfo)
-  overload: ShapeEngine.Core.Scene.Update*
-  implements:
-  - ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-- uid: ShapeEngine.Core.Scene.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
-  commentId: M:ShapeEngine.Core.Scene.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
-  id: DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
+      description: Frame timing and delta information.
+    - id: mousePosGame
+      type: System.Numerics.Vector2
+      description: Mouse position in game world coordinates (camera-transformed).
+    - id: mousePosGameUi
+      type: System.Numerics.Vector2
+      description: Mouse position in the game UI render target coordinates.
+    - id: mousePosUi
+      type: System.Numerics.Vector2
+      description: Mouse position in the main UI (screen) coordinates.
+    content.vb: Protected Overridable Sub OnHandleInput(time As GameTime, mousePosGame As Vector2, mousePosGameUi As Vector2, mousePosUi As Vector2)
+  overload: ShapeEngine.Core.Scene.OnHandleInput*
+- uid: ShapeEngine.Core.Scene.OnUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  commentId: M:ShapeEngine.Core.Scene.OnUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
+  id: OnUpdate(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
   parent: ShapeEngine.Core.Scene
   langs:
   - csharp
   - vb
-  name: DrawGame(ScreenInfo)
-  nameWithType: Scene.DrawGame(ScreenInfo)
-  fullName: ShapeEngine.Core.Scene.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
+  name: OnUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
+  nameWithType: Scene.OnUpdate(GameTime, ScreenInfo, ScreenInfo, ScreenInfo)
+  fullName: ShapeEngine.Core.Scene.OnUpdate(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
   type: Method
   source:
     remote:
       path: ShapeEngine/Core/Scene.cs
       branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: DrawGame
+    id: OnUpdate
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 118
+    startLine: 410
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Draw the game here. Is affected by screen shaders and the camera.
+  summary: >-
+    Called once per frame to update the scene's logic. Override this method to perform
+
+    per-frame updates such as game object state updates, AI, timers, etc.
+
+    The default implementation does nothing.
+  remarks: This method is subject to fixed framerate settings and dynamic substepping, if enabled.
   example: []
   syntax:
-    content: public void DrawGame(ScreenInfo game)
-    parameters:
-    - id: game
-      type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
-    content.vb: Public Sub DrawGame(game As ScreenInfo)
-  overload: ShapeEngine.Core.Scene.DrawGame*
-  implements:
-  - ShapeEngine.Core.Interfaces.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
-- uid: ShapeEngine.Core.Scene.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
-  commentId: M:ShapeEngine.Core.Scene.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
-  id: DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
-  parent: ShapeEngine.Core.Scene
-  langs:
-  - csharp
-  - vb
-  name: DrawGameUI(ScreenInfo)
-  nameWithType: Scene.DrawGameUI(ScreenInfo)
-  fullName: ShapeEngine.Core.Scene.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Core/Scene.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: DrawGameUI
-    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 124
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core
-  summary: Draw to the game ui here. Is affected by screen shaders but NOT by the camera.
-  example: []
-  syntax:
-    content: public void DrawGameUI(ScreenInfo ui)
-    parameters:
-    - id: ui
-      type: ShapeEngine.Core.Structs.ScreenInfo
-      description: ''
-    content.vb: Public Sub DrawGameUI(ui As ScreenInfo)
-  overload: ShapeEngine.Core.Scene.DrawGameUI*
-  implements:
-  - ShapeEngine.Core.Interfaces.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
-- uid: ShapeEngine.Core.Scene.DrawUI(ShapeEngine.Core.Structs.ScreenInfo)
-  commentId: M:ShapeEngine.Core.Scene.DrawUI(ShapeEngine.Core.Structs.ScreenInfo)
-  id: DrawUI(ShapeEngine.Core.Structs.ScreenInfo)
-  parent: ShapeEngine.Core.Scene
-  langs:
-  - csharp
-  - vb
-  name: DrawUI(ScreenInfo)
-  nameWithType: Scene.DrawUI(ScreenInfo)
-  fullName: ShapeEngine.Core.Scene.DrawUI(ShapeEngine.Core.Structs.ScreenInfo)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Core/Scene.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: DrawUI
-    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 130
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core
-  syntax:
-    content: public void DrawUI(ScreenInfo ui)
-    parameters:
-    - id: ui
-      type: ShapeEngine.Core.Structs.ScreenInfo
-    content.vb: Public Sub DrawUI(ui As ScreenInfo)
-  overload: ShapeEngine.Core.Scene.DrawUI*
-- uid: ShapeEngine.Core.Scene.OnUpdateGame(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  commentId: M:ShapeEngine.Core.Scene.OnUpdateGame(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  id: OnUpdateGame(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  parent: ShapeEngine.Core.Scene
-  langs:
-  - csharp
-  - vb
-  name: OnUpdateGame(GameTime, ScreenInfo, ScreenInfo)
-  nameWithType: Scene.OnUpdateGame(GameTime, ScreenInfo, ScreenInfo)
-  fullName: ShapeEngine.Core.Scene.OnUpdateGame(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Core/Scene.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: OnUpdateGame
-    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 136
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Core
-  syntax:
-    content: protected virtual void OnUpdateGame(GameTime time, ScreenInfo game, ScreenInfo ui)
+    content: protected virtual void OnUpdate(GameTime time, ScreenInfo game, ScreenInfo gameUi, ScreenInfo ui)
     parameters:
     - id: time
       type: ShapeEngine.Core.Structs.GameTime
+      description: Frame timing and delta information.
     - id: game
       type: ShapeEngine.Core.Structs.ScreenInfo
+      description: Screen information for the game render target (camera-transformed).
+    - id: gameUi
+      type: ShapeEngine.Core.Structs.ScreenInfo
+      description: Screen information for the game UI render target (not affected by camera).
     - id: ui
       type: ShapeEngine.Core.Structs.ScreenInfo
-    content.vb: Protected Overridable Sub OnUpdateGame(time As GameTime, game As ScreenInfo, ui As ScreenInfo)
-  overload: ShapeEngine.Core.Scene.OnUpdateGame*
+      description: Screen information for the main UI (screen coordinates).
+    content.vb: Protected Overridable Sub OnUpdate(time As GameTime, game As ScreenInfo, gameUi As ScreenInfo, ui As ScreenInfo)
+  overload: ShapeEngine.Core.Scene.OnUpdate*
 - uid: ShapeEngine.Core.Scene.OnPreDrawGame(ShapeEngine.Core.Structs.ScreenInfo)
   commentId: M:ShapeEngine.Core.Scene.OnPreDrawGame(ShapeEngine.Core.Structs.ScreenInfo)
   id: OnPreDrawGame(ShapeEngine.Core.Structs.ScreenInfo)
@@ -794,7 +945,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnPreDrawGame
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 142
+    startLine: 416
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -826,7 +977,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnDrawGame
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 147
+    startLine: 421
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -858,7 +1009,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnPreDrawGameUI
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 153
+    startLine: 427
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -890,19 +1041,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnDrawGameUI
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 158
+    startLine: 432
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
-  summary: Draw your game ui. Is affected by screen shaders but not by the camera.
+  summary: Draw your game ui. Is not affected by screen shaders and not by the camera but uses the same ScreenTextureMode as DrawGame.
   example: []
   syntax:
-    content: protected virtual void OnDrawGameUI(ScreenInfo ui)
+    content: protected virtual void OnDrawGameUI(ScreenInfo gameUi)
     parameters:
-    - id: ui
+    - id: gameUi
       type: ShapeEngine.Core.Structs.ScreenInfo
       description: ''
-    content.vb: Protected Overridable Sub OnDrawGameUI(ui As ScreenInfo)
+    content.vb: Protected Overridable Sub OnDrawGameUI(gameUi As ScreenInfo)
   overload: ShapeEngine.Core.Scene.OnDrawGameUI*
 - uid: ShapeEngine.Core.Scene.OnDrawUI(ShapeEngine.Core.Structs.ScreenInfo)
   commentId: M:ShapeEngine.Core.Scene.OnDrawUI(ShapeEngine.Core.Structs.ScreenInfo)
@@ -922,7 +1073,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnDrawUI
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 163
+    startLine: 437
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
@@ -953,16 +1104,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowSizeChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 165
+    startLine: 442
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Called when the window size is changed.
+  example: []
   syntax:
-    content: public virtual void OnWindowSizeChanged(DimensionConversionFactors conversionFactors)
+    content: protected virtual void OnWindowSizeChanged(DimensionConversionFactors conversionFactors)
     parameters:
     - id: conversionFactors
       type: ShapeEngine.Core.Structs.DimensionConversionFactors
-    content.vb: Public Overridable Sub OnWindowSizeChanged(conversionFactors As DimensionConversionFactors)
+      description: The conversion factors for the new window size.
+    content.vb: Protected Overridable Sub OnWindowSizeChanged(conversionFactors As DimensionConversionFactors)
   overload: ShapeEngine.Core.Scene.OnWindowSizeChanged*
 - uid: ShapeEngine.Core.Scene.OnWindowPositionChanged(System.Numerics.Vector2,System.Numerics.Vector2)
   commentId: M:ShapeEngine.Core.Scene.OnWindowPositionChanged(System.Numerics.Vector2,System.Numerics.Vector2)
@@ -982,18 +1136,22 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowPositionChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 166
+    startLine: 449
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Called when the window position is changed.
+  example: []
   syntax:
-    content: public virtual void OnWindowPositionChanged(Vector2 oldPos, Vector2 newPos)
+    content: protected virtual void OnWindowPositionChanged(Vector2 oldPos, Vector2 newPos)
     parameters:
     - id: oldPos
       type: System.Numerics.Vector2
+      description: The old position of the window.
     - id: newPos
       type: System.Numerics.Vector2
-    content.vb: Public Overridable Sub OnWindowPositionChanged(oldPos As Vector2, newPos As Vector2)
+      description: The new position of the window.
+    content.vb: Protected Overridable Sub OnWindowPositionChanged(oldPos As Vector2, newPos As Vector2)
   overload: ShapeEngine.Core.Scene.OnWindowPositionChanged*
 - uid: ShapeEngine.Core.Scene.OnMonitorChanged(ShapeEngine.Screen.MonitorInfo)
   commentId: M:ShapeEngine.Core.Scene.OnMonitorChanged(ShapeEngine.Screen.MonitorInfo)
@@ -1013,27 +1171,30 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMonitorChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 167
+    startLine: 455
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Called when the monitor the window is on is changed.
+  example: []
   syntax:
-    content: public virtual void OnMonitorChanged(MonitorInfo newMonitor)
+    content: protected virtual void OnMonitorChanged(MonitorInfo newMonitor)
     parameters:
     - id: newMonitor
       type: ShapeEngine.Screen.MonitorInfo
-    content.vb: Public Overridable Sub OnMonitorChanged(newMonitor As MonitorInfo)
+      description: The new monitor the window is on.
+    content.vb: Protected Overridable Sub OnMonitorChanged(newMonitor As MonitorInfo)
   overload: ShapeEngine.Core.Scene.OnMonitorChanged*
-- uid: ShapeEngine.Core.Scene.OnGamepadConnected(ShapeEngine.Input.ShapeGamepadDevice)
-  commentId: M:ShapeEngine.Core.Scene.OnGamepadConnected(ShapeEngine.Input.ShapeGamepadDevice)
-  id: OnGamepadConnected(ShapeEngine.Input.ShapeGamepadDevice)
+- uid: ShapeEngine.Core.Scene.OnGamepadConnected(ShapeEngine.Input.GamepadDevice)
+  commentId: M:ShapeEngine.Core.Scene.OnGamepadConnected(ShapeEngine.Input.GamepadDevice)
+  id: OnGamepadConnected(ShapeEngine.Input.GamepadDevice)
   parent: ShapeEngine.Core.Scene
   langs:
   - csharp
   - vb
-  name: OnGamepadConnected(ShapeGamepadDevice)
-  nameWithType: Scene.OnGamepadConnected(ShapeGamepadDevice)
-  fullName: ShapeEngine.Core.Scene.OnGamepadConnected(ShapeEngine.Input.ShapeGamepadDevice)
+  name: OnGamepadConnected(GamepadDevice)
+  nameWithType: Scene.OnGamepadConnected(GamepadDevice)
+  fullName: ShapeEngine.Core.Scene.OnGamepadConnected(ShapeEngine.Input.GamepadDevice)
   type: Method
   source:
     remote:
@@ -1042,27 +1203,30 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnGamepadConnected
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 168
+    startLine: 461
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Called when a gamepad is connected.
+  example: []
   syntax:
-    content: public virtual void OnGamepadConnected(ShapeGamepadDevice gamepad)
+    content: protected virtual void OnGamepadConnected(GamepadDevice gamepad)
     parameters:
     - id: gamepad
-      type: ShapeEngine.Input.ShapeGamepadDevice
-    content.vb: Public Overridable Sub OnGamepadConnected(gamepad As ShapeGamepadDevice)
+      type: ShapeEngine.Input.GamepadDevice
+      description: The gamepad that was connected.
+    content.vb: Protected Overridable Sub OnGamepadConnected(gamepad As GamepadDevice)
   overload: ShapeEngine.Core.Scene.OnGamepadConnected*
-- uid: ShapeEngine.Core.Scene.OnGamepadDisconnected(ShapeEngine.Input.ShapeGamepadDevice)
-  commentId: M:ShapeEngine.Core.Scene.OnGamepadDisconnected(ShapeEngine.Input.ShapeGamepadDevice)
-  id: OnGamepadDisconnected(ShapeEngine.Input.ShapeGamepadDevice)
+- uid: ShapeEngine.Core.Scene.OnGamepadDisconnected(ShapeEngine.Input.GamepadDevice)
+  commentId: M:ShapeEngine.Core.Scene.OnGamepadDisconnected(ShapeEngine.Input.GamepadDevice)
+  id: OnGamepadDisconnected(ShapeEngine.Input.GamepadDevice)
   parent: ShapeEngine.Core.Scene
   langs:
   - csharp
   - vb
-  name: OnGamepadDisconnected(ShapeGamepadDevice)
-  nameWithType: Scene.OnGamepadDisconnected(ShapeGamepadDevice)
-  fullName: ShapeEngine.Core.Scene.OnGamepadDisconnected(ShapeEngine.Input.ShapeGamepadDevice)
+  name: OnGamepadDisconnected(GamepadDevice)
+  nameWithType: Scene.OnGamepadDisconnected(GamepadDevice)
+  fullName: ShapeEngine.Core.Scene.OnGamepadDisconnected(ShapeEngine.Input.GamepadDevice)
   type: Method
   source:
     remote:
@@ -1071,17 +1235,84 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnGamepadDisconnected
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 169
+    startLine: 467
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Called when a gamepad is disconnected.
+  example: []
   syntax:
-    content: public virtual void OnGamepadDisconnected(ShapeGamepadDevice gamepad)
+    content: protected virtual void OnGamepadDisconnected(GamepadDevice gamepad)
     parameters:
     - id: gamepad
-      type: ShapeEngine.Input.ShapeGamepadDevice
-    content.vb: Public Overridable Sub OnGamepadDisconnected(gamepad As ShapeGamepadDevice)
+      type: ShapeEngine.Input.GamepadDevice
+      description: The gamepad that was disconnected.
+    content.vb: Protected Overridable Sub OnGamepadDisconnected(gamepad As GamepadDevice)
   overload: ShapeEngine.Core.Scene.OnGamepadDisconnected*
+- uid: ShapeEngine.Core.Scene.OnGamepadClaimed(ShapeEngine.Input.GamepadDevice)
+  commentId: M:ShapeEngine.Core.Scene.OnGamepadClaimed(ShapeEngine.Input.GamepadDevice)
+  id: OnGamepadClaimed(ShapeEngine.Input.GamepadDevice)
+  parent: ShapeEngine.Core.Scene
+  langs:
+  - csharp
+  - vb
+  name: OnGamepadClaimed(GamepadDevice)
+  nameWithType: Scene.OnGamepadClaimed(GamepadDevice)
+  fullName: ShapeEngine.Core.Scene.OnGamepadClaimed(ShapeEngine.Input.GamepadDevice)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Scene.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnGamepadClaimed
+    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
+    startLine: 472
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Called when a gamepad is claimed by the scene (e.g., assigned to a player or reserved for use).
+  example: []
+  syntax:
+    content: protected virtual void OnGamepadClaimed(GamepadDevice gamepad)
+    parameters:
+    - id: gamepad
+      type: ShapeEngine.Input.GamepadDevice
+      description: The gamepad that was claimed.
+    content.vb: Protected Overridable Sub OnGamepadClaimed(gamepad As GamepadDevice)
+  overload: ShapeEngine.Core.Scene.OnGamepadClaimed*
+- uid: ShapeEngine.Core.Scene.OnGamepadFreed(ShapeEngine.Input.GamepadDevice)
+  commentId: M:ShapeEngine.Core.Scene.OnGamepadFreed(ShapeEngine.Input.GamepadDevice)
+  id: OnGamepadFreed(ShapeEngine.Input.GamepadDevice)
+  parent: ShapeEngine.Core.Scene
+  langs:
+  - csharp
+  - vb
+  name: OnGamepadFreed(GamepadDevice)
+  nameWithType: Scene.OnGamepadFreed(GamepadDevice)
+  fullName: ShapeEngine.Core.Scene.OnGamepadFreed(ShapeEngine.Input.GamepadDevice)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Scene.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnGamepadFreed
+    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
+    startLine: 478
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Called when a gamepad is freed by the scene (e.g., unassigned from a player or released for general use).
+  example: []
+  syntax:
+    content: protected virtual void OnGamepadFreed(GamepadDevice gamepad)
+    parameters:
+    - id: gamepad
+      type: ShapeEngine.Input.GamepadDevice
+      description: The gamepad that was freed.
+    content.vb: Protected Overridable Sub OnGamepadFreed(gamepad As GamepadDevice)
+  overload: ShapeEngine.Core.Scene.OnGamepadFreed*
 - uid: ShapeEngine.Core.Scene.OnInputDeviceChanged(ShapeEngine.Input.InputDeviceType,ShapeEngine.Input.InputDeviceType)
   commentId: M:ShapeEngine.Core.Scene.OnInputDeviceChanged(ShapeEngine.Input.InputDeviceType,ShapeEngine.Input.InputDeviceType)
   id: OnInputDeviceChanged(ShapeEngine.Input.InputDeviceType,ShapeEngine.Input.InputDeviceType)
@@ -1100,18 +1331,22 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnInputDeviceChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 170
+    startLine: 485
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Called when the input device type is changed.
+  example: []
   syntax:
-    content: public virtual void OnInputDeviceChanged(InputDeviceType prevDeviceType, InputDeviceType curDeviceType)
+    content: protected virtual void OnInputDeviceChanged(InputDeviceType prevDeviceType, InputDeviceType curDeviceType)
     parameters:
     - id: prevDeviceType
       type: ShapeEngine.Input.InputDeviceType
+      description: The previous input device type.
     - id: curDeviceType
       type: ShapeEngine.Input.InputDeviceType
-    content.vb: Public Overridable Sub OnInputDeviceChanged(prevDeviceType As InputDeviceType, curDeviceType As InputDeviceType)
+      description: The current input device type.
+    content.vb: Protected Overridable Sub OnInputDeviceChanged(prevDeviceType As InputDeviceType, curDeviceType As InputDeviceType)
   overload: ShapeEngine.Core.Scene.OnInputDeviceChanged*
 - uid: ShapeEngine.Core.Scene.OnPausedChanged(System.Boolean)
   commentId: M:ShapeEngine.Core.Scene.OnPausedChanged(System.Boolean)
@@ -1131,16 +1366,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnPausedChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 171
+    startLine: 491
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Called when the game is paused or unpaused.
+  example: []
   syntax:
-    content: public virtual void OnPausedChanged(bool newPaused)
+    content: protected virtual void OnPausedChanged(bool newPaused)
     parameters:
     - id: newPaused
       type: System.Boolean
-    content.vb: Public Overridable Sub OnPausedChanged(newPaused As Boolean)
+      description: True if the game is paused, false otherwise.
+    content.vb: Protected Overridable Sub OnPausedChanged(newPaused As Boolean)
   overload: ShapeEngine.Core.Scene.OnPausedChanged*
   nameWithType.vb: Scene.OnPausedChanged(Boolean)
   fullName.vb: ShapeEngine.Core.Scene.OnPausedChanged(Boolean)
@@ -1163,13 +1401,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMouseEnteredScreen
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 172
+    startLine: 495
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Called when the mouse cursor enters the screen area.
+  example: []
   syntax:
-    content: public virtual void OnMouseEnteredScreen()
-    content.vb: Public Overridable Sub OnMouseEnteredScreen()
+    content: protected virtual void OnMouseEnteredScreen()
+    content.vb: Protected Overridable Sub OnMouseEnteredScreen()
   overload: ShapeEngine.Core.Scene.OnMouseEnteredScreen*
 - uid: ShapeEngine.Core.Scene.OnMouseLeftScreen
   commentId: M:ShapeEngine.Core.Scene.OnMouseLeftScreen
@@ -1189,13 +1429,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMouseLeftScreen
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 173
+    startLine: 500
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Called when the mouse cursor leaves the screen area.
+  example: []
   syntax:
-    content: public virtual void OnMouseLeftScreen()
-    content.vb: Public Overridable Sub OnMouseLeftScreen()
+    content: protected virtual void OnMouseLeftScreen()
+    content.vb: Protected Overridable Sub OnMouseLeftScreen()
   overload: ShapeEngine.Core.Scene.OnMouseLeftScreen*
 - uid: ShapeEngine.Core.Scene.OnMouseVisibilityChanged(System.Boolean)
   commentId: M:ShapeEngine.Core.Scene.OnMouseVisibilityChanged(System.Boolean)
@@ -1215,16 +1457,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMouseVisibilityChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 174
+    startLine: 506
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Called when the mouse cursor visibility changes.
+  example: []
   syntax:
-    content: public virtual void OnMouseVisibilityChanged(bool visible)
+    content: protected virtual void OnMouseVisibilityChanged(bool visible)
     parameters:
     - id: visible
       type: System.Boolean
-    content.vb: Public Overridable Sub OnMouseVisibilityChanged(visible As Boolean)
+      description: True if the mouse cursor is visible, false otherwise.
+    content.vb: Protected Overridable Sub OnMouseVisibilityChanged(visible As Boolean)
   overload: ShapeEngine.Core.Scene.OnMouseVisibilityChanged*
   nameWithType.vb: Scene.OnMouseVisibilityChanged(Boolean)
   fullName.vb: ShapeEngine.Core.Scene.OnMouseVisibilityChanged(Boolean)
@@ -1247,16 +1492,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnMouseEnabledChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 175
+    startLine: 512
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Called when the mouse cursor input is enabled or disabled.
+  example: []
   syntax:
-    content: public virtual void OnMouseEnabledChanged(bool enabled)
+    content: protected virtual void OnMouseEnabledChanged(bool enabled)
     parameters:
     - id: enabled
       type: System.Boolean
-    content.vb: Public Overridable Sub OnMouseEnabledChanged(enabled As Boolean)
+      description: True if the mouse cursor input is enabled, false otherwise.
+    content.vb: Protected Overridable Sub OnMouseEnabledChanged(enabled As Boolean)
   overload: ShapeEngine.Core.Scene.OnMouseEnabledChanged*
   nameWithType.vb: Scene.OnMouseEnabledChanged(Boolean)
   fullName.vb: ShapeEngine.Core.Scene.OnMouseEnabledChanged(Boolean)
@@ -1279,16 +1527,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowFocusChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 176
+    startLine: 518
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Called when the window gains or loses focus.
+  example: []
   syntax:
-    content: public virtual void OnWindowFocusChanged(bool focused)
+    content: protected virtual void OnWindowFocusChanged(bool focused)
     parameters:
     - id: focused
       type: System.Boolean
-    content.vb: Public Overridable Sub OnWindowFocusChanged(focused As Boolean)
+      description: True if the window has focus, false otherwise.
+    content.vb: Protected Overridable Sub OnWindowFocusChanged(focused As Boolean)
   overload: ShapeEngine.Core.Scene.OnWindowFocusChanged*
   nameWithType.vb: Scene.OnWindowFocusChanged(Boolean)
   fullName.vb: ShapeEngine.Core.Scene.OnWindowFocusChanged(Boolean)
@@ -1311,16 +1562,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowFullscreenChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 177
+    startLine: 524
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Called when the window changes between fullscreen and windowed mode.
+  example: []
   syntax:
-    content: public virtual void OnWindowFullscreenChanged(bool fullscreen)
+    content: protected virtual void OnWindowFullscreenChanged(bool fullscreen)
     parameters:
     - id: fullscreen
       type: System.Boolean
-    content.vb: Public Overridable Sub OnWindowFullscreenChanged(fullscreen As Boolean)
+      description: True if the window is in fullscreen mode, false otherwise.
+    content.vb: Protected Overridable Sub OnWindowFullscreenChanged(fullscreen As Boolean)
   overload: ShapeEngine.Core.Scene.OnWindowFullscreenChanged*
   nameWithType.vb: Scene.OnWindowFullscreenChanged(Boolean)
   fullName.vb: ShapeEngine.Core.Scene.OnWindowFullscreenChanged(Boolean)
@@ -1343,20 +1597,128 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnWindowMaximizeChanged
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 178
+    startLine: 529
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Called when the window changes between maximized and non-maximized mode.
+  example: []
   syntax:
-    content: public virtual void OnWindowMaximizeChanged(bool maximized)
+    content: protected virtual void OnWindowMaximizeChanged(bool maximized)
     parameters:
     - id: maximized
       type: System.Boolean
-    content.vb: Public Overridable Sub OnWindowMaximizeChanged(maximized As Boolean)
+      description: True if the window is maximized, false otherwise.
+    content.vb: Protected Overridable Sub OnWindowMaximizeChanged(maximized As Boolean)
   overload: ShapeEngine.Core.Scene.OnWindowMaximizeChanged*
   nameWithType.vb: Scene.OnWindowMaximizeChanged(Boolean)
   fullName.vb: ShapeEngine.Core.Scene.OnWindowMaximizeChanged(Boolean)
   name.vb: OnWindowMaximizeChanged(Boolean)
+- uid: ShapeEngine.Core.Scene.OnWindowMinimizedChanged(System.Boolean)
+  commentId: M:ShapeEngine.Core.Scene.OnWindowMinimizedChanged(System.Boolean)
+  id: OnWindowMinimizedChanged(System.Boolean)
+  parent: ShapeEngine.Core.Scene
+  langs:
+  - csharp
+  - vb
+  name: OnWindowMinimizedChanged(bool)
+  nameWithType: Scene.OnWindowMinimizedChanged(bool)
+  fullName: ShapeEngine.Core.Scene.OnWindowMinimizedChanged(bool)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Scene.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnWindowMinimizedChanged
+    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
+    startLine: 535
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Called when the window changes between minimized and non-minimized mode.
+  example: []
+  syntax:
+    content: protected virtual void OnWindowMinimizedChanged(bool minimized)
+    parameters:
+    - id: minimized
+      type: System.Boolean
+      description: True if the window is minimized, false otherwise.
+    content.vb: Protected Overridable Sub OnWindowMinimizedChanged(minimized As Boolean)
+  overload: ShapeEngine.Core.Scene.OnWindowMinimizedChanged*
+  nameWithType.vb: Scene.OnWindowMinimizedChanged(Boolean)
+  fullName.vb: ShapeEngine.Core.Scene.OnWindowMinimizedChanged(Boolean)
+  name.vb: OnWindowMinimizedChanged(Boolean)
+- uid: ShapeEngine.Core.Scene.OnWindowHiddenChanged(System.Boolean)
+  commentId: M:ShapeEngine.Core.Scene.OnWindowHiddenChanged(System.Boolean)
+  id: OnWindowHiddenChanged(System.Boolean)
+  parent: ShapeEngine.Core.Scene
+  langs:
+  - csharp
+  - vb
+  name: OnWindowHiddenChanged(bool)
+  nameWithType: Scene.OnWindowHiddenChanged(bool)
+  fullName: ShapeEngine.Core.Scene.OnWindowHiddenChanged(bool)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Scene.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnWindowHiddenChanged
+    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
+    startLine: 541
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Called when the window changes between hidden and non-hidden mode.
+  example: []
+  syntax:
+    content: protected virtual void OnWindowHiddenChanged(bool hidden)
+    parameters:
+    - id: hidden
+      type: System.Boolean
+      description: True if the window is hidden, false otherwise.
+    content.vb: Protected Overridable Sub OnWindowHiddenChanged(hidden As Boolean)
+  overload: ShapeEngine.Core.Scene.OnWindowHiddenChanged*
+  nameWithType.vb: Scene.OnWindowHiddenChanged(Boolean)
+  fullName.vb: ShapeEngine.Core.Scene.OnWindowHiddenChanged(Boolean)
+  name.vb: OnWindowHiddenChanged(Boolean)
+- uid: ShapeEngine.Core.Scene.OnWindowTopmostChanged(System.Boolean)
+  commentId: M:ShapeEngine.Core.Scene.OnWindowTopmostChanged(System.Boolean)
+  id: OnWindowTopmostChanged(System.Boolean)
+  parent: ShapeEngine.Core.Scene
+  langs:
+  - csharp
+  - vb
+  name: OnWindowTopmostChanged(bool)
+  nameWithType: Scene.OnWindowTopmostChanged(bool)
+  fullName: ShapeEngine.Core.Scene.OnWindowTopmostChanged(bool)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Scene.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: OnWindowTopmostChanged
+    path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
+    startLine: 547
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core
+  summary: Called when the window changes between topmost and non-topmost mode.
+  example: []
+  syntax:
+    content: protected virtual void OnWindowTopmostChanged(bool topmost)
+    parameters:
+    - id: topmost
+      type: System.Boolean
+      description: True if the window is topmost, false otherwise.
+    content.vb: Protected Overridable Sub OnWindowTopmostChanged(topmost As Boolean)
+  overload: ShapeEngine.Core.Scene.OnWindowTopmostChanged*
+  nameWithType.vb: Scene.OnWindowTopmostChanged(Boolean)
+  fullName.vb: ShapeEngine.Core.Scene.OnWindowTopmostChanged(Boolean)
+  name.vb: OnWindowTopmostChanged(Boolean)
 - uid: ShapeEngine.Core.Scene.OnButtonPressed(ShapeEngine.Input.InputEvent)
   commentId: M:ShapeEngine.Core.Scene.OnButtonPressed(ShapeEngine.Input.InputEvent)
   id: OnButtonPressed(ShapeEngine.Input.InputEvent)
@@ -1375,16 +1737,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnButtonPressed
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 180
+    startLine: 553
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Called when a button is pressed.
+  example: []
   syntax:
-    content: public virtual void OnButtonPressed(InputEvent e)
+    content: protected virtual void OnButtonPressed(InputEvent e)
     parameters:
     - id: e
       type: ShapeEngine.Input.InputEvent
-    content.vb: Public Overridable Sub OnButtonPressed(e As InputEvent)
+      description: The InputEvent object containing information about the button press event.
+    content.vb: Protected Overridable Sub OnButtonPressed(e As InputEvent)
   overload: ShapeEngine.Core.Scene.OnButtonPressed*
 - uid: ShapeEngine.Core.Scene.OnButtonReleased(ShapeEngine.Input.InputEvent)
   commentId: M:ShapeEngine.Core.Scene.OnButtonReleased(ShapeEngine.Input.InputEvent)
@@ -1404,16 +1769,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnButtonReleased
     path: ../ShapeEngine/ShapeEngine/Core/Scene.cs
-    startLine: 181
+    startLine: 559
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core
+  summary: Called when a button is released.
+  example: []
   syntax:
-    content: public virtual void OnButtonReleased(InputEvent e)
+    content: protected virtual void OnButtonReleased(InputEvent e)
     parameters:
     - id: e
       type: ShapeEngine.Input.InputEvent
-    content.vb: Public Overridable Sub OnButtonReleased(e As InputEvent)
+      description: The InputEvent object containing information about the button release event.
+    content.vb: Protected Overridable Sub OnButtonReleased(e As InputEvent)
   overload: ShapeEngine.Core.Scene.OnButtonReleased*
 references:
 - uid: ShapeEngine.Core
@@ -1449,20 +1817,6 @@ references:
   nameWithType.vb: Object
   fullName.vb: Object
   name.vb: Object
-- uid: ShapeEngine.Core.Interfaces.IUpdateable
-  commentId: T:ShapeEngine.Core.Interfaces.IUpdateable
-  parent: ShapeEngine.Core.Interfaces
-  href: ShapeEngine.Core.Interfaces.IUpdateable.html
-  name: IUpdateable
-  nameWithType: IUpdateable
-  fullName: ShapeEngine.Core.Interfaces.IUpdateable
-- uid: ShapeEngine.Core.Interfaces.IDrawable
-  commentId: T:ShapeEngine.Core.Interfaces.IDrawable
-  parent: ShapeEngine.Core.Interfaces
-  href: ShapeEngine.Core.Interfaces.IDrawable.html
-  name: IDrawable
-  nameWithType: IDrawable
-  fullName: ShapeEngine.Core.Interfaces.IDrawable
 - uid: System.Object.Equals(System.Object)
   commentId: M:System.Object.Equals(System.Object)
   parent: System.Object
@@ -1682,6 +2036,165 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -1689,12 +2202,227 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: ShapeEngine.Core.Interfaces
-  commentId: N:ShapeEngine.Core.Interfaces
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
   href: ShapeEngine.html
-  name: ShapeEngine.Core.Interfaces
-  nameWithType: ShapeEngine.Core.Interfaces
-  fullName: ShapeEngine.Core.Interfaces
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+- uid: ShapeEngine.Core.Scene.Active*
+  commentId: Overload:ShapeEngine.Core.Scene.Active
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_Active
+  name: Active
+  nameWithType: Scene.Active
+  fullName: ShapeEngine.Core.Scene.Active
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: ShapeEngine.Core.Scene.Parent*
+  commentId: Overload:ShapeEngine.Core.Scene.Parent
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_Parent
+  name: Parent
+  nameWithType: Scene.Parent
+  fullName: ShapeEngine.Core.Scene.Parent
+- uid: ShapeEngine.Core.GameDef.Game
+  commentId: T:ShapeEngine.Core.GameDef.Game
+  parent: ShapeEngine.Core.GameDef
+  href: ShapeEngine.Core.GameDef.Game.html
+  name: Game
+  nameWithType: Game
+  fullName: ShapeEngine.Core.GameDef.Game
+- uid: ShapeEngine.Core.GameDef
+  commentId: N:ShapeEngine.Core.GameDef
+  href: ShapeEngine.html
+  name: ShapeEngine.Core.GameDef
+  nameWithType: ShapeEngine.Core.GameDef
+  fullName: ShapeEngine.Core.GameDef
   spec.csharp:
   - uid: ShapeEngine
     name: ShapeEngine
@@ -1704,9 +2432,9 @@ references:
     name: Core
     href: ShapeEngine.Core.html
   - name: .
-  - uid: ShapeEngine.Core.Interfaces
-    name: Interfaces
-    href: ShapeEngine.Core.Interfaces.html
+  - uid: ShapeEngine.Core.GameDef
+    name: GameDef
+    href: ShapeEngine.Core.GameDef.html
   spec.vb:
   - uid: ShapeEngine
     name: ShapeEngine
@@ -1716,9 +2444,44 @@ references:
     name: Core
     href: ShapeEngine.Core.html
   - name: .
-  - uid: ShapeEngine.Core.Interfaces
-    name: Interfaces
-    href: ShapeEngine.Core.Interfaces.html
+  - uid: ShapeEngine.Core.GameDef
+    name: GameDef
+    href: ShapeEngine.Core.GameDef.html
+- uid: ShapeEngine.Input.InputSystem
+  commentId: T:ShapeEngine.Input.InputSystem
+  parent: ShapeEngine.Input
+  href: ShapeEngine.Input.InputSystem.html
+  name: InputSystem
+  nameWithType: InputSystem
+  fullName: ShapeEngine.Input.InputSystem
+- uid: ShapeEngine.Core.Scene.Input*
+  commentId: Overload:ShapeEngine.Core.Scene.Input
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_Input
+  name: Input
+  nameWithType: Scene.Input
+  fullName: ShapeEngine.Core.Scene.Input
+- uid: ShapeEngine.Input
+  commentId: N:ShapeEngine.Input
+  href: ShapeEngine.html
+  name: ShapeEngine.Input
+  nameWithType: ShapeEngine.Input
+  fullName: ShapeEngine.Input
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Input
+    name: Input
+    href: ShapeEngine.Input.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Input
+    name: Input
+    href: ShapeEngine.Input.html
 - uid: ShapeEngine.Core.Scene.SpawnArea*
   commentId: Overload:ShapeEngine.Core.Scene.SpawnArea
   href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_SpawnArea
@@ -1738,43 +2501,51 @@ references:
   name: CollisionHandler
   nameWithType: Scene.CollisionHandler
   fullName: ShapeEngine.Core.Scene.CollisionHandler
-- uid: ShapeEngine.Core.Collision.CollisionHandler
-  commentId: T:ShapeEngine.Core.Collision.CollisionHandler
-  parent: ShapeEngine.Core.Collision
-  href: ShapeEngine.Core.Collision.CollisionHandler.html
+- uid: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef.CollisionHandler
+  commentId: T:ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef.CollisionHandler
+  parent: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef
+  href: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef.CollisionHandler.html
   name: CollisionHandler
   nameWithType: CollisionHandler
-  fullName: ShapeEngine.Core.Collision.CollisionHandler
-- uid: ShapeEngine.Core.Collision
-  commentId: N:ShapeEngine.Core.Collision
+  fullName: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef.CollisionHandler
+- uid: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef
+  commentId: N:ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef
   href: ShapeEngine.html
-  name: ShapeEngine.Core.Collision
-  nameWithType: ShapeEngine.Core.Collision
-  fullName: ShapeEngine.Core.Collision
+  name: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef
+  nameWithType: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef
+  fullName: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef
   spec.csharp:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.Core
-    name: Core
-    href: ShapeEngine.Core.html
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
   - name: .
-  - uid: ShapeEngine.Core.Collision
-    name: Collision
-    href: ShapeEngine.Core.Collision.html
+  - uid: ShapeEngine.Geometry.CollisionSystem
+    name: CollisionSystem
+    href: ShapeEngine.Geometry.CollisionSystem.html
+  - name: .
+  - uid: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef
+    name: CollisionHandlerDef
+    href: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef.html
   spec.vb:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.Core
-    name: Core
-    href: ShapeEngine.Core.html
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
   - name: .
-  - uid: ShapeEngine.Core.Collision
-    name: Collision
-    href: ShapeEngine.Core.Collision.html
+  - uid: ShapeEngine.Geometry.CollisionSystem
+    name: CollisionSystem
+    href: ShapeEngine.Geometry.CollisionSystem.html
+  - name: .
+  - uid: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef
+    name: CollisionHandlerDef
+    href: ShapeEngine.Geometry.CollisionSystem.CollisionHandlerDef.html
 - uid: ShapeEngine.Core.Scene.Pathfinder*
   commentId: Overload:ShapeEngine.Core.Scene.Pathfinder
   href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_Pathfinder
@@ -1812,58 +2583,47 @@ references:
     href: ShapeEngine.Pathfinding.html
 - uid: ShapeEngine.Core.Scene.InitSpawnArea*
   commentId: Overload:ShapeEngine.Core.Scene.InitSpawnArea
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_InitSpawnArea_ShapeEngine_Core_Shapes_Rect_
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_InitSpawnArea_ShapeEngine_Geometry_RectDef_Rect_
   name: InitSpawnArea
   nameWithType: Scene.InitSpawnArea
   fullName: ShapeEngine.Core.Scene.InitSpawnArea
-- uid: ShapeEngine.Core.Shapes.Rect
-  commentId: T:ShapeEngine.Core.Shapes.Rect
-  parent: ShapeEngine.Core.Shapes
-  href: ShapeEngine.Core.Shapes.Rect.html
+- uid: ShapeEngine.Geometry.RectDef.Rect
+  commentId: T:ShapeEngine.Geometry.RectDef.Rect
+  parent: ShapeEngine.Geometry.RectDef
+  href: ShapeEngine.Geometry.RectDef.Rect.html
   name: Rect
   nameWithType: Rect
-  fullName: ShapeEngine.Core.Shapes.Rect
-- uid: System.Boolean
-  commentId: T:System.Boolean
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.boolean
-  name: bool
-  nameWithType: bool
-  fullName: bool
-  nameWithType.vb: Boolean
-  fullName.vb: Boolean
-  name.vb: Boolean
-- uid: ShapeEngine.Core.Shapes
-  commentId: N:ShapeEngine.Core.Shapes
+  fullName: ShapeEngine.Geometry.RectDef.Rect
+- uid: ShapeEngine.Geometry.RectDef
+  commentId: N:ShapeEngine.Geometry.RectDef
   href: ShapeEngine.html
-  name: ShapeEngine.Core.Shapes
-  nameWithType: ShapeEngine.Core.Shapes
-  fullName: ShapeEngine.Core.Shapes
+  name: ShapeEngine.Geometry.RectDef
+  nameWithType: ShapeEngine.Geometry.RectDef
+  fullName: ShapeEngine.Geometry.RectDef
   spec.csharp:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.Core
-    name: Core
-    href: ShapeEngine.Core.html
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
   - name: .
-  - uid: ShapeEngine.Core.Shapes
-    name: Shapes
-    href: ShapeEngine.Core.Shapes.html
+  - uid: ShapeEngine.Geometry.RectDef
+    name: RectDef
+    href: ShapeEngine.Geometry.RectDef.html
   spec.vb:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.Core
-    name: Core
-    href: ShapeEngine.Core.html
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
   - name: .
-  - uid: ShapeEngine.Core.Shapes
-    name: Shapes
-    href: ShapeEngine.Core.Shapes.html
+  - uid: ShapeEngine.Geometry.RectDef
+    name: RectDef
+    href: ShapeEngine.Geometry.RectDef.html
 - uid: System.Single
   commentId: T:System.Single
   parent: System
@@ -1875,18 +2635,26 @@ references:
   nameWithType.vb: Single
   fullName.vb: Single
   name.vb: Single
-- uid: ShapeEngine.Core.Scene.RemoveSpawnArea*
-  commentId: Overload:ShapeEngine.Core.Scene.RemoveSpawnArea
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_RemoveSpawnArea
-  name: RemoveSpawnArea
-  nameWithType: Scene.RemoveSpawnArea
-  fullName: ShapeEngine.Core.Scene.RemoveSpawnArea
+- uid: ShapeEngine.Core.Scene.CollisionHandler
+  commentId: P:ShapeEngine.Core.Scene.CollisionHandler
+  parent: ShapeEngine.Core.Scene
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_CollisionHandler
+  name: CollisionHandler
+  nameWithType: Scene.CollisionHandler
+  fullName: ShapeEngine.Core.Scene.CollisionHandler
 - uid: ShapeEngine.Core.Scene.InitCollisionHandler*
   commentId: Overload:ShapeEngine.Core.Scene.InitCollisionHandler
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_InitCollisionHandler_ShapeEngine_Core_Shapes_Rect_System_Int32_System_Int32_
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_InitCollisionHandler_ShapeEngine_Geometry_CollisionSystem_IBroadphase_System_Int32_
   name: InitCollisionHandler
   nameWithType: Scene.InitCollisionHandler
   fullName: ShapeEngine.Core.Scene.InitCollisionHandler
+- uid: ShapeEngine.Geometry.CollisionSystem.IBroadphase
+  commentId: T:ShapeEngine.Geometry.CollisionSystem.IBroadphase
+  parent: ShapeEngine.Geometry.CollisionSystem
+  href: ShapeEngine.Geometry.CollisionSystem.IBroadphase.html
+  name: IBroadphase
+  nameWithType: IBroadphase
+  fullName: ShapeEngine.Geometry.CollisionSystem.IBroadphase
 - uid: System.Int32
   commentId: T:System.Int32
   parent: System
@@ -1898,30 +2666,6 @@ references:
   nameWithType.vb: Integer
   fullName.vb: Integer
   name.vb: Integer
-- uid: ShapeEngine.Core.Scene.RemoveCollisionHandler*
-  commentId: Overload:ShapeEngine.Core.Scene.RemoveCollisionHandler
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_RemoveCollisionHandler
-  name: RemoveCollisionHandler
-  nameWithType: Scene.RemoveCollisionHandler
-  fullName: ShapeEngine.Core.Scene.RemoveCollisionHandler
-- uid: ShapeEngine.Core.Scene.InitPathfinder*
-  commentId: Overload:ShapeEngine.Core.Scene.InitPathfinder
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_InitPathfinder_ShapeEngine_Core_Shapes_Rect_System_Int32_System_Int32_
-  name: InitPathfinder
-  nameWithType: Scene.InitPathfinder
-  fullName: ShapeEngine.Core.Scene.InitPathfinder
-- uid: ShapeEngine.Core.Scene.RemovePathfinder*
-  commentId: Overload:ShapeEngine.Core.Scene.RemovePathfinder
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_RemovePathfinder
-  name: RemovePathfinder
-  nameWithType: Scene.RemovePathfinder
-  fullName: ShapeEngine.Core.Scene.RemovePathfinder
-- uid: ShapeEngine.Core.Scene.Activate*
-  commentId: Overload:ShapeEngine.Core.Scene.Activate
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_Activate_ShapeEngine_Core_Scene_
-  name: Activate
-  nameWithType: Scene.Activate
-  fullName: ShapeEngine.Core.Scene.Activate
 - uid: ShapeEngine.Core.Scene
   commentId: T:ShapeEngine.Core.Scene
   parent: ShapeEngine.Core
@@ -1929,75 +2673,97 @@ references:
   name: Scene
   nameWithType: Scene
   fullName: ShapeEngine.Core.Scene
-- uid: ShapeEngine.Core.Scene.Deactivate*
-  commentId: Overload:ShapeEngine.Core.Scene.Deactivate
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_Deactivate
-  name: Deactivate
-  nameWithType: Scene.Deactivate
-  fullName: ShapeEngine.Core.Scene.Deactivate
-- uid: ShapeEngine.Core.Scene.OnPauseChanged*
-  commentId: Overload:ShapeEngine.Core.Scene.OnPauseChanged
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnPauseChanged_System_Boolean_
-  name: OnPauseChanged
-  nameWithType: Scene.OnPauseChanged
-  fullName: ShapeEngine.Core.Scene.OnPauseChanged
+- uid: ShapeEngine.Geometry.CollisionSystem
+  commentId: N:ShapeEngine.Geometry.CollisionSystem
+  href: ShapeEngine.html
+  name: ShapeEngine.Geometry.CollisionSystem
+  nameWithType: ShapeEngine.Geometry.CollisionSystem
+  fullName: ShapeEngine.Geometry.CollisionSystem
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
+  - name: .
+  - uid: ShapeEngine.Geometry.CollisionSystem
+    name: CollisionSystem
+    href: ShapeEngine.Geometry.CollisionSystem.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
+  - name: .
+  - uid: ShapeEngine.Geometry.CollisionSystem
+    name: CollisionSystem
+    href: ShapeEngine.Geometry.CollisionSystem.html
+- uid: ShapeEngine.Core.Scene.InitPathfinder*
+  commentId: Overload:ShapeEngine.Core.Scene.InitPathfinder
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_InitPathfinder_ShapeEngine_Geometry_RectDef_Rect_System_Int32_System_Int32_
+  name: InitPathfinder
+  nameWithType: Scene.InitPathfinder
+  fullName: ShapeEngine.Core.Scene.InitPathfinder
 - uid: ShapeEngine.Core.Scene.Close*
   commentId: Overload:ShapeEngine.Core.Scene.Close
   href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_Close
   name: Close
   nameWithType: Scene.Close
   fullName: ShapeEngine.Core.Scene.Close
-- uid: ShapeEngine.Core.Scene.Update*
-  commentId: Overload:ShapeEngine.Core.Scene.Update
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
-  name: Update
-  nameWithType: Scene.Update
-  fullName: ShapeEngine.Core.Scene.Update
-- uid: ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  commentId: M:ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-  parent: ShapeEngine.Core.Interfaces.IUpdateable
-  href: ShapeEngine.Core.Interfaces.IUpdateable.html#ShapeEngine_Core_Interfaces_IUpdateable_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
-  name: Update(GameTime, ScreenInfo, ScreenInfo)
-  nameWithType: IUpdateable.Update(GameTime, ScreenInfo, ScreenInfo)
-  fullName: ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime, ShapeEngine.Core.Structs.ScreenInfo, ShapeEngine.Core.Structs.ScreenInfo)
-  spec.csharp:
-  - uid: ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-    name: Update
-    href: ShapeEngine.Core.Interfaces.IUpdateable.html#ShapeEngine_Core_Interfaces_IUpdateable_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
-  - name: (
-  - uid: ShapeEngine.Core.Structs.GameTime
-    name: GameTime
-    href: ShapeEngine.Core.Structs.GameTime.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.Interfaces.IUpdateable.Update(ShapeEngine.Core.Structs.GameTime,ShapeEngine.Core.Structs.ScreenInfo,ShapeEngine.Core.Structs.ScreenInfo)
-    name: Update
-    href: ShapeEngine.Core.Interfaces.IUpdateable.html#ShapeEngine_Core_Interfaces_IUpdateable_Update_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
-  - name: (
-  - uid: ShapeEngine.Core.Structs.GameTime
-    name: GameTime
-    href: ShapeEngine.Core.Structs.GameTime.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: )
+- uid: ShapeEngine.Core.Scene.ResolveOnButtonPressed*
+  commentId: Overload:ShapeEngine.Core.Scene.ResolveOnButtonPressed
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_ResolveOnButtonPressed_ShapeEngine_Input_InputEvent_
+  name: ResolveOnButtonPressed
+  nameWithType: Scene.ResolveOnButtonPressed
+  fullName: ShapeEngine.Core.Scene.ResolveOnButtonPressed
+- uid: ShapeEngine.Input.InputEvent
+  commentId: T:ShapeEngine.Input.InputEvent
+  parent: ShapeEngine.Input
+  href: ShapeEngine.Input.InputEvent.html
+  name: InputEvent
+  nameWithType: InputEvent
+  fullName: ShapeEngine.Input.InputEvent
+- uid: ShapeEngine.Core.Scene.ResolveOnButtonReleased*
+  commentId: Overload:ShapeEngine.Core.Scene.ResolveOnButtonReleased
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_ResolveOnButtonReleased_ShapeEngine_Input_InputEvent_
+  name: ResolveOnButtonReleased
+  nameWithType: Scene.ResolveOnButtonReleased
+  fullName: ShapeEngine.Core.Scene.ResolveOnButtonReleased
+- uid: ShapeEngine.Core.Scene.OnActivate*
+  commentId: Overload:ShapeEngine.Core.Scene.OnActivate
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnActivate_ShapeEngine_Core_Scene_
+  name: OnActivate
+  nameWithType: Scene.OnActivate
+  fullName: ShapeEngine.Core.Scene.OnActivate
+- uid: ShapeEngine.Core.Scene.OnDeactivate*
+  commentId: Overload:ShapeEngine.Core.Scene.OnDeactivate
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnDeactivate
+  name: OnDeactivate
+  nameWithType: Scene.OnDeactivate
+  fullName: ShapeEngine.Core.Scene.OnDeactivate
+- uid: ShapeEngine.Core.Scene.OnClose*
+  commentId: Overload:ShapeEngine.Core.Scene.OnClose
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnClose
+  name: OnClose
+  nameWithType: Scene.OnClose
+  fullName: ShapeEngine.Core.Scene.OnClose
+- uid: ShapeEngine.Core.Scene.OnGameTextureResized*
+  commentId: Overload:ShapeEngine.Core.Scene.OnGameTextureResized
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnGameTextureResized_System_Int32_System_Int32_
+  name: OnGameTextureResized
+  nameWithType: Scene.OnGameTextureResized
+  fullName: ShapeEngine.Core.Scene.OnGameTextureResized
+- uid: ShapeEngine.Core.Scene.OnHandleInput*
+  commentId: Overload:ShapeEngine.Core.Scene.OnHandleInput
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnHandleInput_ShapeEngine_Core_Structs_GameTime_System_Numerics_Vector2_System_Numerics_Vector2_System_Numerics_Vector2_
+  name: OnHandleInput
+  nameWithType: Scene.OnHandleInput
+  fullName: ShapeEngine.Core.Scene.OnHandleInput
 - uid: ShapeEngine.Core.Structs.GameTime
   commentId: T:ShapeEngine.Core.Structs.GameTime
   parent: ShapeEngine.Core.Structs
@@ -2005,13 +2771,14 @@ references:
   name: GameTime
   nameWithType: GameTime
   fullName: ShapeEngine.Core.Structs.GameTime
-- uid: ShapeEngine.Core.Structs.ScreenInfo
-  commentId: T:ShapeEngine.Core.Structs.ScreenInfo
-  parent: ShapeEngine.Core.Structs
-  href: ShapeEngine.Core.Structs.ScreenInfo.html
-  name: ScreenInfo
-  nameWithType: ScreenInfo
-  fullName: ShapeEngine.Core.Structs.ScreenInfo
+- uid: System.Numerics.Vector2
+  commentId: T:System.Numerics.Vector2
+  parent: System.Numerics
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  name: Vector2
+  nameWithType: Vector2
+  fullName: System.Numerics.Vector2
 - uid: ShapeEngine.Core.Structs
   commentId: N:ShapeEngine.Core.Structs
   href: ShapeEngine.html
@@ -2042,80 +2809,46 @@ references:
   - uid: ShapeEngine.Core.Structs
     name: Structs
     href: ShapeEngine.Core.Structs.html
-- uid: ShapeEngine.Core.Scene.DrawGame*
-  commentId: Overload:ShapeEngine.Core.Scene.DrawGame
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_DrawGame_ShapeEngine_Core_Structs_ScreenInfo_
-  name: DrawGame
-  nameWithType: Scene.DrawGame
-  fullName: ShapeEngine.Core.Scene.DrawGame
-- uid: ShapeEngine.Core.Interfaces.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
-  commentId: M:ShapeEngine.Core.Interfaces.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
-  parent: ShapeEngine.Core.Interfaces.IDrawable
-  href: ShapeEngine.Core.Interfaces.IDrawable.html#ShapeEngine_Core_Interfaces_IDrawable_DrawGame_ShapeEngine_Core_Structs_ScreenInfo_
-  name: DrawGame(ScreenInfo)
-  nameWithType: IDrawable.DrawGame(ScreenInfo)
-  fullName: ShapeEngine.Core.Interfaces.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
+- uid: System.Numerics
+  commentId: N:System.Numerics
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Numerics
+  nameWithType: System.Numerics
+  fullName: System.Numerics
   spec.csharp:
-  - uid: ShapeEngine.Core.Interfaces.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
-    name: DrawGame
-    href: ShapeEngine.Core.Interfaces.IDrawable.html#ShapeEngine_Core_Interfaces_IDrawable_DrawGame_ShapeEngine_Core_Structs_ScreenInfo_
-  - name: (
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: )
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Numerics
+    name: Numerics
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics
   spec.vb:
-  - uid: ShapeEngine.Core.Interfaces.IDrawable.DrawGame(ShapeEngine.Core.Structs.ScreenInfo)
-    name: DrawGame
-    href: ShapeEngine.Core.Interfaces.IDrawable.html#ShapeEngine_Core_Interfaces_IDrawable_DrawGame_ShapeEngine_Core_Structs_ScreenInfo_
-  - name: (
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: )
-- uid: ShapeEngine.Core.Scene.DrawGameUI*
-  commentId: Overload:ShapeEngine.Core.Scene.DrawGameUI
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_DrawGameUI_ShapeEngine_Core_Structs_ScreenInfo_
-  name: DrawGameUI
-  nameWithType: Scene.DrawGameUI
-  fullName: ShapeEngine.Core.Scene.DrawGameUI
-- uid: ShapeEngine.Core.Interfaces.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
-  commentId: M:ShapeEngine.Core.Interfaces.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
-  parent: ShapeEngine.Core.Interfaces.IDrawable
-  href: ShapeEngine.Core.Interfaces.IDrawable.html#ShapeEngine_Core_Interfaces_IDrawable_DrawGameUI_ShapeEngine_Core_Structs_ScreenInfo_
-  name: DrawGameUI(ScreenInfo)
-  nameWithType: IDrawable.DrawGameUI(ScreenInfo)
-  fullName: ShapeEngine.Core.Interfaces.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
-  spec.csharp:
-  - uid: ShapeEngine.Core.Interfaces.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
-    name: DrawGameUI
-    href: ShapeEngine.Core.Interfaces.IDrawable.html#ShapeEngine_Core_Interfaces_IDrawable_DrawGameUI_ShapeEngine_Core_Structs_ScreenInfo_
-  - name: (
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Core.Interfaces.IDrawable.DrawGameUI(ShapeEngine.Core.Structs.ScreenInfo)
-    name: DrawGameUI
-    href: ShapeEngine.Core.Interfaces.IDrawable.html#ShapeEngine_Core_Interfaces_IDrawable_DrawGameUI_ShapeEngine_Core_Structs_ScreenInfo_
-  - name: (
-  - uid: ShapeEngine.Core.Structs.ScreenInfo
-    name: ScreenInfo
-    href: ShapeEngine.Core.Structs.ScreenInfo.html
-  - name: )
-- uid: ShapeEngine.Core.Scene.DrawUI*
-  commentId: Overload:ShapeEngine.Core.Scene.DrawUI
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_DrawUI_ShapeEngine_Core_Structs_ScreenInfo_
-  name: DrawUI
-  nameWithType: Scene.DrawUI
-  fullName: ShapeEngine.Core.Scene.DrawUI
-- uid: ShapeEngine.Core.Scene.OnUpdateGame*
-  commentId: Overload:ShapeEngine.Core.Scene.OnUpdateGame
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnUpdateGame_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
-  name: OnUpdateGame
-  nameWithType: Scene.OnUpdateGame
-  fullName: ShapeEngine.Core.Scene.OnUpdateGame
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Numerics
+    name: Numerics
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics
+- uid: ShapeEngine.Core.Scene.OnUpdate*
+  commentId: Overload:ShapeEngine.Core.Scene.OnUpdate
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnUpdate_ShapeEngine_Core_Structs_GameTime_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_ShapeEngine_Core_Structs_ScreenInfo_
+  name: OnUpdate
+  nameWithType: Scene.OnUpdate
+  fullName: ShapeEngine.Core.Scene.OnUpdate
+- uid: ShapeEngine.Core.Structs.ScreenInfo
+  commentId: T:ShapeEngine.Core.Structs.ScreenInfo
+  parent: ShapeEngine.Core.Structs
+  href: ShapeEngine.Core.Structs.ScreenInfo.html
+  name: ScreenInfo
+  nameWithType: ScreenInfo
+  fullName: ShapeEngine.Core.Structs.ScreenInfo
 - uid: ShapeEngine.Core.Scene.OnPreDrawGame*
   commentId: Overload:ShapeEngine.Core.Scene.OnPreDrawGame
   href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnPreDrawGame_ShapeEngine_Core_Structs_ScreenInfo_
@@ -2165,41 +2898,6 @@ references:
   name: OnWindowPositionChanged
   nameWithType: Scene.OnWindowPositionChanged
   fullName: ShapeEngine.Core.Scene.OnWindowPositionChanged
-- uid: System.Numerics.Vector2
-  commentId: T:System.Numerics.Vector2
-  parent: System.Numerics
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
-  name: Vector2
-  nameWithType: Vector2
-  fullName: System.Numerics.Vector2
-- uid: System.Numerics
-  commentId: N:System.Numerics
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system
-  name: System.Numerics
-  nameWithType: System.Numerics
-  fullName: System.Numerics
-  spec.csharp:
-  - uid: System
-    name: System
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system
-  - name: .
-  - uid: System.Numerics
-    name: Numerics
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.numerics
-  spec.vb:
-  - uid: System
-    name: System
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system
-  - name: .
-  - uid: System.Numerics
-    name: Numerics
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.numerics
 - uid: ShapeEngine.Core.Scene.OnMonitorChanged*
   commentId: Overload:ShapeEngine.Core.Scene.OnMonitorChanged
   href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnMonitorChanged_ShapeEngine_Screen_MonitorInfo_
@@ -2237,45 +2935,35 @@ references:
     href: ShapeEngine.Screen.html
 - uid: ShapeEngine.Core.Scene.OnGamepadConnected*
   commentId: Overload:ShapeEngine.Core.Scene.OnGamepadConnected
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnGamepadConnected_ShapeEngine_Input_ShapeGamepadDevice_
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnGamepadConnected_ShapeEngine_Input_GamepadDevice_
   name: OnGamepadConnected
   nameWithType: Scene.OnGamepadConnected
   fullName: ShapeEngine.Core.Scene.OnGamepadConnected
-- uid: ShapeEngine.Input.ShapeGamepadDevice
-  commentId: T:ShapeEngine.Input.ShapeGamepadDevice
+- uid: ShapeEngine.Input.GamepadDevice
+  commentId: T:ShapeEngine.Input.GamepadDevice
   parent: ShapeEngine.Input
-  href: ShapeEngine.Input.ShapeGamepadDevice.html
-  name: ShapeGamepadDevice
-  nameWithType: ShapeGamepadDevice
-  fullName: ShapeEngine.Input.ShapeGamepadDevice
-- uid: ShapeEngine.Input
-  commentId: N:ShapeEngine.Input
-  href: ShapeEngine.html
-  name: ShapeEngine.Input
-  nameWithType: ShapeEngine.Input
-  fullName: ShapeEngine.Input
-  spec.csharp:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Input
-    name: Input
-    href: ShapeEngine.Input.html
-  spec.vb:
-  - uid: ShapeEngine
-    name: ShapeEngine
-    href: ShapeEngine.html
-  - name: .
-  - uid: ShapeEngine.Input
-    name: Input
-    href: ShapeEngine.Input.html
+  href: ShapeEngine.Input.GamepadDevice.html
+  name: GamepadDevice
+  nameWithType: GamepadDevice
+  fullName: ShapeEngine.Input.GamepadDevice
 - uid: ShapeEngine.Core.Scene.OnGamepadDisconnected*
   commentId: Overload:ShapeEngine.Core.Scene.OnGamepadDisconnected
-  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnGamepadDisconnected_ShapeEngine_Input_ShapeGamepadDevice_
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnGamepadDisconnected_ShapeEngine_Input_GamepadDevice_
   name: OnGamepadDisconnected
   nameWithType: Scene.OnGamepadDisconnected
   fullName: ShapeEngine.Core.Scene.OnGamepadDisconnected
+- uid: ShapeEngine.Core.Scene.OnGamepadClaimed*
+  commentId: Overload:ShapeEngine.Core.Scene.OnGamepadClaimed
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnGamepadClaimed_ShapeEngine_Input_GamepadDevice_
+  name: OnGamepadClaimed
+  nameWithType: Scene.OnGamepadClaimed
+  fullName: ShapeEngine.Core.Scene.OnGamepadClaimed
+- uid: ShapeEngine.Core.Scene.OnGamepadFreed*
+  commentId: Overload:ShapeEngine.Core.Scene.OnGamepadFreed
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnGamepadFreed_ShapeEngine_Input_GamepadDevice_
+  name: OnGamepadFreed
+  nameWithType: Scene.OnGamepadFreed
+  fullName: ShapeEngine.Core.Scene.OnGamepadFreed
 - uid: ShapeEngine.Core.Scene.OnInputDeviceChanged*
   commentId: Overload:ShapeEngine.Core.Scene.OnInputDeviceChanged
   href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnInputDeviceChanged_ShapeEngine_Input_InputDeviceType_ShapeEngine_Input_InputDeviceType_
@@ -2337,19 +3025,30 @@ references:
   name: OnWindowMaximizeChanged
   nameWithType: Scene.OnWindowMaximizeChanged
   fullName: ShapeEngine.Core.Scene.OnWindowMaximizeChanged
+- uid: ShapeEngine.Core.Scene.OnWindowMinimizedChanged*
+  commentId: Overload:ShapeEngine.Core.Scene.OnWindowMinimizedChanged
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnWindowMinimizedChanged_System_Boolean_
+  name: OnWindowMinimizedChanged
+  nameWithType: Scene.OnWindowMinimizedChanged
+  fullName: ShapeEngine.Core.Scene.OnWindowMinimizedChanged
+- uid: ShapeEngine.Core.Scene.OnWindowHiddenChanged*
+  commentId: Overload:ShapeEngine.Core.Scene.OnWindowHiddenChanged
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnWindowHiddenChanged_System_Boolean_
+  name: OnWindowHiddenChanged
+  nameWithType: Scene.OnWindowHiddenChanged
+  fullName: ShapeEngine.Core.Scene.OnWindowHiddenChanged
+- uid: ShapeEngine.Core.Scene.OnWindowTopmostChanged*
+  commentId: Overload:ShapeEngine.Core.Scene.OnWindowTopmostChanged
+  href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnWindowTopmostChanged_System_Boolean_
+  name: OnWindowTopmostChanged
+  nameWithType: Scene.OnWindowTopmostChanged
+  fullName: ShapeEngine.Core.Scene.OnWindowTopmostChanged
 - uid: ShapeEngine.Core.Scene.OnButtonPressed*
   commentId: Overload:ShapeEngine.Core.Scene.OnButtonPressed
   href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnButtonPressed_ShapeEngine_Input_InputEvent_
   name: OnButtonPressed
   nameWithType: Scene.OnButtonPressed
   fullName: ShapeEngine.Core.Scene.OnButtonPressed
-- uid: ShapeEngine.Input.InputEvent
-  commentId: T:ShapeEngine.Input.InputEvent
-  parent: ShapeEngine.Input
-  href: ShapeEngine.Input.InputEvent.html
-  name: InputEvent
-  nameWithType: InputEvent
-  fullName: ShapeEngine.Input.InputEvent
 - uid: ShapeEngine.Core.Scene.OnButtonReleased*
   commentId: Overload:ShapeEngine.Core.Scene.OnButtonReleased
   href: ShapeEngine.Core.Scene.html#ShapeEngine_Core_Scene_OnButtonReleased_ShapeEngine_Input_InputEvent_

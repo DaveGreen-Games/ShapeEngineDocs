@@ -6,15 +6,17 @@ items:
   parent: ShapeEngine.Core.Structs
   children:
   - ShapeEngine.Core.Structs.GameTime.#ctor
-  - ShapeEngine.Core.Structs.GameTime.#ctor(System.Double,System.Int32,System.Double)
+  - ShapeEngine.Core.Structs.GameTime.#ctor(System.Double,System.Int32,System.Double,System.Boolean)
   - ShapeEngine.Core.Structs.GameTime.Delta
+  - ShapeEngine.Core.Structs.GameTime.DeltaDouble
   - ShapeEngine.Core.Structs.GameTime.ElapsedMicroSeconds
   - ShapeEngine.Core.Structs.GameTime.ElapsedMilliSeconds
   - ShapeEngine.Core.Structs.GameTime.ElapsedNanoSeconds
   - ShapeEngine.Core.Structs.GameTime.ElapsedSeconds
+  - ShapeEngine.Core.Structs.GameTime.FixedDelta
   - ShapeEngine.Core.Structs.GameTime.Fps
-  - ShapeEngine.Core.Structs.GameTime.Tick(System.Double)
-  - ShapeEngine.Core.Structs.GameTime.TickF(System.Single)
+  - ShapeEngine.Core.Structs.GameTime.Tick(System.Double,System.Boolean)
+  - ShapeEngine.Core.Structs.GameTime.TickF(System.Single,System.Boolean)
   - ShapeEngine.Core.Structs.GameTime.ToDays(System.Double)
   - ShapeEngine.Core.Structs.GameTime.ToHours(System.Double)
   - ShapeEngine.Core.Structs.GameTime.ToMicroSeconds(System.Double)
@@ -22,13 +24,13 @@ items:
   - ShapeEngine.Core.Structs.GameTime.ToMinutes(System.Double)
   - ShapeEngine.Core.Structs.GameTime.ToNanoSeconds(System.Double)
   - ShapeEngine.Core.Structs.GameTime.TotalDays
-  - ShapeEngine.Core.Structs.GameTime.TotalFrames
   - ShapeEngine.Core.Structs.GameTime.TotalHours
   - ShapeEngine.Core.Structs.GameTime.TotalMicroSeconds
   - ShapeEngine.Core.Structs.GameTime.TotalMilliSeconds
   - ShapeEngine.Core.Structs.GameTime.TotalMinutes
   - ShapeEngine.Core.Structs.GameTime.TotalNanoSeconds
   - ShapeEngine.Core.Structs.GameTime.TotalSeconds
+  - ShapeEngine.Core.Structs.GameTime.TotalTicks
   langs:
   - csharp
   - vb
@@ -43,10 +45,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GameTime
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 2
+    startLine: 10
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Represents timing information for game loops and frame updates.
+  remarks: >-
+    GameTime provides timing data for both variable and fixed timestep game loops.
+
+    It tracks total elapsed time since application start, tick counts, and time between frames.
+
+    This struct is immutable and provides various time unit conversions for game timing needs.
+  example: []
   syntax:
     content: public readonly struct GameTime
     content.vb: Public Structure GameTime
@@ -57,6 +67,10 @@ items:
   - System.Object.Equals(System.Object,System.Object)
   - System.Object.GetType
   - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
 - uid: ShapeEngine.Core.Structs.GameTime.TotalSeconds
   commentId: F:ShapeEngine.Core.Structs.GameTime.TotalSeconds
   id: TotalSeconds
@@ -75,7 +89,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TotalSeconds
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 7
+    startLine: 15
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -86,35 +100,40 @@ items:
     return:
       type: System.Double
     content.vb: Public ReadOnly TotalSeconds As Double
-- uid: ShapeEngine.Core.Structs.GameTime.TotalFrames
-  commentId: F:ShapeEngine.Core.Structs.GameTime.TotalFrames
-  id: TotalFrames
+- uid: ShapeEngine.Core.Structs.GameTime.TotalTicks
+  commentId: F:ShapeEngine.Core.Structs.GameTime.TotalTicks
+  id: TotalTicks
   parent: ShapeEngine.Core.Structs.GameTime
   langs:
   - csharp
   - vb
-  name: TotalFrames
-  nameWithType: GameTime.TotalFrames
-  fullName: ShapeEngine.Core.Structs.GameTime.TotalFrames
+  name: TotalTicks
+  nameWithType: GameTime.TotalTicks
+  fullName: ShapeEngine.Core.Structs.GameTime.TotalTicks
   type: Field
   source:
     remote:
       path: ShapeEngine/Core/Structs/GameTime.cs
       branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: TotalFrames
+    id: TotalTicks
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 11
+    startLine: 22
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
-  summary: Frames since start of application
+  summary: >-
+    The total number of frames (ticks) processed since the application started.
+
+    This counter is incremented each time <xref href="ShapeEngine.Core.Structs.GameTime.Tick(System.Double%2cSystem.Boolean)" data-throw-if-not-resolved="false"></xref> or <xref href="ShapeEngine.Core.Structs.GameTime.TickF(System.Single%2cSystem.Boolean)" data-throw-if-not-resolved="false"></xref>
+
+    is called and can be used for frame-based logic, diagnostics, or interpolation.
   example: []
   syntax:
-    content: public readonly int TotalFrames
+    content: public readonly int TotalTicks
     return:
       type: System.Int32
-    content.vb: Public ReadOnly TotalFrames As Integer
+    content.vb: Public ReadOnly TotalTicks As Integer
 - uid: ShapeEngine.Core.Structs.GameTime.ElapsedSeconds
   commentId: F:ShapeEngine.Core.Structs.GameTime.ElapsedSeconds
   id: ElapsedSeconds
@@ -133,7 +152,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ElapsedSeconds
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 15
+    startLine: 26
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -144,6 +163,41 @@ items:
     return:
       type: System.Double
     content.vb: Public ReadOnly ElapsedSeconds As Double
+- uid: ShapeEngine.Core.Structs.GameTime.FixedDelta
+  commentId: F:ShapeEngine.Core.Structs.GameTime.FixedDelta
+  id: FixedDelta
+  parent: ShapeEngine.Core.Structs.GameTime
+  langs:
+  - csharp
+  - vb
+  name: FixedDelta
+  nameWithType: GameTime.FixedDelta
+  fullName: ShapeEngine.Core.Structs.GameTime.FixedDelta
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/GameTime.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: FixedDelta
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
+    startLine: 36
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Indicates whether this GameTime instance represents a fixed timestep delta.
+  remarks: >-
+    When true, the <xref href="ShapeEngine.Core.Structs.GameTime.ElapsedSeconds" data-throw-if-not-resolved="false"></xref> value corresponds to a fixed simulation step
+
+    (useful for deterministic physics or game logic). When false, the delta is the variable
+
+    elapsed time between frames.
+  example: []
+  syntax:
+    content: public readonly bool FixedDelta
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly FixedDelta As Boolean
 - uid: ShapeEngine.Core.Structs.GameTime.#ctor
   commentId: M:ShapeEngine.Core.Structs.GameTime.#ctor
   id: '#ctor'
@@ -162,10 +216,13 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 17
+    startLine: 44
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Initializes a new instance of the GameTime struct with default values.
+  remarks: Creates a GameTime with zero values for total seconds, total frames, and elapsed seconds.
+  example: []
   syntax:
     content: public GameTime()
     content.vb: Public Sub New()
@@ -173,16 +230,16 @@ items:
   nameWithType.vb: GameTime.New()
   fullName.vb: ShapeEngine.Core.Structs.GameTime.New()
   name.vb: New()
-- uid: ShapeEngine.Core.Structs.GameTime.#ctor(System.Double,System.Int32,System.Double)
-  commentId: M:ShapeEngine.Core.Structs.GameTime.#ctor(System.Double,System.Int32,System.Double)
-  id: '#ctor(System.Double,System.Int32,System.Double)'
+- uid: ShapeEngine.Core.Structs.GameTime.#ctor(System.Double,System.Int32,System.Double,System.Boolean)
+  commentId: M:ShapeEngine.Core.Structs.GameTime.#ctor(System.Double,System.Int32,System.Double,System.Boolean)
+  id: '#ctor(System.Double,System.Int32,System.Double,System.Boolean)'
   parent: ShapeEngine.Core.Structs.GameTime
   langs:
   - csharp
   - vb
-  name: GameTime(double, int, double)
-  nameWithType: GameTime.GameTime(double, int, double)
-  fullName: ShapeEngine.Core.Structs.GameTime.GameTime(double, int, double)
+  name: GameTime(double, int, double, bool)
+  nameWithType: GameTime.GameTime(double, int, double, bool)
+  fullName: ShapeEngine.Core.Structs.GameTime.GameTime(double, int, double, bool)
   type: Constructor
   source:
     remote:
@@ -191,34 +248,42 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 23
+    startLine: 58
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Initializes a new instance of the GameTime struct with specified values.
+  example: []
   syntax:
-    content: public GameTime(double totalSeconds, int totalFrames, double elapsedSeconds)
+    content: public GameTime(double totalSeconds, int totalTicks, double elapsedSeconds, bool fixedDelta = false)
     parameters:
     - id: totalSeconds
       type: System.Double
-    - id: totalFrames
+      description: The total seconds elapsed since the start of the application.
+    - id: totalTicks
       type: System.Int32
+      description: The total number of frames processed since the start of the application.
     - id: elapsedSeconds
       type: System.Double
-    content.vb: Public Sub New(totalSeconds As Double, totalFrames As Integer, elapsedSeconds As Double)
+      description: The seconds elapsed since the last frame.
+    - id: fixedDelta
+      type: System.Boolean
+      description: Indicates whether the elapsed time represents a fixed timestep delta.
+    content.vb: Public Sub New(totalSeconds As Double, totalTicks As Integer, elapsedSeconds As Double, fixedDelta As Boolean = False)
   overload: ShapeEngine.Core.Structs.GameTime.#ctor*
-  nameWithType.vb: GameTime.New(Double, Integer, Double)
-  fullName.vb: ShapeEngine.Core.Structs.GameTime.New(Double, Integer, Double)
-  name.vb: New(Double, Integer, Double)
-- uid: ShapeEngine.Core.Structs.GameTime.Tick(System.Double)
-  commentId: M:ShapeEngine.Core.Structs.GameTime.Tick(System.Double)
-  id: Tick(System.Double)
+  nameWithType.vb: GameTime.New(Double, Integer, Double, Boolean)
+  fullName.vb: ShapeEngine.Core.Structs.GameTime.New(Double, Integer, Double, Boolean)
+  name.vb: New(Double, Integer, Double, Boolean)
+- uid: ShapeEngine.Core.Structs.GameTime.Tick(System.Double,System.Boolean)
+  commentId: M:ShapeEngine.Core.Structs.GameTime.Tick(System.Double,System.Boolean)
+  id: Tick(System.Double,System.Boolean)
   parent: ShapeEngine.Core.Structs.GameTime
   langs:
   - csharp
   - vb
-  name: Tick(double)
-  nameWithType: GameTime.Tick(double)
-  fullName: ShapeEngine.Core.Structs.GameTime.Tick(double)
+  name: Tick(double, bool)
+  nameWithType: GameTime.Tick(double, bool)
+  fullName: ShapeEngine.Core.Structs.GameTime.Tick(double, bool)
   type: Method
   source:
     remote:
@@ -227,32 +292,39 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Tick
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 31
+    startLine: 74
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Advances the game time by the specified time delta.
+  example: []
   syntax:
-    content: public GameTime Tick(double dt)
+    content: public GameTime Tick(double dt, bool fixedDelta)
     parameters:
     - id: dt
       type: System.Double
+      description: The time delta in seconds to advance the game time by.
+    - id: fixedDelta
+      type: System.Boolean
+      description: Indicates whether the provided delta time is a fixed timestep.
     return:
       type: ShapeEngine.Core.Structs.GameTime
-    content.vb: Public Function Tick(dt As Double) As GameTime
+      description: A new GameTime instance with updated total seconds, incremented frame count, and the provided delta as elapsed seconds.
+    content.vb: Public Function Tick(dt As Double, fixedDelta As Boolean) As GameTime
   overload: ShapeEngine.Core.Structs.GameTime.Tick*
-  nameWithType.vb: GameTime.Tick(Double)
-  fullName.vb: ShapeEngine.Core.Structs.GameTime.Tick(Double)
-  name.vb: Tick(Double)
-- uid: ShapeEngine.Core.Structs.GameTime.TickF(System.Single)
-  commentId: M:ShapeEngine.Core.Structs.GameTime.TickF(System.Single)
-  id: TickF(System.Single)
+  nameWithType.vb: GameTime.Tick(Double, Boolean)
+  fullName.vb: ShapeEngine.Core.Structs.GameTime.Tick(Double, Boolean)
+  name.vb: Tick(Double, Boolean)
+- uid: ShapeEngine.Core.Structs.GameTime.TickF(System.Single,System.Boolean)
+  commentId: M:ShapeEngine.Core.Structs.GameTime.TickF(System.Single,System.Boolean)
+  id: TickF(System.Single,System.Boolean)
   parent: ShapeEngine.Core.Structs.GameTime
   langs:
   - csharp
   - vb
-  name: TickF(float)
-  nameWithType: GameTime.TickF(float)
-  fullName: ShapeEngine.Core.Structs.GameTime.TickF(float)
+  name: TickF(float, bool)
+  nameWithType: GameTime.TickF(float, bool)
+  fullName: ShapeEngine.Core.Structs.GameTime.TickF(float, bool)
   type: Method
   source:
     remote:
@@ -261,22 +333,29 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TickF
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 32
+    startLine: 82
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Advances the game time by the specified time delta using a float value.
+  example: []
   syntax:
-    content: public GameTime TickF(float dt)
+    content: public GameTime TickF(float dt, bool fixedDelta)
     parameters:
     - id: dt
       type: System.Single
+      description: The time delta in seconds (as float) to advance the game time by.
+    - id: fixedDelta
+      type: System.Boolean
+      description: Indicates whether the provided delta time is a fixed timestep.
     return:
       type: ShapeEngine.Core.Structs.GameTime
-    content.vb: Public Function TickF(dt As Single) As GameTime
+      description: A new GameTime instance with updated total seconds, incremented frame count, and the provided delta as elapsed seconds.
+    content.vb: Public Function TickF(dt As Single, fixedDelta As Boolean) As GameTime
   overload: ShapeEngine.Core.Structs.GameTime.TickF*
-  nameWithType.vb: GameTime.TickF(Single)
-  fullName.vb: ShapeEngine.Core.Structs.GameTime.TickF(Single)
-  name.vb: TickF(Single)
+  nameWithType.vb: GameTime.TickF(Single, Boolean)
+  fullName.vb: ShapeEngine.Core.Structs.GameTime.TickF(Single, Boolean)
+  name.vb: TickF(Single, Boolean)
 - uid: ShapeEngine.Core.Structs.GameTime.TotalDays
   commentId: P:ShapeEngine.Core.Structs.GameTime.TotalDays
   id: TotalDays
@@ -295,15 +374,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TotalDays
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 36
+    startLine: 92
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets the total elapsed time in days since the application started.
+  example: []
   syntax:
     content: public double TotalDays { get; }
     parameters: []
     return:
       type: System.Double
+      description: The total elapsed time in days (TotalSeconds divided by 86400).
     content.vb: Public ReadOnly Property TotalDays As Double
   overload: ShapeEngine.Core.Structs.GameTime.TotalDays*
 - uid: ShapeEngine.Core.Structs.GameTime.TotalHours
@@ -324,15 +406,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TotalHours
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 37
+    startLine: 100
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets the total elapsed time in hours since the application started.
+  example: []
   syntax:
     content: public double TotalHours { get; }
     parameters: []
     return:
       type: System.Double
+      description: The total elapsed time in hours (TotalSeconds divided by 3600).
     content.vb: Public ReadOnly Property TotalHours As Double
   overload: ShapeEngine.Core.Structs.GameTime.TotalHours*
 - uid: ShapeEngine.Core.Structs.GameTime.TotalMinutes
@@ -353,15 +438,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TotalMinutes
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 38
+    startLine: 108
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets the total elapsed time in minutes since the application started.
+  example: []
   syntax:
     content: public double TotalMinutes { get; }
     parameters: []
     return:
       type: System.Double
+      description: The total elapsed time in minutes (TotalSeconds divided by 60).
     content.vb: Public ReadOnly Property TotalMinutes As Double
   overload: ShapeEngine.Core.Structs.GameTime.TotalMinutes*
 - uid: ShapeEngine.Core.Structs.GameTime.TotalMilliSeconds
@@ -382,11 +470,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TotalMilliSeconds
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 43
+    startLine: 113
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
-  summary: 1/1000 of a seconds (1000 (1 Thousand) milli seconds = 1 second)
+  summary: 1/1000 of a seconds (1000 (1 Thousand) milliseconds = 1 second)
   example: []
   syntax:
     content: public double TotalMilliSeconds { get; }
@@ -413,7 +501,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TotalMicroSeconds
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 47
+    startLine: 117
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -444,11 +532,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TotalNanoSeconds
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 51
+    startLine: 121
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
-  summary: 1/1000000000 of a seconds (1.000.000.000 (1 Billion) nano seconds = 1 second)
+  summary: 1/1000000000 of a seconds (1.000.000.000 (1 Billion) nanoseconds = 1 second)
   example: []
   syntax:
     content: public double TotalNanoSeconds { get; }
@@ -475,7 +563,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Delta
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 56
+    startLine: 126
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -488,6 +576,41 @@ items:
       type: System.Single
     content.vb: Public ReadOnly Property Delta As Single
   overload: ShapeEngine.Core.Structs.GameTime.Delta*
+- uid: ShapeEngine.Core.Structs.GameTime.DeltaDouble
+  commentId: P:ShapeEngine.Core.Structs.GameTime.DeltaDouble
+  id: DeltaDouble
+  parent: ShapeEngine.Core.Structs.GameTime
+  langs:
+  - csharp
+  - vb
+  name: DeltaDouble
+  nameWithType: GameTime.DeltaDouble
+  fullName: ShapeEngine.Core.Structs.GameTime.DeltaDouble
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/GameTime.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: DeltaDouble
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
+    startLine: 135
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Gets the elapsed time since the last frame as a double-precision value.
+  remarks: >-
+    Use <xref href="ShapeEngine.Core.Structs.GameTime.DeltaDouble" data-throw-if-not-resolved="false"></xref> when double precision is required instead of the single-precision <xref href="ShapeEngine.Core.Structs.GameTime.Delta" data-throw-if-not-resolved="false"></xref>.
+
+    This property simply returns the underlying <xref href="ShapeEngine.Core.Structs.GameTime.ElapsedSeconds" data-throw-if-not-resolved="false"></xref> value.
+  example: []
+  syntax:
+    content: public double DeltaDouble { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public ReadOnly Property DeltaDouble As Double
+  overload: ShapeEngine.Core.Structs.GameTime.DeltaDouble*
 - uid: ShapeEngine.Core.Structs.GameTime.Fps
   commentId: P:ShapeEngine.Core.Structs.GameTime.Fps
   id: Fps
@@ -506,15 +629,25 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Fps
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 57
+    startLine: 148
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets the current frames per second (FPS) based on the elapsed time between frames.
+  remarks: >-
+    This property calculates FPS by taking the inverse of the elapsed seconds.
+
+    If elapsed time is zero or negative, it returns 0 to avoid division by zero.
+  example: []
   syntax:
     content: public int Fps { get; }
     parameters: []
     return:
       type: System.Int32
+      description: >-
+        The current frames per second as an integer value.
+
+        Returns 0 if no time has elapsed between frames.
     content.vb: Public ReadOnly Property Fps As Integer
   overload: ShapeEngine.Core.Structs.GameTime.Fps*
 - uid: ShapeEngine.Core.Structs.GameTime.ElapsedMilliSeconds
@@ -535,7 +668,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ElapsedMilliSeconds
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 61
+    startLine: 152
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -566,7 +699,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ElapsedMicroSeconds
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 65
+    startLine: 156
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -597,7 +730,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ElapsedNanoSeconds
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 69
+    startLine: 160
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -628,17 +761,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToMinutes
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 73
+    startLine: 169
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Converts seconds to minutes.
+  example: []
   syntax:
     content: public static double ToMinutes(double seconds)
     parameters:
     - id: seconds
       type: System.Double
+      description: The time value in seconds to convert.
     return:
       type: System.Double
+      description: The equivalent time value in minutes.
     content.vb: Public Shared Function ToMinutes(seconds As Double) As Double
   overload: ShapeEngine.Core.Structs.GameTime.ToMinutes*
   nameWithType.vb: GameTime.ToMinutes(Double)
@@ -662,17 +799,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToHours
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 74
+    startLine: 176
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Converts seconds to hours.
+  example: []
   syntax:
     content: public static double ToHours(double seconds)
     parameters:
     - id: seconds
       type: System.Double
+      description: The time value in seconds to convert.
     return:
       type: System.Double
+      description: The equivalent time value in hours.
     content.vb: Public Shared Function ToHours(seconds As Double) As Double
   overload: ShapeEngine.Core.Structs.GameTime.ToHours*
   nameWithType.vb: GameTime.ToHours(Double)
@@ -696,17 +837,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToDays
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 75
+    startLine: 183
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Converts seconds to days.
+  example: []
   syntax:
     content: public static double ToDays(double seconds)
     parameters:
     - id: seconds
       type: System.Double
+      description: The time value in seconds to convert.
     return:
       type: System.Double
+      description: The equivalent time value in days.
     content.vb: Public Shared Function ToDays(seconds As Double) As Double
   overload: ShapeEngine.Core.Structs.GameTime.ToDays*
   nameWithType.vb: GameTime.ToDays(Double)
@@ -730,11 +875,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToMilliSeconds
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 80
+    startLine: 188
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
-  summary: 1/1000 of a seconds (1000 (1 Thousand) milli seconds = 1 second)
+  summary: 1/1000 of a seconds (1000 (1 Thousand) milliseconds = 1 second)
   example: []
   syntax:
     content: public static double ToMilliSeconds(double seconds)
@@ -766,7 +911,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToMicroSeconds
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 84
+    startLine: 192
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
@@ -802,11 +947,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToNanoSeconds
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameTime.cs
-    startLine: 88
+    startLine: 196
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
-  summary: 1/1000000000 of a seconds (1.000.000.000 (1 Billion) nano seconds = 1 second)
+  summary: 1/1000000000 of a seconds (1.000.000.000 (1 Billion) nanoseconds = 1 second)
   example: []
   syntax:
     content: public static double ToNanoSeconds(double seconds)
@@ -1042,6 +1187,165 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System.ValueType
   commentId: T:System.ValueType
   parent: System
@@ -1061,6 +1365,169 @@ references:
   nameWithType.vb: Object
   fullName.vb: Object
   name.vb: Object
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -1068,6 +1535,28 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
+  href: ShapeEngine.html
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
 - uid: System.Double
   commentId: T:System.Double
   parent: System
@@ -1079,6 +1568,90 @@ references:
   nameWithType.vb: Double
   fullName.vb: Double
   name.vb: Double
+- uid: ShapeEngine.Core.Structs.GameTime.Tick(System.Double,System.Boolean)
+  commentId: M:ShapeEngine.Core.Structs.GameTime.Tick(System.Double,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Core.Structs.GameTime.html#ShapeEngine_Core_Structs_GameTime_Tick_System_Double_System_Boolean_
+  name: Tick(double, bool)
+  nameWithType: GameTime.Tick(double, bool)
+  fullName: ShapeEngine.Core.Structs.GameTime.Tick(double, bool)
+  nameWithType.vb: GameTime.Tick(Double, Boolean)
+  fullName.vb: ShapeEngine.Core.Structs.GameTime.Tick(Double, Boolean)
+  name.vb: Tick(Double, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Structs.GameTime.Tick(System.Double,System.Boolean)
+    name: Tick
+    href: ShapeEngine.Core.Structs.GameTime.html#ShapeEngine_Core_Structs_GameTime_Tick_System_Double_System_Boolean_
+  - name: (
+  - uid: System.Double
+    name: double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Structs.GameTime.Tick(System.Double,System.Boolean)
+    name: Tick
+    href: ShapeEngine.Core.Structs.GameTime.html#ShapeEngine_Core_Structs_GameTime_Tick_System_Double_System_Boolean_
+  - name: (
+  - uid: System.Double
+    name: Double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+- uid: ShapeEngine.Core.Structs.GameTime.TickF(System.Single,System.Boolean)
+  commentId: M:ShapeEngine.Core.Structs.GameTime.TickF(System.Single,System.Boolean)
+  isExternal: true
+  href: ShapeEngine.Core.Structs.GameTime.html#ShapeEngine_Core_Structs_GameTime_TickF_System_Single_System_Boolean_
+  name: TickF(float, bool)
+  nameWithType: GameTime.TickF(float, bool)
+  fullName: ShapeEngine.Core.Structs.GameTime.TickF(float, bool)
+  nameWithType.vb: GameTime.TickF(Single, Boolean)
+  fullName.vb: ShapeEngine.Core.Structs.GameTime.TickF(Single, Boolean)
+  name.vb: TickF(Single, Boolean)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Structs.GameTime.TickF(System.Single,System.Boolean)
+    name: TickF
+    href: ShapeEngine.Core.Structs.GameTime.html#ShapeEngine_Core_Structs_GameTime_TickF_System_Single_System_Boolean_
+  - name: (
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: bool
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Structs.GameTime.TickF(System.Single,System.Boolean)
+    name: TickF
+    href: ShapeEngine.Core.Structs.GameTime.html#ShapeEngine_Core_Structs_GameTime_TickF_System_Single_System_Boolean_
+  - name: (
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Boolean
+    name: Boolean
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.boolean
+  - name: )
 - uid: System.Int32
   commentId: T:System.Int32
   parent: System
@@ -1090,6 +1663,23 @@ references:
   nameWithType.vb: Integer
   fullName.vb: Integer
   name.vb: Integer
+- uid: ShapeEngine.Core.Structs.GameTime.ElapsedSeconds
+  commentId: F:ShapeEngine.Core.Structs.GameTime.ElapsedSeconds
+  href: ShapeEngine.Core.Structs.GameTime.html#ShapeEngine_Core_Structs_GameTime_ElapsedSeconds
+  name: ElapsedSeconds
+  nameWithType: GameTime.ElapsedSeconds
+  fullName: ShapeEngine.Core.Structs.GameTime.ElapsedSeconds
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
 - uid: ShapeEngine.Core.Structs.GameTime.#ctor*
   commentId: Overload:ShapeEngine.Core.Structs.GameTime.#ctor
   href: ShapeEngine.Core.Structs.GameTime.html#ShapeEngine_Core_Structs_GameTime__ctor
@@ -1101,7 +1691,7 @@ references:
   name.vb: New
 - uid: ShapeEngine.Core.Structs.GameTime.Tick*
   commentId: Overload:ShapeEngine.Core.Structs.GameTime.Tick
-  href: ShapeEngine.Core.Structs.GameTime.html#ShapeEngine_Core_Structs_GameTime_Tick_System_Double_
+  href: ShapeEngine.Core.Structs.GameTime.html#ShapeEngine_Core_Structs_GameTime_Tick_System_Double_System_Boolean_
   name: Tick
   nameWithType: GameTime.Tick
   fullName: ShapeEngine.Core.Structs.GameTime.Tick
@@ -1114,7 +1704,7 @@ references:
   fullName: ShapeEngine.Core.Structs.GameTime
 - uid: ShapeEngine.Core.Structs.GameTime.TickF*
   commentId: Overload:ShapeEngine.Core.Structs.GameTime.TickF
-  href: ShapeEngine.Core.Structs.GameTime.html#ShapeEngine_Core_Structs_GameTime_TickF_System_Single_
+  href: ShapeEngine.Core.Structs.GameTime.html#ShapeEngine_Core_Structs_GameTime_TickF_System_Single_System_Boolean_
   name: TickF
   nameWithType: GameTime.TickF
   fullName: ShapeEngine.Core.Structs.GameTime.TickF
@@ -1171,6 +1761,24 @@ references:
   name: Delta
   nameWithType: GameTime.Delta
   fullName: ShapeEngine.Core.Structs.GameTime.Delta
+- uid: ShapeEngine.Core.Structs.GameTime.DeltaDouble
+  commentId: P:ShapeEngine.Core.Structs.GameTime.DeltaDouble
+  href: ShapeEngine.Core.Structs.GameTime.html#ShapeEngine_Core_Structs_GameTime_DeltaDouble
+  name: DeltaDouble
+  nameWithType: GameTime.DeltaDouble
+  fullName: ShapeEngine.Core.Structs.GameTime.DeltaDouble
+- uid: ShapeEngine.Core.Structs.GameTime.Delta
+  commentId: P:ShapeEngine.Core.Structs.GameTime.Delta
+  href: ShapeEngine.Core.Structs.GameTime.html#ShapeEngine_Core_Structs_GameTime_Delta
+  name: Delta
+  nameWithType: GameTime.Delta
+  fullName: ShapeEngine.Core.Structs.GameTime.Delta
+- uid: ShapeEngine.Core.Structs.GameTime.DeltaDouble*
+  commentId: Overload:ShapeEngine.Core.Structs.GameTime.DeltaDouble
+  href: ShapeEngine.Core.Structs.GameTime.html#ShapeEngine_Core_Structs_GameTime_DeltaDouble
+  name: DeltaDouble
+  nameWithType: GameTime.DeltaDouble
+  fullName: ShapeEngine.Core.Structs.GameTime.DeltaDouble
 - uid: ShapeEngine.Core.Structs.GameTime.Fps*
   commentId: Overload:ShapeEngine.Core.Structs.GameTime.Fps
   href: ShapeEngine.Core.Structs.GameTime.html#ShapeEngine_Core_Structs_GameTime_Fps

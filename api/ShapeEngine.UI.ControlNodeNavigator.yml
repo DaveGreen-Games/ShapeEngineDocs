@@ -12,6 +12,9 @@ items:
   - ShapeEngine.UI.ControlNodeNavigator.ControlNodeWasRemoved(ShapeEngine.UI.ControlNode)
   - ShapeEngine.UI.ControlNodeNavigator.EndNavigation
   - ShapeEngine.UI.ControlNodeNavigator.IsNavigating
+  - ShapeEngine.UI.ControlNodeNavigator.NavigationRepeatDelay
+  - ShapeEngine.UI.ControlNodeNavigator.NavigationRepeatEnabled
+  - ShapeEngine.UI.ControlNodeNavigator.NavigationRepeatInterval
   - ShapeEngine.UI.ControlNodeNavigator.NavigationWasEnded
   - ShapeEngine.UI.ControlNodeNavigator.NavigationWasStarted
   - ShapeEngine.UI.ControlNodeNavigator.OnControlNodeAdded
@@ -27,6 +30,7 @@ items:
   - ShapeEngine.UI.ControlNodeNavigator.SelectedNode
   - ShapeEngine.UI.ControlNodeNavigator.StartNavigation
   - ShapeEngine.UI.ControlNodeNavigator.Update
+  - ShapeEngine.UI.ControlNodeNavigator.Update(System.Single)
   - ShapeEngine.UI.ControlNodeNavigator.WasNavigated(ShapeEngine.Core.Structs.Direction)
   langs:
   - csharp
@@ -42,10 +46,13 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ControlNodeNavigator
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
-    startLine: 6
+    startLine: 12
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
+  summary: Provides navigation and selection logic for a set of <xref href="ShapeEngine.UI.ControlNode" data-throw-if-not-resolved="false"></xref> instances, supporting keyboard/gamepad navigation and selection events.
+  remarks: ControlNodeNavigator manages a set of control nodes, tracks the currently selected node, and handles navigation events and selection changes.
+  example: []
   syntax:
     content: public class ControlNodeNavigator
     content.vb: Public Class ControlNodeNavigator
@@ -59,6 +66,10 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
 - uid: ShapeEngine.UI.ControlNodeNavigator.OnNavigationStarted
   commentId: E:ShapeEngine.UI.ControlNodeNavigator.OnNavigationStarted
   id: OnNavigationStarted
@@ -77,10 +88,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnNavigationStarted
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
-    startLine: 9
+    startLine: 18
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
+  summary: Occurs when navigation starts.
+  example: []
   syntax:
     content: public event Action<ControlNodeNavigator>? OnNavigationStarted
     return:
@@ -104,10 +117,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnNavigationEnded
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
-    startLine: 10
+    startLine: 22
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
+  summary: Occurs when navigation ends.
+  example: []
   syntax:
     content: public event Action<ControlNodeNavigator>? OnNavigationEnded
     return:
@@ -131,10 +146,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnControlNodeAdded
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
-    startLine: 11
+    startLine: 26
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
+  summary: Occurs when a control node is added to the navigator.
+  example: []
   syntax:
     content: public event Action<ControlNodeNavigator, ControlNode>? OnControlNodeAdded
     return:
@@ -158,10 +175,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnControlNodeRemoved
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
-    startLine: 12
+    startLine: 30
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
+  summary: Occurs when a control node is removed from the navigator.
+  example: []
   syntax:
     content: public event Action<ControlNodeNavigator, ControlNode>? OnControlNodeRemoved
     return:
@@ -185,10 +204,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnSelectedControlNodeChanged
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
-    startLine: 13
+    startLine: 34
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
+  summary: Occurs when the selected control node changes.
+  example: []
   syntax:
     content: public event Action<ControlNodeNavigator, ControlNode?, ControlNode?>? OnSelectedControlNodeChanged
     return:
@@ -212,15 +233,110 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnNavigated
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
-    startLine: 14
+    startLine: 38
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
+  summary: Occurs when navigation happens in a direction.
+  example: []
   syntax:
     content: public event Action<ControlNodeNavigator, Direction>? OnNavigated
     return:
       type: System.Action{ShapeEngine.UI.ControlNodeNavigator,ShapeEngine.Core.Structs.Direction}
     content.vb: Public Event OnNavigated As Action(Of ControlNodeNavigator, Direction)
+- uid: ShapeEngine.UI.ControlNodeNavigator.NavigationRepeatEnabled
+  commentId: P:ShapeEngine.UI.ControlNodeNavigator.NavigationRepeatEnabled
+  id: NavigationRepeatEnabled
+  parent: ShapeEngine.UI.ControlNodeNavigator
+  langs:
+  - csharp
+  - vb
+  name: NavigationRepeatEnabled
+  nameWithType: ControlNodeNavigator.NavigationRepeatEnabled
+  fullName: ShapeEngine.UI.ControlNodeNavigator.NavigationRepeatEnabled
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/UI/ControlNodeNavigator.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: NavigationRepeatEnabled
+    path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
+    startLine: 58
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.UI
+  summary: Gets or sets whether navigation repeat is enabled.
+  example: []
+  syntax:
+    content: public bool NavigationRepeatEnabled { get; set; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property NavigationRepeatEnabled As Boolean
+  overload: ShapeEngine.UI.ControlNodeNavigator.NavigationRepeatEnabled*
+- uid: ShapeEngine.UI.ControlNodeNavigator.NavigationRepeatDelay
+  commentId: P:ShapeEngine.UI.ControlNodeNavigator.NavigationRepeatDelay
+  id: NavigationRepeatDelay
+  parent: ShapeEngine.UI.ControlNodeNavigator
+  langs:
+  - csharp
+  - vb
+  name: NavigationRepeatDelay
+  nameWithType: ControlNodeNavigator.NavigationRepeatDelay
+  fullName: ShapeEngine.UI.ControlNodeNavigator.NavigationRepeatDelay
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/UI/ControlNodeNavigator.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: NavigationRepeatDelay
+    path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
+    startLine: 63
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.UI
+  summary: Gets or sets the delay before navigation starts repeating when a direction is held.
+  example: []
+  syntax:
+    content: public float NavigationRepeatDelay { get; set; }
+    parameters: []
+    return:
+      type: System.Single
+    content.vb: Public Property NavigationRepeatDelay As Single
+  overload: ShapeEngine.UI.ControlNodeNavigator.NavigationRepeatDelay*
+- uid: ShapeEngine.UI.ControlNodeNavigator.NavigationRepeatInterval
+  commentId: P:ShapeEngine.UI.ControlNodeNavigator.NavigationRepeatInterval
+  id: NavigationRepeatInterval
+  parent: ShapeEngine.UI.ControlNodeNavigator
+  langs:
+  - csharp
+  - vb
+  name: NavigationRepeatInterval
+  nameWithType: ControlNodeNavigator.NavigationRepeatInterval
+  fullName: ShapeEngine.UI.ControlNodeNavigator.NavigationRepeatInterval
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/UI/ControlNodeNavigator.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: NavigationRepeatInterval
+    path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
+    startLine: 68
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.UI
+  summary: Gets or sets the interval between navigation repeats when a direction is held.
+  example: []
+  syntax:
+    content: public float NavigationRepeatInterval { get; set; }
+    parameters: []
+    return:
+      type: System.Single
+    content.vb: Public Property NavigationRepeatInterval As Single
+  overload: ShapeEngine.UI.ControlNodeNavigator.NavigationRepeatInterval*
 - uid: ShapeEngine.UI.ControlNodeNavigator.SelectedNode
   commentId: P:ShapeEngine.UI.ControlNodeNavigator.SelectedNode
   id: SelectedNode
@@ -239,10 +355,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SelectedNode
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
-    startLine: 28
+    startLine: 73
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
+  summary: Gets the currently selected control node.
+  example: []
   syntax:
     content: public ControlNode? SelectedNode { get; }
     parameters: []
@@ -268,10 +386,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: IsNavigating
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
-    startLine: 39
+    startLine: 95
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
+  summary: Gets whether navigation is currently active.
+  example: []
   syntax:
     content: public bool IsNavigating { get; }
     parameters: []
@@ -297,10 +417,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: StartNavigation
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
-    startLine: 44
+    startLine: 103
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
+  summary: Starts navigation mode, enabling selection and navigation of control nodes.
+  example: []
   syntax:
     content: public void StartNavigation()
     content.vb: Public Sub StartNavigation()
@@ -323,10 +445,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: EndNavigation
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
-    startLine: 51
+    startLine: 114
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
+  summary: Ends navigation mode, disabling selection and navigation of control nodes.
+  example: []
   syntax:
     content: public void EndNavigation()
     content.vb: Public Sub EndNavigation()
@@ -349,10 +473,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Clear
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
-    startLine: 59
+    startLine: 125
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
+  summary: Removes all control nodes from the navigator.
+  example: []
   syntax:
     content: public void Clear()
     content.vb: Public Sub Clear()
@@ -375,17 +501,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AddNode
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
-    startLine: 67
+    startLine: 139
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
+  summary: Adds a control node to the navigator.
+  example: []
   syntax:
     content: public bool AddNode(ControlNode node)
     parameters:
     - id: node
       type: ShapeEngine.UI.ControlNode
+      description: The control node to add.
     return:
       type: System.Boolean
+      description: True if the node was added; otherwise, false.
     content.vb: Public Function AddNode(node As ControlNode) As Boolean
   overload: ShapeEngine.UI.ControlNodeNavigator.AddNode*
 - uid: ShapeEngine.UI.ControlNodeNavigator.RemoveNode(ShapeEngine.UI.ControlNode)
@@ -406,17 +536,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RemoveNode
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
-    startLine: 74
+    startLine: 152
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
+  summary: Removes a control node from the navigator.
+  example: []
   syntax:
     content: public bool RemoveNode(ControlNode node)
     parameters:
     - id: node
       type: ShapeEngine.UI.ControlNode
+      description: The control node to remove.
     return:
       type: System.Boolean
+      description: True if the node was removed; otherwise, false.
     content.vb: Public Function RemoveNode(node As ControlNode) As Boolean
   overload: ShapeEngine.UI.ControlNodeNavigator.RemoveNode*
 - uid: ShapeEngine.UI.ControlNodeNavigator.SelectNext(ShapeEngine.Core.Structs.Grid)
@@ -437,15 +571,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SelectNext
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
-    startLine: 86
+    startLine: 168
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
+  summary: Selects the next control node in the navigation order, using the provided grid.
+  example: []
   syntax:
     content: public void SelectNext(Grid grid)
     parameters:
     - id: grid
       type: ShapeEngine.Core.Structs.Grid
+      description: The grid describing navigation layout and direction.
     content.vb: Public Sub SelectNext(grid As Grid)
   overload: ShapeEngine.UI.ControlNodeNavigator.SelectNext*
 - uid: ShapeEngine.UI.ControlNodeNavigator.SelectPrevious(ShapeEngine.Core.Structs.Grid)
@@ -466,15 +603,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SelectPrevious
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
-    startLine: 101
+    startLine: 187
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
+  summary: Selects the previous control node in the navigation order, using the provided grid.
+  example: []
   syntax:
     content: public void SelectPrevious(Grid grid)
     parameters:
     - id: grid
       type: ShapeEngine.Core.Structs.Grid
+      description: The grid describing navigation layout and direction.
     content.vb: Public Sub SelectPrevious(grid As Grid)
   overload: ShapeEngine.UI.ControlNodeNavigator.SelectPrevious*
 - uid: ShapeEngine.UI.ControlNodeNavigator.Update
@@ -495,14 +635,54 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Update
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
-    startLine: 116
+    startLine: 207
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
+  summary: Updates the navigation state, handling pending navigation and selection changes.
+  remarks: >-
+    This function is deprecated and will be removed in a future update!
+       Use <xref href="ShapeEngine.UI.ControlNodeNavigator.Update(System.Single)" data-throw-if-not-resolved="false"></xref> instead.
+  example: []
   syntax:
     content: public void Update()
     content.vb: Public Sub Update()
   overload: ShapeEngine.UI.ControlNodeNavigator.Update*
+- uid: ShapeEngine.UI.ControlNodeNavigator.Update(System.Single)
+  commentId: M:ShapeEngine.UI.ControlNodeNavigator.Update(System.Single)
+  id: Update(System.Single)
+  parent: ShapeEngine.UI.ControlNodeNavigator
+  langs:
+  - csharp
+  - vb
+  name: Update(float)
+  nameWithType: ControlNodeNavigator.Update(float)
+  fullName: ShapeEngine.UI.ControlNodeNavigator.Update(float)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/UI/ControlNodeNavigator.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Update
+    path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
+    startLine: 213
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.UI
+  summary: Updates the navigation state, handling pending navigation and selection changes.
+  example: []
+  syntax:
+    content: public void Update(float dt)
+    parameters:
+    - id: dt
+      type: System.Single
+      description: The delta time since the last update.
+    content.vb: Public Sub Update(dt As Single)
+  overload: ShapeEngine.UI.ControlNodeNavigator.Update*
+  nameWithType.vb: ControlNodeNavigator.Update(Single)
+  fullName.vb: ShapeEngine.UI.ControlNodeNavigator.Update(Single)
+  name.vb: Update(Single)
 - uid: ShapeEngine.UI.ControlNodeNavigator.CheckNextNode(ShapeEngine.UI.ControlNode,ShapeEngine.Core.Structs.Direction)
   commentId: M:ShapeEngine.UI.ControlNodeNavigator.CheckNextNode(ShapeEngine.UI.ControlNode,ShapeEngine.Core.Structs.Direction)
   id: CheckNextNode(ShapeEngine.UI.ControlNode,ShapeEngine.Core.Structs.Direction)
@@ -521,19 +701,25 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: CheckNextNode
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
-    startLine: 358
+    startLine: 625
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
+  summary: Determines whether the next node can be navigated to in the given direction.
+  remarks: Override this method to implement custom logic.
+  example: []
   syntax:
     content: protected virtual bool CheckNextNode(ControlNode nextNode, Direction dir)
     parameters:
     - id: nextNode
       type: ShapeEngine.UI.ControlNode
+      description: The next <xref href="ShapeEngine.UI.ControlNode" data-throw-if-not-resolved="false"></xref> to navigate to.
     - id: dir
       type: ShapeEngine.Core.Structs.Direction
+      description: The navigation <xref href="ShapeEngine.Core.Structs.Direction" data-throw-if-not-resolved="false"></xref>.
     return:
       type: System.Boolean
+      description: True if navigation is allowed; otherwise, false.
     content.vb: Protected Overridable Function CheckNextNode(nextNode As ControlNode, dir As Direction) As Boolean
   overload: ShapeEngine.UI.ControlNodeNavigator.CheckNextNode*
 - uid: ShapeEngine.UI.ControlNodeNavigator.WasNavigated(ShapeEngine.Core.Structs.Direction)
@@ -554,15 +740,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: WasNavigated
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
-    startLine: 359
+    startLine: 634
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
+  summary: Called after navigation occurs in a given direction.
+  remarks: Override this method to implement custom logic.
+  example: []
   syntax:
     content: protected virtual void WasNavigated(Direction dir)
     parameters:
     - id: dir
       type: ShapeEngine.Core.Structs.Direction
+      description: The navigation <xref href="ShapeEngine.Core.Structs.Direction" data-throw-if-not-resolved="false"></xref>.
     content.vb: Protected Overridable Sub WasNavigated(dir As Direction)
   overload: ShapeEngine.UI.ControlNodeNavigator.WasNavigated*
 - uid: ShapeEngine.UI.ControlNodeNavigator.NavigationWasStarted
@@ -583,10 +773,13 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: NavigationWasStarted
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
-    startLine: 360
+    startLine: 642
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
+  summary: Called when navigation mode is started.
+  remarks: Override this method to implement custom logic.
+  example: []
   syntax:
     content: protected virtual void NavigationWasStarted()
     content.vb: Protected Overridable Sub NavigationWasStarted()
@@ -609,10 +802,13 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: NavigationWasEnded
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
-    startLine: 361
+    startLine: 650
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
+  summary: Called when navigation mode is ended.
+  remarks: Override this method to implement custom logic.
+  example: []
   syntax:
     content: protected virtual void NavigationWasEnded()
     content.vb: Protected Overridable Sub NavigationWasEnded()
@@ -635,15 +831,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ControlNodeWasAdded
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
-    startLine: 362
+    startLine: 659
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
+  summary: Called when a control node is added to the navigator.
+  remarks: Override this method to implement custom logic.
+  example: []
   syntax:
     content: protected virtual void ControlNodeWasAdded(ControlNode node)
     parameters:
     - id: node
       type: ShapeEngine.UI.ControlNode
+      description: The <xref href="ShapeEngine.UI.ControlNode" data-throw-if-not-resolved="false"></xref> that was added.
     content.vb: Protected Overridable Sub ControlNodeWasAdded(node As ControlNode)
   overload: ShapeEngine.UI.ControlNodeNavigator.ControlNodeWasAdded*
 - uid: ShapeEngine.UI.ControlNodeNavigator.ControlNodeWasRemoved(ShapeEngine.UI.ControlNode)
@@ -664,15 +864,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ControlNodeWasRemoved
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
-    startLine: 363
+    startLine: 668
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
+  summary: Called when a control node is removed from the navigator.
+  remarks: Override this method to implement custom logic.
+  example: []
   syntax:
     content: protected virtual void ControlNodeWasRemoved(ControlNode node)
     parameters:
     - id: node
       type: ShapeEngine.UI.ControlNode
+      description: The <xref href="ShapeEngine.UI.ControlNode" data-throw-if-not-resolved="false"></xref> that was removed.
     content.vb: Protected Overridable Sub ControlNodeWasRemoved(node As ControlNode)
   overload: ShapeEngine.UI.ControlNodeNavigator.ControlNodeWasRemoved*
 - uid: ShapeEngine.UI.ControlNodeNavigator.SelectedControlNodeWasChanged(ShapeEngine.UI.ControlNode,ShapeEngine.UI.ControlNode)
@@ -693,23 +897,35 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SelectedControlNodeWasChanged
     path: ../ShapeEngine/ShapeEngine/UI/ControlNodeNavigator.cs
-    startLine: 364
+    startLine: 678
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.UI
+  summary: Called when the selected control node changes.
+  remarks: Override this method to implement custom logic.
+  example: []
   syntax:
     content: protected virtual void SelectedControlNodeWasChanged(ControlNode? prev, ControlNode? cur)
     parameters:
     - id: prev
       type: ShapeEngine.UI.ControlNode
+      description: The previously selected <xref href="ShapeEngine.UI.ControlNode" data-throw-if-not-resolved="false"></xref>.
     - id: cur
       type: ShapeEngine.UI.ControlNode
+      description: The currently selected <xref href="ShapeEngine.UI.ControlNode" data-throw-if-not-resolved="false"></xref>.
     content.vb: Protected Overridable Sub SelectedControlNodeWasChanged(prev As ControlNode, cur As ControlNode)
   overload: ShapeEngine.UI.ControlNodeNavigator.SelectedControlNodeWasChanged*
   nameWithType.vb: ControlNodeNavigator.SelectedControlNodeWasChanged(ControlNode, ControlNode)
   fullName.vb: ShapeEngine.UI.ControlNodeNavigator.SelectedControlNodeWasChanged(ShapeEngine.UI.ControlNode, ShapeEngine.UI.ControlNode)
   name.vb: SelectedControlNodeWasChanged(ControlNode, ControlNode)
 references:
+- uid: ShapeEngine.UI.ControlNode
+  commentId: T:ShapeEngine.UI.ControlNode
+  parent: ShapeEngine.UI
+  href: ShapeEngine.UI.ControlNode.html
+  name: ControlNode
+  nameWithType: ControlNode
+  fullName: ShapeEngine.UI.ControlNode
 - uid: ShapeEngine.UI
   commentId: N:ShapeEngine.UI
   href: ShapeEngine.html
@@ -962,6 +1178,165 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -969,6 +1344,191 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
+  href: ShapeEngine.html
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
 - uid: System.Action{ShapeEngine.UI.ControlNodeNavigator}
   commentId: T:System.Action{ShapeEngine.UI.ControlNodeNavigator}
   parent: System
@@ -1243,25 +1803,12 @@ references:
     name: Direction
     href: ShapeEngine.Core.Structs.Direction.html
   - name: )
-- uid: ShapeEngine.UI.ControlNodeNavigator.SelectedNode*
-  commentId: Overload:ShapeEngine.UI.ControlNodeNavigator.SelectedNode
-  href: ShapeEngine.UI.ControlNodeNavigator.html#ShapeEngine_UI_ControlNodeNavigator_SelectedNode
-  name: SelectedNode
-  nameWithType: ControlNodeNavigator.SelectedNode
-  fullName: ShapeEngine.UI.ControlNodeNavigator.SelectedNode
-- uid: ShapeEngine.UI.ControlNode
-  commentId: T:ShapeEngine.UI.ControlNode
-  parent: ShapeEngine.UI
-  href: ShapeEngine.UI.ControlNode.html
-  name: ControlNode
-  nameWithType: ControlNode
-  fullName: ShapeEngine.UI.ControlNode
-- uid: ShapeEngine.UI.ControlNodeNavigator.IsNavigating*
-  commentId: Overload:ShapeEngine.UI.ControlNodeNavigator.IsNavigating
-  href: ShapeEngine.UI.ControlNodeNavigator.html#ShapeEngine_UI_ControlNodeNavigator_IsNavigating
-  name: IsNavigating
-  nameWithType: ControlNodeNavigator.IsNavigating
-  fullName: ShapeEngine.UI.ControlNodeNavigator.IsNavigating
+- uid: ShapeEngine.UI.ControlNodeNavigator.NavigationRepeatEnabled*
+  commentId: Overload:ShapeEngine.UI.ControlNodeNavigator.NavigationRepeatEnabled
+  href: ShapeEngine.UI.ControlNodeNavigator.html#ShapeEngine_UI_ControlNodeNavigator_NavigationRepeatEnabled
+  name: NavigationRepeatEnabled
+  nameWithType: ControlNodeNavigator.NavigationRepeatEnabled
+  fullName: ShapeEngine.UI.ControlNodeNavigator.NavigationRepeatEnabled
 - uid: System.Boolean
   commentId: T:System.Boolean
   parent: System
@@ -1273,6 +1820,41 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
+- uid: ShapeEngine.UI.ControlNodeNavigator.NavigationRepeatDelay*
+  commentId: Overload:ShapeEngine.UI.ControlNodeNavigator.NavigationRepeatDelay
+  href: ShapeEngine.UI.ControlNodeNavigator.html#ShapeEngine_UI_ControlNodeNavigator_NavigationRepeatDelay
+  name: NavigationRepeatDelay
+  nameWithType: ControlNodeNavigator.NavigationRepeatDelay
+  fullName: ShapeEngine.UI.ControlNodeNavigator.NavigationRepeatDelay
+- uid: System.Single
+  commentId: T:System.Single
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.single
+  name: float
+  nameWithType: float
+  fullName: float
+  nameWithType.vb: Single
+  fullName.vb: Single
+  name.vb: Single
+- uid: ShapeEngine.UI.ControlNodeNavigator.NavigationRepeatInterval*
+  commentId: Overload:ShapeEngine.UI.ControlNodeNavigator.NavigationRepeatInterval
+  href: ShapeEngine.UI.ControlNodeNavigator.html#ShapeEngine_UI_ControlNodeNavigator_NavigationRepeatInterval
+  name: NavigationRepeatInterval
+  nameWithType: ControlNodeNavigator.NavigationRepeatInterval
+  fullName: ShapeEngine.UI.ControlNodeNavigator.NavigationRepeatInterval
+- uid: ShapeEngine.UI.ControlNodeNavigator.SelectedNode*
+  commentId: Overload:ShapeEngine.UI.ControlNodeNavigator.SelectedNode
+  href: ShapeEngine.UI.ControlNodeNavigator.html#ShapeEngine_UI_ControlNodeNavigator_SelectedNode
+  name: SelectedNode
+  nameWithType: ControlNodeNavigator.SelectedNode
+  fullName: ShapeEngine.UI.ControlNodeNavigator.SelectedNode
+- uid: ShapeEngine.UI.ControlNodeNavigator.IsNavigating*
+  commentId: Overload:ShapeEngine.UI.ControlNodeNavigator.IsNavigating
+  href: ShapeEngine.UI.ControlNodeNavigator.html#ShapeEngine_UI_ControlNodeNavigator_IsNavigating
+  name: IsNavigating
+  nameWithType: ControlNodeNavigator.IsNavigating
+  fullName: ShapeEngine.UI.ControlNodeNavigator.IsNavigating
 - uid: ShapeEngine.UI.ControlNodeNavigator.StartNavigation*
   commentId: Overload:ShapeEngine.UI.ControlNodeNavigator.StartNavigation
   href: ShapeEngine.UI.ControlNodeNavigator.html#ShapeEngine_UI_ControlNodeNavigator_StartNavigation
@@ -1352,18 +1934,42 @@ references:
   name: SelectPrevious
   nameWithType: ControlNodeNavigator.SelectPrevious
   fullName: ShapeEngine.UI.ControlNodeNavigator.SelectPrevious
+- uid: ShapeEngine.UI.ControlNodeNavigator.Update(System.Single)
+  commentId: M:ShapeEngine.UI.ControlNodeNavigator.Update(System.Single)
+  isExternal: true
+  href: ShapeEngine.UI.ControlNodeNavigator.html#ShapeEngine_UI_ControlNodeNavigator_Update_System_Single_
+  name: Update(float)
+  nameWithType: ControlNodeNavigator.Update(float)
+  fullName: ShapeEngine.UI.ControlNodeNavigator.Update(float)
+  nameWithType.vb: ControlNodeNavigator.Update(Single)
+  fullName.vb: ShapeEngine.UI.ControlNodeNavigator.Update(Single)
+  name.vb: Update(Single)
+  spec.csharp:
+  - uid: ShapeEngine.UI.ControlNodeNavigator.Update(System.Single)
+    name: Update
+    href: ShapeEngine.UI.ControlNodeNavigator.html#ShapeEngine_UI_ControlNodeNavigator_Update_System_Single_
+  - name: (
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.UI.ControlNodeNavigator.Update(System.Single)
+    name: Update
+    href: ShapeEngine.UI.ControlNodeNavigator.html#ShapeEngine_UI_ControlNodeNavigator_Update_System_Single_
+  - name: (
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: )
 - uid: ShapeEngine.UI.ControlNodeNavigator.Update*
   commentId: Overload:ShapeEngine.UI.ControlNodeNavigator.Update
   href: ShapeEngine.UI.ControlNodeNavigator.html#ShapeEngine_UI_ControlNodeNavigator_Update
   name: Update
   nameWithType: ControlNodeNavigator.Update
   fullName: ShapeEngine.UI.ControlNodeNavigator.Update
-- uid: ShapeEngine.UI.ControlNodeNavigator.CheckNextNode*
-  commentId: Overload:ShapeEngine.UI.ControlNodeNavigator.CheckNextNode
-  href: ShapeEngine.UI.ControlNodeNavigator.html#ShapeEngine_UI_ControlNodeNavigator_CheckNextNode_ShapeEngine_UI_ControlNode_ShapeEngine_Core_Structs_Direction_
-  name: CheckNextNode
-  nameWithType: ControlNodeNavigator.CheckNextNode
-  fullName: ShapeEngine.UI.ControlNodeNavigator.CheckNextNode
 - uid: ShapeEngine.Core.Structs.Direction
   commentId: T:ShapeEngine.Core.Structs.Direction
   parent: ShapeEngine.Core.Structs
@@ -1371,6 +1977,12 @@ references:
   name: Direction
   nameWithType: Direction
   fullName: ShapeEngine.Core.Structs.Direction
+- uid: ShapeEngine.UI.ControlNodeNavigator.CheckNextNode*
+  commentId: Overload:ShapeEngine.UI.ControlNodeNavigator.CheckNextNode
+  href: ShapeEngine.UI.ControlNodeNavigator.html#ShapeEngine_UI_ControlNodeNavigator_CheckNextNode_ShapeEngine_UI_ControlNode_ShapeEngine_Core_Structs_Direction_
+  name: CheckNextNode
+  nameWithType: ControlNodeNavigator.CheckNextNode
+  fullName: ShapeEngine.UI.ControlNodeNavigator.CheckNextNode
 - uid: ShapeEngine.UI.ControlNodeNavigator.WasNavigated*
   commentId: Overload:ShapeEngine.UI.ControlNodeNavigator.WasNavigated
   href: ShapeEngine.UI.ControlNodeNavigator.html#ShapeEngine_UI_ControlNodeNavigator_WasNavigated_ShapeEngine_Core_Structs_Direction_

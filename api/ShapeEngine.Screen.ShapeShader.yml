@@ -34,10 +34,13 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ShapeShader
     path: ../ShapeEngine/ShapeEngine/Screen/ShapeShader.cs
-    startLine: 7
+    startLine: 13
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Represents a shader used for rendering shapes, with support for enabling/disabling, ordering, and value setting.
+  remarks: This class wraps a Raylib <xref href="ShapeEngine.Screen.ShapeShader.Shader" data-throw-if-not-resolved="false"></xref> and provides utility methods for setting shader values and managing shader state.
+  example: []
   syntax:
     content: public class ShapeShader
     content.vb: Public Class ShapeShader
@@ -51,6 +54,10 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
 - uid: ShapeEngine.Screen.ShapeShader.Shader
   commentId: P:ShapeEngine.Screen.ShapeShader.Shader
   id: Shader
@@ -69,10 +76,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Shader
     path: ../ShapeEngine/ShapeEngine/Screen/ShapeShader.cs
-    startLine: 9
+    startLine: 18
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Gets the underlying Raylib shader.
+  example: []
   syntax:
     content: public Shader Shader { get; }
     parameters: []
@@ -98,10 +107,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Enabled
     path: ../ShapeEngine/ShapeEngine/Screen/ShapeShader.cs
-    startLine: 10
+    startLine: 22
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Gets or sets whether the shader is enabled for rendering.
+  example: []
   syntax:
     content: public bool Enabled { get; set; }
     parameters: []
@@ -127,10 +138,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ID
     path: ../ShapeEngine/ShapeEngine/Screen/ShapeShader.cs
-    startLine: 11
+    startLine: 26
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Gets the unique identifier for this shader instance.
+  example: []
   syntax:
     content: public uint ID { get; }
     parameters: []
@@ -156,10 +169,15 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Order
     path: ../ShapeEngine/ShapeEngine/Screen/ShapeShader.cs
-    startLine: 12
+    startLine: 31
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: >-
+    Gets or sets the order in which this shader is applied relative to others.
+
+    Lower values are applied first; higher values are applied later.
+  example: []
   syntax:
     content: public int Order { get; set; }
     parameters: []
@@ -185,10 +203,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Loaded
     path: ../ShapeEngine/ShapeEngine/Screen/ShapeShader.cs
-    startLine: 13
+    startLine: 35
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Gets whether the shader is currently loaded.
+  example: []
   syntax:
     content: public bool Loaded { get; }
     parameters: []
@@ -214,19 +234,27 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Screen/ShapeShader.cs
-    startLine: 15
+    startLine: 46
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Screen.ShapeShader" data-throw-if-not-resolved="false"></xref> class with a new unique ID.
+  example: []
   syntax:
     content: public ShapeShader(Shader shader, bool enabled = true, int order = 0)
     parameters:
     - id: shader
       type: Raylib_cs.Shader
+      description: The Raylib shader to wrap.
     - id: enabled
       type: System.Boolean
+      description: Whether the shader is enabled.
     - id: order
       type: System.Int32
+      description: >-
+        The order in which the shader is applied.
+
+        Lower values are applied first; higher values are applied later.
     content.vb: Public Sub New(shader As Shader, enabled As Boolean = True, order As Integer = 0)
   overload: ShapeEngine.Screen.ShapeShader.#ctor*
   nameWithType.vb: ShapeShader.New(Shader, Boolean, Integer)
@@ -250,21 +278,30 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Screen/ShapeShader.cs
-    startLine: 23
+    startLine: 64
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Screen.ShapeShader" data-throw-if-not-resolved="false"></xref> class with a specified ID.
+  example: []
   syntax:
     content: public ShapeShader(Shader shader, uint id, bool enabled = true, int order = 0)
     parameters:
     - id: shader
       type: Raylib_cs.Shader
+      description: The Raylib shader to wrap.
     - id: id
       type: System.UInt32
+      description: The unique ID to assign to this shader.
     - id: enabled
       type: System.Boolean
+      description: Whether the shader is enabled.
     - id: order
       type: System.Int32
+      description: >-
+        The order in which the shader is applied.
+
+        Lower values are applied first; higher values are applied later.
     content.vb: Public Sub New(shader As Shader, id As UInteger, enabled As Boolean = True, order As Integer = 0)
   overload: ShapeEngine.Screen.ShapeShader.#ctor*
   nameWithType.vb: ShapeShader.New(Shader, UInteger, Boolean, Integer)
@@ -288,14 +325,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Unload
     path: ../ShapeEngine/ShapeEngine/Screen/ShapeShader.cs
-    startLine: 31
+    startLine: 76
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Unloads the shader from memory.
+  example: []
   syntax:
     content: public bool Unload()
     return:
       type: System.Boolean
+      description: True if the shader was unloaded; otherwise, false.
     content.vb: Public Function Unload() As Boolean
   overload: ShapeEngine.Screen.ShapeShader.Unload*
 - uid: ShapeEngine.Screen.ShapeShader.SetValueFloat(Raylib_cs.Shader,System.String,System.Single)
@@ -316,19 +356,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SetValueFloat
     path: ../ShapeEngine/ShapeEngine/Screen/ShapeShader.cs
-    startLine: 39
+    startLine: 90
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Sets a float value for a shader property.
+  example: []
   syntax:
     content: public static void SetValueFloat(Shader shader, string propertyName, float value)
     parameters:
     - id: shader
       type: Raylib_cs.Shader
+      description: The shader to set the value on.
     - id: propertyName
       type: System.String
+      description: The name of the property.
     - id: value
       type: System.Single
+      description: The float value to set.
     content.vb: Public Shared Sub SetValueFloat(shader As Shader, propertyName As String, value As Single)
   overload: ShapeEngine.Screen.ShapeShader.SetValueFloat*
   nameWithType.vb: ShapeShader.SetValueFloat(Shader, String, Single)
@@ -352,21 +397,27 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SetValueVec
     path: ../ShapeEngine/ShapeEngine/Screen/ShapeShader.cs
-    startLine: 44
+    startLine: 102
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Sets a vector value for a shader property.
+  example: []
   syntax:
     content: public static void SetValueVec(Shader shader, string propertyName, float[] values, ShaderUniformDataType dataType)
     parameters:
     - id: shader
       type: Raylib_cs.Shader
+      description: The shader to set the value on.
     - id: propertyName
       type: System.String
+      description: The name of the property.
     - id: values
       type: System.Single[]
+      description: The float array representing the vector value.
     - id: dataType
       type: Raylib_cs.ShaderUniformDataType
+      description: The data type of the vector.
     content.vb: Public Shared Sub SetValueVec(shader As Shader, propertyName As String, values As Single(), dataType As ShaderUniformDataType)
   overload: ShapeEngine.Screen.ShapeShader.SetValueVec*
   nameWithType.vb: ShapeShader.SetValueVec(Shader, String, Single(), ShaderUniformDataType)
@@ -390,21 +441,27 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SetValueVector2
     path: ../ShapeEngine/ShapeEngine/Screen/ShapeShader.cs
-    startLine: 49
+    startLine: 114
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Sets a Vector2 value for a shader property using two floats.
+  example: []
   syntax:
     content: public static void SetValueVector2(Shader shader, string propertyName, float v1, float v2)
     parameters:
     - id: shader
       type: Raylib_cs.Shader
+      description: The shader to set the value on.
     - id: propertyName
       type: System.String
+      description: The name of the property.
     - id: v1
       type: System.Single
+      description: The X component.
     - id: v2
       type: System.Single
+      description: The Y component.
     content.vb: Public Shared Sub SetValueVector2(shader As Shader, propertyName As String, v1 As Single, v2 As Single)
   overload: ShapeEngine.Screen.ShapeShader.SetValueVector2*
   nameWithType.vb: ShapeShader.SetValueVector2(Shader, String, Single, Single)
@@ -428,23 +485,30 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SetValueVector3
     path: ../ShapeEngine/ShapeEngine/Screen/ShapeShader.cs
-    startLine: 54
+    startLine: 127
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Sets a Vector3 value for a shader property using three floats.
+  example: []
   syntax:
     content: public static void SetValueVector3(Shader shader, string propertyName, float v1, float v2, float v3)
     parameters:
     - id: shader
       type: Raylib_cs.Shader
+      description: The shader to set the value on.
     - id: propertyName
       type: System.String
+      description: The name of the property.
     - id: v1
       type: System.Single
+      description: The X component.
     - id: v2
       type: System.Single
+      description: The Y component.
     - id: v3
       type: System.Single
+      description: The Z component.
     content.vb: Public Shared Sub SetValueVector3(shader As Shader, propertyName As String, v1 As Single, v2 As Single, v3 As Single)
   overload: ShapeEngine.Screen.ShapeShader.SetValueVector3*
   nameWithType.vb: ShapeShader.SetValueVector3(Shader, String, Single, Single, Single)
@@ -468,25 +532,33 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SetValueVector4
     path: ../ShapeEngine/ShapeEngine/Screen/ShapeShader.cs
-    startLine: 59
+    startLine: 141
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Sets a Vector4 value for a shader property using four floats.
+  example: []
   syntax:
     content: public static void SetValueVector4(Shader shader, string propertyName, float v1, float v2, float v3, float v4)
     parameters:
     - id: shader
       type: Raylib_cs.Shader
+      description: The shader to set the value on.
     - id: propertyName
       type: System.String
+      description: The name of the property.
     - id: v1
       type: System.Single
+      description: The X component.
     - id: v2
       type: System.Single
+      description: The Y component.
     - id: v3
       type: System.Single
+      description: The Z component.
     - id: v4
       type: System.Single
+      description: The W component.
     content.vb: Public Shared Sub SetValueVector4(shader As Shader, propertyName As String, v1 As Single, v2 As Single, v3 As Single, v4 As Single)
   overload: ShapeEngine.Screen.ShapeShader.SetValueVector4*
   nameWithType.vb: ShapeShader.SetValueVector4(Shader, String, Single, Single, Single, Single)
@@ -510,19 +582,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SetValueVector2
     path: ../ShapeEngine/ShapeEngine/Screen/ShapeShader.cs
-    startLine: 64
+    startLine: 152
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Sets a Vector2 value for a shader property using a <xref href="System.Numerics.Vector2" data-throw-if-not-resolved="false"></xref>.
+  example: []
   syntax:
     content: public static void SetValueVector2(Shader shader, string propertyName, Vector2 vec)
     parameters:
     - id: shader
       type: Raylib_cs.Shader
+      description: The shader to set the value on.
     - id: propertyName
       type: System.String
+      description: The name of the property.
     - id: vec
       type: System.Numerics.Vector2
+      description: The <xref href="System.Numerics.Vector2" data-throw-if-not-resolved="false"></xref> value to set.
     content.vb: Public Shared Sub SetValueVector2(shader As Shader, propertyName As String, vec As Vector2)
   overload: ShapeEngine.Screen.ShapeShader.SetValueVector2*
   nameWithType.vb: ShapeShader.SetValueVector2(Shader, String, Vector2)
@@ -546,25 +623,36 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SetValueColor
     path: ../ShapeEngine/ShapeEngine/Screen/ShapeShader.cs
-    startLine: 69
+    startLine: 163
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Sets a color value for a shader property using a <xref href="ShapeEngine.Color.ColorRgba" data-throw-if-not-resolved="false"></xref>.
+  example: []
   syntax:
     content: public static void SetValueColor(Shader shader, string propertyName, ColorRgba colorRgba)
     parameters:
     - id: shader
       type: Raylib_cs.Shader
+      description: The shader to set the value on.
     - id: propertyName
       type: System.String
+      description: The name of the property.
     - id: colorRgba
       type: ShapeEngine.Color.ColorRgba
+      description: The color value to set.
     content.vb: Public Shared Sub SetValueColor(shader As Shader, propertyName As String, colorRgba As ColorRgba)
   overload: ShapeEngine.Screen.ShapeShader.SetValueColor*
   nameWithType.vb: ShapeShader.SetValueColor(Shader, String, ColorRgba)
   fullName.vb: ShapeEngine.Screen.ShapeShader.SetValueColor(Raylib_cs.Shader, String, ShapeEngine.Color.ColorRgba)
   name.vb: SetValueColor(Shader, String, ColorRgba)
 references:
+- uid: ShapeEngine.Screen.ShapeShader.Shader
+  commentId: P:ShapeEngine.Screen.ShapeShader.Shader
+  href: ShapeEngine.Screen.ShapeShader.html#ShapeEngine_Screen_ShapeShader_Shader
+  name: Shader
+  nameWithType: ShapeShader.Shader
+  fullName: ShapeEngine.Screen.ShapeShader.Shader
 - uid: ShapeEngine.Screen
   commentId: N:ShapeEngine.Screen
   href: ShapeEngine.html
@@ -817,6 +905,165 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -824,6 +1071,191 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
+  href: ShapeEngine.html
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
 - uid: ShapeEngine.Screen.ShapeShader.Shader*
   commentId: Overload:ShapeEngine.Screen.ShapeShader.Shader
   href: ShapeEngine.Screen.ShapeShader.html#ShapeEngine_Screen_ShapeShader_Shader
@@ -900,6 +1332,13 @@ references:
   name: Loaded
   nameWithType: ShapeShader.Loaded
   fullName: ShapeEngine.Screen.ShapeShader.Loaded
+- uid: ShapeEngine.Screen.ShapeShader
+  commentId: T:ShapeEngine.Screen.ShapeShader
+  parent: ShapeEngine.Screen
+  href: ShapeEngine.Screen.ShapeShader.html
+  name: ShapeShader
+  nameWithType: ShapeShader
+  fullName: ShapeEngine.Screen.ShapeShader
 - uid: ShapeEngine.Screen.ShapeShader.#ctor*
   commentId: Overload:ShapeEngine.Screen.ShapeShader.#ctor
   href: ShapeEngine.Screen.ShapeShader.html#ShapeEngine_Screen_ShapeShader__ctor_Raylib_cs_Shader_System_Boolean_System_Int32_
@@ -1032,12 +1471,6 @@ references:
     name: Numerics
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.numerics
-- uid: ShapeEngine.Screen.ShapeShader.SetValueColor*
-  commentId: Overload:ShapeEngine.Screen.ShapeShader.SetValueColor
-  href: ShapeEngine.Screen.ShapeShader.html#ShapeEngine_Screen_ShapeShader_SetValueColor_Raylib_cs_Shader_System_String_ShapeEngine_Color_ColorRgba_
-  name: SetValueColor
-  nameWithType: ShapeShader.SetValueColor
-  fullName: ShapeEngine.Screen.ShapeShader.SetValueColor
 - uid: ShapeEngine.Color.ColorRgba
   commentId: T:ShapeEngine.Color.ColorRgba
   parent: ShapeEngine.Color
@@ -1045,6 +1478,12 @@ references:
   name: ColorRgba
   nameWithType: ColorRgba
   fullName: ShapeEngine.Color.ColorRgba
+- uid: ShapeEngine.Screen.ShapeShader.SetValueColor*
+  commentId: Overload:ShapeEngine.Screen.ShapeShader.SetValueColor
+  href: ShapeEngine.Screen.ShapeShader.html#ShapeEngine_Screen_ShapeShader_SetValueColor_Raylib_cs_Shader_System_String_ShapeEngine_Color_ColorRgba_
+  name: SetValueColor
+  nameWithType: ShapeShader.SetValueColor
+  fullName: ShapeEngine.Screen.ShapeShader.SetValueColor
 - uid: ShapeEngine.Color
   commentId: N:ShapeEngine.Color
   href: ShapeEngine.html

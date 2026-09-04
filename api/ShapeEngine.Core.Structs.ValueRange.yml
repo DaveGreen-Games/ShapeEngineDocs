@@ -10,12 +10,22 @@ items:
   - ShapeEngine.Core.Structs.ValueRange.#ctor(System.Numerics.Vector2)
   - ShapeEngine.Core.Structs.ValueRange.#ctor(System.Single)
   - ShapeEngine.Core.Structs.ValueRange.#ctor(System.Single,System.Single)
+  - ShapeEngine.Core.Structs.ValueRange.AbsoluteCenter
+  - ShapeEngine.Core.Structs.ValueRange.Center
   - ShapeEngine.Core.Structs.ValueRange.Clamp(System.Single)
+  - ShapeEngine.Core.Structs.ValueRange.CompareTo(ShapeEngine.Core.Structs.ValueRange)
+  - ShapeEngine.Core.Structs.ValueRange.Equals(ShapeEngine.Core.Structs.ValueRange)
+  - ShapeEngine.Core.Structs.ValueRange.Equals(System.Object)
   - ShapeEngine.Core.Structs.ValueRange.GetFactor(System.Single)
+  - ShapeEngine.Core.Structs.ValueRange.GetHashCode
+  - ShapeEngine.Core.Structs.ValueRange.GetHashKey(System.Int32)
+  - ShapeEngine.Core.Structs.ValueRange.GetHashKeyHex(System.Int32)
+  - ShapeEngine.Core.Structs.ValueRange.GetHashKeyString(System.Int32)
   - ShapeEngine.Core.Structs.ValueRange.HasPositiveRange
   - ShapeEngine.Core.Structs.ValueRange.HasRange
   - ShapeEngine.Core.Structs.ValueRange.Inverse(System.Single)
   - ShapeEngine.Core.Structs.ValueRange.Lerp(System.Single)
+  - ShapeEngine.Core.Structs.ValueRange.LerpInverse(System.Single)
   - ShapeEngine.Core.Structs.ValueRange.Max
   - ShapeEngine.Core.Structs.ValueRange.Min
   - ShapeEngine.Core.Structs.ValueRange.OverlapValueRange(ShapeEngine.Core.Structs.ValueRange)
@@ -28,6 +38,8 @@ items:
   - ShapeEngine.Core.Structs.ValueRange.SetMin(System.Single)
   - ShapeEngine.Core.Structs.ValueRange.ToValueRangeInt
   - ShapeEngine.Core.Structs.ValueRange.ToVector2
+  - ShapeEngine.Core.Structs.ValueRange.TotalRange
+  - ShapeEngine.Core.Structs.ValueRange.UpdateRange(System.Single)
   - ShapeEngine.Core.Structs.ValueRange.op_Addition(ShapeEngine.Core.Structs.ValueRange,ShapeEngine.Core.Structs.ValueRange)
   - ShapeEngine.Core.Structs.ValueRange.op_Addition(ShapeEngine.Core.Structs.ValueRange,ShapeEngine.Core.Structs.ValueRangeInt)
   - ShapeEngine.Core.Structs.ValueRange.op_Addition(ShapeEngine.Core.Structs.ValueRange,System.Int32)
@@ -36,6 +48,8 @@ items:
   - ShapeEngine.Core.Structs.ValueRange.op_Division(ShapeEngine.Core.Structs.ValueRange,ShapeEngine.Core.Structs.ValueRangeInt)
   - ShapeEngine.Core.Structs.ValueRange.op_Division(ShapeEngine.Core.Structs.ValueRange,System.Int32)
   - ShapeEngine.Core.Structs.ValueRange.op_Division(ShapeEngine.Core.Structs.ValueRange,System.Single)
+  - ShapeEngine.Core.Structs.ValueRange.op_Equality(ShapeEngine.Core.Structs.ValueRange,ShapeEngine.Core.Structs.ValueRange)
+  - ShapeEngine.Core.Structs.ValueRange.op_Inequality(ShapeEngine.Core.Structs.ValueRange,ShapeEngine.Core.Structs.ValueRange)
   - ShapeEngine.Core.Structs.ValueRange.op_Multiply(ShapeEngine.Core.Structs.ValueRange,ShapeEngine.Core.Structs.ValueRange)
   - ShapeEngine.Core.Structs.ValueRange.op_Multiply(ShapeEngine.Core.Structs.ValueRange,ShapeEngine.Core.Structs.ValueRangeInt)
   - ShapeEngine.Core.Structs.ValueRange.op_Multiply(ShapeEngine.Core.Structs.ValueRange,System.Int32)
@@ -58,20 +72,28 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ValueRange
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 6
+    startLine: 12
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Represents a range of floating-point values with inclusive minimum and maximum bounds.
+  remarks: Provides utility methods for range operations, random value generation, clamping, remapping, and arithmetic operations.
+  example: []
   syntax:
-    content: public readonly struct ValueRange
-    content.vb: Public Structure ValueRange
+    content: 'public readonly struct ValueRange : IEquatable<ValueRange>, IComparable<ValueRange>'
+    content.vb: Public Structure ValueRange Implements IEquatable(Of ValueRange), IComparable(Of ValueRange)
+  implements:
+  - System.IEquatable{ShapeEngine.Core.Structs.ValueRange}
+  - System.IComparable{ShapeEngine.Core.Structs.ValueRange}
   inheritedMembers:
-  - System.ValueType.Equals(System.Object)
-  - System.ValueType.GetHashCode
   - System.ValueType.ToString
   - System.Object.Equals(System.Object,System.Object)
   - System.Object.GetType
   - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
 - uid: ShapeEngine.Core.Structs.ValueRange.Min
   commentId: F:ShapeEngine.Core.Structs.ValueRange.Min
   id: Min
@@ -90,10 +112,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Min
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 8
+    startLine: 19
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: The minimum value of the range.
+  example: []
   syntax:
     content: public readonly float Min
     return:
@@ -117,15 +141,110 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Max
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 9
+    startLine: 24
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: The maximum value of the range.
+  example: []
   syntax:
     content: public readonly float Max
     return:
       type: System.Single
     content.vb: Public ReadOnly Max As Single
+- uid: ShapeEngine.Core.Structs.ValueRange.TotalRange
+  commentId: P:ShapeEngine.Core.Structs.ValueRange.TotalRange
+  id: TotalRange
+  parent: ShapeEngine.Core.Structs.ValueRange
+  langs:
+  - csharp
+  - vb
+  name: TotalRange
+  nameWithType: ValueRange.TotalRange
+  fullName: ShapeEngine.Core.Structs.ValueRange.TotalRange
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/ValueRange.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: TotalRange
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
+    startLine: 33
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Gets the absolute difference between Max and Min, representing the total span of the range.
+  example: []
+  syntax:
+    content: public float TotalRange { get; }
+    parameters: []
+    return:
+      type: System.Single
+    content.vb: Public ReadOnly Property TotalRange As Single
+  overload: ShapeEngine.Core.Structs.ValueRange.TotalRange*
+- uid: ShapeEngine.Core.Structs.ValueRange.Center
+  commentId: P:ShapeEngine.Core.Structs.ValueRange.Center
+  id: Center
+  parent: ShapeEngine.Core.Structs.ValueRange
+  langs:
+  - csharp
+  - vb
+  name: Center
+  nameWithType: ValueRange.Center
+  fullName: ShapeEngine.Core.Structs.ValueRange.Center
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/ValueRange.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Center
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
+    startLine: 38
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Gets the center value of the range, calculated as the average of Min and Max.
+  example: []
+  syntax:
+    content: public float Center { get; }
+    parameters: []
+    return:
+      type: System.Single
+    content.vb: Public ReadOnly Property Center As Single
+  overload: ShapeEngine.Core.Structs.ValueRange.Center*
+- uid: ShapeEngine.Core.Structs.ValueRange.AbsoluteCenter
+  commentId: P:ShapeEngine.Core.Structs.ValueRange.AbsoluteCenter
+  id: AbsoluteCenter
+  parent: ShapeEngine.Core.Structs.ValueRange
+  langs:
+  - csharp
+  - vb
+  name: AbsoluteCenter
+  nameWithType: ValueRange.AbsoluteCenter
+  fullName: ShapeEngine.Core.Structs.ValueRange.AbsoluteCenter
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/ValueRange.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: AbsoluteCenter
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
+    startLine: 43
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Gets the absolute value of the center of the range.
+  example: []
+  syntax:
+    content: public float AbsoluteCenter { get; }
+    parameters: []
+    return:
+      type: System.Single
+    content.vb: Public ReadOnly Property AbsoluteCenter As Single
+  overload: ShapeEngine.Core.Structs.ValueRange.AbsoluteCenter*
 - uid: ShapeEngine.Core.Structs.ValueRange.#ctor
   commentId: M:ShapeEngine.Core.Structs.ValueRange.#ctor
   id: '#ctor'
@@ -144,10 +263,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 13
+    startLine: 52
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> struct with Min = 0.0f and Max = 1.0f.
+  example: []
   syntax:
     content: public ValueRange()
     content.vb: Public Sub New()
@@ -173,15 +294,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 14
+    startLine: 57
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> struct from a <xref href="System.Numerics.Vector2" data-throw-if-not-resolved="false"></xref>.
+  example: []
   syntax:
     content: public ValueRange(Vector2 range)
     parameters:
     - id: range
       type: System.Numerics.Vector2
+      description: A vector where X is the minimum and Y is the maximum value.
     content.vb: Public Sub New(range As Vector2)
   overload: ShapeEngine.Core.Structs.ValueRange.#ctor*
   nameWithType.vb: ValueRange.New(Vector2)
@@ -205,17 +329,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 29
+    startLine: 77
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> struct with specified minimum and maximum values.
+  example: []
   syntax:
     content: public ValueRange(float min, float max)
     parameters:
     - id: min
       type: System.Single
+      description: The minimum value.
     - id: max
       type: System.Single
+      description: The maximum value.
     content.vb: Public Sub New(min As Single, max As Single)
   overload: ShapeEngine.Core.Structs.ValueRange.#ctor*
   nameWithType.vb: ValueRange.New(Single, Single)
@@ -239,17 +367,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 42
+    startLine: 95
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> struct with integer minimum and maximum values.
+  example: []
   syntax:
     content: public ValueRange(int min, int max)
     parameters:
     - id: min
       type: System.Int32
+      description: The minimum value.
     - id: max
       type: System.Int32
+      description: The maximum value.
     content.vb: Public Sub New(min As Integer, max As Integer)
   overload: ShapeEngine.Core.Structs.ValueRange.#ctor*
   nameWithType.vb: ValueRange.New(Integer, Integer)
@@ -273,20 +405,71 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 55
+    startLine: 113
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: >-
+    Initializes a new instance of the <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> struct from a single maximum value.
+
+    Minimum is set to 0.0f.
+  example: []
   syntax:
     content: public ValueRange(float max)
     parameters:
     - id: max
       type: System.Single
+      description: The maximum value. If negative, Min is set to max and Max to 0.0f.
     content.vb: Public Sub New(max As Single)
   overload: ShapeEngine.Core.Structs.ValueRange.#ctor*
   nameWithType.vb: ValueRange.New(Single)
   fullName.vb: ShapeEngine.Core.Structs.ValueRange.New(Single)
   name.vb: New(Single)
+- uid: ShapeEngine.Core.Structs.ValueRange.UpdateRange(System.Single)
+  commentId: M:ShapeEngine.Core.Structs.ValueRange.UpdateRange(System.Single)
+  id: UpdateRange(System.Single)
+  parent: ShapeEngine.Core.Structs.ValueRange
+  langs:
+  - csharp
+  - vb
+  name: UpdateRange(float)
+  nameWithType: ValueRange.UpdateRange(float)
+  fullName: ShapeEngine.Core.Structs.ValueRange.UpdateRange(float)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/ValueRange.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: UpdateRange
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
+    startLine: 139
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: >-
+    Returns a new <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> updated to include <code class="paramref">newValue</code>.
+
+    If <code class="paramref">newValue</code> is less than Min, sets Min to <code class="paramref">newValue</code>.
+
+    If <code class="paramref">newValue</code> is greater than Max, sets Max to <code class="paramref">newValue</code>.
+
+    Otherwise, returns the current range unchanged.
+  example: []
+  syntax:
+    content: public ValueRange UpdateRange(float newValue)
+    parameters:
+    - id: newValue
+      type: System.Single
+      description: The value to include in the range.
+    return:
+      type: ShapeEngine.Core.Structs.ValueRange
+      description: A new <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> that includes <code class="paramref">newValue</code>.
+    content.vb: Public Function UpdateRange(newValue As Single) As ValueRange
+  overload: ShapeEngine.Core.Structs.ValueRange.UpdateRange*
+  nameWithType.vb: ValueRange.UpdateRange(Single)
+  fullName.vb: ShapeEngine.Core.Structs.ValueRange.UpdateRange(Single)
+  name.vb: UpdateRange(Single)
 - uid: ShapeEngine.Core.Structs.ValueRange.HasRange
   commentId: M:ShapeEngine.Core.Structs.ValueRange.HasRange
   id: HasRange
@@ -305,17 +488,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HasRange
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 75
+    startLine: 150
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
-  summary: Returns true if min and max are not equal.
+  summary: Determines whether the range has a non-zero span (Min and Max are not equal).
   example: []
   syntax:
     content: public bool HasRange()
     return:
       type: System.Boolean
-      description: ''
+      description: True if Min and Max are not equal; otherwise, false.
     content.vb: Public Function HasRange() As Boolean
   overload: ShapeEngine.Core.Structs.ValueRange.HasRange*
 - uid: ShapeEngine.Core.Structs.ValueRange.HasPositiveRange
@@ -336,17 +519,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HasPositiveRange
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 80
+    startLine: 156
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
-  summary: Returns if min and max are not equal and positive.
+  summary: Determines whether the range is positive and has a non-zero span.
   example: []
   syntax:
     content: public bool HasPositiveRange()
     return:
       type: System.Boolean
-      description: ''
+      description: True if Min and Max are not equal and both are positive; otherwise, false.
     content.vb: Public Function HasPositiveRange() As Boolean
   overload: ShapeEngine.Core.Structs.ValueRange.HasPositiveRange*
 - uid: ShapeEngine.Core.Structs.ValueRange.GetFactor(System.Single)
@@ -367,17 +550,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetFactor
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 81
+    startLine: 163
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets the normalized factor (0-1) of a value within the range.
+  example: []
   syntax:
     content: public float GetFactor(float value)
     parameters:
     - id: value
       type: System.Single
+      description: The value to evaluate.
     return:
       type: System.Single
+      description: The factor representing the value's position between Min and Max.
     content.vb: Public Function GetFactor(value As Single) As Single
   overload: ShapeEngine.Core.Structs.ValueRange.GetFactor*
   nameWithType.vb: ValueRange.GetFactor(Single)
@@ -401,14 +588,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToValueRangeInt
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 86
+    startLine: 174
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Converts this range to a <xref href="ShapeEngine.Core.Structs.ValueRangeInt" data-throw-if-not-resolved="false"></xref> by casting Min and Max to integers.
+  example: []
   syntax:
     content: public ValueRangeInt ToValueRangeInt()
     return:
       type: ShapeEngine.Core.Structs.ValueRangeInt
+      description: A <xref href="ShapeEngine.Core.Structs.ValueRangeInt" data-throw-if-not-resolved="false"></xref> representation of this range.
     content.vb: Public Function ToValueRangeInt() As ValueRangeInt
   overload: ShapeEngine.Core.Structs.ValueRange.ToValueRangeInt*
 - uid: ShapeEngine.Core.Structs.ValueRange.ToVector2
@@ -429,14 +619,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ToVector2
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 87
+    startLine: 180
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Converts this range to a <xref href="System.Numerics.Vector2" data-throw-if-not-resolved="false"></xref>.
+  example: []
   syntax:
     content: public Vector2 ToVector2()
     return:
       type: System.Numerics.Vector2
+      description: A vector where X is Min and Y is Max.
     content.vb: Public Function ToVector2() As Vector2
   overload: ShapeEngine.Core.Structs.ValueRange.ToVector2*
 - uid: ShapeEngine.Core.Structs.ValueRange.Rand
@@ -457,14 +650,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Rand
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 88
+    startLine: 186
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Returns a random float value within the range [Min, Max].
+  example: []
   syntax:
     content: public float Rand()
     return:
       type: System.Single
+      description: A random float value.
     content.vb: Public Function Rand() As Single
   overload: ShapeEngine.Core.Structs.ValueRange.Rand*
 - uid: ShapeEngine.Core.Structs.ValueRange.Lerp(System.Single)
@@ -485,22 +681,64 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Lerp
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 89
+    startLine: 193
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Linearly interpolates between Min and Max by the given factor.
+  example: []
   syntax:
     content: public float Lerp(float f)
     parameters:
     - id: f
       type: System.Single
+      description: The interpolation factor (0-1).
     return:
       type: System.Single
+      description: The interpolated value.
     content.vb: Public Function Lerp(f As Single) As Single
   overload: ShapeEngine.Core.Structs.ValueRange.Lerp*
   nameWithType.vb: ValueRange.Lerp(Single)
   fullName.vb: ShapeEngine.Core.Structs.ValueRange.Lerp(Single)
   name.vb: Lerp(Single)
+- uid: ShapeEngine.Core.Structs.ValueRange.LerpInverse(System.Single)
+  commentId: M:ShapeEngine.Core.Structs.ValueRange.LerpInverse(System.Single)
+  id: LerpInverse(System.Single)
+  parent: ShapeEngine.Core.Structs.ValueRange
+  langs:
+  - csharp
+  - vb
+  name: LerpInverse(float)
+  nameWithType: ValueRange.LerpInverse(float)
+  fullName: ShapeEngine.Core.Structs.ValueRange.LerpInverse(float)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/ValueRange.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: LerpInverse
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
+    startLine: 200
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Linearly interpolates between Min and Max by the inverse of the given factor (1 - f).
+  example: []
+  syntax:
+    content: public float LerpInverse(float f)
+    parameters:
+    - id: f
+      type: System.Single
+      description: The interpolation factor (0-1). 0 returns Max and 1 returns Min.
+    return:
+      type: System.Single
+      description: The interpolated value.
+    content.vb: Public Function LerpInverse(f As Single) As Single
+  overload: ShapeEngine.Core.Structs.ValueRange.LerpInverse*
+  nameWithType.vb: ValueRange.LerpInverse(Single)
+  fullName.vb: ShapeEngine.Core.Structs.ValueRange.LerpInverse(Single)
+  name.vb: LerpInverse(Single)
 - uid: ShapeEngine.Core.Structs.ValueRange.Inverse(System.Single)
   commentId: M:ShapeEngine.Core.Structs.ValueRange.Inverse(System.Single)
   id: Inverse(System.Single)
@@ -519,17 +757,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Inverse
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 90
+    startLine: 207
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Calculates the normalized position of a value within the range.
+  example: []
   syntax:
     content: public float Inverse(float value)
     parameters:
     - id: value
       type: System.Single
+      description: The value to evaluate.
     return:
       type: System.Single
+      description: The normalized position (0-1).
     content.vb: Public Function Inverse(value As Single) As Single
   overload: ShapeEngine.Core.Structs.ValueRange.Inverse*
   nameWithType.vb: ValueRange.Inverse(Single)
@@ -553,19 +795,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Remap
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 91
+    startLine: 220
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Remaps a value from this range to another <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref>.
+  example: []
   syntax:
     content: public float Remap(ValueRange to, float value)
     parameters:
     - id: to
       type: ShapeEngine.Core.Structs.ValueRange
+      description: The target range.
     - id: value
       type: System.Single
+      description: The value to remap.
     return:
       type: System.Single
+      description: The remapped value in the target range.
     content.vb: Public Function Remap([to] As ValueRange, value As Single) As Single
   overload: ShapeEngine.Core.Structs.ValueRange.Remap*
   nameWithType.vb: ValueRange.Remap(ValueRange, Single)
@@ -589,21 +836,27 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Remap
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 92
+    startLine: 229
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Remaps a value from this range to a new range defined by newMin and newMax.
+  example: []
   syntax:
     content: public float Remap(float newMin, float newMax, float value)
     parameters:
     - id: newMin
       type: System.Single
+      description: The new minimum value.
     - id: newMax
       type: System.Single
+      description: The new maximum value.
     - id: value
       type: System.Single
+      description: The value to remap.
     return:
       type: System.Single
+      description: The remapped value.
     content.vb: Public Function Remap(newMin As Single, newMax As Single, value As Single) As Single
   overload: ShapeEngine.Core.Structs.ValueRange.Remap*
   nameWithType.vb: ValueRange.Remap(Single, Single, Single)
@@ -627,17 +880,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Clamp
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 94
+    startLine: 236
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Clamps a value to the range [Min, Max].
+  example: []
   syntax:
     content: public float Clamp(float value)
     parameters:
     - id: value
       type: System.Single
+      description: The value to clamp.
     return:
       type: System.Single
+      description: The clamped value.
     content.vb: Public Function Clamp(value As Single) As Single
   overload: ShapeEngine.Core.Structs.ValueRange.Clamp*
   nameWithType.vb: ValueRange.Clamp(Single)
@@ -661,17 +918,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapValueRange
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 96
+    startLine: 243
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Determines whether this range overlaps with another <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref>.
+  example: []
   syntax:
     content: public bool OverlapValueRange(ValueRange other)
     parameters:
     - id: other
       type: ShapeEngine.Core.Structs.ValueRange
+      description: The other range to check for overlap.
     return:
       type: System.Boolean
+      description: True if the ranges overlap; otherwise, false.
     content.vb: Public Function OverlapValueRange(other As ValueRange) As Boolean
   overload: ShapeEngine.Core.Structs.ValueRange.OverlapValueRange*
 - uid: ShapeEngine.Core.Structs.ValueRange.OverlapValueRange(System.Single,System.Single,System.Single,System.Single)
@@ -692,23 +953,30 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OverlapValueRange
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 98
+    startLine: 253
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Determines whether two ranges defined by their min and max values overlap.
+  example: []
   syntax:
     content: public static bool OverlapValueRange(float aMin, float aMax, float bMin, float bMax)
     parameters:
     - id: aMin
       type: System.Single
+      description: First range minimum.
     - id: aMax
       type: System.Single
+      description: First range maximum.
     - id: bMin
       type: System.Single
+      description: Second range minimum.
     - id: bMax
       type: System.Single
+      description: Second range maximum.
     return:
       type: System.Boolean
+      description: True if the ranges overlap; otherwise, false.
     content.vb: Public Shared Function OverlapValueRange(aMin As Single, aMax As Single, bMin As Single, bMax As Single) As Boolean
   overload: ShapeEngine.Core.Structs.ValueRange.OverlapValueRange*
   nameWithType.vb: ValueRange.OverlapValueRange(Single, Single, Single, Single)
@@ -732,17 +1000,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SetMin
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 105
+    startLine: 265
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Returns a new <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> with the specified minimum value and the same maximum.
+  example: []
   syntax:
     content: public ValueRange SetMin(float min)
     parameters:
     - id: min
       type: System.Single
+      description: The new minimum value.
     return:
       type: ShapeEngine.Core.Structs.ValueRange
+      description: A new <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref>.
     content.vb: Public Function SetMin(min As Single) As ValueRange
   overload: ShapeEngine.Core.Structs.ValueRange.SetMin*
   nameWithType.vb: ValueRange.SetMin(Single)
@@ -766,17 +1038,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SetMax
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 106
+    startLine: 272
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Returns a new <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> with the specified maximum value and the same minimum.
+  example: []
   syntax:
     content: public ValueRange SetMax(float max)
     parameters:
     - id: max
       type: System.Single
+      description: The new maximum value.
     return:
       type: ShapeEngine.Core.Structs.ValueRange
+      description: A new <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref>.
     content.vb: Public Function SetMax(max As Single) As ValueRange
   overload: ShapeEngine.Core.Structs.ValueRange.SetMax*
   nameWithType.vb: ValueRange.SetMax(Single)
@@ -800,19 +1076,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Set
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 107
+    startLine: 280
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Returns a new <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> with the specified minimum and maximum values.
+  example: []
   syntax:
     content: public ValueRange Set(float min, float max)
     parameters:
     - id: min
       type: System.Single
+      description: The new minimum value.
     - id: max
       type: System.Single
+      description: The new maximum value.
     return:
       type: ShapeEngine.Core.Structs.ValueRange
+      description: A new <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref>.
     content.vb: Public Function [Set](min As Single, max As Single) As ValueRange
   overload: ShapeEngine.Core.Structs.ValueRange.Set*
   nameWithType.vb: ValueRange.Set(Single, Single)
@@ -836,19 +1117,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Addition
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 112
+    startLine: 290
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Adds two <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> instances element-wise.
+  example: []
   syntax:
     content: public static ValueRange operator +(ValueRange left, ValueRange right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.ValueRange
+      description: The first range.
     - id: right
       type: ShapeEngine.Core.Structs.ValueRange
+      description: The second range.
     return:
       type: ShapeEngine.Core.Structs.ValueRange
+      description: A new <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> with Min and Max added.
     content.vb: Public Shared Operator +(left As ValueRange, right As ValueRange) As ValueRange
   overload: ShapeEngine.Core.Structs.ValueRange.op_Addition*
   nameWithType.vb: ValueRange.+(ValueRange, ValueRange)
@@ -872,19 +1158,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Subtraction
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 118
+    startLine: 303
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Subtracts the elements of one <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> from another element-wise.
+  example: []
   syntax:
     content: public static ValueRange operator -(ValueRange left, ValueRange right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.ValueRange
+      description: The first range.
     - id: right
       type: ShapeEngine.Core.Structs.ValueRange
+      description: The second range.
     return:
       type: ShapeEngine.Core.Structs.ValueRange
+      description: A new <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> with Min and Max subtracted.
     content.vb: Public Shared Operator -(left As ValueRange, right As ValueRange) As ValueRange
   overload: ShapeEngine.Core.Structs.ValueRange.op_Subtraction*
   nameWithType.vb: ValueRange.-(ValueRange, ValueRange)
@@ -908,19 +1199,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Multiply
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 124
+    startLine: 316
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Multiplies two <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> instances element-wise.
+  example: []
   syntax:
     content: public static ValueRange operator *(ValueRange left, ValueRange right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.ValueRange
+      description: The first range.
     - id: right
       type: ShapeEngine.Core.Structs.ValueRange
+      description: The second range.
     return:
       type: ShapeEngine.Core.Structs.ValueRange
+      description: A new <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> with Min and Max multiplied.
     content.vb: Public Shared Operator *(left As ValueRange, right As ValueRange) As ValueRange
   overload: ShapeEngine.Core.Structs.ValueRange.op_Multiply*
   nameWithType.vb: ValueRange.*(ValueRange, ValueRange)
@@ -944,19 +1240,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Division
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 130
+    startLine: 329
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Divides the elements of one <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> by another element-wise.
+  example: []
   syntax:
     content: public static ValueRange operator /(ValueRange left, ValueRange right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.ValueRange
+      description: The numerator range.
     - id: right
       type: ShapeEngine.Core.Structs.ValueRange
+      description: The denominator range.
     return:
       type: ShapeEngine.Core.Structs.ValueRange
+      description: A new <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> with Min and Max divided. If denominator is zero, returns 0 for that element.
     content.vb: Public Shared Operator /(left As ValueRange, right As ValueRange) As ValueRange
   overload: ShapeEngine.Core.Structs.ValueRange.op_Division*
   nameWithType.vb: ValueRange./(ValueRange, ValueRange)
@@ -980,19 +1281,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Addition
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 137
+    startLine: 342
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Adds a <xref href="ShapeEngine.Core.Structs.ValueRangeInt" data-throw-if-not-resolved="false"></xref> to a <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> element-wise.
+  example: []
   syntax:
     content: public static ValueRange operator +(ValueRange left, ValueRangeInt right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.ValueRange
+      description: The ValueRange.
     - id: right
       type: ShapeEngine.Core.Structs.ValueRangeInt
+      description: The ValueRangeInt.
     return:
       type: ShapeEngine.Core.Structs.ValueRange
+      description: A new <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> with Min and Max added.
     content.vb: Public Shared Operator +(left As ValueRange, right As ValueRangeInt) As ValueRange
   overload: ShapeEngine.Core.Structs.ValueRange.op_Addition*
   nameWithType.vb: ValueRange.+(ValueRange, ValueRangeInt)
@@ -1016,19 +1322,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Subtraction
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 143
+    startLine: 355
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Subtracts a <xref href="ShapeEngine.Core.Structs.ValueRangeInt" data-throw-if-not-resolved="false"></xref> from a <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> element-wise.
+  example: []
   syntax:
     content: public static ValueRange operator -(ValueRange left, ValueRangeInt right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.ValueRange
+      description: The ValueRange.
     - id: right
       type: ShapeEngine.Core.Structs.ValueRangeInt
+      description: The ValueRangeInt.
     return:
       type: ShapeEngine.Core.Structs.ValueRange
+      description: A new <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> with Min and Max subtracted.
     content.vb: Public Shared Operator -(left As ValueRange, right As ValueRangeInt) As ValueRange
   overload: ShapeEngine.Core.Structs.ValueRange.op_Subtraction*
   nameWithType.vb: ValueRange.-(ValueRange, ValueRangeInt)
@@ -1052,19 +1363,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Multiply
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 149
+    startLine: 368
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Multiplies a <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> by a <xref href="ShapeEngine.Core.Structs.ValueRangeInt" data-throw-if-not-resolved="false"></xref> element-wise.
+  example: []
   syntax:
     content: public static ValueRange operator *(ValueRange left, ValueRangeInt right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.ValueRange
+      description: The ValueRange.
     - id: right
       type: ShapeEngine.Core.Structs.ValueRangeInt
+      description: The ValueRangeInt.
     return:
       type: ShapeEngine.Core.Structs.ValueRange
+      description: A new <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> with Min and Max multiplied.
     content.vb: Public Shared Operator *(left As ValueRange, right As ValueRangeInt) As ValueRange
   overload: ShapeEngine.Core.Structs.ValueRange.op_Multiply*
   nameWithType.vb: ValueRange.*(ValueRange, ValueRangeInt)
@@ -1088,19 +1404,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Division
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 155
+    startLine: 381
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Divides a <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> by a <xref href="ShapeEngine.Core.Structs.ValueRangeInt" data-throw-if-not-resolved="false"></xref> element-wise.
+  example: []
   syntax:
     content: public static ValueRange operator /(ValueRange left, ValueRangeInt right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.ValueRange
+      description: The ValueRange (numerator).
     - id: right
       type: ShapeEngine.Core.Structs.ValueRangeInt
+      description: The ValueRangeInt (denominator).
     return:
       type: ShapeEngine.Core.Structs.ValueRange
+      description: A new <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> with Min and Max divided. If denominator is zero, returns 0 for that element.
     content.vb: Public Shared Operator /(left As ValueRange, right As ValueRangeInt) As ValueRange
   overload: ShapeEngine.Core.Structs.ValueRange.op_Division*
   nameWithType.vb: ValueRange./(ValueRange, ValueRangeInt)
@@ -1124,19 +1445,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Addition
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 162
+    startLine: 394
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Adds a float value to both Min and Max of a <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref>.
+  example: []
   syntax:
     content: public static ValueRange operator +(ValueRange left, float right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.ValueRange
+      description: The ValueRange.
     - id: right
       type: System.Single
+      description: The float value to add.
     return:
       type: ShapeEngine.Core.Structs.ValueRange
+      description: A new <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> with Min and Max increased by the value.
     content.vb: Public Shared Operator +(left As ValueRange, right As Single) As ValueRange
   overload: ShapeEngine.Core.Structs.ValueRange.op_Addition*
   nameWithType.vb: ValueRange.+(ValueRange, Single)
@@ -1160,19 +1486,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Subtraction
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 168
+    startLine: 407
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Subtracts a float value from both Min and Max of a <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref>.
+  example: []
   syntax:
     content: public static ValueRange operator -(ValueRange left, float right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.ValueRange
+      description: The ValueRange.
     - id: right
       type: System.Single
+      description: The float value to subtract.
     return:
       type: ShapeEngine.Core.Structs.ValueRange
+      description: A new <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> with Min and Max decreased by the value.
     content.vb: Public Shared Operator -(left As ValueRange, right As Single) As ValueRange
   overload: ShapeEngine.Core.Structs.ValueRange.op_Subtraction*
   nameWithType.vb: ValueRange.-(ValueRange, Single)
@@ -1196,19 +1527,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Multiply
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 174
+    startLine: 420
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Multiplies both Min and Max of a <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> by a float value.
+  example: []
   syntax:
     content: public static ValueRange operator *(ValueRange left, float right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.ValueRange
+      description: The ValueRange.
     - id: right
       type: System.Single
+      description: The float value to multiply by.
     return:
       type: ShapeEngine.Core.Structs.ValueRange
+      description: A new <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> with Min and Max multiplied by the value.
     content.vb: Public Shared Operator *(left As ValueRange, right As Single) As ValueRange
   overload: ShapeEngine.Core.Structs.ValueRange.op_Multiply*
   nameWithType.vb: ValueRange.*(ValueRange, Single)
@@ -1232,19 +1568,26 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Division
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 180
+    startLine: 434
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Divides both Min and Max of a <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> by a float value.
+  example: []
   syntax:
     content: public static ValueRange operator /(ValueRange left, float right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.ValueRange
+      description: The ValueRange (numerator).
     - id: right
       type: System.Single
+      description: The float value (denominator).
     return:
       type: ShapeEngine.Core.Structs.ValueRange
+      description: >-
+        A new <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> with Min and Max divided by the value.
+            If the denominator is zero, returns 0 for both elements.
     content.vb: Public Shared Operator /(left As ValueRange, right As Single) As ValueRange
   overload: ShapeEngine.Core.Structs.ValueRange.op_Division*
   nameWithType.vb: ValueRange./(ValueRange, Single)
@@ -1268,19 +1611,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Addition
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 188
+    startLine: 448
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Adds an integer value to both Min and Max of a <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref>.
+  example: []
   syntax:
     content: public static ValueRange operator +(ValueRange left, int right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.ValueRange
+      description: The ValueRange.
     - id: right
       type: System.Int32
+      description: The integer value to add.
     return:
       type: ShapeEngine.Core.Structs.ValueRange
+      description: A new <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> with Min and Max increased by the value.
     content.vb: Public Shared Operator +(left As ValueRange, right As Integer) As ValueRange
   overload: ShapeEngine.Core.Structs.ValueRange.op_Addition*
   nameWithType.vb: ValueRange.+(ValueRange, Integer)
@@ -1304,19 +1652,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Subtraction
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 194
+    startLine: 461
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Subtracts an integer value from both Min and Max of a <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref>.
+  example: []
   syntax:
     content: public static ValueRange operator -(ValueRange left, int right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.ValueRange
+      description: The ValueRange.
     - id: right
       type: System.Int32
+      description: The integer value to subtract.
     return:
       type: ShapeEngine.Core.Structs.ValueRange
+      description: A new <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> with Min and Max decreased by the value.
     content.vb: Public Shared Operator -(left As ValueRange, right As Integer) As ValueRange
   overload: ShapeEngine.Core.Structs.ValueRange.op_Subtraction*
   nameWithType.vb: ValueRange.-(ValueRange, Integer)
@@ -1340,19 +1693,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Multiply
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 200
+    startLine: 474
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Multiplies both Min and Max of a <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> by an integer value.
+  example: []
   syntax:
     content: public static ValueRange operator *(ValueRange left, int right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.ValueRange
+      description: The ValueRange.
     - id: right
       type: System.Int32
+      description: The integer value to multiply by.
     return:
       type: ShapeEngine.Core.Structs.ValueRange
+      description: A new <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> with Min and Max multiplied by the value.
     content.vb: Public Shared Operator *(left As ValueRange, right As Integer) As ValueRange
   overload: ShapeEngine.Core.Structs.ValueRange.op_Multiply*
   nameWithType.vb: ValueRange.*(ValueRange, Integer)
@@ -1376,24 +1734,380 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: op_Division
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
-    startLine: 206
+    startLine: 488
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Divides both Min and Max of a <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> by an integer value.
+  example: []
   syntax:
     content: public static ValueRange operator /(ValueRange left, int right)
     parameters:
     - id: left
       type: ShapeEngine.Core.Structs.ValueRange
+      description: The ValueRange (numerator).
     - id: right
       type: System.Int32
+      description: The integer value (denominator).
     return:
       type: ShapeEngine.Core.Structs.ValueRange
+      description: >-
+        A new <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> with Min and Max divided by the value.
+            If the denominator is zero, returns 0 for both elements.
     content.vb: Public Shared Operator /(left As ValueRange, right As Integer) As ValueRange
   overload: ShapeEngine.Core.Structs.ValueRange.op_Division*
   nameWithType.vb: ValueRange./(ValueRange, Integer)
   fullName.vb: ShapeEngine.Core.Structs.ValueRange./(ShapeEngine.Core.Structs.ValueRange, Integer)
   name.vb: /(ValueRange, Integer)
+- uid: ShapeEngine.Core.Structs.ValueRange.Equals(ShapeEngine.Core.Structs.ValueRange)
+  commentId: M:ShapeEngine.Core.Structs.ValueRange.Equals(ShapeEngine.Core.Structs.ValueRange)
+  id: Equals(ShapeEngine.Core.Structs.ValueRange)
+  parent: ShapeEngine.Core.Structs.ValueRange
+  langs:
+  - csharp
+  - vb
+  name: Equals(ValueRange)
+  nameWithType: ValueRange.Equals(ValueRange)
+  fullName: ShapeEngine.Core.Structs.ValueRange.Equals(ShapeEngine.Core.Structs.ValueRange)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/ValueRange.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Equals
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
+    startLine: 503
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Determines whether the current <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> is equal to another <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public bool Equals(ValueRange other)
+    parameters:
+    - id: other
+      type: ShapeEngine.Core.Structs.ValueRange
+      description: The other <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> to compare with.
+    return:
+      type: System.Boolean
+      description: True if both Min and Max are equal; otherwise, false.
+    content.vb: Public Function Equals(other As ValueRange) As Boolean
+  overload: ShapeEngine.Core.Structs.ValueRange.Equals*
+  implements:
+  - System.IEquatable{ShapeEngine.Core.Structs.ValueRange}.Equals(ShapeEngine.Core.Structs.ValueRange)
+- uid: ShapeEngine.Core.Structs.ValueRange.Equals(System.Object)
+  commentId: M:ShapeEngine.Core.Structs.ValueRange.Equals(System.Object)
+  id: Equals(System.Object)
+  parent: ShapeEngine.Core.Structs.ValueRange
+  langs:
+  - csharp
+  - vb
+  name: Equals(object?)
+  nameWithType: ValueRange.Equals(object?)
+  fullName: ShapeEngine.Core.Structs.ValueRange.Equals(object?)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/ValueRange.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Equals
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
+    startLine: 513
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Determines whether the current <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> is equal to another object.
+  example: []
+  syntax:
+    content: public override bool Equals(object? obj)
+    parameters:
+    - id: obj
+      type: System.Object
+      description: The object to compare with.
+    return:
+      type: System.Boolean
+      description: True if the object is a <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> and both Min and Max are equal; otherwise, false.
+    content.vb: Public Overrides Function Equals(obj As Object) As Boolean
+  overridden: System.ValueType.Equals(System.Object)
+  overload: ShapeEngine.Core.Structs.ValueRange.Equals*
+  nameWithType.vb: ValueRange.Equals(Object)
+  fullName.vb: ShapeEngine.Core.Structs.ValueRange.Equals(Object)
+  name.vb: Equals(Object)
+- uid: ShapeEngine.Core.Structs.ValueRange.GetHashKey(System.Int32)
+  commentId: M:ShapeEngine.Core.Structs.ValueRange.GetHashKey(System.Int32)
+  id: GetHashKey(System.Int32)
+  parent: ShapeEngine.Core.Structs.ValueRange
+  langs:
+  - csharp
+  - vb
+  name: GetHashKey(int)
+  nameWithType: ValueRange.GetHashKey(int)
+  fullName: ShapeEngine.Core.Structs.ValueRange.GetHashKey(int)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/ValueRange.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetHashKey
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
+    startLine: 522
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Returns a hash code for the current <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public ulong GetHashKey(int decimalPlaces = 3)
+    parameters:
+    - id: decimalPlaces
+      type: System.Int32
+    return:
+      type: System.UInt64
+      description: A hash code for the current <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref>.
+    content.vb: Public Function GetHashKey(decimalPlaces As Integer = 3) As ULong
+  overload: ShapeEngine.Core.Structs.ValueRange.GetHashKey*
+  nameWithType.vb: ValueRange.GetHashKey(Integer)
+  fullName.vb: ShapeEngine.Core.Structs.ValueRange.GetHashKey(Integer)
+  name.vb: GetHashKey(Integer)
+- uid: ShapeEngine.Core.Structs.ValueRange.GetHashKeyHex(System.Int32)
+  commentId: M:ShapeEngine.Core.Structs.ValueRange.GetHashKeyHex(System.Int32)
+  id: GetHashKeyHex(System.Int32)
+  parent: ShapeEngine.Core.Structs.ValueRange
+  langs:
+  - csharp
+  - vb
+  name: GetHashKeyHex(int)
+  nameWithType: ValueRange.GetHashKeyHex(int)
+  fullName: ShapeEngine.Core.Structs.ValueRange.GetHashKeyHex(int)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/ValueRange.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetHashKeyHex
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
+    startLine: 535
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Creates a fixed-width hexadecimal string representation of this value range hash key.
+  example: []
+  syntax:
+    content: public string GetHashKeyHex(int decimalPlaces = 3)
+    parameters:
+    - id: decimalPlaces
+      type: System.Int32
+      description: The number of decimal places used to quantize range values before hashing.
+    return:
+      type: System.String
+      description: A 16-character uppercase hexadecimal hash key string.
+    content.vb: Public Function GetHashKeyHex(decimalPlaces As Integer = 3) As String
+  overload: ShapeEngine.Core.Structs.ValueRange.GetHashKeyHex*
+  nameWithType.vb: ValueRange.GetHashKeyHex(Integer)
+  fullName.vb: ShapeEngine.Core.Structs.ValueRange.GetHashKeyHex(Integer)
+  name.vb: GetHashKeyHex(Integer)
+- uid: ShapeEngine.Core.Structs.ValueRange.GetHashKeyString(System.Int32)
+  commentId: M:ShapeEngine.Core.Structs.ValueRange.GetHashKeyString(System.Int32)
+  id: GetHashKeyString(System.Int32)
+  parent: ShapeEngine.Core.Structs.ValueRange
+  langs:
+  - csharp
+  - vb
+  name: GetHashKeyString(int)
+  nameWithType: ValueRange.GetHashKeyString(int)
+  fullName: ShapeEngine.Core.Structs.ValueRange.GetHashKeyString(int)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/ValueRange.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetHashKeyString
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
+    startLine: 542
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Creates a string representation of this value range hash key.
+  example: []
+  syntax:
+    content: public string GetHashKeyString(int decimalPlaces = 3)
+    parameters:
+    - id: decimalPlaces
+      type: System.Int32
+      description: The number of decimal places used to quantize range values before hashing.
+    return:
+      type: System.String
+      description: A stable hexadecimal hash key string.
+    content.vb: Public Function GetHashKeyString(decimalPlaces As Integer = 3) As String
+  overload: ShapeEngine.Core.Structs.ValueRange.GetHashKeyString*
+  nameWithType.vb: ValueRange.GetHashKeyString(Integer)
+  fullName.vb: ShapeEngine.Core.Structs.ValueRange.GetHashKeyString(Integer)
+  name.vb: GetHashKeyString(Integer)
+- uid: ShapeEngine.Core.Structs.ValueRange.GetHashCode
+  commentId: M:ShapeEngine.Core.Structs.ValueRange.GetHashCode
+  id: GetHashCode
+  parent: ShapeEngine.Core.Structs.ValueRange
+  langs:
+  - csharp
+  - vb
+  name: GetHashCode()
+  nameWithType: ValueRange.GetHashCode()
+  fullName: ShapeEngine.Core.Structs.ValueRange.GetHashCode()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/ValueRange.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetHashCode
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
+    startLine: 552
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Returns a hash code for the current <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> based on its stable quantized hash key.
+  remarks: >-
+    This method folds the 64-bit value returned by <xref href="ShapeEngine.Core.Structs.ValueRange.GetHashKey(System.Int32)" data-throw-if-not-resolved="false"></xref> into a 32-bit hash code
+
+    suitable for .NET hashing APIs such as dictionaries and hash sets.
+  example: []
+  syntax:
+    content: public override int GetHashCode()
+    return:
+      type: System.Int32
+      description: A 32-bit hash code representing this range.
+    content.vb: Public Overrides Function GetHashCode() As Integer
+  overridden: System.ValueType.GetHashCode
+  overload: ShapeEngine.Core.Structs.ValueRange.GetHashCode*
+- uid: ShapeEngine.Core.Structs.ValueRange.CompareTo(ShapeEngine.Core.Structs.ValueRange)
+  commentId: M:ShapeEngine.Core.Structs.ValueRange.CompareTo(ShapeEngine.Core.Structs.ValueRange)
+  id: CompareTo(ShapeEngine.Core.Structs.ValueRange)
+  parent: ShapeEngine.Core.Structs.ValueRange
+  langs:
+  - csharp
+  - vb
+  name: CompareTo(ValueRange)
+  nameWithType: ValueRange.CompareTo(ValueRange)
+  fullName: ShapeEngine.Core.Structs.ValueRange.CompareTo(ShapeEngine.Core.Structs.ValueRange)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/ValueRange.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: CompareTo
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
+    startLine: 567
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Compares the current <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> with another <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public int CompareTo(ValueRange other)
+    parameters:
+    - id: other
+      type: ShapeEngine.Core.Structs.ValueRange
+      description: The other <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> to compare with.
+    return:
+      type: System.Int32
+      description: >-
+        A value less than zero if this instance is less than <code class="paramref">other</code>.
+
+        Zero if this instance is equal to <code class="paramref">other</code>.
+
+        A value greater than zero if this instance is greater than <code class="paramref">other</code>.
+    content.vb: Public Function CompareTo(other As ValueRange) As Integer
+  overload: ShapeEngine.Core.Structs.ValueRange.CompareTo*
+  implements:
+  - System.IComparable{ShapeEngine.Core.Structs.ValueRange}.CompareTo(ShapeEngine.Core.Structs.ValueRange)
+- uid: ShapeEngine.Core.Structs.ValueRange.op_Equality(ShapeEngine.Core.Structs.ValueRange,ShapeEngine.Core.Structs.ValueRange)
+  commentId: M:ShapeEngine.Core.Structs.ValueRange.op_Equality(ShapeEngine.Core.Structs.ValueRange,ShapeEngine.Core.Structs.ValueRange)
+  id: op_Equality(ShapeEngine.Core.Structs.ValueRange,ShapeEngine.Core.Structs.ValueRange)
+  parent: ShapeEngine.Core.Structs.ValueRange
+  langs:
+  - csharp
+  - vb
+  name: operator ==(ValueRange, ValueRange)
+  nameWithType: ValueRange.operator ==(ValueRange, ValueRange)
+  fullName: ShapeEngine.Core.Structs.ValueRange.operator ==(ShapeEngine.Core.Structs.ValueRange, ShapeEngine.Core.Structs.ValueRange)
+  type: Operator
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/ValueRange.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: op_Equality
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
+    startLine: 580
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Determines whether two <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> instances are equal.
+  example: []
+  syntax:
+    content: public static bool operator ==(ValueRange left, ValueRange right)
+    parameters:
+    - id: left
+      type: ShapeEngine.Core.Structs.ValueRange
+      description: The first <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> to compare.
+    - id: right
+      type: ShapeEngine.Core.Structs.ValueRange
+      description: The second <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> to compare.
+    return:
+      type: System.Boolean
+      description: True if both instances are equal; otherwise, false.
+    content.vb: Public Shared Operator =(left As ValueRange, right As ValueRange) As Boolean
+  overload: ShapeEngine.Core.Structs.ValueRange.op_Equality*
+  nameWithType.vb: ValueRange.=(ValueRange, ValueRange)
+  fullName.vb: ShapeEngine.Core.Structs.ValueRange.=(ShapeEngine.Core.Structs.ValueRange, ShapeEngine.Core.Structs.ValueRange)
+  name.vb: =(ValueRange, ValueRange)
+- uid: ShapeEngine.Core.Structs.ValueRange.op_Inequality(ShapeEngine.Core.Structs.ValueRange,ShapeEngine.Core.Structs.ValueRange)
+  commentId: M:ShapeEngine.Core.Structs.ValueRange.op_Inequality(ShapeEngine.Core.Structs.ValueRange,ShapeEngine.Core.Structs.ValueRange)
+  id: op_Inequality(ShapeEngine.Core.Structs.ValueRange,ShapeEngine.Core.Structs.ValueRange)
+  parent: ShapeEngine.Core.Structs.ValueRange
+  langs:
+  - csharp
+  - vb
+  name: operator !=(ValueRange, ValueRange)
+  nameWithType: ValueRange.operator !=(ValueRange, ValueRange)
+  fullName: ShapeEngine.Core.Structs.ValueRange.operator !=(ShapeEngine.Core.Structs.ValueRange, ShapeEngine.Core.Structs.ValueRange)
+  type: Operator
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/ValueRange.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: op_Inequality
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/ValueRange.cs
+    startLine: 591
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Determines whether two <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> instances are not equal.
+  example: []
+  syntax:
+    content: public static bool operator !=(ValueRange left, ValueRange right)
+    parameters:
+    - id: left
+      type: ShapeEngine.Core.Structs.ValueRange
+      description: The first <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> to compare.
+    - id: right
+      type: ShapeEngine.Core.Structs.ValueRange
+      description: The second <xref href="ShapeEngine.Core.Structs.ValueRange" data-throw-if-not-resolved="false"></xref> to compare.
+    return:
+      type: System.Boolean
+      description: True if the instances are not equal; otherwise, false.
+    content.vb: Public Shared Operator <>(left As ValueRange, right As ValueRange) As Boolean
+  overload: ShapeEngine.Core.Structs.ValueRange.op_Inequality*
+  nameWithType.vb: ValueRange.<>(ValueRange, ValueRange)
+  fullName.vb: ShapeEngine.Core.Structs.ValueRange.<>(ShapeEngine.Core.Structs.ValueRange, ShapeEngine.Core.Structs.ValueRange)
+  name.vb: <>(ValueRange, ValueRange)
 references:
 - uid: ShapeEngine.Core.Structs
   commentId: N:ShapeEngine.Core.Structs
@@ -1425,60 +2139,71 @@ references:
   - uid: ShapeEngine.Core.Structs
     name: Structs
     href: ShapeEngine.Core.Structs.html
-- uid: System.ValueType.Equals(System.Object)
-  commentId: M:System.ValueType.Equals(System.Object)
-  parent: System.ValueType
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
-  name: Equals(object)
-  nameWithType: ValueType.Equals(object)
-  fullName: System.ValueType.Equals(object)
-  nameWithType.vb: ValueType.Equals(Object)
-  fullName.vb: System.ValueType.Equals(Object)
-  name.vb: Equals(Object)
+- uid: System.IEquatable{ShapeEngine.Core.Structs.ValueRange}
+  commentId: T:System.IEquatable{ShapeEngine.Core.Structs.ValueRange}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<ValueRange>
+  nameWithType: IEquatable<ValueRange>
+  fullName: System.IEquatable<ShapeEngine.Core.Structs.ValueRange>
+  nameWithType.vb: IEquatable(Of ValueRange)
+  fullName.vb: System.IEquatable(Of ShapeEngine.Core.Structs.ValueRange)
+  name.vb: IEquatable(Of ValueRange)
   spec.csharp:
-  - uid: System.ValueType.Equals(System.Object)
-    name: Equals
+  - uid: System.IEquatable`1
+    name: IEquatable
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: )
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: ShapeEngine.Core.Structs.ValueRange
+    name: ValueRange
+    href: ShapeEngine.Core.Structs.ValueRange.html
+  - name: '>'
   spec.vb:
-  - uid: System.ValueType.Equals(System.Object)
-    name: Equals
+  - uid: System.IEquatable`1
+    name: IEquatable
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
   - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: Of
+  - name: " "
+  - uid: ShapeEngine.Core.Structs.ValueRange
+    name: ValueRange
+    href: ShapeEngine.Core.Structs.ValueRange.html
   - name: )
-- uid: System.ValueType.GetHashCode
-  commentId: M:System.ValueType.GetHashCode
-  parent: System.ValueType
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
-  name: GetHashCode()
-  nameWithType: ValueType.GetHashCode()
-  fullName: System.ValueType.GetHashCode()
+- uid: System.IComparable{ShapeEngine.Core.Structs.ValueRange}
+  commentId: T:System.IComparable{ShapeEngine.Core.Structs.ValueRange}
+  parent: System
+  definition: System.IComparable`1
+  href: https://learn.microsoft.com/dotnet/api/system.icomparable-1
+  name: IComparable<ValueRange>
+  nameWithType: IComparable<ValueRange>
+  fullName: System.IComparable<ShapeEngine.Core.Structs.ValueRange>
+  nameWithType.vb: IComparable(Of ValueRange)
+  fullName.vb: System.IComparable(Of ShapeEngine.Core.Structs.ValueRange)
+  name.vb: IComparable(Of ValueRange)
   spec.csharp:
-  - uid: System.ValueType.GetHashCode
-    name: GetHashCode
+  - uid: System.IComparable`1
+    name: IComparable
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
-  - name: (
-  - name: )
+    href: https://learn.microsoft.com/dotnet/api/system.icomparable-1
+  - name: <
+  - uid: ShapeEngine.Core.Structs.ValueRange
+    name: ValueRange
+    href: ShapeEngine.Core.Structs.ValueRange.html
+  - name: '>'
   spec.vb:
-  - uid: System.ValueType.GetHashCode
-    name: GetHashCode
+  - uid: System.IComparable`1
+    name: IComparable
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+    href: https://learn.microsoft.com/dotnet/api/system.icomparable-1
   - name: (
+  - name: Of
+  - name: " "
+  - uid: ShapeEngine.Core.Structs.ValueRange
+    name: ValueRange
+    href: ShapeEngine.Core.Structs.ValueRange.html
   - name: )
 - uid: System.ValueType.ToString
   commentId: M:System.ValueType.ToString
@@ -1616,6 +2341,228 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.IComparable`1
+  commentId: T:System.IComparable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.icomparable-1
+  name: IComparable<T>
+  nameWithType: IComparable<T>
+  fullName: System.IComparable<T>
+  nameWithType.vb: IComparable(Of T)
+  fullName.vb: System.IComparable(Of T)
+  name.vb: IComparable(Of T)
+  spec.csharp:
+  - uid: System.IComparable`1
+    name: IComparable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.icomparable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IComparable`1
+    name: IComparable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.icomparable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
 - uid: System.ValueType
   commentId: T:System.ValueType
   parent: System
@@ -1635,13 +2582,191 @@ references:
   nameWithType.vb: Object
   fullName.vb: Object
   name.vb: Object
-- uid: System
-  commentId: N:System
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system
-  name: System
-  nameWithType: System
-  fullName: System
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
+  href: ShapeEngine.html
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
 - uid: System.Single
   commentId: T:System.Single
   parent: System
@@ -1653,6 +2778,31 @@ references:
   nameWithType.vb: Single
   fullName.vb: Single
   name.vb: Single
+- uid: ShapeEngine.Core.Structs.ValueRange.TotalRange*
+  commentId: Overload:ShapeEngine.Core.Structs.ValueRange.TotalRange
+  href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_TotalRange
+  name: TotalRange
+  nameWithType: ValueRange.TotalRange
+  fullName: ShapeEngine.Core.Structs.ValueRange.TotalRange
+- uid: ShapeEngine.Core.Structs.ValueRange.Center*
+  commentId: Overload:ShapeEngine.Core.Structs.ValueRange.Center
+  href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_Center
+  name: Center
+  nameWithType: ValueRange.Center
+  fullName: ShapeEngine.Core.Structs.ValueRange.Center
+- uid: ShapeEngine.Core.Structs.ValueRange.AbsoluteCenter*
+  commentId: Overload:ShapeEngine.Core.Structs.ValueRange.AbsoluteCenter
+  href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_AbsoluteCenter
+  name: AbsoluteCenter
+  nameWithType: ValueRange.AbsoluteCenter
+  fullName: ShapeEngine.Core.Structs.ValueRange.AbsoluteCenter
+- uid: ShapeEngine.Core.Structs.ValueRange
+  commentId: T:ShapeEngine.Core.Structs.ValueRange
+  parent: ShapeEngine.Core.Structs
+  href: ShapeEngine.Core.Structs.ValueRange.html
+  name: ValueRange
+  nameWithType: ValueRange
+  fullName: ShapeEngine.Core.Structs.ValueRange
 - uid: ShapeEngine.Core.Structs.ValueRange.#ctor*
   commentId: Overload:ShapeEngine.Core.Structs.ValueRange.#ctor
   href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange__ctor
@@ -1708,6 +2858,12 @@ references:
   nameWithType.vb: Integer
   fullName.vb: Integer
   name.vb: Integer
+- uid: ShapeEngine.Core.Structs.ValueRange.UpdateRange*
+  commentId: Overload:ShapeEngine.Core.Structs.ValueRange.UpdateRange
+  href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_UpdateRange_System_Single_
+  name: UpdateRange
+  nameWithType: ValueRange.UpdateRange
+  fullName: ShapeEngine.Core.Structs.ValueRange.UpdateRange
 - uid: ShapeEngine.Core.Structs.ValueRange.HasRange*
   commentId: Overload:ShapeEngine.Core.Structs.ValueRange.HasRange
   href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_HasRange
@@ -1737,12 +2893,6 @@ references:
   name: GetFactor
   nameWithType: ValueRange.GetFactor
   fullName: ShapeEngine.Core.Structs.ValueRange.GetFactor
-- uid: ShapeEngine.Core.Structs.ValueRange.ToValueRangeInt*
-  commentId: Overload:ShapeEngine.Core.Structs.ValueRange.ToValueRangeInt
-  href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_ToValueRangeInt
-  name: ToValueRangeInt
-  nameWithType: ValueRange.ToValueRangeInt
-  fullName: ShapeEngine.Core.Structs.ValueRange.ToValueRangeInt
 - uid: ShapeEngine.Core.Structs.ValueRangeInt
   commentId: T:ShapeEngine.Core.Structs.ValueRangeInt
   parent: ShapeEngine.Core.Structs
@@ -1750,6 +2900,12 @@ references:
   name: ValueRangeInt
   nameWithType: ValueRangeInt
   fullName: ShapeEngine.Core.Structs.ValueRangeInt
+- uid: ShapeEngine.Core.Structs.ValueRange.ToValueRangeInt*
+  commentId: Overload:ShapeEngine.Core.Structs.ValueRange.ToValueRangeInt
+  href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_ToValueRangeInt
+  name: ToValueRangeInt
+  nameWithType: ValueRange.ToValueRangeInt
+  fullName: ShapeEngine.Core.Structs.ValueRange.ToValueRangeInt
 - uid: ShapeEngine.Core.Structs.ValueRange.ToVector2*
   commentId: Overload:ShapeEngine.Core.Structs.ValueRange.ToVector2
   href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_ToVector2
@@ -1768,6 +2924,12 @@ references:
   name: Lerp
   nameWithType: ValueRange.Lerp
   fullName: ShapeEngine.Core.Structs.ValueRange.Lerp
+- uid: ShapeEngine.Core.Structs.ValueRange.LerpInverse*
+  commentId: Overload:ShapeEngine.Core.Structs.ValueRange.LerpInverse
+  href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_LerpInverse_System_Single_
+  name: LerpInverse
+  nameWithType: ValueRange.LerpInverse
+  fullName: ShapeEngine.Core.Structs.ValueRange.LerpInverse
 - uid: ShapeEngine.Core.Structs.ValueRange.Inverse*
   commentId: Overload:ShapeEngine.Core.Structs.ValueRange.Inverse
   href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_Inverse_System_Single_
@@ -1780,13 +2942,6 @@ references:
   name: Remap
   nameWithType: ValueRange.Remap
   fullName: ShapeEngine.Core.Structs.ValueRange.Remap
-- uid: ShapeEngine.Core.Structs.ValueRange
-  commentId: T:ShapeEngine.Core.Structs.ValueRange
-  parent: ShapeEngine.Core.Structs
-  href: ShapeEngine.Core.Structs.ValueRange.html
-  name: ValueRange
-  nameWithType: ValueRange
-  fullName: ShapeEngine.Core.Structs.ValueRange
 - uid: ShapeEngine.Core.Structs.ValueRange.Clamp*
   commentId: Overload:ShapeEngine.Core.Structs.ValueRange.Clamp
   href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_Clamp_System_Single_
@@ -1877,3 +3032,286 @@ references:
   - uid: ShapeEngine.Core.Structs.ValueRange.op_Division*
     name: /
     href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_op_Division_ShapeEngine_Core_Structs_ValueRange_ShapeEngine_Core_Structs_ValueRange_
+- uid: ShapeEngine.Core.Structs.ValueRange.Equals*
+  commentId: Overload:ShapeEngine.Core.Structs.ValueRange.Equals
+  href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_Equals_ShapeEngine_Core_Structs_ValueRange_
+  name: Equals
+  nameWithType: ValueRange.Equals
+  fullName: ShapeEngine.Core.Structs.ValueRange.Equals
+- uid: System.IEquatable{ShapeEngine.Core.Structs.ValueRange}.Equals(ShapeEngine.Core.Structs.ValueRange)
+  commentId: M:System.IEquatable{ShapeEngine.Core.Structs.ValueRange}.Equals(ShapeEngine.Core.Structs.ValueRange)
+  parent: System.IEquatable{ShapeEngine.Core.Structs.ValueRange}
+  definition: System.IEquatable`1.Equals(`0)
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(ValueRange)
+  nameWithType: IEquatable<ValueRange>.Equals(ValueRange)
+  fullName: System.IEquatable<ShapeEngine.Core.Structs.ValueRange>.Equals(ShapeEngine.Core.Structs.ValueRange)
+  nameWithType.vb: IEquatable(Of ValueRange).Equals(ValueRange)
+  fullName.vb: System.IEquatable(Of ShapeEngine.Core.Structs.ValueRange).Equals(ShapeEngine.Core.Structs.ValueRange)
+  spec.csharp:
+  - uid: System.IEquatable{ShapeEngine.Core.Structs.ValueRange}.Equals(ShapeEngine.Core.Structs.ValueRange)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - uid: ShapeEngine.Core.Structs.ValueRange
+    name: ValueRange
+    href: ShapeEngine.Core.Structs.ValueRange.html
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable{ShapeEngine.Core.Structs.ValueRange}.Equals(ShapeEngine.Core.Structs.ValueRange)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - uid: ShapeEngine.Core.Structs.ValueRange
+    name: ValueRange
+    href: ShapeEngine.Core.Structs.ValueRange.html
+  - name: )
+- uid: System.IEquatable`1.Equals(`0)
+  commentId: M:System.IEquatable`1.Equals(`0)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(T)
+  nameWithType: IEquatable<T>.Equals(T)
+  fullName: System.IEquatable<T>.Equals(T)
+  nameWithType.vb: IEquatable(Of T).Equals(T)
+  fullName.vb: System.IEquatable(Of T).Equals(T)
+  spec.csharp:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+- uid: System.ValueType.Equals(System.Object)
+  commentId: M:System.ValueType.Equals(System.Object)
+  parent: System.ValueType
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  name: Equals(object)
+  nameWithType: ValueType.Equals(object)
+  fullName: System.ValueType.Equals(object)
+  nameWithType.vb: ValueType.Equals(Object)
+  fullName.vb: System.ValueType.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.ValueType.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.ValueType.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.equals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: ShapeEngine.Core.Structs.ValueRange.GetHashKey*
+  commentId: Overload:ShapeEngine.Core.Structs.ValueRange.GetHashKey
+  href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_GetHashKey_System_Int32_
+  name: GetHashKey
+  nameWithType: ValueRange.GetHashKey
+  fullName: ShapeEngine.Core.Structs.ValueRange.GetHashKey
+- uid: System.UInt64
+  commentId: T:System.UInt64
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.uint64
+  name: ulong
+  nameWithType: ulong
+  fullName: ulong
+  nameWithType.vb: ULong
+  fullName.vb: ULong
+  name.vb: ULong
+- uid: ShapeEngine.Core.Structs.ValueRange.GetHashKeyHex*
+  commentId: Overload:ShapeEngine.Core.Structs.ValueRange.GetHashKeyHex
+  href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_GetHashKeyHex_System_Int32_
+  name: GetHashKeyHex
+  nameWithType: ValueRange.GetHashKeyHex
+  fullName: ShapeEngine.Core.Structs.ValueRange.GetHashKeyHex
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: ShapeEngine.Core.Structs.ValueRange.GetHashKeyString*
+  commentId: Overload:ShapeEngine.Core.Structs.ValueRange.GetHashKeyString
+  href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_GetHashKeyString_System_Int32_
+  name: GetHashKeyString
+  nameWithType: ValueRange.GetHashKeyString
+  fullName: ShapeEngine.Core.Structs.ValueRange.GetHashKeyString
+- uid: ShapeEngine.Core.Structs.ValueRange.GetHashKey(System.Int32)
+  commentId: M:ShapeEngine.Core.Structs.ValueRange.GetHashKey(System.Int32)
+  isExternal: true
+  href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_GetHashKey_System_Int32_
+  name: GetHashKey(int)
+  nameWithType: ValueRange.GetHashKey(int)
+  fullName: ShapeEngine.Core.Structs.ValueRange.GetHashKey(int)
+  nameWithType.vb: ValueRange.GetHashKey(Integer)
+  fullName.vb: ShapeEngine.Core.Structs.ValueRange.GetHashKey(Integer)
+  name.vb: GetHashKey(Integer)
+  spec.csharp:
+  - uid: ShapeEngine.Core.Structs.ValueRange.GetHashKey(System.Int32)
+    name: GetHashKey
+    href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_GetHashKey_System_Int32_
+  - name: (
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.Structs.ValueRange.GetHashKey(System.Int32)
+    name: GetHashKey
+    href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_GetHashKey_System_Int32_
+  - name: (
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+- uid: System.ValueType.GetHashCode
+  commentId: M:System.ValueType.GetHashCode
+  parent: System.ValueType
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  name: GetHashCode()
+  nameWithType: ValueType.GetHashCode()
+  fullName: System.ValueType.GetHashCode()
+  spec.csharp:
+  - uid: System.ValueType.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.ValueType.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode
+  - name: (
+  - name: )
+- uid: ShapeEngine.Core.Structs.ValueRange.GetHashCode*
+  commentId: Overload:ShapeEngine.Core.Structs.ValueRange.GetHashCode
+  href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_GetHashCode
+  name: GetHashCode
+  nameWithType: ValueRange.GetHashCode
+  fullName: ShapeEngine.Core.Structs.ValueRange.GetHashCode
+- uid: ShapeEngine.Core.Structs.ValueRange.CompareTo*
+  commentId: Overload:ShapeEngine.Core.Structs.ValueRange.CompareTo
+  href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_CompareTo_ShapeEngine_Core_Structs_ValueRange_
+  name: CompareTo
+  nameWithType: ValueRange.CompareTo
+  fullName: ShapeEngine.Core.Structs.ValueRange.CompareTo
+- uid: System.IComparable{ShapeEngine.Core.Structs.ValueRange}.CompareTo(ShapeEngine.Core.Structs.ValueRange)
+  commentId: M:System.IComparable{ShapeEngine.Core.Structs.ValueRange}.CompareTo(ShapeEngine.Core.Structs.ValueRange)
+  parent: System.IComparable{ShapeEngine.Core.Structs.ValueRange}
+  definition: System.IComparable`1.CompareTo(`0)
+  href: https://learn.microsoft.com/dotnet/api/system.icomparable-1.compareto
+  name: CompareTo(ValueRange)
+  nameWithType: IComparable<ValueRange>.CompareTo(ValueRange)
+  fullName: System.IComparable<ShapeEngine.Core.Structs.ValueRange>.CompareTo(ShapeEngine.Core.Structs.ValueRange)
+  nameWithType.vb: IComparable(Of ValueRange).CompareTo(ValueRange)
+  fullName.vb: System.IComparable(Of ShapeEngine.Core.Structs.ValueRange).CompareTo(ShapeEngine.Core.Structs.ValueRange)
+  spec.csharp:
+  - uid: System.IComparable{ShapeEngine.Core.Structs.ValueRange}.CompareTo(ShapeEngine.Core.Structs.ValueRange)
+    name: CompareTo
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.icomparable-1.compareto
+  - name: (
+  - uid: ShapeEngine.Core.Structs.ValueRange
+    name: ValueRange
+    href: ShapeEngine.Core.Structs.ValueRange.html
+  - name: )
+  spec.vb:
+  - uid: System.IComparable{ShapeEngine.Core.Structs.ValueRange}.CompareTo(ShapeEngine.Core.Structs.ValueRange)
+    name: CompareTo
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.icomparable-1.compareto
+  - name: (
+  - uid: ShapeEngine.Core.Structs.ValueRange
+    name: ValueRange
+    href: ShapeEngine.Core.Structs.ValueRange.html
+  - name: )
+- uid: System.IComparable`1.CompareTo(`0)
+  commentId: M:System.IComparable`1.CompareTo(`0)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.icomparable-1.compareto
+  name: CompareTo(T)
+  nameWithType: IComparable<T>.CompareTo(T)
+  fullName: System.IComparable<T>.CompareTo(T)
+  nameWithType.vb: IComparable(Of T).CompareTo(T)
+  fullName.vb: System.IComparable(Of T).CompareTo(T)
+  spec.csharp:
+  - uid: System.IComparable`1.CompareTo(`0)
+    name: CompareTo
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.icomparable-1.compareto
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: System.IComparable`1.CompareTo(`0)
+    name: CompareTo
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.icomparable-1.compareto
+  - name: (
+  - name: T
+  - name: )
+- uid: ShapeEngine.Core.Structs.ValueRange.op_Equality*
+  commentId: Overload:ShapeEngine.Core.Structs.ValueRange.op_Equality
+  href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_op_Equality_ShapeEngine_Core_Structs_ValueRange_ShapeEngine_Core_Structs_ValueRange_
+  name: operator ==
+  nameWithType: ValueRange.operator ==
+  fullName: ShapeEngine.Core.Structs.ValueRange.operator ==
+  nameWithType.vb: ValueRange.=
+  fullName.vb: ShapeEngine.Core.Structs.ValueRange.=
+  name.vb: =
+  spec.csharp:
+  - name: operator
+  - name: " "
+  - uid: ShapeEngine.Core.Structs.ValueRange.op_Equality*
+    name: ==
+    href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_op_Equality_ShapeEngine_Core_Structs_ValueRange_ShapeEngine_Core_Structs_ValueRange_
+- uid: ShapeEngine.Core.Structs.ValueRange.op_Inequality*
+  commentId: Overload:ShapeEngine.Core.Structs.ValueRange.op_Inequality
+  href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_op_Inequality_ShapeEngine_Core_Structs_ValueRange_ShapeEngine_Core_Structs_ValueRange_
+  name: operator !=
+  nameWithType: ValueRange.operator !=
+  fullName: ShapeEngine.Core.Structs.ValueRange.operator !=
+  nameWithType.vb: ValueRange.<>
+  fullName.vb: ShapeEngine.Core.Structs.ValueRange.<>
+  name.vb: <>
+  spec.csharp:
+  - name: operator
+  - name: " "
+  - uid: ShapeEngine.Core.Structs.ValueRange.op_Inequality*
+    name: '!='
+    href: ShapeEngine.Core.Structs.ValueRange.html#ShapeEngine_Core_Structs_ValueRange_op_Inequality_ShapeEngine_Core_Structs_ValueRange_ShapeEngine_Core_Structs_ValueRange_

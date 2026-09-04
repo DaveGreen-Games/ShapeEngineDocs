@@ -7,8 +7,8 @@ items:
   children:
   - ShapeEngine.Text.Emphasis.#ctor(ShapeEngine.Text.IEmphasisDrawer,ShapeEngine.Color.ColorRgba,ShapeEngine.Color.ColorRgba)
   - ShapeEngine.Text.Emphasis.ColorRgba
-  - ShapeEngine.Text.Emphasis.DrawBackground(ShapeEngine.Core.Shapes.Rect)
-  - ShapeEngine.Text.Emphasis.DrawForeground(ShapeEngine.Core.Shapes.Rect)
+  - ShapeEngine.Text.Emphasis.DrawBackground(ShapeEngine.Geometry.RectDef.Rect)
+  - ShapeEngine.Text.Emphasis.DrawForeground(ShapeEngine.Geometry.RectDef.Rect)
   - ShapeEngine.Text.Emphasis.TextColorRgba
   langs:
   - csharp
@@ -24,10 +24,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Emphasis
     path: ../ShapeEngine/ShapeEngine/Text/Emphasis.cs
-    startLine: 5
+    startLine: 8
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Text
+  summary: Represents an emphasis style for text, including background and foreground drawing and color information.
+  example: []
   syntax:
     content: public class Emphasis
     content.vb: Public Class Emphasis
@@ -41,6 +43,10 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
 - uid: ShapeEngine.Text.Emphasis.ColorRgba
   commentId: F:ShapeEngine.Text.Emphasis.ColorRgba
   id: ColorRgba
@@ -59,10 +65,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ColorRgba
     path: ../ShapeEngine/ShapeEngine/Text/Emphasis.cs
-    startLine: 8
+    startLine: 17
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Text
+  summary: The color used for the emphasis background or effect.
+  example: []
   syntax:
     content: public ColorRgba ColorRgba
     return:
@@ -86,10 +94,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: TextColorRgba
     path: ../ShapeEngine/ShapeEngine/Text/Emphasis.cs
-    startLine: 9
+    startLine: 21
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Text
+  summary: The color used for the emphasized text itself.
+  example: []
   syntax:
     content: public ColorRgba TextColorRgba
     return:
@@ -113,34 +123,39 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Text/Emphasis.cs
-    startLine: 11
+    startLine: 29
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Text
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Text.Emphasis" data-throw-if-not-resolved="false"></xref> class.
+  example: []
   syntax:
     content: public Emphasis(IEmphasisDrawer drawer, ColorRgba colorRgba, ColorRgba textColorRgba)
     parameters:
     - id: drawer
       type: ShapeEngine.Text.IEmphasisDrawer
+      description: The emphasis drawer implementation.
     - id: colorRgba
       type: ShapeEngine.Color.ColorRgba
+      description: The color for the emphasis effect.
     - id: textColorRgba
       type: ShapeEngine.Color.ColorRgba
+      description: The color for the emphasized text.
     content.vb: Public Sub New(drawer As IEmphasisDrawer, colorRgba As ColorRgba, textColorRgba As ColorRgba)
   overload: ShapeEngine.Text.Emphasis.#ctor*
   nameWithType.vb: Emphasis.New(IEmphasisDrawer, ColorRgba, ColorRgba)
   fullName.vb: ShapeEngine.Text.Emphasis.New(ShapeEngine.Text.IEmphasisDrawer, ShapeEngine.Color.ColorRgba, ShapeEngine.Color.ColorRgba)
   name.vb: New(IEmphasisDrawer, ColorRgba, ColorRgba)
-- uid: ShapeEngine.Text.Emphasis.DrawForeground(ShapeEngine.Core.Shapes.Rect)
-  commentId: M:ShapeEngine.Text.Emphasis.DrawForeground(ShapeEngine.Core.Shapes.Rect)
-  id: DrawForeground(ShapeEngine.Core.Shapes.Rect)
+- uid: ShapeEngine.Text.Emphasis.DrawForeground(ShapeEngine.Geometry.RectDef.Rect)
+  commentId: M:ShapeEngine.Text.Emphasis.DrawForeground(ShapeEngine.Geometry.RectDef.Rect)
+  id: DrawForeground(ShapeEngine.Geometry.RectDef.Rect)
   parent: ShapeEngine.Text.Emphasis
   langs:
   - csharp
   - vb
   name: DrawForeground(Rect)
   nameWithType: Emphasis.DrawForeground(Rect)
-  fullName: ShapeEngine.Text.Emphasis.DrawForeground(ShapeEngine.Core.Shapes.Rect)
+  fullName: ShapeEngine.Text.Emphasis.DrawForeground(ShapeEngine.Geometry.RectDef.Rect)
   type: Method
   source:
     remote:
@@ -149,27 +164,30 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawForeground
     path: ../ShapeEngine/ShapeEngine/Text/Emphasis.cs
-    startLine: 18
+    startLine: 40
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Text
+  summary: Draws the emphasis foreground (e.g., underline, border) for the given rectangle.
+  example: []
   syntax:
     content: public void DrawForeground(Rect rect)
     parameters:
     - id: rect
-      type: ShapeEngine.Core.Shapes.Rect
+      type: ShapeEngine.Geometry.RectDef.Rect
+      description: The rectangle area to draw.
     content.vb: Public Sub DrawForeground(rect As Rect)
   overload: ShapeEngine.Text.Emphasis.DrawForeground*
-- uid: ShapeEngine.Text.Emphasis.DrawBackground(ShapeEngine.Core.Shapes.Rect)
-  commentId: M:ShapeEngine.Text.Emphasis.DrawBackground(ShapeEngine.Core.Shapes.Rect)
-  id: DrawBackground(ShapeEngine.Core.Shapes.Rect)
+- uid: ShapeEngine.Text.Emphasis.DrawBackground(ShapeEngine.Geometry.RectDef.Rect)
+  commentId: M:ShapeEngine.Text.Emphasis.DrawBackground(ShapeEngine.Geometry.RectDef.Rect)
+  id: DrawBackground(ShapeEngine.Geometry.RectDef.Rect)
   parent: ShapeEngine.Text.Emphasis
   langs:
   - csharp
   - vb
   name: DrawBackground(Rect)
   nameWithType: Emphasis.DrawBackground(Rect)
-  fullName: ShapeEngine.Text.Emphasis.DrawBackground(ShapeEngine.Core.Shapes.Rect)
+  fullName: ShapeEngine.Text.Emphasis.DrawBackground(ShapeEngine.Geometry.RectDef.Rect)
   type: Method
   source:
     remote:
@@ -178,15 +196,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: DrawBackground
     path: ../ShapeEngine/ShapeEngine/Text/Emphasis.cs
-    startLine: 19
+    startLine: 45
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Text
+  summary: Draws the emphasis background (e.g., highlight) for the given rectangle.
+  example: []
   syntax:
     content: public void DrawBackground(Rect rect)
     parameters:
     - id: rect
-      type: ShapeEngine.Core.Shapes.Rect
+      type: ShapeEngine.Geometry.RectDef.Rect
+      description: The rectangle area to draw.
     content.vb: Public Sub DrawBackground(rect As Rect)
   overload: ShapeEngine.Text.Emphasis.DrawBackground*
 references:
@@ -442,6 +463,165 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -449,6 +629,191 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
+  href: ShapeEngine.html
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
 - uid: ShapeEngine.Color.ColorRgba
   commentId: T:ShapeEngine.Color.ColorRgba
   parent: ShapeEngine.Color
@@ -478,6 +843,13 @@ references:
   - uid: ShapeEngine.Color
     name: Color
     href: ShapeEngine.Color.html
+- uid: ShapeEngine.Text.Emphasis
+  commentId: T:ShapeEngine.Text.Emphasis
+  parent: ShapeEngine.Text
+  href: ShapeEngine.Text.Emphasis.html
+  name: Emphasis
+  nameWithType: Emphasis
+  fullName: ShapeEngine.Text.Emphasis
 - uid: ShapeEngine.Text.Emphasis.#ctor*
   commentId: Overload:ShapeEngine.Text.Emphasis.#ctor
   href: ShapeEngine.Text.Emphasis.html#ShapeEngine_Text_Emphasis__ctor_ShapeEngine_Text_IEmphasisDrawer_ShapeEngine_Color_ColorRgba_ShapeEngine_Color_ColorRgba_
@@ -496,50 +868,50 @@ references:
   fullName: ShapeEngine.Text.IEmphasisDrawer
 - uid: ShapeEngine.Text.Emphasis.DrawForeground*
   commentId: Overload:ShapeEngine.Text.Emphasis.DrawForeground
-  href: ShapeEngine.Text.Emphasis.html#ShapeEngine_Text_Emphasis_DrawForeground_ShapeEngine_Core_Shapes_Rect_
+  href: ShapeEngine.Text.Emphasis.html#ShapeEngine_Text_Emphasis_DrawForeground_ShapeEngine_Geometry_RectDef_Rect_
   name: DrawForeground
   nameWithType: Emphasis.DrawForeground
   fullName: ShapeEngine.Text.Emphasis.DrawForeground
-- uid: ShapeEngine.Core.Shapes.Rect
-  commentId: T:ShapeEngine.Core.Shapes.Rect
-  parent: ShapeEngine.Core.Shapes
-  href: ShapeEngine.Core.Shapes.Rect.html
+- uid: ShapeEngine.Geometry.RectDef.Rect
+  commentId: T:ShapeEngine.Geometry.RectDef.Rect
+  parent: ShapeEngine.Geometry.RectDef
+  href: ShapeEngine.Geometry.RectDef.Rect.html
   name: Rect
   nameWithType: Rect
-  fullName: ShapeEngine.Core.Shapes.Rect
-- uid: ShapeEngine.Core.Shapes
-  commentId: N:ShapeEngine.Core.Shapes
+  fullName: ShapeEngine.Geometry.RectDef.Rect
+- uid: ShapeEngine.Geometry.RectDef
+  commentId: N:ShapeEngine.Geometry.RectDef
   href: ShapeEngine.html
-  name: ShapeEngine.Core.Shapes
-  nameWithType: ShapeEngine.Core.Shapes
-  fullName: ShapeEngine.Core.Shapes
+  name: ShapeEngine.Geometry.RectDef
+  nameWithType: ShapeEngine.Geometry.RectDef
+  fullName: ShapeEngine.Geometry.RectDef
   spec.csharp:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.Core
-    name: Core
-    href: ShapeEngine.Core.html
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
   - name: .
-  - uid: ShapeEngine.Core.Shapes
-    name: Shapes
-    href: ShapeEngine.Core.Shapes.html
+  - uid: ShapeEngine.Geometry.RectDef
+    name: RectDef
+    href: ShapeEngine.Geometry.RectDef.html
   spec.vb:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.Core
-    name: Core
-    href: ShapeEngine.Core.html
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
   - name: .
-  - uid: ShapeEngine.Core.Shapes
-    name: Shapes
-    href: ShapeEngine.Core.Shapes.html
+  - uid: ShapeEngine.Geometry.RectDef
+    name: RectDef
+    href: ShapeEngine.Geometry.RectDef.html
 - uid: ShapeEngine.Text.Emphasis.DrawBackground*
   commentId: Overload:ShapeEngine.Text.Emphasis.DrawBackground
-  href: ShapeEngine.Text.Emphasis.html#ShapeEngine_Text_Emphasis_DrawBackground_ShapeEngine_Core_Shapes_Rect_
+  href: ShapeEngine.Text.Emphasis.html#ShapeEngine_Text_Emphasis_DrawBackground_ShapeEngine_Geometry_RectDef_Rect_
   name: DrawBackground
   nameWithType: Emphasis.DrawBackground
   fullName: ShapeEngine.Text.Emphasis.DrawBackground

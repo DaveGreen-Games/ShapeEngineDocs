@@ -5,9 +5,20 @@ items:
   id: GameSettings
   parent: ShapeEngine.Core.Structs
   children:
-  - ShapeEngine.Core.Structs.GameSettings.Default
-  - ShapeEngine.Core.Structs.GameSettings.DevelopmentDimensions
-  - ShapeEngine.Core.Structs.GameSettings.MultiShaderSupport
+  - ShapeEngine.Core.Structs.GameSettings.#ctor(Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.String,System.Nullable{System.Environment.SpecialFolder})
+  - ShapeEngine.Core.Structs.GameSettings.#ctor(ShapeEngine.Core.Structs.Dimensions,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.Boolean,System.String,System.Nullable{System.Environment.SpecialFolder})
+  - ShapeEngine.Core.Structs.GameSettings.#ctor(System.Single,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.String,System.Nullable{System.Environment.SpecialFolder})
+  - ShapeEngine.Core.Structs.GameSettings.ApplicationName
+  - ShapeEngine.Core.Structs.GameSettings.FixedDimensions
+  - ShapeEngine.Core.Structs.GameSettings.FixedMode(System.String,System.Nullable{System.Environment.SpecialFolder})
+  - ShapeEngine.Core.Structs.GameSettings.FixedNearestMode(System.String,System.Nullable{System.Environment.SpecialFolder})
+  - ShapeEngine.Core.Structs.GameSettings.PixelationFactor
+  - ShapeEngine.Core.Structs.GameSettings.PixelationMode(System.String,System.Nullable{System.Environment.SpecialFolder})
+  - ShapeEngine.Core.Structs.GameSettings.SaveDirectory
+  - ShapeEngine.Core.Structs.GameSettings.ScreenTextureMode
+  - ShapeEngine.Core.Structs.GameSettings.ShaderSupportType
+  - ShapeEngine.Core.Structs.GameSettings.StretchMode(System.String,System.Nullable{System.Environment.SpecialFolder})
+  - ShapeEngine.Core.Structs.GameSettings.TextureFilter
   langs:
   - csharp
   - vb
@@ -22,12 +33,14 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GameSettings
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
-    startLine: 2
+    startLine: 9
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: A struct representing game settings for a 2D game engine.
+  example: []
   syntax:
-    content: public struct GameSettings
+    content: public readonly struct GameSettings
     content.vb: Public Structure GameSettings
   inheritedMembers:
   - System.ValueType.Equals(System.Object)
@@ -36,89 +49,541 @@ items:
   - System.Object.Equals(System.Object,System.Object)
   - System.Object.GetType
   - System.Object.ReferenceEquals(System.Object,System.Object)
-- uid: ShapeEngine.Core.Structs.GameSettings.Default
-  commentId: P:ShapeEngine.Core.Structs.GameSettings.Default
-  id: Default
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+- uid: ShapeEngine.Core.Structs.GameSettings.StretchMode(System.String,System.Nullable{System.Environment.SpecialFolder})
+  commentId: M:ShapeEngine.Core.Structs.GameSettings.StretchMode(System.String,System.Nullable{System.Environment.SpecialFolder})
+  id: StretchMode(System.String,System.Nullable{System.Environment.SpecialFolder})
   parent: ShapeEngine.Core.Structs.GameSettings
   langs:
   - csharp
   - vb
-  name: Default
-  nameWithType: GameSettings.Default
-  fullName: ShapeEngine.Core.Structs.GameSettings.Default
-  type: Property
+  name: StretchMode(string, SpecialFolder?)
+  nameWithType: GameSettings.StretchMode(string, Environment.SpecialFolder?)
+  fullName: ShapeEngine.Core.Structs.GameSettings.StretchMode(string, System.Environment.SpecialFolder?)
+  type: Method
   source:
     remote:
       path: ShapeEngine/Core/Structs/GameSettings.cs
       branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: Default
+    id: StretchMode
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
-    startLine: 4
+    startLine: 18
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Creates a new GameSettings instance with stretch mode.
+  example: []
   syntax:
-    content: public GameSettings Default { get; }
-    parameters: []
+    content: public static GameSettings StretchMode(string applicationName = "ShapeEngineGame", Environment.SpecialFolder? saveDirectory = SpecialFolder.LocalApplicationData)
+    parameters:
+    - id: applicationName
+      type: System.String
+      description: The name of the application. Will also be used for savegame folder name.
+    - id: saveDirectory
+      type: System.Nullable{System.Environment.SpecialFolder}
+      description: >-
+        The directory for saving game data. If set to null, no directory will be created.
+            Savegame location: saveDirectory/applicationName.
     return:
       type: ShapeEngine.Core.Structs.GameSettings
-    content.vb: Public ReadOnly Property [Default] As GameSettings
-  overload: ShapeEngine.Core.Structs.GameSettings.Default*
-- uid: ShapeEngine.Core.Structs.GameSettings.MultiShaderSupport
-  commentId: F:ShapeEngine.Core.Structs.GameSettings.MultiShaderSupport
-  id: MultiShaderSupport
+    content.vb: Public Shared Function StretchMode(applicationName As String = "ShapeEngineGame", saveDirectory As Environment.SpecialFolder? = SpecialFolder.LocalApplicationData) As GameSettings
+  overload: ShapeEngine.Core.Structs.GameSettings.StretchMode*
+  nameWithType.vb: GameSettings.StretchMode(String, Environment.SpecialFolder?)
+  fullName.vb: ShapeEngine.Core.Structs.GameSettings.StretchMode(String, System.Environment.SpecialFolder?)
+  name.vb: StretchMode(String, SpecialFolder?)
+- uid: ShapeEngine.Core.Structs.GameSettings.FixedMode(System.String,System.Nullable{System.Environment.SpecialFolder})
+  commentId: M:ShapeEngine.Core.Structs.GameSettings.FixedMode(System.String,System.Nullable{System.Environment.SpecialFolder})
+  id: FixedMode(System.String,System.Nullable{System.Environment.SpecialFolder})
   parent: ShapeEngine.Core.Structs.GameSettings
   langs:
   - csharp
   - vb
-  name: MultiShaderSupport
-  nameWithType: GameSettings.MultiShaderSupport
-  fullName: ShapeEngine.Core.Structs.GameSettings.MultiShaderSupport
-  type: Field
+  name: FixedMode(string, SpecialFolder?)
+  nameWithType: GameSettings.FixedMode(string, Environment.SpecialFolder?)
+  fullName: ShapeEngine.Core.Structs.GameSettings.FixedMode(string, System.Environment.SpecialFolder?)
+  type: Method
   source:
     remote:
       path: ShapeEngine/Core/Structs/GameSettings.cs
       branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: MultiShaderSupport
+    id: FixedMode
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
-    startLine: 10
+    startLine: 31
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Creates a new GameSettings instance with fixed dimensions and the nearest scaling disabled.
+  example: []
   syntax:
-    content: public bool MultiShaderSupport
+    content: public static GameSettings FixedMode(string applicationName = "ShapeEngineGame", Environment.SpecialFolder? saveDirectory = SpecialFolder.LocalApplicationData)
+    parameters:
+    - id: applicationName
+      type: System.String
+      description: The name of the application. Will also be used for savegame folder name.
+    - id: saveDirectory
+      type: System.Nullable{System.Environment.SpecialFolder}
+      description: >-
+        The directory for saving game data. If set to null, no directory will be created.
+            Savegame location: saveDirectory/applicationName.
     return:
-      type: System.Boolean
-    content.vb: Public MultiShaderSupport As Boolean
-- uid: ShapeEngine.Core.Structs.GameSettings.DevelopmentDimensions
-  commentId: F:ShapeEngine.Core.Structs.GameSettings.DevelopmentDimensions
-  id: DevelopmentDimensions
+      type: ShapeEngine.Core.Structs.GameSettings
+    content.vb: Public Shared Function FixedMode(applicationName As String = "ShapeEngineGame", saveDirectory As Environment.SpecialFolder? = SpecialFolder.LocalApplicationData) As GameSettings
+  overload: ShapeEngine.Core.Structs.GameSettings.FixedMode*
+  nameWithType.vb: GameSettings.FixedMode(String, Environment.SpecialFolder?)
+  fullName.vb: ShapeEngine.Core.Structs.GameSettings.FixedMode(String, System.Environment.SpecialFolder?)
+  name.vb: FixedMode(String, SpecialFolder?)
+- uid: ShapeEngine.Core.Structs.GameSettings.FixedNearestMode(System.String,System.Nullable{System.Environment.SpecialFolder})
+  commentId: M:ShapeEngine.Core.Structs.GameSettings.FixedNearestMode(System.String,System.Nullable{System.Environment.SpecialFolder})
+  id: FixedNearestMode(System.String,System.Nullable{System.Environment.SpecialFolder})
   parent: ShapeEngine.Core.Structs.GameSettings
   langs:
   - csharp
   - vb
-  name: DevelopmentDimensions
-  nameWithType: GameSettings.DevelopmentDimensions
-  fullName: ShapeEngine.Core.Structs.GameSettings.DevelopmentDimensions
+  name: FixedNearestMode(string, SpecialFolder?)
+  nameWithType: GameSettings.FixedNearestMode(string, Environment.SpecialFolder?)
+  fullName: ShapeEngine.Core.Structs.GameSettings.FixedNearestMode(string, System.Environment.SpecialFolder?)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/GameSettings.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: FixedNearestMode
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
+    startLine: 44
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Creates a new GameSettings instance with fixed dimensions and the nearest scaling enabled.
+  example: []
+  syntax:
+    content: public static GameSettings FixedNearestMode(string applicationName = "ShapeEngineGame", Environment.SpecialFolder? saveDirectory = SpecialFolder.LocalApplicationData)
+    parameters:
+    - id: applicationName
+      type: System.String
+      description: The name of the application. Will also be used for savegame folder name.
+    - id: saveDirectory
+      type: System.Nullable{System.Environment.SpecialFolder}
+      description: >-
+        The directory for saving game data. If set to null, no directory will be created.
+            Savegame location: saveDirectory/applicationName.
+    return:
+      type: ShapeEngine.Core.Structs.GameSettings
+    content.vb: Public Shared Function FixedNearestMode(applicationName As String = "ShapeEngineGame", saveDirectory As Environment.SpecialFolder? = SpecialFolder.LocalApplicationData) As GameSettings
+  overload: ShapeEngine.Core.Structs.GameSettings.FixedNearestMode*
+  nameWithType.vb: GameSettings.FixedNearestMode(String, Environment.SpecialFolder?)
+  fullName.vb: ShapeEngine.Core.Structs.GameSettings.FixedNearestMode(String, System.Environment.SpecialFolder?)
+  name.vb: FixedNearestMode(String, SpecialFolder?)
+- uid: ShapeEngine.Core.Structs.GameSettings.PixelationMode(System.String,System.Nullable{System.Environment.SpecialFolder})
+  commentId: M:ShapeEngine.Core.Structs.GameSettings.PixelationMode(System.String,System.Nullable{System.Environment.SpecialFolder})
+  id: PixelationMode(System.String,System.Nullable{System.Environment.SpecialFolder})
+  parent: ShapeEngine.Core.Structs.GameSettings
+  langs:
+  - csharp
+  - vb
+  name: PixelationMode(string, SpecialFolder?)
+  nameWithType: GameSettings.PixelationMode(string, Environment.SpecialFolder?)
+  fullName: ShapeEngine.Core.Structs.GameSettings.PixelationMode(string, System.Environment.SpecialFolder?)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/GameSettings.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: PixelationMode
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
+    startLine: 57
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Creates a new GameSettings instance with pixelation mode.
+  example: []
+  syntax:
+    content: public static GameSettings PixelationMode(string applicationName = "ShapeEngineGame", Environment.SpecialFolder? saveDirectory = SpecialFolder.LocalApplicationData)
+    parameters:
+    - id: applicationName
+      type: System.String
+      description: The name of the application. Will also be used for savegame folder name.
+    - id: saveDirectory
+      type: System.Nullable{System.Environment.SpecialFolder}
+      description: >-
+        The directory for saving game data. If set to null, no directory will be created.
+            Savegame location: saveDirectory/applicationName.
+    return:
+      type: ShapeEngine.Core.Structs.GameSettings
+    content.vb: Public Shared Function PixelationMode(applicationName As String = "ShapeEngineGame", saveDirectory As Environment.SpecialFolder? = SpecialFolder.LocalApplicationData) As GameSettings
+  overload: ShapeEngine.Core.Structs.GameSettings.PixelationMode*
+  nameWithType.vb: GameSettings.PixelationMode(String, Environment.SpecialFolder?)
+  fullName.vb: ShapeEngine.Core.Structs.GameSettings.PixelationMode(String, System.Environment.SpecialFolder?)
+  name.vb: PixelationMode(String, SpecialFolder?)
+- uid: ShapeEngine.Core.Structs.GameSettings.#ctor(Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.String,System.Nullable{System.Environment.SpecialFolder})
+  commentId: M:ShapeEngine.Core.Structs.GameSettings.#ctor(Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.String,System.Nullable{System.Environment.SpecialFolder})
+  id: '#ctor(Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.String,System.Nullable{System.Environment.SpecialFolder})'
+  parent: ShapeEngine.Core.Structs.GameSettings
+  langs:
+  - csharp
+  - vb
+  name: GameSettings(TextureFilter, ShaderSupportType, string, SpecialFolder?)
+  nameWithType: GameSettings.GameSettings(TextureFilter, ShaderSupportType, string, Environment.SpecialFolder?)
+  fullName: ShapeEngine.Core.Structs.GameSettings.GameSettings(Raylib_cs.TextureFilter, ShapeEngine.Screen.ShaderSupportType, string, System.Environment.SpecialFolder?)
+  type: Constructor
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/GameSettings.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: .ctor
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
+    startLine: 76
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Initializes a new instance of the GameSettings struct with the specified fixed framerate, texture filter, and shader support type.
+  example: []
+  syntax:
+    content: public GameSettings(TextureFilter textureFilter, ShaderSupportType shaderSupportType, string applicationName = "ShapeEngineGame", Environment.SpecialFolder? saveDirectory = SpecialFolder.LocalApplicationData)
+    parameters:
+    - id: textureFilter
+      type: Raylib_cs.TextureFilter
+      description: The texture filter to be used.
+    - id: shaderSupportType
+      type: ShapeEngine.Screen.ShaderSupportType
+      description: The shader support type.
+    - id: applicationName
+      type: System.String
+      description: The name of the application. Will also be used for savegame folder name.
+    - id: saveDirectory
+      type: System.Nullable{System.Environment.SpecialFolder}
+      description: >-
+        The directory for saving game data. If set to null, no directory will be created.
+            Savegame location: saveDirectory/applicationName.
+    content.vb: Public Sub New(textureFilter As TextureFilter, shaderSupportType As ShaderSupportType, applicationName As String = "ShapeEngineGame", saveDirectory As Environment.SpecialFolder? = SpecialFolder.LocalApplicationData)
+  overload: ShapeEngine.Core.Structs.GameSettings.#ctor*
+  nameWithType.vb: GameSettings.New(TextureFilter, ShaderSupportType, String, Environment.SpecialFolder?)
+  fullName.vb: ShapeEngine.Core.Structs.GameSettings.New(Raylib_cs.TextureFilter, ShapeEngine.Screen.ShaderSupportType, String, System.Environment.SpecialFolder?)
+  name.vb: New(TextureFilter, ShaderSupportType, String, SpecialFolder?)
+- uid: ShapeEngine.Core.Structs.GameSettings.#ctor(ShapeEngine.Core.Structs.Dimensions,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.Boolean,System.String,System.Nullable{System.Environment.SpecialFolder})
+  commentId: M:ShapeEngine.Core.Structs.GameSettings.#ctor(ShapeEngine.Core.Structs.Dimensions,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.Boolean,System.String,System.Nullable{System.Environment.SpecialFolder})
+  id: '#ctor(ShapeEngine.Core.Structs.Dimensions,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.Boolean,System.String,System.Nullable{System.Environment.SpecialFolder})'
+  parent: ShapeEngine.Core.Structs.GameSettings
+  langs:
+  - csharp
+  - vb
+  name: GameSettings(Dimensions, TextureFilter, ShaderSupportType, bool, string, SpecialFolder?)
+  nameWithType: GameSettings.GameSettings(Dimensions, TextureFilter, ShaderSupportType, bool, string, Environment.SpecialFolder?)
+  fullName: ShapeEngine.Core.Structs.GameSettings.GameSettings(ShapeEngine.Core.Structs.Dimensions, Raylib_cs.TextureFilter, ShapeEngine.Screen.ShaderSupportType, bool, string, System.Environment.SpecialFolder?)
+  type: Constructor
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/GameSettings.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: .ctor
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
+    startLine: 98
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Initializes a new instance of the GameSettings struct with the specified fixed dimensions, fixed framerate, texture filter, shader support type, and nearest scaling option.
+  example: []
+  syntax:
+    content: public GameSettings(Dimensions fixedDimensions, TextureFilter textureFilter, ShaderSupportType shaderSupportType, bool nearestScaling = false, string applicationName = "ShapeEngineGame", Environment.SpecialFolder? saveDirectory = SpecialFolder.LocalApplicationData)
+    parameters:
+    - id: fixedDimensions
+      type: ShapeEngine.Core.Structs.Dimensions
+      description: The fixed dimensions for the game window.
+    - id: textureFilter
+      type: Raylib_cs.TextureFilter
+      description: The texture filter to be used.
+    - id: shaderSupportType
+      type: ShapeEngine.Screen.ShaderSupportType
+      description: The shader support type.
+    - id: nearestScaling
+      type: System.Boolean
+      description: A value indicating whether the nearest scaling should be used.
+    - id: applicationName
+      type: System.String
+      description: The name of the application. Will also be used for savegame folder name.
+    - id: saveDirectory
+      type: System.Nullable{System.Environment.SpecialFolder}
+      description: >-
+        The directory for saving game data. If set to null, no directory will be created.
+            Savegame location: saveDirectory/applicationName.
+    content.vb: Public Sub New(fixedDimensions As Dimensions, textureFilter As TextureFilter, shaderSupportType As ShaderSupportType, nearestScaling As Boolean = False, applicationName As String = "ShapeEngineGame", saveDirectory As Environment.SpecialFolder? = SpecialFolder.LocalApplicationData)
+  overload: ShapeEngine.Core.Structs.GameSettings.#ctor*
+  nameWithType.vb: GameSettings.New(Dimensions, TextureFilter, ShaderSupportType, Boolean, String, Environment.SpecialFolder?)
+  fullName.vb: ShapeEngine.Core.Structs.GameSettings.New(ShapeEngine.Core.Structs.Dimensions, Raylib_cs.TextureFilter, ShapeEngine.Screen.ShaderSupportType, Boolean, String, System.Environment.SpecialFolder?)
+  name.vb: New(Dimensions, TextureFilter, ShaderSupportType, Boolean, String, SpecialFolder?)
+- uid: ShapeEngine.Core.Structs.GameSettings.#ctor(System.Single,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.String,System.Nullable{System.Environment.SpecialFolder})
+  commentId: M:ShapeEngine.Core.Structs.GameSettings.#ctor(System.Single,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.String,System.Nullable{System.Environment.SpecialFolder})
+  id: '#ctor(System.Single,Raylib_cs.TextureFilter,ShapeEngine.Screen.ShaderSupportType,System.String,System.Nullable{System.Environment.SpecialFolder})'
+  parent: ShapeEngine.Core.Structs.GameSettings
+  langs:
+  - csharp
+  - vb
+  name: GameSettings(float, TextureFilter, ShaderSupportType, string, SpecialFolder?)
+  nameWithType: GameSettings.GameSettings(float, TextureFilter, ShaderSupportType, string, Environment.SpecialFolder?)
+  fullName: ShapeEngine.Core.Structs.GameSettings.GameSettings(float, Raylib_cs.TextureFilter, ShapeEngine.Screen.ShaderSupportType, string, System.Environment.SpecialFolder?)
+  type: Constructor
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/GameSettings.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: .ctor
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
+    startLine: 136
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Initializes a new instance of the GameSettings struct with the specified pixelation factor, fixed framerate, texture filter, and shader support type.
+  example: []
+  syntax:
+    content: public GameSettings(float pixelationFactor, TextureFilter textureFilter, ShaderSupportType shaderSupportType, string applicationName = "ShapeEngineGame", Environment.SpecialFolder? saveDirectory = SpecialFolder.LocalApplicationData)
+    parameters:
+    - id: pixelationFactor
+      type: System.Single
+      description: The pixelation factor for the game window.
+    - id: textureFilter
+      type: Raylib_cs.TextureFilter
+      description: The texture filter to be used.
+    - id: shaderSupportType
+      type: ShapeEngine.Screen.ShaderSupportType
+      description: The shader support type.
+    - id: applicationName
+      type: System.String
+      description: The name of the application. Will also be used for savegame folder name.
+    - id: saveDirectory
+      type: System.Nullable{System.Environment.SpecialFolder}
+      description: >-
+        The directory for saving game data. If set to null, no directory will be created.
+            Savegame location: saveDirectory/applicationName.
+    content.vb: Public Sub New(pixelationFactor As Single, textureFilter As TextureFilter, shaderSupportType As ShaderSupportType, applicationName As String = "ShapeEngineGame", saveDirectory As Environment.SpecialFolder? = SpecialFolder.LocalApplicationData)
+  overload: ShapeEngine.Core.Structs.GameSettings.#ctor*
+  nameWithType.vb: GameSettings.New(Single, TextureFilter, ShaderSupportType, String, Environment.SpecialFolder?)
+  fullName.vb: ShapeEngine.Core.Structs.GameSettings.New(Single, Raylib_cs.TextureFilter, ShapeEngine.Screen.ShaderSupportType, String, System.Environment.SpecialFolder?)
+  name.vb: New(Single, TextureFilter, ShaderSupportType, String, SpecialFolder?)
+- uid: ShapeEngine.Core.Structs.GameSettings.ScreenTextureMode
+  commentId: F:ShapeEngine.Core.Structs.GameSettings.ScreenTextureMode
+  id: ScreenTextureMode
+  parent: ShapeEngine.Core.Structs.GameSettings
+  langs:
+  - csharp
+  - vb
+  name: ScreenTextureMode
+  nameWithType: GameSettings.ScreenTextureMode
+  fullName: ShapeEngine.Core.Structs.GameSettings.ScreenTextureMode
   type: Field
   source:
     remote:
       path: ShapeEngine/Core/Structs/GameSettings.cs
       branch: main
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: DevelopmentDimensions
+    id: ScreenTextureMode
     path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
-    startLine: 11
+    startLine: 163
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Gets the screen texture mode.
+  example: []
   syntax:
-    content: public Dimensions DevelopmentDimensions
+    content: public readonly ScreenTextureMode ScreenTextureMode
+    return:
+      type: ShapeEngine.Screen.ScreenTextureMode
+    content.vb: Public ReadOnly ScreenTextureMode As ScreenTextureMode
+- uid: ShapeEngine.Core.Structs.GameSettings.ShaderSupportType
+  commentId: F:ShapeEngine.Core.Structs.GameSettings.ShaderSupportType
+  id: ShaderSupportType
+  parent: ShapeEngine.Core.Structs.GameSettings
+  langs:
+  - csharp
+  - vb
+  name: ShaderSupportType
+  nameWithType: GameSettings.ShaderSupportType
+  fullName: ShapeEngine.Core.Structs.GameSettings.ShaderSupportType
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/GameSettings.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: ShaderSupportType
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
+    startLine: 169
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Gets the shader support type.
+  example: []
+  syntax:
+    content: public readonly ShaderSupportType ShaderSupportType
+    return:
+      type: ShapeEngine.Screen.ShaderSupportType
+    content.vb: Public ReadOnly ShaderSupportType As ShaderSupportType
+- uid: ShapeEngine.Core.Structs.GameSettings.TextureFilter
+  commentId: F:ShapeEngine.Core.Structs.GameSettings.TextureFilter
+  id: TextureFilter
+  parent: ShapeEngine.Core.Structs.GameSettings
+  langs:
+  - csharp
+  - vb
+  name: TextureFilter
+  nameWithType: GameSettings.TextureFilter
+  fullName: ShapeEngine.Core.Structs.GameSettings.TextureFilter
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/GameSettings.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: TextureFilter
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
+    startLine: 174
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Gets the texture filter to be used.
+  example: []
+  syntax:
+    content: public readonly TextureFilter TextureFilter
+    return:
+      type: Raylib_cs.TextureFilter
+    content.vb: Public ReadOnly TextureFilter As TextureFilter
+- uid: ShapeEngine.Core.Structs.GameSettings.FixedDimensions
+  commentId: F:ShapeEngine.Core.Structs.GameSettings.FixedDimensions
+  id: FixedDimensions
+  parent: ShapeEngine.Core.Structs.GameSettings
+  langs:
+  - csharp
+  - vb
+  name: FixedDimensions
+  nameWithType: GameSettings.FixedDimensions
+  fullName: ShapeEngine.Core.Structs.GameSettings.FixedDimensions
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/GameSettings.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: FixedDimensions
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
+    startLine: 179
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Gets the fixed dimensions for the game window.
+  example: []
+  syntax:
+    content: public readonly Dimensions FixedDimensions
     return:
       type: ShapeEngine.Core.Structs.Dimensions
-    content.vb: Public DevelopmentDimensions As Dimensions
+    content.vb: Public ReadOnly FixedDimensions As Dimensions
+- uid: ShapeEngine.Core.Structs.GameSettings.PixelationFactor
+  commentId: F:ShapeEngine.Core.Structs.GameSettings.PixelationFactor
+  id: PixelationFactor
+  parent: ShapeEngine.Core.Structs.GameSettings
+  langs:
+  - csharp
+  - vb
+  name: PixelationFactor
+  nameWithType: GameSettings.PixelationFactor
+  fullName: ShapeEngine.Core.Structs.GameSettings.PixelationFactor
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/GameSettings.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: PixelationFactor
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
+    startLine: 184
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Gets the pixelation factor for the game window.
+  example: []
+  syntax:
+    content: public readonly float PixelationFactor
+    return:
+      type: System.Single
+    content.vb: Public ReadOnly PixelationFactor As Single
+- uid: ShapeEngine.Core.Structs.GameSettings.ApplicationName
+  commentId: F:ShapeEngine.Core.Structs.GameSettings.ApplicationName
+  id: ApplicationName
+  parent: ShapeEngine.Core.Structs.GameSettings
+  langs:
+  - csharp
+  - vb
+  name: ApplicationName
+  nameWithType: GameSettings.ApplicationName
+  fullName: ShapeEngine.Core.Structs.GameSettings.ApplicationName
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/GameSettings.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: ApplicationName
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
+    startLine: 189
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: The name of the application. Also used for the save game folder name if <code>SaveGameDirectory</code> is not set to null.
+  example: []
+  syntax:
+    content: public readonly string ApplicationName
+    return:
+      type: System.String
+    content.vb: Public ReadOnly ApplicationName As String
+- uid: ShapeEngine.Core.Structs.GameSettings.SaveDirectory
+  commentId: F:ShapeEngine.Core.Structs.GameSettings.SaveDirectory
+  id: SaveDirectory
+  parent: ShapeEngine.Core.Structs.GameSettings
+  langs:
+  - csharp
+  - vb
+  name: SaveDirectory
+  nameWithType: GameSettings.SaveDirectory
+  fullName: ShapeEngine.Core.Structs.GameSettings.SaveDirectory
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/GameSettings.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: SaveDirectory
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/GameSettings.cs
+    startLine: 205
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: >-
+    The directory where save game data is stored.
+
+    Uses <code>Environment.SpecialFolder.LocalApplicationData</code> by default.
+
+    Savegame location will be <xref href="ShapeEngine.Core.Structs.GameSettings.SaveDirectory" data-throw-if-not-resolved="false"></xref> \ <xref href="ShapeEngine.Core.Structs.GameSettings.ApplicationName" data-throw-if-not-resolved="false"></xref>.
+  remarks: >-
+    Good alternatives for save game locations include:
+
+
+    <ul><li><code>Environment.SpecialFolder.ApplicationData</code> \- for roaming user data.</li><li><code>Environment.SpecialFolder.MyDocuments</code> \- for user-accessible files.</li><li><code>Environment.SpecialFolder.CommonApplicationData</code> \- for data shared among all users.</li></ul>
+
+
+    Choose based on your application's requirements and platform conventions.
+  example: []
+  syntax:
+    content: public readonly Environment.SpecialFolder? SaveDirectory
+    return:
+      type: System.Nullable{System.Environment.SpecialFolder}
+    content.vb: Public ReadOnly SaveDirectory As Environment.SpecialFolder?
 references:
 - uid: ShapeEngine.Core.Structs
   commentId: N:ShapeEngine.Core.Structs
@@ -341,6 +806,165 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System.ValueType
   commentId: T:System.ValueType
   parent: System
@@ -360,6 +984,169 @@ references:
   nameWithType.vb: Object
   fullName.vb: Object
   name.vb: Object
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -367,12 +1154,75 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: ShapeEngine.Core.Structs.GameSettings.Default*
-  commentId: Overload:ShapeEngine.Core.Structs.GameSettings.Default
-  href: ShapeEngine.Core.Structs.GameSettings.html#ShapeEngine_Core_Structs_GameSettings_Default
-  name: Default
-  nameWithType: GameSettings.Default
-  fullName: ShapeEngine.Core.Structs.GameSettings.Default
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
+  href: ShapeEngine.html
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+- uid: ShapeEngine.Core.Structs.GameSettings.StretchMode*
+  commentId: Overload:ShapeEngine.Core.Structs.GameSettings.StretchMode
+  href: ShapeEngine.Core.Structs.GameSettings.html#ShapeEngine_Core_Structs_GameSettings_StretchMode_System_String_System_Nullable_System_Environment_SpecialFolder__
+  name: StretchMode
+  nameWithType: GameSettings.StretchMode
+  fullName: ShapeEngine.Core.Structs.GameSettings.StretchMode
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Nullable{System.Environment.SpecialFolder}
+  commentId: T:System.Nullable{System.Environment.SpecialFolder}
+  parent: System
+  definition: System.Nullable`1
+  href: https://learn.microsoft.com/dotnet/api/system.environment
+  name: Environment.SpecialFolder?
+  nameWithType: Environment.SpecialFolder?
+  fullName: System.Environment.SpecialFolder?
+  spec.csharp:
+  - uid: System.Environment
+    name: Environment
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.environment
+  - name: .
+  - uid: System.Environment.SpecialFolder
+    name: SpecialFolder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.environment.specialfolder
+  - name: '?'
+  spec.vb:
+  - uid: System.Environment
+    name: Environment
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.environment
+  - name: .
+  - uid: System.Environment.SpecialFolder
+    name: SpecialFolder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.environment.specialfolder
+  - name: '?'
 - uid: ShapeEngine.Core.Structs.GameSettings
   commentId: T:ShapeEngine.Core.Structs.GameSettings
   parent: ShapeEngine.Core.Structs
@@ -380,6 +1230,110 @@ references:
   name: GameSettings
   nameWithType: GameSettings
   fullName: ShapeEngine.Core.Structs.GameSettings
+- uid: System.Nullable`1
+  commentId: T:System.Nullable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  name: Nullable<T>
+  nameWithType: Nullable<T>
+  fullName: System.Nullable<T>
+  nameWithType.vb: Nullable(Of T)
+  fullName.vb: System.Nullable(Of T)
+  name.vb: Nullable(Of T)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: ShapeEngine.Core.Structs.GameSettings.FixedMode*
+  commentId: Overload:ShapeEngine.Core.Structs.GameSettings.FixedMode
+  href: ShapeEngine.Core.Structs.GameSettings.html#ShapeEngine_Core_Structs_GameSettings_FixedMode_System_String_System_Nullable_System_Environment_SpecialFolder__
+  name: FixedMode
+  nameWithType: GameSettings.FixedMode
+  fullName: ShapeEngine.Core.Structs.GameSettings.FixedMode
+- uid: ShapeEngine.Core.Structs.GameSettings.FixedNearestMode*
+  commentId: Overload:ShapeEngine.Core.Structs.GameSettings.FixedNearestMode
+  href: ShapeEngine.Core.Structs.GameSettings.html#ShapeEngine_Core_Structs_GameSettings_FixedNearestMode_System_String_System_Nullable_System_Environment_SpecialFolder__
+  name: FixedNearestMode
+  nameWithType: GameSettings.FixedNearestMode
+  fullName: ShapeEngine.Core.Structs.GameSettings.FixedNearestMode
+- uid: ShapeEngine.Core.Structs.GameSettings.PixelationMode*
+  commentId: Overload:ShapeEngine.Core.Structs.GameSettings.PixelationMode
+  href: ShapeEngine.Core.Structs.GameSettings.html#ShapeEngine_Core_Structs_GameSettings_PixelationMode_System_String_System_Nullable_System_Environment_SpecialFolder__
+  name: PixelationMode
+  nameWithType: GameSettings.PixelationMode
+  fullName: ShapeEngine.Core.Structs.GameSettings.PixelationMode
+- uid: ShapeEngine.Core.Structs.GameSettings.#ctor*
+  commentId: Overload:ShapeEngine.Core.Structs.GameSettings.#ctor
+  href: ShapeEngine.Core.Structs.GameSettings.html#ShapeEngine_Core_Structs_GameSettings__ctor_Raylib_cs_TextureFilter_ShapeEngine_Screen_ShaderSupportType_System_String_System_Nullable_System_Environment_SpecialFolder__
+  name: GameSettings
+  nameWithType: GameSettings.GameSettings
+  fullName: ShapeEngine.Core.Structs.GameSettings.GameSettings
+  nameWithType.vb: GameSettings.New
+  fullName.vb: ShapeEngine.Core.Structs.GameSettings.New
+  name.vb: New
+- uid: Raylib_cs.TextureFilter
+  commentId: T:Raylib_cs.TextureFilter
+  parent: Raylib_cs
+  isExternal: true
+  name: TextureFilter
+  nameWithType: TextureFilter
+  fullName: Raylib_cs.TextureFilter
+- uid: ShapeEngine.Screen.ShaderSupportType
+  commentId: T:ShapeEngine.Screen.ShaderSupportType
+  parent: ShapeEngine.Screen
+  href: ShapeEngine.Screen.ShaderSupportType.html
+  name: ShaderSupportType
+  nameWithType: ShaderSupportType
+  fullName: ShapeEngine.Screen.ShaderSupportType
+- uid: Raylib_cs
+  commentId: N:Raylib_cs
+  isExternal: true
+  name: Raylib_cs
+  nameWithType: Raylib_cs
+  fullName: Raylib_cs
+- uid: ShapeEngine.Screen
+  commentId: N:ShapeEngine.Screen
+  href: ShapeEngine.html
+  name: ShapeEngine.Screen
+  nameWithType: ShapeEngine.Screen
+  fullName: ShapeEngine.Screen
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Screen
+    name: Screen
+    href: ShapeEngine.Screen.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Screen
+    name: Screen
+    href: ShapeEngine.Screen.html
+- uid: ShapeEngine.Core.Structs.Dimensions
+  commentId: T:ShapeEngine.Core.Structs.Dimensions
+  parent: ShapeEngine.Core.Structs
+  href: ShapeEngine.Core.Structs.Dimensions.html
+  name: Dimensions
+  nameWithType: Dimensions
+  fullName: ShapeEngine.Core.Structs.Dimensions
 - uid: System.Boolean
   commentId: T:System.Boolean
   parent: System
@@ -391,10 +1345,33 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
-- uid: ShapeEngine.Core.Structs.Dimensions
-  commentId: T:ShapeEngine.Core.Structs.Dimensions
-  parent: ShapeEngine.Core.Structs
-  href: ShapeEngine.Core.Structs.Dimensions.html
-  name: Dimensions
-  nameWithType: Dimensions
-  fullName: ShapeEngine.Core.Structs.Dimensions
+- uid: System.Single
+  commentId: T:System.Single
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.single
+  name: float
+  nameWithType: float
+  fullName: float
+  nameWithType.vb: Single
+  fullName.vb: Single
+  name.vb: Single
+- uid: ShapeEngine.Screen.ScreenTextureMode
+  commentId: T:ShapeEngine.Screen.ScreenTextureMode
+  parent: ShapeEngine.Screen
+  href: ShapeEngine.Screen.ScreenTextureMode.html
+  name: ScreenTextureMode
+  nameWithType: ScreenTextureMode
+  fullName: ShapeEngine.Screen.ScreenTextureMode
+- uid: ShapeEngine.Core.Structs.GameSettings.SaveDirectory
+  commentId: F:ShapeEngine.Core.Structs.GameSettings.SaveDirectory
+  href: ShapeEngine.Core.Structs.GameSettings.html#ShapeEngine_Core_Structs_GameSettings_SaveDirectory
+  name: SaveDirectory
+  nameWithType: GameSettings.SaveDirectory
+  fullName: ShapeEngine.Core.Structs.GameSettings.SaveDirectory
+- uid: ShapeEngine.Core.Structs.GameSettings.ApplicationName
+  commentId: F:ShapeEngine.Core.Structs.GameSettings.ApplicationName
+  href: ShapeEngine.Core.Structs.GameSettings.html#ShapeEngine_Core_Structs_GameSettings_ApplicationName
+  name: ApplicationName
+  nameWithType: GameSettings.ApplicationName
+  fullName: ShapeEngine.Core.Structs.GameSettings.ApplicationName

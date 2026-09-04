@@ -6,11 +6,11 @@ items:
   parent: ShapeEngine.Screen
   children:
   - ShapeEngine.Screen.ShaderContainer.Add(ShapeEngine.Screen.ShapeShader)
-  - ShapeEngine.Screen.ShaderContainer.Close
   - ShapeEngine.Screen.ShaderContainer.Get(System.UInt32)
   - ShapeEngine.Screen.ShaderContainer.GetActiveShaders
   - ShapeEngine.Screen.ShaderContainer.GetAllIDs
   - ShapeEngine.Screen.ShaderContainer.GetAllShaders
+  - ShapeEngine.Screen.ShaderContainer.HasActiveShaders
   - ShapeEngine.Screen.ShaderContainer.HasShader(ShapeEngine.Screen.ShapeShader)
   - ShapeEngine.Screen.ShaderContainer.HasShader(System.UInt32)
   - ShapeEngine.Screen.ShaderContainer.HasShaders
@@ -30,10 +30,13 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ShaderContainer
     path: ../ShapeEngine/ShapeEngine/Screen/ShaderContainer.cs
-    startLine: 2
+    startLine: 8
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Container for managing a collection of <xref href="ShapeEngine.Screen.ShapeShader" data-throw-if-not-resolved="false"></xref> objects.
+  remarks: Provides methods to add, remove, retrieve, and query shaders, as well as to get all active shaders in sorted order.
+  example: []
   syntax:
     content: public class ShaderContainer
     content.vb: Public Class ShaderContainer
@@ -47,6 +50,41 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+- uid: ShapeEngine.Screen.ShaderContainer.HasActiveShaders
+  commentId: M:ShapeEngine.Screen.ShaderContainer.HasActiveShaders
+  id: HasActiveShaders
+  parent: ShapeEngine.Screen.ShaderContainer
+  langs:
+  - csharp
+  - vb
+  name: HasActiveShaders()
+  nameWithType: ShaderContainer.HasActiveShaders()
+  fullName: ShapeEngine.Screen.ShaderContainer.HasActiveShaders()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Screen/ShaderContainer.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: HasActiveShaders
+    path: ../ShapeEngine/ShapeEngine/Screen/ShaderContainer.cs
+    startLine: 16
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Screen
+  summary: Determines if there are any enabled shaders in the container.
+  example: []
+  syntax:
+    content: public bool HasActiveShaders()
+    return:
+      type: System.Boolean
+      description: True if at least one shader is enabled; otherwise, false.
+    content.vb: Public Function HasActiveShaders() As Boolean
+  overload: ShapeEngine.Screen.ShaderContainer.HasActiveShaders*
 - uid: ShapeEngine.Screen.ShaderContainer.Add(ShapeEngine.Screen.ShapeShader)
   commentId: M:ShapeEngine.Screen.ShaderContainer.Add(ShapeEngine.Screen.ShapeShader)
   id: Add(ShapeEngine.Screen.ShapeShader)
@@ -65,17 +103,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Add
     path: ../ShapeEngine/ShapeEngine/Screen/ShaderContainer.cs
-    startLine: 6
+    startLine: 33
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Adds a shader to the container or updates an existing one with the same ID.
+  example: []
   syntax:
     content: public uint Add(ShapeShader shader)
     parameters:
     - id: shader
       type: ShapeEngine.Screen.ShapeShader
+      description: The shader to add or update.
     return:
       type: System.UInt32
+      description: The ID of the added or updated shader.
     content.vb: Public Function Add(shader As ShapeShader) As UInteger
   overload: ShapeEngine.Screen.ShaderContainer.Add*
 - uid: ShapeEngine.Screen.ShaderContainer.Get(System.UInt32)
@@ -96,17 +138,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Get
     path: ../ShapeEngine/ShapeEngine/Screen/ShaderContainer.cs
-    startLine: 13
+    startLine: 44
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Retrieves a shader by its ID.
+  example: []
   syntax:
     content: public ShapeShader? Get(uint id)
     parameters:
     - id: id
       type: System.UInt32
+      description: The ID of the shader to retrieve.
     return:
       type: ShapeEngine.Screen.ShapeShader
+      description: The shader with the specified ID if found; otherwise, null.
     content.vb: Public Function [Get](id As UInteger) As ShapeShader
   overload: ShapeEngine.Screen.ShaderContainer.Get*
   nameWithType.vb: ShaderContainer.Get(UInteger)
@@ -130,17 +176,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Remove
     path: ../ShapeEngine/ShapeEngine/Screen/ShaderContainer.cs
-    startLine: 14
+    startLine: 51
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Removes a shader from the container by its ID.
+  example: []
   syntax:
     content: public bool Remove(uint id)
     parameters:
     - id: id
       type: System.UInt32
+      description: The ID of the shader to remove.
     return:
       type: System.Boolean
+      description: True if the shader was successfully removed; otherwise, false.
     content.vb: Public Function Remove(id As UInteger) As Boolean
   overload: ShapeEngine.Screen.ShaderContainer.Remove*
   nameWithType.vb: ShaderContainer.Remove(UInteger)
@@ -164,17 +214,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Remove
     path: ../ShapeEngine/ShapeEngine/Screen/ShaderContainer.cs
-    startLine: 15
+    startLine: 58
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Removes a shader from the container.
+  example: []
   syntax:
     content: public bool Remove(ShapeShader shader)
     parameters:
     - id: shader
       type: ShapeEngine.Screen.ShapeShader
+      description: The shader to remove.
     return:
       type: System.Boolean
+      description: True if the shader was successfully removed; otherwise, false.
     content.vb: Public Function Remove(shader As ShapeShader) As Boolean
   overload: ShapeEngine.Screen.ShaderContainer.Remove*
 - uid: ShapeEngine.Screen.ShaderContainer.HasShaders
@@ -195,14 +249,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HasShaders
     path: ../ShapeEngine/ShapeEngine/Screen/ShaderContainer.cs
-    startLine: 16
+    startLine: 64
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Determines if the container has any shaders.
+  example: []
   syntax:
     content: public bool HasShaders()
     return:
       type: System.Boolean
+      description: True if the container has at least one shader; otherwise, false.
     content.vb: Public Function HasShaders() As Boolean
   overload: ShapeEngine.Screen.ShaderContainer.HasShaders*
 - uid: ShapeEngine.Screen.ShaderContainer.HasShader(System.UInt32)
@@ -223,17 +280,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HasShader
     path: ../ShapeEngine/ShapeEngine/Screen/ShaderContainer.cs
-    startLine: 17
+    startLine: 71
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Determines if the container has a shader with the specified ID.
+  example: []
   syntax:
     content: public bool HasShader(uint id)
     parameters:
     - id: id
       type: System.UInt32
+      description: The ID to check.
     return:
       type: System.Boolean
+      description: True if a shader with the specified ID exists; otherwise, false.
     content.vb: Public Function HasShader(id As UInteger) As Boolean
   overload: ShapeEngine.Screen.ShaderContainer.HasShader*
   nameWithType.vb: ShaderContainer.HasShader(UInteger)
@@ -257,45 +318,23 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: HasShader
     path: ../ShapeEngine/ShapeEngine/Screen/ShaderContainer.cs
-    startLine: 18
+    startLine: 78
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Determines if the container has the specified shader.
+  example: []
   syntax:
     content: public bool HasShader(ShapeShader shader)
     parameters:
     - id: shader
       type: ShapeEngine.Screen.ShapeShader
+      description: The shader to check.
     return:
       type: System.Boolean
+      description: True if the shader exists in the container; otherwise, false.
     content.vb: Public Function HasShader(shader As ShapeShader) As Boolean
   overload: ShapeEngine.Screen.ShaderContainer.HasShader*
-- uid: ShapeEngine.Screen.ShaderContainer.Close
-  commentId: M:ShapeEngine.Screen.ShaderContainer.Close
-  id: Close
-  parent: ShapeEngine.Screen.ShaderContainer
-  langs:
-  - csharp
-  - vb
-  name: Close()
-  nameWithType: ShaderContainer.Close()
-  fullName: ShapeEngine.Screen.ShaderContainer.Close()
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Screen/ShaderContainer.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: Close
-    path: ../ShapeEngine/ShapeEngine/Screen/ShaderContainer.cs
-    startLine: 20
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Screen
-  syntax:
-    content: public void Close()
-    content.vb: Public Sub Close()
-  overload: ShapeEngine.Screen.ShaderContainer.Close*
 - uid: ShapeEngine.Screen.ShaderContainer.GetActiveShaders
   commentId: M:ShapeEngine.Screen.ShaderContainer.GetActiveShaders
   id: GetActiveShaders
@@ -314,14 +353,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetActiveShaders
     path: ../ShapeEngine/ShapeEngine/Screen/ShaderContainer.cs
-    startLine: 28
+    startLine: 84
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Gets all enabled shaders sorted in ascending (lowest first) order by their <xref href="ShapeEngine.Screen.ShapeShader.Order" data-throw-if-not-resolved="false"></xref> property.
+  example: []
   syntax:
     content: public List<ShapeShader> GetActiveShaders()
     return:
       type: System.Collections.Generic.List{ShapeEngine.Screen.ShapeShader}
+      description: A sorted list of all enabled shaders.
     content.vb: Public Function GetActiveShaders() As List(Of ShapeShader)
   overload: ShapeEngine.Screen.ShaderContainer.GetActiveShaders*
 - uid: ShapeEngine.Screen.ShaderContainer.GetAllShaders
@@ -342,14 +384,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetAllShaders
     path: ../ShapeEngine/ShapeEngine/Screen/ShaderContainer.cs
-    startLine: 40
+    startLine: 100
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Gets all shaders in the container.
+  example: []
   syntax:
     content: public List<ShapeShader> GetAllShaders()
     return:
       type: System.Collections.Generic.List{ShapeEngine.Screen.ShapeShader}
+      description: A list of all shaders.
     content.vb: Public Function GetAllShaders() As List(Of ShapeShader)
   overload: ShapeEngine.Screen.ShaderContainer.GetAllShaders*
 - uid: ShapeEngine.Screen.ShaderContainer.GetAllIDs
@@ -370,17 +415,27 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetAllIDs
     path: ../ShapeEngine/ShapeEngine/Screen/ShaderContainer.cs
-    startLine: 41
+    startLine: 106
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Screen
+  summary: Gets all shader IDs in the container.
+  example: []
   syntax:
     content: public List<uint> GetAllIDs()
     return:
       type: System.Collections.Generic.List{System.UInt32}
+      description: A list of all shader IDs.
     content.vb: Public Function GetAllIDs() As List(Of UInteger)
   overload: ShapeEngine.Screen.ShaderContainer.GetAllIDs*
 references:
+- uid: ShapeEngine.Screen.ShapeShader
+  commentId: T:ShapeEngine.Screen.ShapeShader
+  parent: ShapeEngine.Screen
+  href: ShapeEngine.Screen.ShapeShader.html
+  name: ShapeShader
+  nameWithType: ShapeShader
+  fullName: ShapeEngine.Screen.ShapeShader
 - uid: ShapeEngine.Screen
   commentId: N:ShapeEngine.Screen
   href: ShapeEngine.html
@@ -633,6 +688,165 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -640,19 +854,214 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
+  href: ShapeEngine.html
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+- uid: ShapeEngine.Screen.ShaderContainer.HasActiveShaders*
+  commentId: Overload:ShapeEngine.Screen.ShaderContainer.HasActiveShaders
+  href: ShapeEngine.Screen.ShaderContainer.html#ShapeEngine_Screen_ShaderContainer_HasActiveShaders
+  name: HasActiveShaders
+  nameWithType: ShaderContainer.HasActiveShaders
+  fullName: ShapeEngine.Screen.ShaderContainer.HasActiveShaders
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
 - uid: ShapeEngine.Screen.ShaderContainer.Add*
   commentId: Overload:ShapeEngine.Screen.ShaderContainer.Add
   href: ShapeEngine.Screen.ShaderContainer.html#ShapeEngine_Screen_ShaderContainer_Add_ShapeEngine_Screen_ShapeShader_
   name: Add
   nameWithType: ShaderContainer.Add
   fullName: ShapeEngine.Screen.ShaderContainer.Add
-- uid: ShapeEngine.Screen.ShapeShader
-  commentId: T:ShapeEngine.Screen.ShapeShader
-  parent: ShapeEngine.Screen
-  href: ShapeEngine.Screen.ShapeShader.html
-  name: ShapeShader
-  nameWithType: ShapeShader
-  fullName: ShapeEngine.Screen.ShapeShader
 - uid: System.UInt32
   commentId: T:System.UInt32
   parent: System
@@ -676,17 +1085,6 @@ references:
   name: Remove
   nameWithType: ShaderContainer.Remove
   fullName: ShapeEngine.Screen.ShaderContainer.Remove
-- uid: System.Boolean
-  commentId: T:System.Boolean
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.boolean
-  name: bool
-  nameWithType: bool
-  fullName: bool
-  nameWithType.vb: Boolean
-  fullName.vb: Boolean
-  name.vb: Boolean
 - uid: ShapeEngine.Screen.ShaderContainer.HasShaders*
   commentId: Overload:ShapeEngine.Screen.ShaderContainer.HasShaders
   href: ShapeEngine.Screen.ShaderContainer.html#ShapeEngine_Screen_ShaderContainer_HasShaders
@@ -699,12 +1097,12 @@ references:
   name: HasShader
   nameWithType: ShaderContainer.HasShader
   fullName: ShapeEngine.Screen.ShaderContainer.HasShader
-- uid: ShapeEngine.Screen.ShaderContainer.Close*
-  commentId: Overload:ShapeEngine.Screen.ShaderContainer.Close
-  href: ShapeEngine.Screen.ShaderContainer.html#ShapeEngine_Screen_ShaderContainer_Close
-  name: Close
-  nameWithType: ShaderContainer.Close
-  fullName: ShapeEngine.Screen.ShaderContainer.Close
+- uid: ShapeEngine.Screen.ShapeShader.Order
+  commentId: P:ShapeEngine.Screen.ShapeShader.Order
+  href: ShapeEngine.Screen.ShapeShader.html#ShapeEngine_Screen_ShapeShader_Order
+  name: Order
+  nameWithType: ShapeShader.Order
+  fullName: ShapeEngine.Screen.ShapeShader.Order
 - uid: ShapeEngine.Screen.ShaderContainer.GetActiveShaders*
   commentId: Overload:ShapeEngine.Screen.ShaderContainer.GetActiveShaders
   href: ShapeEngine.Screen.ShaderContainer.html#ShapeEngine_Screen_ShaderContainer_GetActiveShaders

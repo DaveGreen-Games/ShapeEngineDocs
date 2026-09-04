@@ -5,15 +5,16 @@ items:
   id: InputTypeMouseButtonAxis
   parent: ShapeEngine.Input
   children:
-  - ShapeEngine.Input.InputTypeMouseButtonAxis.#ctor(ShapeEngine.Input.ShapeMouseButton,ShapeEngine.Input.ShapeMouseButton,System.Single)
-  - ShapeEngine.Input.InputTypeMouseButtonAxis.#ctor(ShapeEngine.Input.ShapeMouseButton,ShapeEngine.Input.ShapeMouseButton,System.Single,ShapeEngine.Input.ModifierKeyOperator,ShapeEngine.Input.IModifierKey)
-  - ShapeEngine.Input.InputTypeMouseButtonAxis.#ctor(ShapeEngine.Input.ShapeMouseButton,ShapeEngine.Input.ShapeMouseButton,System.Single,ShapeEngine.Input.ModifierKeyOperator,ShapeEngine.Input.IModifierKey[])
+  - ShapeEngine.Input.InputTypeMouseButtonAxis.#ctor(ShapeEngine.Input.ShapeMouseButton,ShapeEngine.Input.ShapeMouseButton,System.Single,ShapeEngine.Input.ModifierKeySet)
   - ShapeEngine.Input.InputTypeMouseButtonAxis.Copy
+  - ShapeEngine.Input.InputTypeMouseButtonAxis.Equals(ShapeEngine.Input.IInputType)
+  - ShapeEngine.Input.InputTypeMouseButtonAxis.Equals(System.Object)
   - ShapeEngine.Input.InputTypeMouseButtonAxis.GetDeadzone
+  - ShapeEngine.Input.InputTypeMouseButtonAxis.GetHashCode
   - ShapeEngine.Input.InputTypeMouseButtonAxis.GetInputDevice
   - ShapeEngine.Input.InputTypeMouseButtonAxis.GetName(System.Boolean)
-  - ShapeEngine.Input.InputTypeMouseButtonAxis.GetState(ShapeEngine.Input.InputState,ShapeEngine.Input.ShapeGamepadDevice)
-  - ShapeEngine.Input.InputTypeMouseButtonAxis.GetState(ShapeEngine.Input.ShapeGamepadDevice)
+  - ShapeEngine.Input.InputTypeMouseButtonAxis.GetState(ShapeEngine.Input.GamepadDevice)
+  - ShapeEngine.Input.InputTypeMouseButtonAxis.GetState(ShapeEngine.Input.InputState,ShapeEngine.Input.GamepadDevice)
   - ShapeEngine.Input.InputTypeMouseButtonAxis.SetDeadzone(System.Single)
   langs:
   - csharp
@@ -29,35 +30,43 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InputTypeMouseButtonAxis
     path: ../ShapeEngine/ShapeEngine/Input/InputTypeMouseButtonAxis.cs
-    startLine: 5
+    startLine: 9
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: >-
+    Represents an input type for a mouse button axis (negative and positive buttons),
+
+    supporting deadzone and modifier keys.
+  example: []
   syntax:
-    content: 'public class InputTypeMouseButtonAxis : IInputType'
-    content.vb: Public Class InputTypeMouseButtonAxis Implements IInputType
+    content: 'public sealed class InputTypeMouseButtonAxis : IInputType, IEquatable<IInputType>, ICopyable<IInputType>'
+    content.vb: Public NotInheritable Class InputTypeMouseButtonAxis Implements IInputType, IEquatable(Of IInputType), ICopyable(Of IInputType)
   inheritance:
   - System.Object
   implements:
   - ShapeEngine.Input.IInputType
+  - System.IEquatable{ShapeEngine.Input.IInputType}
+  - ShapeEngine.Core.ICopyable{ShapeEngine.Input.IInputType}
   inheritedMembers:
-  - System.Object.Equals(System.Object)
   - System.Object.Equals(System.Object,System.Object)
-  - System.Object.GetHashCode
   - System.Object.GetType
-  - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
-- uid: ShapeEngine.Input.InputTypeMouseButtonAxis.#ctor(ShapeEngine.Input.ShapeMouseButton,ShapeEngine.Input.ShapeMouseButton,System.Single)
-  commentId: M:ShapeEngine.Input.InputTypeMouseButtonAxis.#ctor(ShapeEngine.Input.ShapeMouseButton,ShapeEngine.Input.ShapeMouseButton,System.Single)
-  id: '#ctor(ShapeEngine.Input.ShapeMouseButton,ShapeEngine.Input.ShapeMouseButton,System.Single)'
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+- uid: ShapeEngine.Input.InputTypeMouseButtonAxis.#ctor(ShapeEngine.Input.ShapeMouseButton,ShapeEngine.Input.ShapeMouseButton,System.Single,ShapeEngine.Input.ModifierKeySet)
+  commentId: M:ShapeEngine.Input.InputTypeMouseButtonAxis.#ctor(ShapeEngine.Input.ShapeMouseButton,ShapeEngine.Input.ShapeMouseButton,System.Single,ShapeEngine.Input.ModifierKeySet)
+  id: '#ctor(ShapeEngine.Input.ShapeMouseButton,ShapeEngine.Input.ShapeMouseButton,System.Single,ShapeEngine.Input.ModifierKeySet)'
   parent: ShapeEngine.Input.InputTypeMouseButtonAxis
   langs:
   - csharp
   - vb
-  name: InputTypeMouseButtonAxis(ShapeMouseButton, ShapeMouseButton, float)
-  nameWithType: InputTypeMouseButtonAxis.InputTypeMouseButtonAxis(ShapeMouseButton, ShapeMouseButton, float)
-  fullName: ShapeEngine.Input.InputTypeMouseButtonAxis.InputTypeMouseButtonAxis(ShapeEngine.Input.ShapeMouseButton, ShapeEngine.Input.ShapeMouseButton, float)
+  name: InputTypeMouseButtonAxis(ShapeMouseButton, ShapeMouseButton, float, ModifierKeySet?)
+  nameWithType: InputTypeMouseButtonAxis.InputTypeMouseButtonAxis(ShapeMouseButton, ShapeMouseButton, float, ModifierKeySet?)
+  fullName: ShapeEngine.Input.InputTypeMouseButtonAxis.InputTypeMouseButtonAxis(ShapeEngine.Input.ShapeMouseButton, ShapeEngine.Input.ShapeMouseButton, float, ShapeEngine.Input.ModifierKeySet?)
   type: Constructor
   source:
     remote:
@@ -66,104 +75,32 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Input/InputTypeMouseButtonAxis.cs
-    startLine: 12
+    startLine: 24
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Input.InputTypeMouseButtonAxis" data-throw-if-not-resolved="false"></xref> class.
+  example: []
   syntax:
-    content: public InputTypeMouseButtonAxis(ShapeMouseButton neg, ShapeMouseButton pos, float deadzone = 0)
+    content: public InputTypeMouseButtonAxis(ShapeMouseButton neg, ShapeMouseButton pos, float deadzone = 0.15, ModifierKeySet? modifierKeySet = null)
     parameters:
     - id: neg
       type: ShapeEngine.Input.ShapeMouseButton
+      description: The mouse button representing the negative axis.
     - id: pos
       type: ShapeEngine.Input.ShapeMouseButton
+      description: The mouse button representing the positive axis.
     - id: deadzone
       type: System.Single
-    content.vb: Public Sub New(neg As ShapeMouseButton, pos As ShapeMouseButton, deadzone As Single = 0)
+      description: The deadzone value for axis input.
+    - id: modifierKeySet
+      type: ShapeEngine.Input.ModifierKeySet
+      description: Optional set of modifier keys required for activation.
+    content.vb: Public Sub New(neg As ShapeMouseButton, pos As ShapeMouseButton, deadzone As Single = 0.15, modifierKeySet As ModifierKeySet = Nothing)
   overload: ShapeEngine.Input.InputTypeMouseButtonAxis.#ctor*
-  nameWithType.vb: InputTypeMouseButtonAxis.New(ShapeMouseButton, ShapeMouseButton, Single)
-  fullName.vb: ShapeEngine.Input.InputTypeMouseButtonAxis.New(ShapeEngine.Input.ShapeMouseButton, ShapeEngine.Input.ShapeMouseButton, Single)
-  name.vb: New(ShapeMouseButton, ShapeMouseButton, Single)
-- uid: ShapeEngine.Input.InputTypeMouseButtonAxis.#ctor(ShapeEngine.Input.ShapeMouseButton,ShapeEngine.Input.ShapeMouseButton,System.Single,ShapeEngine.Input.ModifierKeyOperator,ShapeEngine.Input.IModifierKey[])
-  commentId: M:ShapeEngine.Input.InputTypeMouseButtonAxis.#ctor(ShapeEngine.Input.ShapeMouseButton,ShapeEngine.Input.ShapeMouseButton,System.Single,ShapeEngine.Input.ModifierKeyOperator,ShapeEngine.Input.IModifierKey[])
-  id: '#ctor(ShapeEngine.Input.ShapeMouseButton,ShapeEngine.Input.ShapeMouseButton,System.Single,ShapeEngine.Input.ModifierKeyOperator,ShapeEngine.Input.IModifierKey[])'
-  parent: ShapeEngine.Input.InputTypeMouseButtonAxis
-  langs:
-  - csharp
-  - vb
-  name: InputTypeMouseButtonAxis(ShapeMouseButton, ShapeMouseButton, float, ModifierKeyOperator, params IModifierKey[])
-  nameWithType: InputTypeMouseButtonAxis.InputTypeMouseButtonAxis(ShapeMouseButton, ShapeMouseButton, float, ModifierKeyOperator, params IModifierKey[])
-  fullName: ShapeEngine.Input.InputTypeMouseButtonAxis.InputTypeMouseButtonAxis(ShapeEngine.Input.ShapeMouseButton, ShapeEngine.Input.ShapeMouseButton, float, ShapeEngine.Input.ModifierKeyOperator, params ShapeEngine.Input.IModifierKey[])
-  type: Constructor
-  source:
-    remote:
-      path: ShapeEngine/Input/InputTypeMouseButtonAxis.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: .ctor
-    path: ../ShapeEngine/ShapeEngine/Input/InputTypeMouseButtonAxis.cs
-    startLine: 20
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  syntax:
-    content: public InputTypeMouseButtonAxis(ShapeMouseButton neg, ShapeMouseButton pos, float deadzone, ModifierKeyOperator modifierOperator, params IModifierKey[] modifierKeys)
-    parameters:
-    - id: neg
-      type: ShapeEngine.Input.ShapeMouseButton
-    - id: pos
-      type: ShapeEngine.Input.ShapeMouseButton
-    - id: deadzone
-      type: System.Single
-    - id: modifierOperator
-      type: ShapeEngine.Input.ModifierKeyOperator
-    - id: modifierKeys
-      type: ShapeEngine.Input.IModifierKey[]
-    content.vb: Public Sub New(neg As ShapeMouseButton, pos As ShapeMouseButton, deadzone As Single, modifierOperator As ModifierKeyOperator, ParamArray modifierKeys As IModifierKey())
-  overload: ShapeEngine.Input.InputTypeMouseButtonAxis.#ctor*
-  nameWithType.vb: InputTypeMouseButtonAxis.New(ShapeMouseButton, ShapeMouseButton, Single, ModifierKeyOperator, ParamArray IModifierKey())
-  fullName.vb: ShapeEngine.Input.InputTypeMouseButtonAxis.New(ShapeEngine.Input.ShapeMouseButton, ShapeEngine.Input.ShapeMouseButton, Single, ShapeEngine.Input.ModifierKeyOperator, ParamArray ShapeEngine.Input.IModifierKey())
-  name.vb: New(ShapeMouseButton, ShapeMouseButton, Single, ModifierKeyOperator, ParamArray IModifierKey())
-- uid: ShapeEngine.Input.InputTypeMouseButtonAxis.#ctor(ShapeEngine.Input.ShapeMouseButton,ShapeEngine.Input.ShapeMouseButton,System.Single,ShapeEngine.Input.ModifierKeyOperator,ShapeEngine.Input.IModifierKey)
-  commentId: M:ShapeEngine.Input.InputTypeMouseButtonAxis.#ctor(ShapeEngine.Input.ShapeMouseButton,ShapeEngine.Input.ShapeMouseButton,System.Single,ShapeEngine.Input.ModifierKeyOperator,ShapeEngine.Input.IModifierKey)
-  id: '#ctor(ShapeEngine.Input.ShapeMouseButton,ShapeEngine.Input.ShapeMouseButton,System.Single,ShapeEngine.Input.ModifierKeyOperator,ShapeEngine.Input.IModifierKey)'
-  parent: ShapeEngine.Input.InputTypeMouseButtonAxis
-  langs:
-  - csharp
-  - vb
-  name: InputTypeMouseButtonAxis(ShapeMouseButton, ShapeMouseButton, float, ModifierKeyOperator, IModifierKey)
-  nameWithType: InputTypeMouseButtonAxis.InputTypeMouseButtonAxis(ShapeMouseButton, ShapeMouseButton, float, ModifierKeyOperator, IModifierKey)
-  fullName: ShapeEngine.Input.InputTypeMouseButtonAxis.InputTypeMouseButtonAxis(ShapeEngine.Input.ShapeMouseButton, ShapeEngine.Input.ShapeMouseButton, float, ShapeEngine.Input.ModifierKeyOperator, ShapeEngine.Input.IModifierKey)
-  type: Constructor
-  source:
-    remote:
-      path: ShapeEngine/Input/InputTypeMouseButtonAxis.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: .ctor
-    path: ../ShapeEngine/ShapeEngine/Input/InputTypeMouseButtonAxis.cs
-    startLine: 28
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  syntax:
-    content: public InputTypeMouseButtonAxis(ShapeMouseButton neg, ShapeMouseButton pos, float deadzone, ModifierKeyOperator modifierOperator, IModifierKey modifierKey)
-    parameters:
-    - id: neg
-      type: ShapeEngine.Input.ShapeMouseButton
-    - id: pos
-      type: ShapeEngine.Input.ShapeMouseButton
-    - id: deadzone
-      type: System.Single
-    - id: modifierOperator
-      type: ShapeEngine.Input.ModifierKeyOperator
-    - id: modifierKey
-      type: ShapeEngine.Input.IModifierKey
-    content.vb: Public Sub New(neg As ShapeMouseButton, pos As ShapeMouseButton, deadzone As Single, modifierOperator As ModifierKeyOperator, modifierKey As IModifierKey)
-  overload: ShapeEngine.Input.InputTypeMouseButtonAxis.#ctor*
-  nameWithType.vb: InputTypeMouseButtonAxis.New(ShapeMouseButton, ShapeMouseButton, Single, ModifierKeyOperator, IModifierKey)
-  fullName.vb: ShapeEngine.Input.InputTypeMouseButtonAxis.New(ShapeEngine.Input.ShapeMouseButton, ShapeEngine.Input.ShapeMouseButton, Single, ShapeEngine.Input.ModifierKeyOperator, ShapeEngine.Input.IModifierKey)
-  name.vb: New(ShapeMouseButton, ShapeMouseButton, Single, ModifierKeyOperator, IModifierKey)
+  nameWithType.vb: InputTypeMouseButtonAxis.New(ShapeMouseButton, ShapeMouseButton, Single, ModifierKeySet)
+  fullName.vb: ShapeEngine.Input.InputTypeMouseButtonAxis.New(ShapeEngine.Input.ShapeMouseButton, ShapeEngine.Input.ShapeMouseButton, Single, ShapeEngine.Input.ModifierKeySet)
+  name.vb: New(ShapeMouseButton, ShapeMouseButton, Single, ModifierKeySet)
 - uid: ShapeEngine.Input.InputTypeMouseButtonAxis.GetDeadzone
   commentId: M:ShapeEngine.Input.InputTypeMouseButtonAxis.GetDeadzone
   id: GetDeadzone
@@ -182,15 +119,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetDeadzone
     path: ../ShapeEngine/ShapeEngine/Input/InputTypeMouseButtonAxis.cs
-    startLine: 36
+    startLine: 34
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: Gets the deadzone value for this input type.
   example: []
   syntax:
     content: public float GetDeadzone()
     return:
       type: System.Single
+      description: The deadzone as a float.
     content.vb: Public Function GetDeadzone() As Single
   overload: ShapeEngine.Input.InputTypeMouseButtonAxis.GetDeadzone*
   implements:
@@ -213,16 +152,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SetDeadzone
     path: ../ShapeEngine/ShapeEngine/Input/InputTypeMouseButtonAxis.cs
-    startLine: 38
+    startLine: 37
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: Sets the deadzone value for this input type.
   example: []
   syntax:
     content: public void SetDeadzone(float value)
     parameters:
     - id: value
       type: System.Single
+      description: The deadzone value to set.
     content.vb: Public Sub SetDeadzone(value As Single)
   overload: ShapeEngine.Input.InputTypeMouseButtonAxis.SetDeadzone*
   implements:
@@ -252,31 +193,34 @@ items:
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: Gets the name of this input type.
   example: []
   syntax:
-    content: public virtual string GetName(bool shorthand = true)
+    content: public string GetName(bool shorthand = true)
     parameters:
     - id: shorthand
       type: System.Boolean
+      description: Whether to use shorthand notation.
     return:
       type: System.String
-    content.vb: Public Overridable Function GetName(shorthand As Boolean = True) As String
+      description: The name as a string.
+    content.vb: Public Function GetName(shorthand As Boolean = True) As String
   overload: ShapeEngine.Input.InputTypeMouseButtonAxis.GetName*
   implements:
   - ShapeEngine.Input.IInputType.GetName(System.Boolean)
   nameWithType.vb: InputTypeMouseButtonAxis.GetName(Boolean)
   fullName.vb: ShapeEngine.Input.InputTypeMouseButtonAxis.GetName(Boolean)
   name.vb: GetName(Boolean)
-- uid: ShapeEngine.Input.InputTypeMouseButtonAxis.GetState(ShapeEngine.Input.ShapeGamepadDevice)
-  commentId: M:ShapeEngine.Input.InputTypeMouseButtonAxis.GetState(ShapeEngine.Input.ShapeGamepadDevice)
-  id: GetState(ShapeEngine.Input.ShapeGamepadDevice)
+- uid: ShapeEngine.Input.InputTypeMouseButtonAxis.GetState(ShapeEngine.Input.GamepadDevice)
+  commentId: M:ShapeEngine.Input.InputTypeMouseButtonAxis.GetState(ShapeEngine.Input.GamepadDevice)
+  id: GetState(ShapeEngine.Input.GamepadDevice)
   parent: ShapeEngine.Input.InputTypeMouseButtonAxis
   langs:
   - csharp
   - vb
-  name: GetState(ShapeGamepadDevice?)
-  nameWithType: InputTypeMouseButtonAxis.GetState(ShapeGamepadDevice?)
-  fullName: ShapeEngine.Input.InputTypeMouseButtonAxis.GetState(ShapeEngine.Input.ShapeGamepadDevice?)
+  name: GetState(GamepadDevice?)
+  nameWithType: InputTypeMouseButtonAxis.GetState(GamepadDevice?)
+  fullName: ShapeEngine.Input.InputTypeMouseButtonAxis.GetState(ShapeEngine.Input.GamepadDevice?)
   type: Method
   source:
     remote:
@@ -285,35 +229,38 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetState
     path: ../ShapeEngine/ShapeEngine/Input/InputTypeMouseButtonAxis.cs
-    startLine: 53
+    startLine: 55
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: Gets the current input state for this input type.
   example: []
   syntax:
-    content: public InputState GetState(ShapeGamepadDevice? gamepad = null)
+    content: public InputState GetState(GamepadDevice? gamepad = null)
     parameters:
     - id: gamepad
-      type: ShapeEngine.Input.ShapeGamepadDevice
+      type: ShapeEngine.Input.GamepadDevice
+      description: Optional gamepad device to query state from.
     return:
       type: ShapeEngine.Input.InputState
-    content.vb: Public Function GetState(gamepad As ShapeGamepadDevice = Nothing) As InputState
+      description: The current <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref>.
+    content.vb: Public Function GetState(gamepad As GamepadDevice = Nothing) As InputState
   overload: ShapeEngine.Input.InputTypeMouseButtonAxis.GetState*
   implements:
-  - ShapeEngine.Input.IInputType.GetState(ShapeEngine.Input.ShapeGamepadDevice)
-  nameWithType.vb: InputTypeMouseButtonAxis.GetState(ShapeGamepadDevice)
-  fullName.vb: ShapeEngine.Input.InputTypeMouseButtonAxis.GetState(ShapeEngine.Input.ShapeGamepadDevice)
-  name.vb: GetState(ShapeGamepadDevice)
-- uid: ShapeEngine.Input.InputTypeMouseButtonAxis.GetState(ShapeEngine.Input.InputState,ShapeEngine.Input.ShapeGamepadDevice)
-  commentId: M:ShapeEngine.Input.InputTypeMouseButtonAxis.GetState(ShapeEngine.Input.InputState,ShapeEngine.Input.ShapeGamepadDevice)
-  id: GetState(ShapeEngine.Input.InputState,ShapeEngine.Input.ShapeGamepadDevice)
+  - ShapeEngine.Input.IInputType.GetState(ShapeEngine.Input.GamepadDevice)
+  nameWithType.vb: InputTypeMouseButtonAxis.GetState(GamepadDevice)
+  fullName.vb: ShapeEngine.Input.InputTypeMouseButtonAxis.GetState(ShapeEngine.Input.GamepadDevice)
+  name.vb: GetState(GamepadDevice)
+- uid: ShapeEngine.Input.InputTypeMouseButtonAxis.GetState(ShapeEngine.Input.InputState,ShapeEngine.Input.GamepadDevice)
+  commentId: M:ShapeEngine.Input.InputTypeMouseButtonAxis.GetState(ShapeEngine.Input.InputState,ShapeEngine.Input.GamepadDevice)
+  id: GetState(ShapeEngine.Input.InputState,ShapeEngine.Input.GamepadDevice)
   parent: ShapeEngine.Input.InputTypeMouseButtonAxis
   langs:
   - csharp
   - vb
-  name: GetState(InputState, ShapeGamepadDevice?)
-  nameWithType: InputTypeMouseButtonAxis.GetState(InputState, ShapeGamepadDevice?)
-  fullName: ShapeEngine.Input.InputTypeMouseButtonAxis.GetState(ShapeEngine.Input.InputState, ShapeEngine.Input.ShapeGamepadDevice?)
+  name: GetState(InputState, GamepadDevice?)
+  nameWithType: InputTypeMouseButtonAxis.GetState(InputState, GamepadDevice?)
+  fullName: ShapeEngine.Input.InputTypeMouseButtonAxis.GetState(ShapeEngine.Input.InputState, ShapeEngine.Input.GamepadDevice?)
   type: Method
   source:
     remote:
@@ -322,27 +269,31 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetState
     path: ../ShapeEngine/ShapeEngine/Input/InputTypeMouseButtonAxis.cs
-    startLine: 59
+    startLine: 58
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: Gets the current input state for this input type, using a previous state for comparison.
   example: []
   syntax:
-    content: public InputState GetState(InputState prev, ShapeGamepadDevice? gamepad = null)
+    content: public InputState GetState(InputState prev, GamepadDevice? gamepad = null)
     parameters:
     - id: prev
       type: ShapeEngine.Input.InputState
+      description: The previous input state.
     - id: gamepad
-      type: ShapeEngine.Input.ShapeGamepadDevice
+      type: ShapeEngine.Input.GamepadDevice
+      description: Optional gamepad device to query state from.
     return:
       type: ShapeEngine.Input.InputState
-    content.vb: Public Function GetState(prev As InputState, gamepad As ShapeGamepadDevice = Nothing) As InputState
+      description: The current <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref>.
+    content.vb: Public Function GetState(prev As InputState, gamepad As GamepadDevice = Nothing) As InputState
   overload: ShapeEngine.Input.InputTypeMouseButtonAxis.GetState*
   implements:
-  - ShapeEngine.Input.IInputType.GetState(ShapeEngine.Input.InputState,ShapeEngine.Input.ShapeGamepadDevice)
-  nameWithType.vb: InputTypeMouseButtonAxis.GetState(InputState, ShapeGamepadDevice)
-  fullName.vb: ShapeEngine.Input.InputTypeMouseButtonAxis.GetState(ShapeEngine.Input.InputState, ShapeEngine.Input.ShapeGamepadDevice)
-  name.vb: GetState(InputState, ShapeGamepadDevice)
+  - ShapeEngine.Input.IInputType.GetState(ShapeEngine.Input.InputState,ShapeEngine.Input.GamepadDevice)
+  nameWithType.vb: InputTypeMouseButtonAxis.GetState(InputState, GamepadDevice)
+  fullName.vb: ShapeEngine.Input.InputTypeMouseButtonAxis.GetState(ShapeEngine.Input.InputState, ShapeEngine.Input.GamepadDevice)
+  name.vb: GetState(InputState, GamepadDevice)
 - uid: ShapeEngine.Input.InputTypeMouseButtonAxis.GetInputDevice
   commentId: M:ShapeEngine.Input.InputTypeMouseButtonAxis.GetInputDevice
   id: GetInputDevice
@@ -361,15 +312,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: GetInputDevice
     path: ../ShapeEngine/ShapeEngine/Input/InputTypeMouseButtonAxis.cs
-    startLine: 64
+    startLine: 61
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: Gets the input device type associated with this input type.
   example: []
   syntax:
     content: public InputDeviceType GetInputDevice()
     return:
       type: ShapeEngine.Input.InputDeviceType
+      description: The <xref href="ShapeEngine.Input.InputDeviceType" data-throw-if-not-resolved="false"></xref>.
     content.vb: Public Function GetInputDevice() As InputDeviceType
   overload: ShapeEngine.Input.InputTypeMouseButtonAxis.GetInputDevice*
   implements:
@@ -392,19 +345,132 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Copy
     path: ../ShapeEngine/ShapeEngine/Input/InputTypeMouseButtonAxis.cs
-    startLine: 65
+    startLine: 64
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: Creates a copy of the current instance.
   example: []
   syntax:
     content: public IInputType Copy()
     return:
       type: ShapeEngine.Input.IInputType
+      description: A new instance of type <xref href="ShapeEngine.Input.IInputType" data-throw-if-not-resolved="false"></xref> that is a copy of this instance.
     content.vb: Public Function Copy() As IInputType
   overload: ShapeEngine.Input.InputTypeMouseButtonAxis.Copy*
   implements:
-  - ShapeEngine.Input.IInputType.Copy
+  - ShapeEngine.Core.ICopyable{ShapeEngine.Input.IInputType}.Copy
+- uid: ShapeEngine.Input.InputTypeMouseButtonAxis.Equals(ShapeEngine.Input.IInputType)
+  commentId: M:ShapeEngine.Input.InputTypeMouseButtonAxis.Equals(ShapeEngine.Input.IInputType)
+  id: Equals(ShapeEngine.Input.IInputType)
+  parent: ShapeEngine.Input.InputTypeMouseButtonAxis
+  langs:
+  - csharp
+  - vb
+  name: Equals(IInputType?)
+  nameWithType: InputTypeMouseButtonAxis.Equals(IInputType?)
+  fullName: ShapeEngine.Input.InputTypeMouseButtonAxis.Equals(ShapeEngine.Input.IInputType?)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Input/InputTypeMouseButtonAxis.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Equals
+    path: ../ShapeEngine/ShapeEngine/Input/InputTypeMouseButtonAxis.cs
+    startLine: 78
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Input
+  summary: Determines whether the specified <xref href="ShapeEngine.Input.IInputType" data-throw-if-not-resolved="false"></xref> is equal to the current instance.
+  example: []
+  syntax:
+    content: public bool Equals(IInputType? other)
+    parameters:
+    - id: other
+      type: ShapeEngine.Input.IInputType
+      description: The other <xref href="ShapeEngine.Input.IInputType" data-throw-if-not-resolved="false"></xref> to compare.
+    return:
+      type: System.Boolean
+      description: <code>true</code> if equal; otherwise, <code>false</code>.
+    content.vb: Public Function Equals(other As IInputType) As Boolean
+  overload: ShapeEngine.Input.InputTypeMouseButtonAxis.Equals*
+  implements:
+  - System.IEquatable{ShapeEngine.Input.IInputType}.Equals(ShapeEngine.Input.IInputType)
+  nameWithType.vb: InputTypeMouseButtonAxis.Equals(IInputType)
+  fullName.vb: ShapeEngine.Input.InputTypeMouseButtonAxis.Equals(ShapeEngine.Input.IInputType)
+  name.vb: Equals(IInputType)
+- uid: ShapeEngine.Input.InputTypeMouseButtonAxis.Equals(System.Object)
+  commentId: M:ShapeEngine.Input.InputTypeMouseButtonAxis.Equals(System.Object)
+  id: Equals(System.Object)
+  parent: ShapeEngine.Input.InputTypeMouseButtonAxis
+  langs:
+  - csharp
+  - vb
+  name: Equals(object?)
+  nameWithType: InputTypeMouseButtonAxis.Equals(object?)
+  fullName: ShapeEngine.Input.InputTypeMouseButtonAxis.Equals(object?)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Input/InputTypeMouseButtonAxis.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Equals
+    path: ../ShapeEngine/ShapeEngine/Input/InputTypeMouseButtonAxis.cs
+    startLine: 93
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Input
+  summary: Determines whether the specified object is equal to the current instance.
+  example: []
+  syntax:
+    content: public override bool Equals(object? obj)
+    parameters:
+    - id: obj
+      type: System.Object
+      description: The object to compare.
+    return:
+      type: System.Boolean
+      description: <code>true</code> if equal; otherwise, <code>false</code>.
+    content.vb: Public Overrides Function Equals(obj As Object) As Boolean
+  overridden: System.Object.Equals(System.Object)
+  overload: ShapeEngine.Input.InputTypeMouseButtonAxis.Equals*
+  nameWithType.vb: InputTypeMouseButtonAxis.Equals(Object)
+  fullName.vb: ShapeEngine.Input.InputTypeMouseButtonAxis.Equals(Object)
+  name.vb: Equals(Object)
+- uid: ShapeEngine.Input.InputTypeMouseButtonAxis.GetHashCode
+  commentId: M:ShapeEngine.Input.InputTypeMouseButtonAxis.GetHashCode
+  id: GetHashCode
+  parent: ShapeEngine.Input.InputTypeMouseButtonAxis
+  langs:
+  - csharp
+  - vb
+  name: GetHashCode()
+  nameWithType: InputTypeMouseButtonAxis.GetHashCode()
+  fullName: ShapeEngine.Input.InputTypeMouseButtonAxis.GetHashCode()
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Input/InputTypeMouseButtonAxis.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GetHashCode
+    path: ../ShapeEngine/ShapeEngine/Input/InputTypeMouseButtonAxis.cs
+    startLine: 102
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Input
+  summary: Returns a hash code for the current instance.
+  example: []
+  syntax:
+    content: public override int GetHashCode()
+    return:
+      type: System.Int32
+      description: A hash code for the current instance.
+    content.vb: Public Overrides Function GetHashCode() As Integer
+  overridden: System.Object.GetHashCode
+  overload: ShapeEngine.Input.InputTypeMouseButtonAxis.GetHashCode*
 references:
 - uid: ShapeEngine.Input
   commentId: N:ShapeEngine.Input
@@ -446,38 +512,69 @@ references:
   name: IInputType
   nameWithType: IInputType
   fullName: ShapeEngine.Input.IInputType
-- uid: System.Object.Equals(System.Object)
-  commentId: M:System.Object.Equals(System.Object)
-  parent: System.Object
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
-  name: Equals(object)
-  nameWithType: object.Equals(object)
-  fullName: object.Equals(object)
-  nameWithType.vb: Object.Equals(Object)
-  fullName.vb: Object.Equals(Object)
-  name.vb: Equals(Object)
+- uid: System.IEquatable{ShapeEngine.Input.IInputType}
+  commentId: T:System.IEquatable{ShapeEngine.Input.IInputType}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<IInputType>
+  nameWithType: IEquatable<IInputType>
+  fullName: System.IEquatable<ShapeEngine.Input.IInputType>
+  nameWithType.vb: IEquatable(Of IInputType)
+  fullName.vb: System.IEquatable(Of ShapeEngine.Input.IInputType)
+  name.vb: IEquatable(Of IInputType)
   spec.csharp:
-  - uid: System.Object.Equals(System.Object)
-    name: Equals
+  - uid: System.IEquatable`1
+    name: IEquatable
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
-  - name: (
-  - uid: System.Object
-    name: object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
-  - name: )
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: ShapeEngine.Input.IInputType
+    name: IInputType
+    href: ShapeEngine.Input.IInputType.html
+  - name: '>'
   spec.vb:
-  - uid: System.Object.Equals(System.Object)
-    name: Equals
+  - uid: System.IEquatable`1
+    name: IEquatable
     isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
   - name: (
-  - uid: System.Object
-    name: Object
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: Of
+  - name: " "
+  - uid: ShapeEngine.Input.IInputType
+    name: IInputType
+    href: ShapeEngine.Input.IInputType.html
+  - name: )
+- uid: ShapeEngine.Core.ICopyable{ShapeEngine.Input.IInputType}
+  commentId: T:ShapeEngine.Core.ICopyable{ShapeEngine.Input.IInputType}
+  parent: ShapeEngine.Core
+  definition: ShapeEngine.Core.ICopyable`1
+  href: ShapeEngine.Core.ICopyable-1.html
+  name: ICopyable<IInputType>
+  nameWithType: ICopyable<IInputType>
+  fullName: ShapeEngine.Core.ICopyable<ShapeEngine.Input.IInputType>
+  nameWithType.vb: ICopyable(Of IInputType)
+  fullName.vb: ShapeEngine.Core.ICopyable(Of ShapeEngine.Input.IInputType)
+  name.vb: ICopyable(Of IInputType)
+  spec.csharp:
+  - uid: ShapeEngine.Core.ICopyable`1
+    name: ICopyable
+    href: ShapeEngine.Core.ICopyable-1.html
+  - name: <
+  - uid: ShapeEngine.Input.IInputType
+    name: IInputType
+    href: ShapeEngine.Input.IInputType.html
+  - name: '>'
+  spec.vb:
+  - uid: ShapeEngine.Core.ICopyable`1
+    name: ICopyable
+    href: ShapeEngine.Core.ICopyable-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ShapeEngine.Input.IInputType
+    name: IInputType
+    href: ShapeEngine.Input.IInputType.html
   - name: )
 - uid: System.Object.Equals(System.Object,System.Object)
   commentId: M:System.Object.Equals(System.Object,System.Object)
@@ -524,30 +621,6 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
-- uid: System.Object.GetHashCode
-  commentId: M:System.Object.GetHashCode
-  parent: System.Object
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
-  name: GetHashCode()
-  nameWithType: object.GetHashCode()
-  fullName: object.GetHashCode()
-  nameWithType.vb: Object.GetHashCode()
-  fullName.vb: Object.GetHashCode()
-  spec.csharp:
-  - uid: System.Object.GetHashCode
-    name: GetHashCode
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: System.Object.GetHashCode
-    name: GetHashCode
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
-  - name: (
-  - name: )
 - uid: System.Object.GetType
   commentId: M:System.Object.GetType
   parent: System.Object
@@ -570,30 +643,6 @@ references:
     name: GetType
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.object.gettype
-  - name: (
-  - name: )
-- uid: System.Object.MemberwiseClone
-  commentId: M:System.Object.MemberwiseClone
-  parent: System.Object
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
-  name: MemberwiseClone()
-  nameWithType: object.MemberwiseClone()
-  fullName: object.MemberwiseClone()
-  nameWithType.vb: Object.MemberwiseClone()
-  fullName.vb: Object.MemberwiseClone()
-  spec.csharp:
-  - uid: System.Object.MemberwiseClone
-    name: MemberwiseClone
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
-  - name: (
-  - name: )
-  spec.vb:
-  - uid: System.Object.MemberwiseClone
-    name: MemberwiseClone
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
   - name: (
   - name: )
 - uid: System.Object.ReferenceEquals(System.Object,System.Object)
@@ -665,6 +714,165 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -672,9 +880,275 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: ShapeEngine.Core.ICopyable`1
+  commentId: T:ShapeEngine.Core.ICopyable`1
+  href: ShapeEngine.Core.ICopyable-1.html
+  name: ICopyable<T>
+  nameWithType: ICopyable<T>
+  fullName: ShapeEngine.Core.ICopyable<T>
+  nameWithType.vb: ICopyable(Of T)
+  fullName.vb: ShapeEngine.Core.ICopyable(Of T)
+  name.vb: ICopyable(Of T)
+  spec.csharp:
+  - uid: ShapeEngine.Core.ICopyable`1
+    name: ICopyable
+    href: ShapeEngine.Core.ICopyable-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: ShapeEngine.Core.ICopyable`1
+    name: ICopyable
+    href: ShapeEngine.Core.ICopyable-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: ShapeEngine.Core
+  commentId: N:ShapeEngine.Core
+  href: ShapeEngine.html
+  name: ShapeEngine.Core
+  nameWithType: ShapeEngine.Core
+  fullName: ShapeEngine.Core
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Core
+    name: Core
+    href: ShapeEngine.Core.html
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
+  href: ShapeEngine.html
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+- uid: ShapeEngine.Input.InputTypeMouseButtonAxis
+  commentId: T:ShapeEngine.Input.InputTypeMouseButtonAxis
+  href: ShapeEngine.Input.InputTypeMouseButtonAxis.html
+  name: InputTypeMouseButtonAxis
+  nameWithType: InputTypeMouseButtonAxis
+  fullName: ShapeEngine.Input.InputTypeMouseButtonAxis
 - uid: ShapeEngine.Input.InputTypeMouseButtonAxis.#ctor*
   commentId: Overload:ShapeEngine.Input.InputTypeMouseButtonAxis.#ctor
-  href: ShapeEngine.Input.InputTypeMouseButtonAxis.html#ShapeEngine_Input_InputTypeMouseButtonAxis__ctor_ShapeEngine_Input_ShapeMouseButton_ShapeEngine_Input_ShapeMouseButton_System_Single_
+  href: ShapeEngine.Input.InputTypeMouseButtonAxis.html#ShapeEngine_Input_InputTypeMouseButtonAxis__ctor_ShapeEngine_Input_ShapeMouseButton_ShapeEngine_Input_ShapeMouseButton_System_Single_ShapeEngine_Input_ModifierKeySet_
   name: InputTypeMouseButtonAxis
   nameWithType: InputTypeMouseButtonAxis.InputTypeMouseButtonAxis
   fullName: ShapeEngine.Input.InputTypeMouseButtonAxis.InputTypeMouseButtonAxis
@@ -699,41 +1173,13 @@ references:
   nameWithType.vb: Single
   fullName.vb: Single
   name.vb: Single
-- uid: ShapeEngine.Input.ModifierKeyOperator
-  commentId: T:ShapeEngine.Input.ModifierKeyOperator
+- uid: ShapeEngine.Input.ModifierKeySet
+  commentId: T:ShapeEngine.Input.ModifierKeySet
   parent: ShapeEngine.Input
-  href: ShapeEngine.Input.ModifierKeyOperator.html
-  name: ModifierKeyOperator
-  nameWithType: ModifierKeyOperator
-  fullName: ShapeEngine.Input.ModifierKeyOperator
-- uid: ShapeEngine.Input.IModifierKey[]
-  isExternal: true
-  href: ShapeEngine.Input.IModifierKey.html
-  name: IModifierKey[]
-  nameWithType: IModifierKey[]
-  fullName: ShapeEngine.Input.IModifierKey[]
-  nameWithType.vb: IModifierKey()
-  fullName.vb: ShapeEngine.Input.IModifierKey()
-  name.vb: IModifierKey()
-  spec.csharp:
-  - uid: ShapeEngine.Input.IModifierKey
-    name: IModifierKey
-    href: ShapeEngine.Input.IModifierKey.html
-  - name: '['
-  - name: ']'
-  spec.vb:
-  - uid: ShapeEngine.Input.IModifierKey
-    name: IModifierKey
-    href: ShapeEngine.Input.IModifierKey.html
-  - name: (
-  - name: )
-- uid: ShapeEngine.Input.IModifierKey
-  commentId: T:ShapeEngine.Input.IModifierKey
-  parent: ShapeEngine.Input
-  href: ShapeEngine.Input.IModifierKey.html
-  name: IModifierKey
-  nameWithType: IModifierKey
-  fullName: ShapeEngine.Input.IModifierKey
+  href: ShapeEngine.Input.ModifierKeySet.html
+  name: ModifierKeySet
+  nameWithType: ModifierKeySet
+  fullName: ShapeEngine.Input.ModifierKeySet
 - uid: ShapeEngine.Input.InputTypeMouseButtonAxis.GetDeadzone*
   commentId: Overload:ShapeEngine.Input.InputTypeMouseButtonAxis.GetDeadzone
   href: ShapeEngine.Input.InputTypeMouseButtonAxis.html#ShapeEngine_Input_InputTypeMouseButtonAxis_GetDeadzone
@@ -855,44 +1301,6 @@ references:
   nameWithType.vb: String
   fullName.vb: String
   name.vb: String
-- uid: ShapeEngine.Input.InputTypeMouseButtonAxis.GetState*
-  commentId: Overload:ShapeEngine.Input.InputTypeMouseButtonAxis.GetState
-  href: ShapeEngine.Input.InputTypeMouseButtonAxis.html#ShapeEngine_Input_InputTypeMouseButtonAxis_GetState_ShapeEngine_Input_ShapeGamepadDevice_
-  name: GetState
-  nameWithType: InputTypeMouseButtonAxis.GetState
-  fullName: ShapeEngine.Input.InputTypeMouseButtonAxis.GetState
-- uid: ShapeEngine.Input.IInputType.GetState(ShapeEngine.Input.ShapeGamepadDevice)
-  commentId: M:ShapeEngine.Input.IInputType.GetState(ShapeEngine.Input.ShapeGamepadDevice)
-  parent: ShapeEngine.Input.IInputType
-  href: ShapeEngine.Input.IInputType.html#ShapeEngine_Input_IInputType_GetState_ShapeEngine_Input_ShapeGamepadDevice_
-  name: GetState(ShapeGamepadDevice)
-  nameWithType: IInputType.GetState(ShapeGamepadDevice)
-  fullName: ShapeEngine.Input.IInputType.GetState(ShapeEngine.Input.ShapeGamepadDevice)
-  spec.csharp:
-  - uid: ShapeEngine.Input.IInputType.GetState(ShapeEngine.Input.ShapeGamepadDevice)
-    name: GetState
-    href: ShapeEngine.Input.IInputType.html#ShapeEngine_Input_IInputType_GetState_ShapeEngine_Input_ShapeGamepadDevice_
-  - name: (
-  - uid: ShapeEngine.Input.ShapeGamepadDevice
-    name: ShapeGamepadDevice
-    href: ShapeEngine.Input.ShapeGamepadDevice.html
-  - name: )
-  spec.vb:
-  - uid: ShapeEngine.Input.IInputType.GetState(ShapeEngine.Input.ShapeGamepadDevice)
-    name: GetState
-    href: ShapeEngine.Input.IInputType.html#ShapeEngine_Input_IInputType_GetState_ShapeEngine_Input_ShapeGamepadDevice_
-  - name: (
-  - uid: ShapeEngine.Input.ShapeGamepadDevice
-    name: ShapeGamepadDevice
-    href: ShapeEngine.Input.ShapeGamepadDevice.html
-  - name: )
-- uid: ShapeEngine.Input.ShapeGamepadDevice
-  commentId: T:ShapeEngine.Input.ShapeGamepadDevice
-  parent: ShapeEngine.Input
-  href: ShapeEngine.Input.ShapeGamepadDevice.html
-  name: ShapeGamepadDevice
-  nameWithType: ShapeGamepadDevice
-  fullName: ShapeEngine.Input.ShapeGamepadDevice
 - uid: ShapeEngine.Input.InputState
   commentId: T:ShapeEngine.Input.InputState
   parent: ShapeEngine.Input
@@ -900,41 +1308,86 @@ references:
   name: InputState
   nameWithType: InputState
   fullName: ShapeEngine.Input.InputState
-- uid: ShapeEngine.Input.IInputType.GetState(ShapeEngine.Input.InputState,ShapeEngine.Input.ShapeGamepadDevice)
-  commentId: M:ShapeEngine.Input.IInputType.GetState(ShapeEngine.Input.InputState,ShapeEngine.Input.ShapeGamepadDevice)
+- uid: ShapeEngine.Input.InputTypeMouseButtonAxis.GetState*
+  commentId: Overload:ShapeEngine.Input.InputTypeMouseButtonAxis.GetState
+  href: ShapeEngine.Input.InputTypeMouseButtonAxis.html#ShapeEngine_Input_InputTypeMouseButtonAxis_GetState_ShapeEngine_Input_GamepadDevice_
+  name: GetState
+  nameWithType: InputTypeMouseButtonAxis.GetState
+  fullName: ShapeEngine.Input.InputTypeMouseButtonAxis.GetState
+- uid: ShapeEngine.Input.IInputType.GetState(ShapeEngine.Input.GamepadDevice)
+  commentId: M:ShapeEngine.Input.IInputType.GetState(ShapeEngine.Input.GamepadDevice)
   parent: ShapeEngine.Input.IInputType
-  href: ShapeEngine.Input.IInputType.html#ShapeEngine_Input_IInputType_GetState_ShapeEngine_Input_InputState_ShapeEngine_Input_ShapeGamepadDevice_
-  name: GetState(InputState, ShapeGamepadDevice)
-  nameWithType: IInputType.GetState(InputState, ShapeGamepadDevice)
-  fullName: ShapeEngine.Input.IInputType.GetState(ShapeEngine.Input.InputState, ShapeEngine.Input.ShapeGamepadDevice)
+  href: ShapeEngine.Input.IInputType.html#ShapeEngine_Input_IInputType_GetState_ShapeEngine_Input_GamepadDevice_
+  name: GetState(GamepadDevice)
+  nameWithType: IInputType.GetState(GamepadDevice)
+  fullName: ShapeEngine.Input.IInputType.GetState(ShapeEngine.Input.GamepadDevice)
   spec.csharp:
-  - uid: ShapeEngine.Input.IInputType.GetState(ShapeEngine.Input.InputState,ShapeEngine.Input.ShapeGamepadDevice)
+  - uid: ShapeEngine.Input.IInputType.GetState(ShapeEngine.Input.GamepadDevice)
     name: GetState
-    href: ShapeEngine.Input.IInputType.html#ShapeEngine_Input_IInputType_GetState_ShapeEngine_Input_InputState_ShapeEngine_Input_ShapeGamepadDevice_
+    href: ShapeEngine.Input.IInputType.html#ShapeEngine_Input_IInputType_GetState_ShapeEngine_Input_GamepadDevice_
   - name: (
-  - uid: ShapeEngine.Input.InputState
-    name: InputState
-    href: ShapeEngine.Input.InputState.html
-  - name: ','
-  - name: " "
-  - uid: ShapeEngine.Input.ShapeGamepadDevice
-    name: ShapeGamepadDevice
-    href: ShapeEngine.Input.ShapeGamepadDevice.html
+  - uid: ShapeEngine.Input.GamepadDevice
+    name: GamepadDevice
+    href: ShapeEngine.Input.GamepadDevice.html
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Input.IInputType.GetState(ShapeEngine.Input.InputState,ShapeEngine.Input.ShapeGamepadDevice)
+  - uid: ShapeEngine.Input.IInputType.GetState(ShapeEngine.Input.GamepadDevice)
     name: GetState
-    href: ShapeEngine.Input.IInputType.html#ShapeEngine_Input_IInputType_GetState_ShapeEngine_Input_InputState_ShapeEngine_Input_ShapeGamepadDevice_
+    href: ShapeEngine.Input.IInputType.html#ShapeEngine_Input_IInputType_GetState_ShapeEngine_Input_GamepadDevice_
+  - name: (
+  - uid: ShapeEngine.Input.GamepadDevice
+    name: GamepadDevice
+    href: ShapeEngine.Input.GamepadDevice.html
+  - name: )
+- uid: ShapeEngine.Input.GamepadDevice
+  commentId: T:ShapeEngine.Input.GamepadDevice
+  parent: ShapeEngine.Input
+  href: ShapeEngine.Input.GamepadDevice.html
+  name: GamepadDevice
+  nameWithType: GamepadDevice
+  fullName: ShapeEngine.Input.GamepadDevice
+- uid: ShapeEngine.Input.IInputType.GetState(ShapeEngine.Input.InputState,ShapeEngine.Input.GamepadDevice)
+  commentId: M:ShapeEngine.Input.IInputType.GetState(ShapeEngine.Input.InputState,ShapeEngine.Input.GamepadDevice)
+  parent: ShapeEngine.Input.IInputType
+  href: ShapeEngine.Input.IInputType.html#ShapeEngine_Input_IInputType_GetState_ShapeEngine_Input_InputState_ShapeEngine_Input_GamepadDevice_
+  name: GetState(InputState, GamepadDevice)
+  nameWithType: IInputType.GetState(InputState, GamepadDevice)
+  fullName: ShapeEngine.Input.IInputType.GetState(ShapeEngine.Input.InputState, ShapeEngine.Input.GamepadDevice)
+  spec.csharp:
+  - uid: ShapeEngine.Input.IInputType.GetState(ShapeEngine.Input.InputState,ShapeEngine.Input.GamepadDevice)
+    name: GetState
+    href: ShapeEngine.Input.IInputType.html#ShapeEngine_Input_IInputType_GetState_ShapeEngine_Input_InputState_ShapeEngine_Input_GamepadDevice_
   - name: (
   - uid: ShapeEngine.Input.InputState
     name: InputState
     href: ShapeEngine.Input.InputState.html
   - name: ','
   - name: " "
-  - uid: ShapeEngine.Input.ShapeGamepadDevice
-    name: ShapeGamepadDevice
-    href: ShapeEngine.Input.ShapeGamepadDevice.html
+  - uid: ShapeEngine.Input.GamepadDevice
+    name: GamepadDevice
+    href: ShapeEngine.Input.GamepadDevice.html
   - name: )
+  spec.vb:
+  - uid: ShapeEngine.Input.IInputType.GetState(ShapeEngine.Input.InputState,ShapeEngine.Input.GamepadDevice)
+    name: GetState
+    href: ShapeEngine.Input.IInputType.html#ShapeEngine_Input_IInputType_GetState_ShapeEngine_Input_InputState_ShapeEngine_Input_GamepadDevice_
+  - name: (
+  - uid: ShapeEngine.Input.InputState
+    name: InputState
+    href: ShapeEngine.Input.InputState.html
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Input.GamepadDevice
+    name: GamepadDevice
+    href: ShapeEngine.Input.GamepadDevice.html
+  - name: )
+- uid: ShapeEngine.Input.InputDeviceType
+  commentId: T:ShapeEngine.Input.InputDeviceType
+  parent: ShapeEngine.Input
+  href: ShapeEngine.Input.InputDeviceType.html
+  name: InputDeviceType
+  nameWithType: InputDeviceType
+  fullName: ShapeEngine.Input.InputDeviceType
 - uid: ShapeEngine.Input.InputTypeMouseButtonAxis.GetInputDevice*
   commentId: Overload:ShapeEngine.Input.InputTypeMouseButtonAxis.GetInputDevice
   href: ShapeEngine.Input.InputTypeMouseButtonAxis.html#ShapeEngine_Input_InputTypeMouseButtonAxis_GetInputDevice
@@ -960,35 +1413,186 @@ references:
     href: ShapeEngine.Input.IInputType.html#ShapeEngine_Input_IInputType_GetInputDevice
   - name: (
   - name: )
-- uid: ShapeEngine.Input.InputDeviceType
-  commentId: T:ShapeEngine.Input.InputDeviceType
-  parent: ShapeEngine.Input
-  href: ShapeEngine.Input.InputDeviceType.html
-  name: InputDeviceType
-  nameWithType: InputDeviceType
-  fullName: ShapeEngine.Input.InputDeviceType
 - uid: ShapeEngine.Input.InputTypeMouseButtonAxis.Copy*
   commentId: Overload:ShapeEngine.Input.InputTypeMouseButtonAxis.Copy
   href: ShapeEngine.Input.InputTypeMouseButtonAxis.html#ShapeEngine_Input_InputTypeMouseButtonAxis_Copy
   name: Copy
   nameWithType: InputTypeMouseButtonAxis.Copy
   fullName: ShapeEngine.Input.InputTypeMouseButtonAxis.Copy
-- uid: ShapeEngine.Input.IInputType.Copy
-  commentId: M:ShapeEngine.Input.IInputType.Copy
-  parent: ShapeEngine.Input.IInputType
-  href: ShapeEngine.Input.IInputType.html#ShapeEngine_Input_IInputType_Copy
+- uid: ShapeEngine.Core.ICopyable{ShapeEngine.Input.IInputType}.Copy
+  commentId: M:ShapeEngine.Core.ICopyable{ShapeEngine.Input.IInputType}.Copy
+  parent: ShapeEngine.Core.ICopyable{ShapeEngine.Input.IInputType}
+  definition: ShapeEngine.Core.ICopyable`1.Copy
+  href: ShapeEngine.Core.ICopyable-1.html#ShapeEngine_Core_ICopyable_1_Copy
   name: Copy()
-  nameWithType: IInputType.Copy()
-  fullName: ShapeEngine.Input.IInputType.Copy()
+  nameWithType: ICopyable<IInputType>.Copy()
+  fullName: ShapeEngine.Core.ICopyable<ShapeEngine.Input.IInputType>.Copy()
+  nameWithType.vb: ICopyable(Of IInputType).Copy()
+  fullName.vb: ShapeEngine.Core.ICopyable(Of ShapeEngine.Input.IInputType).Copy()
   spec.csharp:
-  - uid: ShapeEngine.Input.IInputType.Copy
+  - uid: ShapeEngine.Core.ICopyable{ShapeEngine.Input.IInputType}.Copy
     name: Copy
-    href: ShapeEngine.Input.IInputType.html#ShapeEngine_Input_IInputType_Copy
+    href: ShapeEngine.Core.ICopyable-1.html#ShapeEngine_Core_ICopyable_1_Copy
   - name: (
   - name: )
   spec.vb:
-  - uid: ShapeEngine.Input.IInputType.Copy
+  - uid: ShapeEngine.Core.ICopyable{ShapeEngine.Input.IInputType}.Copy
     name: Copy
-    href: ShapeEngine.Input.IInputType.html#ShapeEngine_Input_IInputType_Copy
+    href: ShapeEngine.Core.ICopyable-1.html#ShapeEngine_Core_ICopyable_1_Copy
   - name: (
   - name: )
+- uid: ShapeEngine.Core.ICopyable`1.Copy
+  commentId: M:ShapeEngine.Core.ICopyable`1.Copy
+  href: ShapeEngine.Core.ICopyable-1.html#ShapeEngine_Core_ICopyable_1_Copy
+  name: Copy()
+  nameWithType: ICopyable<T>.Copy()
+  fullName: ShapeEngine.Core.ICopyable<T>.Copy()
+  nameWithType.vb: ICopyable(Of T).Copy()
+  fullName.vb: ShapeEngine.Core.ICopyable(Of T).Copy()
+  spec.csharp:
+  - uid: ShapeEngine.Core.ICopyable`1.Copy
+    name: Copy
+    href: ShapeEngine.Core.ICopyable-1.html#ShapeEngine_Core_ICopyable_1_Copy
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.ICopyable`1.Copy
+    name: Copy
+    href: ShapeEngine.Core.ICopyable-1.html#ShapeEngine_Core_ICopyable_1_Copy
+  - name: (
+  - name: )
+- uid: ShapeEngine.Input.InputTypeMouseButtonAxis.Equals*
+  commentId: Overload:ShapeEngine.Input.InputTypeMouseButtonAxis.Equals
+  href: ShapeEngine.Input.InputTypeMouseButtonAxis.html#ShapeEngine_Input_InputTypeMouseButtonAxis_Equals_ShapeEngine_Input_IInputType_
+  name: Equals
+  nameWithType: InputTypeMouseButtonAxis.Equals
+  fullName: ShapeEngine.Input.InputTypeMouseButtonAxis.Equals
+- uid: System.IEquatable{ShapeEngine.Input.IInputType}.Equals(ShapeEngine.Input.IInputType)
+  commentId: M:System.IEquatable{ShapeEngine.Input.IInputType}.Equals(ShapeEngine.Input.IInputType)
+  parent: System.IEquatable{ShapeEngine.Input.IInputType}
+  definition: System.IEquatable`1.Equals(`0)
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(IInputType)
+  nameWithType: IEquatable<IInputType>.Equals(IInputType)
+  fullName: System.IEquatable<ShapeEngine.Input.IInputType>.Equals(ShapeEngine.Input.IInputType)
+  nameWithType.vb: IEquatable(Of IInputType).Equals(IInputType)
+  fullName.vb: System.IEquatable(Of ShapeEngine.Input.IInputType).Equals(ShapeEngine.Input.IInputType)
+  spec.csharp:
+  - uid: System.IEquatable{ShapeEngine.Input.IInputType}.Equals(ShapeEngine.Input.IInputType)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - uid: ShapeEngine.Input.IInputType
+    name: IInputType
+    href: ShapeEngine.Input.IInputType.html
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable{ShapeEngine.Input.IInputType}.Equals(ShapeEngine.Input.IInputType)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - uid: ShapeEngine.Input.IInputType
+    name: IInputType
+    href: ShapeEngine.Input.IInputType.html
+  - name: )
+- uid: System.IEquatable`1.Equals(`0)
+  commentId: M:System.IEquatable`1.Equals(`0)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(T)
+  nameWithType: IEquatable<T>.Equals(T)
+  fullName: System.IEquatable<T>.Equals(T)
+  nameWithType.vb: IEquatable(Of T).Equals(T)
+  fullName.vb: System.IEquatable(Of T).Equals(T)
+  spec.csharp:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: ShapeEngine.Input.InputTypeMouseButtonAxis.GetHashCode*
+  commentId: Overload:ShapeEngine.Input.InputTypeMouseButtonAxis.GetHashCode
+  href: ShapeEngine.Input.InputTypeMouseButtonAxis.html#ShapeEngine_Input_InputTypeMouseButtonAxis_GetHashCode
+  name: GetHashCode
+  nameWithType: InputTypeMouseButtonAxis.GetHashCode
+  fullName: ShapeEngine.Input.InputTypeMouseButtonAxis.GetHashCode
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer

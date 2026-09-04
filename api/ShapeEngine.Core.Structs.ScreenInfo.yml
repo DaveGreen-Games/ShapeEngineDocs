@@ -5,9 +5,15 @@ items:
   id: ScreenInfo
   parent: ShapeEngine.Core.Structs
   children:
-  - ShapeEngine.Core.Structs.ScreenInfo.#ctor(ShapeEngine.Core.Shapes.Rect,System.Numerics.Vector2)
+  - ShapeEngine.Core.Structs.ScreenInfo.#ctor(ShapeEngine.Geometry.RectDef.Rect,System.Numerics.Vector2,System.Boolean)
   - ShapeEngine.Core.Structs.ScreenInfo.Area
+  - ShapeEngine.Core.Structs.ScreenInfo.FixedFramerateInterpolationFactor
+  - ShapeEngine.Core.Structs.ScreenInfo.FixedFramerateInterpolationFactorF
   - ShapeEngine.Core.Structs.ScreenInfo.MousePos
+  - ShapeEngine.Core.Structs.ScreenInfo.RelativeMousePosition
+  - ShapeEngine.Core.Structs.ScreenInfo.RelativeMousePositionCentered
+  - ShapeEngine.Core.Structs.ScreenInfo.SetFixedFramerateInterpolationFactor(System.Double)
+  - ShapeEngine.Core.Structs.ScreenInfo.UISpace
   langs:
   - csharp
   - vb
@@ -22,10 +28,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ScreenInfo
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ScreenInfo.cs
-    startLine: 4
+    startLine: 8
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Represents information about the screen, including its area and mouse position.
+  example: []
   syntax:
     content: public readonly struct ScreenInfo
     content.vb: Public Structure ScreenInfo
@@ -36,6 +44,10 @@ items:
   - System.Object.Equals(System.Object,System.Object)
   - System.Object.GetType
   - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
 - uid: ShapeEngine.Core.Structs.ScreenInfo.Area
   commentId: F:ShapeEngine.Core.Structs.ScreenInfo.Area
   id: Area
@@ -54,14 +66,16 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Area
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ScreenInfo.cs
-    startLine: 6
+    startLine: 13
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: The rectangular area of the screen.
+  example: []
   syntax:
     content: public readonly Rect Area
     return:
-      type: ShapeEngine.Core.Shapes.Rect
+      type: ShapeEngine.Geometry.RectDef.Rect
     content.vb: Public ReadOnly Area As Rect
 - uid: ShapeEngine.Core.Structs.ScreenInfo.MousePos
   commentId: F:ShapeEngine.Core.Structs.ScreenInfo.MousePos
@@ -81,25 +95,243 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: MousePos
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ScreenInfo.cs
-    startLine: 7
+    startLine: 18
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: The current mouse position in screen coordinates.
+  example: []
   syntax:
     content: public readonly Vector2 MousePos
     return:
       type: System.Numerics.Vector2
     content.vb: Public ReadOnly MousePos As Vector2
-- uid: ShapeEngine.Core.Structs.ScreenInfo.#ctor(ShapeEngine.Core.Shapes.Rect,System.Numerics.Vector2)
-  commentId: M:ShapeEngine.Core.Structs.ScreenInfo.#ctor(ShapeEngine.Core.Shapes.Rect,System.Numerics.Vector2)
-  id: '#ctor(ShapeEngine.Core.Shapes.Rect,System.Numerics.Vector2)'
+- uid: ShapeEngine.Core.Structs.ScreenInfo.UISpace
+  commentId: F:ShapeEngine.Core.Structs.ScreenInfo.UISpace
+  id: UISpace
   parent: ShapeEngine.Core.Structs.ScreenInfo
   langs:
   - csharp
   - vb
-  name: ScreenInfo(Rect, Vector2)
-  nameWithType: ScreenInfo.ScreenInfo(Rect, Vector2)
-  fullName: ShapeEngine.Core.Structs.ScreenInfo.ScreenInfo(ShapeEngine.Core.Shapes.Rect, System.Numerics.Vector2)
+  name: UISpace
+  nameWithType: ScreenInfo.UISpace
+  fullName: ShapeEngine.Core.Structs.ScreenInfo.UISpace
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/ScreenInfo.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: UISpace
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/ScreenInfo.cs
+    startLine: 23
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: If this screen info is in world space or ui space.
+  example: []
+  syntax:
+    content: public readonly bool UISpace
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly UISpace As Boolean
+- uid: ShapeEngine.Core.Structs.ScreenInfo.FixedFramerateInterpolationFactor
+  commentId: F:ShapeEngine.Core.Structs.ScreenInfo.FixedFramerateInterpolationFactor
+  id: FixedFramerateInterpolationFactor
+  parent: ShapeEngine.Core.Structs.ScreenInfo
+  langs:
+  - csharp
+  - vb
+  name: FixedFramerateInterpolationFactor
+  nameWithType: ScreenInfo.FixedFramerateInterpolationFactor
+  fullName: ShapeEngine.Core.Structs.ScreenInfo.FixedFramerateInterpolationFactor
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/ScreenInfo.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: FixedFramerateInterpolationFactor
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/ScreenInfo.cs
+    startLine: 36
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: >-
+    Interpolation factor used when running with a fixed framerate.
+
+    Typical values are in the range [0, 1]; 1 means no interpolation.
+  remarks: >-
+    This factor is used to interpolate between the previous and current states
+
+    of objects when rendering at a fixed framerate, providing smoother motion.
+
+    Represents the fractional time between the last completed physics update and the time the renderer wants to draw.
+
+    After all fixed update substeps are complete, a certain amount of unused time may remain before the next fixed update is due.
+
+    This remaining time is expressed as a fraction of the fixed timestep and provided here as the interpolation factor.
+  example: []
+  syntax:
+    content: public readonly double FixedFramerateInterpolationFactor
+    return:
+      type: System.Double
+    content.vb: Public ReadOnly FixedFramerateInterpolationFactor As Double
+- uid: ShapeEngine.Core.Structs.ScreenInfo.FixedFramerateInterpolationFactorF
+  commentId: P:ShapeEngine.Core.Structs.ScreenInfo.FixedFramerateInterpolationFactorF
+  id: FixedFramerateInterpolationFactorF
+  parent: ShapeEngine.Core.Structs.ScreenInfo
+  langs:
+  - csharp
+  - vb
+  name: FixedFramerateInterpolationFactorF
+  nameWithType: ScreenInfo.FixedFramerateInterpolationFactorF
+  fullName: ShapeEngine.Core.Structs.ScreenInfo.FixedFramerateInterpolationFactorF
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/ScreenInfo.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: FixedFramerateInterpolationFactorF
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/ScreenInfo.cs
+    startLine: 42
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: >-
+    Gets the fixed-framerate interpolation factor as a single-precision float.
+
+    This is a convenience accessor that casts <xref href="ShapeEngine.Core.Structs.ScreenInfo.FixedFramerateInterpolationFactor" data-throw-if-not-resolved="false"></xref> to <xref href="System.Single" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public float FixedFramerateInterpolationFactorF { get; }
+    parameters: []
+    return:
+      type: System.Single
+    content.vb: Public ReadOnly Property FixedFramerateInterpolationFactorF As Single
+  overload: ShapeEngine.Core.Structs.ScreenInfo.FixedFramerateInterpolationFactorF*
+- uid: ShapeEngine.Core.Structs.ScreenInfo.SetFixedFramerateInterpolationFactor(System.Double)
+  commentId: M:ShapeEngine.Core.Structs.ScreenInfo.SetFixedFramerateInterpolationFactor(System.Double)
+  id: SetFixedFramerateInterpolationFactor(System.Double)
+  parent: ShapeEngine.Core.Structs.ScreenInfo
+  langs:
+  - csharp
+  - vb
+  name: SetFixedFramerateInterpolationFactor(double)
+  nameWithType: ScreenInfo.SetFixedFramerateInterpolationFactor(double)
+  fullName: ShapeEngine.Core.Structs.ScreenInfo.SetFixedFramerateInterpolationFactor(double)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/ScreenInfo.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: SetFixedFramerateInterpolationFactor
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/ScreenInfo.cs
+    startLine: 52
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: Returns a copy of this <xref href="ShapeEngine.Core.Structs.ScreenInfo" data-throw-if-not-resolved="false"></xref> with the specified fixed-framerate interpolation factor.
+  example: []
+  syntax:
+    content: public ScreenInfo SetFixedFramerateInterpolationFactor(double factor)
+    parameters:
+    - id: factor
+      type: System.Double
+      description: The interpolation factor to use for fixed-framerate rendering.
+    return:
+      type: ShapeEngine.Core.Structs.ScreenInfo
+      description: >-
+        A new <xref href="ShapeEngine.Core.Structs.ScreenInfo" data-throw-if-not-resolved="false"></xref> instance with <xref href="ShapeEngine.Core.Structs.ScreenInfo.FixedFramerateInterpolationFactor" data-throw-if-not-resolved="false"></xref>
+
+        set to <code class="paramref">factor</code>.
+    content.vb: Public Function SetFixedFramerateInterpolationFactor(factor As Double) As ScreenInfo
+  overload: ShapeEngine.Core.Structs.ScreenInfo.SetFixedFramerateInterpolationFactor*
+  nameWithType.vb: ScreenInfo.SetFixedFramerateInterpolationFactor(Double)
+  fullName.vb: ShapeEngine.Core.Structs.ScreenInfo.SetFixedFramerateInterpolationFactor(Double)
+  name.vb: SetFixedFramerateInterpolationFactor(Double)
+- uid: ShapeEngine.Core.Structs.ScreenInfo.RelativeMousePosition
+  commentId: P:ShapeEngine.Core.Structs.ScreenInfo.RelativeMousePosition
+  id: RelativeMousePosition
+  parent: ShapeEngine.Core.Structs.ScreenInfo
+  langs:
+  - csharp
+  - vb
+  name: RelativeMousePosition
+  nameWithType: ScreenInfo.RelativeMousePosition
+  fullName: ShapeEngine.Core.Structs.ScreenInfo.RelativeMousePosition
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/ScreenInfo.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: RelativeMousePosition
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/ScreenInfo.cs
+    startLine: 62
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: >-
+    Returns the mouse position in a range between 0 and 1.
+
+    0,0 is the top-left corner of the area
+
+    1, 1 is the bottom right corner of the area
+  example: []
+  syntax:
+    content: public Vector2 RelativeMousePosition { get; }
+    parameters: []
+    return:
+      type: System.Numerics.Vector2
+    content.vb: Public ReadOnly Property RelativeMousePosition As Vector2
+  overload: ShapeEngine.Core.Structs.ScreenInfo.RelativeMousePosition*
+- uid: ShapeEngine.Core.Structs.ScreenInfo.RelativeMousePositionCentered
+  commentId: P:ShapeEngine.Core.Structs.ScreenInfo.RelativeMousePositionCentered
+  id: RelativeMousePositionCentered
+  parent: ShapeEngine.Core.Structs.ScreenInfo
+  langs:
+  - csharp
+  - vb
+  name: RelativeMousePositionCentered
+  nameWithType: ScreenInfo.RelativeMousePositionCentered
+  fullName: ShapeEngine.Core.Structs.ScreenInfo.RelativeMousePositionCentered
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Core/Structs/ScreenInfo.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: RelativeMousePositionCentered
+    path: ../ShapeEngine/ShapeEngine/Core/Structs/ScreenInfo.cs
+    startLine: 77
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.Structs
+  summary: >-
+    Returns the mouse position normalized and centered around the area's midpoint.
+
+    Values are in range approximately -1..1 where (0,0) is the center of <xref href="ShapeEngine.Core.Structs.ScreenInfo.Area" data-throw-if-not-resolved="false"></xref>.
+  example: []
+  syntax:
+    content: public Vector2 RelativeMousePositionCentered { get; }
+    parameters: []
+    return:
+      type: System.Numerics.Vector2
+    content.vb: Public ReadOnly Property RelativeMousePositionCentered As Vector2
+  overload: ShapeEngine.Core.Structs.ScreenInfo.RelativeMousePositionCentered*
+- uid: ShapeEngine.Core.Structs.ScreenInfo.#ctor(ShapeEngine.Geometry.RectDef.Rect,System.Numerics.Vector2,System.Boolean)
+  commentId: M:ShapeEngine.Core.Structs.ScreenInfo.#ctor(ShapeEngine.Geometry.RectDef.Rect,System.Numerics.Vector2,System.Boolean)
+  id: '#ctor(ShapeEngine.Geometry.RectDef.Rect,System.Numerics.Vector2,System.Boolean)'
+  parent: ShapeEngine.Core.Structs.ScreenInfo
+  langs:
+  - csharp
+  - vb
+  name: ScreenInfo(Rect, Vector2, bool)
+  nameWithType: ScreenInfo.ScreenInfo(Rect, Vector2, bool)
+  fullName: ShapeEngine.Core.Structs.ScreenInfo.ScreenInfo(ShapeEngine.Geometry.RectDef.Rect, System.Numerics.Vector2, bool)
   type: Constructor
   source:
     remote:
@@ -108,22 +340,29 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Core/Structs/ScreenInfo.cs
-    startLine: 9
+    startLine: 95
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.Structs
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Core.Structs.ScreenInfo" data-throw-if-not-resolved="false"></xref> struct.
+  example: []
   syntax:
-    content: public ScreenInfo(Rect area, Vector2 mousePos)
+    content: public ScreenInfo(Rect area, Vector2 mousePos, bool uiSpace)
     parameters:
     - id: area
-      type: ShapeEngine.Core.Shapes.Rect
+      type: ShapeEngine.Geometry.RectDef.Rect
+      description: The rectangular area of the screen.
     - id: mousePos
       type: System.Numerics.Vector2
-    content.vb: Public Sub New(area As Rect, mousePos As Vector2)
+      description: The current mouse position in screen coordinates.
+    - id: uiSpace
+      type: System.Boolean
+      description: Wether the mousePos is in world or screen coordinates.
+    content.vb: Public Sub New(area As Rect, mousePos As Vector2, uiSpace As Boolean)
   overload: ShapeEngine.Core.Structs.ScreenInfo.#ctor*
-  nameWithType.vb: ScreenInfo.New(Rect, Vector2)
-  fullName.vb: ShapeEngine.Core.Structs.ScreenInfo.New(ShapeEngine.Core.Shapes.Rect, System.Numerics.Vector2)
-  name.vb: New(Rect, Vector2)
+  nameWithType.vb: ScreenInfo.New(Rect, Vector2, Boolean)
+  fullName.vb: ShapeEngine.Core.Structs.ScreenInfo.New(ShapeEngine.Geometry.RectDef.Rect, System.Numerics.Vector2, Boolean)
+  name.vb: New(Rect, Vector2, Boolean)
 references:
 - uid: ShapeEngine.Core.Structs
   commentId: N:ShapeEngine.Core.Structs
@@ -346,6 +585,165 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System.ValueType
   commentId: T:System.ValueType
   parent: System
@@ -365,6 +763,169 @@ references:
   nameWithType.vb: Object
   fullName.vb: Object
   name.vb: Object
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -372,43 +933,65 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: ShapeEngine.Core.Shapes.Rect
-  commentId: T:ShapeEngine.Core.Shapes.Rect
-  parent: ShapeEngine.Core.Shapes
-  href: ShapeEngine.Core.Shapes.Rect.html
-  name: Rect
-  nameWithType: Rect
-  fullName: ShapeEngine.Core.Shapes.Rect
-- uid: ShapeEngine.Core.Shapes
-  commentId: N:ShapeEngine.Core.Shapes
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
   href: ShapeEngine.html
-  name: ShapeEngine.Core.Shapes
-  nameWithType: ShapeEngine.Core.Shapes
-  fullName: ShapeEngine.Core.Shapes
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
   spec.csharp:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.Core
-    name: Core
-    href: ShapeEngine.Core.html
-  - name: .
-  - uid: ShapeEngine.Core.Shapes
-    name: Shapes
-    href: ShapeEngine.Core.Shapes.html
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
   spec.vb:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.Core
-    name: Core
-    href: ShapeEngine.Core.html
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+- uid: ShapeEngine.Geometry.RectDef.Rect
+  commentId: T:ShapeEngine.Geometry.RectDef.Rect
+  parent: ShapeEngine.Geometry.RectDef
+  href: ShapeEngine.Geometry.RectDef.Rect.html
+  name: Rect
+  nameWithType: Rect
+  fullName: ShapeEngine.Geometry.RectDef.Rect
+- uid: ShapeEngine.Geometry.RectDef
+  commentId: N:ShapeEngine.Geometry.RectDef
+  href: ShapeEngine.html
+  name: ShapeEngine.Geometry.RectDef
+  nameWithType: ShapeEngine.Geometry.RectDef
+  fullName: ShapeEngine.Geometry.RectDef
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.Core.Shapes
-    name: Shapes
-    href: ShapeEngine.Core.Shapes.html
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
+  - name: .
+  - uid: ShapeEngine.Geometry.RectDef
+    name: RectDef
+    href: ShapeEngine.Geometry.RectDef.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
+  - name: .
+  - uid: ShapeEngine.Geometry.RectDef
+    name: RectDef
+    href: ShapeEngine.Geometry.RectDef.html
 - uid: System.Numerics.Vector2
   commentId: T:System.Numerics.Vector2
   parent: System.Numerics
@@ -444,9 +1027,85 @@ references:
     name: Numerics
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.numerics
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: ShapeEngine.Core.Structs.ScreenInfo.FixedFramerateInterpolationFactor
+  commentId: F:ShapeEngine.Core.Structs.ScreenInfo.FixedFramerateInterpolationFactor
+  href: ShapeEngine.Core.Structs.ScreenInfo.html#ShapeEngine_Core_Structs_ScreenInfo_FixedFramerateInterpolationFactor
+  name: FixedFramerateInterpolationFactor
+  nameWithType: ScreenInfo.FixedFramerateInterpolationFactor
+  fullName: ShapeEngine.Core.Structs.ScreenInfo.FixedFramerateInterpolationFactor
+- uid: System.Single
+  commentId: T:System.Single
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.single
+  name: float
+  nameWithType: float
+  fullName: float
+  nameWithType.vb: Single
+  fullName.vb: Single
+  name.vb: Single
+- uid: ShapeEngine.Core.Structs.ScreenInfo.FixedFramerateInterpolationFactorF*
+  commentId: Overload:ShapeEngine.Core.Structs.ScreenInfo.FixedFramerateInterpolationFactorF
+  href: ShapeEngine.Core.Structs.ScreenInfo.html#ShapeEngine_Core_Structs_ScreenInfo_FixedFramerateInterpolationFactorF
+  name: FixedFramerateInterpolationFactorF
+  nameWithType: ScreenInfo.FixedFramerateInterpolationFactorF
+  fullName: ShapeEngine.Core.Structs.ScreenInfo.FixedFramerateInterpolationFactorF
+- uid: ShapeEngine.Core.Structs.ScreenInfo
+  commentId: T:ShapeEngine.Core.Structs.ScreenInfo
+  parent: ShapeEngine.Core.Structs
+  href: ShapeEngine.Core.Structs.ScreenInfo.html
+  name: ScreenInfo
+  nameWithType: ScreenInfo
+  fullName: ShapeEngine.Core.Structs.ScreenInfo
+- uid: ShapeEngine.Core.Structs.ScreenInfo.SetFixedFramerateInterpolationFactor*
+  commentId: Overload:ShapeEngine.Core.Structs.ScreenInfo.SetFixedFramerateInterpolationFactor
+  href: ShapeEngine.Core.Structs.ScreenInfo.html#ShapeEngine_Core_Structs_ScreenInfo_SetFixedFramerateInterpolationFactor_System_Double_
+  name: SetFixedFramerateInterpolationFactor
+  nameWithType: ScreenInfo.SetFixedFramerateInterpolationFactor
+  fullName: ShapeEngine.Core.Structs.ScreenInfo.SetFixedFramerateInterpolationFactor
+- uid: ShapeEngine.Core.Structs.ScreenInfo.RelativeMousePosition*
+  commentId: Overload:ShapeEngine.Core.Structs.ScreenInfo.RelativeMousePosition
+  href: ShapeEngine.Core.Structs.ScreenInfo.html#ShapeEngine_Core_Structs_ScreenInfo_RelativeMousePosition
+  name: RelativeMousePosition
+  nameWithType: ScreenInfo.RelativeMousePosition
+  fullName: ShapeEngine.Core.Structs.ScreenInfo.RelativeMousePosition
+- uid: ShapeEngine.Core.Structs.ScreenInfo.Area
+  commentId: F:ShapeEngine.Core.Structs.ScreenInfo.Area
+  href: ShapeEngine.Core.Structs.ScreenInfo.html#ShapeEngine_Core_Structs_ScreenInfo_Area
+  name: Area
+  nameWithType: ScreenInfo.Area
+  fullName: ShapeEngine.Core.Structs.ScreenInfo.Area
+- uid: ShapeEngine.Core.Structs.ScreenInfo.RelativeMousePositionCentered*
+  commentId: Overload:ShapeEngine.Core.Structs.ScreenInfo.RelativeMousePositionCentered
+  href: ShapeEngine.Core.Structs.ScreenInfo.html#ShapeEngine_Core_Structs_ScreenInfo_RelativeMousePositionCentered
+  name: RelativeMousePositionCentered
+  nameWithType: ScreenInfo.RelativeMousePositionCentered
+  fullName: ShapeEngine.Core.Structs.ScreenInfo.RelativeMousePositionCentered
 - uid: ShapeEngine.Core.Structs.ScreenInfo.#ctor*
   commentId: Overload:ShapeEngine.Core.Structs.ScreenInfo.#ctor
-  href: ShapeEngine.Core.Structs.ScreenInfo.html#ShapeEngine_Core_Structs_ScreenInfo__ctor_ShapeEngine_Core_Shapes_Rect_System_Numerics_Vector2_
+  href: ShapeEngine.Core.Structs.ScreenInfo.html#ShapeEngine_Core_Structs_ScreenInfo__ctor_ShapeEngine_Geometry_RectDef_Rect_System_Numerics_Vector2_System_Boolean_
   name: ScreenInfo
   nameWithType: ScreenInfo.ScreenInfo
   fullName: ShapeEngine.Core.Structs.ScreenInfo.ScreenInfo

@@ -19,6 +19,7 @@ items:
   - ShapeEngine.Core.GameDef.Game.Camera
   - ShapeEngine.Core.GameDef.Game.ChangeGameTexture(ShapeEngine.Screen.ScreenTexture)
   - ShapeEngine.Core.GameDef.Game.ChangeMousePos(System.Single,System.Numerics.Vector2,ShapeEngine.Geometry.RectDef.Rect)
+  - ShapeEngine.Core.GameDef.Game.ChangeMousePos(System.Single,System.Numerics.Vector2,ShapeEngine.Geometry.RectDef.Rect,System.Numerics.Vector2@)
   - ShapeEngine.Core.GameDef.Game.ClearCustomEvents
   - ShapeEngine.Core.GameDef.Game.ClearFlashes
   - ShapeEngine.Core.GameDef.Game.ClearScreenTextures
@@ -1654,7 +1655,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: UpdateCursor
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/Game.cs
-    startLine: 800
+    startLine: 799
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4911,14 +4912,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ChangeMousePos
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 248
+    startLine: 251
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
   summary: Allows modification of the mouse position before it's used for input processing.
   example: []
   syntax:
-    content: protected virtual Vector2 ChangeMousePos(float dt, Vector2 mousePos, Rect screenArea)
+    content: >-
+      [Obsolete("Use ChangeMousePos(float, Vector2, Rect, out Vector2) instead.", false)]
+
+      protected virtual Vector2 ChangeMousePos(float dt, Vector2 mousePos, Rect screenArea)
     parameters:
     - id: dt
       type: System.Single
@@ -4932,11 +4936,69 @@ items:
     return:
       type: System.Numerics.Vector2
       description: The modified mouse position.
-    content.vb: Protected Overridable Function ChangeMousePos(dt As Single, mousePos As Vector2, screenArea As Rect) As Vector2
+    content.vb: >-
+      <Obsolete("Use ChangeMousePos(float, Vector2, Rect, out Vector2) instead.", False)>
+
+      Protected Overridable Function ChangeMousePos(dt As Single, mousePos As Vector2, screenArea As Rect) As Vector2
   overload: ShapeEngine.Core.GameDef.Game.ChangeMousePos*
+  attributes:
+  - type: System.ObsoleteAttribute
+    ctor: System.ObsoleteAttribute.#ctor(System.String,System.Boolean)
+    arguments:
+    - type: System.String
+      value: Use ChangeMousePos(float, Vector2, Rect, out Vector2) instead.
+    - type: System.Boolean
+      value: false
   nameWithType.vb: Game.ChangeMousePos(Single, Vector2, Rect)
   fullName.vb: ShapeEngine.Core.GameDef.Game.ChangeMousePos(Single, System.Numerics.Vector2, ShapeEngine.Geometry.RectDef.Rect)
   name.vb: ChangeMousePos(Single, Vector2, Rect)
+- uid: ShapeEngine.Core.GameDef.Game.ChangeMousePos(System.Single,System.Numerics.Vector2,ShapeEngine.Geometry.RectDef.Rect,System.Numerics.Vector2@)
+  commentId: M:ShapeEngine.Core.GameDef.Game.ChangeMousePos(System.Single,System.Numerics.Vector2,ShapeEngine.Geometry.RectDef.Rect,System.Numerics.Vector2@)
+  id: ChangeMousePos(System.Single,System.Numerics.Vector2,ShapeEngine.Geometry.RectDef.Rect,System.Numerics.Vector2@)
+  parent: ShapeEngine.Core.GameDef.Game
+  langs:
+  - csharp
+  - vb
+  name: ChangeMousePos(float, Vector2, Rect, out Vector2)
+  nameWithType: Game.ChangeMousePos(float, Vector2, Rect, out Vector2)
+  fullName: ShapeEngine.Core.GameDef.Game.ChangeMousePos(float, System.Numerics.Vector2, ShapeEngine.Geometry.RectDef.Rect, out System.Numerics.Vector2)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Core/GameDef/GameVirtual.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: ChangeMousePos
+    path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
+    startLine: 262
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Core.GameDef
+  summary: Allows modification of the mouse position before it's used for input processing.
+  example: []
+  syntax:
+    content: protected virtual bool ChangeMousePos(float dt, Vector2 mousePos, Rect screenArea, out Vector2 newMousePos)
+    parameters:
+    - id: dt
+      type: System.Single
+      description: Delta time since the last frame.
+    - id: mousePos
+      type: System.Numerics.Vector2
+      description: The current mouse position.
+    - id: screenArea
+      type: ShapeEngine.Geometry.RectDef.Rect
+      description: The screen area rectangle.
+    - id: newMousePos
+      type: System.Numerics.Vector2
+      description: The modified mouse position.
+    return:
+      type: System.Boolean
+      description: Whether the mouse position was modified and should be changed.
+    content.vb: Protected Overridable Function ChangeMousePos(dt As Single, mousePos As Vector2, screenArea As Rect, newMousePos As Vector2) As Boolean
+  overload: ShapeEngine.Core.GameDef.Game.ChangeMousePos*
+  nameWithType.vb: Game.ChangeMousePos(Single, Vector2, Rect, Vector2)
+  fullName.vb: ShapeEngine.Core.GameDef.Game.ChangeMousePos(Single, System.Numerics.Vector2, ShapeEngine.Geometry.RectDef.Rect, System.Numerics.Vector2)
+  name.vb: ChangeMousePos(Single, Vector2, Rect, Vector2)
 - uid: ShapeEngine.Core.GameDef.Game.OnButtonPressed(ShapeEngine.Input.InputEvent)
   commentId: M:ShapeEngine.Core.GameDef.Game.OnButtonPressed(ShapeEngine.Input.InputEvent)
   id: OnButtonPressed(ShapeEngine.Input.InputEvent)
@@ -4955,7 +5017,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnButtonPressed
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 254
+    startLine: 272
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -4987,7 +5049,7 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: OnButtonReleased
     path: ../ShapeEngine/ShapeEngine/Core/GameDef/GameVirtual.cs
-    startLine: 262
+    startLine: 280
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Core.GameDef
@@ -7566,6 +7628,72 @@ references:
   name: OnWindowTopmostChanged
   nameWithType: Game.OnWindowTopmostChanged
   fullName: ShapeEngine.Core.GameDef.Game.OnWindowTopmostChanged
+- uid: ShapeEngine.Core.GameDef.Game.ChangeMousePos(System.Single,System.Numerics.Vector2,ShapeEngine.Geometry.RectDef.Rect,System.Numerics.Vector2@)
+  commentId: M:ShapeEngine.Core.GameDef.Game.ChangeMousePos(System.Single,System.Numerics.Vector2,ShapeEngine.Geometry.RectDef.Rect,System.Numerics.Vector2@)
+  isExternal: true
+  href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_ChangeMousePos_System_Single_System_Numerics_Vector2_ShapeEngine_Geometry_RectDef_Rect_System_Numerics_Vector2__
+  name: ChangeMousePos(float, Vector2, Rect, out Vector2)
+  nameWithType: Game.ChangeMousePos(float, Vector2, Rect, out Vector2)
+  fullName: ShapeEngine.Core.GameDef.Game.ChangeMousePos(float, System.Numerics.Vector2, ShapeEngine.Geometry.RectDef.Rect, out System.Numerics.Vector2)
+  nameWithType.vb: Game.ChangeMousePos(Single, Vector2, Rect, Vector2)
+  fullName.vb: ShapeEngine.Core.GameDef.Game.ChangeMousePos(Single, System.Numerics.Vector2, ShapeEngine.Geometry.RectDef.Rect, System.Numerics.Vector2)
+  name.vb: ChangeMousePos(Single, Vector2, Rect, Vector2)
+  spec.csharp:
+  - uid: ShapeEngine.Core.GameDef.Game.ChangeMousePos(System.Single,System.Numerics.Vector2,ShapeEngine.Geometry.RectDef.Rect,System.Numerics.Vector2@)
+    name: ChangeMousePos
+    href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_ChangeMousePos_System_Single_System_Numerics_Vector2_ShapeEngine_Geometry_RectDef_Rect_System_Numerics_Vector2__
+  - name: (
+  - uid: System.Single
+    name: float
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.Core.GameDef.Game.ChangeMousePos(System.Single,System.Numerics.Vector2,ShapeEngine.Geometry.RectDef.Rect,System.Numerics.Vector2@)
+    name: ChangeMousePos
+    href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_ChangeMousePos_System_Single_System_Numerics_Vector2_ShapeEngine_Geometry_RectDef_Rect_System_Numerics_Vector2__
+  - name: (
+  - uid: System.Single
+    name: Single
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.single
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Geometry.RectDef.Rect
+    name: Rect
+    href: ShapeEngine.Geometry.RectDef.Rect.html
+  - name: ','
+  - name: " "
+  - uid: System.Numerics.Vector2
+    name: Vector2
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.numerics.vector2
+  - name: )
 - uid: ShapeEngine.Core.GameDef.Game.ChangeMousePos*
   commentId: Overload:ShapeEngine.Core.GameDef.Game.ChangeMousePos
   href: ShapeEngine.Core.GameDef.Game.html#ShapeEngine_Core_GameDef_Game_ChangeMousePos_System_Single_System_Numerics_Vector2_ShapeEngine_Geometry_RectDef_Rect_

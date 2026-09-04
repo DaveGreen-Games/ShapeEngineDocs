@@ -5,8 +5,11 @@ items:
   id: ChanceList`1
   parent: ShapeEngine.Random
   children:
+  - ShapeEngine.Random.ChanceList`1.#ctor(System.Collections.Generic.IEnumerable{System.ValueTuple{System.Int32,`0}})
+  - ShapeEngine.Random.ChanceList`1.#ctor(System.Int32,System.Collections.Generic.IEnumerable{System.ValueTuple{System.Int32,`0}})
   - ShapeEngine.Random.ChanceList`1.#ctor(System.Int32,System.ValueTuple{System.Int32,`0}[])
   - ShapeEngine.Random.ChanceList`1.#ctor(System.ValueTuple{System.Int32,`0}[])
+  - ShapeEngine.Random.ChanceList`1.Count
   - ShapeEngine.Random.ChanceList`1.Next
   - ShapeEngine.Random.ChanceList`1.Next(System.Int32)
   - ShapeEngine.Random.ChanceList`1.Next(System.Int32,System.Int32)
@@ -26,14 +29,31 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: ChanceList
     path: ../ShapeEngine/ShapeEngine/Random/ChanceList.cs
-    startLine: 4
+    startLine: 15
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Represents a list of values with weighted chances for random selection.
+  remarks: >-
+    The list is populated with each value repeated according to its specified amount,
+
+    representing its weight in the selection process.
+
+    Each time a random value is picked,
+
+    it is removed from the list, ensuring that every value is selected exactly as many times
+
+    as its weight before the list is refilled with the original entries.
+
+    This guarantees proportional selection: for example, if value A appears 10 times and value B appears 5 times,
+
+    then over 15 picks, value A will always be chosen 10 times and value B 5 times, in a randomized order.
+  example: []
   syntax:
     content: public class ChanceList<T>
     typeParameters:
     - id: T
+      description: The type of values in the list.
     content.vb: Public Class ChanceList(Of T)
   inheritance:
   - System.Object
@@ -45,9 +65,46 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
   nameWithType.vb: ChanceList(Of T)
   fullName.vb: ShapeEngine.Random.ChanceList(Of T)
   name.vb: ChanceList(Of T)
+- uid: ShapeEngine.Random.ChanceList`1.Count
+  commentId: P:ShapeEngine.Random.ChanceList`1.Count
+  id: Count
+  parent: ShapeEngine.Random.ChanceList`1
+  langs:
+  - csharp
+  - vb
+  name: Count
+  nameWithType: ChanceList<T>.Count
+  fullName: ShapeEngine.Random.ChanceList<T>.Count
+  type: Property
+  source:
+    remote:
+      path: ShapeEngine/Random/ChanceList.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Count
+    path: ../ShapeEngine/ShapeEngine/Random/ChanceList.cs
+    startLine: 25
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Random
+  summary: Gets the current number of values available for selection.
+  example: []
+  syntax:
+    content: public int Count { get; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public ReadOnly Property Count As Integer
+  overload: ShapeEngine.Random.ChanceList`1.Count*
+  nameWithType.vb: ChanceList(Of T).Count
+  fullName.vb: ShapeEngine.Random.ChanceList(Of T).Count
 - uid: ShapeEngine.Random.ChanceList`1.#ctor(System.ValueTuple{System.Int32,`0}[])
   commentId: M:ShapeEngine.Random.ChanceList`1.#ctor(System.ValueTuple{System.Int32,`0}[])
   id: '#ctor(System.ValueTuple{System.Int32,`0}[])'
@@ -66,15 +123,22 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Random/ChanceList.cs
-    startLine: 11
+    startLine: 35
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Random.ChanceList%601" data-throw-if-not-resolved="false"></xref> class with the specified entries and a random seed.
+  remarks: >-
+    The Amount specifies the number of times the value will be added to the list.
+
+    Therefore, the amount represents the weight of the item.
+  example: []
   syntax:
     content: public ChanceList(params (int amount, T value)[] entries)
     parameters:
     - id: entries
       type: System.ValueTuple{System.Int32,{T}}[]
+      description: An array of tuples specifying the amount and value for each entry.
     content.vb: Public Sub New(ParamArray entries As (amount As Integer, value As T)())
   overload: ShapeEngine.Random.ChanceList`1.#ctor*
   nameWithType.vb: ChanceList(Of T).New(ParamArray (amount As Integer, value As T)())
@@ -98,22 +162,111 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Random/ChanceList.cs
-    startLine: 17
+    startLine: 50
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Random.ChanceList%601" data-throw-if-not-resolved="false"></xref> class with the specified seed and entries.
+  remarks: >-
+    The Amount specifies the number of times the value will be added to the list.
+
+    Therefore, the amount represents the weight of the item.
+  example: []
   syntax:
     content: public ChanceList(int seed, params (int amount, T value)[] entries)
     parameters:
     - id: seed
       type: System.Int32
+      description: The seed for the random number generator.
     - id: entries
       type: System.ValueTuple{System.Int32,{T}}[]
+      description: An array of tuples specifying the amount and value for each entry.
     content.vb: Public Sub New(seed As Integer, ParamArray entries As (amount As Integer, value As T)())
   overload: ShapeEngine.Random.ChanceList`1.#ctor*
   nameWithType.vb: ChanceList(Of T).New(Integer, ParamArray (amount As Integer, value As T)())
   fullName.vb: ShapeEngine.Random.ChanceList(Of T).New(Integer, ParamArray (amount As Integer, value As T)())
   name.vb: New(Integer, ParamArray (amount As Integer, value As T)())
+- uid: ShapeEngine.Random.ChanceList`1.#ctor(System.Collections.Generic.IEnumerable{System.ValueTuple{System.Int32,`0}})
+  commentId: M:ShapeEngine.Random.ChanceList`1.#ctor(System.Collections.Generic.IEnumerable{System.ValueTuple{System.Int32,`0}})
+  id: '#ctor(System.Collections.Generic.IEnumerable{System.ValueTuple{System.Int32,`0}})'
+  parent: ShapeEngine.Random.ChanceList`1
+  langs:
+  - csharp
+  - vb
+  name: ChanceList(IEnumerable<(int amount, T value)>)
+  nameWithType: ChanceList<T>.ChanceList(IEnumerable<(int amount, T value)>)
+  fullName: ShapeEngine.Random.ChanceList<T>.ChanceList(System.Collections.Generic.IEnumerable<(int amount, T value)>)
+  type: Constructor
+  source:
+    remote:
+      path: ShapeEngine/Random/ChanceList.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: .ctor
+    path: ../ShapeEngine/ShapeEngine/Random/ChanceList.cs
+    startLine: 65
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Random
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Random.ChanceList%601" data-throw-if-not-resolved="false"></xref> class with the specified entries and a random seed.
+  remarks: >-
+    The Amount specifies the number of times the value will be added to the list.
+
+    Therefore, the amount represents the weight of the item.
+  example: []
+  syntax:
+    content: public ChanceList(IEnumerable<(int amount, T value)> entries)
+    parameters:
+    - id: entries
+      type: System.Collections.Generic.IEnumerable{System.ValueTuple{System.Int32,{T}}}
+      description: An enumerable of tuples specifying the amount and value for each entry.
+    content.vb: Public Sub New(entries As IEnumerable(Of (amount As Integer, value As T)))
+  overload: ShapeEngine.Random.ChanceList`1.#ctor*
+  nameWithType.vb: ChanceList(Of T).New(IEnumerable(Of (amount As Integer, value As T)))
+  fullName.vb: ShapeEngine.Random.ChanceList(Of T).New(System.Collections.Generic.IEnumerable(Of (amount As Integer, value As T)))
+  name.vb: New(IEnumerable(Of (amount As Integer, value As T)))
+- uid: ShapeEngine.Random.ChanceList`1.#ctor(System.Int32,System.Collections.Generic.IEnumerable{System.ValueTuple{System.Int32,`0}})
+  commentId: M:ShapeEngine.Random.ChanceList`1.#ctor(System.Int32,System.Collections.Generic.IEnumerable{System.ValueTuple{System.Int32,`0}})
+  id: '#ctor(System.Int32,System.Collections.Generic.IEnumerable{System.ValueTuple{System.Int32,`0}})'
+  parent: ShapeEngine.Random.ChanceList`1
+  langs:
+  - csharp
+  - vb
+  name: ChanceList(int, IEnumerable<(int amount, T value)>)
+  nameWithType: ChanceList<T>.ChanceList(int, IEnumerable<(int amount, T value)>)
+  fullName: ShapeEngine.Random.ChanceList<T>.ChanceList(int, System.Collections.Generic.IEnumerable<(int amount, T value)>)
+  type: Constructor
+  source:
+    remote:
+      path: ShapeEngine/Random/ChanceList.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: .ctor
+    path: ../ShapeEngine/ShapeEngine/Random/ChanceList.cs
+    startLine: 80
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Random
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Random.ChanceList%601" data-throw-if-not-resolved="false"></xref> class with the specified seed and entries.
+  remarks: >-
+    The Amount specifies the number of times the value will be added to the list.
+
+    Therefore, the amount represents the weight of the item.
+  example: []
+  syntax:
+    content: public ChanceList(int seed, IEnumerable<(int amount, T value)> entries)
+    parameters:
+    - id: seed
+      type: System.Int32
+      description: The seed for the random number generator.
+    - id: entries
+      type: System.Collections.Generic.IEnumerable{System.ValueTuple{System.Int32,{T}}}
+      description: An enumerable of tuples specifying the amount and value for each entry.
+    content.vb: Public Sub New(seed As Integer, entries As IEnumerable(Of (amount As Integer, value As T)))
+  overload: ShapeEngine.Random.ChanceList`1.#ctor*
+  nameWithType.vb: ChanceList(Of T).New(Integer, IEnumerable(Of (amount As Integer, value As T)))
+  fullName.vb: ShapeEngine.Random.ChanceList(Of T).New(Integer, System.Collections.Generic.IEnumerable(Of (amount As Integer, value As T)))
+  name.vb: New(Integer, IEnumerable(Of (amount As Integer, value As T)))
 - uid: ShapeEngine.Random.ChanceList`1.Refill
   commentId: M:ShapeEngine.Random.ChanceList`1.Refill
   id: Refill
@@ -132,10 +285,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Refill
     path: ../ShapeEngine/ShapeEngine/Random/ChanceList.cs
-    startLine: 24
+    startLine: 91
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Clears and refills the list of values based on the original entries.
+  example: []
   syntax:
     content: public void Refill()
     content.vb: Public Sub Refill()
@@ -160,17 +315,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Next
     path: ../ShapeEngine/ShapeEngine/Random/ChanceList.cs
-    startLine: 30
+    startLine: 102
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random value matching the given predicate, or the default value if none match.
+  example: []
   syntax:
     content: public T? Next(Predicate<T> match)
     parameters:
     - id: match
       type: System.Predicate{{T}}
+      description: Predicate to filter values.
     return:
       type: '{T}'
+      description: A random value matching the predicate, or default if none found.
     content.vb: Public Function [Next](match As Predicate(Of T)) As T
   overload: ShapeEngine.Random.ChanceList`1.Next*
   nameWithType.vb: ChanceList(Of T).Next(Predicate(Of T))
@@ -194,19 +353,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Next
     path: ../ShapeEngine/ShapeEngine/Random/ChanceList.cs
-    startLine: 41
+    startLine: 119
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a list of random values, with the number of values chosen randomly between min and max.
+  example: []
   syntax:
     content: public List<T> Next(int min, int max)
     parameters:
     - id: min
       type: System.Int32
+      description: Minimum number of values to return.
     - id: max
       type: System.Int32
+      description: Maximum number of values to return.
     return:
       type: System.Collections.Generic.List{{T}}
+      description: A list of randomly selected values.
     content.vb: Public Function [Next](min As Integer, max As Integer) As List(Of T)
   overload: ShapeEngine.Random.ChanceList`1.Next*
   nameWithType.vb: ChanceList(Of T).Next(Integer, Integer)
@@ -230,17 +394,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Next
     path: ../ShapeEngine/ShapeEngine/Random/ChanceList.cs
-    startLine: 45
+    startLine: 128
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a list of the specified number of random values.
+  example: []
   syntax:
     content: public List<T> Next(int amount)
     parameters:
     - id: amount
       type: System.Int32
+      description: The number of values to return.
     return:
       type: System.Collections.Generic.List{{T}}
+      description: A list of randomly selected values.
     content.vb: Public Function [Next](amount As Integer) As List(Of T)
   overload: ShapeEngine.Random.ChanceList`1.Next*
   nameWithType.vb: ChanceList(Of T).Next(Integer)
@@ -264,14 +432,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Next
     path: ../ShapeEngine/ShapeEngine/Random/ChanceList.cs
-    startLine: 54
+    startLine: 141
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a single random value and removes it from the list.
+  example: []
   syntax:
     content: public T Next()
     return:
       type: '{T}'
+      description: A randomly selected value.
     content.vb: Public Function [Next]() As T
   overload: ShapeEngine.Random.ChanceList`1.Next*
   nameWithType.vb: ChanceList(Of T).Next()
@@ -529,6 +700,165 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -536,6 +866,235 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
+  href: ShapeEngine.html
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+- uid: ShapeEngine.Random.ChanceList`1.Count*
+  commentId: Overload:ShapeEngine.Random.ChanceList`1.Count
+  href: ShapeEngine.Random.ChanceList-1.html#ShapeEngine_Random_ChanceList_1_Count
+  name: Count
+  nameWithType: ChanceList<T>.Count
+  fullName: ShapeEngine.Random.ChanceList<T>.Count
+  nameWithType.vb: ChanceList(Of T).Count
+  fullName.vb: ShapeEngine.Random.ChanceList(Of T).Count
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: ShapeEngine.Random.ChanceList`1
+  commentId: T:ShapeEngine.Random.ChanceList`1
+  href: ShapeEngine.Random.ChanceList-1.html
+  name: ChanceList<T>
+  nameWithType: ChanceList<T>
+  fullName: ShapeEngine.Random.ChanceList<T>
+  nameWithType.vb: ChanceList(Of T)
+  fullName.vb: ShapeEngine.Random.ChanceList(Of T)
+  name.vb: ChanceList(Of T)
+  spec.csharp:
+  - uid: ShapeEngine.Random.ChanceList`1
+    name: ChanceList
+    href: ShapeEngine.Random.ChanceList-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: ShapeEngine.Random.ChanceList`1
+    name: ChanceList
+    href: ShapeEngine.Random.ChanceList-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
 - uid: ShapeEngine.Random.ChanceList`1.#ctor*
   commentId: Overload:ShapeEngine.Random.ChanceList`1.#ctor
   href: ShapeEngine.Random.ChanceList-1.html#ShapeEngine_Random_ChanceList_1__ctor_System_ValueTuple_System_Int32__0____
@@ -598,17 +1157,136 @@ references:
   - name: )
   - name: (
   - name: )
-- uid: System.Int32
-  commentId: T:System.Int32
-  parent: System
+- uid: System.Collections.Generic.IEnumerable{System.ValueTuple{System.Int32,{T}}}
+  commentId: T:System.Collections.Generic.IEnumerable{System.ValueTuple{System.Int32,`0}}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<(int amount, T value)>
+  nameWithType: IEnumerable<(int amount, T value)>
+  fullName: System.Collections.Generic.IEnumerable<(int amount, T value)>
+  nameWithType.vb: IEnumerable(Of (amount As Integer, value As T))
+  fullName.vb: System.Collections.Generic.IEnumerable(Of (amount As Integer, value As T))
+  name.vb: IEnumerable(Of (amount As Integer, value As T))
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: (
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: " "
+  - uid: System.ValueTuple{System.Int32,`0}.amount
+    name: amount
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-system.int32,-0-.amount
+  - name: ','
+  - name: " "
+  - name: T
+  - name: " "
+  - uid: System.ValueTuple{System.Int32,`0}.value
+    name: value
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-system.int32,-0-.value
+  - name: )
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: (
+  - uid: System.ValueTuple{System.Int32,`0}.amount
+    name: amount
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-system.int32,-0-.amount
+  - name: " "
+  - name: As
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: ','
+  - name: " "
+  - uid: System.ValueTuple{System.Int32,`0}.value
+    name: value
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-system.int32,-0-.value
+  - name: " "
+  - name: As
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
   isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.int32
-  name: int
-  nameWithType: int
-  fullName: int
-  nameWithType.vb: Integer
-  fullName.vb: Integer
-  name.vb: Integer
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
 - uid: ShapeEngine.Random.ChanceList`1.Refill*
   commentId: Overload:ShapeEngine.Random.ChanceList`1.Refill
   href: ShapeEngine.Random.ChanceList-1.html#ShapeEngine_Random_ChanceList_1_Refill
@@ -693,7 +1371,7 @@ references:
   nameWithType: T
   fullName: T
 - uid: System.Collections.Generic.List{{T}}
-  commentId: T:System.Collections.Generic.List{``0}
+  commentId: T:System.Collections.Generic.List{`0}
   parent: System.Collections.Generic
   definition: System.Collections.Generic.List`1
   href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
@@ -749,40 +1427,3 @@ references:
   - name: " "
   - name: T
   - name: )
-- uid: System.Collections.Generic
-  commentId: N:System.Collections.Generic
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system
-  name: System.Collections.Generic
-  nameWithType: System.Collections.Generic
-  fullName: System.Collections.Generic
-  spec.csharp:
-  - uid: System
-    name: System
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system
-  - name: .
-  - uid: System.Collections
-    name: Collections
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections
-  - name: .
-  - uid: System.Collections.Generic
-    name: Generic
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
-  spec.vb:
-  - uid: System
-    name: System
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system
-  - name: .
-  - uid: System.Collections
-    name: Collections
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections
-  - name: .
-  - uid: System.Collections.Generic
-    name: Generic
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic

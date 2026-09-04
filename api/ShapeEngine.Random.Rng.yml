@@ -9,16 +9,26 @@ items:
   - ShapeEngine.Random.Rng.#ctor(System.Int32)
   - ShapeEngine.Random.Rng.Chance(System.Single)
   - ShapeEngine.Random.Rng.Instance
+  - ShapeEngine.Random.Rng.PickRandomItem(System.Collections.Generic.IReadOnlyList{System.ValueTuple{System.String,System.Int32}})
   - ShapeEngine.Random.Rng.PickRandomItem(System.ValueTuple{System.String,System.Int32}[])
   - ShapeEngine.Random.Rng.PickRandomItem``1(ShapeEngine.Random.WeightedItem{``0}[])
+  - ShapeEngine.Random.Rng.PickRandomItem``1(System.Collections.Generic.IReadOnlyList{ShapeEngine.Random.WeightedItem{``0}})
+  - ShapeEngine.Random.Rng.PickRandomItem``1(System.Collections.Generic.IReadOnlyList{System.ValueTuple{``0,System.Int32}})
   - ShapeEngine.Random.Rng.PickRandomItem``1(System.ValueTuple{``0,System.Int32}[])
+  - ShapeEngine.Random.Rng.PickRandomItems(System.Collections.Generic.List{System.String},System.Int32,System.Collections.Generic.IReadOnlyList{System.ValueTuple{System.String,System.Int32}})
+  - ShapeEngine.Random.Rng.PickRandomItems(System.Collections.Generic.List{System.String},System.Int32,System.ValueTuple{System.String,System.Int32}[])
   - ShapeEngine.Random.Rng.PickRandomItems(System.Int32,System.ValueTuple{System.String,System.Int32}[])
+  - ShapeEngine.Random.Rng.PickRandomItems``1(System.Collections.Generic.List{``0},System.Int32,ShapeEngine.Random.WeightedItem{``0}[])
+  - ShapeEngine.Random.Rng.PickRandomItems``1(System.Collections.Generic.List{``0},System.Int32,System.Collections.Generic.IReadOnlyList{ShapeEngine.Random.WeightedItem{``0}})
+  - ShapeEngine.Random.Rng.PickRandomItems``1(System.Collections.Generic.List{``0},System.Int32,System.Collections.Generic.IReadOnlyList{System.ValueTuple{``0,System.Int32}})
+  - ShapeEngine.Random.Rng.PickRandomItems``1(System.Collections.Generic.List{``0},System.Int32,System.ValueTuple{``0,System.Int32}[])
   - ShapeEngine.Random.Rng.PickRandomItems``1(System.Int32,ShapeEngine.Random.WeightedItem{``0}[])
   - ShapeEngine.Random.Rng.PickRandomItems``1(System.Int32,System.ValueTuple{``0,System.Int32}[])
   - ShapeEngine.Random.Rng.Rand
   - ShapeEngine.Random.Rng.RandAngleDeg
   - ShapeEngine.Random.Rng.RandAngleRad
   - ShapeEngine.Random.Rng.RandCollection``1(System.Collections.Generic.List{``0},System.Boolean)
+  - ShapeEngine.Random.Rng.RandCollection``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{``0},System.Int32,System.Boolean)
   - ShapeEngine.Random.Rng.RandCollection``1(System.Collections.Generic.List{``0},System.Int32,System.Boolean)
   - ShapeEngine.Random.Rng.RandCollection``1(``0[])
   - ShapeEngine.Random.Rng.RandColor
@@ -49,6 +59,7 @@ items:
   - ShapeEngine.Random.Rng.RandPoint(System.Numerics.Vector2,System.Single)
   - ShapeEngine.Random.Rng.RandPoint(System.Numerics.Vector2,System.Single,System.Single)
   - ShapeEngine.Random.Rng.RandRect(ShapeEngine.Core.Structs.AnchorPoint)
+  - ShapeEngine.Random.Rng.RandRect(ShapeEngine.Geometry.RectDef.Rect,System.Single,System.Single,ShapeEngine.Core.Structs.AnchorPoint)
   - ShapeEngine.Random.Rng.RandRect(System.Numerics.Vector2,ShapeEngine.Core.Structs.AnchorPoint)
   - ShapeEngine.Random.Rng.RandRect(System.Numerics.Vector2,System.Single,System.Single,System.Single,System.Single,ShapeEngine.Core.Structs.AnchorPoint)
   - ShapeEngine.Random.Rng.RandRect(System.Single,System.Single,System.Single,System.Single,ShapeEngine.Core.Structs.AnchorPoint)
@@ -76,10 +87,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Rng
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 9
+    startLine: 11
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Provides random number generation utilities, including weighted selection, random values, and seeded randomness.
+  example: []
   syntax:
     content: public class Rng
     content.vb: Public Class Rng
@@ -93,6 +106,10 @@ items:
   - System.Object.MemberwiseClone
   - System.Object.ReferenceEquals(System.Object,System.Object)
   - System.Object.ToString
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
 - uid: ShapeEngine.Random.Rng.Instance
   commentId: F:ShapeEngine.Random.Rng.Instance
   id: Instance
@@ -111,10 +128,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Instance
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 11
+    startLine: 18
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Singleton instance of the <xref href="ShapeEngine.Random.Rng" data-throw-if-not-resolved="false"></xref> class.
+  example: []
   syntax:
     content: public static readonly Rng Instance
     return:
@@ -138,10 +157,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Rand
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 13
+    startLine: 23
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Gets the underlying <xref href="System.Random" data-throw-if-not-resolved="false"></xref> instance.
+  example: []
   syntax:
     content: public Random Rand { get; }
     parameters: []
@@ -167,10 +188,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Seed
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 14
+    startLine: 28
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Gets the seed used for random number generation.
+  example: []
   syntax:
     content: public int Seed { get; }
     parameters: []
@@ -196,10 +219,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 16
+    startLine: 43
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Random.Rng" data-throw-if-not-resolved="false"></xref> class with a time-based seed.
+  remarks: >-
+    Seed is generated according to the following formula:
+
+
+    <pre><code class="lang-csharp">Seed = DateTime.Now.Millisecond * Environment.TickCount;</code></pre>
+  example: []
   syntax:
     content: public Rng()
     content.vb: Public Sub New()
@@ -225,11 +255,11 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 27
+    startLine: 56
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
-  summary: Initializes a new instance of the Random class, using the specified seed value.
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Random.Rng" data-throw-if-not-resolved="false"></xref> class using the specified seed value.
   example: []
   syntax:
     content: public Rng(int seed)
@@ -263,15 +293,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: SetSeed
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 33
+    startLine: 70
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Sets the random number generator to use the specified seed.
+  example: []
   syntax:
     content: public void SetSeed(int seed)
     parameters:
     - id: seed
       type: System.Int32
+      description: The seed for the random number generator.
     content.vb: Public Sub SetSeed(seed As Integer)
   overload: ShapeEngine.Random.Rng.SetSeed*
   nameWithType.vb: Rng.SetSeed(Integer)
@@ -295,19 +328,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PickRandomItem
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 40
+    startLine: 85
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Picks a random item from the given weighted items.
+  example: []
   syntax:
     content: public T? PickRandomItem<T>(params WeightedItem<T>[] items)
     parameters:
     - id: items
       type: ShapeEngine.Random.WeightedItem{{T}}[]
+      description: An array of weighted items.
     typeParameters:
     - id: T
+      description: The type of the items.
     return:
       type: '{T}'
+      description: A randomly selected item, or default if none.
     content.vb: Public Function PickRandomItem(Of T)(ParamArray items As WeightedItem(Of T)()) As T
   overload: ShapeEngine.Random.Rng.PickRandomItem*
   nameWithType.vb: Rng.PickRandomItem(Of T)(ParamArray WeightedItem(Of T)())
@@ -331,19 +369,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PickRandomItem
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 59
+    startLine: 111
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Picks a random item from the given items and weights.
+  example: []
   syntax:
     content: public T? PickRandomItem<T>(params (T item, int weight)[] items)
     parameters:
     - id: items
       type: System.ValueTuple{{T},System.Int32}[]
+      description: An array of tuples containing items and their weights.
     typeParameters:
     - id: T
+      description: The type of the items.
     return:
       type: '{T}'
+      description: A randomly selected item, or default if none.
     content.vb: Public Function PickRandomItem(Of T)(ParamArray items As (item As T, weight As Integer)()) As T
   overload: ShapeEngine.Random.Rng.PickRandomItem*
   nameWithType.vb: Rng.PickRandomItem(Of T)(ParamArray (item As T, weight As Integer)())
@@ -367,22 +410,146 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PickRandomItem
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 78
+    startLine: 136
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Picks a random string from the given string-weight pairs.
+  example: []
   syntax:
     content: public string PickRandomItem(params (string id, int weight)[] items)
     parameters:
     - id: items
       type: System.ValueTuple{System.String,System.Int32}[]
+      description: An array of tuples containing string IDs and their weights.
     return:
       type: System.String
+      description: A randomly selected string, or empty string if none.
     content.vb: Public Function PickRandomItem(ParamArray items As (id As String, weight As Integer)()) As String
   overload: ShapeEngine.Random.Rng.PickRandomItem*
   nameWithType.vb: Rng.PickRandomItem(ParamArray (id As String, weight As Integer)())
   fullName.vb: ShapeEngine.Random.Rng.PickRandomItem(ParamArray (id As String, weight As Integer)())
   name.vb: PickRandomItem(ParamArray (id As String, weight As Integer)())
+- uid: ShapeEngine.Random.Rng.PickRandomItem``1(System.Collections.Generic.IReadOnlyList{ShapeEngine.Random.WeightedItem{``0}})
+  commentId: M:ShapeEngine.Random.Rng.PickRandomItem``1(System.Collections.Generic.IReadOnlyList{ShapeEngine.Random.WeightedItem{``0}})
+  id: PickRandomItem``1(System.Collections.Generic.IReadOnlyList{ShapeEngine.Random.WeightedItem{``0}})
+  parent: ShapeEngine.Random.Rng
+  langs:
+  - csharp
+  - vb
+  name: PickRandomItem<T>(IReadOnlyList<WeightedItem<T>>)
+  nameWithType: Rng.PickRandomItem<T>(IReadOnlyList<WeightedItem<T>>)
+  fullName: ShapeEngine.Random.Rng.PickRandomItem<T>(System.Collections.Generic.IReadOnlyList<ShapeEngine.Random.WeightedItem<T>>)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Random/Rng.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: PickRandomItem
+    path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
+    startLine: 162
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Random
+  summary: Picks a random item from the given weighted items.
+  example: []
+  syntax:
+    content: public T? PickRandomItem<T>(IReadOnlyList<WeightedItem<T>> items)
+    parameters:
+    - id: items
+      type: System.Collections.Generic.IReadOnlyList{ShapeEngine.Random.WeightedItem{{T}}}
+      description: A read-only list of weighted items.
+    typeParameters:
+    - id: T
+      description: The type of the items.
+    return:
+      type: '{T}'
+      description: A randomly selected item, or <code>default</code> if no item is selected.
+    content.vb: Public Function PickRandomItem(Of T)(items As IReadOnlyList(Of WeightedItem(Of T))) As T
+  overload: ShapeEngine.Random.Rng.PickRandomItem*
+  nameWithType.vb: Rng.PickRandomItem(Of T)(IReadOnlyList(Of WeightedItem(Of T)))
+  fullName.vb: ShapeEngine.Random.Rng.PickRandomItem(Of T)(System.Collections.Generic.IReadOnlyList(Of ShapeEngine.Random.WeightedItem(Of T)))
+  name.vb: PickRandomItem(Of T)(IReadOnlyList(Of WeightedItem(Of T)))
+- uid: ShapeEngine.Random.Rng.PickRandomItem``1(System.Collections.Generic.IReadOnlyList{System.ValueTuple{``0,System.Int32}})
+  commentId: M:ShapeEngine.Random.Rng.PickRandomItem``1(System.Collections.Generic.IReadOnlyList{System.ValueTuple{``0,System.Int32}})
+  id: PickRandomItem``1(System.Collections.Generic.IReadOnlyList{System.ValueTuple{``0,System.Int32}})
+  parent: ShapeEngine.Random.Rng
+  langs:
+  - csharp
+  - vb
+  name: PickRandomItem<T>(IReadOnlyList<(T item, int weight)>)
+  nameWithType: Rng.PickRandomItem<T>(IReadOnlyList<(T item, int weight)>)
+  fullName: ShapeEngine.Random.Rng.PickRandomItem<T>(System.Collections.Generic.IReadOnlyList<(T item, int weight)>)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Random/Rng.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: PickRandomItem
+    path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
+    startLine: 188
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Random
+  summary: Picks a random item from the given items and weights.
+  example: []
+  syntax:
+    content: public T? PickRandomItem<T>(IReadOnlyList<(T item, int weight)> items)
+    parameters:
+    - id: items
+      type: System.Collections.Generic.IReadOnlyList{System.ValueTuple{{T},System.Int32}}
+      description: A read-only list of tuples containing items and their weights.
+    typeParameters:
+    - id: T
+      description: The type of the items.
+    return:
+      type: '{T}'
+      description: A randomly selected item, or <code>default</code> if no item is selected.
+    content.vb: Public Function PickRandomItem(Of T)(items As IReadOnlyList(Of (item As T, weight As Integer))) As T
+  overload: ShapeEngine.Random.Rng.PickRandomItem*
+  nameWithType.vb: Rng.PickRandomItem(Of T)(IReadOnlyList(Of (item As T, weight As Integer)))
+  fullName.vb: ShapeEngine.Random.Rng.PickRandomItem(Of T)(System.Collections.Generic.IReadOnlyList(Of (item As T, weight As Integer)))
+  name.vb: PickRandomItem(Of T)(IReadOnlyList(Of (item As T, weight As Integer)))
+- uid: ShapeEngine.Random.Rng.PickRandomItem(System.Collections.Generic.IReadOnlyList{System.ValueTuple{System.String,System.Int32}})
+  commentId: M:ShapeEngine.Random.Rng.PickRandomItem(System.Collections.Generic.IReadOnlyList{System.ValueTuple{System.String,System.Int32}})
+  id: PickRandomItem(System.Collections.Generic.IReadOnlyList{System.ValueTuple{System.String,System.Int32}})
+  parent: ShapeEngine.Random.Rng
+  langs:
+  - csharp
+  - vb
+  name: PickRandomItem(IReadOnlyList<(string id, int weight)>)
+  nameWithType: Rng.PickRandomItem(IReadOnlyList<(string id, int weight)>)
+  fullName: ShapeEngine.Random.Rng.PickRandomItem(System.Collections.Generic.IReadOnlyList<(string id, int weight)>)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Random/Rng.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: PickRandomItem
+    path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
+    startLine: 213
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Random
+  summary: Picks a random string from the given string-weight pairs.
+  example: []
+  syntax:
+    content: public string PickRandomItem(IReadOnlyList<(string id, int weight)> items)
+    parameters:
+    - id: items
+      type: System.Collections.Generic.IReadOnlyList{System.ValueTuple{System.String,System.Int32}}
+      description: A read-only list of tuples containing string IDs and their weights.
+    return:
+      type: System.String
+      description: A randomly selected string, or empty string if none.
+    content.vb: Public Function PickRandomItem(items As IReadOnlyList(Of (id As String, weight As Integer))) As String
+  overload: ShapeEngine.Random.Rng.PickRandomItem*
+  nameWithType.vb: Rng.PickRandomItem(IReadOnlyList(Of (id As String, weight As Integer)))
+  fullName.vb: ShapeEngine.Random.Rng.PickRandomItem(System.Collections.Generic.IReadOnlyList(Of (id As String, weight As Integer)))
+  name.vb: PickRandomItem(IReadOnlyList(Of (id As String, weight As Integer)))
 - uid: ShapeEngine.Random.Rng.PickRandomItems``1(System.Int32,ShapeEngine.Random.WeightedItem{``0}[])
   commentId: M:ShapeEngine.Random.Rng.PickRandomItems``1(System.Int32,ShapeEngine.Random.WeightedItem{``0}[])
   id: PickRandomItems``1(System.Int32,ShapeEngine.Random.WeightedItem{``0}[])
@@ -401,21 +568,27 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PickRandomItems
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 98
+    startLine: 241
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Picks multiple random items from the given weighted items.
+  example: []
   syntax:
     content: public List<T> PickRandomItems<T>(int amount, params WeightedItem<T>[] items)
     parameters:
     - id: amount
       type: System.Int32
+      description: The number of items to pick.
     - id: items
       type: ShapeEngine.Random.WeightedItem{{T}}[]
+      description: An array of weighted items.
     typeParameters:
     - id: T
+      description: The type of the items.
     return:
       type: System.Collections.Generic.List{{T}}
+      description: A list of randomly selected items.
     content.vb: Public Function PickRandomItems(Of T)(amount As Integer, ParamArray items As WeightedItem(Of T)()) As List(Of T)
   overload: ShapeEngine.Random.Rng.PickRandomItems*
   nameWithType.vb: Rng.PickRandomItems(Of T)(Integer, ParamArray WeightedItem(Of T)())
@@ -439,21 +612,27 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PickRandomItems
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 124
+    startLine: 255
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Picks multiple random items from the given items and weights.
+  example: []
   syntax:
     content: public List<T> PickRandomItems<T>(int amount, params (T item, int weight)[] items)
     parameters:
     - id: amount
       type: System.Int32
+      description: The number of items to pick.
     - id: items
       type: System.ValueTuple{{T},System.Int32}[]
+      description: An array of tuples containing items and their weights.
     typeParameters:
     - id: T
+      description: The type of the items.
     return:
       type: System.Collections.Generic.List{{T}}
+      description: A list of randomly selected items.
     content.vb: Public Function PickRandomItems(Of T)(amount As Integer, ParamArray items As (item As T, weight As Integer)()) As List(Of T)
   overload: ShapeEngine.Random.Rng.PickRandomItems*
   nameWithType.vb: Rng.PickRandomItems(Of T)(Integer, ParamArray (item As T, weight As Integer)())
@@ -477,24 +656,293 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: PickRandomItems
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 152
+    startLine: 268
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Picks multiple random strings from the given string-weight pairs.
+  example: []
   syntax:
     content: public List<string> PickRandomItems(int amount, params (string id, int weight)[] items)
     parameters:
     - id: amount
       type: System.Int32
+      description: The number of strings to pick.
     - id: items
       type: System.ValueTuple{System.String,System.Int32}[]
+      description: An array of tuples containing string IDs and their weights.
     return:
       type: System.Collections.Generic.List{System.String}
+      description: A list of randomly selected strings.
     content.vb: Public Function PickRandomItems(amount As Integer, ParamArray items As (id As String, weight As Integer)()) As List(Of String)
   overload: ShapeEngine.Random.Rng.PickRandomItems*
   nameWithType.vb: Rng.PickRandomItems(Integer, ParamArray (id As String, weight As Integer)())
   fullName.vb: ShapeEngine.Random.Rng.PickRandomItems(Integer, ParamArray (id As String, weight As Integer)())
   name.vb: PickRandomItems(Integer, ParamArray (id As String, weight As Integer)())
+- uid: ShapeEngine.Random.Rng.PickRandomItems``1(System.Collections.Generic.List{``0},System.Int32,ShapeEngine.Random.WeightedItem{``0}[])
+  commentId: M:ShapeEngine.Random.Rng.PickRandomItems``1(System.Collections.Generic.List{``0},System.Int32,ShapeEngine.Random.WeightedItem{``0}[])
+  id: PickRandomItems``1(System.Collections.Generic.List{``0},System.Int32,ShapeEngine.Random.WeightedItem{``0}[])
+  parent: ShapeEngine.Random.Rng
+  langs:
+  - csharp
+  - vb
+  name: PickRandomItems<T>(List<T>, int, params WeightedItem<T>[])
+  nameWithType: Rng.PickRandomItems<T>(List<T>, int, params WeightedItem<T>[])
+  fullName: ShapeEngine.Random.Rng.PickRandomItems<T>(System.Collections.Generic.List<T>, int, params ShapeEngine.Random.WeightedItem<T>[])
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Random/Rng.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: PickRandomItems
+    path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
+    startLine: 285
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Random
+  summary: Picks multiple random items from the given weighted items and writes them into <code class="paramref">result</code>.
+  remarks: This method samples with replacement. The same item may be selected multiple times.
+  example: []
+  syntax:
+    content: public void PickRandomItems<T>(List<T> result, int amount, params WeightedItem<T>[] items)
+    parameters:
+    - id: result
+      type: System.Collections.Generic.List{{T}}
+      description: The destination list that will be cleared and populated with the selected items.
+    - id: amount
+      type: System.Int32
+      description: The number of items to pick.
+    - id: items
+      type: ShapeEngine.Random.WeightedItem{{T}}[]
+      description: An array of weighted items.
+    typeParameters:
+    - id: T
+      description: The type of the items.
+    content.vb: Public Sub PickRandomItems(Of T)(result As List(Of T), amount As Integer, ParamArray items As WeightedItem(Of T)())
+  overload: ShapeEngine.Random.Rng.PickRandomItems*
+  nameWithType.vb: Rng.PickRandomItems(Of T)(List(Of T), Integer, ParamArray WeightedItem(Of T)())
+  fullName.vb: ShapeEngine.Random.Rng.PickRandomItems(Of T)(System.Collections.Generic.List(Of T), Integer, ParamArray ShapeEngine.Random.WeightedItem(Of T)())
+  name.vb: PickRandomItems(Of T)(List(Of T), Integer, ParamArray WeightedItem(Of T)())
+- uid: ShapeEngine.Random.Rng.PickRandomItems``1(System.Collections.Generic.List{``0},System.Int32,System.ValueTuple{``0,System.Int32}[])
+  commentId: M:ShapeEngine.Random.Rng.PickRandomItems``1(System.Collections.Generic.List{``0},System.Int32,System.ValueTuple{``0,System.Int32}[])
+  id: PickRandomItems``1(System.Collections.Generic.List{``0},System.Int32,System.ValueTuple{``0,System.Int32}[])
+  parent: ShapeEngine.Random.Rng
+  langs:
+  - csharp
+  - vb
+  name: PickRandomItems<T>(List<T>, int, params (T item, int weight)[])
+  nameWithType: Rng.PickRandomItems<T>(List<T>, int, params (T item, int weight)[])
+  fullName: ShapeEngine.Random.Rng.PickRandomItems<T>(System.Collections.Generic.List<T>, int, params (T item, int weight)[])
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Random/Rng.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: PickRandomItems
+    path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
+    startLine: 323
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Random
+  summary: Picks multiple random items from the given items and weights and writes them into <code class="paramref">result</code>.
+  remarks: This method samples with replacement. The same item may be selected multiple times.
+  example: []
+  syntax:
+    content: public void PickRandomItems<T>(List<T> result, int amount, params (T item, int weight)[] items)
+    parameters:
+    - id: result
+      type: System.Collections.Generic.List{{T}}
+      description: The destination list that will be cleared and populated with the selected items.
+    - id: amount
+      type: System.Int32
+      description: The number of items to pick.
+    - id: items
+      type: System.ValueTuple{{T},System.Int32}[]
+      description: An array of tuples containing items and their weights.
+    typeParameters:
+    - id: T
+      description: The type of the items.
+    content.vb: Public Sub PickRandomItems(Of T)(result As List(Of T), amount As Integer, ParamArray items As (item As T, weight As Integer)())
+  overload: ShapeEngine.Random.Rng.PickRandomItems*
+  nameWithType.vb: Rng.PickRandomItems(Of T)(List(Of T), Integer, ParamArray (item As T, weight As Integer)())
+  fullName.vb: ShapeEngine.Random.Rng.PickRandomItems(Of T)(System.Collections.Generic.List(Of T), Integer, ParamArray (item As T, weight As Integer)())
+  name.vb: PickRandomItems(Of T)(List(Of T), Integer, ParamArray (item As T, weight As Integer)())
+- uid: ShapeEngine.Random.Rng.PickRandomItems(System.Collections.Generic.List{System.String},System.Int32,System.ValueTuple{System.String,System.Int32}[])
+  commentId: M:ShapeEngine.Random.Rng.PickRandomItems(System.Collections.Generic.List{System.String},System.Int32,System.ValueTuple{System.String,System.Int32}[])
+  id: PickRandomItems(System.Collections.Generic.List{System.String},System.Int32,System.ValueTuple{System.String,System.Int32}[])
+  parent: ShapeEngine.Random.Rng
+  langs:
+  - csharp
+  - vb
+  name: PickRandomItems(List<string>, int, params (string id, int weight)[])
+  nameWithType: Rng.PickRandomItems(List<string>, int, params (string id, int weight)[])
+  fullName: ShapeEngine.Random.Rng.PickRandomItems(System.Collections.Generic.List<string>, int, params (string id, int weight)[])
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Random/Rng.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: PickRandomItems
+    path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
+    startLine: 360
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Random
+  summary: Picks multiple random strings from the given string-weight pairs and writes them into <code class="paramref">result</code>.
+  remarks: This method samples with replacement. The same string may be selected multiple times.
+  example: []
+  syntax:
+    content: public void PickRandomItems(List<string> result, int amount, params (string id, int weight)[] items)
+    parameters:
+    - id: result
+      type: System.Collections.Generic.List{System.String}
+      description: The destination list that will be cleared and populated with the selected strings.
+    - id: amount
+      type: System.Int32
+      description: The number of strings to pick.
+    - id: items
+      type: System.ValueTuple{System.String,System.Int32}[]
+      description: An array of tuples containing string IDs and their weights.
+    content.vb: Public Sub PickRandomItems(result As List(Of String), amount As Integer, ParamArray items As (id As String, weight As Integer)())
+  overload: ShapeEngine.Random.Rng.PickRandomItems*
+  nameWithType.vb: Rng.PickRandomItems(List(Of String), Integer, ParamArray (id As String, weight As Integer)())
+  fullName.vb: ShapeEngine.Random.Rng.PickRandomItems(System.Collections.Generic.List(Of String), Integer, ParamArray (id As String, weight As Integer)())
+  name.vb: PickRandomItems(List(Of String), Integer, ParamArray (id As String, weight As Integer)())
+- uid: ShapeEngine.Random.Rng.PickRandomItems``1(System.Collections.Generic.List{``0},System.Int32,System.Collections.Generic.IReadOnlyList{ShapeEngine.Random.WeightedItem{``0}})
+  commentId: M:ShapeEngine.Random.Rng.PickRandomItems``1(System.Collections.Generic.List{``0},System.Int32,System.Collections.Generic.IReadOnlyList{ShapeEngine.Random.WeightedItem{``0}})
+  id: PickRandomItems``1(System.Collections.Generic.List{``0},System.Int32,System.Collections.Generic.IReadOnlyList{ShapeEngine.Random.WeightedItem{``0}})
+  parent: ShapeEngine.Random.Rng
+  langs:
+  - csharp
+  - vb
+  name: PickRandomItems<T>(List<T>, int, IReadOnlyList<WeightedItem<T>>)
+  nameWithType: Rng.PickRandomItems<T>(List<T>, int, IReadOnlyList<WeightedItem<T>>)
+  fullName: ShapeEngine.Random.Rng.PickRandomItems<T>(System.Collections.Generic.List<T>, int, System.Collections.Generic.IReadOnlyList<ShapeEngine.Random.WeightedItem<T>>)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Random/Rng.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: PickRandomItems
+    path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
+    startLine: 399
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Random
+  summary: Picks multiple random items from the given weighted items and writes them into <code class="paramref">result</code>.
+  remarks: This method samples with replacement. The same item may be selected multiple times.
+  example: []
+  syntax:
+    content: public void PickRandomItems<T>(List<T> result, int amount, IReadOnlyList<WeightedItem<T>> items)
+    parameters:
+    - id: result
+      type: System.Collections.Generic.List{{T}}
+      description: The destination list that will be cleared and populated with the selected items.
+    - id: amount
+      type: System.Int32
+      description: The number of items to pick.
+    - id: items
+      type: System.Collections.Generic.IReadOnlyList{ShapeEngine.Random.WeightedItem{{T}}}
+      description: A read-only list of weighted items.
+    typeParameters:
+    - id: T
+      description: The type of the items.
+    content.vb: Public Sub PickRandomItems(Of T)(result As List(Of T), amount As Integer, items As IReadOnlyList(Of WeightedItem(Of T)))
+  overload: ShapeEngine.Random.Rng.PickRandomItems*
+  nameWithType.vb: Rng.PickRandomItems(Of T)(List(Of T), Integer, IReadOnlyList(Of WeightedItem(Of T)))
+  fullName.vb: ShapeEngine.Random.Rng.PickRandomItems(Of T)(System.Collections.Generic.List(Of T), Integer, System.Collections.Generic.IReadOnlyList(Of ShapeEngine.Random.WeightedItem(Of T)))
+  name.vb: PickRandomItems(Of T)(List(Of T), Integer, IReadOnlyList(Of WeightedItem(Of T)))
+- uid: ShapeEngine.Random.Rng.PickRandomItems``1(System.Collections.Generic.List{``0},System.Int32,System.Collections.Generic.IReadOnlyList{System.ValueTuple{``0,System.Int32}})
+  commentId: M:ShapeEngine.Random.Rng.PickRandomItems``1(System.Collections.Generic.List{``0},System.Int32,System.Collections.Generic.IReadOnlyList{System.ValueTuple{``0,System.Int32}})
+  id: PickRandomItems``1(System.Collections.Generic.List{``0},System.Int32,System.Collections.Generic.IReadOnlyList{System.ValueTuple{``0,System.Int32}})
+  parent: ShapeEngine.Random.Rng
+  langs:
+  - csharp
+  - vb
+  name: PickRandomItems<T>(List<T>, int, IReadOnlyList<(T item, int weight)>)
+  nameWithType: Rng.PickRandomItems<T>(List<T>, int, IReadOnlyList<(T item, int weight)>)
+  fullName: ShapeEngine.Random.Rng.PickRandomItems<T>(System.Collections.Generic.List<T>, int, System.Collections.Generic.IReadOnlyList<(T item, int weight)>)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Random/Rng.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: PickRandomItems
+    path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
+    startLine: 437
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Random
+  summary: Picks multiple random items from the given items and weights and writes them into <code class="paramref">result</code>.
+  remarks: This method samples with replacement. The same item may be selected multiple times.
+  example: []
+  syntax:
+    content: public void PickRandomItems<T>(List<T> result, int amount, IReadOnlyList<(T item, int weight)> items)
+    parameters:
+    - id: result
+      type: System.Collections.Generic.List{{T}}
+      description: The destination list that will be cleared and populated with the selected items.
+    - id: amount
+      type: System.Int32
+      description: The number of items to pick.
+    - id: items
+      type: System.Collections.Generic.IReadOnlyList{System.ValueTuple{{T},System.Int32}}
+      description: A read-only list of tuples containing items and their weights.
+    typeParameters:
+    - id: T
+      description: The type of the items.
+    content.vb: Public Sub PickRandomItems(Of T)(result As List(Of T), amount As Integer, items As IReadOnlyList(Of (item As T, weight As Integer)))
+  overload: ShapeEngine.Random.Rng.PickRandomItems*
+  nameWithType.vb: Rng.PickRandomItems(Of T)(List(Of T), Integer, IReadOnlyList(Of (item As T, weight As Integer)))
+  fullName.vb: ShapeEngine.Random.Rng.PickRandomItems(Of T)(System.Collections.Generic.List(Of T), Integer, System.Collections.Generic.IReadOnlyList(Of (item As T, weight As Integer)))
+  name.vb: PickRandomItems(Of T)(List(Of T), Integer, IReadOnlyList(Of (item As T, weight As Integer)))
+- uid: ShapeEngine.Random.Rng.PickRandomItems(System.Collections.Generic.List{System.String},System.Int32,System.Collections.Generic.IReadOnlyList{System.ValueTuple{System.String,System.Int32}})
+  commentId: M:ShapeEngine.Random.Rng.PickRandomItems(System.Collections.Generic.List{System.String},System.Int32,System.Collections.Generic.IReadOnlyList{System.ValueTuple{System.String,System.Int32}})
+  id: PickRandomItems(System.Collections.Generic.List{System.String},System.Int32,System.Collections.Generic.IReadOnlyList{System.ValueTuple{System.String,System.Int32}})
+  parent: ShapeEngine.Random.Rng
+  langs:
+  - csharp
+  - vb
+  name: PickRandomItems(List<string>, int, IReadOnlyList<(string id, int weight)>)
+  nameWithType: Rng.PickRandomItems(List<string>, int, IReadOnlyList<(string id, int weight)>)
+  fullName: ShapeEngine.Random.Rng.PickRandomItems(System.Collections.Generic.List<string>, int, System.Collections.Generic.IReadOnlyList<(string id, int weight)>)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Random/Rng.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: PickRandomItems
+    path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
+    startLine: 474
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Random
+  summary: Picks multiple random strings from the given string-weight pairs and writes them into <code class="paramref">result</code>.
+  remarks: This method samples with replacement. The same string may be selected multiple times.
+  example: []
+  syntax:
+    content: public void PickRandomItems(List<string> result, int amount, IReadOnlyList<(string id, int weight)> items)
+    parameters:
+    - id: result
+      type: System.Collections.Generic.List{System.String}
+      description: The destination list that will be cleared and populated with the selected strings.
+    - id: amount
+      type: System.Int32
+      description: The number of strings to pick.
+    - id: items
+      type: System.Collections.Generic.IReadOnlyList{System.ValueTuple{System.String,System.Int32}}
+      description: A read-only list of tuples containing string IDs and their weights.
+    content.vb: Public Sub PickRandomItems(result As List(Of String), amount As Integer, items As IReadOnlyList(Of (id As String, weight As Integer)))
+  overload: ShapeEngine.Random.Rng.PickRandomItems*
+  nameWithType.vb: Rng.PickRandomItems(List(Of String), Integer, IReadOnlyList(Of (id As String, weight As Integer)))
+  fullName.vb: ShapeEngine.Random.Rng.PickRandomItems(System.Collections.Generic.List(Of String), Integer, System.Collections.Generic.IReadOnlyList(Of (id As String, weight As Integer)))
+  name.vb: PickRandomItems(List(Of String), Integer, IReadOnlyList(Of (id As String, weight As Integer)))
 - uid: ShapeEngine.Random.Rng.Chance(System.Single)
   commentId: M:ShapeEngine.Random.Rng.Chance(System.Single)
   id: Chance(System.Single)
@@ -513,17 +961,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Chance
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 183
+    startLine: 509
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns true with the given probability (chance).
+  example: []
   syntax:
     content: public bool Chance(float value)
     parameters:
     - id: value
       type: System.Single
+      description: A float between 0 and 1 representing the chance.
     return:
       type: System.Boolean
+      description: True with the given probability, otherwise false.
     content.vb: Public Function Chance(value As Single) As Boolean
   overload: ShapeEngine.Random.Rng.Chance*
   nameWithType.vb: Rng.Chance(Single)
@@ -547,10 +999,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandAngleRad
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 187
+    startLine: 516
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random angle in radians between 0 and 2π.
+  example: []
   syntax:
     content: public float RandAngleRad()
     return:
@@ -575,10 +1029,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandAngleDeg
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 188
+    startLine: 520
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random angle in degrees between 0 and 359.
+  example: []
   syntax:
     content: public float RandAngleDeg()
     return:
@@ -603,10 +1059,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandDirF
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 192
+    startLine: 527
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random float direction, either -1.0 or 1.0.
+  example: []
   syntax:
     content: public float RandDirF()
     return:
@@ -631,10 +1089,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandDirI
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 193
+    startLine: 531
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random integer direction, either -1 or 1.
+  example: []
   syntax:
     content: public int RandDirI()
     return:
@@ -659,10 +1119,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandF
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 197
+    startLine: 538
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random float between 0.0 and 1.0.
+  example: []
   syntax:
     content: public float RandF()
     return:
@@ -687,15 +1149,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandF
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 198
+    startLine: 543
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random float between 0.0 and max (or max and 0.0 if max is negative).
+  example: []
   syntax:
     content: public float RandF(float max)
     parameters:
     - id: max
       type: System.Single
+      description: The maximum value.
     return:
       type: System.Single
     content.vb: Public Function RandF(max As Single) As Single
@@ -721,17 +1186,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandF
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 210
+    startLine: 560
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random float between min and max.
+  example: []
   syntax:
     content: public float RandF(float min, float max)
     parameters:
     - id: min
       type: System.Single
+      description: The minimum value.
     - id: max
       type: System.Single
+      description: The maximum value.
     return:
       type: System.Single
     content.vb: Public Function RandF(min As Single, max As Single) As Single
@@ -757,10 +1226,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandI
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 222
+    startLine: 575
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a non-negative random integer.
+  example: []
   syntax:
     content: public int RandI()
     return:
@@ -785,15 +1256,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandI
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 223
+    startLine: 582
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: >-
+    Returns a random integer between 0 and max (exclusive) when max is positive
+
+    or max (exclusive) and 0 if max is negative.
+  example: []
   syntax:
     content: public int RandI(int max)
     parameters:
     - id: max
       type: System.Int32
+      description: The maximum value.
     return:
       type: System.Int32
     content.vb: Public Function RandI(max As Integer) As Integer
@@ -819,17 +1296,22 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandI
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 235
+    startLine: 601
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random integer between min and max.
+  remarks: See Random.Next(int, int).
+  example: []
   syntax:
     content: public int RandI(int min, int max)
     parameters:
     - id: min
       type: System.Int32
+      description: The (inclusive) minimum value.
     - id: max
       type: System.Int32
+      description: The (exclusive) maximum value.
     return:
       type: System.Int32
     content.vb: Public Function RandI(min As Integer, max As Integer) As Integer
@@ -855,10 +1337,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandVec2
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 247
+    startLine: 616
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random unit vector.
+  example: []
   syntax:
     content: public Vector2 RandVec2()
     return:
@@ -883,15 +1367,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandVec2
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 252
+    startLine: 625
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random vector with length between 0 and max.
+  example: []
   syntax:
     content: public Vector2 RandVec2(float max)
     parameters:
     - id: max
       type: System.Single
+      description: The maximum length. Should be positive!
     return:
       type: System.Numerics.Vector2
     content.vb: Public Function RandVec2(max As Single) As Vector2
@@ -917,17 +1404,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandVec2
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 253
+    startLine: 631
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random vector with length between min and max.
+  example: []
   syntax:
     content: public Vector2 RandVec2(float min, float max)
     parameters:
     - id: min
       type: System.Single
+      description: The minimum length. Should be positive! Should be smaller than max!
     - id: max
       type: System.Single
+      description: The maximum length. Should be positive! Should be bigger than min!
     return:
       type: System.Numerics.Vector2
     content.vb: Public Function RandVec2(min As Single, max As Single) As Vector2
@@ -953,10 +1444,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandSize
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 262
+    startLine: 638
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random size with width and height between 0.0 and 1.0.
+  example: []
   syntax:
     content: public Size RandSize()
     return:
@@ -981,15 +1474,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandSize
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 263
+    startLine: 643
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random size with width and height between 0.0 and max.
+  example: []
   syntax:
     content: public Size RandSize(float max)
     parameters:
     - id: max
       type: System.Single
+      description: The maximum value for width and height.
     return:
       type: ShapeEngine.Core.Structs.Size
     content.vb: Public Function RandSize(max As Single) As Size
@@ -1015,17 +1511,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandSize
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 264
+    startLine: 649
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random size with width and height between min and max.
+  example: []
   syntax:
     content: public Size RandSize(float min, float max)
     parameters:
     - id: min
       type: System.Single
+      description: The minimum value for width and height.
     - id: max
       type: System.Single
+      description: The maximum value for width and height.
     return:
       type: ShapeEngine.Core.Structs.Size
     content.vb: Public Function RandSize(min As Single, max As Single) As Size
@@ -1051,15 +1551,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandSize
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 265
+    startLine: 654
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random size with width and height between 0.0 and the specified max size.
+  example: []
   syntax:
     content: public Size RandSize(Size max)
     parameters:
     - id: max
       type: ShapeEngine.Core.Structs.Size
+      description: The maximum size.
     return:
       type: ShapeEngine.Core.Structs.Size
     content.vb: Public Function RandSize(max As Size) As Size
@@ -1082,17 +1585,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandSize
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 266
+    startLine: 660
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random size with width and height between the specified min and max sizes.
+  example: []
   syntax:
     content: public Size RandSize(Size min, Size max)
     parameters:
     - id: min
       type: ShapeEngine.Core.Structs.Size
+      description: The minimum size.
     - id: max
       type: ShapeEngine.Core.Structs.Size
+      description: The maximum size.
     return:
       type: ShapeEngine.Core.Structs.Size
     content.vb: Public Function RandSize(min As Size, max As Size) As Size
@@ -1115,15 +1622,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandColorRed
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 271
+    startLine: 668
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a color with a random red channel.
+  example: []
   syntax:
     content: public ColorRgba RandColorRed(ColorRgba colorRgba)
     parameters:
     - id: colorRgba
       type: ShapeEngine.Color.ColorRgba
+      description: The base color.
     return:
       type: ShapeEngine.Color.ColorRgba
     content.vb: Public Function RandColorRed(colorRgba As ColorRgba) As ColorRgba
@@ -1146,17 +1656,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandColorRed
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 272
+    startLine: 675
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a color with a random red channel up to the specified max (exclusive).
+  example: []
   syntax:
     content: public ColorRgba RandColorRed(ColorRgba colorRgba, int max)
     parameters:
     - id: colorRgba
       type: ShapeEngine.Color.ColorRgba
+      description: The base color.
     - id: max
       type: System.Int32
+      description: The maximum red value.
     return:
       type: ShapeEngine.Color.ColorRgba
     content.vb: Public Function RandColorRed(colorRgba As ColorRgba, max As Integer) As ColorRgba
@@ -1182,19 +1696,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandColorRed
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 273
+    startLine: 683
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a color with a random red channel between min (inclusive) and max (exclusive).
+  example: []
   syntax:
     content: public ColorRgba RandColorRed(ColorRgba colorRgba, int min, int max)
     parameters:
     - id: colorRgba
       type: ShapeEngine.Color.ColorRgba
+      description: The base color.
     - id: min
       type: System.Int32
+      description: The minimum red value.
     - id: max
       type: System.Int32
+      description: The maximum red value.
     return:
       type: ShapeEngine.Color.ColorRgba
     content.vb: Public Function RandColorRed(colorRgba As ColorRgba, min As Integer, max As Integer) As ColorRgba
@@ -1220,15 +1739,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandColorGreen
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 275
+    startLine: 689
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a color with a random green channel.
+  example: []
   syntax:
     content: public ColorRgba RandColorGreen(ColorRgba colorRgba)
     parameters:
     - id: colorRgba
       type: ShapeEngine.Color.ColorRgba
+      description: The base color.
     return:
       type: ShapeEngine.Color.ColorRgba
     content.vb: Public Function RandColorGreen(colorRgba As ColorRgba) As ColorRgba
@@ -1251,17 +1773,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandColorGreen
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 276
+    startLine: 696
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a color with a random green channel up to the specified max (exclusive).
+  example: []
   syntax:
     content: public ColorRgba RandColorGreen(ColorRgba colorRgba, int max)
     parameters:
     - id: colorRgba
       type: ShapeEngine.Color.ColorRgba
+      description: The base color.
     - id: max
       type: System.Int32
+      description: The maximum green value.
     return:
       type: ShapeEngine.Color.ColorRgba
     content.vb: Public Function RandColorGreen(colorRgba As ColorRgba, max As Integer) As ColorRgba
@@ -1287,19 +1813,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandColorGreen
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 277
+    startLine: 704
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a color with a random green channel between min (inclusive) and max (exclusive).
+  example: []
   syntax:
     content: public ColorRgba RandColorGreen(ColorRgba colorRgba, int min, int max)
     parameters:
     - id: colorRgba
       type: ShapeEngine.Color.ColorRgba
+      description: The base color.
     - id: min
       type: System.Int32
+      description: The minimum green value.
     - id: max
       type: System.Int32
+      description: The maximum green value.
     return:
       type: ShapeEngine.Color.ColorRgba
     content.vb: Public Function RandColorGreen(colorRgba As ColorRgba, min As Integer, max As Integer) As ColorRgba
@@ -1325,15 +1856,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandColorBlue
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 279
+    startLine: 710
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a color with a random blue channel.
+  example: []
   syntax:
     content: public ColorRgba RandColorBlue(ColorRgba colorRgba)
     parameters:
     - id: colorRgba
       type: ShapeEngine.Color.ColorRgba
+      description: The base color.
     return:
       type: ShapeEngine.Color.ColorRgba
     content.vb: Public Function RandColorBlue(colorRgba As ColorRgba) As ColorRgba
@@ -1356,17 +1890,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandColorBlue
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 280
+    startLine: 717
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a color with a random blue channel up to the specified max (exclusive).
+  example: []
   syntax:
     content: public ColorRgba RandColorBlue(ColorRgba colorRgba, int max)
     parameters:
     - id: colorRgba
       type: ShapeEngine.Color.ColorRgba
+      description: The base color.
     - id: max
       type: System.Int32
+      description: The maximum blue value.
     return:
       type: ShapeEngine.Color.ColorRgba
     content.vb: Public Function RandColorBlue(colorRgba As ColorRgba, max As Integer) As ColorRgba
@@ -1392,19 +1930,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandColorBlue
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 281
+    startLine: 725
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a color with a random blue channel between min (inclusive) and max (exclusive).
+  example: []
   syntax:
     content: public ColorRgba RandColorBlue(ColorRgba colorRgba, int min, int max)
     parameters:
     - id: colorRgba
       type: ShapeEngine.Color.ColorRgba
+      description: The base color.
     - id: min
       type: System.Int32
+      description: The minimum blue value.
     - id: max
       type: System.Int32
+      description: The maximum blue value.
     return:
       type: ShapeEngine.Color.ColorRgba
     content.vb: Public Function RandColorBlue(colorRgba As ColorRgba, min As Integer, max As Integer) As ColorRgba
@@ -1430,15 +1973,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandColorAlpha
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 283
+    startLine: 731
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a color with a random alpha channel.
+  example: []
   syntax:
     content: public ColorRgba RandColorAlpha(ColorRgba colorRgba)
     parameters:
     - id: colorRgba
       type: ShapeEngine.Color.ColorRgba
+      description: The base color.
     return:
       type: ShapeEngine.Color.ColorRgba
     content.vb: Public Function RandColorAlpha(colorRgba As ColorRgba) As ColorRgba
@@ -1461,17 +2007,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandColorAlpha
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 284
+    startLine: 738
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a color with a random alpha channel up to the specified max (exclusive).
+  example: []
   syntax:
     content: public ColorRgba RandColorAlpha(ColorRgba colorRgba, int max)
     parameters:
     - id: colorRgba
       type: ShapeEngine.Color.ColorRgba
+      description: The base color.
     - id: max
       type: System.Int32
+      description: The maximum alpha value.
     return:
       type: ShapeEngine.Color.ColorRgba
     content.vb: Public Function RandColorAlpha(colorRgba As ColorRgba, max As Integer) As ColorRgba
@@ -1497,19 +2047,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandColorAlpha
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 285
+    startLine: 746
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a color with a random alpha channel between min (inclusive) and max (exclusive).
+  example: []
   syntax:
     content: public ColorRgba RandColorAlpha(ColorRgba colorRgba, int min, int max)
     parameters:
     - id: colorRgba
       type: ShapeEngine.Color.ColorRgba
+      description: The base color.
     - id: min
       type: System.Int32
+      description: The minimum alpha value.
     - id: max
       type: System.Int32
+      description: The maximum alpha value.
     return:
       type: ShapeEngine.Color.ColorRgba
     content.vb: Public Function RandColorAlpha(colorRgba As ColorRgba, min As Integer, max As Integer) As ColorRgba
@@ -1535,10 +2090,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandColor
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 287
+    startLine: 751
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random color with all channels between 0 and 255.
+  example: []
   syntax:
     content: public ColorRgba RandColor()
     return:
@@ -1563,15 +2120,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandColor
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 288
+    startLine: 757
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random color with all channels between 0 and 255 and the specified alpha.
+  example: []
   syntax:
     content: public ColorRgba RandColor(int alpha)
     parameters:
     - id: alpha
       type: System.Int32
+      description: The alpha value.
     return:
       type: ShapeEngine.Color.ColorRgba
     content.vb: Public Function RandColor(alpha As Integer) As ColorRgba
@@ -1597,19 +2157,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandColor
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 289
+    startLine: 765
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random color with all channels between min and max, and optionally a specified alpha.
+  example: []
   syntax:
     content: public ColorRgba RandColor(int min, int max, int alpha = -1)
     parameters:
     - id: min
       type: System.Int32
+      description: The minimum value for each channel (inclusive).
     - id: max
       type: System.Int32
+      description: The maximum value for each channel (exclusive).
     - id: alpha
       type: System.Int32
+      description: The alpha value, or -1 for random alpha.
     return:
       type: ShapeEngine.Color.ColorRgba
     content.vb: Public Function RandColor(min As Integer, max As Integer, alpha As Integer = -1) As ColorRgba
@@ -1635,17 +2200,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandPoint
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 300
+    startLine: 781
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random point between two vectors.
+  example: []
   syntax:
     content: public Vector2 RandPoint(Vector2 start, Vector2 end)
     parameters:
     - id: start
       type: System.Numerics.Vector2
+      description: The start vector.
     - id: end
       type: System.Numerics.Vector2
+      description: The end vector.
     return:
       type: System.Numerics.Vector2
     content.vb: Public Function RandPoint(start As Vector2, [end] As Vector2) As Vector2
@@ -1668,15 +2237,18 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandPoint
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 304
+    startLine: 789
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random point offset from the origin by a random unit vector.
+  example: []
   syntax:
     content: public Vector2 RandPoint(Vector2 origin)
     parameters:
     - id: origin
       type: System.Numerics.Vector2
+      description: The origin vector.
     return:
       type: System.Numerics.Vector2
     content.vb: Public Function RandPoint(origin As Vector2) As Vector2
@@ -1699,17 +2271,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandPoint
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 308
+    startLine: 798
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random point offset from the origin by a random vector with length up to max.
+  example: []
   syntax:
     content: public Vector2 RandPoint(Vector2 origin, float max)
     parameters:
     - id: origin
       type: System.Numerics.Vector2
+      description: The origin vector.
     - id: max
       type: System.Single
+      description: The maximum offset length.
     return:
       type: System.Numerics.Vector2
     content.vb: Public Function RandPoint(origin As Vector2, max As Single) As Vector2
@@ -1735,19 +2311,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandPoint
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 312
+    startLine: 808
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random point offset from the origin by a random vector with length between min and max.
+  example: []
   syntax:
     content: public Vector2 RandPoint(Vector2 origin, float min, float max)
     parameters:
     - id: origin
       type: System.Numerics.Vector2
+      description: The origin vector.
     - id: min
       type: System.Single
+      description: The minimum offset length.
     - id: max
       type: System.Single
+      description: The maximum offset length.
     return:
       type: System.Numerics.Vector2
     content.vb: Public Function RandPoint(origin As Vector2, min As Single, max As Single) As Vector2
@@ -1773,18 +2354,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandRect
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 319
+    startLine: 819
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random rectangle with random position and size, aligned by the specified anchor point.
+  example: []
   syntax:
-    content: public Rect RandRect(AnchorPoint alignement)
+    content: public Rect RandRect(AnchorPoint alignment)
     parameters:
-    - id: alignement
+    - id: alignment
       type: ShapeEngine.Core.Structs.AnchorPoint
+      description: The anchor point for alignment.
     return:
-      type: ShapeEngine.Core.Shapes.Rect
-    content.vb: Public Function RandRect(alignement As AnchorPoint) As Rect
+      type: ShapeEngine.Geometry.RectDef.Rect
+    content.vb: Public Function RandRect(alignment As AnchorPoint) As Rect
   overload: ShapeEngine.Random.Rng.RandRect*
 - uid: ShapeEngine.Random.Rng.RandRect(System.Numerics.Vector2,ShapeEngine.Core.Structs.AnchorPoint)
   commentId: M:ShapeEngine.Random.Rng.RandRect(System.Numerics.Vector2,ShapeEngine.Core.Structs.AnchorPoint)
@@ -1804,20 +2388,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandRect
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 325
+    startLine: 830
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random rectangle at the given origin with random position and size, aligned by the specified anchor point.
+  example: []
   syntax:
-    content: public Rect RandRect(Vector2 origin, AnchorPoint alignement)
+    content: public Rect RandRect(Vector2 origin, AnchorPoint alignment)
     parameters:
     - id: origin
       type: System.Numerics.Vector2
-    - id: alignement
+      description: The origin vector.
+    - id: alignment
       type: ShapeEngine.Core.Structs.AnchorPoint
+      description: The anchor point for alignment.
     return:
-      type: ShapeEngine.Core.Shapes.Rect
-    content.vb: Public Function RandRect(origin As Vector2, alignement As AnchorPoint) As Rect
+      type: ShapeEngine.Geometry.RectDef.Rect
+    content.vb: Public Function RandRect(origin As Vector2, alignment As AnchorPoint) As Rect
   overload: ShapeEngine.Random.Rng.RandRect*
 - uid: ShapeEngine.Random.Rng.RandRect(System.Single,System.Single,System.Single,System.Single,ShapeEngine.Core.Structs.AnchorPoint)
   commentId: M:ShapeEngine.Random.Rng.RandRect(System.Single,System.Single,System.Single,System.Single,ShapeEngine.Core.Structs.AnchorPoint)
@@ -1837,26 +2425,33 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandRect
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 331
+    startLine: 844
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random rectangle with position and size in the specified ranges, aligned by the specified anchor point.
+  example: []
   syntax:
-    content: public Rect RandRect(float posMin, float posMax, float sizeMin, float sizeMax, AnchorPoint alignement)
+    content: public Rect RandRect(float posMin, float posMax, float sizeMin, float sizeMax, AnchorPoint alignment)
     parameters:
     - id: posMin
       type: System.Single
+      description: Minimum position value.
     - id: posMax
       type: System.Single
+      description: Maximum position value.
     - id: sizeMin
       type: System.Single
+      description: Minimum size value.
     - id: sizeMax
       type: System.Single
-    - id: alignement
+      description: Maximum size value.
+    - id: alignment
       type: ShapeEngine.Core.Structs.AnchorPoint
+      description: The anchor point for alignment.
     return:
-      type: ShapeEngine.Core.Shapes.Rect
-    content.vb: Public Function RandRect(posMin As Single, posMax As Single, sizeMin As Single, sizeMax As Single, alignement As AnchorPoint) As Rect
+      type: ShapeEngine.Geometry.RectDef.Rect
+    content.vb: Public Function RandRect(posMin As Single, posMax As Single, sizeMin As Single, sizeMax As Single, alignment As AnchorPoint) As Rect
   overload: ShapeEngine.Random.Rng.RandRect*
   nameWithType.vb: Rng.RandRect(Single, Single, Single, Single, AnchorPoint)
   fullName.vb: ShapeEngine.Random.Rng.RandRect(Single, Single, Single, Single, ShapeEngine.Core.Structs.AnchorPoint)
@@ -1879,32 +2474,87 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandRect
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 337
+    startLine: 859
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random rectangle at the given origin with position and size in the specified ranges, aligned by the specified anchor point.
+  example: []
   syntax:
-    content: public Rect RandRect(Vector2 origin, float posMin, float posMax, float sizeMin, float sizeMax, AnchorPoint alignement)
+    content: public Rect RandRect(Vector2 origin, float posMin, float posMax, float sizeMin, float sizeMax, AnchorPoint alignment)
     parameters:
     - id: origin
       type: System.Numerics.Vector2
+      description: The origin vector.
     - id: posMin
       type: System.Single
+      description: Minimum position value.
     - id: posMax
       type: System.Single
+      description: Maximum position value.
     - id: sizeMin
       type: System.Single
+      description: Minimum size value.
     - id: sizeMax
       type: System.Single
-    - id: alignement
+      description: Maximum size value.
+    - id: alignment
       type: ShapeEngine.Core.Structs.AnchorPoint
+      description: The anchor point for alignment.
     return:
-      type: ShapeEngine.Core.Shapes.Rect
-    content.vb: Public Function RandRect(origin As Vector2, posMin As Single, posMax As Single, sizeMin As Single, sizeMax As Single, alignement As AnchorPoint) As Rect
+      type: ShapeEngine.Geometry.RectDef.Rect
+    content.vb: Public Function RandRect(origin As Vector2, posMin As Single, posMax As Single, sizeMin As Single, sizeMax As Single, alignment As AnchorPoint) As Rect
   overload: ShapeEngine.Random.Rng.RandRect*
   nameWithType.vb: Rng.RandRect(Vector2, Single, Single, Single, Single, AnchorPoint)
   fullName.vb: ShapeEngine.Random.Rng.RandRect(System.Numerics.Vector2, Single, Single, Single, Single, ShapeEngine.Core.Structs.AnchorPoint)
   name.vb: RandRect(Vector2, Single, Single, Single, Single, AnchorPoint)
+- uid: ShapeEngine.Random.Rng.RandRect(ShapeEngine.Geometry.RectDef.Rect,System.Single,System.Single,ShapeEngine.Core.Structs.AnchorPoint)
+  commentId: M:ShapeEngine.Random.Rng.RandRect(ShapeEngine.Geometry.RectDef.Rect,System.Single,System.Single,ShapeEngine.Core.Structs.AnchorPoint)
+  id: RandRect(ShapeEngine.Geometry.RectDef.Rect,System.Single,System.Single,ShapeEngine.Core.Structs.AnchorPoint)
+  parent: ShapeEngine.Random.Rng
+  langs:
+  - csharp
+  - vb
+  name: RandRect(Rect, float, float, AnchorPoint)
+  nameWithType: Rng.RandRect(Rect, float, float, AnchorPoint)
+  fullName: ShapeEngine.Random.Rng.RandRect(ShapeEngine.Geometry.RectDef.Rect, float, float, ShapeEngine.Core.Structs.AnchorPoint)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Random/Rng.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: RandRect
+    path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
+    startLine: 874
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Random
+  summary: Returns a random rectangle contained within the specified <code class="paramref">area</code>, using a random size in the provided range and the specified alignment.
+  example: []
+  syntax:
+    content: public Rect RandRect(Rect area, float minSize, float maxSize, AnchorPoint alignment)
+    parameters:
+    - id: area
+      type: ShapeEngine.Geometry.RectDef.Rect
+      description: The area within which the rectangle position is generated.
+    - id: minSize
+      type: System.Single
+      description: The minimum random size value for both width and height.
+    - id: maxSize
+      type: System.Single
+      description: The maximum random size value for both width and height.
+    - id: alignment
+      type: ShapeEngine.Core.Structs.AnchorPoint
+      description: The anchor point used when constructing the rectangle.
+    return:
+      type: ShapeEngine.Geometry.RectDef.Rect
+      description: A random rectangle positioned within <code class="paramref">area</code>.
+    content.vb: Public Function RandRect(area As Rect, minSize As Single, maxSize As Single, alignment As AnchorPoint) As Rect
+  overload: ShapeEngine.Random.Rng.RandRect*
+  nameWithType.vb: Rng.RandRect(Rect, Single, Single, AnchorPoint)
+  fullName.vb: ShapeEngine.Random.Rng.RandRect(ShapeEngine.Geometry.RectDef.Rect, Single, Single, ShapeEngine.Core.Structs.AnchorPoint)
+  name.vb: RandRect(Rect, Single, Single, AnchorPoint)
 - uid: ShapeEngine.Random.Rng.RandCollection``1(System.Collections.Generic.List{``0},System.Boolean)
   commentId: M:ShapeEngine.Random.Rng.RandCollection``1(System.Collections.Generic.List{``0},System.Boolean)
   id: RandCollection``1(System.Collections.Generic.List{``0},System.Boolean)
@@ -1923,21 +2573,27 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandCollection
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 347
+    startLine: 893
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random element from the list, optionally removing it.
+  example: []
   syntax:
     content: public T? RandCollection<T>(List<T> list, bool pop = false)
     parameters:
     - id: list
       type: System.Collections.Generic.List{{T}}
+      description: The list to pick from.
     - id: pop
       type: System.Boolean
+      description: Whether to remove the element from the list.
     typeParameters:
     - id: T
+      description: The type of the elements.
     return:
       type: '{T}'
+      description: A randomly selected element, or default if the list is empty.
     content.vb: Public Function RandCollection(Of T)(list As List(Of T), pop As Boolean = False) As T
   overload: ShapeEngine.Random.Rng.RandCollection*
   nameWithType.vb: Rng.RandCollection(Of T)(List(Of T), Boolean)
@@ -1961,23 +2617,30 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandCollection
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 355
+    startLine: 910
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a list of random elements from the source list, optionally removing them.
+  example: []
   syntax:
     content: public List<T> RandCollection<T>(List<T> source, int amount, bool pop = false)
     parameters:
     - id: source
       type: System.Collections.Generic.List{{T}}
+      description: The source list.
     - id: amount
       type: System.Int32
+      description: The number of elements to pick.
     - id: pop
       type: System.Boolean
+      description: Whether to remove the elements from the source list.
     typeParameters:
     - id: T
+      description: The type of the elements.
     return:
       type: System.Collections.Generic.List{{T}}
+      description: A list of randomly selected elements.
     content.vb: Public Function RandCollection(Of T)(source As List(Of T), amount As Integer, pop As Boolean = False) As List(Of T)
   overload: ShapeEngine.Random.Rng.RandCollection*
   nameWithType.vb: Rng.RandCollection(Of T)(List(Of T), Integer, Boolean)
@@ -2001,24 +2664,89 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: RandCollection
     path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
-    startLine: 370
+    startLine: 923
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Random
+  summary: Returns a random element from the array.
+  example: []
   syntax:
     content: public T? RandCollection<T>(T[] array)
     parameters:
     - id: array
       type: '{T}[]'
+      description: The array to pick from.
     typeParameters:
     - id: T
+      description: The type of the elements.
     return:
       type: '{T}'
+      description: A randomly selected element, or default if the array is empty.
     content.vb: Public Function RandCollection(Of T)(array As T()) As T
   overload: ShapeEngine.Random.Rng.RandCollection*
   nameWithType.vb: Rng.RandCollection(Of T)(T())
   fullName.vb: ShapeEngine.Random.Rng.RandCollection(Of T)(T())
   name.vb: RandCollection(Of T)(T())
+- uid: ShapeEngine.Random.Rng.RandCollection``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{``0},System.Int32,System.Boolean)
+  commentId: M:ShapeEngine.Random.Rng.RandCollection``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{``0},System.Int32,System.Boolean)
+  id: RandCollection``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{``0},System.Int32,System.Boolean)
+  parent: ShapeEngine.Random.Rng
+  langs:
+  - csharp
+  - vb
+  name: RandCollection<T>(List<T>, List<T>, int, bool)
+  nameWithType: Rng.RandCollection<T>(List<T>, List<T>, int, bool)
+  fullName: ShapeEngine.Random.Rng.RandCollection<T>(System.Collections.Generic.List<T>, System.Collections.Generic.List<T>, int, bool)
+  type: Method
+  source:
+    remote:
+      path: ShapeEngine/Random/Rng.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: RandCollection
+    path: ../ShapeEngine/ShapeEngine/Random/Rng.cs
+    startLine: 946
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Random
+  summary: Picks random elements from <code class="paramref">source</code> and writes them into <code class="paramref">result</code>.
+  remarks: >-
+    If <code class="paramref">source</code> is empty or <code class="paramref">amount</code> is less than or equal to zero,
+
+    the method returns 0 without modifying <code class="paramref">result</code>.
+
+    When <code class="paramref">pop</code> is <code>false</code>, sampling is performed with replacement.
+
+    When <code class="paramref">pop</code> is <code>true</code>, the requested amount is clamped to the source count
+
+    and sampling is performed without replacement.
+  example: []
+  syntax:
+    content: public int RandCollection<T>(List<T> source, List<T> result, int amount, bool pop = false)
+    parameters:
+    - id: source
+      type: System.Collections.Generic.List{{T}}
+      description: The source list to pick from.
+    - id: result
+      type: System.Collections.Generic.List{{T}}
+      description: The destination list that will receive the selected elements.
+    - id: amount
+      type: System.Int32
+      description: The number of elements to pick.
+    - id: pop
+      type: System.Boolean
+      description: <code>true</code> to remove selected elements from <code class="paramref">source</code> as they are chosen; otherwise, <code>false</code>.
+    typeParameters:
+    - id: T
+      description: The type of the elements.
+    return:
+      type: System.Int32
+      description: The number of elements written to <code class="paramref">result</code>.
+    content.vb: Public Function RandCollection(Of T)(source As List(Of T), result As List(Of T), amount As Integer, pop As Boolean = False) As Integer
+  overload: ShapeEngine.Random.Rng.RandCollection*
+  nameWithType.vb: Rng.RandCollection(Of T)(List(Of T), List(Of T), Integer, Boolean)
+  fullName.vb: ShapeEngine.Random.Rng.RandCollection(Of T)(System.Collections.Generic.List(Of T), System.Collections.Generic.List(Of T), Integer, Boolean)
+  name.vb: RandCollection(Of T)(List(Of T), List(Of T), Integer, Boolean)
 references:
 - uid: ShapeEngine.Random
   commentId: N:ShapeEngine.Random
@@ -2272,6 +3000,165 @@ references:
     href: https://learn.microsoft.com/dotnet/api/system.object.tostring
   - name: (
   - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -2279,6 +3166,191 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
+  href: ShapeEngine.html
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
 - uid: ShapeEngine.Random.Rng
   commentId: T:ShapeEngine.Random.Rng
   parent: ShapeEngine.Random
@@ -2286,12 +3358,6 @@ references:
   name: Rng
   nameWithType: Rng
   fullName: ShapeEngine.Random.Rng
-- uid: ShapeEngine.Random.Rng.Rand*
-  commentId: Overload:ShapeEngine.Random.Rng.Rand
-  href: ShapeEngine.Random.Rng.html#ShapeEngine_Random_Rng_Rand
-  name: Rand
-  nameWithType: Rng.Rand
-  fullName: ShapeEngine.Random.Rng.Rand
 - uid: System.Random
   commentId: T:System.Random
   parent: System
@@ -2300,6 +3366,12 @@ references:
   name: Random
   nameWithType: Random
   fullName: System.Random
+- uid: ShapeEngine.Random.Rng.Rand*
+  commentId: Overload:ShapeEngine.Random.Rng.Rand
+  href: ShapeEngine.Random.Rng.html#ShapeEngine_Random_Rng_Rand
+  name: Rand
+  nameWithType: Rng.Rand
+  fullName: ShapeEngine.Random.Rng.Rand
 - uid: ShapeEngine.Random.Rng.Seed*
   commentId: Overload:ShapeEngine.Random.Rng.Seed
   href: ShapeEngine.Random.Rng.html#ShapeEngine_Random_Rng_Seed
@@ -2500,6 +3572,248 @@ references:
   nameWithType.vb: String
   fullName.vb: String
   name.vb: String
+- uid: System.Collections.Generic.IReadOnlyList{ShapeEngine.Random.WeightedItem{{T}}}
+  commentId: T:System.Collections.Generic.IReadOnlyList{ShapeEngine.Random.WeightedItem{``0}}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<WeightedItem<T>>
+  nameWithType: IReadOnlyList<WeightedItem<T>>
+  fullName: System.Collections.Generic.IReadOnlyList<ShapeEngine.Random.WeightedItem<T>>
+  nameWithType.vb: IReadOnlyList(Of WeightedItem(Of T))
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of ShapeEngine.Random.WeightedItem(Of T))
+  name.vb: IReadOnlyList(Of WeightedItem(Of T))
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - uid: ShapeEngine.Random.WeightedItem`1
+    name: WeightedItem
+    href: ShapeEngine.Random.WeightedItem-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: ShapeEngine.Random.WeightedItem`1
+    name: WeightedItem
+    href: ShapeEngine.Random.WeightedItem-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.IReadOnlyList`1
+  commentId: T:System.Collections.Generic.IReadOnlyList`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<T>
+  nameWithType: IReadOnlyList<T>
+  fullName: System.Collections.Generic.IReadOnlyList<T>
+  nameWithType.vb: IReadOnlyList(Of T)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of T)
+  name.vb: IReadOnlyList(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: System.Collections.Generic.IReadOnlyList{System.ValueTuple{{T},System.Int32}}
+  commentId: T:System.Collections.Generic.IReadOnlyList{System.ValueTuple{``0,System.Int32}}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<(T item, int weight)>
+  nameWithType: IReadOnlyList<(T item, int weight)>
+  fullName: System.Collections.Generic.IReadOnlyList<(T item, int weight)>
+  nameWithType.vb: IReadOnlyList(Of (item As T, weight As Integer))
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of (item As T, weight As Integer))
+  name.vb: IReadOnlyList(Of (item As T, weight As Integer))
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - name: (
+  - name: T
+  - name: " "
+  - uid: System.ValueTuple{``0,System.Int32}.item
+    name: item
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple---0,system.int32-.item
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: " "
+  - uid: System.ValueTuple{``0,System.Int32}.weight
+    name: weight
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple---0,system.int32-.weight
+  - name: )
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: (
+  - uid: System.ValueTuple{``0,System.Int32}.item
+    name: item
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple---0,system.int32-.item
+  - name: " "
+  - name: As
+  - name: " "
+  - name: T
+  - name: ','
+  - name: " "
+  - uid: System.ValueTuple{``0,System.Int32}.weight
+    name: weight
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple---0,system.int32-.weight
+  - name: " "
+  - name: As
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  - name: )
+- uid: System.Collections.Generic.IReadOnlyList{System.ValueTuple{System.String,System.Int32}}
+  commentId: T:System.Collections.Generic.IReadOnlyList{System.ValueTuple{System.String,System.Int32}}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<(string id, int weight)>
+  nameWithType: IReadOnlyList<(string id, int weight)>
+  fullName: System.Collections.Generic.IReadOnlyList<(string id, int weight)>
+  nameWithType.vb: IReadOnlyList(Of (id As String, weight As Integer))
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of (id As String, weight As Integer))
+  name.vb: IReadOnlyList(Of (id As String, weight As Integer))
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: " "
+  - uid: System.ValueTuple{System.String,System.Int32}.id
+    name: id
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-system.string,system.int32-.id
+  - name: ','
+  - name: " "
+  - uid: System.Int32
+    name: int
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: " "
+  - uid: System.ValueTuple{System.String,System.Int32}.weight
+    name: weight
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-system.string,system.int32-.weight
+  - name: )
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: (
+  - uid: System.ValueTuple{System.String,System.Int32}.id
+    name: id
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-system.string,system.int32-.id
+  - name: " "
+  - name: As
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.ValueTuple{System.String,System.Int32}.weight
+    name: weight
+    href: https://learn.microsoft.com/dotnet/api/system.valuetuple-system.string,system.int32-.weight
+  - name: " "
+  - name: As
+  - name: " "
+  - uid: System.Int32
+    name: Integer
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+  - name: )
+  - name: )
 - uid: ShapeEngine.Random.Rng.PickRandomItems*
   commentId: Overload:ShapeEngine.Random.Rng.PickRandomItems
   href: ShapeEngine.Random.Rng.html#ShapeEngine_Random_Rng_PickRandomItems__1_System_Int32_ShapeEngine_Random_WeightedItem___0____
@@ -2507,7 +3821,7 @@ references:
   nameWithType: Rng.PickRandomItems
   fullName: ShapeEngine.Random.Rng.PickRandomItems
 - uid: System.Collections.Generic.List{{T}}
-  commentId: T:System.Collections.Generic.List{``0}
+  commentId: T:System.Collections.Generic.List{`0}
   parent: System.Collections.Generic
   definition: System.Collections.Generic.List`1
   href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
@@ -2563,43 +3877,6 @@ references:
   - name: " "
   - name: T
   - name: )
-- uid: System.Collections.Generic
-  commentId: N:System.Collections.Generic
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system
-  name: System.Collections.Generic
-  nameWithType: System.Collections.Generic
-  fullName: System.Collections.Generic
-  spec.csharp:
-  - uid: System
-    name: System
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system
-  - name: .
-  - uid: System.Collections
-    name: Collections
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections
-  - name: .
-  - uid: System.Collections.Generic
-    name: Generic
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
-  spec.vb:
-  - uid: System
-    name: System
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system
-  - name: .
-  - uid: System.Collections
-    name: Collections
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections
-  - name: .
-  - uid: System.Collections.Generic
-    name: Generic
-    isExternal: true
-    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
 - uid: System.Collections.Generic.List{System.String}
   commentId: T:System.Collections.Generic.List{System.String}
   parent: System.Collections.Generic
@@ -2861,43 +4138,43 @@ references:
   name: AnchorPoint
   nameWithType: AnchorPoint
   fullName: ShapeEngine.Core.Structs.AnchorPoint
-- uid: ShapeEngine.Core.Shapes.Rect
-  commentId: T:ShapeEngine.Core.Shapes.Rect
-  parent: ShapeEngine.Core.Shapes
-  href: ShapeEngine.Core.Shapes.Rect.html
+- uid: ShapeEngine.Geometry.RectDef.Rect
+  commentId: T:ShapeEngine.Geometry.RectDef.Rect
+  parent: ShapeEngine.Geometry.RectDef
+  href: ShapeEngine.Geometry.RectDef.Rect.html
   name: Rect
   nameWithType: Rect
-  fullName: ShapeEngine.Core.Shapes.Rect
-- uid: ShapeEngine.Core.Shapes
-  commentId: N:ShapeEngine.Core.Shapes
+  fullName: ShapeEngine.Geometry.RectDef.Rect
+- uid: ShapeEngine.Geometry.RectDef
+  commentId: N:ShapeEngine.Geometry.RectDef
   href: ShapeEngine.html
-  name: ShapeEngine.Core.Shapes
-  nameWithType: ShapeEngine.Core.Shapes
-  fullName: ShapeEngine.Core.Shapes
+  name: ShapeEngine.Geometry.RectDef
+  nameWithType: ShapeEngine.Geometry.RectDef
+  fullName: ShapeEngine.Geometry.RectDef
   spec.csharp:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.Core
-    name: Core
-    href: ShapeEngine.Core.html
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
   - name: .
-  - uid: ShapeEngine.Core.Shapes
-    name: Shapes
-    href: ShapeEngine.Core.Shapes.html
+  - uid: ShapeEngine.Geometry.RectDef
+    name: RectDef
+    href: ShapeEngine.Geometry.RectDef.html
   spec.vb:
   - uid: ShapeEngine
     name: ShapeEngine
     href: ShapeEngine.html
   - name: .
-  - uid: ShapeEngine.Core
-    name: Core
-    href: ShapeEngine.Core.html
+  - uid: ShapeEngine.Geometry
+    name: Geometry
+    href: ShapeEngine.Geometry.html
   - name: .
-  - uid: ShapeEngine.Core.Shapes
-    name: Shapes
-    href: ShapeEngine.Core.Shapes.html
+  - uid: ShapeEngine.Geometry.RectDef
+    name: RectDef
+    href: ShapeEngine.Geometry.RectDef.html
 - uid: ShapeEngine.Random.Rng.RandCollection*
   commentId: Overload:ShapeEngine.Random.Rng.RandCollection
   href: ShapeEngine.Random.Rng.html#ShapeEngine_Random_Rng_RandCollection__1_System_Collections_Generic_List___0__System_Boolean_

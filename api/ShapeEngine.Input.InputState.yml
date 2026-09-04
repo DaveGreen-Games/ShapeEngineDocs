@@ -6,11 +6,11 @@ items:
   parent: ShapeEngine.Input
   children:
   - ShapeEngine.Input.InputState.#ctor
+  - ShapeEngine.Input.InputState.#ctor(ShapeEngine.Input.InputState,ShapeEngine.Input.InputGesture.Result)
   - ShapeEngine.Input.InputState.#ctor(ShapeEngine.Input.InputState,ShapeEngine.Input.InputState)
   - ShapeEngine.Input.InputState.#ctor(ShapeEngine.Input.InputState,ShapeEngine.Input.InputState,ShapeEngine.Input.InputDeviceType)
-  - ShapeEngine.Input.InputState.#ctor(ShapeEngine.Input.InputState,System.Single,System.Single)
-  - ShapeEngine.Input.InputState.#ctor(System.Boolean,System.Boolean,System.Single,System.Int32,ShapeEngine.Input.InputDeviceType)
-  - ShapeEngine.Input.InputState.Accumulate(ShapeEngine.Input.InputState)
+  - ShapeEngine.Input.InputState.#ctor(System.Boolean,System.Boolean,System.Single,System.Int32,ShapeEngine.Input.InputDeviceType,ShapeEngine.Input.InputGesture.Result,System.Boolean)
+  - ShapeEngine.Input.InputState.#ctor(System.Boolean,System.Boolean,System.Single,System.Int32,ShapeEngine.Input.InputDeviceType,System.Boolean)
   - ShapeEngine.Input.InputState.AdjustAxis(System.Single)
   - ShapeEngine.Input.InputState.Axis
   - ShapeEngine.Input.InputState.AxisRaw
@@ -18,12 +18,9 @@ items:
   - ShapeEngine.Input.InputState.Consumed
   - ShapeEngine.Input.InputState.Down
   - ShapeEngine.Input.InputState.Gamepad
-  - ShapeEngine.Input.InputState.GetPressedType
-  - ShapeEngine.Input.InputState.HoldF
-  - ShapeEngine.Input.InputState.HoldState
+  - ShapeEngine.Input.InputState.GestureResult
   - ShapeEngine.Input.InputState.InputDeviceType
-  - ShapeEngine.Input.InputState.MultiTapF
-  - ShapeEngine.Input.InputState.MultiTapState
+  - ShapeEngine.Input.InputState.Inverted
   - ShapeEngine.Input.InputState.Pressed
   - ShapeEngine.Input.InputState.Released
   - ShapeEngine.Input.InputState.Up
@@ -41,10 +38,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InputState
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 20
+    startLine: 8
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: Represents the state of an input, including button presses, axis values, device type, and input gesture details.
+  example: []
   syntax:
     content: public readonly struct InputState
     content.vb: Public Structure InputState
@@ -55,6 +54,10 @@ items:
   - System.Object.Equals(System.Object,System.Object)
   - System.Object.GetType
   - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  - System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
 - uid: ShapeEngine.Input.InputState.Down
   commentId: F:ShapeEngine.Input.InputState.Down
   id: Down
@@ -73,10 +76,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Down
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 22
+    startLine: 13
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: Indicates if the input is currently held down.
+  example: []
   syntax:
     content: public readonly bool Down
     return:
@@ -100,10 +105,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Up
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 23
+    startLine: 17
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: Indicates if the input is currently up (not pressed).
+  example: []
   syntax:
     content: public readonly bool Up
     return:
@@ -127,10 +134,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Released
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 24
+    startLine: 21
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: Indicates if the input was released this frame.
+  example: []
   syntax:
     content: public readonly bool Released
     return:
@@ -158,11 +167,71 @@ items:
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: Indicates if the input was pressed this frame.
+  example: []
   syntax:
     content: public readonly bool Pressed
     return:
       type: System.Boolean
     content.vb: Public ReadOnly Pressed As Boolean
+- uid: ShapeEngine.Input.InputState.Inverted
+  commentId: F:ShapeEngine.Input.InputState.Inverted
+  id: Inverted
+  parent: ShapeEngine.Input.InputState
+  langs:
+  - csharp
+  - vb
+  name: Inverted
+  nameWithType: InputState.Inverted
+  fullName: ShapeEngine.Input.InputState.Inverted
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Input/InputState.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: Inverted
+    path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
+    startLine: 30
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Input
+  summary: Indicates if the input axis is inverted.
+  example: []
+  syntax:
+    content: public readonly bool Inverted
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Inverted As Boolean
+- uid: ShapeEngine.Input.InputState.GestureResult
+  commentId: F:ShapeEngine.Input.InputState.GestureResult
+  id: GestureResult
+  parent: ShapeEngine.Input.InputState
+  langs:
+  - csharp
+  - vb
+  name: GestureResult
+  nameWithType: InputState.GestureResult
+  fullName: ShapeEngine.Input.InputState.GestureResult
+  type: Field
+  source:
+    remote:
+      path: ShapeEngine/Input/InputState.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: GestureResult
+    path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
+    startLine: 34
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Input
+  summary: The result of the input action gesture, containing details about how the input was triggered (e.g., multi-tap, hold, etc.)
+  example: []
+  syntax:
+    content: public readonly InputGesture.Result GestureResult
+    return:
+      type: ShapeEngine.Input.InputGesture.Result
+    content.vb: Public ReadOnly GestureResult As InputGesture.Result
 - uid: ShapeEngine.Input.InputState.Axis
   commentId: F:ShapeEngine.Input.InputState.Axis
   id: Axis
@@ -181,10 +250,19 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Axis
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 27
+    startLine: 42
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: >-
+    The processed axis value, typically smoothed or filtered.
+
+    <remarks>
+
+    Use <xref href="ShapeEngine.Input.InputState.AxisRaw" data-throw-if-not-resolved="false"></xref> if you want the raw axis value recorded from the device without any modification or changes to it.
+
+    </remarks>
+  example: []
   syntax:
     content: public readonly float Axis
     return:
@@ -208,10 +286,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AxisRaw
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 28
+    startLine: 50
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: >-
+    The raw axis value, unprocessed.
+
+    <remarks>
+
+    This value is the axis value recorded from the device without any modification or changes to it.
+
+    Use <xref href="ShapeEngine.Input.InputState.Axis" data-throw-if-not-resolved="false"></xref> if you want a filtered or smoothed value.
+
+    </remarks>
+  example: []
   syntax:
     content: public readonly float AxisRaw
     return:
@@ -235,10 +324,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Gamepad
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 29
+    startLine: 54
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: The index of the gamepad associated with this input, or -1 if not applicable.
+  example: []
   syntax:
     content: public readonly int Gamepad
     return:
@@ -262,10 +353,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: InputDeviceType
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 30
+    startLine: 58
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: The type of input device (keyboard, mouse, gamepad, etc.).
+  example: []
   syntax:
     content: public readonly InputDeviceType InputDeviceType
     return:
@@ -289,151 +382,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Consumed
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 32
+    startLine: 63
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: Indicates if this input state has been consumed.
+  example: []
   syntax:
     content: public readonly bool Consumed
     return:
       type: System.Boolean
     content.vb: Public ReadOnly Consumed As Boolean
-- uid: ShapeEngine.Input.InputState.HoldF
-  commentId: F:ShapeEngine.Input.InputState.HoldF
-  id: HoldF
-  parent: ShapeEngine.Input.InputState
-  langs:
-  - csharp
-  - vb
-  name: HoldF
-  nameWithType: InputState.HoldF
-  fullName: ShapeEngine.Input.InputState.HoldF
-  type: Field
-  source:
-    remote:
-      path: ShapeEngine/Input/InputState.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: HoldF
-    path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 34
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  syntax:
-    content: public readonly float HoldF
-    return:
-      type: System.Single
-    content.vb: Public ReadOnly HoldF As Single
-- uid: ShapeEngine.Input.InputState.HoldState
-  commentId: F:ShapeEngine.Input.InputState.HoldState
-  id: HoldState
-  parent: ShapeEngine.Input.InputState
-  langs:
-  - csharp
-  - vb
-  name: HoldState
-  nameWithType: InputState.HoldState
-  fullName: ShapeEngine.Input.InputState.HoldState
-  type: Field
-  source:
-    remote:
-      path: ShapeEngine/Input/InputState.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: HoldState
-    path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 35
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  syntax:
-    content: public readonly MultiTapState HoldState
-    return:
-      type: ShapeEngine.Input.MultiTapState
-    content.vb: Public ReadOnly HoldState As MultiTapState
-- uid: ShapeEngine.Input.InputState.MultiTapF
-  commentId: F:ShapeEngine.Input.InputState.MultiTapF
-  id: MultiTapF
-  parent: ShapeEngine.Input.InputState
-  langs:
-  - csharp
-  - vb
-  name: MultiTapF
-  nameWithType: InputState.MultiTapF
-  fullName: ShapeEngine.Input.InputState.MultiTapF
-  type: Field
-  source:
-    remote:
-      path: ShapeEngine/Input/InputState.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: MultiTapF
-    path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 37
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  syntax:
-    content: public readonly float MultiTapF
-    return:
-      type: System.Single
-    content.vb: Public ReadOnly MultiTapF As Single
-- uid: ShapeEngine.Input.InputState.MultiTapState
-  commentId: F:ShapeEngine.Input.InputState.MultiTapState
-  id: MultiTapState
-  parent: ShapeEngine.Input.InputState
-  langs:
-  - csharp
-  - vb
-  name: MultiTapState
-  nameWithType: InputState.MultiTapState
-  fullName: ShapeEngine.Input.InputState.MultiTapState
-  type: Field
-  source:
-    remote:
-      path: ShapeEngine/Input/InputState.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: MultiTapState
-    path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 38
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  syntax:
-    content: public readonly MultiTapState MultiTapState
-    return:
-      type: ShapeEngine.Input.MultiTapState
-    content.vb: Public ReadOnly MultiTapState As MultiTapState
-- uid: ShapeEngine.Input.InputState.GetPressedType
-  commentId: M:ShapeEngine.Input.InputState.GetPressedType
-  id: GetPressedType
-  parent: ShapeEngine.Input.InputState
-  langs:
-  - csharp
-  - vb
-  name: GetPressedType()
-  nameWithType: InputState.GetPressedType()
-  fullName: ShapeEngine.Input.InputState.GetPressedType()
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Input/InputState.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: GetPressedType
-    path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 40
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  syntax:
-    content: public PressedType GetPressedType()
-    return:
-      type: ShapeEngine.Input.PressedType
-    content.vb: Public Function GetPressedType() As PressedType
-  overload: ShapeEngine.Input.InputState.GetPressedType*
 - uid: ShapeEngine.Input.InputState.#ctor
   commentId: M:ShapeEngine.Input.InputState.#ctor
   id: '#ctor'
@@ -452,10 +411,12 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 53
+    startLine: 68
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref> struct with default values.
+  example: []
   syntax:
     content: public InputState()
     content.vb: Public Sub New()
@@ -463,16 +424,16 @@ items:
   nameWithType.vb: InputState.New()
   fullName.vb: ShapeEngine.Input.InputState.New()
   name.vb: New()
-- uid: ShapeEngine.Input.InputState.#ctor(System.Boolean,System.Boolean,System.Single,System.Int32,ShapeEngine.Input.InputDeviceType)
-  commentId: M:ShapeEngine.Input.InputState.#ctor(System.Boolean,System.Boolean,System.Single,System.Int32,ShapeEngine.Input.InputDeviceType)
-  id: '#ctor(System.Boolean,System.Boolean,System.Single,System.Int32,ShapeEngine.Input.InputDeviceType)'
+- uid: ShapeEngine.Input.InputState.#ctor(System.Boolean,System.Boolean,System.Single,System.Int32,ShapeEngine.Input.InputDeviceType,System.Boolean)
+  commentId: M:ShapeEngine.Input.InputState.#ctor(System.Boolean,System.Boolean,System.Single,System.Int32,ShapeEngine.Input.InputDeviceType,System.Boolean)
+  id: '#ctor(System.Boolean,System.Boolean,System.Single,System.Int32,ShapeEngine.Input.InputDeviceType,System.Boolean)'
   parent: ShapeEngine.Input.InputState
   langs:
   - csharp
   - vb
-  name: InputState(bool, bool, float, int, InputDeviceType)
-  nameWithType: InputState.InputState(bool, bool, float, int, InputDeviceType)
-  fullName: ShapeEngine.Input.InputState.InputState(bool, bool, float, int, ShapeEngine.Input.InputDeviceType)
+  name: InputState(bool, bool, float, int, InputDeviceType, bool)
+  nameWithType: InputState.InputState(bool, bool, float, int, InputDeviceType, bool)
+  fullName: ShapeEngine.Input.InputState.InputState(bool, bool, float, int, ShapeEngine.Input.InputDeviceType, bool)
   type: Constructor
   source:
     remote:
@@ -481,38 +442,48 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 70
+    startLine: 91
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref> struct with specified values.
+  example: []
   syntax:
-    content: public InputState(bool down, bool up, float axisRaw, int gamepad, InputDeviceType inputDeviceType)
+    content: public InputState(bool down, bool up, float axisRaw, int gamepad, InputDeviceType inputDeviceType, bool inverted = false)
     parameters:
     - id: down
       type: System.Boolean
+      description: Indicates if the input is currently held down.
     - id: up
       type: System.Boolean
+      description: Indicates if the input is currently up (not pressed).
     - id: axisRaw
       type: System.Single
+      description: The raw axis value, unprocessed.
     - id: gamepad
       type: System.Int32
+      description: The index of the gamepad associated with this input, or -1 if not applicable.
     - id: inputDeviceType
       type: ShapeEngine.Input.InputDeviceType
-    content.vb: Public Sub New(down As Boolean, up As Boolean, axisRaw As Single, gamepad As Integer, inputDeviceType As InputDeviceType)
+      description: The type of input device (keyboard, mouse, gamepad, etc.).
+    - id: inverted
+      type: System.Boolean
+      description: Indicates if the input axis is inverted.
+    content.vb: Public Sub New(down As Boolean, up As Boolean, axisRaw As Single, gamepad As Integer, inputDeviceType As InputDeviceType, inverted As Boolean = False)
   overload: ShapeEngine.Input.InputState.#ctor*
-  nameWithType.vb: InputState.New(Boolean, Boolean, Single, Integer, InputDeviceType)
-  fullName.vb: ShapeEngine.Input.InputState.New(Boolean, Boolean, Single, Integer, ShapeEngine.Input.InputDeviceType)
-  name.vb: New(Boolean, Boolean, Single, Integer, InputDeviceType)
-- uid: ShapeEngine.Input.InputState.#ctor(ShapeEngine.Input.InputState,System.Single,System.Single)
-  commentId: M:ShapeEngine.Input.InputState.#ctor(ShapeEngine.Input.InputState,System.Single,System.Single)
-  id: '#ctor(ShapeEngine.Input.InputState,System.Single,System.Single)'
+  nameWithType.vb: InputState.New(Boolean, Boolean, Single, Integer, InputDeviceType, Boolean)
+  fullName.vb: ShapeEngine.Input.InputState.New(Boolean, Boolean, Single, Integer, ShapeEngine.Input.InputDeviceType, Boolean)
+  name.vb: New(Boolean, Boolean, Single, Integer, InputDeviceType, Boolean)
+- uid: ShapeEngine.Input.InputState.#ctor(System.Boolean,System.Boolean,System.Single,System.Int32,ShapeEngine.Input.InputDeviceType,ShapeEngine.Input.InputGesture.Result,System.Boolean)
+  commentId: M:ShapeEngine.Input.InputState.#ctor(System.Boolean,System.Boolean,System.Single,System.Int32,ShapeEngine.Input.InputDeviceType,ShapeEngine.Input.InputGesture.Result,System.Boolean)
+  id: '#ctor(System.Boolean,System.Boolean,System.Single,System.Int32,ShapeEngine.Input.InputDeviceType,ShapeEngine.Input.InputGesture.Result,System.Boolean)'
   parent: ShapeEngine.Input.InputState
   langs:
   - csharp
   - vb
-  name: InputState(InputState, float, float)
-  nameWithType: InputState.InputState(InputState, float, float)
-  fullName: ShapeEngine.Input.InputState.InputState(ShapeEngine.Input.InputState, float, float)
+  name: InputState(bool, bool, float, int, InputDeviceType, Result, bool)
+  nameWithType: InputState.InputState(bool, bool, float, int, InputDeviceType, InputGesture.Result, bool)
+  fullName: ShapeEngine.Input.InputState.InputState(bool, bool, float, int, ShapeEngine.Input.InputDeviceType, ShapeEngine.Input.InputGesture.Result, bool)
   type: Constructor
   source:
     remote:
@@ -521,24 +492,82 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 88
+    startLine: 115
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: Initializes a new instance of the <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref> struct with specified values, including input gesture result.
+  example: []
   syntax:
-    content: public InputState(InputState state, float holdF, float multiTapF)
+    content: public InputState(bool down, bool up, float axisRaw, int gamepad, InputDeviceType inputDeviceType, InputGesture.Result gestureResult, bool inverted = false)
+    parameters:
+    - id: down
+      type: System.Boolean
+      description: Indicates if the input is currently held down.
+    - id: up
+      type: System.Boolean
+      description: Indicates if the input is currently up (not pressed).
+    - id: axisRaw
+      type: System.Single
+      description: The raw axis value, unprocessed.
+    - id: gamepad
+      type: System.Int32
+      description: The index of the gamepad associated with this input, or -1 if not applicable.
+    - id: inputDeviceType
+      type: ShapeEngine.Input.InputDeviceType
+      description: The type of input device (keyboard, mouse, gamepad, etc.).
+    - id: gestureResult
+      type: ShapeEngine.Input.InputGesture.Result
+      description: The result of the input action gesture.
+    - id: inverted
+      type: System.Boolean
+      description: Indicates if the input axis is inverted.
+    content.vb: Public Sub New(down As Boolean, up As Boolean, axisRaw As Single, gamepad As Integer, inputDeviceType As InputDeviceType, gestureResult As InputGesture.Result, inverted As Boolean = False)
+  overload: ShapeEngine.Input.InputState.#ctor*
+  nameWithType.vb: InputState.New(Boolean, Boolean, Single, Integer, InputDeviceType, InputGesture.Result, Boolean)
+  fullName.vb: ShapeEngine.Input.InputState.New(Boolean, Boolean, Single, Integer, ShapeEngine.Input.InputDeviceType, ShapeEngine.Input.InputGesture.Result, Boolean)
+  name.vb: New(Boolean, Boolean, Single, Integer, InputDeviceType, Result, Boolean)
+- uid: ShapeEngine.Input.InputState.#ctor(ShapeEngine.Input.InputState,ShapeEngine.Input.InputGesture.Result)
+  commentId: M:ShapeEngine.Input.InputState.#ctor(ShapeEngine.Input.InputState,ShapeEngine.Input.InputGesture.Result)
+  id: '#ctor(ShapeEngine.Input.InputState,ShapeEngine.Input.InputGesture.Result)'
+  parent: ShapeEngine.Input.InputState
+  langs:
+  - csharp
+  - vb
+  name: InputState(InputState, Result)
+  nameWithType: InputState.InputState(InputState, InputGesture.Result)
+  fullName: ShapeEngine.Input.InputState.InputState(ShapeEngine.Input.InputState, ShapeEngine.Input.InputGesture.Result)
+  type: Constructor
+  source:
+    remote:
+      path: ShapeEngine/Input/InputState.cs
+      branch: main
+      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
+    id: .ctor
+    path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
+    startLine: 136
+  assemblies:
+  - ShapeEngine
+  namespace: ShapeEngine.Input
+  summary: >-
+    Creates a new <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref> by copying all values from an existing state,
+
+    but replacing the <xref href="ShapeEngine.Input.InputState.GestureResult" data-throw-if-not-resolved="false"></xref> with the specified value.
+  example: []
+  syntax:
+    content: public InputState(InputState state, InputGesture.Result gestureResult)
     parameters:
     - id: state
       type: ShapeEngine.Input.InputState
-    - id: holdF
-      type: System.Single
-    - id: multiTapF
-      type: System.Single
-    content.vb: Public Sub New(state As InputState, holdF As Single, multiTapF As Single)
+      description: The source <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref> to copy values from.
+    - id: gestureResult
+      type: ShapeEngine.Input.InputGesture.Result
+      description: The new input gesture result to use.
+    content.vb: Public Sub New(state As InputState, gestureResult As InputGesture.Result)
   overload: ShapeEngine.Input.InputState.#ctor*
-  nameWithType.vb: InputState.New(InputState, Single, Single)
-  fullName.vb: ShapeEngine.Input.InputState.New(ShapeEngine.Input.InputState, Single, Single)
-  name.vb: New(InputState, Single, Single)
+  nameWithType.vb: InputState.New(InputState, InputGesture.Result)
+  fullName.vb: ShapeEngine.Input.InputState.New(ShapeEngine.Input.InputState, ShapeEngine.Input.InputGesture.Result)
+  name.vb: New(InputState, Result)
 - uid: ShapeEngine.Input.InputState.#ctor(ShapeEngine.Input.InputState,ShapeEngine.Input.InputState)
   commentId: M:ShapeEngine.Input.InputState.#ctor(ShapeEngine.Input.InputState,ShapeEngine.Input.InputState)
   id: '#ctor(ShapeEngine.Input.InputState,ShapeEngine.Input.InputState)'
@@ -557,17 +586,24 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 109
+    startLine: 158
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: >-
+    Initializes a new instance of the <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref> struct by comparing the previous and current input states.
+
+    Calculates <xref href="ShapeEngine.Input.InputState.Pressed" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Input.InputState.Released" data-throw-if-not-resolved="false"></xref> based on transitions between <code class="paramref">prev</code> and <code class="paramref">cur</code>.
+  example: []
   syntax:
     content: public InputState(InputState prev, InputState cur)
     parameters:
     - id: prev
       type: ShapeEngine.Input.InputState
+      description: The previous input state.
     - id: cur
       type: ShapeEngine.Input.InputState
+      description: The current input state.
     content.vb: Public Sub New(prev As InputState, cur As InputState)
   overload: ShapeEngine.Input.InputState.#ctor*
   nameWithType.vb: InputState.New(InputState, InputState)
@@ -591,55 +627,34 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: .ctor
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 140
+    startLine: 182
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: >-
+    Initializes a new instance of the <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref> struct by comparing the previous and current input states,
+
+    and allows overriding the input device type.
+
+    Calculates <xref href="ShapeEngine.Input.InputState.Pressed" data-throw-if-not-resolved="false"></xref> and <xref href="ShapeEngine.Input.InputState.Released" data-throw-if-not-resolved="false"></xref> based on transitions between <code class="paramref">prev</code> and <code class="paramref">cur</code>.
+  example: []
   syntax:
     content: public InputState(InputState prev, InputState cur, InputDeviceType inputDeviceType)
     parameters:
     - id: prev
       type: ShapeEngine.Input.InputState
+      description: The previous input state.
     - id: cur
       type: ShapeEngine.Input.InputState
+      description: The current input state.
     - id: inputDeviceType
       type: ShapeEngine.Input.InputDeviceType
+      description: The input device type to use for this state.
     content.vb: Public Sub New(prev As InputState, cur As InputState, inputDeviceType As InputDeviceType)
   overload: ShapeEngine.Input.InputState.#ctor*
   nameWithType.vb: InputState.New(InputState, InputState, InputDeviceType)
   fullName.vb: ShapeEngine.Input.InputState.New(ShapeEngine.Input.InputState, ShapeEngine.Input.InputState, ShapeEngine.Input.InputDeviceType)
   name.vb: New(InputState, InputState, InputDeviceType)
-- uid: ShapeEngine.Input.InputState.Accumulate(ShapeEngine.Input.InputState)
-  commentId: M:ShapeEngine.Input.InputState.Accumulate(ShapeEngine.Input.InputState)
-  id: Accumulate(ShapeEngine.Input.InputState)
-  parent: ShapeEngine.Input.InputState
-  langs:
-  - csharp
-  - vb
-  name: Accumulate(InputState)
-  nameWithType: InputState.Accumulate(InputState)
-  fullName: ShapeEngine.Input.InputState.Accumulate(ShapeEngine.Input.InputState)
-  type: Method
-  source:
-    remote:
-      path: ShapeEngine/Input/InputState.cs
-      branch: main
-      repo: https://github.com/DaveGreen-Games/ShapeEngine.git
-    id: Accumulate
-    path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 208
-  assemblies:
-  - ShapeEngine
-  namespace: ShapeEngine.Input
-  syntax:
-    content: public InputState Accumulate(InputState other)
-    parameters:
-    - id: other
-      type: ShapeEngine.Input.InputState
-    return:
-      type: ShapeEngine.Input.InputState
-    content.vb: Public Function Accumulate(other As InputState) As InputState
-  overload: ShapeEngine.Input.InputState.Accumulate*
 - uid: ShapeEngine.Input.InputState.AdjustAxis(System.Single)
   commentId: M:ShapeEngine.Input.InputState.AdjustAxis(System.Single)
   id: AdjustAxis(System.Single)
@@ -658,17 +673,21 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: AdjustAxis
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 230
+    startLine: 268
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: Returns a new <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref> with the axis adjusted by the specified value.
+  example: []
   syntax:
     content: public InputState AdjustAxis(float value)
     parameters:
     - id: value
       type: System.Single
+      description: The value to adjust the axis by.
     return:
       type: ShapeEngine.Input.InputState
+      description: A new <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref> with the adjusted axis.
     content.vb: Public Function AdjustAxis(value As Single) As InputState
   overload: ShapeEngine.Input.InputState.AdjustAxis*
   nameWithType.vb: InputState.AdjustAxis(Single)
@@ -692,14 +711,17 @@ items:
       repo: https://github.com/DaveGreen-Games/ShapeEngine.git
     id: Consume
     path: ../ShapeEngine/ShapeEngine/Input/InputState.cs
-    startLine: 231
+    startLine: 274
   assemblies:
   - ShapeEngine
   namespace: ShapeEngine.Input
+  summary: Returns a new <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref> marked as consumed.
+  example: []
   syntax:
     content: public InputState Consume()
     return:
       type: ShapeEngine.Input.InputState
+      description: A new <xref href="ShapeEngine.Input.InputState" data-throw-if-not-resolved="false"></xref> with <xref href="ShapeEngine.Input.InputState.Consumed" data-throw-if-not-resolved="false"></xref> set to true.
     content.vb: Public Function Consume() As InputState
   overload: ShapeEngine.Input.InputState.Consume*
 references:
@@ -916,6 +938,165 @@ references:
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.object
   - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.Log(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: System.Object.ShapeEngine.StaticLib.ShapeLogger.LogFile(System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  parent: ShapeEngine.StaticLib.ShapeLogger
+  definition: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System.ValueType
   commentId: T:System.ValueType
   parent: System
@@ -935,6 +1116,169 @@ references:
   nameWithType.vb: Object
   fullName.vb: Object
   name.vb: Object
+- uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: Log(object, string, LogLevel)
+  nameWithType: ShapeLogger.Log(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.Log(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.Log(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.Log(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: Log(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.Log(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: Log
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_Log_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger
+  commentId: T:ShapeEngine.StaticLib.ShapeLogger
+  parent: ShapeEngine.StaticLib
+  href: ShapeEngine.StaticLib.ShapeLogger.html
+  name: ShapeLogger
+  nameWithType: ShapeLogger
+  fullName: ShapeEngine.StaticLib.ShapeLogger
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogConsole(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogConsole(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogConsole(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogConsole(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogConsole(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogConsole(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogConsole(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogConsole
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogConsole_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+- uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  commentId: M:ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+  isExternal: true
+  href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  name: LogFile(object, string, LogLevel)
+  nameWithType: ShapeLogger.LogFile(object, string, LogLevel)
+  fullName: ShapeEngine.StaticLib.ShapeLogger.LogFile(object, string, ShapeEngine.Core.Logging.LogLevel)
+  nameWithType.vb: ShapeLogger.LogFile(Object, String, LogLevel)
+  fullName.vb: ShapeEngine.StaticLib.ShapeLogger.LogFile(Object, String, ShapeEngine.Core.Logging.LogLevel)
+  name.vb: LogFile(Object, String, LogLevel)
+  spec.csharp:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
+  spec.vb:
+  - uid: ShapeEngine.StaticLib.ShapeLogger.LogFile(System.Object,System.String,ShapeEngine.Core.Logging.LogLevel)
+    name: LogFile
+    href: ShapeEngine.StaticLib.ShapeLogger.html#ShapeEngine_StaticLib_ShapeLogger_LogFile_System_Object_System_String_ShapeEngine_Core_Logging_LogLevel_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: ShapeEngine.Core.Logging.LogLevel
+    name: LogLevel
+    href: ShapeEngine.Core.Logging.LogLevel.html
+  - name: )
 - uid: System
   commentId: N:System
   isExternal: true
@@ -942,6 +1286,28 @@ references:
   name: System
   nameWithType: System
   fullName: System
+- uid: ShapeEngine.StaticLib
+  commentId: N:ShapeEngine.StaticLib
+  href: ShapeEngine.html
+  name: ShapeEngine.StaticLib
+  nameWithType: ShapeEngine.StaticLib
+  fullName: ShapeEngine.StaticLib
+  spec.csharp:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
+  spec.vb:
+  - uid: ShapeEngine
+    name: ShapeEngine
+    href: ShapeEngine.html
+  - name: .
+  - uid: ShapeEngine.StaticLib
+    name: StaticLib
+    href: ShapeEngine.StaticLib.html
 - uid: System.Boolean
   commentId: T:System.Boolean
   parent: System
@@ -953,6 +1319,35 @@ references:
   nameWithType.vb: Boolean
   fullName.vb: Boolean
   name.vb: Boolean
+- uid: ShapeEngine.Input.InputGesture.Result
+  commentId: T:ShapeEngine.Input.InputGesture.Result
+  parent: ShapeEngine.Input
+  href: ShapeEngine.Input.InputGesture.html
+  name: InputGesture.Result
+  nameWithType: InputGesture.Result
+  fullName: ShapeEngine.Input.InputGesture.Result
+  spec.csharp:
+  - uid: ShapeEngine.Input.InputGesture
+    name: InputGesture
+    href: ShapeEngine.Input.InputGesture.html
+  - name: .
+  - uid: ShapeEngine.Input.InputGesture.Result
+    name: Result
+    href: ShapeEngine.Input.InputGesture.Result.html
+  spec.vb:
+  - uid: ShapeEngine.Input.InputGesture
+    name: InputGesture
+    href: ShapeEngine.Input.InputGesture.html
+  - name: .
+  - uid: ShapeEngine.Input.InputGesture.Result
+    name: Result
+    href: ShapeEngine.Input.InputGesture.Result.html
+- uid: ShapeEngine.Input.InputState.AxisRaw
+  commentId: F:ShapeEngine.Input.InputState.AxisRaw
+  href: ShapeEngine.Input.InputState.html#ShapeEngine_Input_InputState_AxisRaw
+  name: AxisRaw
+  nameWithType: InputState.AxisRaw
+  fullName: ShapeEngine.Input.InputState.AxisRaw
 - uid: System.Single
   commentId: T:System.Single
   parent: System
@@ -964,6 +1359,12 @@ references:
   nameWithType.vb: Single
   fullName.vb: Single
   name.vb: Single
+- uid: ShapeEngine.Input.InputState.Axis
+  commentId: F:ShapeEngine.Input.InputState.Axis
+  href: ShapeEngine.Input.InputState.html#ShapeEngine_Input_InputState_Axis
+  name: Axis
+  nameWithType: InputState.Axis
+  fullName: ShapeEngine.Input.InputState.Axis
 - uid: System.Int32
   commentId: T:System.Int32
   parent: System
@@ -982,26 +1383,13 @@ references:
   name: InputDeviceType
   nameWithType: InputDeviceType
   fullName: ShapeEngine.Input.InputDeviceType
-- uid: ShapeEngine.Input.MultiTapState
-  commentId: T:ShapeEngine.Input.MultiTapState
+- uid: ShapeEngine.Input.InputState
+  commentId: T:ShapeEngine.Input.InputState
   parent: ShapeEngine.Input
-  href: ShapeEngine.Input.MultiTapState.html
-  name: MultiTapState
-  nameWithType: MultiTapState
-  fullName: ShapeEngine.Input.MultiTapState
-- uid: ShapeEngine.Input.InputState.GetPressedType*
-  commentId: Overload:ShapeEngine.Input.InputState.GetPressedType
-  href: ShapeEngine.Input.InputState.html#ShapeEngine_Input_InputState_GetPressedType
-  name: GetPressedType
-  nameWithType: InputState.GetPressedType
-  fullName: ShapeEngine.Input.InputState.GetPressedType
-- uid: ShapeEngine.Input.PressedType
-  commentId: T:ShapeEngine.Input.PressedType
-  parent: ShapeEngine.Input
-  href: ShapeEngine.Input.PressedType.html
-  name: PressedType
-  nameWithType: PressedType
-  fullName: ShapeEngine.Input.PressedType
+  href: ShapeEngine.Input.InputState.html
+  name: InputState
+  nameWithType: InputState
+  fullName: ShapeEngine.Input.InputState
 - uid: ShapeEngine.Input.InputState.#ctor*
   commentId: Overload:ShapeEngine.Input.InputState.#ctor
   href: ShapeEngine.Input.InputState.html#ShapeEngine_Input_InputState__ctor
@@ -1011,25 +1399,36 @@ references:
   nameWithType.vb: InputState.New
   fullName.vb: ShapeEngine.Input.InputState.New
   name.vb: New
-- uid: ShapeEngine.Input.InputState
-  commentId: T:ShapeEngine.Input.InputState
-  parent: ShapeEngine.Input
-  href: ShapeEngine.Input.InputState.html
-  name: InputState
-  nameWithType: InputState
-  fullName: ShapeEngine.Input.InputState
-- uid: ShapeEngine.Input.InputState.Accumulate*
-  commentId: Overload:ShapeEngine.Input.InputState.Accumulate
-  href: ShapeEngine.Input.InputState.html#ShapeEngine_Input_InputState_Accumulate_ShapeEngine_Input_InputState_
-  name: Accumulate
-  nameWithType: InputState.Accumulate
-  fullName: ShapeEngine.Input.InputState.Accumulate
+- uid: ShapeEngine.Input.InputState.GestureResult
+  commentId: F:ShapeEngine.Input.InputState.GestureResult
+  href: ShapeEngine.Input.InputState.html#ShapeEngine_Input_InputState_GestureResult
+  name: GestureResult
+  nameWithType: InputState.GestureResult
+  fullName: ShapeEngine.Input.InputState.GestureResult
+- uid: ShapeEngine.Input.InputState.Pressed
+  commentId: F:ShapeEngine.Input.InputState.Pressed
+  href: ShapeEngine.Input.InputState.html#ShapeEngine_Input_InputState_Pressed
+  name: Pressed
+  nameWithType: InputState.Pressed
+  fullName: ShapeEngine.Input.InputState.Pressed
+- uid: ShapeEngine.Input.InputState.Released
+  commentId: F:ShapeEngine.Input.InputState.Released
+  href: ShapeEngine.Input.InputState.html#ShapeEngine_Input_InputState_Released
+  name: Released
+  nameWithType: InputState.Released
+  fullName: ShapeEngine.Input.InputState.Released
 - uid: ShapeEngine.Input.InputState.AdjustAxis*
   commentId: Overload:ShapeEngine.Input.InputState.AdjustAxis
   href: ShapeEngine.Input.InputState.html#ShapeEngine_Input_InputState_AdjustAxis_System_Single_
   name: AdjustAxis
   nameWithType: InputState.AdjustAxis
   fullName: ShapeEngine.Input.InputState.AdjustAxis
+- uid: ShapeEngine.Input.InputState.Consumed
+  commentId: F:ShapeEngine.Input.InputState.Consumed
+  href: ShapeEngine.Input.InputState.html#ShapeEngine_Input_InputState_Consumed
+  name: Consumed
+  nameWithType: InputState.Consumed
+  fullName: ShapeEngine.Input.InputState.Consumed
 - uid: ShapeEngine.Input.InputState.Consume*
   commentId: Overload:ShapeEngine.Input.InputState.Consume
   href: ShapeEngine.Input.InputState.html#ShapeEngine_Input_InputState_Consume
